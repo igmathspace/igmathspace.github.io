@@ -1,2 +1,2 @@
 # igmathspace.github.io
-Mathematics Teaching Website — Lessons, Research, Student Resources
+Welcome to my collection of mathematics teaching materials — a growing set of free, open-source resources designed to make math clearer, more visual, and more accessible. Here you'll find lesson notes, worksheets, problem sets with solutions, and teaching tips for middle school through early college. Whether you're an educator or a learner, I hope these materials help you see the beauty in math. Happy learning!
