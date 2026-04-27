@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGBOOKSPACE — igmathspace</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Source+Sans+3:wght@300;400;600&display=swap');
+
+  :root {
+    --bg: #0f0a05;
+    --surface: #1a1108;
+    --border: #3a2a10;
+    --accent: #c8922a;
+    --accent2: #e8b86a;
+    --text: #f5ead8;
+    --text2: #b8976a;
+    --text3: #7a6040;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(200,146,42,.07) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(200,146,42,.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER / NAV ── */
+  .site-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(15,10,5,.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text3);
+  }
+  .site-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color .2s;
+  }
+  .site-nav a:hover { color: var(--accent2); }
+  .site-nav .sep { color: var(--text3); }
+  .site-nav .current { color: var(--text2); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 80px 24px 60px;
+  }
+  .hero-icon { font-size: 64px; margin-bottom: 16px; display: block; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 7vw, 64px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 50%, #8a5a18 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+  }
+  .hero p {
+    font-size: 16px;
+    color: var(--text2);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .hero-divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 28px auto 0;
+  }
+
+  /* ── GRID ── */
+  .apps-section {
+    position: relative; z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 24px 80px;
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text3);
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .app-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all .25s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .app-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  .app-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(200,146,42,.15);
+  }
+  .app-card:hover::before { opacity: 1; }
+
+  .app-card .app-icon { font-size: 40px; }
+  .app-card .app-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--accent2);
+    font-weight: 700;
+  }
+  .app-card .app-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .app-card .app-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(200,146,42,.12);
+    color: var(--accent);
+    border: 1px solid rgba(200,146,42,.25);
+    border-radius: 20px;
+    padding: 3px 10px;
+    align-self: flex-start;
+  }
+  .app-card .app-arrow {
+    color: var(--text3);
+    font-size: 18px;
+    align-self: flex-end;
+    transition: transform .2s, color .2s;
+  }
+  .app-card:hover .app-arrow { transform: translateX(4px); color: var(--accent); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .site-footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 500px) {
+    .site-nav { padding: 12px 20px; }
+    .hero { padding: 50px 20px 40px; }
+    .apps-section { padding: 16px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BREADCRUMB NAV -->
+<nav class="site-nav">
+  <a href="https://igmathspace.github.io">Home</a>
+  <span class="sep">›</span>
+  <span class="current">IGBOOKSPACE</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-icon">📚</span>
+  <h1>IGBOOKSPACE</h1>
+  <p>A personal space for books, reading, and library management.</p>
+  <div class="hero-divider"></div>
+</div>
+
+<!-- APPS -->
+<div class="apps-section">
+  <div class="section-label">My Apps</div>
+  <div class="app-grid">
+
+    <!-- MY HOME LIBRARY APP -->
+    <a class="app-card" href="MyHomeLibrary.html">
+      <div class="app-icon">🏠</div>
+      <div class="app-name">My Home Library</div>
+      <div class="app-desc">Manage and search your personal book collection. Add books, track editions, authors, languages, and more — powered by Google Sheets.</div>
+      <div class="app-tag">Library Manager</div>
+      <div class="app-arrow">→</div>
+    </a>
+
+    <!-- PLACEHOLDER — add more apps here later -->
+    <div class="app-card" style="opacity:.4;cursor:default;pointer-events:none">
+      <div class="app-icon">📖</div>
+      <div class="app-name">Reading Log</div>
+      <div class="app-desc">Track books you have read, your ratings, and reading notes. Coming soon.</div>
+      <div class="app-tag">Coming Soon</div>
+      <div class="app-arrow">→</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a href="https://igmathspace.github.io">igmathspace.github.io</a> &nbsp;·&nbsp; IGBOOKSPACE
+</footer>
+
+</body>
+</html>
