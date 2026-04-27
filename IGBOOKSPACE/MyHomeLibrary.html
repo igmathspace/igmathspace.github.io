@@ -558,8 +558,8 @@ function doSearch(){
   const q=document.getElementById('search-q').value.trim().toLowerCase();
   const res=document.getElementById('search-results');
   if(!q){ res.innerHTML='<p style="color:var(--text3);font-size:13px">Please enter a search term.</p>'; return; }
-  const fields=['title','author','genre','language','publisher','edition','translator','isbn'];
-  const matched=allBooks.filter(b=>fields.some(f=>(b[f]||'').toLowerCase().includes(q)));
+  const fields=['title','author','genre','language','publisher','edition','translator','isbn','year','pages','price'];
+  const matched=allBooks.filter(b=>fields.some(f=>String(b[f]||'').toLowerCase().includes(q)));
   if(!matched.length){ res.innerHTML='<p style="color:var(--text3);font-size:13px">No books found matching "<strong>'+q+'</strong>".</p>'; return; }
   res.innerHTML='<p style="font-size:12px;color:var(--text2);margin-bottom:10px">'+matched.length+' book(s) found:</p>';
   matched.forEach(b=>{
