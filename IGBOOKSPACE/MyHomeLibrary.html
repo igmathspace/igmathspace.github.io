@@ -303,6 +303,14 @@
           <label><input type="radio" name="trans" value="No" checked onchange="toggleTranslator()"> No</label>
         </div>
       </div>
+      <div class="form-group">
+  <label>ISBN</label>
+  <input type="text" id="f-isbn" placeholder="e.g. 978-81-234-5678-9">
+</div>
+      <div class="form-group">
+        <label>Price (₹)</label>
+        <input type="number" id="f-price" placeholder="e.g. 350" min="0">
+      </div>
       <div class="form-group full" id="translator-group" style="display:none">
         <label>Name of Translator</label>
         <input type="text" id="f-translator" placeholder="Enter translator's name">
@@ -467,7 +475,7 @@ function toggleTranslator() {
 }
 
 function clearEntryForm() {
-  ['f-title','f-edition','f-author','f-lang','f-pub','f-year','f-pages','f-translator']
+  ['f-title','f-edition','f-author','f-lang','f-pub','f-year','f-pages','f-translator','f-isbn','f-price']
     .forEach(id => document.getElementById(id).value='');
   document.getElementById('f-genre').value='';
   document.querySelector('input[name=trans][value=No]').checked=true;
@@ -497,6 +505,8 @@ async function saveBook() {
     year:        document.getElementById('f-year').value.trim(),
     pages:       document.getElementById('f-pages').value.trim(),
     translation: isTrans ? 'Yes' : 'No',
+    isbn:        document.getElementById('f-isbn').value.trim(),
+    price:       document.getElementById('f-price').value.trim()
     translator:  isTrans ? document.getElementById('f-translator').value.trim() : ''
   };
   showLoader(editingSlno!==null ? 'Updating in Google Sheets…' : 'Saving to Google Sheets…');
@@ -570,7 +580,8 @@ function openModal(book) {
     ['Sl. No',book.slno],['Title',book.title],['Edition',book.edition||'—'],
     ['Author',book.author],['Genre',book.genre||'—'],['Language',book.language],
     ['Publisher',book.publisher||'—'],['Year',book.year||'—'],['Pages',book.pages||'—'],
-    ['Translation',book.translation],['Translator',book.translation==='Yes'?(book.translator||'—'):'N/A']
+    ['Translation',book.translation],['Translator',book.translation==='Yes'?(book.translator||'—'):'N/A'],
+    ['ISBN',      book.isbn  || '—'],['Price',     book.price ? '₹ ' + book.price : '—'],
   ];
   document.getElementById('modal-body').innerHTML=rows.map(([l,v])=>
     `<div class="detail-row"><div class="detail-label">${l}</div><div class="detail-value">${v}</div></div>`
@@ -615,6 +626,8 @@ function loadBookToForm(b) {
   document.querySelector('input[name=trans][value='+(b.translation==='Yes'?'Yes':'No')+']').checked=true;
   toggleTranslator();
   document.getElementById('f-translator').value=b.translator||'';
+  document.getElementById('f-isbn').value  = b.isbn  || '';
+  document.getElementById('f-price').value = b.price || '';
   document.getElementById('entry-card-title').textContent='Edit Book — '+b.title;
   document.getElementById('save-btn').textContent='💾 Update in Google Sheets';
   document.getElementById('delete-btn').style.display='inline-block';
