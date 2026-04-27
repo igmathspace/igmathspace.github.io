@@ -624,7 +624,9 @@ function openModal(book) {
     ['Sl. No',book.slno],['Title',book.title],['Edition',book.edition||'—'],
     ['Author',book.author],['Genre',book.genre||'—'],['Language',book.language],
     ['Publisher',book.publisher||'—'],['Year',book.year||'—'],['Pages',book.pages||'—'],
-    ['Translation',book.translation],['Translator',book.translation==='Yes'?(book.translator||'—'):'N/A']
+    ['Translation',book.translation],['Translator',book.translation==='Yes'?(book.translator||'—'):'N/A'],
+    ['ISBN',      book.isbn  || '—'],
+    ['Price',     book.price ? '₹ ' + book.price : '—'],
   ];
   document.getElementById('modal-body').innerHTML=rows.map(([l,v])=>
     `<div class="detail-row"><div class="detail-label">${l}</div><div class="detail-value">${v}</div></div>`
