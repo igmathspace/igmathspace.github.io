@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE htm<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -114,14 +114,33 @@
         .subfolder {
             margin-bottom: 25px;
         }
-        .subfolder-title {
+
+        /* SUBFOLDER HEADER - CLICKABLE */
+        .subfolder-header {
             background-color: #e8eaf6;
             color: #1a237e;
             padding: 12px 18px;
             border-radius: 6px;
             font-size: 16px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .subfolder-header:hover {
+            background-color: #c5cae9;
+        }
+
+        /* SUBFOLDER CONTENT */
+        .subfolder-content {
+            display: none;
+            padding-top: 15px;
+        }
+        .subfolder-content.open {
+            display: block;
         }
 
         /* PDF GRID */
@@ -214,7 +233,7 @@
     <div class="container">
 
         <div class="info-box">
-            💡 Click on a folder to expand and view its contents. Click any PDF to open it.
+            💡 Click on folders to expand and view contents. Click any card to open the file.
         </div>
 
         <!-- ========================== -->
@@ -229,194 +248,209 @@
 
             <div class="folder-body" id="folder-learning-materials">
 
-                <!-- LaTeX Tutorial Subfolder -->
+                <!-- =================== -->
+                <!-- LaTeX Tutorial      -->
+                <!-- =================== -->
                 <div class="subfolder">
-                    <div class="subfolder-title">
-                        📁 LaTeX Tutorial
+                    
+                    <div class="subfolder-header" onclick="toggleSubfolder('latex-tutorial')">
+                        <span>📁 LaTeX Tutorial</span>
+                        <span class="toggle-icon" id="icon-latex-tutorial">▶</span>
                     </div>
 
-                    <div class="pdf-grid">
-                         
-                        <!-- PDF 01 -->
+                    <div class="subfolder-content" id="content-latex-tutorial">
+                        <div class="pdf-grid">
 
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_01.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 01</div>
-                            <div class="pdf-title">Class 1- Latex_ A Breif History </div>
-                        </a>
-                        <!-- PDF 02 -->
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_02.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 02</div>
-                            <div class="pdf-title">Class 2- LATEX Preamble-and-Hello World-A-Quick-Start </div>
-                        </a>
+                            <a href="https://drive.google.com/file/d/1JdOwz5Pxpy_mYZrDBFHeFV2FuCUGtVjh/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 01</div>
+                                <div class="pdf-title">LaTeX: A Brief History</div>
+                            </a>
 
-                        <!-- PDF 03 -->
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_03.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 03</div>
-                            <div class="pdf-title">Class 3-Document Structuring-in-LATEX </div>
-                        </a>
+                            <a href="https://drive.google.com/file/d/1P7D-GeVv30izU8quVSa9I-P0XRn-hbk1/view?usp=sharing" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 02</div>
+                                <div class="pdf-title">LATEX Preamble and Hello World</div>
+                            </a>
 
-                        <!-- PDF 04 -->
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_04.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 04</div>
-                            <div class="pdf-title">Class 4_Text Formatting in LATEXStyles Sizes and Colors </div>
-                        </a>
+                            <a href="https://drive.google.com/file/d/1R_BHxr_v2Ri1qhGC06rKRCYZsEEhHfYz/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 03</div>
+                                <div class="pdf-title">Document Structuring in LATEX</div>
+                            </a>
 
-                        <!-- PDF 05 -->
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_05.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 05</div>
-                            <div class="pdf-title">Class 5_List Environments in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_06.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 06</div>
-                            <div class="pdf-title">Class 6_Mastering Comments and Packages in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 07</div>
-                            <div class="pdf-title">Class 7_LATEXTitle Author Date and maketitle. </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_08.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 08</div>
-                            <div class="pdf-title">Class 8_Page Layout & Margins in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_09.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 09</div>
-                            <div class="pdf-title">Class 9 _Custom Headers & Footers inLATEX</div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_10.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 10</div>
-                            <div class="pdf-title">Class 10_Footnotes, Emphases & Macros in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_11.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 11</div>
-                            <div class="pdf-title">Class 11_Multicolumn Layouts inLATEX</div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_12.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 12</div>
-                            <div class="pdf-title">Class 12_Basic Tables in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_13.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 13</div>
-                            <div class="pdf-title">Class 13_Advanced Tables</div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_14.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 14</div>
-                            <div class="pdf-title">Class 14_Inserting Images Using the graphicx Package </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_15.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 15</div>
-                            <div class="pdf-title">Class 15 _Figures, Captions & Labels in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_16.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 16</div>
-                            <div class="pdf-title">Class 16_ ext Wrapping with wrapfig </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_17.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 17</div>
-                            <div class="pdf-title">Class 17_Foundations of LATEX Mathematics</div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_18.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 18</div>
-                            <div class="pdf-title">Class 18_Common Mathematical Symbols in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_19.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 19</div>
-                            <div class="pdf-title">Class 19_Mastering Equation Alignment</div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_20.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 20</div>
-                            <div class="pdf-title">Class 20_Typesetting Matrices in LATEX </div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_21.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 21</div>
-                            <div class="pdf-title">Class 21_Theorem Environments in LATEX</div>
-                        </a>
-                        <a href="Learning Materials/LaTeX Tutorial/FILE_NAME_22.pdf" 
-                           target="_blank" class="pdf-card">
-                            <div class="pdf-icon">📄</div>
-                            <div class="pdf-number">Tutorial 22</div>
-                            <div class="pdf-title">Introduction To Overleaf </div>
-                        </a>
-                       
-                        <!-- Copy block above and change numbers -->
+                            <a href="https://drive.google.com/file/d/1NFCueMeseIQmPSdNWTM6ghgt_F26wt3w/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 04</div>
+                                <div class="pdf-title">Text Formatting - Styles, Sizes & Colors</div>
+                            </a>
 
+                            <a href="https://drive.google.com/file/d/15Qr2t5oqpM6QVxXqt5Zh7xKVobQi2kFk/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 05</div>
+                                <div class="pdf-title">List Environments in LATEX</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1n994p-_5IjnY7VGD5kfmRg8byMI5KKAJ/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 06</div>
+                                <div class="pdf-title">Mastering Comments and Packages</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/10z-tjPwQan-0_d4xUPjQnKywjKBd_9Dc/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 07</div>
+                                <div class="pdf-title">Title, Author, Date and maketitle</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1bPLy3vq6PqxrKGk1frpCGVyfbY23Lk-S/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 08</div>
+                                <div class="pdf-title">Page Layout & Margins in LATEX</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1-J1eyjUxwshPD1roF2DTHSQ15Rl5a7DI/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 09</div>
+                                <div class="pdf-title">Custom Headers & Footers in LATEX</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1VCY1_46jwIiWMOPG698KnNL_FxeFGiDK/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 10</div>
+                                <div class="pdf-title">Footnotes, Emphases & Macros</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1OjMDOYQb4N0N4owC95YjKi5AdVjD5HoY/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 11</div>
+                                <div class="pdf-title">Multicolumn Layouts in LATEX</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1quZc7efw3UYM7Fu4CJJ0LS_2V3UE2xDo/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 12</div>
+                                <div class="pdf-title">Basic Tables in LATEX</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/113aAakUGwncsddou_nIDYxaYrJlRJ4VI/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 13</div>
+                                <div class="pdf-title">Advanced Tables</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1_jSFIMQ9Ird-e5nsoQGGKn85QW0M8jJj/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 14</div>
+                                <div class="pdf-title">Inserting Images Using graphicx</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1qMmURlThN30owgL71_l7JlsmR2xTg_Co/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 15</div>
+                                <div class="pdf-title">Figures, Captions & Labels</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1hl7DWC7BVsygVuPuWtSc9WGU2M6VrsL4/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 16</div>
+                                <div class="pdf-title">Text Wrapping with wrapfig</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1SFzmOf3cyHKTluj09NDou95x8lsstQ9R/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 17</div>
+                                <div class="pdf-title">Foundations of LATEX Mathematics</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/19nji7-pcZ1mX2_l2tf_FHFFtkJVn2YPU/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 18</div>
+                                <div class="pdf-title">Common Mathematical Symbols</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1SDnGf5eyDtvm9zAy02vgSL7Z0IWxvv02/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 19</div>
+                                <div class="pdf-title">Mastering Equation Alignment</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1NLdAubPsBlTS6jnqy2anRRLD2cpy-mZg/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 20</div>
+                                <div class="pdf-title">Typesetting Matrices in LATEX</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1jf4kunZI2owJbmmJORwHNfmxSxjLY97-/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 21</div>
+                                <div class="pdf-title">Theorem Environments in LATEX</div>
+                            </a>
+
+                            <a href="https://drive.google.com/file/d/1eHjlsNsFpOYIhHhwOy_0B4JAQdPJSXKj/view?usp=drive_link" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Tutorial 22</div>
+                                <div class="pdf-title">Introduction To Overleaf</div>
+                            </a>
+
+                        </div>
                     </div>
                 </div>
-                <!-- Calculus II Subfolder -->
-<div class="subfolder">
-    <div class="subfolder-title">
-        📁 Calculus II - 2nd sem
-    </div>
+                <!-- END LaTeX Tutorial -->
 
-    <div class="pdf-grid">
+                <!-- =================== -->
+                <!-- Calculus II         -->
+                <!-- =================== -->
+                <div class="subfolder">
+                    
+                    <div class="subfolder-header" onclick="toggleSubfolder('calculus-ii')">
+                        <span>📁 Calculus II - 2nd sem</span>
+                        <span class="toggle-icon" id="icon-calculus-ii">▶</span>
+                    </div>
 
-        <!-- MODULE 1 HTML -->
-        <a href="Learning Materials/Calculus II- 2nd sem/module-1.html" 
-           target="_blank" class="pdf-card">
-            <div class="pdf-icon">📄</div>
-            <div class="pdf-number">Module 1</div>
-            <div class="pdf-title">
-                Write Your Module 1 Topic Name Here
-            </div>
-        </a>
+                    <div class="subfolder-content" id="content-calculus-ii">
+                        <div class="pdf-grid">
 
-        <!-- MODULE 2 HTML - Add tomorrow -->
-        <!-- 
-        <a href="Learning Materials/Calculus II- 2nd sem/module-2.html" 
-           target="_blank" class="pdf-card">
-            <div class="pdf-icon">📄</div>
-            <div class="pdf-number">Module 2</div>
-            <div class="pdf-title">
-                Integration – Reduction formulae
-            </div>
-        </a>
-        -->
+                            <!-- MODULE 3 -->
+                            <a href="Learning Materials/Claculus II- 2nd sem/module-3.html" 
+                               target="_blank" class="pdf-card">
+                                <div class="pdf-icon">📄</div>
+                                <div class="pdf-number">Module 3</div>
+                                <div class="pdf-title">
+                                    Integration – Reduction Formulae
+                                </div>
+                            </a>
 
-         </div>
-          </div>
+                            <!-- ADD MORE MODULES HERE IN FUTURE -->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END Calculus II -->
+
                 <!-- ADD MORE SUBFOLDERS HERE IN FUTURE -->
-                <!-- Just copy the subfolder block above -->
 
             </div>
 
@@ -431,8 +465,9 @@
         <p>igmathspace.github.io</p>
     </div>
 
-    <!-- JAVASCRIPT FOR TOGGLE -->
+    <!-- JAVASCRIPT -->
     <script>
+        // TOGGLE MAIN FOLDER
         function toggleFolder(folderId) {
             var folder = document.getElementById('folder-' + folderId);
             var icon = document.getElementById('icon-' + folderId);
@@ -442,6 +477,20 @@
                 icon.classList.remove('open');
             } else {
                 folder.classList.add('open');
+                icon.classList.add('open');
+            }
+        }
+
+        // TOGGLE SUBFOLDER
+        function toggleSubfolder(subfolderId) {
+            var content = document.getElementById('content-' + subfolderId);
+            var icon = document.getElementById('icon-' + subfolderId);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.classList.remove('open');
+            } else {
+                content.classList.add('open');
                 icon.classList.add('open');
             }
         }
