@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAMC - NAM College</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .header p {
+            margin: 10px 0 0;
+            color: #c5cae9;
+        }
+
+        /* Navigation */
+        .breadcrumb {
+            background-color: #e8eaf6;
+            padding: 12px 20px;
+        }
+
+        .breadcrumb a {
+            color: #1a237e;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb .separator {
+            margin: 0 8px;
+            color: #666;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* College Info Box */
+        .info-box {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #1a237e;
+        }
+
+        .info-box h2 {
+            color: #1a237e;
+            margin-top: 0;
+        }
+
+        .info-box p {
+            line-height: 1.7;
+            color: #555;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 45px;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            color: #1a237e;
+            margin: 0 0 10px 0;
+        }
+
+        .card-content p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .card-link {
+            display: inline-block;
+            background-color: #1a237e;
+            color: white;
+            padding: 8px 20px;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .card-link:hover {
+            background-color: #283593;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a237e;
+            color: #9fa8da;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 28px; }
+            .cards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>🏛️ NAM College (NAMC)</h1>
+        <p>NAMathode Arts & Science College - Academic Resources</p>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <div class="breadcrumb">
+        <a href="https://igmathspace.github.io">Home</a>
+        <span class="separator">→</span>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">IG College Space</a>
+        <span class="separator">→</span>
+        <span>NAMC</span>
+    </div>
+
+    <div class="container">
+        <!-- College Information -->
+        <div class="info-box">
+            <h2>📖 About NAM College</h2>
+            <p>
+                NAM College (NAMathode Arts and Science College) is committed to providing quality education 
+                and fostering academic excellence. This space contains all academic resources, time tables, 
+                exam schedules, and other important materials for students and faculty.
+            </p>
+        </div>
+
+        <!-- Resources Cards -->
+        <div class="cards-grid">
+            
+            <!-- Time Table Card -->
+            <div class="card">
+                <div class="card-icon">📅</div>
+                <div class="card-content">
+                    <h3>Time Tables</h3>
+                    <p>Class schedules, exam timetables, and academic calendars for all departments.</p>
+                    <a href="TIME%20TABLE/2026-27/" class="card-link">View Time Tables →</a>
+                </div>
+            </div>
+
+            <!-- Academic Calendar Card -->
+            <div class="card">
+                <div class="card-icon">📆</div>
+                <div class="card-content">
+                    <h3>Academic Calendar</h3>
+                    <p>Important dates, holidays, and academic events for the current session.</p>
+                    <a href="#" class="card-link" style="background-color: #999;">Coming Soon</a>
+                </div>
+            </div>
+
+            <!-- Exam Schedules Card -->
+            <div class="card">
+                <div class="card-icon">📝</div>
+                <div class="card-content">
+                    <h3>Exam Schedules</h3>
+                    <p>Internal exam schedules, university exam dates, and results.</p>
+                    <a href="#" class="card-link" style="background-color: #999;">Coming Soon</a>
+                </div>
+            </div>
+
+            <!-- Notices Card -->
+            <div class="card">
+                <div class="card-icon">📢</div>
+                <div class="card-content">
+                    <h3>College Notices</h3>
+                    <p>Official announcements, circulars, and important updates.</p>
+                    <a href="#" class="card-link" style="background-color: #999;">Coming Soon</a>
+                </div>
+            </div>
+
+            <!-- Department Resources Card -->
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <div class="card-content">
+                    <h3>Department Resources</h3>
+                    <p>Department-wise study materials, syllabi, and resources.</p>
+                    <a href="#" class="card-link" style="background-color: #999;">Coming Soon</a>
+                </div>
+            </div>
+
+            <!-- Faculty Card -->
+            <div class="card">
+                <div class="card-icon">👨‍🏫</div>
+                <div class="card-content">
+                    <h3>Faculty Corner</h3>
+                    <p>Faculty resources, duty rosters, and department meetings.</p>
+                    <a href="#" class="card-link" style="background-color: #999;">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>NAM College — Part of IG College Space | IG Math Space</p>
+        <p>igmathspace.github.io</p>
+    </div>
+
+</body>
+</html>
