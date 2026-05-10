@@ -24,6 +24,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .navbar .sitename {
@@ -120,6 +121,12 @@
             padding: 20px;
             text-align: center;
             border-top: 4px solid #1a237e;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .card .icon {
@@ -139,6 +146,62 @@
             margin: 0;
         }
 
+        /* ---- NEW: IG COLLEGE SPACE SECTION ---- */
+        .igspace-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .igspace-section h2 {
+            color: white;
+            margin: 0 0 10px 0;
+            font-size: 28px;
+        }
+
+        .igspace-section p {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .igspace-btn {
+            display: inline-block;
+            background-color: #ff6f00;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .igspace-btn:hover {
+            background-color: #e65100;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .igspace-sub {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #d0d0d0;
+        }
+
+        .igspace-sub a {
+            color: #ffd54f;
+            text-decoration: none;
+        }
+
+        .igspace-sub a:hover {
+            text-decoration: underline;
+        }
+
         /* ---- FOOTER ---- */
         .footer {
             background-color: #1a237e;
@@ -147,6 +210,29 @@
             padding: 20px;
             font-size: 13px;
             margin-top: 40px;
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                text-align: center;
+            }
+            .navlinks {
+                margin-top: 10px;
+            }
+            .navlinks a {
+                margin: 0 10px;
+            }
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
         }
 
     </style>
@@ -166,6 +252,7 @@
             <a href="research.html">Research</a>
             <a href="students.html">Students</a>
             <a href="https://igmathspace.github.io/IGBOOKSPACE/">📚 IGBOOKSPACE</a>
+            <a href="/IGCOLLEGESPACE/" style="color: #ffd54f; font-weight: bold;">🏛️ IGCOLLEGESPACE</a>
         </div>
     </div>
 
@@ -188,6 +275,17 @@
                 This website contains my lessons, research work, 
                 teaching videos and student resources.
             </p>
+        </div>
+
+        <!-- NEW: IG COLLEGE SPACE SECTION (BEAUTIFUL CARD) -->
+        <div class="igspace-section">
+            <h2>🏛️ IG College Space</h2>
+            <p>Your gateway to college resources, time tables, and academic materials</p>
+            <a href="/IGCOLLEGESPACE/" class="igspace-btn">📁 Access IG College Space →</a>
+            <div class="igspace-sub">
+                🔗 Quick Links: 
+                <a href="/IGCOLLEGESPACE/NAMC/TIME%20TABLE/2026-27/">NAMC Time Table 2026-27</a>
+            </div>
         </div>
 
         <!-- FEATURE CARDS -->
@@ -240,4 +338,5 @@
     </div>
 
 </body>
+
 </html>
