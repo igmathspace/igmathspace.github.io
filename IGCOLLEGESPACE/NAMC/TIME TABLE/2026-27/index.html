@@ -111,7 +111,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
   <div class="tagline">Fill this form carefully &nbsp;|&nbsp; One submission per semester</div>
 </div>
 
-<!-- MAIN FORM -->
 <div id="mainForm">
   <div class="card">
     <div class="sec-title">&#127979; Department &amp; Semester</div>
@@ -148,7 +147,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
     </div>
   </div>
 
-  <!-- SEM 1 -->
   <div class="sem-sec card" id="s1">
     <div class="sec-title">&#127979; Semester 1 &mdash; Odd</div>
     <div class="note" id="s1_note"></div>
@@ -161,7 +159,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
     <div id="s1_urd_wrap"><div class="sub-title">AEC &mdash; Urdu (3 Streams)</div><div id="s1_urd"></div></div>
   </div>
 
-  <!-- SEM 2 -->
   <div class="sem-sec card" id="s2">
     <div class="sec-title">&#127979; Semester 2 &mdash; Even</div>
     <div class="note" id="s2_note"></div>
@@ -174,7 +171,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
     <div id="s2_urd_wrap"><div class="sub-title">AEC &mdash; Urdu (3 Streams)</div><div id="s2_urd"></div></div>
   </div>
 
-  <!-- SEM 3 -->
   <div class="sem-sec card" id="s3">
     <div class="sec-title">&#127979; Semester 3 &mdash; Odd</div>
     <div class="note" id="s3_note"></div>
@@ -182,7 +178,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
     <div id="s3_core"></div>
   </div>
 
-  <!-- SEM 4 -->
   <div class="sem-sec card" id="s4">
     <div class="sec-title">&#127979; Semester 4 &mdash; Even</div>
     <div class="note" id="s4_note"></div>
@@ -190,7 +185,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
     <div id="s4_core"></div>
   </div>
 
-  <!-- SEM 5 -->
   <div class="sem-sec card" id="s5">
     <div class="sec-title">&#127979; Semester 5 &mdash; Odd</div>
     <div class="note" id="s5_note"></div>
@@ -198,7 +192,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
     <div id="s5_core"></div>
   </div>
 
-  <!-- SEM 6 -->
   <div class="sem-sec card" id="s6">
     <div class="sec-title">&#127979; Semester 6 &mdash; Even</div>
     <div class="note" id="s6_note"></div>
@@ -206,7 +199,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
     <div id="s6_core"></div>
   </div>
 
-  <!-- FACULTY -->
   <div class="card">
     <div class="sec-title">&#128100; Faculty Submitting This Form</div>
     <div class="fg">
@@ -226,7 +218,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
   </div>
 </div>
 
-<!-- SUCCESS BOX -->
 <div class="success-box" id="successBox">
   <div class="success-top">
     <div class="tick">&#10004;</div>
@@ -249,7 +240,6 @@ body{font-family:'Times New Roman',Times,serif;background:#f0f4f8;color:#1a1a2e;
   </div>
 </div>
 
-<!-- VIEW DATA PAGE -->
 <div class="view-page" id="viewPage">
   <div class="view-header no-print">
     <h3 id="viewTitle">Entered Data</h3>
@@ -361,9 +351,10 @@ function buildAll(){
   document.getElementById('s3_core').innerHTML=cb('Minor \u2014 1','SEM3_MIN1')+cb('Minor \u2014 2','SEM3_MIN2')+cb('VAC','SEM3_VAC')+cb('MDC','SEM3_MDC');
   document.getElementById('s3_note').textContent='2 Majors \u00b7 2 Minors \u00b7 1 VAC \u00b7 1 MDC';
 
-  document.getElementById('s4_major').innerHTML=majorBlocks(4,2);
-  document.getElementById('s4_core').innerHTML=cb('Minor \u2014 1','SEM4_MIN1')+cb('VAC \u2014 1','SEM4_VAC1')+cb('VAC \u2014 2','SEM4_VAC2')+cb('SEC','SEM4_SEC');
-  document.getElementById('s4_note').textContent='2 Majors \u00b7 1 Minor \u00b7 2 VAC \u00b7 1 SEC';
+  // FIXED SEMESTER 4: 3 MAJORS, 2 VAC, 1 SEC (NO MINOR)
+  document.getElementById('s4_major').innerHTML=majorBlocks(4,3);
+  document.getElementById('s4_core').innerHTML=cb('VAC \u2014 1','SEM4_VAC1')+cb('VAC \u2014 2','SEM4_VAC2')+cb('SEC','SEM4_SEC');
+  document.getElementById('s4_note').textContent='3 Majors \u00b7 2 VAC \u00b7 1 SEC';
 
   document.getElementById('s5_major').innerHTML=majorBlocks(5,5);
   document.getElementById('s5_core').innerHTML=cb('SEC','SEM5_SEC');
