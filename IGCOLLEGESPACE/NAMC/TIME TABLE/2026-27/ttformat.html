@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Table Draft 2026-27 (3rd Semester) – NAM College Kallikkandy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+  :root {
+    --navy: #1a2744;
+    --gold: #b8860b;
+    --cream: #faf8f2;
+    --light-blue: #e8edf5;
+    --border: #c0c8d8;
+    --text: #1a1a2e;
+    --muted: #5a6375;
+    --row-sep: #8a9dc0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 11px;
+  }
+
+  @page { size: A4 landscape; margin: 10mm; }
+
+  .page {
+    width: 277mm;
+    min-height: 190mm;
+    margin: 10px auto;
+    padding: 12px 16px;
+    background: white;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 3px solid var(--navy);
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .emblem {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 4px;
+  }
+
+  .college-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .sub-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 2px;
+  }
+
+  /* ── TIMETABLE TABLE ── */
+  .tt {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5px;
+    border: 2px solid var(--navy);
+  }
+
+  .tt th, .tt td {
+    border: 1px solid var(--border);
+    padding: 4px 5px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  /* Header row */
+  .tt thead tr th {
+    background: var(--navy);
+    color: white;
+    font-family: 'EB Garamond', serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 6px 5px;
+    border-color: #3a4d6e;
+  }
+
+  /* Day cells */
+  .day-cell {
+    background: var(--navy);
+    color: white;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    padding: 8px 4px !important;
+    font-family: 'EB Garamond', serif;
+    border-right: 2px solid var(--row-sep) !important;
+  }
+
+  /* Semester cells */
+  .sem-cell {
+    font-weight: 700;
+    font-size: 9px;
+    text-align: center;
+    padding: 3px 4px !important;
+    border-right: 1px solid var(--border) !important;
+  }
+
+  .sem-first  { background: #e8edf5; color: var(--navy); }
+  .sem-third  { background: #dce4f0; color: #0a3060; }
+  .sem-fifth  { background: #d2dcea; color: #071f40; }
+
+  /* Stream cells */
+  .stream-cell {
+    background: #f4f6fb;
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 9px;
+    width: 28px;
+    border-right: 1px solid var(--border) !important;
+  }
+
+  /* Period cells */
+  .period-cell { background: white; white-space: nowrap; }
+
+  /* Course type colours — matching PDF: orange for MAJOR, green for MINOR, blue for AEC, red for MDC etc. */
+  .MAJOR  { background: #fff4e0; color: #7a4500; font-weight: 700; }
+  .MINOR  { background: #e6f4ea; color: #1a5c2f; }
+  .AEC    { background: #e0f0ff; color: #0a3a6a; }
+  .MDC    { background: #fde8e8; color: #7a1f1f; font-weight: 700; color: #b30000; }
+  .VAC    { background: #f0e8fc; color: #3d1f7a; }
+  .CORE   { background: #ececec; color: #333; font-style: italic; font-weight: 600; }
+  .SEC    { background: #ffeedd; color: #7a3000; font-weight: 600; }
+  .empty-cell { background: #f9f9fb; color: #ccc; }
+
+  /* Day separator row */
+  .day-gap td { height: 5px; background: #c8d3e8; border: none; padding: 0; }
+
+  /* Thick top border at each new day */
+  .day-sep td, .day-sep th { border-top: 2px solid var(--navy) !important; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 10px;
+    border-top: 2px solid var(--navy);
+    padding-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 8.5px;
+    color: var(--muted);
+  }
+
+  .footer-left { line-height: 1.6; }
+
+  .footer-right {
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .footer-right .name {
+    font-weight: 700;
+    font-size: 10px;
+    color: var(--navy);
+    letter-spacing: 0.3px;
+    font-family: 'EB Garamond', serif;
+  }
+
+  .footer-right .coord {
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <img src="NAM.PNG" alt="NAM College Emblem" class="emblem"
+         onerror="this.style.height='0';this.style.margin='0';">
+    <div class="college-name">NAM College Kallikkandy</div>
+    <div class="sub-title">Time Table Draft for Academic Year 2026–27 &nbsp;(3rd Semester)</div>
+  </div>
+
+  <!-- TIMETABLE -->
+  <table class="tt">
+    <thead>
+      <tr>
+        <th style="width:18px;">Day</th>
+        <th style="width:46px;">SEMESTER</th>
+        <th style="width:26px;">Stream</th>
+        <th>I</th>
+        <th>II</th>
+        <th>III</th>
+        <th>IV</th>
+        <th>V</th>
+        <th>VI</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- ===== MONDAY ===== -->
+      <tr class="day-sep">
+        <td class="day-cell" rowspan="6">MONDAY</td>
+        <td class="sem-cell sem-first" rowspan="4">FIRST</td>
+        <td class="stream-cell">SC</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MDC">MDC_1</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">ART</td>
+        <td class="period-cell AEC">AEC_1 (A)</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MDC">MDC_1</td>
+        <td class="period-cell AEC">AEC_2 (A &amp; H)</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">HUM</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell AEC">AEC_1 (H)</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MDC">MDC_1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">Com</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell AEC">AEC_2 (C)</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MDC">MDC_1</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-third">THIRD</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell MAJOR">MAJOR_3</td>
+        <td class="period-cell MAJOR">MAJOR_4</td>
+        <td class="period-cell VAC">VAC_1</td>
+        <td class="period-cell MINOR">MINOR_6</td>
+        <td class="period-cell MINOR">MINOR_5</td>
+        <td class="period-cell MAJOR">MAJOR_4</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-fifth">FIFTH</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+
+      <tr class="day-gap"><td colspan="9"></td></tr>
+
+      <!-- ===== TUESDAY ===== -->
+      <tr class="day-sep">
+        <td class="day-cell" rowspan="6">TUESDAY</td>
+        <td class="sem-cell sem-first" rowspan="4">FIRST</td>
+        <td class="stream-cell">SC</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell AEC">AEC_2 (S)</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell AEC">AEC_1 (S)</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">ART</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell AEC">AEC_1 (A)</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell AEC">AEC_2 (A &amp; H)</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">HUM</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell AEC">AEC_1 (H)</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">Com</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell AEC">AEC_1 (C)</td>
+        <td class="period-cell AEC">AEC_2 (C)</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-third">THIRD</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell MDC">MDC_3</td>
+        <td class="period-cell MINOR">MINOR_5</td>
+        <td class="period-cell MAJOR">MAJOR_3</td>
+        <td class="period-cell MAJOR">MAJOR_4</td>
+        <td class="period-cell MINOR">MINOR_6</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-fifth">FIFTH</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell SEC">SEC_2</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+
+      <tr class="day-gap"><td colspan="9"></td></tr>
+
+      <!-- ===== WEDNESDAY ===== -->
+      <tr class="day-sep">
+        <td class="day-cell" rowspan="6">WEDNESDAY</td>
+        <td class="sem-cell sem-first" rowspan="4">FIRST</td>
+        <td class="stream-cell">SC</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell AEC">AEC-2</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell MDC">MDC_1</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">ART</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell AEC">AEC-2</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">HUM</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">Com</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell AEC">AEC 1</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-third">THIRD</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell MAJOR">MAJOR_4</td>
+        <td class="period-cell MINOR">MINOR_6</td>
+        <td class="period-cell MINOR">MINOR_5</td>
+        <td class="period-cell VAC">VAC_1</td>
+        <td class="period-cell MAJOR">MAJOR_3</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-fifth">FIFTH</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell SEC">SEC_2</td>
+        <td class="period-cell SEC">SEC_2</td>
+      </tr>
+
+      <tr class="day-gap"><td colspan="9"></td></tr>
+
+      <!-- ===== THURSDAY ===== -->
+      <tr class="day-sep">
+        <td class="day-cell" rowspan="6">THURSDAY</td>
+        <td class="sem-cell sem-first" rowspan="4">FIRST</td>
+        <td class="stream-cell">SC</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell AEC">AEC-2</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">ART</td>
+        <td class="period-cell AEC">AEC-2</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">HUM</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">Com</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell AEC">AEC-2</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-third">THIRD</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell MINOR">MINOR_5</td>
+        <td class="period-cell MDC">MDC_3</td>
+        <td class="period-cell MINOR">MINOR_6</td>
+        <td class="period-cell MAJOR">MAJOR_3</td>
+        <td class="period-cell MAJOR">MAJOR_4</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-fifth">FIFTH</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell SEC">SEC_2</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+
+      <tr class="day-gap"><td colspan="9"></td></tr>
+
+      <!-- ===== FRIDAY ===== -->
+      <tr class="day-sep">
+        <td class="day-cell" rowspan="6">FRIDAY</td>
+        <td class="sem-cell sem-first" rowspan="4">FIRST</td>
+        <td class="stream-cell">SC</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell MINOR">MINOR_1</td>
+        <td class="period-cell MDC">MDC_1</td>
+        <td class="period-cell AEC">AEC-2</td>
+        <td class="period-cell MINOR">MINOR_2</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">ART</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">HUM</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell MAJOR">MAJOR_1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="stream-cell">Com</td>
+        <td class="period-cell AEC">AEC-2</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell AEC">AEC-1</td>
+        <td class="period-cell empty-cell">—</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-third">THIRD</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell MINOR">MINOR_6</td>
+        <td class="period-cell VAC">VAC_1</td>
+        <td class="period-cell MAJOR">MAJOR_3</td>
+        <td class="period-cell MINOR">MINOR_5</td>
+        <td class="period-cell MDC">MDC_3</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+      <tr>
+        <td class="sem-cell sem-fifth">FIFTH</td>
+        <td class="stream-cell">—</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell CORE">Core Course</td>
+        <td class="period-cell empty-cell">—</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <div>Time Table Draft &mdash; Academic Year 2026–27 &nbsp;|&nbsp; 3rd Semester (Odd)</div>
+      <div>NAM College Kallikkandy &nbsp;|&nbsp; Print in Landscape &nbsp;|&nbsp; A4</div>
+    </div>
+    <div class="footer-right">
+      <div class="name">GAFOOR I</div>
+      <div>Assistant Professor</div>
+      <div>Department of Mathematics</div>
+      <div class="coord">FYUGP &amp; Time Table Coordinator (2026–27)</div>
+    </div>
+  </div>
+
+</div><!-- end page -->
+</body>
+</html>
