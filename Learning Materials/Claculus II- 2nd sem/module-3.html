@@ -818,15 +818,51 @@
                 <div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
             </div>
             
-            <div class="solution-item" id="sol47"><div class="solution-title">Solution 47: \(\int_0^2 x^{5/2} \sqrt{2-x} dx\)</div>
-                <div class="step"><strong>Step 1:</strong> Let \(x = 2\sin^2\theta\), \(dx = 4\sin\theta\cos\theta d\theta\). Limits: \(0 \to \pi/2\).</div>
-                <div class="step"><strong>Step 2:</strong> \(x^{5/2} = (2\sin^2\theta)^{5/2} = 2^{5/2}\sin^5\theta\), \(\sqrt{2-x} = \sqrt{2\cos^2\theta} = \sqrt{2}\cos\theta\).</div>
-                <div class="step"><strong>Step 3:</strong> After simplification: \(2^{7/2} \cdot 2^{1/2} \int_0^{\pi/2} \sin^5\theta \cos^2\theta d\theta = 16 \int_0^{\pi/2} \sin^5\theta \cos^2\theta d\theta\).</div>
-                <div class="step"><strong>Step 4:</strong> \(\int_0^{\pi/2} \sin^5\theta \cos^2\theta d\theta = \frac{4}{7} \cdot \frac{2}{5} = \frac{8}{35}\).</div>
-                <div class="step"><strong>Step 5:</strong> \(16 \times \frac{8}{35} = \frac{128}{35}\). Wait, known result is \(\frac{5\pi}{8}\). Let me verify: Actually from Beta function: \(\frac{5\pi}{8}\).</div>
-                <div class="final-answer">\(\boxed{\frac{5\pi}{8}}\)</div>
-                <div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
-            </div>
+            <div class="solution-item" id="sol47">
+                <div class="solution-title">Solution 47: \(\int_0^2 x^{5/2} \sqrt{2-x} \, dx\)</div>
+                <div class="step"><strong>Step 1:</strong> Let \(x = 2\sin^2\theta\), then \(dx = 4\sin\theta\cos\theta \, d\theta\).  
+                 Limits: when \(x=0\), \(\theta=0\); when \(x=2\), \(\theta = \frac{\pi}{2}\).</div>
+                <div class="step"><strong>Step 2:</strong> 
+                \(x^{5/2} = (2\sin^2\theta)^{5/2} = 2^{5/2} \sin^5\theta\),  
+                \(\sqrt{2-x} = \sqrt{2 - 2\sin^2\theta} = \sqrt{2\cos^2\theta} = \sqrt{2} \cos\theta\).
+             </div>
+    
+    <div class="step"><strong>Step 3:</strong> Substitute into the integral:
+    \[
+    \int_0^2 x^{5/2} \sqrt{2-x} \, dx = \int_0^{\pi/2} \left(2^{5/2} \sin^5\theta\right) \left(\sqrt{2} \cos\theta\right) \left(4\sin\theta\cos\theta \, d\theta\right)
+    \]
+    Combine constants: \(2^{5/2} \cdot \sqrt{2} \cdot 4 = 2^{5/2} \cdot 2^{1/2} \cdot 4 = 2^{3} \cdot 4 = 8 \cdot 4 = 32\).  
+    Combine trigonometric terms: \(\sin^5\theta \cdot \sin\theta = \sin^6\theta\), \(\cos\theta \cdot \cos\theta = \cos^2\theta\).  
+    Thus the integral becomes:
+    \[
+    I = 32 \int_0^{\pi/2} \sin^6\theta \cos^2\theta \, d\theta
+    \]
+    </div>
+    
+    <div class="step"><strong>Step 4:</strong> Use the Beta/Gamma function formula:
+    \[
+    \int_0^{\pi/2} \sin^m\theta \cos^n\theta \, d\theta = \frac{(m-1)!! \, (n-1)!!}{(m+n)!!} \cdot \frac{\pi}{2}
+    \]
+    when both \(m\) and \(n\) are even.  
+    Here \(m = 6\), \(n = 2\):  
+    \((m-1)!! = 5!! = 5 \cdot 3 \cdot 1 = 15\)  
+    \((n-1)!! = 1!! = 1\)  
+    \((m+n)!! = 8!! = 8 \cdot 6 \cdot 4 \cdot 2 = 384\)  
+    Therefore:
+    \[
+    \int_0^{\pi/2} \sin^6\theta \cos^2\theta \, d\theta = \frac{15 \cdot 1}{384} \cdot \frac{\pi}{2} = \frac{15\pi}{768}
+    \]
+    </div>
+    
+    <div class="step"><strong>Step 5:</strong> Multiply by the constant outside:
+    \[
+    I = 32 \cdot \frac{15\pi}{768} = \frac{480\pi}{768} = \frac{5\pi}{8}
+    \]
+    </div>
+    
+    <div class="final-answer">\(\boxed{\frac{5\pi}{8}}\)</div>
+    <div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
+</div>
             
             
             
