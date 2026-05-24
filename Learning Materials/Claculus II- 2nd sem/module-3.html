@@ -360,7 +360,6 @@
                 <li class="question-item"><div class="question-text"><strong>45.</strong> \(\int_0^\infty \frac{x^3}{(1+x^2)^{9/2}} dx\)</div><a href="#sol45" class="show-answer">📖 Show Solution</a></li>
                 <li class="question-item"><div class="question-text"><strong>46.</strong> \(\int_0^2 x^3 \sqrt{2x-x^2} dx\)</div><a href="#sol46" class="show-answer">📖 Show Solution</a></li>
                 <li class="question-item"><div class="question-text"><strong>47.</strong> \(\int_0^2 x^{5/2} \sqrt{2-x} dx\)</div><a href="#sol47" class="show-answer">📖 Show Solution</a></li>
-                <li class="question-item"><div class="question-text"><strong>48.</strong> \(\int_0^\infty \frac{x^3}{(4+x^2)^2} dx\)</div><a href="#sol48" class="show-answer">📖 Show Solution</a></li>
                 <li class="question-item"><div class="question-text"><strong>49.</strong> Prove reduction formula for \(I_n = \int_0^{\pi/2} x^n \sin(2p+1)x dx\)</div><a href="#sol49" class="show-answer">📖 Show Solution</a></li>
                 <li class="question-item"><div class="question-text"><strong>50.</strong> \(\int_0^{\pi/2} \cos^n x dx\) (general formula)</div><a href="#sol50" class="show-answer">📖 Show Solution</a></li>
                 <li class="question-item"><div class="question-text"><strong>51.</strong> Prove \(I_n = \int_0^a (a^2-x^2)^n dx\) satisfies \(I_n = \frac{2na^2}{2n+1}I_{n-1}\)</div><a href="#sol51" class="show-answer">📖 Show Solution</a></li>
@@ -829,13 +828,7 @@
                 <div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
             </div>
             
-            <div class="solution-item" id="sol48"><div class="solution-title">Solution 48: \(\int_0^\infty \frac{x^3}{(4+x^2)^2} dx\)</div>
-                <div class="step"><strong>Step 1:</strong> Let \(x = 2\tan\theta\), \(dx = 2\sec^2\theta d\theta\). Limits: \(0 \to \pi/2\).</div>
-                <div class="step"><strong>Step 2:</strong> \(\int_0^{\pi/2} \frac{8\tan^3\theta \cdot 2\sec^2\theta}{(4\sec^2\theta)^2} d\theta = \int_0^{\pi/2} \frac{16\tan^3\theta \sec^2\theta}{16\sec^4\theta} d\theta = \int_0^{\pi/2} \sin^3\theta d\theta\).</div>
-                <div class="step"><strong>Step 3:</strong> \(\int_0^{\pi/2} \sin^3\theta d\theta = \frac{2}{3}\).</div>
-                <div class="final-answer">\(\boxed{\frac{2}{3}}\)</div>
-                <div class="back-to-top"><a href="#top">↑ Back to Top</a></div>
-            </div>
+            
             
             <div class="solution-item" id="sol49"><div class="solution-title">Solution 49: Prove \(I_n + \frac{n(n-1)}{(2p+1)^2}I_{n-2} = (-1)^p \frac{n}{(2p+1)^2}(\pi/2)^{n-1}\)</div>
                 <div class="step"><strong>Step 1:</strong> \(I_n = \int_0^{\pi/2} x^n \sin(2p+1)x dx\). Integrate by parts: \(u=x^n\), \(dv=\sin(2p+1)x dx\).</div>
