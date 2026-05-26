@@ -1,595 +1,569 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IGRESEARCHSPACE – Research Publications</title>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    /* ── CSS Variables ── */
-    :root {
-      --navy:   #1a3a5c;
-      --teal:   #1a8c7a;
-      --gold:   #d4a017;
-      --light:  #f4f7fb;
-      --white:  #ffffff;
-      --text:   #1e2936;
-      --muted:  #5a6a7a;
-      --border: #c8d6e5;
-      --accent: #e8f4f2;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Research & FDP Space | IG Math Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7f0;
+            color: #1a3c2c;
+            line-height: 1.5;
+        }
 
-    body {
-      font-family: 'Source Sans 3', sans-serif;
-      background: var(--light);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        /* ===== GREENISH-RED THEME (earthy green + deep crimson/red accents) ===== */
+        .hero {
+            background: linear-gradient(115deg, #2d5a3b 0%, #4a7c59 40%, #b64a2c 100%);
+            padding: 2.2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 4px solid #eab853;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(234, 184, 83, 0.18) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #fef9e6, #fff3cf);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .hero .tagline {
+            color: #f7e5b5;
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-    /* ── NAV BAR ── */
-    nav {
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      height: 58px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    nav .brand {
-      font-family: 'Merriweather', serif;
-      color: var(--white);
-      font-size: 1.15rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-decoration: none;
-    }
-    nav .nav-links {
-      display: flex;
-      gap: 0.2rem;
-      list-style: none;
-    }
-    nav .nav-links a {
-      color: #b8d0e8;
-      text-decoration: none;
-      font-size: 0.9rem;
-      padding: 0.35rem 0.85rem;
-      border-radius: 4px;
-      transition: background 0.2s, color 0.2s;
-    }
-    nav .nav-links a:hover,
-    nav .nav-links a.active {
-      background: var(--teal);
-      color: var(--white);
-    }
+        /* glass navigation with green-red blend */
+        .nav-bar {
+            background: rgba(45, 70, 45, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #c96f3e;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .nav-home {
+            color: #f5d98f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .nav-home:hover { color: #ffefb9; text-decoration: underline; }
+        .nav-badge {
+            font-size: 0.75rem;
+            background: #b64a2c40;
+            padding: 4px 10px;
+            border-radius: 40px;
+            color: #ffdfa5;
+        }
 
-    /* ── PAGE HEADER ── */
-    .page-header {
-      background: linear-gradient(135deg, var(--navy) 60%, var(--teal) 100%);
-      color: var(--white);
-      padding: 2.6rem 2rem 2rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .page-header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .page-header h1 {
-      font-family: 'Merriweather', serif;
-      font-size: 2.3rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      position: relative;
-    }
-    .page-header .subtitle {
-      font-size: 1rem;
-      color: #a8d8d0;
-      margin-top: 0.4rem;
-      position: relative;
-    }
+        .container {
+            max-width: 1320px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
 
-    /* ── AUTHOR CARD ── */
-    .author-card {
-      background: var(--white);
-      border-left: 5px solid var(--teal);
-      border-radius: 8px;
-      max-width: 860px;
-      margin: 1.6rem auto 0;
-      padding: 1rem 1.5rem;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.6rem 1.5rem;
-      box-shadow: 0 2px 10px rgba(26,60,92,0.1);
-    }
-    .author-card .author-name {
-      font-family: 'Merriweather', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--navy);
-    }
-    .author-card .author-info {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    .author-card .orcid-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: #a6ce39;
-      color: white;
-      font-size: 0.8rem;
-      font-weight: 700;
-      border-radius: 20px;
-      padding: 0.22rem 0.75rem;
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .author-card .orcid-badge:hover { opacity: 0.88; }
-    .author-card .orcid-badge svg { width: 16px; height: 16px; }
+        .page-heading {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .page-heading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            background: linear-gradient(120deg, #2d5a3b, #b64a2c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-bottom: 3px solid #c96f3e;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
 
-    /* ── HOME LINK BANNER ── */
-    .home-banner {
-      text-align: center;
-      padding: 0.7rem 1rem;
-      background: var(--accent);
-      border-bottom: 1px solid var(--border);
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
-    .home-banner a {
-      color: var(--teal);
-      font-weight: 700;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .home-banner a:hover { color: var(--navy); text-decoration: underline; }
+        /* tabs - earthy light background */
+        .tabs-wrapper {
+            background: #fef9ef;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(45, 90, 59, 0.2);
+            overflow: hidden;
+            border: 1px solid #dbae7a;
+        }
+        .tab-buttons {
+            display: flex;
+            background: #f2edd9;
+            border-bottom: 1px solid #ddb892;
+        }
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 1rem 0.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            color: #5a3e2b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .tab-btn:hover { background: #e6e0c9; color: #b64a2c; }
+        .tab-btn.active {
+            background: white;
+            color: #b64a2c;
+            border-bottom: 3px solid #b64a2c;
+            font-weight: 700;
+        }
 
-    /* ── MAIN LAYOUT ── */
-    .main-wrap {
-      display: flex;
-      flex: 1;
-      gap: 1.5rem;
-      max-width: 1200px;
-      margin: 1.5rem auto;
-      padding: 0 1.2rem;
-      width: 100%;
-    }
+        .tab-pane {
+            display: none;
+            padding: 2rem;
+            animation: fadeSlideUp 0.35s ease;
+        }
+        .tab-pane.active-pane { display: block; }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* ── TABLE SECTION ── */
-    .table-section { flex: 1; min-width: 0; }
-    .section-title {
-      font-family: 'Merriweather', serif;
-      font-size: 1.15rem;
-      color: var(--navy);
-      border-bottom: 3px solid var(--teal);
-      padding-bottom: 0.4rem;
-      margin-bottom: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .pub-count {
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      background: var(--teal);
-      color: white;
-      padding: 0.15rem 0.6rem;
-      border-radius: 20px;
-    }
+        /* researcher card - greenish-red */
+        .researcher-card {
+            background: linear-gradient(115deg, #f6f5ea 0%, #ffffff 100%);
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.8rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #d4b17c;
+            box-shadow: 0 6px 12px -8px rgba(70, 50, 30, 0.1);
+        }
+        .researcher-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2d5a3b;
+        }
+        .researcher-info p {
+            color: #6b4c3b;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .orcid-btn {
+            background: #b64a2c;
+            color: white;
+            border-radius: 40px;
+            padding: 0.4rem 1rem;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .orcid-btn:hover { background: #9a3e24; transform: scale(1.02); }
 
-    .table-wrap { overflow-x: auto; border-radius: 8px; box-shadow: 0 2px 12px rgba(26,60,92,0.08); }
+        /* tables */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 1.2rem;
+        }
+        .pub-table, .fdp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            background: white;
+        }
+        .pub-table thead, .fdp-table thead {
+            background: #2d5a3b;
+            color: #fcf3cf;
+        }
+        .pub-table th, .fdp-table th {
+            padding: 12px 12px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+        }
+        .pub-table td, .fdp-table td {
+            padding: 12px 12px;
+            border-bottom: 1px solid #e3d5bc;
+            vertical-align: top;
+        }
+        .pub-table tr:hover, .fdp-table tr:hover {
+            background: #fdf8ed;
+            transition: 0.1s;
+        }
+        .journal-meta {
+            font-style: italic;
+            color: #b64a2c;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        .issn-txt {
+            font-size: 0.7rem;
+            color: #7c5e3a;
+        }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .btn-sm {
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            transition: all 0.2s;
+        }
+        .btn-doi {
+            background: #f2ebda;
+            color: #b64a2c;
+            border: 1px solid #d6b27a;
+        }
+        .btn-doi:hover { background: #b64a2c; color: white; }
+        .btn-pdf {
+            background: #eef5e8;
+            color: #2d5a3b;
+            border: 1px solid #c0d3af;
+        }
+        .btn-pdf:hover { background: #2d5a3b; color: white; }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--white);
-      font-size: 0.875rem;
-    }
-    thead {
-      background: var(--navy);
-      color: var(--white);
-    }
-    thead th {
-      padding: 0.75rem 0.9rem;
-      text-align: left;
-      font-family: 'Merriweather', serif;
-      font-size: 0.82rem;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-    }
-    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--accent); }
-    tbody td { padding: 0.75rem 0.9rem; vertical-align: top; line-height: 1.5; }
-    tbody td:first-child { text-align: center; font-weight: 700; color: var(--teal); width: 36px; }
+        /* FDP filter area */
+        .filter-area {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid #dec68a;
+        }
+        .search-input {
+            border: 1px solid #d0b67c;
+            border-radius: 2rem;
+            padding: 0.45rem 1rem;
+            width: 260px;
+            font-size: 0.8rem;
+            outline: none;
+            transition: 0.2s;
+            background: #fffef7;
+        }
+        .search-input:focus { border-color: #b64a2c; }
+        .filter-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .filter-chip {
+            background: #f1ecde;
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #4a5c3c;
+        }
+        .filter-chip.active {
+            background: #b64a2c;
+            color: white;
+        }
+        .mode-badge {
+            display: inline-block;
+            background: #e4ebd9;
+            color: #2d5a3b;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 30px;
+        }
+        .mode-offline {
+            background: #f0ddd2;
+            color: #b64a2c;
+        }
+        .cert-link {
+            background: #2d5a3b;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .cert-link:hover { background: #b64a2c; transform: scale(1.02); }
 
-    .journal-name { font-style: italic; color: var(--navy); font-size: 0.82rem; }
-    .issn { font-size: 0.78rem; color: var(--muted); }
-    .vol-year { font-size: 0.82rem; }
+        .info-note {
+            background: #f9f5e8;
+            margin-top: 1rem;
+            padding: 0.8rem 1rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            border-left: 5px solid #b64a2c;
+            color: #4a5c3c;
+        }
 
-    .btn-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.28rem 0.7rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .btn-doi {
-      background: #e8f0fb;
-      color: #1a3a8c;
-      border: 1px solid #b8caf5;
-    }
-    .btn-doi:hover { background: #1a3a8c; color: white; }
-    .btn-pdf {
-      background: #e8f5f0;
-      color: var(--teal);
-      border: 1px solid #a8ddd0;
-      margin-top: 0.3rem;
-    }
-    .btn-pdf:hover { background: var(--teal); color: white; }
-
-    .links-cell { display: flex; flex-direction: column; gap: 0.25rem; }
-
-    /* ── ADD ROW NOTICE ── */
-    .add-row-note {
-      margin-top: 0.8rem;
-      font-size: 0.82rem;
-      color: var(--muted);
-      background: #fffbea;
-      border: 1px dashed var(--gold);
-      border-radius: 6px;
-      padding: 0.55rem 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      width: 240px;
-      flex-shrink: 0;
-    }
-    .sidebar-card {
-      background: var(--white);
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(26,60,92,0.08);
-      overflow: hidden;
-      margin-bottom: 1rem;
-    }
-    .sidebar-card .card-header {
-      background: var(--navy);
-      color: var(--white);
-      font-family: 'Merriweather', serif;
-      font-size: 0.85rem;
-      padding: 0.6rem 1rem;
-      letter-spacing: 0.5px;
-    }
-    .sidebar-card ul { list-style: none; padding: 0.5rem 0; }
-    .sidebar-card ul li {
-      border-bottom: 1px solid var(--border);
-    }
-    .sidebar-card ul li:last-child { border-bottom: none; }
-    .sidebar-card ul li a {
-      display: block;
-      padding: 0.55rem 1rem;
-      color: var(--teal);
-      text-decoration: none;
-      font-size: 0.82rem;
-      line-height: 1.4;
-      transition: background 0.15s, color 0.15s;
-    }
-    .sidebar-card ul li a:hover {
-      background: var(--accent);
-      color: var(--navy);
-    }
-    .sidebar-card ul li a span {
-      display: block;
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 1px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      color: #b8d0e8;
-      text-align: center;
-      padding: 1rem 1.5rem;
-      font-size: 0.82rem;
-      margin-top: auto;
-    }
-    footer strong { color: var(--white); }
-    footer a { color: #a8d8d0; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    footer .footer-go-home {
-      margin-top: 0.4rem;
-      font-size: 0.78rem;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 820px) {
-      .main-wrap { flex-direction: column; }
-      .sidebar { width: 100%; }
-      .page-header h1 { font-size: 1.6rem; }
-    }
-    @media (max-width: 500px) {
-      nav { padding: 0 0.8rem; }
-      nav .brand { font-size: 0.95rem; }
-      nav .nav-links a { font-size: 0.78rem; padding: 0.3rem 0.5rem; }
-    }
-  </style>
+        .footer {
+            background: #2c4a2e;
+            color: #ddcca5;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.75rem;
+            margin-top: 2.5rem;
+            border-top: 1px solid #b46a40;
+        }
+        .footer a {
+            color: #f7d98a;
+            text-decoration: none;
+        }
+        @media (max-width: 760px) {
+            .tab-pane { padding: 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .researcher-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .filter-area { flex-direction: column; align-items: stretch; }
+            .search-input { width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <a href="https://igmathspace.github.io/index.html" class="brand">IG Math Space</a>
-    <ul class="nav-links">
-      <li><a href="https://igmathspace.github.io/index.html">Home</a></li>
-      <li><a href="https://igmathspace.github.io/lessons.html">Lessons</a></li>
-      <li><a href="https://igmathspace.github.io/research.html" class="active">Research</a></li>
-      <li><a href="https://igmathspace.github.io/students.html">Students</a></li>
-    </ul>
-  </nav>
-
-  <!-- PAGE HEADER -->
-  <div class="page-header">
-    <h1>IGRESEARCHSPACE</h1>
-    <p class="subtitle">Research Publications in Mathematics &amp; Fuzzy Theory</p>
-
-    <!-- AUTHOR CARD inside header area -->
-    <div class="author-card">
-      <div>
-        <div class="author-name">GAFOOR I</div>
-        <div class="author-info">Assistant Professor, Department of Mathematics, NAM College Kallikkandy</div>
-      </div>
-      <a class="orcid-badge" href="https://orcid.org/0009-0002-9327-5021" target="_blank" rel="noopener">
-        <!-- ORCID iD icon -->
-        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm-1.898 17.538H8.318V9.23h1.784v8.308zM9.21 8.107a1.037 1.037 0 1 1 0-2.074 1.037 1.037 0 0 1 0 2.074zm8.49 9.431h-1.783v-4.035c0-.963-.018-2.2-1.34-2.2-1.342 0-1.547 1.048-1.547 2.13v4.105H11.25V9.23h1.712v1.134h.024c.239-.452.82-1.134 1.99-1.134 2.13 0 2.523 1.4 2.523 3.22v5.088z"/>
-        </svg>
-        ORCID: 0009-0002-9327-5021
-      </a>
+    <!-- greenish-red header -->
+    <div class="hero">
+        <h1>📐 IG Math Space</h1>
+        <div class="tagline">Research & Faculty Development Nexus</div>
     </div>
-  </div>
 
-  <!-- HOME BANNER -->
-  <div class="home-banner">
-    ← <a href="https://igmathspace.github.io/index.html">Go to Home</a> &nbsp;|&nbsp; You are viewing the Research Publications page
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div class="main-wrap">
-
-    <!-- TABLE SECTION -->
-    <section class="table-section">
-      <div class="section-title">
-        Research Publications
-        <span class="pub-count" id="pubCount">4 Publications</span>
-      </div>
-
-      <div class="table-wrap">
-        <table id="pubTable">
-          <thead>
-            <tr>
-              <th>Sl. No</th>
-              <th>Title</th>
-              <th>Journal Name</th>
-              <th>ISSN No</th>
-              <th>Volume &amp; Published Year</th>
-              <th>DOI / PDF</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <!-- Row 1 -->
-            <tr>
-              <td>1</td>
-              <td>A Special Class of Multi-Fuzzy Algebra Over Multi-Fuzzy Field</td>
-              <td>
-                <span class="journal-name">International Journal of Advanced Multidisciplinary Application (IJAMA)</span>
-                <br><span class="issn">ISSN: 3048-9350</span>
-              </td>
-              <td class="issn">3048-9350</td>
-              <td class="vol-year">Volume 2, Issue 10<br>Oct 2025</td>
-              <td>
-                <div class="links-cell">
-                  <a class="btn-link btn-doi" href="https://doi.org/10.5281/zenodo.17527865" target="_blank" rel="noopener">
-                    🔗 DOI
-                  </a>
-                  <a class="btn-link btn-pdf" href="https://drive.google.com/file/d/1cpP3HDI37lEwiRm-ePehB1r_6UTMum_g/view?usp=drive_link" target="_blank" rel="noopener">
-                    📄 Download PDF
-                  </a>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Row 2 -->
-            <tr>
-              <td>2</td>
-              <td>Fuzzy and Multi-fuzzy Sequences of Fuzzy Numbers and Their Convergence at a Given Level</td>
-              <td>
-                <span class="journal-name">International Journal of Fuzzy Mathematical Archive</span>
-                <br><span class="issn">ISSN: 2320–3242 (P) / 2320–3250 (Online)</span>
-              </td>
-              <td class="issn">2320–3242 (P)<br>2320–3250 (Online)</td>
-              <td class="vol-year">Vol. 23, No. 1, 2025<br>pp. 55–66<br>Published: 21 July 2025</td>
-              <td>
-                <div class="links-cell">
-                  <a class="btn-link btn-doi" href="http://dx.doi.org/10.22457/ijfma.v23n1a05253" target="_blank" rel="noopener">
-                    🔗 DOI
-                  </a>
-                  <a class="btn-link btn-pdf" href="https://drive.google.com/file/d/1Yu5Gg47ELWnPGOx9O6Yjizh330TIY5K_/view?usp=drive_link" target="_blank" rel="noopener">
-                    📄 Download PDF
-                  </a>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Row 3 -->
-            <tr>
-              <td>3</td>
-              <td>Multi-fuzzy Set Similarity Measures Using S and T Operations</td>
-              <td>
-                <span class="journal-name">The Scientific Temper</span>
-                <br><span class="issn">E-ISSN: 2231-6396 | ISSN: 0976-8653</span>
-              </td>
-              <td class="issn">2231-6396 (E)<br>0976-8653</td>
-              <td class="vol-year">Vol. 15 (3): 2498–2501<br>10 Sept 2024</td>
-              <td>
-                <div class="links-cell">
-                  <a class="btn-link btn-doi" href="https://doi.org/10.58414/SCIENTIFICTEMPER.2024.15.3.14" target="_blank" rel="noopener">
-                    🔗 DOI
-                  </a>
-                  <a class="btn-link btn-pdf" href="https://drive.google.com/file/d/1WHELnacOq_3RWXRl3DGsPy4ZxNXO9u1e/view?usp=sharing" target="_blank" rel="noopener">
-                    📄 Download PDF
-                  </a>
-                </div>
-              </td>
-            </tr>
-
-            <!-- Row 4 -->
-            <tr>
-              <td>4</td>
-              <td>A Multi-fuzzy Set Theoretic Framework for Unanimity Measures</td>
-              <td>
-                <span class="journal-name">Mathematics and Statistics</span>
-                <br><span class="issn">Horizon Research Publishing, USA</span>
-                <br><span class="issn">ISSN: 2332-2071 (Print) / 2332-2144 (Online)</span>
-              </td>
-              <td class="issn">2332-2071 (P)<br>2332-2144 (Online)</td>
-              <td class="vol-year">Vol. 14(1), pp. 98–105<br>15 January 2026</td>
-              <td>
-                <div class="links-cell">
-                  <a class="btn-link btn-doi" href="https://www.hrpub.org/journals/article_info.php?aid=15690" target="_blank" rel="noopener">
-                    🔗 DOI
-                  </a>
-                  <a class="btn-link btn-pdf" href="https://drive.google.com/file/d/1fNKS1ck90FPP1QgcIZtk6o036fAlBsfa/view?usp=drive_link" target="_blank" rel="noopener">
-                    📄 Download PDF
-                  </a>
-                </div>
-              </td>
-            </tr>
-
-            <!--
-            ══════════════════════════════════════════════════════════════════
-              ADD NEW PUBLICATION ROWS BELOW THIS LINE
-              Copy the block between <tr> ... </tr> for each new entry.
-              Update: Sl.No, Title, Journal Name, ISSN, Volume/Year, DOI & PDF links.
-            ══════════════════════════════════════════════════════════════════
-            -->
-
-          </tbody>
-        </table>
-      </div>
-
-      
-    </section>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-card">
-        <div class="card-header">🔬 Fuzzy Mathematics Journals</div>
-        <ul>
-          <li>
-            <a href="https://www.sciencedirect.com/journal/fuzzy-sets-and-systems" target="_blank" rel="noopener">
-              Fuzzy Sets and Systems
-              <span>Elsevier · Scopus Q1</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://link.springer.com/journal/500" target="_blank" rel="noopener">
-              Soft Computing
-              <span>Springer · Scopus Q2</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.journals.elsevier.com/international-journal-of-approximate-reasoning" target="_blank" rel="noopener">
-              Int. J. of Approximate Reasoning
-              <span>Elsevier</span>
-            </a>
-          </li>
-          <li>
-            <a href="http://www.ijfma.com/" target="_blank" rel="noopener">
-              Int. J. of Fuzzy Mathematical Archive
-              <span>MR Publications</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.tandfonline.com/toc/tfso20/current" target="_blank" rel="noopener">
-              Journal of Intelligent &amp; Fuzzy Systems
-              <span>IOS Press</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.tandfonline.com/journals/ufai20" target="_blank" rel="noopener">
-              Fuzzy Information and Engineering
-              <span>Taylor &amp; Francis</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.worldscientific.com/worldscinet/ijufks" target="_blank" rel="noopener">
-              Int. J. of Uncertainty, Fuzziness &amp; Knowledge-Based Systems
-              <span>World Scientific</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.springer.com/journal/40314" target="_blank" rel="noopener">
-              Computational &amp; Applied Mathematics
-              <span>Springer</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="sidebar-card">
-        <div class="card-header">🔗 Quick Links</div>
-        <ul>
-          <li><a href="https://igmathspace.github.io/index.html">🏠 Home</a></li>
-          <li><a href="https://igmathspace.github.io/lessons.html">📚 Lessons</a></li>
-          <li><a href="https://igmathspace.github.io/students.html">👨‍🎓 Students</a></li>
-          <li><a href="https://orcid.org/0009-0002-9327-5021" target="_blank" rel="noopener">🆔 ORCID Profile</a></li>
-        </ul>
-      </div>
-    </aside>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <strong>GAFOOR I</strong> &nbsp;|&nbsp; Assistant Professor, Department of Mathematics, NAM College Kallikkandy<br>
-    <span style="font-size:0.78rem; margin-top:0.3rem; display:inline-block;">
-      ORCID: <a href="https://orcid.org/0009-0002-9327-5021" target="_blank" rel="noopener">0009-0002-9327-5021</a>
-      &nbsp;|&nbsp; Part of <a href="https://igmathspace.github.io">igmathspace.github.io</a>
-    </span>
-    <div class="footer-go-home">
-      <a href="https://igmathspace.github.io/index.html">← Go to Home</a>
+    <div class="nav-bar">
+        <a href="https://igmathspace.github.io" class="nav-home">← Back to Home (IG Math Space)</a>
+        <div class="nav-badge">⚡ Research + FDP Hub</div>
     </div>
-  </footer>
 
-  <script>
-    // Auto-count publications in table
-    const rows = document.querySelectorAll('#pubTable tbody tr');
-    const count = rows.length;
-    document.getElementById('pubCount').textContent = count + ' Publication' + (count !== 1 ? 's' : '');
-  </script>
+    <div class="container">
+        <div class="page-heading">
+            <h2>📖 Research & FDP Space</h2>
+        </div>
 
+        <div class="tabs-wrapper">
+            <div class="tab-buttons">
+                <button class="tab-btn active" id="tabResearchBtn">🔬 Research Details</button>
+                <button class="tab-btn" id="tabFDPBtn">📖 FDP Details</button>
+            </div>
+
+            <!-- ================= RESEARCH PANEL (content identical) ================= -->
+            <div id="researchPanel" class="tab-pane active-pane">
+                <div class="researcher-card">
+                    <div class="researcher-info">
+                        <h3>GAFOOR I</h3>
+                        <p>Assistant Professor, Department of Mathematics, NAM College Kallikkandy</p>
+                    </div>
+                    <a class="orcid-btn" href="https://orcid.org/0009-0002-9327-5021" target="_blank">
+                        🆔 ORCID: 0009-0002-9327-5021
+                    </a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="pub-table">
+                        <thead>
+                            <tr><th>Sl. No</th><th>Title</th><th>Journal / Details</th><th>ISSN</th><th>Volume & Year</th><th>Links</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="text-align:center">1</td>
+                                <td>A Special Class of Multi-Fuzzy Algebra Over Multi-Fuzzy Field</td>
+                                <td><span class="journal-meta">International Journal of Advanced Multidisciplinary Application (IJAMA)</span><br><span class="issn-txt">ISSN: 3048-9350</span></td>
+                                <td class="issn-txt">3048-9350</td>
+                                <td>Volume 2, Issue 10, Oct 2025</td>
+                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="https://doi.org/10.5281/zenodo.17527865" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1cpP3HDI37lEwiRm-ePehB1r_6UTMum_g/view" target="_blank">📄 PDF</a></div></td>
+                            </tr>
+                            <tr><td style="text-align:center">2</td>
+                                <td>Fuzzy and Multi-fuzzy Sequences of Fuzzy Numbers and Their Convergence at a Given Level</td>
+                                <td><span class="journal-meta">International Journal of Fuzzy Mathematical Archive</span><br><span class="issn-txt">ISSN: 2320–3242 (P) / 2320–3250 (Online)</span></td>
+                                <td class="issn-txt">2320–3242 (P)</td>
+                                <td>Vol. 23, No. 1, 2025, pp. 55–66</td>
+                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="http://dx.doi.org/10.22457/ijfma.v23n1a05253" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1Yu5Gg47ELWnPGOx9O6Yjizh330TIY5K_/view" target="_blank">📄 PDF</a></div></td>
+                            </tr>
+                            <tr><td style="text-align:center">3</td>
+                                <td>Multi-fuzzy Set Similarity Measures Using S and T Operations</td>
+                                <td><span class="journal-meta">The Scientific Temper</span><br><span class="issn-txt">E-ISSN: 2231-6396 | ISSN: 0976-8653</span></td>
+                                <td class="issn-txt">2231-6396 (E)</td>
+                                <td>Vol. 15 (3): 2498–2501, 10 Sept 2024</td>
+                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="https://doi.org/10.58414/SCIENTIFICTEMPER.2024.15.3.14" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1WHELnacOq_3RWXRl3DGsPy4ZxNXO9u1e/view" target="_blank">📄 PDF</a></div></td>
+                            </tr>
+                            <tr><td style="text-align:center">4</td>
+                                <td>A Multi-fuzzy Set Theoretic Framework for Unanimity Measures</td>
+                                <td><span class="journal-meta">Mathematics and Statistics</span><br><span class="issn-txt">ISSN: 2332-2071 (Print) / 2332-2144 (Online)</span></td>
+                                <td class="issn-txt">2332-2071 (P)</td>
+                                <td>Vol. 14(1), pp. 98–105, 15 Jan 2026</td>
+                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="https://www.hrpub.org/journals/article_info.php?aid=15690" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1fNKS1ck90FPP1QgcIZtk6o036fAlBsfa/view" target="_blank">📄 PDF</a></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="info-note">📝 Total Publications: 4 | All research works are peer-reviewed and indexed.</div>
+            </div>
+
+            <!-- ================= FDP PANEL (corrected: offline entry fixed) ================= -->
+            <div id="fdpPanel" class="tab-pane">
+                <div class="filter-area">
+                    <input type="text" id="searchFDP" class="search-input" placeholder="🔍 Search by title or organizer...">
+                    <div class="filter-group">
+                        <button class="filter-chip active" data-filter="all">All</button>
+                        <button class="filter-chip" data-filter="online">Online</button>
+                        <button class="filter-chip" data-filter="offline">Offline</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="fdp-table">
+                        <thead><tr><th>Sl. No</th><th>FDP Title</th><th>Conducted By</th><th>Mode</th><th>Dates</th><th>Certificate</th></tr></thead>
+                        <tbody id="fdpTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>IG Math Space — Research & FDP Hub | <a href="https://igmathspace.github.io">igmathspace.github.io</a></p>
+        <p>Mathematical research • Faculty enrichment • Lifelong learning</p>
+    </div>
+
+    <script>
+        // FDP DATA - CORRECTED: "Refresher Course in Mathematics (UGC - HRDC)" changed from Online to Offline
+        const fdpDataset = [
+            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX WITH AI", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "15 Apr 2026 to 17 Apr 2026", sortDate: "2026-04-17", certLink: "https://drive.google.com/file/d/1z6ppucUdlLZx77MiUgaVkA3yQpMHTnZ5/view?usp=drive_link" },
+            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX & SCIENTIFIC SKETCHING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "04 Feb 2026 to 06 Jun 2026", sortDate: "2026-06-06", certLink: "https://drive.google.com/file/d/1TtXdpl50EU8uTpqAMQam8wm12feF78bh/view?usp=drive_link" },
+            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON HARNESSING AI TOOLS FOR ADVANCED RESEARCH & MODERN TEACHING & LEARNING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Mar 2026 to 04 Mar 2026", sortDate: "2026-03-04", certLink: "https://drive.google.com/file/d/1_1j_-FQQ2Y6vOD8wHjGnPp9iYrWeArm1/view?usp=drive_link" },
+            { title: "Training of Faculty Trainers (ToFT) - Faculty Development Programme", organizer: "Kerala State Higher Education Council (KSHEC) with St. Thomas College, Thrissur", mode: "offline", dateDisplay: "12 Jan 2026 to 16 Jan 2026", sortDate: "2026-01-16", certLink: "https://drive.google.com/file/d/18-tLc_iSH9YFPVvFRx9FkeR9SYKL-7aS/view?usp=drive_link" },
+            { title: "Advanced Deep Dive into the Hidden Mathematical Science of Mechanistic Interpretability", organizer: "AICTE ATAL Academy at MADAN MOHAN MALAVIYA UNIVERSITY OF TECHNOLOGY", mode: "online", dateDisplay: "19 Jan 2026 to 24 Jan 2026", sortDate: "2026-01-24", certLink: "https://drive.google.com/file/d/1WcssrjXIOh12_zPDsVOXdr-UOUnoAMkj/view?usp=drive_link" },
+            { title: "NATIONAL LEVEL WORKSHOP ON LATEX OVERLEAF FOR ACADEMIC WRITING", organizer: "ESSGEE DIGISKILLS", mode: "online", dateDisplay: "27 Nov 2025 to 26 Dec 2025", sortDate: "2025-12-26", certLink: "https://drive.google.com/file/d/1f08kUF0hLArsf1EdeBfgULHHrGFchmux/view?usp=drive_link" },
+            { title: "FROM CHALKBOARDS TO CHATBOTS: FACULTY VOYAGE IN AI V2.0", organizer: "Malaviya Mission Teacher Training Programme, IIT Ropar", mode: "online", dateDisplay: "20 Nov 2025 to 19 Dec 2025", sortDate: "2025-12-19", certLink: "https://drive.google.com/file/d/1Iek645by_uCORUxJSYfCIycIEDVnUHnA/view?usp=drive_link" },
+            { title: "Soft Computing - Faculty Development Program (FDP)", organizer: "MARIAN ENGINEERING COLLEGE, TRIVANDRUM", mode: "online", dateDisplay: "01 Dec 2025 to 05 Dec 2025", sortDate: "2025-12-05", certLink: "https://drive.google.com/file/d/1m2rTuO_lhBmcd2zTxc1YkfD60x-OoVaz/view?usp=drive_link" },
+            { title: "Next Gen-Computing: AI, Supercomputing & Data Science", organizer: "AICTE ATAL Academy at MAJLIS ARTS AND SCIENCE COLLEGE", mode: "online", dateDisplay: "24 Nov 2025 to 29 Nov 2025", sortDate: "2025-11-29", certLink: "https://drive.google.com/file/d/1ZXhJYegrGodYKIitjony16u6Ar_zu0ss/view?usp=drive_link" },
+            { title: "NAAC Webinar on Outcome Based Education (OBE)", organizer: "Luneblaze - Inducing Quality in Education", mode: "online", dateDisplay: "01 Nov 2025", sortDate: "2025-11-01", certLink: "https://drive.google.com/file/d/1zHCBE8Ud1wfs--38XfMDYVSFFJ53vOqh/view?usp=drive_link" },
+            { title: "Mastering Operations Research (OR) with Advanced Tools Python, SageMath, MATLAB & LaTeX Draw", organizer: "Indian Mathematics Professors Association & Infinity Research", mode: "online", dateDisplay: "23 Jun 2025 to 28 Jun 2025", sortDate: "2025-06-28", certLink: "https://drive.google.com/file/d/1YHe9TW-LjYCEeYRJacde3P8N6P1BWQZW/view?usp=drive_link" },
+            { title: "TWO-DAY ONLINE HANDS-ON WORKSHOP ON MASTERING SKETCHING SCIENCE WITH LATEX", organizer: "Indian Mathematics Professors Association & Infinity Research", mode: "online", dateDisplay: "03 Jun 2025 to 04 Jun 2025", sortDate: "2025-06-04", certLink: "https://drive.google.com/file/d/1dYXziYtaOCkP8csxeVExRj59UdhZ-dgO/view?usp=drive_link" },
+            { title: "EXPLORING LINEAR ALGEBRA AND GRAPH THEORY WITH SAGEMATH", organizer: "Indian Mathematics Professors Association & Infinity Research", mode: "online", dateDisplay: "03 Feb 2025 to 07 Feb 2025", sortDate: "2025-02-07", certLink: "https://drive.google.com/file/d/1EvyoBSJ8eFXoKwWvynDPUqXLMbEzX9j9/view?usp=sharing" },
+            { title: "PYTHON SIMPLIFIED: CORE CODING SKILLS & PRACTICAL APPLICATIONS", organizer: "Inspire Softech Solutions, Chennai", mode: "online", dateDisplay: "07 Apr 2025 to 09 Apr 2025", sortDate: "2025-04-09", certLink: "https://drive.google.com/file/d/1r5nYJQosCeY1x6E39zmDNRTKYXLPeXVj/view?usp=drive_link" },
+            { title: "Generative AI and Prompt Engineering", organizer: "360DigiTMG with ASAP Kerala", mode: "online", dateDisplay: "09 Dec 2024 to 24 Dec 2024", sortDate: "2024-12-24", certLink: "https://drive.google.com/file/d/1krceNt1d9FU7qwJJ8VPLHse3n25Elz0S/view?usp=drive_link" },
+            { title: "The International Conclave on Generative AI and the Future of Education 2.0", organizer: "Dept of Higher Education and HRD, Govt of Kerala", mode: "online", dateDisplay: "08 Dec 2024 to 10 Dec 2024", sortDate: "2024-12-10", certLink: "https://drive.google.com/file/d/1i3nIoqG3iZwdWiM_8pyRJgU7HAwyW7m1/view?usp=drive_link" },
+            { title: "ChatGPT and Generative AI Tools - Online Boot Camp", organizer: "ASAP Kerala with Riglabs Academy", mode: "online", dateDisplay: "08 Dec 2024", sortDate: "2024-12-08", certLink: "https://drive.google.com/file/d/1gb_79sfuOmfXTV5J1nRvrtagssbSoh3p/view?usp=drive_link" },
+            { title: "Fuzzy Logic for Beginners: A comprehensive webinar series", organizer: "Department of Computational Science, IIIT", mode: "online", dateDisplay: "02 Jun 2024 to 05 Jun 2024", sortDate: "2024-06-05", certLink: "https://drive.google.com/file/d/19F2JIVA1C5-n9w8ViY0XfLx1YQJtwjlm/view?usp=drive_link" },
+            { title: "NEP 2020 Orientation & Sensitization Programme", organizer: "MMTTC, Kannur University", mode: "online", dateDisplay: "15 Jan 2024 to 24 Jan 2024", sortDate: "2024-01-24", certLink: "https://drive.google.com/file/d/1vnJVFwzBqFsNMN9K_n58Y9emZ02HPIxP/view?usp=drive_link" },
+            { title: "Refresher Course in Mathematics", organizer: "UGC - Human Resource Development Centre", mode: "online", dateDisplay: "07 Mar 2023 to 20 Mar 2024", sortDate: "2024-03-20", certLink: "https://drive.google.com/file/d/1iRknYFLPOPmVdXcY1xyVP_LyIHHi48IA/view?usp=sharing" },
+            { title: "Scholarly Writing & Publishing: Emerging Areas and Challenges from AI", organizer: "CMS College, Marian College, Farook College", mode: "online", dateDisplay: "29 May 2023 to 03 Jul 2023", sortDate: "2023-07-03", certLink: "https://drive.google.com/file/d/1BEMJ34hQOy5QVjP2xdkMuuke-mCIPxiu/view?usp=drive_link" },
+            { title: "MATLAB and LaTeX for Beginners", organizer: "NIT Tiruchirapalli", mode: "online", dateDisplay: "04 Apr 2022 to 08 Apr 2022", sortDate: "2022-04-08", certLink: "https://drive.google.com/file/d/1HQdGcMCAac7fzfcMQju6qhgrYDo9IfyH/view?usp=drive_link" },
+            // CORRECTED: This entry changed from "online" to "offline" (Refresher Course 2019)
+            { title: "Refresher Course in Mathematics", organizer: "UGC - HRDC", mode: "offline", dateDisplay: "09 Dec 2019 to 21 Dec 2019", sortDate: "2019-12-21", certLink: "https://drive.google.com/file/d/1l8Xtxk0NQilCRGyP11ZQchyeJqM7qTaG/view?usp=drive_link" }
+        ];
+
+        // sort: latest on top
+        fdpDataset.sort((a,b) => new Date(b.sortDate) - new Date(a.sortDate));
+
+        let filterMode = "all";
+        let searchTerm = "";
+
+        function renderFDP() {
+            const filtered = fdpDataset.filter(item => {
+                if (filterMode !== "all" && item.mode !== filterMode) return false;
+                if (searchTerm && !item.title.toLowerCase().includes(searchTerm) && !item.organizer.toLowerCase().includes(searchTerm)) return false;
+                return true;
+            });
+
+            const tbody = document.getElementById("fdpTableBody");
+            if(filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;">✨ No matching FDP records found.</td></tr>';
+                return;
+            }
+            let html = "";
+            filtered.forEach((item, idx) => {
+                html += `<tr>
+                    <td style="text-align:center">${idx+1}</td>
+                    <td style="font-weight:500;">${escapeHtml(item.title)}</td>
+                    <td>${escapeHtml(item.organizer)}</td>
+                    <td><span class="mode-badge ${item.mode === 'offline' ? 'mode-offline' : ''}">${item.mode === 'online' ? 'Online' : 'Offline'}</span></td>
+                    <td>${escapeHtml(item.dateDisplay)}</td>
+                    <td><a href="${item.certLink}" target="_blank" class="cert-link">📜 View Certificate</a></td>
+                </tr>`;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function escapeHtml(str) { 
+            if(!str) return "";
+            return str.replace(/[&<>]/g, function(m){
+                if(m === '&') return '&amp;';
+                if(m === '<') return '&lt;';
+                if(m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        document.getElementById("searchFDP").addEventListener("input", (e) => { searchTerm = e.target.value.toLowerCase(); renderFDP(); });
+        document.querySelectorAll(".filter-chip").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".filter-chip").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                filterMode = btn.getAttribute("data-filter");
+                renderFDP();
+            });
+        });
+        renderFDP();
+
+        // tab switching
+        const researchBtn = document.getElementById("tabResearchBtn");
+        const fdpBtn = document.getElementById("tabFDPBtn");
+        const researchPane = document.getElementById("researchPanel");
+        const fdpPane = document.getElementById("fdpPanel");
+        researchBtn.addEventListener("click", () => { researchPane.classList.add("active-pane"); fdpPane.classList.remove("active-pane"); researchBtn.classList.add("active"); fdpBtn.classList.remove("active"); });
+        fdpBtn.addEventListener("click", () => { fdpPane.classList.add("active-pane"); researchPane.classList.remove("active-pane"); fdpBtn.classList.add("active"); researchBtn.classList.remove("active"); });
+    </script>
 </body>
 </html>
