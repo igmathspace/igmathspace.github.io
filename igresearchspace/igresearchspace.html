@@ -19,7 +19,7 @@
             line-height: 1.5;
         }
 
-        /* ===== GREENISH-RED THEME (earthy green + deep crimson/red accents) ===== */
+        /* GREENISH-RED THEME */
         .hero {
             background: linear-gradient(115deg, #2d5a3b 0%, #4a7c59 40%, #b64a2c 100%);
             padding: 2.2rem 1.5rem;
@@ -60,7 +60,6 @@
             margin: 0 auto;
         }
 
-        /* glass navigation with green-red blend */
         .nav-bar {
             background: rgba(45, 70, 45, 0.92);
             backdrop-filter: blur(10px);
@@ -116,7 +115,6 @@
             padding-bottom: 8px;
         }
 
-        /* tabs - earthy light background */
         .tabs-wrapper {
             background: #fef9ef;
             border-radius: 2rem;
@@ -164,7 +162,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* researcher card - greenish-red */
+        /* researcher card */
         .researcher-card {
             background: linear-gradient(115deg, #f6f5ea 0%, #ffffff 100%);
             border-radius: 1.5rem;
@@ -375,7 +373,6 @@
 </head>
 <body>
 
-    <!-- greenish-red header -->
     <div class="hero">
         <h1>📐 IG Math Space</h1>
         <div class="tagline">Research & Faculty Development Nexus</div>
@@ -397,7 +394,7 @@
                 <button class="tab-btn" id="tabFDPBtn">📖 FDP Details</button>
             </div>
 
-            <!-- ================= RESEARCH PANEL (content identical) ================= -->
+            <!-- RESEARCH PANEL (unchanged) -->
             <div id="researchPanel" class="tab-pane active-pane">
                 <div class="researcher-card">
                     <div class="researcher-info">
@@ -408,48 +405,21 @@
                         🆔 ORCID: 0009-0002-9327-5021
                     </a>
                 </div>
-
                 <div class="table-responsive">
                     <table class="pub-table">
-                        <thead>
-                            <tr><th>Sl. No</th><th>Title</th><th>Journal / Details</th><th>ISSN</th><th>Volume & Year</th><th>Links</th></tr>
-                        </thead>
+                        <thead><tr><th>Sl. No</th><th>Title</th><th>Journal / Details</th><th>ISSN</th><th>Volume & Year</th><th>Links</th></tr></thead>
                         <tbody>
-                            <tr><td style="text-align:center">1</td>
-                                <td>A Special Class of Multi-Fuzzy Algebra Over Multi-Fuzzy Field</td>
-                                <td><span class="journal-meta">International Journal of Advanced Multidisciplinary Application (IJAMA)</span><br><span class="issn-txt">ISSN: 3048-9350</span></td>
-                                <td class="issn-txt">3048-9350</td>
-                                <td>Volume 2, Issue 10, Oct 2025</td>
-                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="https://doi.org/10.5281/zenodo.17527865" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1cpP3HDI37lEwiRm-ePehB1r_6UTMum_g/view" target="_blank">📄 PDF</a></div></td>
-                            </tr>
-                            <tr><td style="text-align:center">2</td>
-                                <td>Fuzzy and Multi-fuzzy Sequences of Fuzzy Numbers and Their Convergence at a Given Level</td>
-                                <td><span class="journal-meta">International Journal of Fuzzy Mathematical Archive</span><br><span class="issn-txt">ISSN: 2320–3242 (P) / 2320–3250 (Online)</span></td>
-                                <td class="issn-txt">2320–3242 (P)</td>
-                                <td>Vol. 23, No. 1, 2025, pp. 55–66</td>
-                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="http://dx.doi.org/10.22457/ijfma.v23n1a05253" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1Yu5Gg47ELWnPGOx9O6Yjizh330TIY5K_/view" target="_blank">📄 PDF</a></div></td>
-                            </tr>
-                            <tr><td style="text-align:center">3</td>
-                                <td>Multi-fuzzy Set Similarity Measures Using S and T Operations</td>
-                                <td><span class="journal-meta">The Scientific Temper</span><br><span class="issn-txt">E-ISSN: 2231-6396 | ISSN: 0976-8653</span></td>
-                                <td class="issn-txt">2231-6396 (E)</td>
-                                <td>Vol. 15 (3): 2498–2501, 10 Sept 2024</td>
-                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="https://doi.org/10.58414/SCIENTIFICTEMPER.2024.15.3.14" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1WHELnacOq_3RWXRl3DGsPy4ZxNXO9u1e/view" target="_blank">📄 PDF</a></div></td>
-                            </tr>
-                            <tr><td style="text-align:center">4</td>
-                                <td>A Multi-fuzzy Set Theoretic Framework for Unanimity Measures</td>
-                                <td><span class="journal-meta">Mathematics and Statistics</span><br><span class="issn-txt">ISSN: 2332-2071 (Print) / 2332-2144 (Online)</span></td>
-                                <td class="issn-txt">2332-2071 (P)</td>
-                                <td>Vol. 14(1), pp. 98–105, 15 Jan 2026</td>
-                                <td><div class="btn-group"><a class="btn-sm btn-doi" href="https://www.hrpub.org/journals/article_info.php?aid=15690" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1fNKS1ck90FPP1QgcIZtk6o036fAlBsfa/view" target="_blank">📄 PDF</a></div></td>
-                            </tr>
+                            <tr><td style="text-align:center">1</td><td>A Special Class of Multi-Fuzzy Algebra Over Multi-Fuzzy Field</td><td><span class="journal-meta">International Journal of Advanced Multidisciplinary Application (IJAMA)</span><br><span class="issn-txt">ISSN: 3048-9350</span></td><td class="issn-txt">3048-9350</td><td>Volume 2, Issue 10, Oct 2025</td><td><div class="btn-group"><a class="btn-sm btn-doi" href="https://doi.org/10.5281/zenodo.17527865" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1cpP3HDI37lEwiRm-ePehB1r_6UTMum_g/view" target="_blank">📄 PDF</a></div></td></tr>
+                            <tr><td style="text-align:center">2</td><td>Fuzzy and Multi-fuzzy Sequences of Fuzzy Numbers and Their Convergence at a Given Level</td><td><span class="journal-meta">International Journal of Fuzzy Mathematical Archive</span><br><span class="issn-txt">ISSN: 2320–3242 (P) / 2320–3250 (Online)</span></td><td class="issn-txt">2320–3242 (P)</td><td>Vol. 23, No. 1, 2025, pp. 55–66</td><td><div class="btn-group"><a class="btn-sm btn-doi" href="http://dx.doi.org/10.22457/ijfma.v23n1a05253" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1Yu5Gg47ELWnPGOx9O6Yjizh330TIY5K_/view" target="_blank">📄 PDF</a></div></td></tr>
+                            <tr><td style="text-align:center">3</td><td>Multi-fuzzy Set Similarity Measures Using S and T Operations</td><td><span class="journal-meta">The Scientific Temper</span><br><span class="issn-txt">E-ISSN: 2231-6396 | ISSN: 0976-8653</span></td><td class="issn-txt">2231-6396 (E)</td><td>Vol. 15 (3): 2498–2501, 10 Sept 2024</td><td><div class="btn-group"><a class="btn-sm btn-doi" href="https://doi.org/10.58414/SCIENTIFICTEMPER.2024.15.3.14" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1WHELnacOq_3RWXRl3DGsPy4ZxNXO9u1e/view" target="_blank">📄 PDF</a></div></td></tr>
+                            <tr><td style="text-align:center">4</td><td>A Multi-fuzzy Set Theoretic Framework for Unanimity Measures</td><td><span class="journal-meta">Mathematics and Statistics</span><br><span class="issn-txt">ISSN: 2332-2071 (Print) / 2332-2144 (Online)</span></td><td class="issn-txt">2332-2071 (P)</td><td>Vol. 14(1), pp. 98–105, 15 Jan 2026</td><td><div class="btn-group"><a class="btn-sm btn-doi" href="https://www.hrpub.org/journals/article_info.php?aid=15690" target="_blank">🔗 DOI</a><a class="btn-sm btn-pdf" href="https://drive.google.com/file/d/1fNKS1ck90FPP1QgcIZtk6o036fAlBsfa/view" target="_blank">📄 PDF</a></div></td></tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="info-note">📝 Total Publications: 4 | All research works are peer-reviewed and indexed.</div>
             </div>
 
-            <!-- ================= FDP PANEL (corrected: offline entry fixed) ================= -->
+            <!-- FDP PANEL - ALL DATES STANDARDIZED to "DD MMM YYYY" format, sorted latest first -->
             <div id="fdpPanel" class="tab-pane">
                 <div class="filter-area">
                     <input type="text" id="searchFDP" class="search-input" placeholder="🔍 Search by title or organizer...">
@@ -459,7 +429,6 @@
                         <button class="filter-chip" data-filter="offline">Offline</button>
                     </div>
                 </div>
-
                 <div class="table-responsive">
                     <table class="fdp-table">
                         <thead><tr><th>Sl. No</th><th>FDP Title</th><th>Conducted By</th><th>Mode</th><th>Dates</th><th>Certificate</th></tr></thead>
@@ -476,36 +445,37 @@
     </div>
 
     <script>
-        // FDP DATA - CORRECTED: "Refresher Course in Mathematics (UGC - HRDC)" changed from Online to Offline
-        const fdpDataset = [
-            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX WITH AI", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "15 Apr 2026 to 17 Apr 2026", sortDate: "2026-04-17", certLink: "https://drive.google.com/file/d/1z6ppucUdlLZx77MiUgaVkA3yQpMHTnZ5/view?usp=drive_link" },
-            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX & SCIENTIFIC SKETCHING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "04 Feb 2026 to 06 Jun 2026", sortDate: "2026-06-06", certLink: "https://drive.google.com/file/d/1TtXdpl50EU8uTpqAMQam8wm12feF78bh/view?usp=drive_link" },
-            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON HARNESSING AI TOOLS FOR ADVANCED RESEARCH & MODERN TEACHING & LEARNING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Mar 2026 to 04 Mar 2026", sortDate: "2026-03-04", certLink: "https://drive.google.com/file/d/1_1j_-FQQ2Y6vOD8wHjGnPp9iYrWeArm1/view?usp=drive_link" },
-            { title: "Training of Faculty Trainers (ToFT) - Faculty Development Programme", organizer: "Kerala State Higher Education Council (KSHEC) with St. Thomas College, Thrissur", mode: "offline", dateDisplay: "12 Jan 2026 to 16 Jan 2026", sortDate: "2026-01-16", certLink: "https://drive.google.com/file/d/18-tLc_iSH9YFPVvFRx9FkeR9SYKL-7aS/view?usp=drive_link" },
-            { title: "Advanced Deep Dive into the Hidden Mathematical Science of Mechanistic Interpretability", organizer: "AICTE ATAL Academy at MADAN MOHAN MALAVIYA UNIVERSITY OF TECHNOLOGY", mode: "online", dateDisplay: "19 Jan 2026 to 24 Jan 2026", sortDate: "2026-01-24", certLink: "https://drive.google.com/file/d/1WcssrjXIOh12_zPDsVOXdr-UOUnoAMkj/view?usp=drive_link" },
-            { title: "NATIONAL LEVEL WORKSHOP ON LATEX OVERLEAF FOR ACADEMIC WRITING", organizer: "ESSGEE DIGISKILLS", mode: "online", dateDisplay: "27 Nov 2025 to 26 Dec 2025", sortDate: "2025-12-26", certLink: "https://drive.google.com/file/d/1f08kUF0hLArsf1EdeBfgULHHrGFchmux/view?usp=drive_link" },
-            { title: "FROM CHALKBOARDS TO CHATBOTS: FACULTY VOYAGE IN AI V2.0", organizer: "Malaviya Mission Teacher Training Programme, IIT Ropar", mode: "online", dateDisplay: "20 Nov 2025 to 19 Dec 2025", sortDate: "2025-12-19", certLink: "https://drive.google.com/file/d/1Iek645by_uCORUxJSYfCIycIEDVnUHnA/view?usp=drive_link" },
-            { title: "Soft Computing - Faculty Development Program (FDP)", organizer: "MARIAN ENGINEERING COLLEGE, TRIVANDRUM", mode: "online", dateDisplay: "01 Dec 2025 to 05 Dec 2025", sortDate: "2025-12-05", certLink: "https://drive.google.com/file/d/1m2rTuO_lhBmcd2zTxc1YkfD60x-OoVaz/view?usp=drive_link" },
-            { title: "Next Gen-Computing: AI, Supercomputing & Data Science", organizer: "AICTE ATAL Academy at MAJLIS ARTS AND SCIENCE COLLEGE", mode: "online", dateDisplay: "24 Nov 2025 to 29 Nov 2025", sortDate: "2025-11-29", certLink: "https://drive.google.com/file/d/1ZXhJYegrGodYKIitjony16u6Ar_zu0ss/view?usp=drive_link" },
-            { title: "NAAC Webinar on Outcome Based Education (OBE)", organizer: "Luneblaze - Inducing Quality in Education", mode: "online", dateDisplay: "01 Nov 2025", sortDate: "2025-11-01", certLink: "https://drive.google.com/file/d/1zHCBE8Ud1wfs--38XfMDYVSFFJ53vOqh/view?usp=drive_link" },
-            { title: "Mastering Operations Research (OR) with Advanced Tools Python, SageMath, MATLAB & LaTeX Draw", organizer: "Indian Mathematics Professors Association & Infinity Research", mode: "online", dateDisplay: "23 Jun 2025 to 28 Jun 2025", sortDate: "2025-06-28", certLink: "https://drive.google.com/file/d/1YHe9TW-LjYCEeYRJacde3P8N6P1BWQZW/view?usp=drive_link" },
-            { title: "TWO-DAY ONLINE HANDS-ON WORKSHOP ON MASTERING SKETCHING SCIENCE WITH LATEX", organizer: "Indian Mathematics Professors Association & Infinity Research", mode: "online", dateDisplay: "03 Jun 2025 to 04 Jun 2025", sortDate: "2025-06-04", certLink: "https://drive.google.com/file/d/1dYXziYtaOCkP8csxeVExRj59UdhZ-dgO/view?usp=drive_link" },
-            { title: "EXPLORING LINEAR ALGEBRA AND GRAPH THEORY WITH SAGEMATH", organizer: "Indian Mathematics Professors Association & Infinity Research", mode: "online", dateDisplay: "03 Feb 2025 to 07 Feb 2025", sortDate: "2025-02-07", certLink: "https://drive.google.com/file/d/1EvyoBSJ8eFXoKwWvynDPUqXLMbEzX9j9/view?usp=sharing" },
-            { title: "PYTHON SIMPLIFIED: CORE CODING SKILLS & PRACTICAL APPLICATIONS", organizer: "Inspire Softech Solutions, Chennai", mode: "online", dateDisplay: "07 Apr 2025 to 09 Apr 2025", sortDate: "2025-04-09", certLink: "https://drive.google.com/file/d/1r5nYJQosCeY1x6E39zmDNRTKYXLPeXVj/view?usp=drive_link" },
-            { title: "Generative AI and Prompt Engineering", organizer: "360DigiTMG with ASAP Kerala", mode: "online", dateDisplay: "09 Dec 2024 to 24 Dec 2024", sortDate: "2024-12-24", certLink: "https://drive.google.com/file/d/1krceNt1d9FU7qwJJ8VPLHse3n25Elz0S/view?usp=drive_link" },
-            { title: "The International Conclave on Generative AI and the Future of Education 2.0", organizer: "Dept of Higher Education and HRD, Govt of Kerala", mode: "online", dateDisplay: "08 Dec 2024 to 10 Dec 2024", sortDate: "2024-12-10", certLink: "https://drive.google.com/file/d/1i3nIoqG3iZwdWiM_8pyRJgU7HAwyW7m1/view?usp=drive_link" },
-            { title: "ChatGPT and Generative AI Tools - Online Boot Camp", organizer: "ASAP Kerala with Riglabs Academy", mode: "online", dateDisplay: "08 Dec 2024", sortDate: "2024-12-08", certLink: "https://drive.google.com/file/d/1gb_79sfuOmfXTV5J1nRvrtagssbSoh3p/view?usp=drive_link" },
-            { title: "Fuzzy Logic for Beginners: A comprehensive webinar series", organizer: "Department of Computational Science, IIIT", mode: "online", dateDisplay: "02 Jun 2024 to 05 Jun 2024", sortDate: "2024-06-05", certLink: "https://drive.google.com/file/d/19F2JIVA1C5-n9w8ViY0XfLx1YQJtwjlm/view?usp=drive_link" },
-            { title: "NEP 2020 Orientation & Sensitization Programme", organizer: "MMTTC, Kannur University", mode: "online", dateDisplay: "15 Jan 2024 to 24 Jan 2024", sortDate: "2024-01-24", certLink: "https://drive.google.com/file/d/1vnJVFwzBqFsNMN9K_n58Y9emZ02HPIxP/view?usp=drive_link" },
-            { title: "Refresher Course in Mathematics", organizer: "UGC - Human Resource Development Centre", mode: "online", dateDisplay: "07 Mar 2023 to 20 Mar 2024", sortDate: "2024-03-20", certLink: "https://drive.google.com/file/d/1iRknYFLPOPmVdXcY1xyVP_LyIHHi48IA/view?usp=sharing" },
-            { title: "Scholarly Writing & Publishing: Emerging Areas and Challenges from AI", organizer: "CMS College, Marian College, Farook College", mode: "online", dateDisplay: "29 May 2023 to 03 Jul 2023", sortDate: "2023-07-03", certLink: "https://drive.google.com/file/d/1BEMJ34hQOy5QVjP2xdkMuuke-mCIPxiu/view?usp=drive_link" },
-            { title: "MATLAB and LaTeX for Beginners", organizer: "NIT Tiruchirapalli", mode: "online", dateDisplay: "04 Apr 2022 to 08 Apr 2022", sortDate: "2022-04-08", certLink: "https://drive.google.com/file/d/1HQdGcMCAac7fzfcMQju6qhgrYDo9IfyH/view?usp=drive_link" },
-            // CORRECTED: This entry changed from "online" to "offline" (Refresher Course 2019)
-            { title: "Refresher Course in Mathematics", organizer: "UGC - HRDC", mode: "offline", dateDisplay: "09 Dec 2019 to 21 Dec 2019", sortDate: "2019-12-21", certLink: "https://drive.google.com/file/d/1l8Xtxk0NQilCRGyP11ZQchyeJqM7qTaG/view?usp=drive_link" }
+        // FDP DATA - All 23 entries with STANDARDIZED DATE FORMAT (DD MMM YYYY)
+        // The event "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX & SCIENTIFIC SKETCHING" 
+        // corrected to: 04 Feb 2026 to 06 Feb 2026 (not June)
+        const fdpDataRaw = [
+            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX WITH AI", organizer: "Indian Mathematics Professors Association and Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2026-04-15", endDate: "2026-04-17", dateDisplay: "15 Apr 2026 to 17 Apr 2026", certLink: "https://drive.google.com/file/d/1z6ppucUdlLZx77MiUgaVkA3yQpMHTnZ5/view?usp=drive_link" },
+            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX & SCIENTIFIC SKETCHING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2026-02-04", endDate: "2026-02-06", dateDisplay: "04 Feb 2026 to 06 Feb 2026", certLink: "https://drive.google.com/file/d/1TtXdpl50EU8uTpqAMQam8wm12feF78bh/view?usp=drive_link" },
+            { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON HARNESSING AI TOOLS FOR ADVANCED RESEARCH & MODERN TEACHING & LEARNING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2026-03-03", endDate: "2026-03-04", dateDisplay: "03 Mar 2026 to 04 Mar 2026", certLink: "https://drive.google.com/file/d/1_1j_-FQQ2Y6vOD8wHjGnPp9iYrWeArm1/view?usp=drive_link" },
+            { title: "One Week Faculty Development Programme (FDP) on 'Training of Faculty Trainers ToFT'", organizer: "Kerala State Higher Education Council (KSHEC) in association with St. Thomas (Autonomous) College, Thrissur", mode: "offline", startDate: "2026-01-12", endDate: "2026-01-16", dateDisplay: "12 Jan 2026 to 16 Jan 2026", certLink: "https://drive.google.com/file/d/18-tLc_iSH9YFPVvFRx9FkeR9SYKL-7aS/view?usp=drive_link" },
+            { title: "Advanced Deep Dive into the Hidden Mathematical Science of Mechanistic Interpretability", organizer: "AICTE Training and Learning (ATAL) Academy at MADAN MOHAN MALAVIYA UNIVERSITY OF TECHNOLOGY", mode: "online", startDate: "2026-01-19", endDate: "2026-01-24", dateDisplay: "19 Jan 2026 to 24 Jan 2026", certLink: "https://drive.google.com/file/d/1WcssrjXIOh12_zPDsVOXdr-UOUnoAMkj/view?usp=drive_link" },
+            { title: "NATIONAL LEVEL WORKSHOP ON LATEX OVERLEAF FOR ACADEMIC WRITING", organizer: "ESSGEE DIGISKILLS", mode: "online", startDate: "2025-11-27", endDate: "2025-12-26", dateDisplay: "27 Nov 2025 to 26 Dec 2025", certLink: "https://drive.google.com/file/d/1f08kUF0hLArsf1EdeBfgULHHrGFchmux/view?usp=drive_link" },
+            { title: "FROM CHALKBOARDS TO CHATBOTS: FACULTY VOYAGE IN AI V2.0", organizer: "Malaviya Mission Teacher Training Programme (MMTTP) of UGC, organized by IIT Ropar", mode: "online", startDate: "2025-11-20", endDate: "2025-12-19", dateDisplay: "20 Nov 2025 to 19 Dec 2025", certLink: "https://drive.google.com/file/d/1Iek645by_uCORUxJSYfCIycIEDVnUHnA/view?usp=drive_link" },
+            { title: "Five-Day Faculty Development Program (FDP) on Soft Computing", organizer: "MARIAN ENGINEERING COLLEGE, KAZHAKUTTAM, TRIVANDRUM, KERALA", mode: "online", startDate: "2025-12-01", endDate: "2025-12-05", dateDisplay: "01 Dec 2025 to 05 Dec 2025", certLink: "https://drive.google.com/file/d/1m2rTuO_lhBmcd2zTxc1YkfD60x-OoVaz/view?usp=drive_link" },
+            { title: "Next Gen-Computing: AI, Supercomputing & Data Science", organizer: "AICTE ATAL Academy at MAJLIS ARTS AND SCIENCE COLLEGE", mode: "online", startDate: "2025-11-24", endDate: "2025-11-29", dateDisplay: "24 Nov 2025 to 29 Nov 2025", certLink: "https://drive.google.com/file/d/1ZXhJYegrGodYKIitjony16u6Ar_zu0ss/view?usp=drive_link" },
+            { title: "Faculty Development Programme on NAAC Webinar on Outcome Based Education (OBE)", organizer: "Luneblaze - Inducing Quality in Education", mode: "online", startDate: "2025-11-01", endDate: "2025-11-01", dateDisplay: "01 Nov 2025", certLink: "https://drive.google.com/file/d/1zHCBE8Ud1wfs--38XfMDYVSFFJ53vOqh/view?usp=drive_link" },
+            { title: "One Week National-Level Online FDP on Mastering Operations Research (OR) with Advanced Tools Python, SageMath, MATLAB & LaTeX Draw", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2025-06-23", endDate: "2025-06-28", dateDisplay: "23 Jun 2025 to 28 Jun 2025", certLink: "https://drive.google.com/file/d/1YHe9TW-LjYCEeYRJacde3P8N6P1BWQZW/view?usp=drive_link" },
+            { title: "TWO-DAY ONLINE HANDS-ON WORKSHOP ON MASTERING SKETCHING SCIENCE WITH LATEX", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2025-06-03", endDate: "2025-06-04", dateDisplay: "03 Jun 2025 to 04 Jun 2025", certLink: "https://drive.google.com/file/d/1dYXziYtaOCkP8csxeVExRj59UdhZ-dgO/view?usp=drive_link" },
+            { title: "ONE WEEK NATIONAL-LEVEL ONLINE WORKSHOP ON EXPLORING LINEAR ALGEBRA AND GRAPH THEORY WITH SAGEMATH", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2025-02-03", endDate: "2025-02-07", dateDisplay: "03 Feb 2025 to 07 Feb 2025", certLink: "https://drive.google.com/file/d/1EvyoBSJ8eFXoKwWvynDPUqXLMbEzX9j9/view?usp=sharing" },
+            { title: "International Workshop on PYTHON SIMPLIFIED: CORE CODING SKILLS & PRACTICAL APPLICATIONS", organizer: "Inspire Softech Solutions, Chennai", mode: "online", startDate: "2025-04-07", endDate: "2025-04-09", dateDisplay: "07 Apr 2025 to 09 Apr 2025", certLink: "https://drive.google.com/file/d/1r5nYJQosCeY1x6E39zmDNRTKYXLPeXVj/view?usp=drive_link" },
+            { title: "Faculty Development Program on Generative AI and Prompt Engineering", organizer: "360DigiTMG, India in association with Additional Skill Acquisition Programme Kerala (ASAP)", mode: "online", startDate: "2024-12-09", endDate: "2024-12-24", dateDisplay: "09 Dec 2024 to 24 Dec 2024", certLink: "https://drive.google.com/file/d/1krceNt1d9FU7qwJJ8VPLHse3n25Elz0S/view?usp=drive_link" },
+            { title: "The International Conclave on Generative AI and the Future of Education 2.0", organizer: "Department of Higher Education and Department of Human Resource Development, Govt of Kerala", mode: "online", startDate: "2024-12-08", endDate: "2024-12-10", dateDisplay: "08 Dec 2024 to 10 Dec 2024", certLink: "https://drive.google.com/file/d/1i3nIoqG3iZwdWiM_8pyRJgU7HAwyW7m1/view?usp=drive_link" },
+            { title: "Online Boot Camp: ChatGPT and Generative AI Tools", organizer: "Additional Skill Acquisition Programme (ASAP) Kerala in association with Riglabs Academy", mode: "online", startDate: "2024-12-08", endDate: "2024-12-08", dateDisplay: "08 Dec 2024", certLink: "https://drive.google.com/file/d/1gb_79sfuOmfXTV5J1nRvrtagssbSoh3p/view?usp=drive_link" },
+            { title: "Fuzzy Logic for Beginners: A comprehensive webinar series", organizer: "Department of Computational Science and Humanities, Indian Institute of Information Technology (IIIT)", mode: "online", startDate: "2024-06-02", endDate: "2024-06-05", dateDisplay: "02 Jun 2024 to 05 Jun 2024", certLink: "https://drive.google.com/file/d/19F2JIVA1C5-n9w8ViY0XfLx1YQJtwjlm/view?usp=drive_link" },
+            { title: "NEP 2020 Orientation & Sensitization Programme", organizer: "Malaviya Mission Teacher Training Programme (MM-TTP) of UGC organized by MMTTC, Kannur University", mode: "online", startDate: "2024-01-15", endDate: "2024-01-24", dateDisplay: "15 Jan 2024 to 24 Jan 2024", certLink: "https://drive.google.com/file/d/1vnJVFwzBqFsNMN9K_n58Y9emZ02HPIxP/view?usp=drive_link" },
+            { title: "Refresher Course in Mathematics (Mathematics, Statistics)", organizer: "UGC - Human Resource Development Centre", mode: "online", startDate: "2023-03-07", endDate: "2024-03-20", dateDisplay: "07 Mar 2023 to 20 Mar 2024", certLink: "https://drive.google.com/file/d/1iRknYFLPOPmVdXcY1xyVP_LyIHHi48IA/view?usp=sharing" },
+            { title: "30-day International Online Workshop on Scholarly Writing & Publishing: Emerging Areas and Challenges from AI", organizer: "CMS College Kottayam, Marian College Kuttikkanam, Farook College (Autonomous), Lore & Ed Research Associates", mode: "online", startDate: "2023-05-29", endDate: "2023-07-03", dateDisplay: "29 May 2023 to 03 Jul 2023", certLink: "https://drive.google.com/file/d/1BEMJ34hQOy5QVjP2xdkMuuke-mCIPxiu/view?usp=drive_link" },
+            { title: "Five Days National workshop on MATLAB and LaTeX for Beginners", organizer: "Department of Mathematics, National Institute of Technology, Tiruchirapalli", mode: "online", startDate: "2022-04-04", endDate: "2022-04-08", dateDisplay: "04 Apr 2022 to 08 Apr 2022", certLink: "https://drive.google.com/file/d/1HQdGcMCAac7fzfcMQju6qhgrYDo9IfyH/view?usp=drive_link" },
+            { title: "Refresher Course in Mathematics (Mathematics, Statistics)", organizer: "UGC - Human Resource Development Centre", mode: "offline", startDate: "2019-12-09", endDate: "2019-12-21", dateDisplay: "09 Dec 2019 to 21 Dec 2019", certLink: "https://drive.google.com/file/d/1l8Xtxk0NQilCRGyP11ZQchyeJqM7qTaG/view?usp=drive_link" }
         ];
 
-        // sort: latest on top
-        fdpDataset.sort((a,b) => new Date(b.sortDate) - new Date(a.sortDate));
+        // Sort by end date descending (latest first)
+        const fdpDataset = [...fdpDataRaw].sort((a, b) => new Date(b.endDate) - new Date(a.endDate));
 
         let filterMode = "all";
         let searchTerm = "";
@@ -518,14 +488,14 @@
             });
 
             const tbody = document.getElementById("fdpTableBody");
-            if(filtered.length === 0) {
+            if (filtered.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;">✨ No matching FDP records found.</td></tr>';
                 return;
             }
             let html = "";
             filtered.forEach((item, idx) => {
                 html += `<tr>
-                    <td style="text-align:center">${idx+1}</td>
+                    <td style="text-align:center">${idx + 1}</td>
                     <td style="font-weight:500;">${escapeHtml(item.title)}</td>
                     <td>${escapeHtml(item.organizer)}</td>
                     <td><span class="mode-badge ${item.mode === 'offline' ? 'mode-offline' : ''}">${item.mode === 'online' ? 'Online' : 'Offline'}</span></td>
@@ -536,17 +506,20 @@
             tbody.innerHTML = html;
         }
 
-        function escapeHtml(str) { 
-            if(!str) return "";
-            return str.replace(/[&<>]/g, function(m){
-                if(m === '&') return '&amp;';
-                if(m === '<') return '&lt;';
-                if(m === '>') return '&gt;';
+        function escapeHtml(str) {
+            if (!str) return "";
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
                 return m;
             });
         }
 
-        document.getElementById("searchFDP").addEventListener("input", (e) => { searchTerm = e.target.value.toLowerCase(); renderFDP(); });
+        document.getElementById("searchFDP").addEventListener("input", (e) => {
+            searchTerm = e.target.value.toLowerCase();
+            renderFDP();
+        });
         document.querySelectorAll(".filter-chip").forEach(btn => {
             btn.addEventListener("click", () => {
                 document.querySelectorAll(".filter-chip").forEach(b => b.classList.remove("active"));
@@ -557,13 +530,23 @@
         });
         renderFDP();
 
-        // tab switching
+        // Tab switching
         const researchBtn = document.getElementById("tabResearchBtn");
         const fdpBtn = document.getElementById("tabFDPBtn");
         const researchPane = document.getElementById("researchPanel");
         const fdpPane = document.getElementById("fdpPanel");
-        researchBtn.addEventListener("click", () => { researchPane.classList.add("active-pane"); fdpPane.classList.remove("active-pane"); researchBtn.classList.add("active"); fdpBtn.classList.remove("active"); });
-        fdpBtn.addEventListener("click", () => { fdpPane.classList.add("active-pane"); researchPane.classList.remove("active-pane"); fdpBtn.classList.add("active"); researchBtn.classList.remove("active"); });
+        researchBtn.addEventListener("click", () => {
+            researchPane.classList.add("active-pane");
+            fdpPane.classList.remove("active-pane");
+            researchBtn.classList.add("active");
+            fdpBtn.classList.remove("active");
+        });
+        fdpBtn.addEventListener("click", () => {
+            fdpPane.classList.add("active-pane");
+            researchPane.classList.remove("active-pane");
+            fdpBtn.classList.add("active");
+            researchBtn.classList.remove("active");
+        });
     </script>
 </body>
 </html>
