@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><h1>Mathematics Department - NAM College Kallikkandy</h1></title>
+    <title>Mathematics Department - NAM College Kallikkannady</title>
     <style>
         * {
             margin: 0;
@@ -65,6 +65,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            cursor: pointer;
         }
 
         .nav-link:hover {
@@ -157,6 +158,7 @@
             color: #004d40;
             transition: all 0.3s ease;
             font-weight: 500;
+            cursor: pointer;
         }
 
         .tag:hover {
@@ -245,11 +247,7 @@
             text-decoration: underline;
         }
 
-        /* Contact Modal/Message Box */
-        .contact-btn {
-            cursor: pointer;
-        }
-
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -291,6 +289,74 @@
             padding: 1.5rem;
         }
 
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            margin-top: 1rem;
+        }
+
+        .modal-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(135deg, #00695c 0%, #004d40 100%);
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            transform: translateX(5px);
+            background: linear-gradient(135deg, #00897b 0%, #00695c 100%);
+        }
+
+        .modal-btn-secondary {
+            background: #e0f2f1;
+            color: #004d40;
+            border: 1px solid #26a69a;
+        }
+
+        .modal-btn-secondary:hover {
+            background: #b2dfdb;
+            transform: translateX(5px);
+        }
+
+        .close-btn {
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #26a69a;
+        }
+
+        .info-message {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            color: #e65100;
+        }
+
+        /* Contact Modal */
         .contact-info {
             display: flex;
             flex-direction: column;
@@ -326,38 +392,6 @@
             text-decoration: none;
         }
 
-        .contact-item .details .email:hover {
-            text-decoration: underline;
-        }
-
-        .close-btn {
-            background: #004d40;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            width: 100%;
-            transition: background 0.3s ease;
-        }
-
-        .close-btn:hover {
-            background: #26a69a;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
         /* Footer */
         .footer {
             background: linear-gradient(135deg, #004d40 0%, #00332a 100%);
@@ -372,83 +406,59 @@
             letter-spacing: 0.5px;
         }
 
-        /* Responsive Design */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
             }
-            
             .hero h2 {
                 font-size: 1.5rem;
             }
-            
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            
             .nav-container {
                 flex-direction: column;
                 align-items: center;
                 gap: 0.5rem;
             }
-            
             .header h1 {
                 font-size: 1.8rem;
             }
-            
             .tools-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .tag {
-                padding: 0.5rem 0.8rem;
-            }
-            
-            .tag-icon {
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card, .tools-section, .hero {
-            animation: fadeIn 0.6s ease-out;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h2>📐 DEPARTMENT OF MATHEMATICS</h2>
-        <p>NAM COLLEGE KALLIKKANDY</p>
+        <h1>📐 Department of Mathematics</h1>
+        <p>NAM College, Kallikkannady</p>
     </div>
 
     <div class="navbar">
         <div class="nav-container">
-            <a href="https://igmathspace.github.io/" target="_blank" class="nav-link">
-                🏠 Home Page
-            </a>
-            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/" target="_blank" class="nav-link">
-                🏛️ College Home
-            </a>
-            <a href="https://drive.google.com/file/d/1drJQXXlbLlVaxYM0G6xPutjWbdaU9uYX/view?usp=drive_link" target="_blank" class="nav-link">
-                📖 Syllabus
-            </a>
-            <a href="https://drive.google.com/file/d/1ZuQFhY_9JHN1MqVwz2SK8IyAGUsKzma1/view?usp=drive_link" target="_blank" class="nav-link">
-                🎓 FYUGP
-            </a>
-            <a href="#" class="nav-link contact-btn" id="contactBtn">
-                📞 Contact
-            </a>
+            <a href="https://igmathspace.github.io/" target="_blank" class="nav-link">🏠 Page Home</a>
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/" target="_blank" class="nav-link">🏛️ College Home</a>
+            <a href="https://drive.google.com/file/d/1drJQXXlbLlVaxYM0G6xPutjWbdaU9uYX/view?usp=drive_link" target="_blank" class="nav-link">📖 Syllabus</a>
+            <a href="https://drive.google.com/file/d/1ZuQFhY_9JHN1MqVwz2SK8IyAGUsKzma1/view?usp=drive_link" target="_blank" class="nav-link">🎓 FYUGP</a>
+            <a href="#" class="nav-link" id="contactBtn">📞 Contact</a>
         </div>
     </div>
 
@@ -458,7 +468,6 @@
             <p>Excellence in Mathematical Education and Research</p>
         </div>
 
-        <!-- Academic Year Cards -->
         <div class="cards-grid">
             <!-- Card 1: 2025-26 -->
             <div class="card">
@@ -497,7 +506,7 @@
                 </div>
             </div>
 
-            <!-- Card 2: 2026-27 -->
+            <!-- Card 2: 2026-27 with Time Table Modal -->
             <div class="card">
                 <div class="card-header">
                     <h3>Academic Year</h3>
@@ -510,7 +519,8 @@
                             <span class="tag-text">Action Plan</span>
                             <span class="tag-arrow">→</span>
                         </a>
-                        <a href="#" class="tag">
+                        <!-- Time Table tag with modal trigger -->
+                        <a href="#" class="tag" id="timeTableBtn2026">
                             <span class="tag-icon">⏰</span>
                             <span class="tag-text">Time Table</span>
                             <span class="tag-arrow">→</span>
@@ -544,36 +554,73 @@
                     <p>Online LaTeX editor for collaborative mathematical writing, thesis preparation, and research papers.</p>
                     <a href="https://www.overleaf.com/" target="_blank" class="tool-link">Visit Overleaf →</a>
                 </div>
-
                 <div class="tool-card">
                     <h3>🐺 Wolfram Alpha</h3>
                     <p>Computational intelligence tool for solving complex mathematical problems, step-by-step solutions, and data analysis.</p>
                     <a href="https://www.wolframalpha.com/" target="_blank" class="tool-link">Visit Wolfram Alpha →</a>
                 </div>
-
                 <div class="tool-card">
                     <h3>📐 GeoGebra Calculator Suite</h3>
                     <p>Interactive geometry, algebra, calculus, and 3D visualization tool for mathematical exploration.</p>
                     <a href="https://www.geogebra.org/calculator" target="_blank" class="tool-link">Visit GeoGebra →</a>
                 </div>
-
                 <div class="tool-card">
                     <h3>⚙️ MikTeX</h3>
                     <p>Professional LaTeX distribution for Windows to create high-quality mathematical documents.</p>
                     <a href="https://miktex.org/" target="_blank" class="tool-link">Visit MikTeX →</a>
                 </div>
-
                 <div class="tool-card">
                     <h3>🤖 MathGPT Pro</h3>
                     <p>AI-powered mathematics solver for advanced problems and detailed explanations.</p>
                     <a href="https://www.mathgptpro.com/" target="_blank" class="tool-link">Visit MathGPT Pro →</a>
                 </div>
-
                 <div class="tool-card">
                     <h3>🧮 Math GPT</h3>
                     <p>Free AI math assistant for solving equations, calculus, and step-by-step learning.</p>
                     <a href="https://math-gpt.org/" target="_blank" class="tool-link">Visit Math GPT →</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Time Table Modal for 2026-27 -->
+    <div id="timeTableModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⏰ Time Table - Academic Year 2026-27</h3>
+            </div>
+            <div class="modal-body">
+                <div class="info-message">
+                    📌 Please select the semester type to view the time table
+                </div>
+                <div class="modal-buttons">
+                    <a href="2026-27/ttmaths_ODD_2026_27.html" class="modal-btn modal-btn-primary">
+                        📖 Time Table for ODD Semesters → 
+                    </a>
+                    <button class="modal-btn modal-btn-secondary" id="evenSemesterBtn">
+                        📅 Time Table for EVEN Semesters → 
+                    </button>
+                </div>
+                <button class="close-btn" onclick="closeTimeTableModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Even Semester Info Modal -->
+    <div id="evenSemesterModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📅 EVEN Semesters - Time Table</h3>
+            </div>
+            <div class="modal-body">
+                <div class="info-message" style="background: #e8f5e9; border-left-color: #4caf50;">
+                    ⏳ <strong>Coming Soon!</strong>
+                </div>
+                <p style="margin: 1rem 0; color: #555; text-align: center;">
+                    The Time Table for EVEN Semesters will be updated shortly.<br>
+                    Please check back later.
+                </p>
+                <button class="close-btn" onclick="closeEvenSemesterModal()">Close</button>
             </div>
         </div>
     </div>
@@ -601,38 +648,66 @@
                         </div>
                     </div>
                 </div>
-                <button class="close-btn" onclick="closeModal()">Close</button>
+                <button class="close-btn" onclick="closeContactModal()">Close</button>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        <p> ©Gafoor I, Assistant Professor, Department of Mathematics, NAM College Kallikkannady</p>
+        <p>© Gafoor I, Assistant Professor, Department of Mathematics, NAM College Kallikkannady</p>
     </div>
 
     <script>
-        // Get modal element
-        var modal = document.getElementById("contactModal");
+        // Time Table Modal for 2026-27
+        var timeTableModal = document.getElementById("timeTableModal");
+        var timeTableBtn = document.getElementById("timeTableBtn2026");
         
-        // Get contact button
+        timeTableBtn.onclick = function(e) {
+            e.preventDefault();
+            timeTableModal.style.display = "block";
+        }
+        
+        function closeTimeTableModal() {
+            timeTableModal.style.display = "none";
+        }
+        
+        // Even Semester Modal
+        var evenSemesterModal = document.getElementById("evenSemesterModal");
+        var evenSemesterBtn = document.getElementById("evenSemesterBtn");
+        
+        evenSemesterBtn.onclick = function() {
+            timeTableModal.style.display = "none";
+            evenSemesterModal.style.display = "block";
+        }
+        
+        function closeEvenSemesterModal() {
+            evenSemesterModal.style.display = "none";
+        }
+        
+        // Contact Modal
+        var contactModal = document.getElementById("contactModal");
         var contactBtn = document.getElementById("contactBtn");
         
-        // Open modal when contact button is clicked
         contactBtn.onclick = function(e) {
             e.preventDefault();
-            modal.style.display = "block";
+            contactModal.style.display = "block";
         }
         
-        // Close modal when clicking outside
+        function closeContactModal() {
+            contactModal.style.display = "none";
+        }
+        
+        // Close modals when clicking outside
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+            if (event.target == timeTableModal) {
+                timeTableModal.style.display = "none";
             }
-        }
-        
-        // Close modal function
-        function closeModal() {
-            modal.style.display = "none";
+            if (event.target == evenSemesterModal) {
+                evenSemesterModal.style.display = "none";
+            }
+            if (event.target == contactModal) {
+                contactModal.style.display = "none";
+            }
         }
     </script>
 </body>
