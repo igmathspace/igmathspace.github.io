@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><h1>Mathematics Department - NAM College Kallikkandy</h1></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #004d40 0%, #00695c 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #004d40;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background-color: #26a69a;
+            transform: translateY(-2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #26a69a 0%, #4db6ac 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #00695c 0%, #004d40 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header .year {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            border-left: 4px solid #26a69a;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #004d40;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tag:hover {
+            background: linear-gradient(135deg, #26a69a 0%, #4db6ac 100%);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tag-icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+        }
+
+        .tag-text {
+            flex: 1;
+        }
+
+        .tag-arrow {
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tag:hover .tag-arrow {
+            opacity: 1;
+        }
+
+        /* Tools Section */
+        .tools-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .tools-section h2 {
+            color: #004d40;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            border-left: 4px solid #26a69a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tool-card h3 {
+            color: #004d40;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .tool-card p {
+            color: #555;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .tool-link {
+            display: inline-block;
+            color: #00695c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .tool-link:hover {
+            color: #26a69a;
+            text-decoration: underline;
+        }
+
+        /* Contact Modal/Message Box */
+        .contact-btn {
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            animation: slideDown 0.3s ease;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #00695c 0%, #004d40 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #e0f2f1;
+            border-radius: 10px;
+            border-left: 4px solid #26a69a;
+        }
+
+        .contact-item .icon {
+            font-size: 1.5rem;
+        }
+
+        .contact-item .details {
+            flex: 1;
+        }
+
+        .contact-item .details .label {
+            font-weight: bold;
+            color: #004d40;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-item .details .email {
+            color: #00695c;
+            text-decoration: none;
+        }
+
+        .contact-item .details .email:hover {
+            text-decoration: underline;
+        }
+
+        .close-btn {
+            background: #004d40;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #26a69a;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #004d40 0%, #00332a 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tag {
+                padding: 0.5rem 0.8rem;
+            }
+            
+            .tag-icon {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card, .tools-section, .hero {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>📐 DEPARTMENT OF MATHEMATICS</h2>
+        <p>NAM COLLEGE KALLIKKANDY</p>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-container">
+            <a href="https://igmathspace.github.io/" target="_blank" class="nav-link">
+                🏠 Home Page
+            </a>
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/" target="_blank" class="nav-link">
+                🏛️ College Home
+            </a>
+            <a href="https://drive.google.com/file/d/1drJQXXlbLlVaxYM0G6xPutjWbdaU9uYX/view?usp=drive_link" target="_blank" class="nav-link">
+                📖 Syllabus
+            </a>
+            <a href="https://drive.google.com/file/d/1ZuQFhY_9JHN1MqVwz2SK8IyAGUsKzma1/view?usp=drive_link" target="_blank" class="nav-link">
+                🎓 FYUGP
+            </a>
+            <a href="#" class="nav-link contact-btn" id="contactBtn">
+                📞 Contact
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Welcome to Mathematics Department</h2>
+            <p>Excellence in Mathematical Education and Research</p>
+        </div>
+
+        <!-- Academic Year Cards -->
+        <div class="cards-grid">
+            <!-- Card 1: 2025-26 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Academic Year</h3>
+                    <div class="year">2025 - 2026</div>
+                </div>
+                <div class="card-body">
+                    <div class="tags-container">
+                        <a href="#" class="tag">
+                            <span class="tag-icon">📋</span>
+                            <span class="tag-text">Action Plan</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag">
+                            <span class="tag-icon">⏰</span>
+                            <span class="tag-text">Time Table</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag">
+                            <span class="tag-icon">👥</span>
+                            <span class="tag-text">Student List</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag">
+                            <span class="tag-icon">📜</span>
+                            <span class="tag-text">Certificate Courses</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="https://igmathspace.github.io/lessons.html" target="_blank" class="tag">
+                            <span class="tag-icon">📚</span>
+                            <span class="tag-text">Learning Materials</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: 2026-27 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Academic Year</h3>
+                    <div class="year">2026 - 2027</div>
+                </div>
+                <div class="card-body">
+                    <div class="tags-container">
+                        <a href="#" class="tag">
+                            <span class="tag-icon">📋</span>
+                            <span class="tag-text">Action Plan</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag">
+                            <span class="tag-icon">⏰</span>
+                            <span class="tag-text">Time Table</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag">
+                            <span class="tag-icon">👥</span>
+                            <span class="tag-text">Student List</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag">
+                            <span class="tag-icon">📜</span>
+                            <span class="tag-text">Certificate Courses</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="https://igmathspace.github.io/lessons.html" target="_blank" class="tag">
+                            <span class="tag-icon">📚</span>
+                            <span class="tag-text">Learning Materials</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mathematical Tools Section -->
+        <div class="tools-section">
+            <h2>🔧 Mathematical Tools & Resources</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <h3>📝 Overleaf</h3>
+                    <p>Online LaTeX editor for collaborative mathematical writing, thesis preparation, and research papers.</p>
+                    <a href="https://www.overleaf.com/" target="_blank" class="tool-link">Visit Overleaf →</a>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🐺 Wolfram Alpha</h3>
+                    <p>Computational intelligence tool for solving complex mathematical problems, step-by-step solutions, and data analysis.</p>
+                    <a href="https://www.wolframalpha.com/" target="_blank" class="tool-link">Visit Wolfram Alpha →</a>
+                </div>
+
+                <div class="tool-card">
+                    <h3>📐 GeoGebra Calculator Suite</h3>
+                    <p>Interactive geometry, algebra, calculus, and 3D visualization tool for mathematical exploration.</p>
+                    <a href="https://www.geogebra.org/calculator" target="_blank" class="tool-link">Visit GeoGebra →</a>
+                </div>
+
+                <div class="tool-card">
+                    <h3>⚙️ MikTeX</h3>
+                    <p>Professional LaTeX distribution for Windows to create high-quality mathematical documents.</p>
+                    <a href="https://miktex.org/" target="_blank" class="tool-link">Visit MikTeX →</a>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🤖 MathGPT Pro</h3>
+                    <p>AI-powered mathematics solver for advanced problems and detailed explanations.</p>
+                    <a href="https://www.mathgptpro.com/" target="_blank" class="tool-link">Visit MathGPT Pro →</a>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🧮 Math GPT</h3>
+                    <p>Free AI math assistant for solving equations, calculus, and step-by-step learning.</p>
+                    <a href="https://math-gpt.org/" target="_blank" class="tool-link">Visit Math GPT →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>📞 Contact Information</h3>
+            </div>
+            <div class="modal-body">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="icon">📧</div>
+                        <div class="details">
+                            <div class="label">HOD - Department of Mathematics</div>
+                            <a href="mailto:hodnamcmaths@gmail.com" class="email">hodnamcmaths@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="icon">🏛️</div>
+                        <div class="details">
+                            <div class="label">Department Office</div>
+                            <a href="mailto:Maths@namcollege.ac.in" class="email">Maths@namcollege.ac.in</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="close-btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© Gafoor I, Assistant Professor, Department of Mathematics, NAM College Kallikkannady</p>
+    </div>
+
+    <script>
+        // Get modal element
+        var modal = document.getElementById("contactModal");
+        
+        // Get contact button
+        var contactBtn = document.getElementById("contactBtn");
+        
+        // Open modal when contact button is clicked
+        contactBtn.onclick = function(e) {
+            e.preventDefault();
+            modal.style.display = "block";
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Close modal function
+        function closeModal() {
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
