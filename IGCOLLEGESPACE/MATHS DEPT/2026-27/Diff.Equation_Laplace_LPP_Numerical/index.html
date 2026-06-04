@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diff.Equation, Laplace, LPP & Numerical Methods | IGMathSpace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Light Greenish & Dark Pink Theme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #1b5e20;
+            line-height: 1.6;
+        }
+
+        /* Header Styles (matching igmathspace.github.io) */
+        .header {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Course Title Section */
+        .course-header {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 8px solid #d81b60;
+        }
+
+        .course-header h1 {
+            color: #d81b60;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-header p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* Two Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 5px solid #d81b60;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #d81b60, #ad1457);
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .card-body p {
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Content Frame (for loading HTML) */
+        .content-frame {
+            background: white;
+            border-radius: 20px;
+            padding: 0;
+            margin-top: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .content-frame iframe {
+            width: 100%;
+            min-height: 500px;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .frame-header {
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-bottom: 2px solid #d81b60;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .frame-header h3 {
+            color: #d81b60;
+        }
+
+        .close-btn {
+            background: #d81b60;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #ad1457;
+            transform: scale(1.05);
+        }
+
+        /* Teaching Materials Section */
+        .materials-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .materials-section h2 {
+            color: #d81b60;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #d81b60;
+            padding-left: 1rem;
+        }
+
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .material-item {
+            background: #f1f8e9;
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid #d81b60;
+        }
+
+        .material-item:hover {
+            background: #e8f5e9;
+            transform: translateX(5px);
+        }
+
+        .material-item a {
+            text-decoration: none;
+            color: #2e7d32;
+            font-weight: 500;
+            display: block;
+        }
+
+        .material-item a:hover {
+            color: #d81b60;
+        }
+
+        .material-type {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            margin-top: 0.5rem;
+            background: #d81b60;
+            color: white;
+        }
+
+        .add-material {
+            margin-top: 1.5rem;
+            text-align: center;
+            padding: 1rem;
+            background: #fce4ec;
+            border-radius: 12px;
+        }
+
+        .add-material p {
+            color: #d81b60;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #ffccbc;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .course-header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header (matching igmathspace.github.io) -->
+<header class="header">
+    <div class="nav-container">
+        <div class="logo">
+            <h1>IGMathSpace</h1>
+            <p>Mathematics Learning Hub</p>
+        </div>
+        <nav class="nav-links">
+            <a href="../../../index.html">Home</a>
+            <a href="../../../classroom.html">Classroom</a>
+            <a href="../../../latex.html">LaTeX Tutorial</a>
+            <a href="../../../calculus2.html">Calculus II</a>
+            <a href="#">Diff.Equation</a>
+            <a href="#">Resources</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Course Header -->
+    <div class="course-header">
+        <h1>📚 Differential Equations, Laplace Transforms, LPP & Numerical Methods</h1>
+        <p>Complete learning materials for B.Sc./M.Sc. Mathematics | 2026-27 Academic Session</p>
+        <span class="badge">📅 Updated Daily | 🎯 Assignments | 📝 Tests | 🧪 Viva</span>
+    </div>
+
+    <!-- Two Main Cards -->
+    <div class="cards-grid">
+        <!-- Card 1: Syllabus Details -->
+        <div class="card" id="syllabusCard">
+            <div class="card-header">
+                📖 Syllabus Details
+            </div>
+            <div class="card-body">
+                <div class="card-icon">📋</div>
+                <p>Complete syllabus, course outcomes, unit wise distribution, and reference books.</p>
+                <p style="color:#d81b60; font-weight:bold;">Click to view →</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Teaching Plan and Learning materials -->
+        <div class="card" id="teachingCard">
+            <div class="card-header">
+                🗓️ Teaching Plan & Learning Materials
+            </div>
+            <div class="card-body">
+                <div class="card-icon">📅</div>
+                <p>Weekly teaching schedule, lecture notes, video links, assignments, tests, viva, and quiz.</p>
+                <p style="color:#d81b60; font-weight:bold;">Click to view →</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Content Frame (loads Syllabus or Teaching Plan) -->
+    <div class="content-frame" id="contentFrame" style="display: none;">
+        <div class="frame-header">
+            <h3 id="frameTitle">📄 Document Viewer</h3>
+            <button class="close-btn" id="closeFrameBtn">✖ Close</button>
+        </div>
+        <iframe id="contentIframe" srcdoc="<p style='padding:2rem;text-align:center;'>Loading...</p>"></iframe>
+    </div>
+
+    <!-- Teaching Materials Section (Auto-populated Daily) -->
+    <div class="materials-section">
+        <h2>📂 Daily Teaching Materials</h2>
+        <div class="materials-grid" id="materialsGrid">
+            <!-- Materials will be auto-populated here from the folder -->
+            <div class="add-material">
+                <p>📌 New materials will appear here automatically as you add HTML files to the course folder.</p>
+                <p style="font-size:0.8rem;">✅ Simply save your .html files in:<br>
+                <code>Diff.Equation_Laplace_LPP_Numerical/</code><br>
+                and they will be listed below.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2026 IGMathSpace | Designed for Mathematics Education</p>
+    <p>📧 Contact: igmathspace@example.com | 📍 Diff.Equation, Laplace, LPP & Numerical Methods - 2026-27</p>
+    <p>
+        <a href="#">Privacy Policy</a> | 
+        <a href="#">Terms of Use</a> | 
+        <a href="#">Classroom Home</a>
+    </p>
+</footer>
+
+<script>
+    // Configuration
+    const COURSE_PATH = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    
+    // For local testing - adjust if needed
+    const SYLLABUS_URL = 'syllabus.html';
+    const TEACHING_PLAN_URL = 'Teaching Plan.html';
+
+    // Get elements
+    const contentFrame = document.getElementById('contentFrame');
+    const contentIframe = document.getElementById('contentIframe');
+    const frameTitle = document.getElementById('frameTitle');
+    const closeFrameBtn = document.getElementById('closeFrameBtn');
+
+    // Function to load content into iframe
+    function loadContent(url, title) {
+        contentIframe.src = url;
+        frameTitle.innerText = title;
+        contentFrame.style.display = 'block';
+        contentFrame.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Close frame
+    function closeFrame() {
+        contentFrame.style.display = 'none';
+        contentIframe.src = 'about:blank';
+    }
+
+    // Syllabus card click
+    document.getElementById('syllabusCard').addEventListener('click', function() {
+        loadContent(SYLLABUS_URL, '📖 Syllabus Details');
+    });
+
+    // Teaching Plan card click
+    document.getElementById('teachingCard').addEventListener('click', function() {
+        loadContent(TEACHING_PLAN_URL, '🗓️ Teaching Plan & Learning Materials');
+    });
+
+    // Close button
+    closeFrameBtn.addEventListener('click', closeFrame);
+
+    // Auto-populate teaching materials from folder
+    // This function scans for HTML files in the current directory
+    // Since we can't automatically scan server-side, we'll provide a manual update method
+    // But you can manually add entries as you create new HTML files
+    
+    function updateMaterialsList() {
+        const materialsGrid = document.getElementById('materialsGrid');
+        
+        // Predefined list - you can add new HTML files here as you create them
+        // Just add new objects to this array with title, filename, and type
+        const materials = [
+            { title: "📘 Day 1: Introduction to Differential Equations", filename: "day1_intro_ode.html", type: "Lecture" },
+            { title: "📗 Day 2: First Order ODEs", filename: "day2_first_order_ode.html", type: "Lecture" },
+            { title: "📙 Day 3: Laplace Transforms - Basic Properties", filename: "day3_laplace_intro.html", type: "Lecture" },
+            { title: "📕 Day 4: LPP - Graphical Method", filename: "day4_lpp_graphical.html", type: "Lecture" },
+            { title: "✏️ Assignment 1: Differential Equations", filename: "assignment1_ode.html", type: "Assignment" },
+            { title: "📝 Test 1: Laplace Transforms", filename: "test1_laplace.html", type: "Test" },
+            { title: "🎥 Video: Numerical Methods - Euler's Method", filename: "video_euler_method.html", type: "Video Link" },
+            { title: "💡 Quiz 1: LPP", filename: "quiz1_lpp.html", type: "Quiz" },
+            { title: "🗣️ Viva Questions Set 1", filename: "viva_set1.html", type: "Viva" },
+            { title: "🔢 Numerical Methods - Newton Raphson", filename: "numerical_newton.html", type: "Lecture" }
+        ];
+        
+        // Clear existing content except the instruction box
+        while(materialsGrid.children.length > 1) {
+            materialsGrid.removeChild(materialsGrid.lastChild);
+        }
+        
+        // Add materials dynamically
+        materials.forEach(material => {
+            const materialDiv = document.createElement('div');
+            materialDiv.className = 'material-item';
+            materialDiv.innerHTML = `
+                <a href="${material.filename}" target="_blank">${material.title}</a>
+                <span class="material-type">${material.type}</span>
+            `;
+            materialsGrid.insertBefore(materialDiv, materialsGrid.lastChild);
+        });
+        
+        // Update instruction text
+        const addMaterialDiv = materialsGrid.lastChild;
+        addMaterialDiv.innerHTML = `
+            <p>📌 <strong>Adding New Materials:</strong> To add a new HTML file, simply save it in this folder and add its details to the "materials" array in the script section.</p>
+            <p style="font-size:0.8rem;">✅ Next to add: <input type="text" id="newMaterialName" placeholder="filename.html" style="padding:5px;margin:5px;"> 
+            <input type="text" id="newMaterialTitle" placeholder="Title" style="padding:5px;margin:5px;">
+            <select id="newMaterialType" style="padding:5px;margin:5px;">
+                <option>Lecture</option><option>Assignment</option><option>Test</option><option>Quiz</option><option>Viva</option><option>Video Link</option>
+            </select>
+            <button onclick="addNewMaterial()" style="background:#d81b60;color:white;border:none;padding:5px 15px;border-radius:5px;cursor:pointer;">➕ Add</button></p>
+            <p style="font-size:0.7rem;color:#666;">💡 Tip: After adding, remember to create the actual .html file in the same folder!</p>
+        `;
+    }
+    
+    // Function to add new material dynamically (for admin/teacher use)
+    window.addNewMaterial = function() {
+        const filename = document.getElementById('newMaterialName')?.value;
+        const title = document.getElementById('newMaterialTitle')?.value;
+        const type = document.getElementById('newMaterialType')?.value;
+        
+        if(!filename || !title) {
+            alert("Please enter both filename and title!");
+            return;
+        }
+        
+        // Add to materials array (this is just for demo - in real scenario, you'd update the HTML file)
+        const materialsGrid = document.getElementById('materialsGrid');
+        const materialDiv = document.createElement('div');
+        materialDiv.className = 'material-item';
+        materialDiv.innerHTML = `
+            <a href="${filename}" target="_blank">${title}</a>
+            <span class="material-type">${type}</span>
+        `;
+        materialsGrid.insertBefore(materialDiv, materialsGrid.lastChild);
+        
+        // Clear inputs
+        document.getElementById('newMaterialName').value = '';
+        document.getElementById('newMaterialTitle').value = '';
+        
+        alert(`✅ "${title}" added! Remember to create ${filename} in this folder.`);
+    };
+    
+    // Initialize materials list when page loads
+    updateMaterialsList();
+    
+    // Optional: Check if syllabus.html and Teaching Plan.html exist
+    // If not, show helpful message
+    function checkFiles() {
+        fetch(SYLLABUS_URL, { method: 'HEAD' })
+            .catch(() => console.log('syllabus.html not found yet. Create it in the course folder.'));
+        fetch(TEACHING_PLAN_URL, { method: 'HEAD' })
+            .catch(() => console.log('Teaching Plan.html not found yet. Create it in the course folder.'));
+    }
+    checkFiles();
+</script>
+
+</body>
+</html>

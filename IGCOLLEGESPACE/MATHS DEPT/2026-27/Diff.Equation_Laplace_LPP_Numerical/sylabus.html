@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KU3DSCMAT211 - Syllabus | Differential Equations & Numerical Methods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #edf7ea;  /* light green background */
+            color: #1f2e1a;
+            line-height: 1.5;
+        }
+
+        /* DARK RED + LIGHT GREEN THEME */
+        :root {
+            --dark-red: #8b1e1e;
+            --deep-red: #6a1a1a;
+            --light-green-bg: #dff0dc;
+            --green-accent: #2c6e2c;
+            --soft-green: #c8e6c9;
+            --border-double: #a52626;
+            --card-bg: #ffffff;
+        }
+
+        /* ----- HEADER IMAGE SECTION ----- */
+        .header-image-container {
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #4a0e0e, #7a2525);
+            padding: 0;
+        }
+        .header-image {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+        
+        /* If the image has transparency, add a background */
+        .header-wrapper {
+            background: #5a1515;
+        }
+
+        /* Navigation bar (matching igmathspace.github.io) */
+        .nav-bar {
+            background: #1e2a1a;
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--dark-red);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .nav-links {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            color: #f2f2e6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover {
+            color: #ffbc6e;
+            text-decoration: underline;
+            transform: translateY(-1px);
+        }
+
+        /* main container */
+        .main-container {
+            max-width: 1280px;
+            margin: 35px auto;
+            padding: 0 24px;
+        }
+
+        /* syllabus heading */
+        .syllabus-head {
+            text-align: center;
+            margin-bottom: 32px;
+            background: white;
+            padding: 1.2rem;
+            border-radius: 28px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            border-left: 8px solid var(--dark-red);
+            border-right: 2px solid #e0d5b5;
+        }
+        .course-code {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark-red);
+            letter-spacing: 1px;
+        }
+        .reg {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #2c6e2c;
+            margin-top: 8px;
+        }
+
+        /* card style */
+        .card-syllabus {
+            background: var(--card-bg);
+            border-radius: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #cde2c3;
+            transition: transform 0.2s ease;
+        }
+        .card-syllabus:hover {
+            transform: translateY(-3px);
+        }
+        .card-header {
+            background: #fef3e8;
+            padding: 14px 24px;
+            border-bottom: 3px double var(--dark-red);
+        }
+        .card-header h2 {
+            color: var(--dark-red);
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .card-body {
+            padding: 24px 28px;
+        }
+
+        /* double-border tables (attractive) */
+        .double-border-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin: 18px 0;
+            background: white;
+            border: 2px double var(--border-double);
+        }
+        .double-border-table th, .double-border-table td {
+            border: 2px double #b8542e;
+            padding: 12px 10px;
+            vertical-align: top;
+        }
+        .double-border-table th {
+            background: #f6e9e1;
+            color: #631d1d;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .unit-list {
+            list-style: none;
+            margin-top: 8px;
+        }
+        .unit-list li {
+            margin-bottom: 8px;
+            padding-left: 18px;
+            position: relative;
+        }
+        .unit-list li:before {
+            content: "▹";
+            color: #2c6e2c;
+            position: absolute;
+            left: 0;
+        }
+        .hours-badge {
+            background: var(--light-green-bg);
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #145214;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .ref-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+            gap: 12px;
+        }
+        .ref-item {
+            background: #faf7f0;
+            padding: 8px 14px;
+            border-radius: 40px;
+            border: 1px solid #cfd8c0;
+        }
+        .assessment-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+        }
+        .marks-card {
+            background: #fef3e4;
+            border-radius: 28px;
+            padding: 18px 24px;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            border: 1px solid #ddc8a8;
+            transition: transform 0.2s;
+        }
+        .marks-card:hover {
+            transform: scale(1.02);
+        }
+
+        footer {
+            background: #1e3a1e;
+            color: #dfe6cf;
+            text-align: center;
+            padding: 28px 20px;
+            margin-top: 55px;
+            border-top: 6px solid var(--dark-red);
+        }
+        .footer-links a {
+            color: #ffbc9a;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 700px) {
+            .course-code { font-size: 1.5rem; }
+            .card-body { padding: 18px; }
+            .double-border-table th, .double-border-table td { 
+                padding: 8px 6px; 
+                font-size: 0.8rem; 
+            }
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 0.85rem; }
+        }
+        
+        @media print {
+            .nav-bar, footer { display: none; }
+            .card-syllabus { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================= -->
+<!-- HEADER IMAGE: header.png from same folder       -->
+<!-- ============================================= -->
+<div class="header-image-container">
+    <img src="header.png" alt="NAM College Kallikkandy - Department of Mathematics" class="header-image" onerror="this.style.display='none'">
+</div>
+
+<!-- Optional fallback text if image fails to load -->
+<div id="fallbackHeader" style="display:none; background:#8b1e1e; color:white; text-align:center; padding:2rem;">
+    <h2>NAM COLLEGE KALLIKKANDY</h2>
+    <p>Department of Mathematics | IG Math Space</p>
+</div>
+
+<script>
+    // Show fallback if image fails to load
+    document.querySelector('.header-image')?.addEventListener('error', function() {
+        document.getElementById('fallbackHeader').style.display = 'block';
+    });
+</script>
+
+<!-- navigation as per igmathspace.github.io -->
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="../../../index.html">🏠 Home</a>
+        <a href="../../index.html">📚 Classroom Space</a>
+        <a href="../LaTeX/index.html">📖 LaTeX Tutorial</a>
+        <a href="../Calculus II/index.html">🧮 Calculus II</a>
+        <a href="index.html" style="background: rgba(255,255,255,0.15); border-radius: 20px;">📊 Diff.Eqn + LPP + Numerical</a>
+        <a href="#">📜 Syllabus</a>
+    </div>
+</div>
+
+<main class="main-container">
+    <!-- MAIN SYLLABUS HEADING -->
+    <div class="syllabus-head">
+        <div class="course-code">KU3DSCMAT211</div>
+        <div class="reg"><strong>DIFFERENTIAL EQUATIONS, LAPLACE TRANSFORMS, LINEAR PROGRAMMING AND NUMERICAL METHODS</strong><br>
+        📖 Syllabus and Pattern as per 2024 Regulation (CBCS)</div>
+        <div style="margin-top:12px;">
+            <span class="hours-badge">📚 Total Hours: 60</span> 
+            <span class="hours-badge">⭐ Credits: 4</span> 
+            <span class="hours-badge">📝 ESE: 70 + CE: 30</span>
+        </div>
+    </div>
+
+    <!-- COURSE DESCRIPTION & PREREQUISITE -->
+    <div class="card-syllabus">
+        <div class="card-header">
+            <h2>📘 Course Essentials</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Course Description:</strong> This course introduces computer application students to fundamental mathematical topics: differential equations, Laplace transforms, linear programming, and numerical methods.</p>
+            <p style="margin-top: 12px;"><strong>Prerequisite:</strong> Derivatives, integrals.</p>
+            <hr style="margin: 16px 0; border-color: #cfe3c5;">
+            <h3 style="color: var(--dark-red);">🎯 Course Outcomes (CO)</h3>
+            <table class="double-border-table">
+                <thead>
+                    <tr><th>CO No.</th><th>Expected Outcome</th><th>Learning Domain</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>CO1</td><td>Understand Methods of solving Differential Equations: Separable ODEs, Exact ODEs, Integrating Factors, Linear ODEs.</td><td>Understand</td></tr>
+                    <tr><td>CO2</td><td>Understand Laplace Transform, Linearity, first shifting theorem, Transforms of Derivatives and transform of integrals.</td><td>Apply</td></tr>
+                    <tr><td>CO3</td><td>Understand the definition of Linear Programming Problems (LPP), differentiate between canonical and standard forms, and apply graphical and simplex methods for solution.</td><td>Understand</td></tr>
+                    <tr><td>CO4</td><td>Apply numerical methods for solving algebraic and transcendental equations, including bisection, false position, Newton-Raphson, and numerical integration techniques like trapezoidal and Simpson's 1/3 rule.</td><td>Apply</td></tr>
+                </tbody>
+            </table>
+            <h3 style="color: var(--dark-red); margin-top: 20px;">🗺️ Mapping of Course Outcomes to PSOs</h3>
+            <table class="double-border-table">
+                <thead><tr><th>PSO 1</th><th>PSO 2</th><th>PSO 3</th><th>PSO 4</th><th>PSO 5</th><th>PSO 6</th><th>PSO 7</th></tr></thead>
+                <tbody>
+                    <tr><td>✓ (CO1)</td><td>✓ (CO1)</td><td>✓ (CO1)</td><td>✓ (CO1)</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>✓ (CO2)</td><td>✓ (CO2)</td><td>✓ (CO2)</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>✓ (CO4)</td><td>✓ (CO4)</td><td>✓ (CO4)</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                    <tr><td>✓ (CO5)</td><td>✓ (CO5)</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- COURSE CONTENTS -->
+    <div class="card-syllabus">
+        <div class="card-header">
+            <h2>📚 COURSE CONTENTS (Classroom Transaction)</h2>
+        </div>
+        <div class="card-body">
+            <table class="double-border-table">
+                <thead><tr><th>Module</th><th>Unit</th><th>Description</th><th>Hours</th></tr></thead>
+                <tbody>
+                    <tr><td rowspan="4">I</td><td>1</td><td>First Order ODEs: Basic Concepts, Modeling</td><td rowspan="4">13</td></tr>
+                    <tr><td>2</td><td>Separable ODEs</td></tr>
+                    <tr><td>3</td><td>Exact ODEs. Integrating Factors</td></tr>
+                    <tr><td>4</td><td>Linear ODEs</td></tr>
+                    <tr><td rowspan="3">II</td><td>1</td><td>Laplace Transform, Linearity, First Shifting Theorem (s-Shifting)</td><td rowspan="3">14</td></tr>
+                    <tr><td>2</td><td>Transforms of Derivatives, transform of integrals, ODEs</td></tr>
+                    <tr><td></td><td>(Inverse Laplace & applications)</td></tr>
+                    <tr><td rowspan="6">III</td><td>1</td><td>Linear Programming: Introduction</td><td rowspan="6">14</td></tr>
+                    <tr><td>2</td><td>Requirements of LPP</td></tr>
+                    <tr><td>3</td><td>Areas of application of LPP</td></tr>
+                    <tr><td>4</td><td>Graphical method of solution</td></tr>
+                    <tr><td>5</td><td>Canonical and standard form of LPP</td></tr>
+                    <tr><td>6</td><td>The simplex method (Technique and algorithm)</td></tr>
+                    <tr><td rowspan="5">IV</td><td colspan="2">Numerical Methods: Solution of algebraic and transcendental equations</td><td rowspan="5">14</td></tr>
+                    <tr><td colspan="2">a) Introduction, b) Bisection Method, c) Newton Raphson method</td></tr>
+                    <tr><td colspan="2">Numerical integration: a) Trapezoidal rule, b) Simpson's 1/3 rule</td></tr>
+                    <tr><td colspan="2">(False position reference included)</td></tr>
+                    <tr><td colspan="2">Applications & Error analysis</td></tr>
+                    <tr><td>V</td><td colspan="2">Teacher Specific Module: Formulation of LPP (Module III) & Advanced Numerical applications</td><td>5</td></tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 18px; background: #fcf7e7; padding: 12px; border-radius: 16px;">
+                <p><strong>📌 Directions:</strong> Formulation of linear programming problems (Module III, Sections 2.6.1–2.6.4) & Application of renowned Numerical Methods (Module IV).</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEXTBOOKS -->
+    <div class="card-syllabus">
+        <div class="card-header">
+            <h2>📖 Recommended Textbooks & References</h2>
+        </div>
+        <div class="card-body">
+            <h3 style="color: var(--green-accent);">Main Textbooks</h3>
+            <ul class="unit-list">
+                <li>Advanced Engineering Mathematics (10th ed.), E. Kreyszig, Wiley, 2015</li>
+                <li>Operations Research (Revised Ed.), Er. Prem Kumar Gupta & Dr. D.S. Hira</li>
+                <li>Introductory Methods of Numerical Analysis (5th ed.), S.S. Sastry, PHI Learning</li>
+            </ul>
+            <div class="ref-list">
+                <div class="ref-item"><strong>Suggested:</strong> Operations Research (18th ed.), Kantiswaroop, P.K. Gupta, Manmohan</div>
+                <div class="ref-item"><strong>Suggested:</strong> Numerical Analysis (3rd Ed.), Timothy Sauer, Pearson</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ASSESSMENT -->
+    <div class="card-syllabus">
+        <div class="card-header">
+            <h2>📊 Assessment Rubrics</h2>
+        </div>
+        <div class="card-body">
+            <div class="assessment-flex">
+                <div class="marks-card"><strong>📝 End Semester</strong><br><span style="font-size: 2rem; color: var(--dark-red);">70</span><br>Marks</div>
+                <div class="marks-card"><strong>📌 Continuous Evaluation</strong><br><span style="font-size: 2rem; color: var(--dark-red);">30</span><br>Total CE</div>
+                <div class="marks-card"><strong>🧪 Breakup</strong><br>Test:12 | Assign:12<br>Seminar/Viva:6</div>
+            </div>
+            <p style="margin-top: 16px; background: #f5ede3; padding: 10px; border-radius: 20px;">
+                * Two written tests required. Average of best two considered for internal marks.<br>
+                ** Scientific calculators (up to fx-99) permitted.
+            </p>
+        </div>
+    </div>
+
+    <!-- Course Access Note -->
+    <div class="card-syllabus" style="background: #fef9e8;">
+        <div class="card-header" style="background: #fae4cc;">
+            <h2>📌 Access Teaching Materials</h2>
+        </div>
+        <div class="card-body">
+            <p>✅ Daily lecture notes, video links, assignments, quizzes, and viva questions for <strong>Differential Equations · Laplace · LPP · Numerical Methods</strong> are available in this folder.</p>
+            <p>🔗 <a href="#" style="color: var(--dark-red);">📖 Lecture Notes</a> | <a href="#" style="color: var(--dark-red);">📝 Assignments</a> | <a href="#" style="color: var(--dark-red);">🧪 Quizzes</a> | <a href="#" style="color: var(--dark-red);">🎤 Viva</a></p>
+            <div style="margin-top:12px;">
+                <span class="hours-badge">📅 Daily Updates</span>
+                <span class="hours-badge">🎥 Video Lectures</span>
+                <span class="hours-badge">📊 Unit-wise Tests</span>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+    <div class="footer-links">
+        <a href="../../../index.html">🏠 Home</a> | 
+        <a href="../../index.html">📚 Classroom</a> | 
+        <a href="../LaTeX/index.html">📖 LaTeX</a> | 
+        <a href="../Calculus II/index.html">🧮 Calculus II</a>
+    </div>
+    <p style="margin-top: 8px; font-size: 0.85rem;">Affiliated to Kannur University | Syllabus 2024 Regulation</p>
+</footer>
+
+</body>
+</html>
