@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 1 | Basic Concepts of ODE | KU3DSCMAT213</title>
+    <!-- MathJax for LaTeX-style mathematical equations -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #edf7ea;
+            color: #1f2e1a;
+            line-height: 1.5;
+        }
+
+        :root {
+            --dark-red: #8b1e1e;
+            --deep-red: #6a1a1a;
+            --light-green-bg: #dff0dc;
+            --green-accent: #2c6e2c;
+            --border-double: #a52626;
+            --card-bg: #ffffff;
+        }
+
+        /* header image placeholder / banner */
+        .header-image-container {
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #4a0e0e, #7a2525);
+            padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: #f5e6d3;
+            color: #000000;  /* Changed to black */
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.8rem;
+        }
+        .nav-bar {
+            background: #1e2a1a;
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--dark-red);
+        }
+        .nav-links {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            color: #f2f2e6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .nav-links a:hover { color: #ffbc6e; text-decoration: underline; }
+
+        .main-container {
+            max-width: 1280px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        /* lecture header with course identity */
+        .lecture-header {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-left: 10px solid var(--dark-red);
+        }
+        .course-code-badge {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-red);
+            letter-spacing: 1px;
+        }
+        .module-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--green-accent);
+            margin-top: 6px;
+            border-bottom: 1px dashed #c0cfb0;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .lecture-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2d3e1f;
+            margin: 12px 0 8px 0;
+        }
+        .textbook-ref {
+            background: #f3ecd8;
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #5a3e1f;
+            font-weight: 500;
+        }
+        .faculty-meta {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: #4a5c3a;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        /* buttons row */
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 32px;
+            justify-content: flex-start;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #8b1e1e, #6a1a1a);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #a12b2b, #7a2525);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+        }
+        .btn-secondary {
+            background: #2c6e2c;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+        .btn-secondary:hover {
+            background: #1e551e;
+        }
+
+        /* content card */
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+            border: 1px solid #e2dccd;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--dark-red);
+            border-left: 5px solid var(--dark-red);
+            padding-left: 20px;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .section-heading:first-of-type {
+            margin-top: 0;
+        }
+        .subheading {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c6e2c;
+            margin: 1.2rem 0 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .definition-box {
+            background: #faf5e8;
+            padding: 1.2rem 1.5rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+            border-left: 6px solid #b87333;
+        }
+        .example-box {
+            background: #f0f7ec;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border: 1px solid #cde0c3;
+        }
+        .mistake-table, .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fefdf9;
+            margin: 1rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .mistake-table th, .mistake-table td, .comparison-table th, .comparison-table td {
+            border: 1px solid #ddceb2;
+            padding: 10px 12px;
+            vertical-align: top;
+        }
+        .mistake-table th, .comparison-table th {
+            background: #e6dbc8;
+            font-weight: 700;
+            color: #5a2e1a;
+        }
+        .formula {
+            background: #e9f0e6;
+            font-family: monospace;
+            font-size: 1rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .badge {
+            background: var(--dark-red);
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 12px;
+            display: inline-block;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        footer {
+            background: #1e3a1e;
+            color: #dfe6cf;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--dark-red);
+        }
+        @media (max-width: 700px) {
+            .main-container {
+                padding: 0 16px;
+            }
+            .lecture-title {
+                font-size: 1.4rem;
+            }
+            .course-code-badge {
+                font-size: 1.3rem;
+            }
+        }
+        .equation {
+            font-family: monospace;
+            background: #f2f0e6;
+            padding: 6px 10px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+        .ref-box {
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding: 8px 14px;
+            background: #eedfa0;
+            border-radius: 30px;
+            display: inline-block;
+        }
+        /* mathjax inline adjustments */
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io">🏠 Home</a>
+        <a href="https://igmathspace.github.io/classroom">📚 My Classroom Space</a>
+    </div>
+</div>
+
+<div class="main-container">
+    <!-- Two action buttons: Back to Home & Classroom Space -->
+    <div class="button-row">
+        <a href="https://igmathspace.github.io" class="btn-primary">🏠 Back to Home (igmathspace.github.io)</a>
+        <a href="https://igmathspace.github.io/classroom" class="btn-primary btn-secondary">📘 My Classroom Space → Lesson Page</a>
+    </div>
+
+    <!-- Lecture Identification Header -->
+    <div class="lecture-header">
+        <div class="course-code-badge">KU3DSCMAT213</div>
+        <div class="module-name">📌 Module I | First Order Ordinary Differential Equations</div>
+        <div class="lecture-title">📖 Topic: Basic Concepts – Definition, Order, Degree, Linear vs Nonlinear ODEs</div>
+        <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics (10th Edition) – E. Kreyszig | Section 1.1</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO1: Understand methods of solving Differential Equations</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE NOTES (Detailed content with LaTeX equations) -->
+    <div class="content-card">
+        <!-- 1. Learning Objectives -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO1)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+            <li>Define an Ordinary Differential Equation (ODE)</li>
+            <li>Determine the <strong>order</strong> and <strong>degree</strong> of an ODE</li>
+            <li>Distinguish between <strong>linear</strong> and <strong>nonlinear</strong> ODEs</li>
+            <li>Identify ODEs in engineering contexts</li>
+        </ul>
+
+        <!-- 2. Introduction -->
+        <div class="section-heading">🔍 2. Introduction – Why Differential Equations?</div>
+        <p>Differential equations model nearly every physical phenomenon: population growth, radioactive decay, motion of planets, electrical circuits, heat transfer, and more. When the unknown function depends on <strong>one independent variable</strong>, it's called an <strong>Ordinary Differential Equation (ODE)</strong>.</p>
+
+        <!-- 3. Definition -->
+        <div class="section-heading">📌 3. Definition of ODE</div>
+        <div class="definition-box">
+            An <strong>Ordinary Differential Equation (ODE)</strong> is an equation containing an unknown function of <strong>one</strong> independent variable and its ordinary derivatives. <br>
+            General form: 
+            \[
+            F(x, y, y', y'', \dots, y^{(n)}) = 0
+            \]
+            Example: 
+            \[
+            \frac{dy}{dx} = 3x^2
+            \]
+            where \(x\) is independent, \(y\) dependent.
+        </div>
+
+        <!-- 4. Order -->
+        <div class="section-heading">📈 4. Order of an ODE</div>
+        <p>The <strong>order</strong> is the highest derivative present in the equation.</p>
+        <table class="comparison-table">
+            <thead><tr><th>Order</th><th>General Form</th><th>Example</th></tr></thead>
+            <tbody>
+                <tr><td>First</td><td>\(y' = f(x,y)\)</td><td>\(\frac{dy}{dx} + 2y = e^x\)</td></tr>
+                <tr><td>Second</td><td>\(y'' = f(x,y,y')\)</td><td>\(\frac{d^2y}{dx^2} + 5\frac{dy}{dx} + 6y = 0\)</td></tr>
+                <tr><td>n-th</td><td>\(y^{(n)} = f(x, y, y', \dots, y^{(n-1)})\)</td><td>\(y^{(4)} + 3y'' = \sin x\)</td></tr>
+            </tbody>
+        </table>
+        <p>✅ <strong>Student Check:</strong> Order of \(\frac{d^3y}{dx^3} + 4\frac{dy}{dx} = 0\) is <strong>3rd order</strong>.</p>
+
+        <!-- 5. Degree -->
+        <div class="section-heading">⚙️ 5. Degree of an ODE</div>
+        <p>The <strong>degree</strong> is the power of the highest order derivative (provided equation is polynomial in derivatives).</p>
+        <div class="example-box">
+            <strong>Example 1:</strong> 
+            \[
+            \left(\frac{d^2y}{dx^2}\right)^3 + 5\frac{dy}{dx} = 0
+            \]
+            → Highest derivative \(y''\) power = 3 → Degree = 3 <br><br>
+            <strong>Example 2:</strong> 
+            \[
+            \frac{dy}{dx} = \sqrt{1+x^2}
+            \]
+            → rewrite: 
+            \[
+            \left(\frac{dy}{dx}\right)^2 = 1+x^2
+            \]
+            → Degree = 2
+        </div>
+
+        <!-- 6. Linear vs Nonlinear ODE (Critical) -->
+        <div class="section-heading">🔄 6. Linear vs Nonlinear ODEs</div>
+        <div class="definition-box">
+            <strong>Linear ODE:</strong> \(y\) and all its derivatives appear only to the <strong>first power</strong>, no products like \(y \cdot y'\), and coefficients depend only on \(x\). Standard first-order linear form: 
+            \[
+            \frac{dy}{dx} + P(x)y = Q(x)
+            \]
+        </div>
+        <table class="comparison-table">
+            <thead><tr><th>Feature</th><th>Linear ODE</th><th>Nonlinear ODE</th></tr></thead>
+            <tbody>
+                <tr><td>Power of \(y\) & derivatives</td><td>Always 1</td><td>Can be >1 or fractional</td></tr>
+                <tr><td>Products like \(y\cdot y'\)</td><td>Not allowed</td><td>Allowed</td></tr>
+                <tr><td>Functions like \(\sin y, e^y\)</td><td>Not allowed</td><td>Allowed</td></tr>
+                <tr><td>Superposition principle</td><td>✓ Applies</td><td>✗ Does not apply</td></tr>
+            </tbody>
+        </table>
+        <div class="example-box">
+            <strong>✔️ Linear examples:</strong> \(y' + 2y = x^2\), \(x^2 y'' + x y' -4y=0\) <br>
+            <strong>❌ Nonlinear examples:</strong> \(y' = y^2\), \(y \cdot y' = x\), \(\sin y = y''\).
+        </div>
+
+        <!-- 7. Solved Examples (Kreyszig style) -->
+        <div class="section-heading">📝 7. Solved Examples (Section 1.1 Style)</div>
+        <div class="example-box">
+            <strong>Example A:</strong> 
+            \[
+            \frac{d^2y}{dx^2} + 5\left(\frac{dy}{dx}\right)^3 - 4y = e^x
+            \]
+            ➤ Order = 2, Degree = 1 (power of highest derivative =1), <strong>Nonlinear</strong> because \((y')^3\).
+        </div>
+        <div class="example-box">
+            <strong>Example B:</strong> 
+            \[
+            x^2 \frac{d^2y}{dx^2} + 3x \frac{dy}{dx} + 5y = \ln x
+            \]
+            ➤ Order = 2, Degree = 1, <strong>Linear</strong> (coefficients depend on \(x\), all powers 1).
+        </div>
+        <div class="example-box">
+            <strong>Example C:</strong> 
+            \[
+            \frac{dy}{dx} = \frac{1-y}{1+x}
+            \]
+            → rewrite \((1+x)y' + y = 1\) → Order 1, Degree 1, <strong>Linear</strong>.
+        </div>
+
+        <!-- 8. Common Mistakes -->
+        <div class="section-heading">⚠️ 8. Common Mistakes to Avoid</div>
+        <table class="mistake-table">
+            <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+            <tbody>
+                <tr><td>"Degree = highest power of any derivative"</td><td>Degree = power of <strong>highest order derivative</strong></td></tr>
+                <tr><td>"If \(y'\) appears inside \(\sin(y')\), find degree"</td><td>If not polynomial in derivatives → degree undefined</td></tr>
+                <tr><td>"Equation with \(\sin y\) is linear"</td><td>\(\sin y\) makes it <strong>nonlinear</strong></td></tr>
+                <tr><td>"All first-order ODEs are linear"</td><td>\(y' = y^2\) is nonlinear</td></tr>
+            </tbody>
+        </table>
+
+        <!-- 9. Practice Problems (Homework) -->
+        <div class="section-heading">✍️ 9. Practice Problems (Assignment)</div>
+        <table class="mistake-table">
+            <thead><tr><th>#</th><th>Equation</th><th>Order/Degree/Linear?</th></tr></thead>
+            <tbody>
+                <tr><td>(a)</td><td>\(\frac{d^3y}{dx^3} + 2\frac{dy}{dx} = \cos x\)</td><td>Order3, Degree1, Linear</td></tr>
+                <tr><td>(b)</td><td>\(\frac{d^2y}{dx^2} + 4y = \sqrt{y}\)</td><td>Order2, Degree1, Nonlinear</td></tr>
+                <tr><td>(c)</td><td>\(\left(\frac{d^2y}{dx^2}\right)^2 + 3y = 0\)</td><td>Order2, Degree2, Nonlinear</td></tr>
+                <tr><td>(d)</td><td>\(\frac{dy}{dx} + xy = e^x y^2\)</td><td>Order1, Degree1, Nonlinear</td></tr>
+                <tr><td>(e)</td><td>\(\frac{dy}{dx} = \frac{2x}{3y^2}\)</td><td>Order1, Degree1, Nonlinear</td></tr>
+            </tbody>
+        </table>
+
+        <!-- 10. Summary Box -->
+        <div class="section-heading">📋 10. Quick Summary</div>
+        <div class="definition-box" style="background:#e1edda;">
+            <ul>
+                <li><strong>ODE</strong> = equation with ordinary derivatives.</li>
+                <li><strong>Order</strong> = highest derivative.</li>
+                <li><strong>Degree</strong> = power of highest derivative (if polynomial).</li>
+                <li><strong>Linear</strong> = \(y\), derivatives first power, no products, no nonlinear functions of \(y\).</li>
+                <li><strong>Nonlinear</strong> = otherwise (e.g., \(y^2, \sin y, (y')^3\)).</li>
+            </ul>
+        </div>
+
+        <!-- 11. Next lecture -->
+        <div class="section-heading">🔜 11. Next Lecture Preview</div>
+        <p><strong>Topic:</strong> Modeling using Differential Equations (Kreyszig §1.2) – population growth, radioactive decay, Newton's law of cooling → converting real-world problems into ODEs.</p>
+
+        <!-- 12. Textbook Reference (Exact citation) -->
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.1, pp. 2–8. <br>
+            "An ordinary differential equation (ODE) is an equation that contains one or more derivatives of an unknown function... The order of an ODE is the order of the highest derivative... An ODE is linear if it can be written in the form 
+            \[
+            y^{(n)} + p_{n-1}(x)y^{(n-1)} + \dots + p_0(x)y = r(x).
+            \]"
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+    
+    <!-- Additional information : Module alignment -->
+    <div style="background: #fff6ea; border-radius: 20px; padding: 1rem 1.5rem; margin-top: 10px;">
+        <p>📌 <strong>CO1 Alignment:</strong> Understand Methods of solving Differential Equations (Separable ODEs, Exact ODEs, Integrating Factors, Linear ODEs) — this foundational lecture supports classification and problem-solving readiness.</p>
+        <p>📘 <strong>Teaching Plan Reference:</strong> Lecture 1/14 of Module I (Kreyszig §1.1). Total hours for Module I = 14 lectures.</p>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+    <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+    <div style="margin-top: 8px;">
+        <a href="https://igmathspace.github.io" style="color:#ffbc9a;">🏠 Home</a> | 
+        <a href="https://igmathspace.github.io/classroom" style="color:#ffbc9a;">📘 My Classroom Space</a>
+    </div>
+    <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT213 | Differential Equations, Laplace Transforms, LPP & Numerical Methods | FYUGP 3rd Semester</p>
+</footer>
+
+</body>
+</html>
