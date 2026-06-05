@@ -301,7 +301,7 @@
     <div class="nav-links">
         <a href="../../../index.html">🏠 Home</a>
         <a href="../../index.html">📚 Department Space</a>
-        
+    </div>
 </div>
 
 <div class="main-container">
@@ -322,7 +322,7 @@
             <span class="badge-hours">📊 Module III: 16 lectures</span> 
             <span class="badge-hours">🔢 Module IV: 15 lectures</span>
         </div>
-        <div style="margin-top: 8px; font-size: 0.85rem;">*Each Lecture = 1 Hour | Module-end Tests, Assignments, Quizzes, and Model Examination are added as separate rows (Lecture No: NA)</div>
+        <div style="margin-top: 8px; font-size: 0.85rem;">*Each Lecture = 1 Hour | Module-end Tests, Assignments, Quizzes, and Model Examination are added as separate rows (SI No & Lecture No = NA for assessments)</div>
     </div>
 
     <table class="teaching-plan-table" id="planTable">
@@ -337,7 +337,7 @@
             </tr>
         </thead>
         <tbody id="planBody">
-            <!-- JavaScript will inject 60 lectures + assessment rows -->
+            <!-- JavaScript will inject 60 lectures + assessment rows (all assessment SI No = 'NA') -->
         </tbody>
     </table>
     <div style="margin-top: 20px; text-align: right; font-size: 0.8rem; background: #faf0e1; padding: 8px 16px; border-radius: 30px;">
@@ -358,9 +358,9 @@
     // 60 LECTURE SESSIONS (EXCLUDING TESTS, ASSIGNMENTS, QUIZZES)
     // Module I: 14 lectures | Module II: 15 | Module III: 16 | Module IV: 15
     // Total = 60
-    // After each module: Add Test + Assignment row (Lecture No = 'NA')
-    // Final row: Model Examination (Lecture No = 'NA')
-    // SI No will continue sequentially: total 66 rows as requested
+    // After each module: Add Test + Assignment row (SI No = 'NA', Lecture No = 'NA')
+    // Final rows: Model Examination (SI No = 'NA', Lecture No = 'NA') + Comprehensive Viva (SI No = 'NA')
+    // All assessment rows have SI No = 'NA' as strictly requested.
     // ============================================================
     
     // ---------- MODULE I: First Order ODEs (14 lectures) ----------
@@ -483,7 +483,7 @@
             const materialLink = `<a href="lectures/${fileName}" class="material-link" target="_blank">📖 Material</a>`;
             moduleRows.push({
                 type: 'lecture',
-                sno: serialCounter++,
+                sno: serialCounter++,      // Regular lectures get sequential SI No
                 lectureNo: lectureCounter++,
                 module: `Module ${moduleNum}`,
                 topic: topicsArray[i],
@@ -494,10 +494,11 @@
         return moduleRows;
     }
     
+    // CRITICAL: Assessment rows have sno = 'NA' (as a string, not a number) and lectureNo = 'NA'
     function addAssessmentRow(moduleNum, assessmentType, description, textbookRef, linkHtml) {
         return {
             type: 'assessment',
-            sno: 'NA',
+            sno: 'NA',           // ✅ SI No = 'NA' as requested
             lectureNo: 'NA',
             module: `Module ${moduleNum} Assessment`,
             topic: `📌 ${assessmentType}: ${description}`,
@@ -507,7 +508,7 @@
         };
     }
     
-    // Add all lectures
+    // Add all lectures (these have numeric SI No)
     const m1Lectures = addLectures(1, module1Topics, m1Refs);
     const m2Lectures = addLectures(2, module2Topics, m2Refs);
     const m3Lectures = addLectures(3, module3Topics, m3Refs);
@@ -525,10 +526,10 @@
     allRows.push(...m4Lectures);
     allRows.push(addAssessmentRow(4, 'Module End Assessment', 'Quiz + Assignment + Viva Voce (Module IV: Numerical Methods)', 'Sastry Ch.2,5,6', `<a href="assignments/module4_test.html" class="material-link">📝 Test</a> | <a href="assignments/module4_assignment.html" class="material-link">📥 Assignment</a> | <a href="viva/module4_viva.html" class="material-link">🎤 Viva</a>`));
     
-    // Model Examination
+    // Model Examination row - SI No = 'NA', Lecture No = 'NA'
     allRows.push({
         type: 'model_exam',
-        sno: 'NA'',
+        sno: 'NA',
         lectureNo: 'NA',
         module: 'Final Examination',
         topic: '📖 MODEL EXAMINATION (Comprehensive) - Covers all Modules I to IV',
@@ -536,10 +537,10 @@
         material: `<a href="exams/model_exam.html" class="material-link">📄 Model Exam Paper</a> | <a href="exams/model_exam_scheme.html" class="material-link">📋 Answer Scheme</a>`,
     });
     
-    // Comprehensive final row to reach 66 serial number
+    // Comprehensive Viva & Open Book Assessment row - SI No = 'NA', Lecture No = 'NA'
     allRows.push({
         type: 'comprehensive',
-        sno: 'NA'',
+        sno: 'NA',
         lectureNo: 'NA',
         module: 'Comprehensive Viva & Open Book Assessment',
         topic: '🎯 Comprehensive Viva Voce + Open Book Assignment (Covers entire syllabus)',
@@ -558,12 +559,15 @@
             else if (row.type === 'model_exam') tr.classList.add('model-exam-row');
             else if (row.type === 'comprehensive') tr.classList.add('assessment-row');
             
-            const lectureNoHtml = row.lectureNo === 'NA' 
+            // Display SI No: show 'NA' for assessment rows, otherwise numeric value
+            const snoDisplay = (row.sno === 'NA') ? `<span class="na-badge">NA</span>` : `<span style="font-weight:500;">${row.sno}</span>`;
+            
+            const lectureNoHtml = (row.lectureNo === 'NA') 
                 ? `<span class="na-badge">NA</span>` 
                 : `<span style="font-weight:600;">${row.lectureNo}</span>`;
             
             tr.innerHTML = `
-                <td>${row.sno}</td>
+                <td style="text-align:center;">${snoDisplay}</td>
                 <td style="text-align:center;">${lectureNoHtml}</td>
                 <td>${row.module}</td>
                 <td>${row.topic}</td>
@@ -573,9 +577,10 @@
             tbody.appendChild(tr);
         }
         
+        // Add summary footer row
         const summaryRow = document.createElement('tr');
         summaryRow.style.background = "#e0efd5";
-        summaryRow.innerHTML = `<td colspan="6" style="text-align:center; font-weight:bold;">✅ Total: 60 Lecture Sessions + 6 Assessment Rows = 66 Rows | Lecture No 'NA' indicates assessment sessions</td>`;
+        summaryRow.innerHTML = `<td colspan="6" style="text-align:center; font-weight:bold;">✅ Total: 60 Lecture Sessions + 6 Assessment Rows = 66 Total Entries | For all assessment rows (Module tests, Model Exam, Comprehensive) SI No = 'NA' as per requirement</td>`;
         document.getElementById('planBody').appendChild(summaryRow);
     }
     
@@ -583,20 +588,14 @@
     
     // PDF Generation Function - prints entire page as PDF in A4 format
     function saveAsPDF() {
-        // Store original title
         const originalTitle = document.title;
         document.title = "Teaching_Plan_KU3DSCMAT211.pdf";
-        
-        // Trigger browser print dialog which allows "Save as PDF"
         window.print();
-        
-        // Restore title after print dialog closes (optional)
         setTimeout(() => {
             document.title = originalTitle;
         }, 500);
     }
     
-    // Make function globally accessible
     window.saveAsPDF = saveAsPDF;
 </script>
 </body>
