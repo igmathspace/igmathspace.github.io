@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Lecture 1 | Basic Concepts of ODE | KU3DSCMAT211</title>
+    <title>Lecture 1 | Basic Concepts of ODE | KU3DSCMAT213</title>
     <!-- MathJax for LaTeX-style mathematical equations -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <style>
@@ -29,7 +29,6 @@
             --card-bg: #ffffff;
         }
 
-        /* header image placeholder / banner */
         .header-image-container {
             width: 100%;
             text-align: center;
@@ -43,7 +42,7 @@
             display: block;
             margin: 0 auto;
             background: #f5e6d3;
-            color: #000000;  /* Changed to black */
+            color: #000000;
             font-size: 1rem;
             font-weight: bold;
             text-align: center;
@@ -81,7 +80,6 @@
             padding: 0 24px;
         }
 
-        /* lecture header with course identity */
         .lecture-header {
             background: white;
             border-radius: 28px;
@@ -129,7 +127,6 @@
             flex-wrap: wrap;
         }
 
-        /* buttons row */
         .button-row {
             display: flex;
             flex-wrap: wrap;
@@ -160,13 +157,33 @@
         }
         .btn-secondary {
             background: #2c6e2c;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
         .btn-secondary:hover {
             background: #1e551e;
         }
+        .btn-pdf {
+            background: linear-gradient(135deg, #1e5a3a, #0f3d24);
+        }
+        .btn-pdf:hover {
+            background: linear-gradient(135deg, #2a7a4a, #145a30);
+        }
+        .btn-answer {
+            background: #b87333;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            margin-left: 12px;
+            border: none;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            color: white;
+        }
+        .btn-answer:hover {
+            background: #9b5e2a;
+            transform: scale(1.02);
+        }
 
-        /* content card */
         .content-card {
             background: white;
             border-radius: 28px;
@@ -186,15 +203,6 @@
         .section-heading:first-of-type {
             margin-top: 0;
         }
-        .subheading {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #2c6e2c;
-            margin: 1.2rem 0 0.5rem 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
         .definition-box {
             background: #faf5e8;
             padding: 1.2rem 1.5rem;
@@ -208,6 +216,33 @@
             border-radius: 20px;
             margin: 1rem 0;
             border: 1px solid #cde0c3;
+        }
+        .question-item {
+            background: #fef7e8;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            border-radius: 20px;
+            border-left: 5px solid #8b1e1e;
+            transition: all 0.2s;
+        }
+        .question-text {
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .solution-area {
+            margin-top: 12px;
+            background: #eef4ea;
+            padding: 1rem;
+            border-radius: 16px;
+            display: none;
+            border-top: 2px solid #b6cc9e;
+        }
+        .solution-area.show {
+            display: block;
         }
         .mistake-table, .comparison-table {
             width: 100%;
@@ -227,26 +262,6 @@
             font-weight: 700;
             color: #5a2e1a;
         }
-        .formula {
-            background: #e9f0e6;
-            font-family: monospace;
-            font-size: 1rem;
-            padding: 0.2rem 0.4rem;
-            border-radius: 12px;
-            display: inline-block;
-        }
-        .badge {
-            background: var(--dark-red);
-            color: white;
-            font-size: 0.7rem;
-            border-radius: 30px;
-            padding: 2px 12px;
-            display: inline-block;
-        }
-        .footer-note {
-            text-align: center;
-            margin-top: 2rem;
-        }
         footer {
             background: #1e3a1e;
             color: #dfe6cf;
@@ -254,24 +269,6 @@
             padding: 24px 20px;
             margin-top: 40px;
             border-top: 6px solid var(--dark-red);
-        }
-        @media (max-width: 700px) {
-            .main-container {
-                padding: 0 16px;
-            }
-            .lecture-title {
-                font-size: 1.4rem;
-            }
-            .course-code-badge {
-                font-size: 1.3rem;
-            }
-        }
-        .equation {
-            font-family: monospace;
-            background: #f2f0e6;
-            padding: 6px 10px;
-            border-radius: 12px;
-            display: inline-block;
         }
         .ref-box {
             font-size: 0.85rem;
@@ -281,10 +278,44 @@
             border-radius: 30px;
             display: inline-block;
         }
-        /* mathjax inline adjustments */
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+        }
+        @media print {
+            .nav-bar, .btn-pdf, .button-row .btn-primary, .btn-answer {
+                display: none !important;
+            }
+            .solution-area {
+                display: block !important;
+                background: #f5f5f0;
+                border: 1px solid #aaa;
+            }
+            .question-item {
+                break-inside: avoid;
+            }
+            footer {
+                position: fixed;
+                bottom: 0;
+            }
+            @page {
+                size: A4;
+                margin: 0.5in;
+            }
+        }
         mjx-container {
             overflow-x: auto;
             overflow-y: hidden;
+        }
+        .co-badge {
+            background: #2c6e2c;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 10px;
+            display: inline-block;
+            margin-left: 10px;
         }
     </style>
 </head>
@@ -298,19 +329,19 @@
     <div class="nav-links">
         <a href="https://igmathspace.github.io">🏠 Home</a>
         <a href="https://igmathspace.github.io/classroom">📚 My Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
     </div>
 </div>
 
 <div class="main-container">
-    <!-- Two action buttons: Back to Home & Classroom Space -->
     <div class="button-row">
         <a href="https://igmathspace.github.io" class="btn-primary">🏠 Back to Home (igmathspace.github.io)</a>
         <a href="https://igmathspace.github.io/classroom" class="btn-primary btn-secondary">📘 My Classroom Space → Lesson Page</a>
+        <button class="btn-primary btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
     </div>
 
-    <!-- Lecture Identification Header -->
     <div class="lecture-header">
-        <div class="course-code-badge">KU3DSCMAT211</div>
+        <div class="course-code-badge">KU3DSCMAT213</div>
         <div class="module-name">📌 Module I | First Order Ordinary Differential Equations</div>
         <div class="lecture-title">📖 Topic: Basic Concepts – Definition, Order, Degree, Linear vs Nonlinear ODEs</div>
         <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics (10th Edition) – E. Kreyszig | Section 1.1</div>
@@ -321,9 +352,7 @@
         </div>
     </div>
 
-    <!-- MAIN LECTURE NOTES (Detailed content with LaTeX equations) -->
     <div class="content-card">
-        <!-- 1. Learning Objectives -->
         <div class="section-heading">🎯 1. Learning Outcomes (CO1)</div>
         <ul style="margin-left: 2rem; margin-bottom: 1rem;">
             <li>Define an Ordinary Differential Equation (ODE)</li>
@@ -332,11 +361,9 @@
             <li>Identify ODEs in engineering contexts</li>
         </ul>
 
-        <!-- 2. Introduction -->
         <div class="section-heading">🔍 2. Introduction – Why Differential Equations?</div>
         <p>Differential equations model nearly every physical phenomenon: population growth, radioactive decay, motion of planets, electrical circuits, heat transfer, and more. When the unknown function depends on <strong>one independent variable</strong>, it's called an <strong>Ordinary Differential Equation (ODE)</strong>.</p>
 
-        <!-- 3. Definition -->
         <div class="section-heading">📌 3. Definition of ODE</div>
         <div class="definition-box">
             An <strong>Ordinary Differential Equation (ODE)</strong> is an equation containing an unknown function of <strong>one</strong> independent variable and its ordinary derivatives. <br>
@@ -351,7 +378,6 @@
             where \(x\) is independent, \(y\) dependent.
         </div>
 
-        <!-- 4. Order -->
         <div class="section-heading">📈 4. Order of an ODE</div>
         <p>The <strong>order</strong> is the highest derivative present in the equation.</p>
         <table class="comparison-table">
@@ -364,7 +390,6 @@
         </table>
         <p>✅ <strong>Student Check:</strong> Order of \(\frac{d^3y}{dx^3} + 4\frac{dy}{dx} = 0\) is <strong>3rd order</strong>.</p>
 
-        <!-- 5. Degree -->
         <div class="section-heading">⚙️ 5. Degree of an ODE</div>
         <p>The <strong>degree</strong> is the power of the highest order derivative (provided equation is polynomial in derivatives).</p>
         <div class="example-box">
@@ -384,7 +409,6 @@
             → Degree = 2
         </div>
 
-        <!-- 6. Linear vs Nonlinear ODE (Critical) -->
         <div class="section-heading">🔄 6. Linear vs Nonlinear ODEs</div>
         <div class="definition-box">
             <strong>Linear ODE:</strong> \(y\) and all its derivatives appear only to the <strong>first power</strong>, no products like \(y \cdot y'\), and coefficients depend only on \(x\). Standard first-order linear form: 
@@ -398,40 +422,53 @@
                 <tr><td>Power of \(y\) & derivatives</td><td>Always 1</td><td>Can be >1 or fractional</td></tr>
                 <tr><td>Products like \(y\cdot y'\)</td><td>Not allowed</td><td>Allowed</td></tr>
                 <tr><td>Functions like \(\sin y, e^y\)</td><td>Not allowed</td><td>Allowed</td></tr>
-                <tr><td>Superposition principle</td><td>✓ Applies</td><td>✗ Does not apply</td></tr>
             </tbody>
         </table>
-        <div class="example-box">
-            <strong>✔️ Linear examples:</strong> \(y' + 2y = x^2\), \(x^2 y'' + x y' -4y=0\) <br>
-            <strong>❌ Nonlinear examples:</strong> \(y' = y^2\), \(y \cdot y' = x\), \(\sin y = y''\).
-        </div>
 
-        <!-- 7. Solved Examples (Kreyszig style) -->
-        <div class="section-heading">📝 7. Solved Examples (Section 1.1 Style)</div>
-        <div class="example-box">
-            <strong>Example A:</strong> 
-            \[
-            \frac{d^2y}{dx^2} + 5\left(\frac{dy}{dx}\right)^3 - 4y = e^x
-            \]
-            ➤ Order = 2, Degree = 1 (power of highest derivative =1), <strong>Nonlinear</strong> because \((y')^3\).
+        <!-- ****************** WORKOUT EXAMPLES: ONLY QUESTIONS 1 to 3 ****************** -->
+        <div class="section-heading">📚 Workout Examples (From Question Bank)</div>
+        <p style="margin-bottom: 1rem;">Selected problems covering order, degree, linearity & basic ODE concepts. Click <strong>Answer</strong> to reveal step-by-step solution.</p>
+        
+        <div id="questions-container">
+            <!-- Question 1: Define ODE -->
+            <div class="question-item" id="q1">
+                <div class="question-text">
+                    <span><strong>1.</strong> Define an ordinary differential equation. <span class="co-badge">CO1</span></span>
+                    <button class="btn-primary btn-answer" data-qid="1">📖 Answer</button>
+                </div>
+                <div id="sol1" class="solution-area">
+                    <strong>✅ Solution:</strong> An Ordinary Differential Equation (ODE) is an equation that involves an unknown function of a single independent variable and its ordinary derivatives. Formally, \( F(x, y, y', y'', \dots, y^{(n)}) = 0 \). Example: \( \frac{dy}{dx} = 3x^2 \).
+                </div>
+            </div>
+            
+            <!-- Question 2: Order & Degree -->
+            <div class="question-item" id="q2">
+                <div class="question-text">
+                    <span><strong>2.</strong> Find the order and degree of the differential equation \(\frac{d^2y}{dx^2} + 9y = e^{-2x}\). <span class="co-badge">CO1</span></span>
+                    <button class="btn-primary btn-answer" data-qid="2">📖 Answer</button>
+                </div>
+                <div id="sol2" class="solution-area">
+                    <strong>✅ Step-by-step:</strong> The given equation is \(\frac{d^2y}{dx^2} + 9y = e^{-2x}\). <br>
+                    - Highest derivative is \(\frac{d^2y}{dx^2}\) → Order = 2.<br>
+                    - The derivative \(\frac{d^2y}{dx^2}\) appears with power 1 → Degree = 1.<br>
+                    - Also it is linear because \(y\) and derivatives have power 1, no product terms.
+                </div>
+            </div>
+            
+            <!-- Question 3: Order with fractional power -->
+            <div class="question-item" id="q3">
+                <div class="question-text">
+                    <span><strong>3.</strong> Find the order of the differential equation \(\frac{d^3y}{dx^3} + 2\left(\frac{dy}{dx}\right)^{\frac{1}{3}} = 0\). <span class="co-badge">CO1</span></span>
+                    <button class="btn-primary btn-answer" data-qid="3">📖 Answer</button>
+                </div>
+                <div id="sol3" class="solution-area">
+                    <strong>✅ Solution:</strong> The highest derivative present is \(\frac{d^3y}{dx^3}\) (third derivative). Even though \(\left(\frac{dy}{dx}\right)^{1/3}\) exists, the order is determined solely by the highest derivative. Hence, <strong>Order = 3</strong>. Degree is not defined in the usual sense because derivative appears under a fractional power, but the order is 3.
+                </div>
+            </div>
         </div>
-        <div class="example-box">
-            <strong>Example B:</strong> 
-            \[
-            x^2 \frac{d^2y}{dx^2} + 3x \frac{dy}{dx} + 5y = \ln x
-            \]
-            ➤ Order = 2, Degree = 1, <strong>Linear</strong> (coefficients depend on \(x\), all powers 1).
-        </div>
-        <div class="example-box">
-            <strong>Example C:</strong> 
-            \[
-            \frac{dy}{dx} = \frac{1-y}{1+x}
-            \]
-            → rewrite \((1+x)y' + y = 1\) → Order 1, Degree 1, <strong>Linear</strong>.
-        </div>
-
-        <!-- 8. Common Mistakes -->
-        <div class="section-heading">⚠️ 8. Common Mistakes to Avoid</div>
+        <!-- End of Workout Examples (only Q1, Q2, Q3) -->
+        
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
         <table class="mistake-table">
             <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
             <tbody>
@@ -441,53 +478,23 @@
                 <tr><td>"All first-order ODEs are linear"</td><td>\(y' = y^2\) is nonlinear</td></tr>
             </tbody>
         </table>
-
-        <!-- 9. Practice Problems (Homework) -->
-        <div class="section-heading">✍️ 9. Practice Problems (Assignment)</div>
-        <table class="mistake-table">
-            <thead><tr><th>#</th><th>Equation</th><th>Order/Degree/Linear?</th></tr></thead>
-            <tbody>
-                <tr><td>(a)</td><td>\(\frac{d^3y}{dx^3} + 2\frac{dy}{dx} = \cos x\)</td><td>Order3, Degree1, Linear</td></tr>
-                <tr><td>(b)</td><td>\(\frac{d^2y}{dx^2} + 4y = \sqrt{y}\)</td><td>Order2, Degree1, Nonlinear</td></tr>
-                <tr><td>(c)</td><td>\(\left(\frac{d^2y}{dx^2}\right)^2 + 3y = 0\)</td><td>Order2, Degree2, Nonlinear</td></tr>
-                <tr><td>(d)</td><td>\(\frac{dy}{dx} + xy = e^x y^2\)</td><td>Order1, Degree1, Nonlinear</td></tr>
-                <tr><td>(e)</td><td>\(\frac{dy}{dx} = \frac{2x}{3y^2}\)</td><td>Order1, Degree1, Nonlinear</td></tr>
-            </tbody>
-        </table>
-
-        <!-- 10. Summary Box -->
-        <div class="section-heading">📋 10. Quick Summary</div>
+        
+        <div class="section-heading">📋 Quick Summary</div>
         <div class="definition-box" style="background:#e1edda;">
             <ul>
                 <li><strong>ODE</strong> = equation with ordinary derivatives.</li>
                 <li><strong>Order</strong> = highest derivative.</li>
                 <li><strong>Degree</strong> = power of highest derivative (if polynomial).</li>
                 <li><strong>Linear</strong> = \(y\), derivatives first power, no products, no nonlinear functions of \(y\).</li>
-                <li><strong>Nonlinear</strong> = otherwise (e.g., \(y^2, \sin y, (y')^3\)).</li>
             </ul>
         </div>
-
-        <!-- 11. Next lecture -->
-        <div class="section-heading">🔜 11. Next Lecture Preview</div>
-        <p><strong>Topic:</strong> Modeling using Differential Equations (Kreyszig §1.2) – population growth, radioactive decay, Newton's law of cooling → converting real-world problems into ODEs.</p>
-
-        <!-- 12. Textbook Reference (Exact citation) -->
+        
         <div class="ref-box">
-            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.1, pp. 2–8. <br>
-            "An ordinary differential equation (ODE) is an equation that contains one or more derivatives of an unknown function... The order of an ODE is the order of the highest derivative... An ODE is linear if it can be written in the form 
-            \[
-            y^{(n)} + p_{n-1}(x)y^{(n-1)} + \dots + p_0(x)y = r(x).
-            \]"
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.1, pp. 2–8.
         </div>
         <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right;">
             🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
         </div>
-    </div>
-    
-    <!-- Additional information : Module alignment -->
-    <div style="background: #fff6ea; border-radius: 20px; padding: 1rem 1.5rem; margin-top: 10px;">
-        <p>📌 <strong>CO1 Alignment:</strong> Understand Methods of solving Differential Equations (Separable ODEs, Exact ODEs, Integrating Factors, Linear ODEs) — this foundational lecture supports classification and problem-solving readiness.</p>
-        <p>📘 <strong>Teaching Plan Reference:</strong> Lecture 1/14 of Module I (Kreyszig §1.1). Total hours for Module I = 14 lectures.</p>
     </div>
 </div>
 
@@ -496,10 +503,45 @@
     <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
     <div style="margin-top: 8px;">
         <a href="https://igmathspace.github.io" style="color:#ffbc9a;">🏠 Home</a> | 
-        <a href="https://igmathspace.github.io/classroom" style="color:#ffbc9a;">📘 My Classroom Space</a>
+        <a href="https://igmathspace.github.io/classroom" style="color:#ffbc9a;">📘 My Classroom Space</a> |
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" style="color:#ffbc9a;">📖 Syllabus</a>
     </div>
-    <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP & Numerical Methods | FYUGP 3rd Semester</p>
+    <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT213 | Differential Equations, Laplace Transforms, LPP & Numerical Methods | FYUGP 3rd Semester</p>
 </footer>
 
+<script>
+    // Attach toggle functionality for each Answer button
+    const buttons = document.querySelectorAll('.btn-answer');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const qid = this.getAttribute('data-qid');
+            const solutionDiv = document.getElementById(`sol${qid}`);
+            if (solutionDiv) {
+                // Toggle show class
+                solutionDiv.classList.toggle('show');
+                // Change button text based on state
+                if (solutionDiv.classList.contains('show')) {
+                    this.textContent = '🙈 Hide Answer';
+                } else {
+                    this.textContent = '📖 Answer';
+                }
+            }
+        });
+    });
+
+    // PDF save function
+    function saveAsPDF() {
+        const originalTitle = document.title;
+        document.title = "Lecture1_ODE_BasicConcepts_KU3DSCMAT213.pdf";
+        window.print();
+        setTimeout(() => { document.title = originalTitle; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    
+    // Ensure MathJax renders after any dynamic content
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+</script>
 </body>
 </html>
