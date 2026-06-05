@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Teaching Plan | KU3DSCMAT211 | 60 Lectures + Assessments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #edf7ea;
+            color: #1f2e1a;
+            line-height: 1.45;
+        }
+
+        :root {
+            --dark-red: #8b1e1e;
+            --deep-red: #6a1a1a;
+            --light-green-bg: #dff0dc;
+            --green-accent: #2c6e2c;
+            --border-double: #a52626;
+            --card-bg: #ffffff;
+        }
+
+        .header-image-container {
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #4a0e0e, #7a2525);
+        }
+        .header-image {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .nav-bar {
+            background: #1e2a1a;
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--dark-red);
+        }
+        .nav-links {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            color: #f2f2e6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-links a:hover { color: #ffbc6e; text-decoration: underline; }
+
+        /* PDF Button Container */
+        .pdf-button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn-pdf {
+            background: linear-gradient(135deg, #8b1e1e, #6a1a1a);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .btn-pdf:hover {
+            background: linear-gradient(135deg, #a12b2b, #7a2525);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+        }
+        .btn-pdf:active {
+            transform: translateY(0);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .title-block {
+            text-align: center;
+            margin-bottom: 32px;
+            background: white;
+            padding: 1.2rem;
+            border-radius: 28px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            border-left: 8px solid var(--dark-red);
+        }
+        .course-code {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dark-red);
+        }
+        .course-name {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #2c6e2c;
+            margin-top: 6px;
+        }
+
+        .teaching-plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 3px double var(--border-double);
+            font-size: 0.9rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .teaching-plan-table th, .teaching-plan-table td {
+            border: 2px double #b8542e;
+            padding: 10px 8px;
+            vertical-align: top;
+        }
+        .teaching-plan-table th {
+            background: #f6e9e1;
+            color: #631d1d;
+            font-weight: 800;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        .teaching-plan-table td {
+            background-color: #fefcf7;
+        }
+        .assessment-row {
+            background: #ffe6dc !important;
+        }
+        .assessment-row td {
+            background: #ffe6dc;
+        }
+        .model-exam-row {
+            background: #ffd4b5 !important;
+            font-weight: 600;
+        }
+        .model-exam-row td {
+            background: #ffd4b5;
+        }
+        .material-link {
+            display: inline-block;
+            background: var(--dark-red);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .material-link:hover {
+            background: #a12b2b;
+            transform: scale(1.02);
+        }
+        .badge-hours {
+            background: #c8e6c9;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: #1f4f1f;
+        }
+        .section-ref {
+            font-size: 0.73rem;
+            color: #4a6741;
+            margin-top: 3px;
+        }
+        .na-badge {
+            background: #b87333;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        footer {
+            background: #1e3a1e;
+            color: #dfe6cf;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 50px;
+            border-top: 6px solid var(--dark-red);
+        }
+        .footer-note {
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Print Styles for PDF (A4 Sheet) */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .nav-bar, .pdf-button-container, .btn-pdf {
+                display: none !important;
+            }
+            .header-image-container {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .header-image {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            .main-container {
+                margin: 0;
+                padding: 0.2in;
+                max-width: 100%;
+            }
+            .teaching-plan-table {
+                box-shadow: none;
+                border: 2px solid #000;
+                font-size: 0.75rem;
+            }
+            .teaching-plan-table th, .teaching-plan-table td {
+                border: 1px solid #999;
+                padding: 5px 4px;
+            }
+            .material-link {
+                background: #8b1e1e;
+                color: white;
+                text-decoration: none;
+                font-size: 0.65rem;
+                padding: 2px 6px;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            .assessment-row td, .model-exam-row td {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+            footer {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+                background: #1e3a1e;
+                color: white;
+            }
+            .title-block {
+                box-shadow: none;
+                border-left: 4px solid #8b1e1e;
+            }
+            @page {
+                size: A4;
+                margin: 0.5in;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        @media (max-width: 800px) {
+            .teaching-plan-table th, .teaching-plan-table td {
+                padding: 6px 5px;
+                font-size: 0.7rem;
+            }
+            .material-link {
+                padding: 2px 6px;
+                font-size: 0.6rem;
+            }
+            .course-code { font-size: 1.3rem; }
+            .btn-pdf { padding: 8px 18px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <img src="header.png" alt="NAM College Header" class="header-image" onerror="this.style.display='none'">
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="../../../index.html">🏠 Home</a>
+        <a href="../../index.html">📚 Classroom Space</a>
+        <a href="../LaTeX/index.html">📖 LaTeX Tutorial</a>
+        <a href="../Calculus II/index.html">🧮 Calculus II</a>
+        <a href="index.html">📊 Diff.Eqn + LPP + Numerical</a>
+        <a href="teaching-plan.html" style="background: rgba(255,255,255,0.15); border-radius: 20px;">📅 Teaching Plan</a>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="pdf-button-container">
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">
+            📄 Save as PDF (A4)
+        </button>
+    </div>
+    
+    <div class="title-block" id="printArea">
+        <div class="course-code">KU3DSCMAT211</div>
+        <div class="course-name">DIFFERENTIAL EQUATIONS, LAPLACE TRANSFORMS, LINEAR PROGRAMMING AND NUMERICAL METHODS</div>
+        <div style="margin-top: 6px; font-size: 1.2rem; font-weight: bold; color: #6a1a1a;">📅 TEACHING PLAN (60 LECTURE SESSIONS + ASSESSMENTS)</div>
+        <div style="margin-top: 6px;">
+            <span class="badge-hours">📚 Module I: 14 lectures</span> 
+            <span class="badge-hours">⚡ Module II: 15 lectures</span> 
+            <span class="badge-hours">📊 Module III: 16 lectures</span> 
+            <span class="badge-hours">🔢 Module IV: 15 lectures</span>
+        </div>
+        <div style="margin-top: 8px; font-size: 0.85rem;">*Each Lecture = 1 Hour | Module-end Tests, Assignments, Quizzes, and Model Examination are added as separate rows (Lecture No: NA)</div>
+    </div>
+
+    <table class="teaching-plan-table" id="planTable">
+        <thead>
+            <tr>
+                <th>SI No</th>
+                <th>Lecture No</th>
+                <th>Module</th>
+                <th>Topic / Subtopics</th>
+                <th>Textbook (Ref. & Section)</th>
+                <th>Learning Material (HTML Link)</th>
+            </tr>
+        </thead>
+        <tbody id="planBody">
+            <!-- JavaScript will inject 60 lectures + assessment rows -->
+        </tbody>
+    </table>
+    <div style="margin-top: 20px; text-align: right; font-size: 0.8rem; background: #faf0e1; padding: 8px 16px; border-radius: 30px;">
+        ⚡ <strong>Note:</strong> Module-end assessments include Quiz + Assignment + Viva. Two Internal Tests and Model Examination are conducted as per schedule.
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+    <p class="footer-note">@Gafoor I, Assistant Professor Department of Mathematics</p>
+    <div class="footer-links" style="margin-top: 8px;">
+        <a href="index.html" style="color:#ffbc9a;">Course Home</a> | <a href="#" style="color:#ffbc9a;">Lecture Files</a> | <a href="#" style="color:#ffbc9a;">Assignments</a>
+    </div>
+</footer>
+
+<script>
+    // ============================================================
+    // 60 LECTURE SESSIONS (EXCLUDING TESTS, ASSIGNMENTS, QUIZZES)
+    // Module I: 14 lectures | Module II: 15 | Module III: 16 | Module IV: 15
+    // Total = 60
+    // After each module: Add Test + Assignment row (Lecture No = 'NA')
+    // Final row: Model Examination (Lecture No = 'NA')
+    // SI No will continue sequentially: total 66 rows as requested
+    // ============================================================
+    
+    // ---------- MODULE I: First Order ODEs (14 lectures) ----------
+    const module1Topics = [
+        "1.1 Basic Concepts: ODE definition, order, degree, linear vs nonlinear",
+        "1.2 Modeling using Differential Equations (Population, growth/decay, radioactive decay)",
+        "1.3 Separable ODEs: Method, standard form & examples",
+        "1.4 Separable ODEs: Applications (mixing problems, Newton's law of cooling)",
+        "1.5 Exact ODEs: Condition for exactness, method of solution",
+        "1.6 Exact ODEs: Solving exact equations with examples",
+        "1.7 Integrating Factors: Finding integrating factor (function of x or y only)",
+        "1.8 Integrating Factors: General approach for non-exact equations & examples",
+        "1.9 Linear ODEs: Standard form, integrating factor technique derivation",
+        "1.10 Linear ODEs: Solving first-order linear equations (variety of problems)",
+        "1.11 Applications of Linear ODEs: RL & RC circuits, falling body with air resistance",
+        "1.12 Bernoulli Equations: Reduction to linear form, substitution method",
+        "1.13 Orthogonal trajectories: Finding trajectories of given family of curves",
+        "1.14 Miscellaneous applications & review of Module I"
+    ];
+    
+    const m1Refs = [
+        "Kreyszig §1.1 (Basic Concepts)", "Kreyszig §1.2 (Modeling)", "Kreyszig §1.3 (Separable ODEs)",
+        "Kreyszig §1.3 (Applications)", "Kreyszig §1.4 (Exact ODEs)", "Kreyszig §1.4 (Exact solution)",
+        "Kreyszig §1.4 (Integrating Factors)", "Kreyszig §1.4 (General IF)", "Kreyszig §1.5 (Linear ODEs)",
+        "Kreyszig §1.5 (Solving linear)", "Kreyszig §1.5 (Applications)", "Kreyszig §1.5 (Bernoulli)",
+        "Kreyszig §1.6 (Orthogonal Trajectories)", "Kreyszig Ch.1 (Review)"
+    ];
+    
+    // ---------- MODULE II: Laplace Transforms (15 lectures) ----------
+    const module2Topics = [
+        "2.1 Definition of Laplace Transform, existence conditions (piecewise continuity, exponential order)",
+        "2.2 Laplace Transform of elementary functions (constant, t^n, e^{at}, sin at, cos at, sinh, cosh)",
+        "2.3 Linearity property & examples of linear combinations",
+        "2.4 First Shifting Theorem (s-Shifting): Statement, proof & examples",
+        "2.5 Transforms of Derivatives (Derivative Theorem) - First & second order",
+        "2.6 Transforms of Derivatives: Higher order derivatives & applications",
+        "2.7 Transforms of Integrals (Integral Theorem) with examples",
+        "2.8 Solving Initial Value Problems (ODEs) using Laplace Transform - Step by step",
+        "2.9 Inverse Laplace Transform: Linearity & standard forms (partial fractions basics)",
+        "2.10 Inverse Laplace using partial fractions: Distinct real roots, repeated roots",
+        "2.11 Inverse Laplace: Complex conjugate roots & completing the square",
+        "2.12 Convolution Theorem: Statement, proof & problems",
+        "2.13 Unit Step Function (Heaviside) & Second Shifting Theorem (t-Shifting)",
+        "2.14 Laplace Transform of Periodic Functions & Dirac Delta function",
+        "2.15 Applications: Solving IVPs with piecewise forcing functions & review"
+    ];
+    
+    const m2Refs = [
+        "Kreyszig §6.1 (Definition)", "Kreyszig §6.1 (Elementary Transforms)", "Kreyszig §6.1 (Linearity)",
+        "Kreyszig §6.1 (First Shifting)", "Kreyszig §6.2 (Derivatives)", "Kreyszig §6.2 (Higher derivatives)",
+        "Kreyszig §6.2 (Integrals)", "Kreyszig §6.2 (Solving ODEs)", "Kreyszig §6.3 (Inverse Laplace)",
+        "Kreyszig §6.3 (Partial Fractions)", "Kreyszig §6.3 (Complex Roots)", "Kreyszig §6.5 (Convolution)",
+        "Kreyszig §6.3 (Step function, Second Shifting)", "Kreyszig §6.4 (Periodic & Dirac)", "Kreyszig Ch.6 (Review)"
+    ];
+    
+    // ---------- MODULE III: Linear Programming Problems (16 lectures) ----------
+    const module3Topics = [
+        "3.1 Introduction to Linear Programming: Definition, characteristics, assumptions",
+        "3.2 Requirements of LPP: Decision variables, objective function, constraints, non-negativity",
+        "3.3 Areas of application of LPP (production, diet, transportation, assignment)",
+        "3.4 Mathematical formulation of LPP - Step by step with examples",
+        "3.5 Graphical solution method (2 variables): Plotting constraints, feasible region",
+        "3.6 Graphical method: Finding extreme points & optimal solution (maximization)",
+        "3.7 Graphical method: Minimization problems & special cases (unbounded, infeasible, alternate optima)",
+        "3.8 Canonical form of LPP: Characteristics & representation",
+        "3.9 Standard form of LPP: Slack, surplus, artificial variables",
+        "3.10 Conversion to standard form: Examples with equality & inequality constraints",
+        "3.11 Basic feasible solution & fundamental theorem of LPP",
+        "3.12 Simplex method: Introduction, tableau formation, optimality condition",
+        "3.13 Simplex iterations: Entering variable (most negative coefficient), leaving variable (minimum ratio test)",
+        "3.14 Simplex method: Solving maximization problems (complete algorithm)",
+        "3.15 Minimization problems using Simplex (transformation to maximization or Big-M method intro)",
+        "3.16 Special cases in Simplex: Degeneracy, unbounded solution, multiple optimal solutions & review"
+    ];
+    
+    const m3Refs = [
+        "Gupta & Hira: Ch.2 (Introduction)", "Gupta & Hira: §2.2 (Requirements)", "Gupta & Hira: §2.3 (Applications)",
+        "Gupta & Hira: §2.2 (Formulation)", "Gupta & Hira: §2.3 (Graphical)", "Gupta & Hira: §2.3 (Maximization)",
+        "Gupta & Hira: §2.3 (Minimization & cases)", "Gupta & Hira: §2.4 (Canonical)", "Gupta & Hira: §2.4 (Standard form)",
+        "Gupta & Hira: §2.5 (Conversion)", "Gupta & Hira: §2.6 (BFS)", "Gupta & Hira: §2.7 (Simplex tableau)",
+        "Gupta & Hira: §2.8 (Iterations)", "Gupta & Hira: §2.9 (Maximization)", "Gupta & Hira: §2.10 (Minimization & Big-M)",
+        "Gupta & Hira: §2.11 (Special cases) & Ch.2 Review"
+    ];
+    
+    // ---------- MODULE IV: Numerical Methods (15 lectures) ----------
+    const module4Topics = [
+        "4.1 Introduction to algebraic & transcendental equations: Roots, initial approximations",
+        "4.2 Bisection Method: Algorithm, convergence criteria, error estimation",
+        "4.3 Bisection Method: Examples & step-by-step computation",
+        "4.4 False Position (Regula Falsi) Method: Derivation & algorithm",
+        "4.5 False Position Method: Examples, convergence comparison with Bisection",
+        "4.6 Newton-Raphson Method: Derivation, geometric interpretation, algorithm",
+        "4.7 Newton-Raphson Method: Convergence conditions, order of convergence, examples",
+        "4.8 Newton-Raphson: Multiple roots, pitfalls, and modified Newton's method",
+        "4.9 Numerical Integration: Introduction, Newton-Cotes formulas",
+        "4.10 Trapezoidal Rule: Derivation, formula, geometric meaning",
+        "4.11 Composite Trapezoidal Rule: Error analysis & applications",
+        "4.12 Simpson's 1/3 Rule: Derivation from quadratic interpolation",
+        "4.13 Composite Simpson's 1/3 Rule: Formula, error term & examples",
+        "4.14 Comparison of integration methods: Trapezoidal vs Simpson's 1/3 (accuracy & efficiency)",
+        "4.15 Applications of Numerical Integration (area, engineering problems) & Module IV review"
+    ];
+    
+    const m4Refs = [
+        "Sastry §2.1 (Intro)", "Sastry §2.2 (Bisection)", "Sastry §2.2 (Examples)", "Sastry §2.3 (Regula Falsi)",
+        "Sastry §2.3 (Comparison)", "Sastry §2.4 (Newton-Raphson)", "Sastry §2.4 (Convergence)", "Sastry §2.4 (Modified)",
+        "Sastry §5.4 (Intro)", "Sastry §5.4 (Trapezoidal)", "Sastry §5.4 (Composite Trapezoidal)", "Sastry §5.5 (Simpson's 1/3)",
+        "Sastry §5.5 (Composite)", "Sastry §5.6 (Comparison)", "Sastry Ch.5 (Review)"
+    ];
+    
+    // Build rows array
+    const allRows = [];
+    let lectureCounter = 1;
+    let serialCounter = 1;
+    
+    function addLectures(moduleNum, topicsArray, refsArray) {
+        const moduleRows = [];
+        for (let i = 0; i < topicsArray.length; i++) {
+            const fileName = `lec_${lectureCounter}_mod${moduleNum}.html`;
+            const materialLink = `<a href="lectures/${fileName}" class="material-link" target="_blank">📖 Material</a>`;
+            moduleRows.push({
+                type: 'lecture',
+                sno: serialCounter++,
+                lectureNo: lectureCounter++,
+                module: `Module ${moduleNum}`,
+                topic: topicsArray[i],
+                textbook: refsArray[i],
+                material: materialLink
+            });
+        }
+        return moduleRows;
+    }
+    
+    function addAssessmentRow(moduleNum, assessmentType, description, textbookRef, linkHtml) {
+        return {
+            type: 'assessment',
+            sno: serialCounter++,
+            lectureNo: 'NA',
+            module: `Module ${moduleNum} Assessment`,
+            topic: `📌 ${assessmentType}: ${description}`,
+            textbook: textbookRef,
+            material: linkHtml,
+            isAssessment: true
+        };
+    }
+    
+    // Add all lectures
+    const m1Lectures = addLectures(1, module1Topics, m1Refs);
+    const m2Lectures = addLectures(2, module2Topics, m2Refs);
+    const m3Lectures = addLectures(3, module3Topics, m3Refs);
+    const m4Lectures = addLectures(4, module4Topics, m4Refs);
+    
+    allRows.push(...m1Lectures);
+    allRows.push(addAssessmentRow(1, 'Module End Assessment', 'Quiz + Assignment + Viva Voce (Module I: ODEs)', 'Kreyszig Ch.1', `<a href="assignments/module1_test.html" class="material-link">📝 Test</a> | <a href="assignments/module1_assignment.html" class="material-link">📥 Assignment</a> | <a href="viva/module1_viva.html" class="material-link">🎤 Viva</a>`));
+    
+    allRows.push(...m2Lectures);
+    allRows.push(addAssessmentRow(2, 'Module End Assessment', 'Quiz + Assignment + Viva Voce (Module II: Laplace Transforms)', 'Kreyszig Ch.6', `<a href="assignments/module2_test.html" class="material-link">📝 Test</a> | <a href="assignments/module2_assignment.html" class="material-link">📥 Assignment</a> | <a href="viva/module2_viva.html" class="material-link">🎤 Viva</a>`));
+    
+    allRows.push(...m3Lectures);
+    allRows.push(addAssessmentRow(3, 'Module End Assessment', 'Quiz + Assignment + Viva Voce (Module III: Linear Programming)', 'Gupta & Hira Ch.2', `<a href="assignments/module3_test.html" class="material-link">📝 Test</a> | <a href="assignments/module3_assignment.html" class="material-link">📥 Assignment</a> | <a href="viva/module3_viva.html" class="material-link">🎤 Viva</a>`));
+    
+    allRows.push(...m4Lectures);
+    allRows.push(addAssessmentRow(4, 'Module End Assessment', 'Quiz + Assignment + Viva Voce (Module IV: Numerical Methods)', 'Sastry Ch.2,5,6', `<a href="assignments/module4_test.html" class="material-link">📝 Test</a> | <a href="assignments/module4_assignment.html" class="material-link">📥 Assignment</a> | <a href="viva/module4_viva.html" class="material-link">🎤 Viva</a>`));
+    
+    // Model Examination
+    allRows.push({
+        type: 'model_exam',
+        sno: serialCounter++,
+        lectureNo: 'NA',
+        module: 'Final Examination',
+        topic: '📖 MODEL EXAMINATION (Comprehensive) - Covers all Modules I to IV',
+        textbook: 'Full Syllabus (Kreyszig, Gupta & Hira, Sastry)',
+        material: `<a href="exams/model_exam.html" class="material-link">📄 Model Exam Paper</a> | <a href="exams/model_exam_scheme.html" class="material-link">📋 Answer Scheme</a>`,
+    });
+    
+    // Comprehensive final row to reach 66 serial number
+    allRows.push({
+        type: 'comprehensive',
+        sno: serialCounter++,
+        lectureNo: 'NA',
+        module: 'Comprehensive Viva & Open Book Assessment',
+        topic: '🎯 Comprehensive Viva Voce + Open Book Assignment (Covers entire syllabus)',
+        textbook: 'All Modules I-IV (Reference textbooks as per syllabus)',
+        material: `<a href="assignments/comprehensive_viva.html" class="material-link">🎤 Viva Questions</a> | <a href="assignments/comprehensive_assignment.html" class="material-link">📚 Final Assignment</a>`,
+    });
+    
+    // Render function
+    function renderPlan() {
+        const tbody = document.getElementById('planBody');
+        tbody.innerHTML = '';
+        
+        for (let row of allRows) {
+            const tr = document.createElement('tr');
+            if (row.type === 'assessment') tr.classList.add('assessment-row');
+            else if (row.type === 'model_exam') tr.classList.add('model-exam-row');
+            else if (row.type === 'comprehensive') tr.classList.add('assessment-row');
+            
+            const lectureNoHtml = row.lectureNo === 'NA' 
+                ? `<span class="na-badge">NA</span>` 
+                : `<span style="font-weight:600;">${row.lectureNo}</span>`;
+            
+            tr.innerHTML = `
+                <td>${row.sno}</td>
+                <td style="text-align:center;">${lectureNoHtml}</td>
+                <td>${row.module}</td>
+                <td>${row.topic}</td>
+                <td><span class="section-ref">${row.textbook}</span></td>
+                <td style="text-align:center;">${row.material}</td>
+            `;
+            tbody.appendChild(tr);
+        }
+        
+        const summaryRow = document.createElement('tr');
+        summaryRow.style.background = "#e0efd5";
+        summaryRow.innerHTML = `<td colspan="6" style="text-align:center; font-weight:bold;">✅ Total: 60 Lecture Sessions + 6 Assessment Rows = 66 Rows | Lecture No 'NA' indicates assessment sessions</td>`;
+        document.getElementById('planBody').appendChild(summaryRow);
+    }
+    
+    renderPlan();
+    
+    // PDF Generation Function - prints entire page as PDF in A4 format
+    function saveAsPDF() {
+        // Store original title
+        const originalTitle = document.title;
+        document.title = "Teaching_Plan_KU3DSCMAT211.pdf";
+        
+        // Trigger browser print dialog which allows "Save as PDF"
+        window.print();
+        
+        // Restore title after print dialog closes (optional)
+        setTimeout(() => {
+            document.title = originalTitle;
+        }, 500);
+    }
+    
+    // Make function globally accessible
+    window.saveAsPDF = saveAsPDF;
+</script>
+</body>
+</html>
