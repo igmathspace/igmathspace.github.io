@@ -497,7 +497,7 @@
     function addAssessmentRow(moduleNum, assessmentType, description, textbookRef, linkHtml) {
         return {
             type: 'assessment',
-            sno: serialCounter++,
+            sno: 'NA',
             lectureNo: 'NA',
             module: `Module ${moduleNum} Assessment`,
             topic: `📌 ${assessmentType}: ${description}`,
@@ -528,7 +528,7 @@
     // Model Examination
     allRows.push({
         type: 'model_exam',
-        sno: serialCounter++,
+        sno: 'NA'',
         lectureNo: 'NA',
         module: 'Final Examination',
         topic: '📖 MODEL EXAMINATION (Comprehensive) - Covers all Modules I to IV',
@@ -539,7 +539,7 @@
     // Comprehensive final row to reach 66 serial number
     allRows.push({
         type: 'comprehensive',
-        sno: serialCounter++,
+        sno: 'NA'',
         lectureNo: 'NA',
         module: 'Comprehensive Viva & Open Book Assessment',
         topic: '🎯 Comprehensive Viva Voce + Open Book Assignment (Covers entire syllabus)',
