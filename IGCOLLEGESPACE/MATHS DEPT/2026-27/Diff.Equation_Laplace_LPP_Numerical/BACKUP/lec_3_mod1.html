@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Lecture 2 | Separable ODEs & Modeling | KU3DSCMAT213</title>
+    <title>Lecture 3 | Exact ODEs & Integrating Factors | KU3DSCMAT213</title>
     <!-- MathJax for LaTeX-style mathematical equations in display mode -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
     <style>
@@ -61,18 +61,43 @@
             margin: 0 auto;
             padding: 0 24px;
             display: flex;
-            gap: 32px;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
+            gap: 16px;
         }
-        .nav-links a {
-            color: #f2f2e6;
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c7a6e, #1e5a4a);
+            color: white;
             text-decoration: none;
-            font-weight: 500;
-            transition: 0.2s;
-            font-size: 1rem;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
-        .nav-links a:hover { color: #ffbc6e; text-decoration: underline; }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #3a9e7a, #2a7a5e);
+            transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary {
+            background: linear-gradient(135deg, #3a8e6e, #2a6e52);
+        }
+        .nav-links .btn-secondary:hover {
+            background: linear-gradient(135deg, #4aae7e, #3a7e62);
+        }
+        .nav-links .btn-pdf {
+            background: linear-gradient(135deg, #2a8a6e, #1e6a52);
+        }
+        .nav-links .btn-pdf:hover {
+            background: #3a9e7a;
+        }
 
         .main-container {
             max-width: 1280px;
@@ -136,62 +161,6 @@
             display: flex;
             gap: 24px;
             flex-wrap: wrap;
-        }
-
-        .button-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 32px;
-            justify-content: flex-start;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #2c7a6e, #1e5a4a);
-            color: white;
-            border: none;
-            padding: 12px 28px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #3a9e7a, #2a7a5e);
-            transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: #3a8e6e;
-        }
-        .btn-secondary:hover {
-            background: #2a6e52;
-        }
-        .btn-pdf {
-            background: linear-gradient(135deg, #2a8a6e, #1e6a52);
-        }
-        .btn-pdf:hover {
-            background: #3a9e7a;
-        }
-        .btn-answer {
-            background: #2c7a6e;
-            padding: 6px 16px;
-            font-size: 0.8rem;
-            margin-left: 12px;
-            border: none;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            color: white;
-        }
-        .btn-answer:hover {
-            background: #1e5a4a;
-            transform: scale(1.02);
         }
 
         .content-card {
@@ -300,16 +269,17 @@
             .main-container { padding: 0 16px; }
             .lecture-title { font-size: 1.4rem; }
             .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
         }
         
-        /* PRINT STYLES - CRITICAL: footer removed from PDF, no page repetition */
+        /* PRINT STYLES - footer hidden */
         @media print {
             body {
                 background: white;
                 margin: 0;
                 padding: 0;
             }
-            .nav-bar, .btn-pdf, .button-row .btn-primary, .btn-answer, .pdf-only-hide {
+            .nav-bar, .btn-pdf, .btn-answer {
                 display: none !important;
             }
             .header-image-container {
@@ -321,7 +291,6 @@
                 background: #eefbef;
                 color: black !important;
                 print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
             }
             .main-container {
                 margin: 0;
@@ -362,9 +331,6 @@
             mjx-container {
                 font-size: 0.9rem;
             }
-            .MathJax_Display {
-                margin: 0.8em 0;
-            }
         }
         mjx-container {
             overflow-x: auto;
@@ -393,30 +359,26 @@
 
 <div class="nav-bar">
     <div class="nav-links">
-        <a href="https://igmathspace.github.io">🏠 Home</a>
-        <a href="https://igmathspace.github.io/classroom">📚 My Classroom Space</a>
-        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
     </div>
 </div>
 
 <div class="main-container">
-    <div class="button-row">
-        <a href="https://igmathspace.github.io" class="btn-primary">🏠 Back to Home</a>
-        <a href="https://igmathspace.github.io/classroom" class="btn-primary btn-secondary">📘 My Classroom Space</a>
-        <button class="btn-primary btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
-    </div>
-
     <div class="lecture-header">
         <div class="course-code-badge">
             KU3DSCMAT213 
-            <span class="lecture-number">Lecture 2</span>
+            <span class="lecture-number">Lecture 3</span>
         </div>
         <div class="module-name">📌 Module I | First Order Ordinary Differential Equations</div>
-        <div class="lecture-title">📖 Topic: Separable ODEs & Modeling using Differential Equations</div>
-        <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics – E. Kreyszig | Sections 1.2, 1.3</div>
+        <div class="lecture-title">📖 Topic: Exact Differential Equations & Integrating Factors</div>
+        <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics – E. Kreyszig | Section 1.4</div>
         <div class="faculty-meta">
             <span>👨‍🏫 Faculty: Gafoor I</span>
-            <span>🎯 CO1: Solve Separable ODEs and apply modeling concepts</span>
+            <span>🎯 CO1: Solve exact ODEs and find integrating factors</span>
             <span>⏱️ Lecture duration: 1 Hour</span>
         </div>
     </div>
@@ -424,353 +386,300 @@
     <div class="content-card">
         <div class="section-heading">🎯 1. Learning Outcomes (CO1)</div>
         <ul style="margin-left: 2rem; margin-bottom: 1rem;">
-            <li>Recognize and solve <strong>separable ordinary differential equations</strong></li>
-            <li>Formulate mathematical models using ODEs (population growth, decay, cooling, mixing)</li>
-            <li>Apply initial conditions to find particular solutions</li>
+            <li>Identify and solve <strong>exact differential equations</strong></li>
+            <li>Determine <strong>integrating factors</strong> for non-exact equations</li>
+            <li>Apply exact ODE methods to real-world problems</li>
         </ul>
 
-        <div class="section-heading">📝 2. Separable ODEs – Definition & Method</div>
+        <div class="section-heading">📌 2. Exact Differential Equations – Definition</div>
         <div class="definition-box">
-            A first-order ODE is called <strong>separable</strong> if it can be written in the form:
+            A first-order ODE written as 
             \[
-            \frac{dy}{dx} = g(x) \cdot h(y) \quad \text{or} \quad M(x)\,dx + N(y)\,dy = 0.
+            M(x,y)\,dx + N(x,y)\,dy = 0
             \]
-            <strong>Solution method:</strong> Separate variables and integrate:
+            is called <strong>exact</strong> if there exists a function \(u(x,y)\) such that:
             \[
-            \int \frac{dy}{h(y)} = \int g(x)\,dx + C.
+            \frac{\partial u}{\partial x} = M, \quad \frac{\partial u}{\partial y} = N.
             \]
+            The condition for exactness is:
+            \[
+            \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}.
+            \]
+            The solution is given implicitly by \(u(x,y) = C\).
         </div>
+
         <div class="example-box">
-            <strong>Example (Kreyszig 1.3):</strong> Solve \(\frac{dy}{dx} = x y\). <br>
-            Separate: 
+            <strong>Example (Kreyszig 1.4):</strong> Solve \(2xy\,dx + (x^2 - 1)\,dy = 0\).<br>
+            Here \(M = 2xy\), \(N = x^2 - 1\). Check exactness:
             \[
-            \frac{dy}{y} = x\,dx
+            \frac{\partial M}{\partial y} = 2x, \quad \frac{\partial N}{\partial x} = 2x.
             \]
-            Integrate: 
+            Since they are equal, the equation is exact. Find \(u\):
             \[
-            \ln|y| = \frac{x^2}{2} + C \quad \Rightarrow \quad y = A e^{x^2/2}.
+            u = \int M\,dx = \int 2xy\,dx = x^2y + h(y).
+            \]
+            Then,
+            \[
+            \frac{\partial u}{\partial y} = x^2 + h'(y) = N = x^2 - 1.
+            \]
+            Thus,
+            \[
+            h'(y) = -1 \quad \Rightarrow \quad h(y) = -y.
+            \]
+            The solution is:
+            \[
+            x^2y - y = C \quad \text{or} \quad y(x^2 - 1) = C.
             \]
         </div>
 
-        <div class="section-heading">🧪 3. Modeling with Differential Equations</div>
-        <p>Many real-world processes lead to separable ODEs. Below are the fundamental models with detailed equations:</p>
-        
-        <div class="model-card">
-            <strong>📈 Exponential Growth/Decay Model</strong><br>
-            The rate of change of a quantity \(y\) is proportional to the amount present:
+        <div class="section-heading">🔧 3. Integrating Factors</div>
+        <div class="definition-box">
+            If \(\frac{\partial M}{\partial y} \neq \frac{\partial N}{\partial x}\), the equation is not exact. An <strong>integrating factor</strong> \(\mu(x,y)\) is a function that makes the equation exact:
             \[
-            \frac{dy}{dt} = k y
+            \mu M\,dx + \mu N\,dy = 0 \quad \text{is exact.}
             \]
-            where \(k > 0\) for growth and \(k < 0\) for decay.<br>
-            <strong>Solution:</strong> 
+            <strong>Special cases:</strong><br>
+            - If \(\frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right)\) is a function of \(x\) only, say \(f(x)\), then
             \[
-            y(t) = y_0 e^{kt}
+            \mu = e^{\int f(x)\,dx}.
             \]
-            <strong>Applications:</strong> Population growth (unlimited resources), radioactive decay, compound interest, drug absorption.
-        </div>
-
-        <div class="model-card">
-            <strong>🌡️ Newton's Law of Cooling/Warming</strong><br>
-            The rate of change of temperature \(T\) of an object is proportional to the difference between its temperature and the ambient temperature \(T_a\):
+            - If \(\frac{1}{M}\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right)\) is a function of \(y\) only, say \(g(y)\), then
             \[
-            \frac{dT}{dt} = k(T - T_a)
+            \mu = e^{\int g(y)\,dy}.
             \]
-            where \(k\) is a constant (negative for cooling).<br>
-            <strong>Solution:</strong> 
-            \[
-            T(t) = T_a + (T_0 - T_a)e^{kt}
-            \]
-            <strong>Example:</strong> A hot coffee cooling in a room, forensic science to determine time of death.
-        </div>
-
-        <div class="model-card">
-            <strong>💧 Mixing Problems (Tank Problems)</strong><br>
-            For a tank with brine solution, let \(A(t)\) be the amount of salt. The rate equation:
-            \[
-            \frac{dA}{dt} = \text{Rate in} - \text{Rate out}
-            \]
-            If inflow concentration \(c_i\) and flow rate \(r_i\), outflow rate \(r_o\) and volume \(V(t)\):
-            \[
-            \frac{dA}{dt} = c_i r_i - \frac{A}{V} r_o
-            \]
-            This often reduces to a linear or separable ODE.
         </div>
 
         <div class="model-card">
-            <strong>🦠 Logistic Growth Model (Limited Resources)</strong><br>
-            Population growth with carrying capacity \(K\):
-            \[
-            \frac{dP}{dt} = r P \left(1 - \frac{P}{K}\right)
-            \]
-            This is separable and yields the logistic curve:
-            \[
-            P(t) = \frac{K}{1 + \left(\frac{K}{P_0} - 1\right)e^{-rt}}
-            \]
-            <strong>Applications:</strong> Epidemiology, fishery management, bacterial growth in a petri dish.
+            <strong>📝 Procedure for Finding Integrating Factor:</strong><br>
+            <strong>Step 1:</strong> Write the ODE as \(M dx + N dy = 0\).<br>
+            <strong>Step 2:</strong> Compute \(\frac{\partial M}{\partial y}\) and \(\frac{\partial N}{\partial x}\).<br>
+            <strong>Step 3:</strong> If not exact, check if \(\frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = f(x)\). Then \(\mu = e^{\int f(x)dx}\).<br>
+            <strong>Step 4:</strong> Multiply the equation by \(\mu\) and solve the resulting exact ODE.
         </div>
 
-        <div class="model-card">
-            <strong>⚛️ Radioactive Decay & Half-Life</strong><br>
-            For a radioactive substance,
-            \[
-            \frac{dN}{dt} = -\lambda N
-            \]
-            The half-life \(T_{1/2}\) satisfies:
-            \[
-            T_{1/2} = \frac{\ln 2}{\lambda}
-            \]
-            <strong>Solution:</strong> 
-            \[
-            N(t) = N_0 e^{-\lambda t}
-            \]
-            Used in carbon dating and nuclear medicine.
-        </div>
-
-        <div class="section-heading">🔍 4. Procedure for Modeling</div>
-        <table class="comparison-table">
-            <thead><tr><th>Step</th><th>Description</th></tr></thead>
-            <tbody>
-                <tr><td>1</td><td>Identify the dependent and independent variables</td></tr>
-                <tr><td>2</td><td>Express the rate of change as a derivative</td></tr>
-                <tr><td>3</td><td>Set up equation based on physical law (growth, cooling, etc.)</td></tr>
-                <tr><td>4</td><td>Solve the ODE (often separable)</td></tr>
-                <tr><td>5</td><td>Apply initial condition to find particular solution</td></tr>
-            </tbody>
-        </table>
-
-        <!-- ========== WORKOUT EXAMPLES FROM QB ========= -->
+        <!-- ========== WORKOUT EXAMPLES FROM QUESTION BANK ========= -->
         <div class="section-heading">📚 Workout Examples </div>
-        <p>Problems on separable ODEs, modeling, and solution verification. Click <strong>Answer</strong> to see step-by-step solution.</p>
+        <p>Problems on exact ODEs and integrating factors. Click <strong>Answer</strong> to see step-by-step solution.</p>
 
         <div class="question-item" id="q1">
             <div class="question-text">
-                <span><strong>1.</strong> Solve the differential equation \(\frac{dy}{dx} = (x + 1)e^{-x}y^2\). <span class="co-badge">CO1</span></span>
+                <span><strong>1.</strong> Check whether the differential equation \(-y dx + x dy = 0\) is exact. <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="1">📖 Answer</button>
             </div>
             <div id="sol1" class="solution-area">
-                <strong>✅ Step-by-step solution:</strong> This is separable. Rewrite:
+                <strong>✅ Solution:</strong> Here \(M = -y\), \(N = x\).<br>
                 \[
-                \frac{dy}{y^2} = (x+1)e^{-x} dx
+                \frac{\partial M}{\partial y} = -1, \quad \frac{\partial N}{\partial x} = 1.
                 \]
-                Integrate:
-                \[
-                \int y^{-2} dy = \int (x+1)e^{-x} dx
-                \]
-                Left side: \(-y^{-1} = -1/y\). Right side integrate by parts: \(\int (x+1)e^{-x} dx = -(x+2)e^{-x} + C\).<br>
-                Thus:
-                \[
-                -\frac{1}{y} = -(x+2)e^{-x} + C \quad \Rightarrow \quad \frac{1}{y} = (x+2)e^{-x} + C
-                \]
-                Hence:
-                \[
-                y = \frac{1}{(x+2)e^{-x} + C}
-                \]
+                Since \(-1 \neq 1\), the equation is <strong>not exact</strong>.
             </div>
         </div>
 
         <div class="question-item" id="q2">
             <div class="question-text">
-                <span><strong>2.</strong> Solve the initial value problem \(y' = -2xy\), \(y(0) = 1.8\). <span class="co-badge">CO1</span></span>
+                <span><strong>2.</strong> Solve the ODE: \((x^2 + y^2)dx - 2xy dy = 0\). <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="2">📖 Answer</button>
             </div>
             <div id="sol2" class="solution-area">
-                <strong>✅ Solution:</strong> Separable:
+                <strong>✅ Solution:</strong> \(M = x^2 + y^2\), \(N = -2xy\).<br>
                 \[
-                \frac{dy}{y} = -2x\,dx
+                \frac{\partial M}{\partial y} = 2y, \quad \frac{\partial N}{\partial x} = -2y.
                 \]
-                Integrate:
+                Not exact. Compute:
                 \[
-                \ln|y| = -x^2 + C \quad \Rightarrow \quad y = A e^{-x^2}
+                \frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = \frac{1}{-2xy}(2y - (-2y)) = \frac{4y}{-2xy} = -\frac{2}{x}.
                 \]
-                Using \(y(0)=1.8\):
+                Integrating factor:
                 \[
-                1.8 = A e^{0} = A \quad \Rightarrow \quad A = 1.8
+                \mu = e^{\int -\frac{2}{x}dx} = e^{-2\ln x} = x^{-2}.
                 \]
-                Particular solution:
+                Multiply: \((1 + \frac{y^2}{x^2})dx - \frac{2y}{x}dy = 0\). Now exact. Solve to get:
                 \[
-                y = 1.8 e^{-x^2}
+                x - \frac{y^2}{x} = C \quad \text{or} \quad x^2 - y^2 = Cx.
                 \]
             </div>
         </div>
 
         <div class="question-item" id="q3">
             <div class="question-text">
-                <span><strong>3.</strong> Solve \(y' = Ay - By^2\) (Logistic model). Interpret the solution. <span class="co-badge">CO1</span></span>
+                <span><strong>3.</strong> Solve \(2xy\,dx + x^2\,dy = 0\). <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="3">📖 Answer</button>
             </div>
             <div id="sol3" class="solution-area">
-                <strong>✅ Solution:</strong> This is a Bernoulli equation but separable. Write:
+                <strong>✅ Solution:</strong> \(M = 2xy\), \(N = x^2\).<br>
                 \[
-                \frac{dy}{dt} = y(A - By)
+                \frac{\partial M}{\partial y} = 2x, \quad \frac{\partial N}{\partial x} = 2x.
                 \]
-                Separate:
+                Exact. Find \(u\):
                 \[
-                \frac{dy}{y(A-By)} = dt
+                u = \int M dx = x^2y + h(y).
                 \]
-                Partial fractions:
                 \[
-                \frac{1}{y(A-By)} = \frac{1}{A}\left(\frac{1}{y} + \frac{B}{A-By}\right)
+                \frac{\partial u}{\partial y} = x^2 + h'(y) = N = x^2 \Rightarrow h'(y)=0 \Rightarrow h(y)=C.
                 \]
-                Integrate:
+                Solution:
                 \[
-                \frac{1}{A}(\ln|y| - \ln|A-By|) = t + C
+                x^2y = C \quad \Rightarrow \quad y = \frac{C}{x^2}.
                 \]
-                Thus:
-                \[
-                \ln\left|\frac{y}{A-By}\right| = A t + C' \quad \Rightarrow \quad \frac{y}{A-By} = Ce^{At}
-                \]
-                Solve for \(y\):
-                \[
-                y = \frac{A}{B + k e^{-At}}
-                \]
-                Carrying capacity = \(A/B\).
             </div>
         </div>
 
         <div class="question-item" id="q4">
             <div class="question-text">
-                <span><strong>4.</strong> Solve \(xy' = x + y\). <span class="co-badge">CO1</span></span>
+                <span><strong>4.</strong> Solve the IVP: \((e^{x+y} + ye^y)dx + (xe^y - 1)dy = 0\), \(y(0) = -1\). <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="4">📖 Answer</button>
             </div>
             <div id="sol4" class="solution-area">
-                <strong>✅ Solution:</strong> Rewrite:
+                <strong>✅ Solution:</strong> After checking exactness, the solution is:
                 \[
-                y' - \frac{1}{x}y = 1
+                e^{x+y} + xe^y - y = C.
                 \]
-                Integrating factor:
+                Using \(y(0) = -1\):
                 \[
-                \mu = e^{-\int \frac{1}{x}dx} = e^{-\ln x} = \frac{1}{x}
+                e^{-1} + 0 - (-1) = C \quad \Rightarrow \quad C = e^{-1} + 1.
                 \]
-                Multiply:
+                Thus,
                 \[
-                \frac{1}{x}y' - \frac{1}{x^2}y = \frac{1}{x} \quad \Rightarrow \quad \frac{d}{dx}\left(\frac{y}{x}\right) = \frac{1}{x}
-                \]
-                Integrate:
-                \[
-                \frac{y}{x} = \ln|x| + C \quad \Rightarrow \quad y = x\ln|x| + Cx
+                e^{x+y} + xe^y - y = e^{-1} + 1.
                 \]
             </div>
         </div>
 
         <div class="question-item" id="q5">
             <div class="question-text">
-                <span><strong>5.</strong> Radioactive decay: Half-life is 100 years. Find time when 20% of original remains. <span class="co-badge">CO1</span></span>
+                <span><strong>5.</strong> Find an integrating factor and solve: \((x^2 + y^2 + x)dx + xy\,dy = 0\). <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="5">📖 Answer</button>
             </div>
             <div id="sol5" class="solution-area">
-                <strong>✅ Modeling solution:</strong>
+                <strong>✅ Solution:</strong> \(M = x^2 + y^2 + x\), \(N = xy\).<br>
                 \[
-                \frac{dA}{dt} = -kA \quad \Rightarrow \quad A(t) = A_0 e^{-kt}
+                \frac{\partial M}{\partial y} = 2y, \quad \frac{\partial N}{\partial x} = y.
                 \]
-                Half-life \(T_{1/2}=100\):
+                Not exact. Compute:
                 \[
-                0.5 = e^{-k\cdot 100} \quad \Rightarrow \quad k = \frac{\ln 2}{100}
+                \frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = \frac{1}{xy}(2y - y) = \frac{1}{x}.
                 \]
-                For 20% remaining:
+                Integrating factor:
                 \[
-                0.2 = e^{-kt} \quad \Rightarrow \quad t = \frac{\ln 5}{k} = 100\frac{\ln 5}{\ln 2} \approx 232.5 \text{ years}
+                \mu = e^{\int \frac{1}{x}dx} = x.
+                \]
+                Multiply: \((x^3 + xy^2 + x^2)dx + x^2y\,dy = 0\). Solving gives:
+                \[
+                \frac{x^4}{4} + \frac{x^2y^2}{2} + \frac{x^3}{3} = C.
                 \]
             </div>
         </div>
 
         <div class="question-item" id="q6">
             <div class="question-text">
-                <span><strong>6.</strong> Newton's Law of Cooling: Body at 100°C in room at 25°C, after 10 min at 80°C. Find time to reach 50°C. <span class="co-badge">CO1</span></span>
+                <span><strong>6.</strong> Solve \(3(y+1)dx = 2x\,dy\). <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="6">📖 Answer</button>
             </div>
             <div id="sol6" class="solution-area">
-                <strong>✅ Solution:</strong> Newton's Law:
+                <strong>✅ Solution:</strong> Rewrite: \(3(y+1)dx - 2x\,dy = 0\). This is separable:
                 \[
-                \frac{dT}{dt} = k(T-25)
-                \]
-                Separate:
-                \[
-                \frac{dT}{T-25} = k\,dt
+                \frac{dx}{x} = \frac{2}{3(y+1)}dy.
                 \]
                 Integrate:
                 \[
-                \ln|T-25| = kt + C
+                \ln|x| = \frac{2}{3}\ln|y+1| + C.
                 \]
-                \(T(0)=100\) gives \(C = \ln 75\). So:
                 \[
-                T-25 = 75 e^{kt}
-                \]
-                At \(t=10\), \(T=80\):
-                \[
-                55 = 75 e^{10k} \quad \Rightarrow \quad e^{10k} = 0.7333 \quad \Rightarrow \quad k \approx -0.031
-                \]
-                For \(T=50\):
-                \[
-                25 = 75 e^{kt} \quad \Rightarrow \quad e^{kt} = \frac{1}{3} \quad \Rightarrow \quad t = \frac{\ln(1/3)}{k} \approx 35.4 \text{ minutes}
+                x = k (y+1)^{2/3}.
                 \]
             </div>
         </div>
 
         <div class="question-item" id="q7">
             <div class="question-text">
-                <span><strong>7.</strong> Solve the mixing problem: Tank with 100 L pure water. Brine (0.2 kg/L) enters at 5 L/min, mixture drains at 5 L/min. Find salt after t minutes. <span class="co-badge">CO1</span></span>
+                <span><strong>7.</strong> Solve \(y dx + (3x - y^2) dy = 0\) using integrating factor. <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="7">📖 Answer</button>
             </div>
             <div id="sol7" class="solution-area">
-                <strong>✅ Modeling:</strong> Let \(S(t)\) = salt (kg). Rate in = \(0.2 \times 5 = 1\) kg/min. Rate out = \(\frac{S}{100} \times 5 = S/20\).
+                <strong>✅ Solution:</strong> \(M = y\), \(N = 3x - y^2\).<br>
                 \[
-                \frac{dS}{dt} = 1 - \frac{S}{20}
+                \frac{\partial M}{\partial y} = 1, \quad \frac{\partial N}{\partial x} = 3.
                 \]
-                Separate:
+                Not exact. Compute:
                 \[
-                \frac{dS}{1 - S/20} = dt
+                \frac{1}{M}\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right) = \frac{1}{y}(3 - 1) = \frac{2}{y}.
                 \]
-                Integrate:
+                Integrating factor:
                 \[
-                -20\ln\left|1 - \frac{S}{20}\right| = t + C
+                \mu = e^{\int \frac{2}{y}dy} = e^{2\ln y} = y^2.
                 \]
-                \(S(0)=0\) → \(C = 0\). Then:
+                Multiply: \(y^3 dx + (3xy^2 - y^4)dy = 0\). Solving gives:
                 \[
-                1 - \frac{S}{20} = e^{-t/20} \quad \Rightarrow \quad S(t) = 20\left(1 - e^{-t/20}\right) \text{ kg}
+                xy^3 - \frac{y^5}{5} = C.
                 \]
             </div>
         </div>
 
         <div class="question-item" id="q8">
             <div class="question-text">
-                <span><strong>8.</strong> Solve \(2xy y' = y^2 - x^2\) by reducing to separable form. <span class="co-badge">CO1</span></span>
+                <span><strong>8.</strong> Solve the exact equation: \((\cos y \sinh x + 1)dx - \sin y \cosh x\,dy = 0\). <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="8">📖 Answer</button>
             </div>
             <div id="sol8" class="solution-area">
-                <strong>✅ Solution:</strong> This is homogeneous. Let \(y = vx\) → \(y' = v + xv'\). Substitute:
+                <strong>✅ Solution:</strong> \(M = \cos y \sinh x + 1\), \(N = -\sin y \cosh x\).<br>
                 \[
-                2x(vx)(v + xv') = (vx)^2 - x^2
+                \frac{\partial M}{\partial y} = -\sin y \sinh x, \quad \frac{\partial N}{\partial x} = -\sin y \sinh x.
                 \]
-                Simplify:
+                Exact. Find \(u\):
                 \[
-                2vx^2(v + xv') = v^2x^2 - x^2 \quad \Rightarrow \quad 2v(v + xv') = v^2 - 1
+                u = \int M dx = \cos y \cosh x + x + h(y).
                 \]
                 \[
-                2v^2 + 2v xv' = v^2 - 1 \quad \Rightarrow \quad 2v xv' = -v^2 - 1
+                \frac{\partial u}{\partial y} = -\sin y \cosh x + h'(y) = N = -\sin y \cosh x \Rightarrow h'(y)=0.
                 \]
-                Separate:
+                Solution:
                 \[
-                \frac{2v}{1+v^2} dv = -\frac{dx}{x}
-                \]
-                Integrate:
-                \[
-                \ln(1+v^2) = -\ln|x| + C \quad \Rightarrow \quad 1+v^2 = \frac{C}{x}
-                \]
-                Substitute back \(v = y/x\):
-                \[
-                1 + \frac{y^2}{x^2} = \frac{C}{x} \quad \Rightarrow \quad x^2 + y^2 = Cx
+                \cos y \cosh x + x = C.
                 \]
             </div>
         </div>
+
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+        <table class="mistake-table">
+            <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+            <tbody>
+                <tr><td>Forgetting to check exactness condition \(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</td>
+                    <td>Always verify before attempting exact method</td>
+                 </tr>
+                 <tr>
+                    <td>Using wrong integrating factor formula</td>
+                    <td>Check whether \(f(x)\) or \(g(y)\) form applies</td>
+                 </tr>
+                 <tr>
+                    <td>Omitting constant of integration when finding \(u\)</td>
+                    <td>Include \(h(y)\) or \(h(x)\) appropriately</td>
+                 </tr>
+            </tbody>
+        </table>
+
+        <div class="section-heading">📋 Quick Summary</div>
+        <div class="definition-box" style="background:#e1edda;">
+            <ul>
+                <li><strong>Exact ODE:</strong> \(M dx + N dy = 0\) with \(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</li>
+                <li><strong>Solution:</strong> \(u(x,y) = \int M dx + h(y) = C\)</li>
+                <li><strong>Integrating factor:</strong> \(\mu = e^{\int f(x)dx}\) or \(\mu = e^{\int g(y)dy}\)</li>
+            </ul>
+        </div>
+        
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.4, pp. 18–27.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
     </div>
 
-    <!-- Footer is hidden in print via CSS, no repetition in PDF -->
     <footer>
         <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
         <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
         <div style="margin-top: 8px;">
             <a href="https://igmathspace.github.io" style="color:#ffbc9a;">🏠 Home</a> | 
-            <a href="https://igmathspace.github.io/classroom" style="color:#ffbc9a;">📘 My Classroom Space</a> |
+            <a href="https://igmathspace.github.io/lessons.html" style="color:#ffbc9a;">📘 Classroom Space</a> |
             <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" style="color:#ffbc9a;">📖 Syllabus</a>
         </div>
         <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT213 | Differential Equations, Laplace Transforms, LPP & Numerical Methods | FYUGP 3rd Semester</p>
@@ -792,7 +701,7 @@
 
     function saveAsPDF() {
         const original = document.title;
-        document.title = "Lecture2_Separable_ODE_Modeling_KU3DSCMAT213.pdf";
+        document.title = "Lecture3_Exact_ODEs_Integrating_Factors_KU3DSCMAT213.pdf";
         window.print();
         setTimeout(() => { document.title = original; }, 1000);
     }
