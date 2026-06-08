@@ -382,6 +382,7 @@
             <li>Determine the <strong>order</strong> and <strong>degree</strong> of an ODE</li>
             <li>Distinguish between <strong>linear</strong> and <strong>nonlinear</strong> ODEs</li>
             <li>Identify ODEs in engineering contexts</li>
+            <li>Apply the <strong>Principle of Superposition</strong> to linear homogeneous ODEs</li>
         </ul>
 
         <div class="section-heading">🔍 2. Introduction – Why Differential Equations?</div>
@@ -462,7 +463,43 @@
             <strong>❌ Nonlinear examples:</strong> \(y' = y^2\), \(y \cdot y' = x\), \(\sin y = y''\).
         </div>
 
-        <div class="section-heading">📝 7. Solved Examples (Section 1.1 Style)</div>
+        <div class="section-heading">🔀 7. Principle of Superposition</div>
+        <div class="definition-box">
+            <strong>Principle of Superposition (for Linear ODEs):</strong><br><br>
+            If \(y_1\) and \(y_2\) are two solutions of a <strong>homogeneous linear ODE</strong>, then any linear combination
+            \[
+            y = c_1 y_1 + c_2 y_2
+            \]
+            is also a solution, where \(c_1\) and \(c_2\) are arbitrary constants.<br><br>
+            More generally, if \(y_1, y_2, \dots, y_n\) are solutions of an \(n\)-th order homogeneous linear ODE, then:
+            \[
+            y = c_1 y_1 + c_2 y_2 + \cdots + c_n y_n
+            \]
+            is also a solution.
+        </div>
+        <div class="example-box">
+            <strong>Example:</strong> Consider the second-order linear homogeneous ODE:
+            \[
+            y'' - y = 0
+            \]
+            Check that \(y_1 = e^x\) and \(y_2 = e^{-x}\) are both solutions:<br><br>
+            For \(y_1 = e^x\): \(y_1'' = e^x\), so \(y_1'' - y_1 = e^x - e^x = 0\) ✔<br>
+            For \(y_2 = e^{-x}\): \(y_2'' = e^{-x}\), so \(y_2'' - y_2 = e^{-x} - e^{-x} = 0\) ✔<br><br>
+            By the Principle of Superposition, the <strong>general solution</strong> is:
+            \[
+            y = c_1 e^x + c_2 e^{-x}
+            \]
+        </div>
+        <div class="example-box">
+            <strong>⚠️ Important Note:</strong> The Principle of Superposition applies <strong>only to linear homogeneous ODEs</strong>. It does <strong>not</strong> hold for nonlinear ODEs.<br><br>
+            For a <strong>non-homogeneous</strong> linear ODE \(Ly = g(x)\), if \(y_p\) is a particular solution and \(y_h\) is the general solution of the corresponding homogeneous equation, then:
+            \[
+            y = y_h + y_p
+            \]
+            is the complete general solution.
+        </div>
+
+        <div class="section-heading">📝 8. Solved Examples (Section 1.1 Style)</div>
         <div class="example-box">
             <strong>Example A:</strong> 
             \[
@@ -518,11 +555,27 @@
 
         <div class="question-item" id="q3">
             <div class="question-text">
-                <span><strong>3.</strong> Find the order of the differential equation \(\frac{d^3y}{dx^3} + 2\left(\frac{dy}{dx}\right)^{\frac{1}{3}} = 0\). <span class="co-badge">CO1</span></span>
+                <span><strong>3.</strong> Find the order and degree of the differential equation \(\frac{d^2y}{dx^2} + 2\left(\frac{dy}{dx}\right)^{\frac{1}{3}} = 0\). <span class="co-badge">CO1</span></span>
                 <button class="btn-primary btn-answer" data-qid="3">📖 Answer</button>
             </div>
             <div id="sol3" class="solution-area">
-                <strong>✅ Solution:</strong> The highest derivative present is \(\frac{d^3y}{dx^3}\) (third derivative). Hence, <strong>Order = 3</strong>. Degree is not defined because derivative appears under a fractional power.
+                <strong>✅ Step-by-step:</strong><br><br>
+                The given equation is:
+                \[
+                \frac{d^2y}{dx^2} + 2\left(\frac{dy}{dx}\right)^{\frac{1}{3}} = 0
+                \]
+                <strong>Order:</strong> The highest derivative present is \(\frac{d^2y}{dx^2}\) → <strong>Order = 2</strong>.<br><br>
+                <strong>Degree:</strong> The term \(\left(\frac{dy}{dx}\right)^{\frac{1}{3}}\) has a fractional power, so the equation is not polynomial in derivatives as it stands. We must eliminate the fractional power first.<br><br>
+                Rearrange:
+                \[
+                \frac{d^2y}{dx^2} = -2\left(\frac{dy}{dx}\right)^{\frac{1}{3}}
+                \]
+                Cube both sides:
+                \[
+                \left(\frac{d^2y}{dx^2}\right)^3 = -8\,\frac{dy}{dx}
+                \]
+                Now the equation is polynomial in derivatives. The highest order derivative is \(\frac{d^2y}{dx^2}\) and its power is <strong>3</strong>.<br><br>
+                ∴ <strong>Order = 2, Degree = 3</strong>.
             </div>
         </div>
 
@@ -550,8 +603,9 @@
             <ul>
                 <li><strong>ODE</strong> = equation with ordinary derivatives.</li>
                 <li><strong>Order</strong> = highest derivative.</li>
-                <li><strong>Degree</strong> = power of highest derivative (if polynomial).</li>
+                <li><strong>Degree</strong> = power of highest derivative (if polynomial); clear fractional powers first.</li>
                 <li><strong>Linear</strong> = \(y\), derivatives first power, no products, no nonlinear functions of \(y\).</li>
+                <li><strong>Superposition</strong> = if \(y_1, y_2\) solve a homogeneous linear ODE, so does \(c_1 y_1 + c_2 y_2\).</li>
             </ul>
         </div>
 
