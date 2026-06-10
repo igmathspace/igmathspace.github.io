@@ -437,24 +437,7 @@
     // Since we can't automatically scan server-side, we'll provide a manual update method
     // But you can manually add entries as you create new HTML files
     
-    function updateMaterialsList() {
-        const materialsGrid = document.getElementById('materialsGrid');
-        
-        // Predefined list - you can add new HTML files here as you create them
-        // Just add new objects to this array with title, filename, and type
-        const materials = [
-            { title: "📘 Day 1: Introduction to Differential Equations", filename: "day1_intro_ode.html", type: "Lecture" },
-            { title: "📗 Day 2: First Order ODEs", filename: "day2_first_order_ode.html", type: "Lecture" },
-            { title: "📙 Day 3: Laplace Transforms - Basic Properties", filename: "day3_laplace_intro.html", type: "Lecture" },
-            { title: "📕 Day 4: LPP - Graphical Method", filename: "day4_lpp_graphical.html", type: "Lecture" },
-            { title: "✏️ Assignment 1: Differential Equations", filename: "assignment1_ode.html", type: "Assignment" },
-            { title: "📝 Test 1: Laplace Transforms", filename: "test1_laplace.html", type: "Test" },
-            { title: "🎥 Video: Numerical Methods - Euler's Method", filename: "video_euler_method.html", type: "Video Link" },
-            { title: "💡 Quiz 1: LPP", filename: "quiz1_lpp.html", type: "Quiz" },
-            { title: "🗣️ Viva Questions Set 1", filename: "viva_set1.html", type: "Viva" },
-            { title: "🔢 Numerical Methods - Newton Raphson", filename: "numerical_newton.html", type: "Lecture" }
-        ];
-        
+    f
         // Clear existing content except the instruction box
         while(materialsGrid.children.length > 1) {
             materialsGrid.removeChild(materialsGrid.lastChild);
