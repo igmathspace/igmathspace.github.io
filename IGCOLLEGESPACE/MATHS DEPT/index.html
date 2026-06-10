@@ -692,89 +692,77 @@
     </div>
 
     <script>
-        // Time Table Modal for 2026-27
-        var timeTableModal = document.getElementById("timeTableModal");
-        // Ensure we target the button inside the first card (2026-27 card)
-        var timeTableBtn = document.getElementById("timeTableBtn2026");
-        
-        // Clear any previous onclick to avoid duplication, then assign
-        if (timeTableBtn) {
-            timeTableBtn.onclick = function(e) {
-                e.preventDefault();
-                timeTableModal.style.display = "block";
-            }
+    // Time Table Modal for 2026-27
+    var timeTableModal = document.getElementById("timeTableModal");
+    var timeTableBtn = document.getElementById("timeTableBtn2026");
+    
+    if (timeTableBtn) {
+        timeTableBtn.onclick = function(e) {
+            e.preventDefault();
+            timeTableModal.style.display = "block";
         }
-        
-        function closeTimeTableModal() {
+    }
+    
+    function closeTimeTableModal() {
+        timeTableModal.style.display = "none";
+    }
+    
+    // Even Semester Modal
+    var evenSemesterModal = document.getElementById("evenSemesterModal");
+    var evenSemesterBtn = document.getElementById("evenSemesterBtn");
+    
+    if (evenSemesterBtn) {
+        evenSemesterBtn.onclick = function() {
+            timeTableModal.style.display = "none";
+            evenSemesterModal.style.display = "block";
+        }
+    }
+    
+    function closeEvenSemesterModal() {
+        evenSemesterModal.style.display = "none";
+    }
+    
+    // Contact Modal
+    var contactModal = document.getElementById("contactModal");
+    var contactBtn = document.getElementById("contactBtn");
+    
+    if (contactBtn) {
+        contactBtn.onclick = function(e) {
+            e.preventDefault();
+            contactModal.style.display = "block";
+        }
+    }
+    
+    function closeContactModal() {
+        contactModal.style.display = "none";
+    }
+    
+    // Close modals when clicking outside
+    window.onclick = function(event) {
+        if (event.target == timeTableModal) {
             timeTableModal.style.display = "none";
         }
-        
-        // Even Semester Modal
-        var evenSemesterModal = document.getElementById("evenSemesterModal");
-        var evenSemesterBtn = document.getElementById("evenSemesterBtn");
-        
-        if (evenSemesterBtn) {
-            evenSemesterBtn.onclick = function() {
-                timeTableModal.style.display = "none";
-                evenSemesterModal.style.display = "block";
-            }
-        }
-        
-        function closeEvenSemesterModal() {
+        if (event.target == evenSemesterModal) {
             evenSemesterModal.style.display = "none";
         }
-        
-        // Contact Modal
-        var contactModal = document.getElementById("contactModal");
-        var contactBtn = document.getElementById("contactBtn");
-        
-        if (contactBtn) {
-            contactBtn.onclick = function(e) {
-                e.preventDefault();
-                contactModal.style.display = "block";
-            }
-        }
-        
-        function closeContactModal() {
+        if (event.target == contactModal) {
             contactModal.style.display = "none";
         }
-        
-        // Close modals when clicking outside
-        window.onclick = function(event) {
-            if (event.target == timeTableModal) {
-                timeTableModal.style.display = "none";
-            }
-            if (event.target == evenSemesterModal) {
-                evenSemesterModal.style.display = "none";
-            }
-            if (event.target == contactModal) {
-                contactModal.style.display = "none";
-            }
+    }
+    
+    // ONLY handle placeholder links (href="#") - NOT time table links
+    const allTags = document.querySelectorAll('.tag');
+    allTags.forEach(tag => {
+        // Only prevent default for actual placeholder links (href="#")
+        // Do NOT block time table links that have real URLs
+        if (tag.getAttribute('href') === '#' && tag.id !== 'timeTableBtn2026') {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Quiet placeholder - for Year Plan, Student List, Certificate Courses
+            });
         }
-        
-        // Additional fallback to ensure any "Time Table" tags from the second card (2025-26) do not conflict
-        // However, no ID is assigned there; default anchor tags without ID won't open modal, they just navigate to '#'
-        // We prevent default on them to avoid page jump but keep them as placeholder links (no modal)
-        const allTimeTableTags = document.querySelectorAll('.tag');
-        allTimeTableTags.forEach(tag => {
-            // If the tag contains "Time Table" text but does NOT have the specific modal ID (timeTableBtn2026)
-            // we make them simple placeholders to avoid unwanted modal open and prevent hash navigation.
-            if (tag.innerText.includes('Time Table') && tag.id !== 'timeTableBtn2026') {
-                tag.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    // Optional: Could show a small message that timetable is only for 2026-27?
-                    // For now, do nothing or alert softly? No alert to keep clean.
-                    // But to be user-friendly, we show a temporary notification? Not needed.
-                });
-            } else if (tag.id !== 'timeTableBtn2026' && tag.getAttribute('href') === '#') {
-                // For any other non-functional links (Action Plan, Student List, Certificate Courses) that have href="#"
-                // prevent default scrolling
-                tag.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    // Quiet placeholder: in future these could open respective modals or pages.
-                });
-            }
-        });
+    });
+
     </script>
 </body>
 </html>
