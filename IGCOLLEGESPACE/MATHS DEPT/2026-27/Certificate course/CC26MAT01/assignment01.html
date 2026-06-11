@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>PyMath Pro — Computational Mathematics | NAM College</title>
+    <!-- Native print to PDF -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e8e0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            font-family: 'DM Sans', 'Inter', 'Helvetica', 'Arial', sans-serif;
+            font-size: 14px;
+        }
+
+        .page-inner, .unit-title, .section-caption, .stat-number, .title-main, .hero-sub, .badge, .lib-item, .topic-item, .prac-text, .grade-table, .assess-row {
+            font-family: 'DM Sans', 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+        }
+
+        .syllabus-container {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            transition: all 0.2s;
+        }
+
+        .pdf-content {
+            padding: 0;
+            background: white;
+        }
+
+        /* CUSTOM MARGINS: top 0.5cm, bottom 0.4cm, left 0.6cm, right 0.4cm */
+        .page-inner {
+            padding: 0.5cm 0.4cm 0.4cm 0.6cm;
+            background: white;
+        }
+
+        /* Page break control for print */
+        .force-page-break {
+            page-break-before: always;
+            break-before: page;
+        }
+        
+        .unit-card {
+            margin-bottom: 28px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        /* ========== HEADER WITH EMBLEM ABOVE TEXT ========== */
+        .college-header-card {
+            background: linear-gradient(135deg, #FFE4EC 0%, #E3F0FF 100%);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            text-align: center;
+            border: 1px solid rgba(212, 63, 107, 0.3);
+        }
+        .emblem-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .college-emblem {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: white;
+            padding: 6px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .college-details {
+            text-align: center;
+        }
+        .college-name-main {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a1a2e;
+            letter-spacing: 0.6px;
+            line-height: 1.3;
+        }
+        .college-accre {
+            font-size: 11px;
+            color: #2d2d3a;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+        .college-address {
+            font-size: 10px;
+            color: #3a3a4a;
+            margin-top: 5px;
+        }
+        .vertical-spacer {
+            height: 0.25cm;
+        }
+        .dept-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: #b13256;
+            background: rgba(212, 63, 107, 0.12);
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 30px;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Certificate Banner */
+        .cert-banner {
+            background: linear-gradient(98deg, #D43F6B 0%, #2C6E9E 100%);
+            border-radius: 40px;
+            padding: 10px 18px;
+            text-align: center;
+            margin: 14px 0 12px 0;
+            box-shadow: 0 4px 10px rgba(212,63,107,0.25);
+        }
+        .cert-banner-text {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Course Code and Coordinator Banner */
+        .course-coordinator-banner {
+            background: linear-gradient(135deg, #F0EAF5 0%, #E8E0F0 100%);
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin: 0 0 18px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px solid #D0C8E0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .course-code-badge {
+            background: #2C3E66;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+        .course-title-badge {
+            background: #2C3E66;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+        .coordinator-badge {
+            color: #1a1a2e;
+            font-weight: 600;
+            font-size: 12px;
+            background: #FFE4EC;
+            padding: 8px 18px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+        .coordinator-badge span {
+            color: #b13256;
+            font-weight: 800;
+        }
+
+        .hero-banner {
+            background: linear-gradient(105deg, #1e2a4a 0%, #2C3E66 100%);
+            border-radius: 16px;
+            padding: 0 0 10px 0;
+            position: relative;
+            margin-bottom: 22px;
+            overflow: hidden;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        }
+        .hero-inner {
+            padding: 16px 20px 20px 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-deco-circle1 {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 65px;
+            height: 65px;
+            background: #D43F6B;
+            border-radius: 50%;
+            opacity: 0.25;
+            z-index: 0;
+        }
+        .hero-deco-circle2 {
+            position: absolute;
+            top: 30px;
+            right: -5px;
+            width: 48px;
+            height: 48px;
+            background: #FFB6C1;
+            border-radius: 50%;
+            opacity: 0.35;
+            z-index: 0;
+        }
+        .badge-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .badge {
+            background: rgba(255,255,255,0.22);
+            border-radius: 30px;
+            padding: 5px 14px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #FFE4EC;
+            letter-spacing: 0.4px;
+        }
+        .title-main {
+            font-size: 36px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .title-pro {
+            color: #FAC775;
+            font-weight: 800;
+            font-size: 36px;
+        }
+        .hero-sub {
+            font-size: 14px;
+            color: #D9E6FF;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .hero-tagline {
+            font-size: 11px;
+            color: #EAF4FF;
+            max-width: 80%;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+        .stat-grid {
+            display: flex;
+            gap: 14px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.12);
+            border-radius: 12px;
+            flex: 1;
+            min-width: 75px;
+            text-align: center;
+            padding: 10px 6px;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        .stat-label {
+            font-size: 9px;
+            color: #FFE0E7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .section-caption {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #4a4a55;
+            margin-bottom: 8px;
+            margin-top: 22px;
+        }
+        .hr-rule {
+            height: 1px;
+            background: #C5C0D0;
+            width: 100%;
+            margin: 6px 0 14px 0;
+        }
+
+        .lib-grid {
+            display: flex;
+            gap: 12px;
+            margin: 16px 0 16px 0;
+        }
+        .lib-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px 6px;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 13px;
+            color: #1a1a2e !important;
+        }
+
+        .unit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-left: 5px solid;
+            border-radius: 12px 12px 0 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .unit-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: #1a1a2e;
+        }
+        .unit-hours {
+            font-size: 12px;
+            font-weight: 600;
+            color: #3a3a4a;
+        }
+        .topics-box {
+            background: #F5F3F8;
+            padding: 14px 18px;
+            border-left: 5px solid;
+            border-radius: 0 0 12px 12px;
+        }
+        .topic-item {
+            font-size: 13px;
+            color: #1e1e2a;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+        .topic-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-size: 14px;
+            color: #D43F6B;
+            font-weight: bold;
+        }
+        .practical-card {
+            background: #E8F0FE;
+            border-left: 5px solid #1e5a7a;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-top: 14px;
+        }
+        .prac-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #0a4a6a;
+            margin-bottom: 6px;
+        }
+        .prac-text {
+            font-size: 12px;
+            color: #1a2a3a;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        .schedule-table td, .schedule-table th {
+            padding: 10px 8px;
+            vertical-align: middle;
+            border-bottom: 0.8px solid #C5C0D0;
+            font-size: 13px;
+            color: #1e1e2a;
+            font-weight: 500;
+        }
+        .schedule-table b {
+            color: #1a1a2e;
+            font-weight: 800;
+        }
+        .bar-container {
+            background: #E0D8EC;
+            border-radius: 8px;
+            height: 10px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 10px;
+            border-radius: 8px;
+        }
+
+        .assessment-two-col {
+            display: flex;
+            gap: 22px;
+            margin: 16px 0;
+        }
+        .assess-card {
+            flex: 1;
+            border: 1px solid #C5B8D4;
+            border-left: 5px solid;
+            border-radius: 14px;
+            background: white;
+        }
+        .assess-header {
+            background: #F0E6F2;
+            padding: 12px 16px;
+            font-weight: 800;
+            font-size: 15px;
+            border-radius: 12px 12px 0 0;
+            color: #1a1a2e;
+        }
+        .assess-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 0.8px solid #E0D8EC;
+            font-size: 13px;
+        }
+        .assess-row span:first-child { 
+            color: #2a2a3a; 
+            font-weight: 500;
+        }
+        .assess-row span:last-child { 
+            font-weight: 800; 
+            color: #b13256; 
+            font-size: 14px; 
+        }
+        
+        .note-box {
+            background: #EDE8F4;
+            border-left: 5px solid #D43F6B;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #1e1e2e;
+            margin: 20px 0;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        .grade-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+        .grade-table th, .grade-table td {
+            border: 0.8px solid #C5B8D4;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .grade-table th {
+            background: #F0E6F2;
+            color: #1a1a2e;
+            font-weight: 800;
+            font-size: 13px;
+        }
+        .grade-table td {
+            color: #1e1e2a;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #4a4a55;
+            margin-top: 24px;
+            padding-top: 12px;
+            border-top: 1px solid #D0C8E0;
+        }
+        
+        /* Print Button Styling */
+        .print-btn {
+            background: #D43F6B;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(212,63,107,0.4);
+            transition: 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .print-btn:hover {
+            background: #a52e52;
+            transform: scale(1.02);
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .print-btn {
+                display: none;
+            }
+            .syllabus-container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+                margin: 0;
+            }
+            @page {
+                size: A4;
+                margin: 0.5cm 0.4cm 0.4cm 0.6cm;
+            }
+            .page-inner {
+                padding: 0 !important;
+            }
+            .force-page-break {
+                page-break-before: always;
+                break-before: page;
+            }
+            .unit-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .college-header-card, .cert-banner, .hero-banner, .practical-card, .note-box, .assess-card, .course-coordinator-banner {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body, .topic-item, .prac-text, .assess-row, .grade-table td, .note-box, .unit-hours, .college-accre, .college-address {
+                color: #1a1a2e !important;
+            }
+            .unit-title {
+                color: #0a0a1a !important;
+            }
+        }
+        
+        @media (max-width: 700px) {
+            .page-inner { padding: 0.4cm 0.3cm 0.3cm 0.5cm; }
+            .cert-banner-text { font-size: 18px; }
+            .title-main, .title-pro { font-size: 28px; }
+            .college-name-main { font-size: 18px; }
+            .course-coordinator-banner { align-items: flex-start; }
+            .course-code-badge, .course-title-badge, .coordinator-badge { width: auto; }
+            .college-emblem { width: 55px; height: 55px; }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" id="printPdfBtn">🖨️ Print / Save as PDF (A4 - Custom Margins)</button>
+    <div class="syllabus-container" id="printContainer">
+        <div class="pdf-content">
+            <!-- PAGE 1: Header, Banner, Units 1-3 -->
+            <div class="page-inner" id="page1Content">
+                <!-- College Header with Emblem placed above the text -->
+                <div class="college-header-card">
+                    <!-- Emblem above college name -->
+                    <div class="emblem-container">
+                        <img class="college-emblem" src="NAM.png" alt="NAM College Emblem" 
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2248%22%20fill%3D%22%232C3E66%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2267%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%20font-size%3D%2228%22%20font-family%3D%22Arial%22%3ENAM%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                    </div>
+                    <div class="college-details">
+                        <div class="college-name-main">NAM COLLEGE KALLIKKANDY</div>
+                        <div class="college-accre">Re-accredited by NAAC with ‘A’ Grade</div>
+                        <div class="college-accre">Aided & Affiliated to Kannur University</div>
+                        <div class="college-address">Kannur, Kerala 670693</div>
+                    </div>
+                    <div class="vertical-spacer"></div>
+                    <div class="dept-name">DEPARTMENT OF MATHEMATICS</div>
+                </div>
+
+                <!-- Certificate Course Banner -->
+                <div class="cert-banner">
+                    <div class="cert-banner-text">📖 Certificate Course</div>
+                </div>
+
+                <!-- Course Code, Course Title and Coordinator Banner -->
+                <div class="course-coordinator-banner">
+                    <div class="course-code-badge">
+                        📌 Course Code: CC26MAT01
+                    </div>
+                    <div class="course-title-badge">
+                        📘 Course Title: PyMath Pro - Computational Mathematics with Python & NumPy
+                    </div>
+                    <div class="coordinator-badge">
+                        👨‍🏫 Course Coordinator: <span>Gafoor I</span>, Assistant Professor, Department of Mathematics
+                    </div>
+                </div>
+
+                <!-- Hero Banner -->
+                <div class="hero-banner">
+                    <div class="hero-deco-circle1"></div>
+                    <div class="hero-deco-circle2"></div>
+                    <div class="hero-inner">
+                        <div class="badge-strip">
+                            <span class="badge">Certificate Course</span>
+                            <span class="badge">30 Hours</span>
+                            <span class="badge">NAM College · Kannur University</span>
+                        </div>
+                        <div>
+                        Course Code: CC26MAT01
+                    </div>
+                        <div class="title-main">
+                            PyMath <span class="title-pro">Pro</span>
+                        </div>
+                        <div class="hero-sub">Computational Mathematics with Python & NumPy</div>
+                        <div class="hero-tagline">
+                            Master numerical methods, integration, and linear programming using Python — bridging mathematical theory with scientific computing.
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-card"><div class="stat-number">30</div><div class="stat-label">Total hours</div></div>
+                            <div class="stat-card"><div class="stat-number">12</div><div class="stat-label">Theory hours</div></div>
+                            <div class="stat-card"><div class="stat-number">18</div><div class="stat-label">Practical hours</div></div>
+                            <div class="stat-card"><div class="stat-number">100</div><div class="stat-label">Max marks</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Libraries -->
+                <div class="section-caption">Tools & Libraries</div>
+                <div class="lib-grid">
+                    <div class="lib-item" style="background:#FFE4EC; color:#1a1a2e; font-weight:800;">Python 3</div>
+                    <div class="lib-item" style="background:#E3F0FF; color:#1a1a2e; font-weight:800;">NumPy</div>
+                    <div class="lib-item" style="background:#FFE4EC; color:#1a1a2e; font-weight:800;">Matplotlib</div>
+                    <div class="lib-item" style="background:#E3F0FF; color:#1a1a2e; font-weight:800;">PuLP</div>
+                </div>
+
+                <!-- Syllabus header -->
+                <div class="section-caption">Syllabus — Theory (12 hrs) + Practical (18 hrs)</div>
+                <div class="hr-rule"></div>
+
+                <!-- Unit 1 -->
+                <div class="unit-card">
+                    <div class="unit-header" style="background:#FFE4EC; border-left-color:#D43F6B;">
+                        <span class="unit-title" style="color:#1a1a2e;">Unit 1 — Python Foundations for Mathematics</span>
+                        <span class="unit-hours">Theory: 3 h | Practical: 2 h | Total: 5 h</span>
+                    </div>
+                    <div class="topics-box" style="border-left-color:#D43F6B; background:#FEF6F9;">
+                        <div class="topic-item">Python syntax, data types, control structures and functions</div>
+                        <div class="topic-item">Introduction to NumPy: arrays, array operations, broadcasting</div>
+                        <div class="topic-item">Mathematical functions in NumPy: linspace, arange, trig, exponential</div>
+                        <div class="topic-item">Plotting with Matplotlib: line plots, scatter, subplots, annotations</div>
+                        <div class="topic-item">Writing and organising mathematical programs in Python</div>
+                    </div>
+                    <div class="practical-card">
+                        <div class="prac-label">Practical</div>
+                        <div class="prac-text">Array manipulations · Plotting mathematical functions · Writing reusable Python functions for iterative algorithms</div>
+                    </div>
+                </div>
+                
+                <!-- Unit 2 -->
+                <div class="unit-card">
+                    <div class="unit-header" style="background:#E3F0FF; border-left-color:#2C6E9E;">
+                        <span class="unit-title" style="color:#1a1a2e;">Unit 2 — Numerical Methods I: Root Finding</span>
+                        <span class="unit-hours">Theory: 3 h | Practical: 5 h | Total: 8 h</span>
+                    </div>
+                    <div class="topics-box" style="border-left-color:#2C6E9E; background:#F4F9FF;">
+                        <div class="topic-item">Errors in numerical computation; convergence criteria</div>
+                        <div class="topic-item">Bisection Method — derivation, algorithm, convergence rate</div>
+                        <div class="topic-item">Regula Falsi (False Position) Method — theory and comparison</div>
+                        <div class="topic-item">Newton-Raphson Method — derivation from Taylor series, quadratic convergence</div>
+                        <div class="topic-item">Comparison of methods: speed, stability, conditions for convergence</div>
+                    </div>
+                    <div class="practical-card">
+                        <div class="prac-label">Practical</div>
+                        <div class="prac-text">Implement all three root-finding algorithms · Plot iteration convergence graphs · Compare methods on test equations</div>
+                    </div>
+                </div>
+                
+                <!-- Unit 3 -->
+                <div class="unit-card">
+                    <div class="unit-header" style="background:#FFE4EC; border-left-color:#D43F6B;">
+                        <span class="unit-title" style="color:#1a1a2e;">Unit 3 — Numerical Integration</span>
+                        <span class="unit-hours">Theory: 3 h | Practical: 5 h | Total: 8 h</span>
+                    </div>
+                    <div class="topics-box" style="border-left-color:#D43F6B; background:#FEF6F9;">
+                        <div class="topic-item">Concept of numerical quadrature; Newton-Cotes formulae</div>
+                        <div class="topic-item">Trapezoidal Rule — derivation, error analysis</div>
+                        <div class="topic-item">Simpson's 1/3 Rule — derivation, even-interval requirement</div>
+                        <div class="topic-item">Simpson's 3/8 Rule — derivation, applicability conditions</div>
+                        <div class="topic-item">Comparative accuracy and error estimation</div>
+                    </div>
+                    <div class="practical-card">
+                        <div class="prac-label">Practical</div>
+                        <div class="prac-text">Implement Trapezoidal, Simpson's 1/3 and 3/8 rules · Visualise area under the curve · Error comparison with exact integrals</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: Unit 4 + Schedule + Assessment + Grading -->
+            <div class="page-inner force-page-break" id="page2Content">
+                <!-- Unit 4 -->
+                <div class="unit-card">
+                    <div class="unit-header" style="background:#E3F0FF; border-left-color:#2C6E9E;">
+                        <span class="unit-title" style="color:#1a1a2e;">Unit 4 — LPP: Graphical Method</span>
+                        <span class="unit-hours">Theory: 3 h | Practical: 6 h | Total: 9 h</span>
+                    </div>
+                    <div class="topics-box" style="border-left-color:#2C6E9E; background:#F4F9FF;">
+                        <div class="topic-item">Introduction to Linear Programming Problems (LPP)</div>
+                        <div class="topic-item">Formulation of LPP: objective function and constraints</div>
+                        <div class="topic-item">Graphical method — feasible region, corner-point theorem</div>
+                        <div class="topic-item">Maximisation and minimisation problems</div>
+                        <div class="topic-item">Special cases: unbounded solutions, infeasibility, multiple optima</div>
+                    </div>
+                    <div class="practical-card">
+                        <div class="prac-label">Practical</div>
+                        <div class="prac-text">Define and solve LPP using PuLP · Plot feasible region and constraints · Highlight corner points and optimal solution</div>
+                    </div>
+                </div>
+
+                <!-- Schedule Overview -->
+                <div class="section-caption">Schedule Overview</div>
+                <div class="hr-rule"></div>
+                <table class="schedule-table">
+                    <tbody>
+                        <tr><td style="width:50px"><b>U1</b></td>
+                        <td>Python & NumPy foundations</td>
+                        <td><div class="bar-container"><div class="bar-fill" style="width:30%; background:#D43F6B;"></div></div></td>
+                        <td><b>5 h</b></td>
+                    </tr>
+                    <tr><td><b>U2</b></td>
+                        <td>Root finding methods</td>
+                        <td><div class="bar-container"><div class="bar-fill" style="width:48%; background:#2C6E9E;"></div></div></td>
+                        <td><b>8 h</b></td>
+                    </tr>
+                    <tr><td><b>U3</b></td>
+                        <td>Numerical integration</td>
+                        <td><div class="bar-container"><div class="bar-fill" style="width:48%; background:#D43F6B;"></div></div></td>
+                        <td><b>8 h</b></td>
+                    </tr>
+                    <tr><td><b>U4</b></td>
+                        <td>LPP graphical method</td>
+                        <td><div class="bar-container"><div class="bar-fill" style="width:54%; background:#2C6E9E;"></div></div></td>
+                        <td><b>9 h</b></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- Assessment Pattern -->
+                <div class="section-caption">Assessment Pattern — Total 100 Marks</div>
+                <div class="hr-rule"></div>
+                <div class="assessment-two-col">
+                    <div class="assess-card" style="border-left-color:#D43F6B;">
+                        <div class="assess-header" style="background:#FFE4EC; color:#1a1a2e;">Assignment &nbsp; 40 marks</div>
+                        <div class="assess-row"><span>Problem solving (numerical methods)</span><span>15</span></div>
+                        <div class="assess-row"><span>Problem solving (integration + LPP)</span><span>15</span></div>
+                        <div class="assess-row"><span>Report / documentation quality</span><span>10</span></div>
+                    </div>
+                    <div class="assess-card" style="border-left-color:#2C6E9E;">
+                        <div class="assess-header" style="background:#E3F0FF; color:#1a1a2e;">Practical Exam &nbsp; 60 marks</div>
+                        <div class="assess-row"><span>Program writing & execution</span><span>30</span></div>
+                        <div class="assess-row"><span>Output correctness & plots</span><span>15</span></div>
+                        <div class="assess-row"><span>Viva voce</span><span>10</span></div>
+                        <div class="assess-row"><span>Lab record / documentation</span><span>5</span></div>
+                    </div>
+                </div>
+                
+                <div class="note-box">
+                    Minimum pass mark: 50/100. Candidates must score at least 20/40 in the Assignment and 30/60 in the Practical Exam separately.
+                </div>
+
+                <!-- Grading Criteria -->
+                <div class="section-caption">Grading Criteria for Certification</div>
+                <div class="hr-rule"></div>
+                <table class="grade-table">
+                    <thead>
+                        <tr><th>Grade</th><th>Score (out of 100)</th><th>Percentage</th><th>Descriptor</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#FFE4EC;"><td style="color:#b13256; font-weight:800;">A+</td><td>90 – 100</td><td>90% and above</td><td>Outstanding</td></tr>
+                        <tr style="background:#E3F0FF;"><td style="color:#1e5a7a; font-weight:800;">A</td><td>80 – 89</td><td>80 – 89%</td><td>Excellent</td></tr>
+                        <tr style="background:#FFE4EC;"><td style="color:#b13256; font-weight:800;">B+</td><td>70 – 79</td><td>70 – 79%</td><td>Very Good</td></tr>
+                        <tr style="background:#E3F0FF;"><td style="color:#1e5a7a; font-weight:800;">B</td><td>60 – 69</td><td>60 – 69%</td><td>Good</td></tr>
+                        <tr style="background:#FFE4EC;"><td style="color:#b13256; font-weight:800;">C</td><td>50 – 59</td><td>50 – 59%</td><td>Pass</td></tr>
+                        <tr style="background:#FEF0F3;"><td style="color:#8a1a3a; font-weight:800;">F</td><td>Below 50</td><td>&lt; 50%</td><td>Fail — re-assessment required</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="footer-note">
+                    @ Gaoor I, Assistant Professor, Department of Mathematics
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const printBtn = document.getElementById('printPdfBtn');
+        
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>

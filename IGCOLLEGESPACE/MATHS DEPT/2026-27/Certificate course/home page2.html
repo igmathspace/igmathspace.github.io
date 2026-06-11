@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Courses - Department of Mathematics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Section - Reddish Violet Theme */
+        .header {
+            background: linear-gradient(135deg, #4a148c 0%, #880e4f 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #4a148c;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: #ad1457;
+            transform: translateY(-2px);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #d81b60 0%, #8e24aa 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #880e4f 0%, #4a148c 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .card-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header .course-code {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            letter-spacing: 1px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.15);
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 4px;
+            margin-top: 0.25rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .tag {
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            border-left: 4px solid #d81b60;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #4a148c;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background: linear-gradient(135deg, #d81b60 0%, #8e24aa 100%);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tag-icon {
+            font-size: 1.3rem;
+            margin-right: 0.8rem;
+        }
+
+        .tag-text {
+            flex: 1;
+        }
+
+        .tag-arrow {
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tag:hover .tag-arrow {
+            opacity: 1;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4a148c 0%, #2a0854 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>📜 Certificate Courses</h1>
+        <p>Department of Mathematics | NAM College, Kallikkannady</p>
+    </div>
+
+    <div class="navbar">
+        <div class="nav-container">
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/" class="nav-link">📐 Dept. Home</a>
+            <a href="https://igmathspace.github.io/" target="_blank" class="nav-link">🏠 Page Home</a>
+            <a href="https://igmathspace.github.io/lessons.html" target="_blank" class="nav-link">📚 Learning Materials</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Value-Added & Certificate Programmes</h2>
+            <p>Academic Year 2026 - 2027</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Certificate Course I</h3>
+                    <div class="course-code">CC26MAT01</div>
+                </div>
+                <div class="card-body">
+                    <div class="tags-container">
+                        <a href="CC26MAT01/poster01.html" target="_blank" class="tag">
+                            <span class="tag-icon">🖼️</span>
+                            <span class="tag-text">Poster</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="CC26MAT01/syllabus01.html" target="_blank" class="tag">
+                            <span class="tag-icon">📖</span>
+                            <span class="tag-text">Syllabus</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag placeholder-link">
+                            <span class="tag-icon">📝</span>
+                            <span class="tag-text">Application Form (Will Update)</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="CC26MAT01/Assignment01.html" target="_blank" class="tag">
+                            <span class="tag-icon">✍️</span>
+                            <span class="tag-text">Assignment</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag placeholder-link">
+                            <span class="tag-icon">⚙️</span>
+                            <span class="tag-text">Question Paper Generator (Will Update)</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Certificate Course II</h3>
+                    <div class="course-code">CC26MAT02</div>
+                </div>
+                <div class="card-body">
+                    <div class="tags-container">
+                        <a href="CC26MAT02/poster02.html" target="_blank" class="tag">
+                            <span class="tag-icon">🖼️</span>
+                            <span class="tag-text">Poster</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="CC26MAT02/syllabus02.html" target="_blank" class="tag">
+                            <span class="tag-icon">📖</span>
+                            <span class="tag-text">Syllabus</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag placeholder-link">
+                            <span class="tag-icon">📝</span>
+                            <span class="tag-text">Application Form (Will Update)</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="CC26MAT02/Assignment02.html" target="_blank" class="tag">
+                            <span class="tag-icon">✍️</span>
+                            <span class="tag-text">Assignment</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                        <a href="#" class="tag placeholder-link">
+                            <span class="tag-icon">⚙️</span>
+                            <span class="tag-text">Question Paper Generator (Will Update)</span>
+                            <span class="tag-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© Gafoor I, Assistant Professor, Department of Mathematics, NAM College Kallikkannady</p>
+    </div>
+
+    <script>
+        // Smoothly intercept and notify users clicking on placeholder links
+        document.querySelectorAll('.placeholder-link').forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert("This resource is being prepared and will be available shortly!");
+            });
+        });
+    </script>
+</body>
+</html>
