@@ -370,7 +370,9 @@
   const APPS_SCRIPT_URL = 'hhttps://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
   // ────────────────────────────────────────────────────────────────────────────
 
-  // Set today's date as default
+
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
+
   document.getElementById('date').valueAsDate = new Date();
 
   function previewPhoto(event) {
@@ -409,7 +411,6 @@
 
     const regNo = generateRegNo();
 
-    // Read photo as base64
     let photoBase64 = '';
     const photoFile = document.getElementById('photoInput').files[0];
     if (photoFile) {
@@ -422,35 +423,36 @@
 
     const data = {
       regNo,
-      name:          document.getElementById('name').value.trim(),
-      parentName:    document.getElementById('parentName').value.trim(),
-      gender:        document.getElementById('gender').value,
-      dob:           document.getElementById('dob').value,
-      qualification: document.getElementById('qualification').value.trim(),
-      mobile:        document.getElementById('mobile').value.trim(),
-      whatsapp:      document.getElementById('whatsapp').value.trim(),
-      email:         document.getElementById('email').value.trim(),
-      phone:         document.getElementById('phone').value.trim(),
-      priorPython:   document.getElementById('priorPython').value,
-      institution:   document.getElementById('institution').value.trim(),
-      commAddress:   document.getElementById('commAddress').value.trim(),
-      permAddress:   document.getElementById('permAddress').value.trim(),
-      place:         document.getElementById('place').value.trim(),
-      date:          document.getElementById('date').value,
+      name:           document.getElementById('name').value.trim(),
+      parentName:     document.getElementById('parentName').value.trim(),
+      gender:         document.getElementById('gender').value,
+      dob:            document.getElementById('dob').value,
+      qualification:  document.getElementById('qualification').value.trim(),
+      mobile:         document.getElementById('mobile').value.trim(),
+      whatsapp:       document.getElementById('whatsapp').value.trim(),
+      email:          document.getElementById('email').value.trim(),
+      phone:          document.getElementById('phone').value.trim(),
+      priorPython:    document.getElementById('priorPython').value,
+      institution:    document.getElementById('institution').value.trim(),
+      commAddress:    document.getElementById('commAddress').value.trim(),
+      permAddress:    document.getElementById('permAddress').value.trim(),
+      place:          document.getElementById('place').value.trim(),
+      date:           document.getElementById('date').value,
       photoBase64,
-      timestamp:     new Date().toLocaleString('en-IN'),
+      timestamp:      new Date().toLocaleString('en-IN'),
     };
 
     try {
-      // Use iframe trick to avoid CORS issues with Apps Script
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
+      const iframeName = 'hidden_iframe_' + Date.now();
+      iframe.name = iframeName;
       document.body.appendChild(iframe);
 
       const form = document.createElement('form');
       form.method = 'POST';
       form.action = APPS_SCRIPT_URL;
-      form.target = iframe.name = 'hidden_iframe_' + Date.now();
+      form.target = iframeName;
 
       const input = document.createElement('input');
       input.type = 'hidden';
@@ -461,7 +463,6 @@
       document.body.appendChild(form);
       form.submit();
 
-      // Wait briefly then show success
       setTimeout(() => {
         document.getElementById('formCard').style.display = 'none';
         document.getElementById('successScreen').style.display = 'block';
@@ -474,6 +475,8 @@
       btn.disabled = false;
       btn.innerHTML = 'Submit Registration';
     }
+  }
+
   function resetForm() {
     document.getElementById('formCard').style.display = 'block';
     document.getElementById('successScreen').style.display = 'none';
