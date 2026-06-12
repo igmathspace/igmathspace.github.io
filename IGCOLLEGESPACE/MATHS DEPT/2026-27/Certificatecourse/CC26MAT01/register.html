@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration — CC26MAT01 PyMath Pro | NAM College</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #e8e0f0;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  /* Header card */
+  .header-card {
+    background: linear-gradient(135deg, #FFE4EC 0%, #E3F0FF 100%);
+    border: 1px solid rgba(212,63,107,0.25);
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .emblem {
+    width: 64px; height: 64px;
+    background: #2C3E66;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 18px; font-weight: 900; color: white; letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .college-name { font-size: 19px; font-weight: 800; color: #1a1a2e; }
+  .college-sub { font-size: 11px; color: #3a3a4a; font-weight: 500; margin-top: 3px; }
+  .dept-pill {
+    display: inline-block; margin-top: 10px;
+    background: rgba(212,63,107,0.12); color: #b13256;
+    font-size: 12px; font-weight: 800;
+    padding: 5px 18px; border-radius: 30px;
+  }
+
+  /* Course banner */
+  .course-banner {
+    background: linear-gradient(98deg, #D43F6B 0%, #2C6E9E 100%);
+    border-radius: 14px;
+    padding: 14px 20px;
+    margin-bottom: 14px;
+    color: white;
+  }
+  .course-banner .label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; opacity: 0.85; }
+  .course-banner .title { font-size: 20px; font-weight: 800; margin: 2px 0 4px; }
+  .course-banner .sub { font-size: 12px; opacity: 0.9; font-weight: 500; }
+  .course-meta { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .meta-pill {
+    background: rgba(255,255,255,0.2); border-radius: 20px;
+    padding: 4px 12px; font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+  }
+
+  /* Form card */
+  .form-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .form-section-head {
+    background: #2C3E66;
+    color: white;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    padding: 10px 22px;
+  }
+  .form-body { padding: 20px 22px; }
+
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field-full { grid-column: 1 / -1; }
+
+  .field-group { display: flex; flex-direction: column; gap: 5px; }
+  .field-group label {
+    font-size: 11px; font-weight: 700; color: #5a5a6a;
+    text-transform: uppercase; letter-spacing: 0.6px;
+  }
+  .field-group label span.req { color: #D43F6B; margin-left: 2px; }
+  .field-group input, .field-group select, .field-group textarea {
+    border: 1.5px solid #D0C8E0;
+    border-radius: 10px;
+    padding: 10px 13px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif; color: #1a1a2e;
+    outline: none; transition: border-color 0.2s;
+    background: #fafafa;
+  }
+  .field-group input:focus, .field-group select:focus, .field-group textarea:focus {
+    border-color: #D43F6B; background: white;
+  }
+  .field-group textarea { resize: vertical; min-height: 72px; }
+  .field-group select { cursor: pointer; }
+
+  .section-divider { height: 1px; background: #EDE8F4; margin: 18px 0; }
+
+  .photo-box {
+    border: 2px dashed #C5B8D4;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    color: #7a7a8a;
+    font-size: 13px;
+    background: #F8F5FC;
+  }
+  .photo-box .icon { font-size: 28px; margin-bottom: 6px; }
+  .photo-box small { display: block; font-size: 10px; color: #9a9aaa; margin-top: 4px; }
+  .photo-preview {
+    display: none; width: 90px; height: 110px;
+    object-fit: cover; border-radius: 8px;
+    border: 2px solid #D43F6B; margin: 8px auto 0;
+  }
+  #photoInput { display: none; }
+  .photo-btn {
+    display: inline-block; margin-top: 8px;
+    background: #EDE8F4; border: none;
+    padding: 7px 16px; border-radius: 20px;
+    font-size: 12px; font-weight: 700; color: #2C3E66;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+  }
+
+  .declaration {
+    background: #F0EAF5;
+    border-left: 4px solid #D43F6B;
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 12px; color: #1e1e2e; line-height: 1.6;
+    margin: 18px 0;
+  }
+
+  .sig-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+
+  .submit-btn {
+    width: 100%; padding: 14px;
+    background: linear-gradient(98deg, #D43F6B, #2C6E9E);
+    border: none; border-radius: 12px;
+    color: white; font-size: 16px; font-weight: 800;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s, transform 0.1s;
+    margin-top: 6px;
+  }
+  .submit-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* Success screen */
+  .success-screen {
+    display: none;
+    background: white; border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    padding: 40px 30px; text-align: center;
+  }
+  .success-icon { font-size: 52px; margin-bottom: 16px; }
+  .success-screen h2 { font-size: 22px; font-weight: 800; color: #1a1a2e; margin-bottom: 8px; }
+  .success-screen p { font-size: 14px; color: #5a5a6a; line-height: 1.6; }
+  .reg-badge {
+    display: inline-block; margin: 16px 0;
+    background: linear-gradient(98deg, #D43F6B, #2C6E9E);
+    color: white; font-size: 18px; font-weight: 800;
+    padding: 10px 28px; border-radius: 30px; letter-spacing: 1px;
+  }
+  .new-reg-btn {
+    margin-top: 16px; padding: 11px 28px;
+    background: #EDE8F4; border: none; border-radius: 10px;
+    font-size: 14px; font-weight: 700; color: #2C3E66;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Spinner */
+  .spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white; border-radius: 50%;
+    animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .admin-link {
+    text-align: center; margin-top: 16px;
+    font-size: 12px; color: #7a7a8a;
+  }
+  .admin-link a { color: #2C6E9E; font-weight: 700; text-decoration: none; }
+
+  @media (max-width: 560px) {
+    .field-grid { grid-template-columns: 1fr; }
+    .sig-row { grid-template-columns: 1fr; }
+    .course-banner .title { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header-card">
+    <div class="emblem">NAM</div>
+    <div class="college-name">NAM COLLEGE KALLIKKANDY</div>
+    <div class="college-sub">Re-accredited with NAAC A-Grade · Aided & Affiliated to Kannur University</div>
+    <div class="college-sub">P.O. Kallikkandy, Kannur Dt., PIN – 670 693</div>
+    <div class="dept-pill">DEPARTMENT OF MATHEMATICS</div>
+  </div>
+
+  <!-- Course Banner -->
+  <div class="course-banner">
+    <div class="label">📖 Certificate Course Registration</div>
+    <div class="title">PyMath Pro</div>
+    <div class="sub">Computational Mathematics with Python &amp; NumPy</div>
+    <div class="course-meta">
+      <span class="meta-pill">📌 CC26MAT01</span>
+      <span class="meta-pill">⏱ 30 Hours</span>
+      <span class="meta-pill">📊 100 Marks</span>
+      <span class="meta-pill">👨‍🏫 Gafoor I</span>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="form-card" id="formCard">
+    <div class="form-section-head">Student Registration Form</div>
+    <div class="form-body">
+
+      <div class="field-grid">
+        <!-- Photo upload (right side, spans 1 col) -->
+        <div class="field-group field-full" style="display:grid;grid-template-columns:1fr 100px;gap:16px;align-items:start;">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div class="field-group">
+              <label>Full Name <span class="req">*</span></label>
+              <input type="text" id="name" placeholder="As per ID proof" required>
+            </div>
+            <div class="field-grid" style="grid-template-columns:1fr 1fr;">
+              <div class="field-group">
+                <label>Father's / Mother's Name <span class="req">*</span></label>
+                <input type="text" id="parentName" placeholder="Parent name" required>
+              </div>
+              <div class="field-group">
+                <label>Gender <span class="req">*</span></label>
+                <select id="gender" required>
+                  <option value="">Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Photo -->
+          <div class="field-group">
+            <label>Photo</label>
+            <div class="photo-box" onclick="document.getElementById('photoInput').click()">
+              <div class="icon">📷</div>
+              <div>Tap to upload</div>
+              <small>Passport size</small>
+              <button class="photo-btn" type="button">Choose</button>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(event)">
+            <img id="photoPreview" class="photo-preview" alt="Photo preview">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="dob" required>
+        </div>
+
+        <div class="field-group">
+          <label>Educational Qualification <span class="req">*</span></label>
+          <input type="text" id="qualification" placeholder="e.g. BSc Mathematics (Final Year)" required>
+        </div>
+
+        <div class="field-full section-divider"></div>
+
+        <!-- Contact -->
+        <div class="field-group">
+          <label>Mobile Number <span class="req">*</span></label>
+          <input type="tel" id="mobile" placeholder="10-digit number" required>
+        </div>
+        <div class="field-group">
+          <label>WhatsApp Number</label>
+          <input type="tel" id="whatsapp" placeholder="If different from mobile">
+        </div>
+        <div class="field-group">
+          <label>E-mail Address</label>
+          <input type="email" id="email" placeholder="example@email.com">
+        </div>
+        <div class="field-group">
+          <label>Phone (Landline)</label>
+          <input type="tel" id="phone" placeholder="With STD code">
+        </div>
+
+        <div class="field-full section-divider"></div>
+
+        <!-- LaTeX experience -->
+        <div class="field-group">
+          <label>Have you learnt Python before? <span class="req">*</span></label>
+          <select id="priorPython" required>
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label>College / Institution</label>
+          <input type="text" id="institution" placeholder="Your college name">
+        </div>
+
+        <div class="field-full section-divider"></div>
+
+        <!-- Addresses -->
+        <div class="field-group field-full">
+          <label>Address for Communication <span class="req">*</span></label>
+          <textarea id="commAddress" placeholder="Door no., Street, Place, PIN" required></textarea>
+        </div>
+        <div class="field-group field-full">
+          <label>Permanent Address</label>
+          <textarea id="permAddress" placeholder="Leave blank if same as above"></textarea>
+        </div>
+      </div>
+
+      <!-- Declaration -->
+      <div class="declaration">
+        I hereby declare that the particulars furnished above are true, complete and correct to the best of my knowledge and belief.
+      </div>
+
+      <div class="sig-row">
+        <div class="field-group">
+          <label>Place <span class="req">*</span></label>
+          <input type="text" id="place" required>
+        </div>
+        <div class="field-group">
+          <label>Date <span class="req">*</span></label>
+          <input type="date" id="date" required>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; font-size:12px; color:#7a7a8a; text-align:right; font-weight:600;">
+        Name &amp; Signature of the Applicant
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+        Submit Registration
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Screen -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2>Registration Successful!</h2>
+    <p>Your registration for <strong>CC26MAT01 — PyMath Pro</strong> has been submitted.<br>Your Registration Number is:</p>
+    <div class="reg-badge" id="regNumDisplay">CC26MAT01R - ...</div>
+    <p style="margin-top:8px; font-size:12px;">Please note this number for future reference.<br>Contact: <strong>9895297473</strong></p>
+    <br>
+    <button class="new-reg-btn" onclick="resetForm()">Register Another Student</button>
+  </div>
+
+  <div class="admin-link">
+    <a href="admin.html">🔐 Admin Panel — Search &amp; Print Records</a>
+  </div>
+
+</div>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────────────────────────
+  // Paste your Google Apps Script Web App URL here after deploying
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
+  // ────────────────────────────────────────────────────────────────────────────
+
+  // Set today's date as default
+  document.getElementById('date').valueAsDate = new Date();
+
+  function previewPhoto(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const preview = document.getElementById('photoPreview');
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = 'block';
+  }
+
+  function generateRegNo() {
+    const now = new Date();
+    const yr = now.getFullYear().toString().slice(2);
+    const mn = String(now.getMonth() + 1).padStart(2, '0');
+    const ts = Date.now().toString().slice(-4);
+    return `CC26MAT01R-${yr}${mn}${ts}`;
+  }
+
+  async function submitForm() {
+    const required = ['name','parentName','gender','dob','qualification','mobile','commAddress','place','date','priorPython'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#D43F6B';
+        valid = false;
+      } else {
+        el.style.borderColor = '#D0C8E0';
+      }
+    });
+    if (!valid) { alert('Please fill in all required fields (marked with *).'); return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+    const regNo = generateRegNo();
+
+    // Read photo as base64
+    let photoBase64 = '';
+    const photoFile = document.getElementById('photoInput').files[0];
+    if (photoFile) {
+      photoBase64 = await new Promise(res => {
+        const r = new FileReader();
+        r.onload = () => res(r.result);
+        r.readAsDataURL(photoFile);
+      });
+    }
+
+    const data = {
+      regNo,
+      name:          document.getElementById('name').value.trim(),
+      parentName:    document.getElementById('parentName').value.trim(),
+      gender:        document.getElementById('gender').value,
+      dob:           document.getElementById('dob').value,
+      qualification: document.getElementById('qualification').value.trim(),
+      mobile:        document.getElementById('mobile').value.trim(),
+      whatsapp:      document.getElementById('whatsapp').value.trim(),
+      email:         document.getElementById('email').value.trim(),
+      phone:         document.getElementById('phone').value.trim(),
+      priorPython:   document.getElementById('priorPython').value,
+      institution:   document.getElementById('institution').value.trim(),
+      commAddress:   document.getElementById('commAddress').value.trim(),
+      permAddress:   document.getElementById('permAddress').value.trim(),
+      place:         document.getElementById('place').value.trim(),
+      date:          document.getElementById('date').value,
+      photoBase64,
+      timestamp:     new Date().toLocaleString('en-IN'),
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+      document.getElementById('regNumDisplay').textContent = regNo;
+    } catch (err) {
+      alert('Submission failed. Please check your connection and try again.');
+      btn.disabled = false;
+      btn.innerHTML = 'Submit Registration';
+    }
+  }
+
+  function resetForm() {
+    document.getElementById('formCard').style.display = 'block';
+    document.getElementById('successScreen').style.display = 'none';
+    document.querySelectorAll('input, select, textarea').forEach(el => el.value = '');
+    document.getElementById('date').valueAsDate = new Date();
+    document.getElementById('photoPreview').style.display = 'none';
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('submitBtn').innerHTML = 'Submit Registration';
+  }
+</script>
+</body>
+</html>
