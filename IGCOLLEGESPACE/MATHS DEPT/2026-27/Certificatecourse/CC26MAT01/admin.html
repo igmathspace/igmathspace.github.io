@@ -6,579 +6,309 @@
 <title>Admin Panel — CC26MAT01 | NAM College</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; padding:24px 16px; }
-  .container { max-width:780px; margin:0 auto; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; padding:24px 16px; }
+.container { max-width:780px; margin:0 auto; }
+.login-card { background:white; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,0.1); padding:40px 32px; text-align:center; max-width:380px; margin:60px auto; }
+.lock-icon { font-size:44px; margin-bottom:16px; }
+.login-card h2 { font-size:20px; font-weight:800; color:#1a1a2e; margin-bottom:6px; }
+.login-card p { font-size:13px; color:#6a6a7a; margin-bottom:24px; }
+.login-card input { width:100%; padding:12px 16px; border:1.5px solid #D0C8E0; border-radius:10px; font-size:15px; font-family:'DM Sans',sans-serif; color:#1a1a2e; outline:none; margin-bottom:12px; }
+.login-card input:focus { border-color:#D43F6B; }
+.login-btn { width:100%; padding:13px; background:linear-gradient(98deg,#D43F6B,#2C6E9E); border:none; border-radius:10px; color:white; font-size:15px; font-weight:800; cursor:pointer; font-family:'DM Sans',sans-serif; }
+.login-error { color:#D43F6B; font-size:12px; margin-top:8px; display:none; }
+.admin-panel { display:none; }
+.header-card { background:linear-gradient(135deg,#FFE4EC 0%,#E3F0FF 100%); border:1px solid rgba(212,63,107,0.25); border-radius:16px; padding:16px 20px; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
+.emblem { width:52px; height:52px; flex-shrink:0; background:#2C3E66; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; color:white; }
+.hdr-text { text-align:left; }
+.hdr-text .college { font-size:16px; font-weight:800; color:#1a1a2e; }
+.hdr-text .sub { font-size:10px; color:#5a5a6a; margin-top:2px; }
+.hdr-text .dept { font-size:12px; font-weight:800; color:#b13256; margin-top:4px; }
+.logout-btn { margin-left:auto; padding:8px 16px; background:#FFE4EC; border:none; border-radius:20px; font-size:12px; font-weight:700; color:#b13256; cursor:pointer; font-family:'DM Sans',sans-serif; flex-shrink:0; }
+.search-card { background:white; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.07); padding:20px 22px; margin-bottom:14px; }
+.search-card h3 { font-size:13px; font-weight:800; color:#2C3E66; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; }
+.search-row { display:flex; gap:10px; }
+.search-row input { flex:1; padding:11px 15px; border:1.5px solid #D0C8E0; border-radius:10px; font-size:14px; font-family:'DM Sans',sans-serif; outline:none; }
+.search-row input:focus { border-color:#D43F6B; }
+.search-btn { padding:11px 20px; background:linear-gradient(98deg,#D43F6B,#2C6E9E); border:none; border-radius:10px; color:white; font-size:14px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap; }
+.filter-row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+.filter-btn { padding:6px 14px; background:#EDE8F4; border:none; border-radius:20px; font-size:12px; font-weight:600; color:#2C3E66; cursor:pointer; font-family:'DM Sans',sans-serif; }
+.filter-btn.active, .filter-btn:hover { background:#2C3E66; color:white; }
+.results-count { font-size:12px; color:#7a7a8a; font-weight:600; margin-bottom:10px; }
+.student-card { background:white; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); margin-bottom:10px; overflow:hidden; cursor:pointer; border-left:4px solid #D43F6B; }
+.student-card-header { display:flex; align-items:center; padding:14px 18px; gap:14px; }
+.student-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#FFE4EC,#E3F0FF); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#b13256; flex-shrink:0; overflow:hidden; }
+.student-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.student-info { flex:1; min-width:0; }
+.student-name { font-size:15px; font-weight:800; color:#1a1a2e; }
+.student-meta { font-size:12px; color:#6a6a7a; margin-top:2px; }
+.reg-tag { background:#E3F0FF; color:#1e5a7a; font-size:11px; font-weight:800; padding:4px 10px; border-radius:20px; flex-shrink:0; }
+.print-mini-btn { padding:7px 14px; background:linear-gradient(98deg,#D43F6B,#2C6E9E); border:none; border-radius:20px; color:white; font-size:12px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; flex-shrink:0; }
+.student-detail { display:none; padding:0 18px 16px; border-top:1px solid #EDE8F4; }
+.detail-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px; }
+.detail-item label { font-size:10px; font-weight:700; color:#9a9aaa; text-transform:uppercase; letter-spacing:0.5px; }
+.detail-item span { display:block; font-size:13px; font-weight:600; color:#1a1a2e; margin-top:2px; }
+.empty-state { text-align:center; padding:40px 20px; color:#9a9aaa; font-size:14px; }
+.empty-state .icon { font-size:40px; margin-bottom:10px; }
+@media (max-width:560px) { .detail-grid { grid-template-columns:1fr 1fr; } .search-row { flex-direction:column; } }
 
-  /* Login */
-  .login-card {
-    background:white; border-radius:18px;
-    box-shadow:0 8px 24px rgba(0,0,0,0.1);
-    padding:40px 32px; text-align:center;
-    max-width:380px; margin:60px auto;
-  }
-  .lock-icon { font-size:44px; margin-bottom:16px; }
-  .login-card h2 { font-size:20px; font-weight:800; color:#1a1a2e; margin-bottom:6px; }
-  .login-card p { font-size:13px; color:#6a6a7a; margin-bottom:24px; }
-  .login-card input {
-    width:100%; padding:12px 16px;
-    border:1.5px solid #D0C8E0; border-radius:10px;
-    font-size:15px; font-family:'DM Sans',sans-serif; color:#1a1a2e;
-    outline:none; margin-bottom:12px;
-  }
-  .login-card input:focus { border-color:#D43F6B; }
-  .login-btn {
-    width:100%; padding:13px;
-    background:linear-gradient(98deg,#D43F6B,#2C6E9E);
-    border:none; border-radius:10px;
-    color:white; font-size:15px; font-weight:800;
-    cursor:pointer; font-family:'DM Sans',sans-serif;
-  }
-  .login-error { color:#D43F6B; font-size:12px; margin-top:8px; display:none; }
-
-  /* Admin panel */
-  .admin-panel { display:none; }
-
-  /* Header */
-  .header-card {
-    background:linear-gradient(135deg,#FFE4EC 0%,#E3F0FF 100%);
-    border:1px solid rgba(212,63,107,0.25);
-    border-radius:16px; padding:16px 20px;
-    text-align:center; margin-bottom:14px;
-    display:flex; align-items:center; gap:14px;
-  }
-  .emblem {
-    width:52px; height:52px; flex-shrink:0;
-    background:#2C3E66; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-size:14px; font-weight:900; color:white;
-  }
-  .hdr-text { text-align:left; }
-  .hdr-text .college { font-size:16px; font-weight:800; color:#1a1a2e; }
-  .hdr-text .sub { font-size:10px; color:#5a5a6a; margin-top:2px; }
-  .hdr-text .dept { font-size:12px; font-weight:800; color:#b13256; margin-top:4px; }
-  .logout-btn {
-    margin-left:auto; padding:8px 16px;
-    background:#FFE4EC; border:none; border-radius:20px;
-    font-size:12px; font-weight:700; color:#b13256;
-    cursor:pointer; font-family:'DM Sans',sans-serif; flex-shrink:0;
-  }
-
-  /* Search bar */
-  .search-card {
-    background:white; border-radius:16px;
-    box-shadow:0 4px 16px rgba(0,0,0,0.07);
-    padding:20px 22px; margin-bottom:14px;
-  }
-  .search-card h3 { font-size:13px; font-weight:800; color:#2C3E66; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; }
-  .search-row { display:flex; gap:10px; }
-  .search-row input {
-    flex:1; padding:11px 15px;
-    border:1.5px solid #D0C8E0; border-radius:10px;
-    font-size:14px; font-family:'DM Sans',sans-serif;
-    outline:none;
-  }
-  .search-row input:focus { border-color:#D43F6B; }
-  .search-btn {
-    padding:11px 20px;
-    background:linear-gradient(98deg,#D43F6B,#2C6E9E);
-    border:none; border-radius:10px;
-    color:white; font-size:14px; font-weight:700;
-    cursor:pointer; font-family:'DM Sans',sans-serif;
-    white-space:nowrap;
-  }
-  .filter-row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
-  .filter-btn {
-    padding:6px 14px;
-    background:#EDE8F4; border:none; border-radius:20px;
-    font-size:12px; font-weight:600; color:#2C3E66;
-    cursor:pointer; font-family:'DM Sans',sans-serif;
-    transition:background 0.15s;
-  }
-  .filter-btn.active, .filter-btn:hover { background:#2C3E66; color:white; }
-
-  /* Results */
-  .results-section { margin-bottom:14px; }
-  .results-count { font-size:12px; color:#7a7a8a; font-weight:600; margin-bottom:10px; }
-
-  .student-card {
-    background:white; border-radius:14px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.06);
-    margin-bottom:10px; overflow:hidden;
-    cursor:pointer; transition:box-shadow 0.15s;
-    border-left:4px solid #D43F6B;
-  }
-  .student-card:hover { box-shadow:0 4px 18px rgba(0,0,0,0.12); }
-  .student-card-header {
-    display:flex; align-items:center;
-    padding:14px 18px; gap:14px;
-  }
-  .student-avatar {
-    width:44px; height:44px; border-radius:50%;
-    background:linear-gradient(135deg,#FFE4EC,#E3F0FF);
-    display:flex; align-items:center; justify-content:center;
-    font-size:18px; font-weight:800; color:#b13256;
-    flex-shrink:0; overflow:hidden;
-  }
-  .student-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
-  .student-info { flex:1; min-width:0; }
-  .student-name { font-size:15px; font-weight:800; color:#1a1a2e; }
-  .student-meta { font-size:12px; color:#6a6a7a; margin-top:2px; }
-  .reg-tag {
-    background:#E3F0FF; color:#1e5a7a;
-    font-size:11px; font-weight:800;
-    padding:4px 10px; border-radius:20px; flex-shrink:0;
-  }
-  .print-mini-btn {
-    padding:7px 14px;
-    background:linear-gradient(98deg,#D43F6B,#2C6E9E);
-    border:none; border-radius:20px;
-    color:white; font-size:12px; font-weight:700;
-    cursor:pointer; font-family:'DM Sans',sans-serif;
-    flex-shrink:0;
-  }
-
-  /* Expanded detail */
-  .student-detail {
-    display:none;
-    padding:0 18px 16px;
-    border-top:1px solid #EDE8F4;
-  }
-  .detail-grid {
-    display:grid; grid-template-columns:repeat(3,1fr);
-    gap:10px; margin-top:14px;
-  }
-  .detail-item label { font-size:10px; font-weight:700; color:#9a9aaa; text-transform:uppercase; letter-spacing:0.5px; }
-  .detail-item span { display:block; font-size:13px; font-weight:600; color:#1a1a2e; margin-top:2px; }
-
-  .empty-state {
-    text-align:center; padding:40px 20px;
-    color:#9a9aaa; font-size:14px;
-  }
-  .empty-state .icon { font-size:40px; margin-bottom:10px; }
-
-  .spinner {
-    display:inline-block; width:16px; height:16px;
-    border:2px solid rgba(255,255,255,0.4);
-    border-top-color:white; border-radius:50%;
-    animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:6px;
-  }
-  @keyframes spin { to { transform:rotate(360deg); } }
-
-  /* ── PRINT SLIP ──────────────────────────────────────────────────────── */
-  #printSlip { display:none; }
-
-  @media print {
-    body * { visibility:hidden; }
-    #printSlip, #printSlip * { visibility:visible; }
-    #printSlip {
-      display:block !important;
-      position:fixed; top:0; left:0;
-      width:100%; height:100%;
-    }
-    @page { size:A4; margin:1cm 1.2cm; }
-  }
-
-  .slip-page {
-    font-family:'DM Sans',sans-serif;
-    background:white;
-    max-width:720px;
-    margin:0 auto;
-    padding:0;
-  }
-  /* Slip header */
-  .slip-header {
-    background:linear-gradient(135deg,#FFE4EC 0%,#E3F0FF 100%);
-    border:1.5px solid rgba(212,63,107,0.3);
-    border-radius:14px;
-    padding:14px 18px;
-    text-align:center;
-    margin-bottom:10px;
-  }
-  .slip-college { font-size:17px; font-weight:900; color:#1a1a2e; }
-  .slip-accre { font-size:10px; color:#3a3a4a; font-weight:600; margin-top:3px; }
-  .slip-dept { font-size:12px; font-weight:800; color:#b13256; margin-top:7px; }
-
-  /* Slip course band */
-  .slip-course-band {
-    background:linear-gradient(98deg,#D43F6B,#2C6E9E);
-    border-radius:10px;
-    padding:10px 16px;
-    color:white;
-    text-align:center;
-    margin-bottom:10px;
-  }
-  .slip-course-band .sc-title { font-size:13px; font-weight:800; letter-spacing:0.5px; }
-  .slip-course-band .sc-sub { font-size:10px; opacity:0.88; margin-top:2px; }
-
-  /* Slip form title */
-  .slip-form-title {
-    text-align:center;
-    font-size:13px; font-weight:800; color:#2C3E66;
-    text-transform:uppercase; letter-spacing:1px;
-    border-bottom:2px solid #D43F6B;
-    padding-bottom:7px; margin-bottom:12px;
-  }
-
-  /* Slip body */
-  .slip-body { padding:0 2px; }
-  .slip-photo-name {
-    display:flex; gap:14px; margin-bottom:10px; align-items:flex-start;
-  }
-  .slip-photo-box {
-    width:90px; height:110px; flex-shrink:0;
-    border:1.5px solid #C5B8D4; border-radius:8px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:10px; color:#9a9aaa; text-align:center;
-    overflow:hidden; background:#fafafa;
-  }
-  .slip-photo-box img { width:100%; height:100%; object-fit:cover; }
-
-  .slip-table {
-    width:100%; border-collapse:collapse;
-    font-size:12px;
-  }
-  .slip-table td {
-    padding:6px 8px;
-    border:0.8px solid #C5B8D4;
-    vertical-align:top;
-  }
-  .slip-table td:first-child {
-    width:38%; font-weight:700; color:#3a3a4a;
-    background:#F8F5FC;
-  }
-  .slip-table td:last-child { color:#1a1a2e; font-weight:500; }
-
-  .slip-declaration {
-    border:1px solid #C5B8D4; border-left:4px solid #D43F6B;
-    border-radius:8px; padding:10px 12px;
-    font-size:11px; color:#1e1e2e; line-height:1.6;
-    margin:10px 0;
-  }
-
-  .slip-sig-row {
-    display:flex; justify-content:space-between;
-    align-items:flex-end; margin-top:10px;
-  }
-  .slip-sig-col { text-align:center; }
-  .slip-sig-col .sig-line {
-    width:140px; border-bottom:1px solid #1a1a2e;
-    margin:0 auto 4px;
-  }
-  .slip-sig-col .sig-label { font-size:10px; color:#3a3a4a; font-weight:600; }
-
-  .slip-office-box {
-    border:1.5px solid #2C3E66;
-    border-radius:10px;
-    padding:12px 16px;
-    margin-top:12px;
-    display:flex; justify-content:space-between; align-items:center;
-  }
-  .office-left { font-size:11px; color:#1a1a2e; font-weight:600; }
-  .office-reg {
-    font-size:14px; font-weight:900; color:#2C3E66;
-    letter-spacing:0.5px; margin-top:4px;
-  }
-  .office-right { text-align:center; }
-  .seal-box {
-    width:80px; height:60px;
-    border:1.5px dashed #C5B8D4; border-radius:6px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:10px; color:#9a9aaa;
-  }
-  .coordinator-label {
-    font-size:10px; color:#3a3a4a; font-weight:700;
-    margin-top:6px; text-align:center;
-  }
-  .slip-enquiry {
-    text-align:center; font-size:10px; color:#6a6a7a;
-    margin-top:8px; font-weight:600;
-  }
-
-  @media (max-width:560px) {
-    .detail-grid { grid-template-columns:1fr 1fr; }
-    .search-row { flex-direction:column; }
-  }
+/* PRINT SLIP */
+#printSlip { display:none; }
+@media print {
+  body * { visibility:hidden; }
+  #printSlip, #printSlip * { visibility:visible; }
+  #printSlip { display:block !important; position:fixed; top:0; left:0; width:100%; }
+  @page { size:A4; margin:1cm 1.2cm; }
+}
+.slip-page { font-family:'DM Sans',sans-serif; background:white; max-width:720px; margin:0 auto; }
+.slip-header { background:linear-gradient(135deg,#FFE4EC 0%,#E3F0FF 100%); border:1.5px solid rgba(212,63,107,0.3); border-radius:14px; padding:14px 18px; text-align:center; margin-bottom:10px; }
+.slip-college { font-size:17px; font-weight:900; color:#1a1a2e; }
+.slip-accre { font-size:10px; color:#3a3a4a; font-weight:600; margin-top:3px; }
+.slip-dept { font-size:12px; font-weight:800; color:#b13256; margin-top:7px; }
+.slip-course-band { background:linear-gradient(98deg,#D43F6B,#2C6E9E); border-radius:10px; padding:10px 16px; color:white; text-align:center; margin-bottom:10px; }
+.slip-course-band .sc-title { font-size:13px; font-weight:800; }
+.slip-course-band .sc-sub { font-size:10px; opacity:0.88; margin-top:2px; }
+.slip-form-title { text-align:center; font-size:13px; font-weight:800; color:#2C3E66; text-transform:uppercase; letter-spacing:1px; border-bottom:2px solid #D43F6B; padding-bottom:7px; margin-bottom:12px; }
+.slip-photo-box { width:90px; height:110px; flex-shrink:0; border:1.5px solid #C5B8D4; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9a9aaa; text-align:center; overflow:hidden; background:#fafafa; }
+.slip-photo-box img { width:100%; height:100%; object-fit:cover; }
+.slip-table { width:100%; border-collapse:collapse; font-size:12px; }
+.slip-table td { padding:6px 8px; border:0.8px solid #C5B8D4; vertical-align:top; }
+.slip-table td:first-child { width:38%; font-weight:700; color:#3a3a4a; background:#F8F5FC; }
+.slip-table td:last-child { color:#1a1a2e; font-weight:500; }
+.slip-declaration { border:1px solid #C5B8D4; border-left:4px solid #D43F6B; border-radius:8px; padding:10px 12px; font-size:11px; color:#1e1e2e; line-height:1.6; margin:10px 0; }
+.slip-sig-row { display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px; }
+.slip-sig-col { text-align:center; }
+.slip-sig-col .sig-line { width:140px; border-bottom:1px solid #1a1a2e; margin:0 auto 4px; }
+.slip-sig-col .sig-label { font-size:10px; color:#3a3a4a; font-weight:600; }
+.slip-office-box { border:1.5px solid #2C3E66; border-radius:10px; padding:12px 16px; margin-top:12px; display:flex; justify-content:space-between; align-items:center; }
+.seal-box { width:80px; height:60px; border:1.5px dashed #C5B8D4; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9a9aaa; }
+.coordinator-label { font-size:10px; color:#3a3a4a; font-weight:700; margin-top:6px; text-align:center; }
+.slip-enquiry { text-align:center; font-size:10px; color:#6a6a7a; margin-top:8px; font-weight:600; }
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN ────────────────────────────────────────────────────────────── -->
 <div id="loginSection">
   <div class="login-card">
-    <div class="lock-icon">🔐</div>
+    <div class="lock-icon">&#128274;</div>
     <h2>Admin Panel</h2>
-    <p>CC26MAT01 — PyMath Pro<br>NAM College, Department of Mathematics</p>
+    <p>CC26MAT01 &mdash; PyMath Pro<br>NAM College, Department of Mathematics</p>
     <input type="password" id="pwdInput" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">Login</button>
     <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
   </div>
 </div>
 
-<!-- ── ADMIN PANEL ───────────────────────────────────────────────────────── -->
 <div class="admin-panel container" id="adminPanel">
-
-  <!-- Header -->
   <div class="header-card">
     <div class="emblem">NAM</div>
     <div class="hdr-text">
       <div class="college">NAM COLLEGE KALLIKKANDY</div>
-      <div class="sub">Re-accredited with NAAC A-Grade · Kannur University</div>
-      <div class="dept">DEPARTMENT OF MATHEMATICS</div>
+      <div class="sub">Re-accredited with NAAC A-Grade &middot; Kannur University</div>
+      <div class="dept">DEPARTMENT OF MATHEMATICS &mdash; CC26MAT01</div>
     </div>
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 
-  <!-- Search -->
   <div class="search-card">
-    <h3>🔍 Search Registrations</h3>
+    <h3>Search Registrations</h3>
     <div class="search-row">
-      <input type="text" id="searchInput" placeholder="Search by name, Reg No., mobile, or qualification…" oninput="filterStudents()">
-      <button class="search-btn" onclick="loadData()">
-        🔄 Reload Data
-      </button>
+      <input type="text" id="searchInput" placeholder="Search by name, Reg No., mobile, qualification..." oninput="filterStudents()">
+      <button class="search-btn" onclick="loadData()">Reload Data</button>
     </div>
     <div class="filter-row">
       <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
       <button class="filter-btn" onclick="setFilter('Male',this)">Male</button>
       <button class="filter-btn" onclick="setFilter('Female',this)">Female</button>
-      <button class="filter-btn" onclick="setFilter('Yes',this)">Python: Yes</button>
-      <button class="filter-btn" onclick="setFilter('No',this)">Python: No</button>
+      <button class="filter-btn" onclick="setFilter('pythonYes',this)">Python: Yes</button>
+      <button class="filter-btn" onclick="setFilter('pythonNo',this)">Python: No</button>
     </div>
   </div>
 
-  <!-- Results -->
-  <div class="results-section" id="resultsSection">
+  <div id="resultsSection">
     <div class="empty-state">
-      <div class="icon">📂</div>
-      <div>Click <strong>Reload Data</strong> to load registrations from the database.</div>
+      <div class="icon">&#128194;</div>
+      <div>Click <strong>Reload Data</strong> to load registrations.</div>
     </div>
   </div>
-
 </div>
 
-<!-- ── PRINT SLIP ────────────────────────────────────────────────────────── -->
 <div id="printSlip"></div>
 
 <script>
-// ── CONFIG ─────────────────────────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
-const ADMIN_PASSWORD  = '18July1981!';   // Change this to your preferred password
-// ────────────────────────────────────────────────────────────────────────────
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
+var ADMIN_PASSWORD  = '18July1981!';
+var allStudents = [];
+var activeFilter = 'all';
+var currentList  = [];
 
-let allStudents = [];
-let activeFilter = 'all';
-
-// ── LOGIN ───────────────────────────────────────────────────────────────────
 function doLogin() {
-  const pwd = document.getElementById('pwdInput').value;
+  var pwd = document.getElementById('pwdInput').value;
   if (pwd === ADMIN_PASSWORD) {
     document.getElementById('loginSection').style.display = 'none';
-    document.getElementById('adminPanel').style.display   = 'block';
+    document.getElementById('adminPanel').style.display = 'block';
     loadData();
   } else {
     document.getElementById('loginError').style.display = 'block';
     document.getElementById('pwdInput').value = '';
   }
 }
+
 function logout() {
   document.getElementById('loginSection').style.display = 'block';
-  document.getElementById('adminPanel').style.display   = 'none';
+  document.getElementById('adminPanel').style.display = 'none';
   document.getElementById('pwdInput').value = '';
 }
 
-// ── LOAD DATA ───────────────────────────────────────────────────────────────
-async function loadData() {
-  const sec = document.getElementById('resultsSection');
-  sec.innerHTML = `<div class="empty-state"><div class="icon">⏳</div><div>Loading registrations…</div></div>`;
-  try {
-    const res  = await fetch(APPS_SCRIPT_URL + '?action=getAll');
-    const data = await res.json();
-    allStudents = data.records || [];
-    renderList(allStudents);
-  } catch(e) {
-    sec.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><div>Failed to load data. Check your Apps Script URL and try again.</div></div>`;
-  }
+function loadData() {
+  var sec = document.getElementById('resultsSection');
+  sec.innerHTML = '<div class="empty-state"><div class="icon">&#8987;</div><div>Loading registrations...</div></div>';
+  fetch(APPS_SCRIPT_URL + '?action=getAll')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      allStudents = data.records || [];
+      filterStudents();
+    })
+    .catch(function(){
+      sec.innerHTML = '<div class="empty-state"><div class="icon">&#9888;</div><div>Failed to load. Check your Apps Script URL.</div></div>';
+    });
 }
 
-// ── FILTER & SEARCH ─────────────────────────────────────────────────────────
 function setFilter(val, btn) {
   activeFilter = val;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
   filterStudents();
 }
+
 function filterStudents() {
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  let list = allStudents;
-  if (activeFilter !== 'all') {
-    list = list.filter(s =>
-      s.gender === activeFilter || s.priorPython === activeFilter
-    );
-  }
+  var q = document.getElementById('searchInput').value.toLowerCase().trim();
+  var list = allStudents.slice();
+  if (activeFilter === 'Male')      list = list.filter(function(s){ return s.gender === 'Male'; });
+  if (activeFilter === 'Female')    list = list.filter(function(s){ return s.gender === 'Female'; });
+  if (activeFilter === 'pythonYes') list = list.filter(function(s){ return s.priorPython === 'Yes'; });
+  if (activeFilter === 'pythonNo')  list = list.filter(function(s){ return s.priorPython === 'No'; });
   if (q) {
-    list = list.filter(s =>
-      (s.name        || '').toLowerCase().includes(q) ||
-      (s.regNo       || '').toLowerCase().includes(q) ||
-      (s.mobile      || '').toLowerCase().includes(q) ||
-      (s.qualification||'').toLowerCase().includes(q) ||
-      (s.institution || '').toLowerCase().includes(q)
-    );
+    list = list.filter(function(s){
+      return (s.name||'').toLowerCase().includes(q) ||
+             (s.regNo||'').toLowerCase().includes(q) ||
+             (s.mobile||'').toLowerCase().includes(q) ||
+             (s.qualification||'').toLowerCase().includes(q) ||
+             (s.institution||'').toLowerCase().includes(q);
+    });
   }
+  currentList = list;
   renderList(list);
 }
 
-// ── RENDER LIST ─────────────────────────────────────────────────────────────
 function renderList(list) {
-  const sec = document.getElementById('resultsSection');
+  var sec = document.getElementById('resultsSection');
   if (!list.length) {
-    sec.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><div>No matching records found.</div></div>`;
+    sec.innerHTML = '<div class="empty-state"><div class="icon">&#128269;</div><div>No matching records found.</div></div>';
     return;
   }
-  const countHtml = `<div class="results-count">${list.length} record(s) found</div>`;
-  const cards = list.map((s, i) => {
-    const initials = (s.name || '?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-    const photoHtml = s.photoBase64
-      ? `<img src="${s.photoBase64}" alt="photo">`
-      : initials;
-    return `
-    <div class="student-card" id="card_${i}">
-      <div class="student-card-header" onclick="toggleDetail(${i})">
-        <div class="student-avatar">${photoHtml}</div>
-        <div class="student-info">
-          <div class="student-name">${s.name || '—'}</div>
-          <div class="student-meta">${s.qualification || ''} · ${s.mobile || ''}</div>
-        </div>
-        <span class="reg-tag">${s.regNo || '—'}</span>
-        <button class="print-mini-btn" onclick="event.stopPropagation();printSlip(${i})">🖨 Print</button>
-      </div>
-      <div class="student-detail" id="detail_${i}">
-        <div class="detail-grid">
-          <div class="detail-item"><label>Parent's Name</label><span>${s.parentName||'—'}</span></div>
-          <div class="detail-item"><label>Gender</label><span>${s.gender||'—'}</span></div>
-          <div class="detail-item"><label>Date of Birth</label><span>${s.dob||'—'}</span></div>
-          <div class="detail-item"><label>WhatsApp</label><span>${s.whatsapp||'—'}</span></div>
-          <div class="detail-item"><label>Email</label><span>${s.email||'—'}</span></div>
-          <div class="detail-item"><label>Institution</label><span>${s.institution||'—'}</span></div>
-          <div class="detail-item"><label>Prior Python</label><span>${s.priorPython||'—'}</span></div>
-          <div class="detail-item"><label>Place / Date</label><span>${s.place||'—'} / ${s.date||'—'}</span></div>
-          <div class="detail-item"><label>Registered</label><span>${s.timestamp||'—'}</span></div>
-        </div>
-        <div style="margin-top:10px;font-size:12px;color:#5a5a6a;"><strong>Address:</strong> ${s.commAddress||'—'}</div>
-      </div>
-    </div>`;
-  }).join('');
-  sec.innerHTML = countHtml + cards;
+  var html = '<div class="results-count">' + list.length + ' record(s) found</div>';
+  list.forEach(function(s, i) {
+    var initials = (s.name||'?').split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
+    var photoHtml = s.photoBase64 ? '<img src="' + s.photoBase64 + '" alt="photo">' : initials;
+    html += '<div class="student-card" id="card_' + i + '">' +
+      '<div class="student-card-header" onclick="toggleDetail(' + i + ')">' +
+        '<div class="student-avatar">' + photoHtml + '</div>' +
+        '<div class="student-info">' +
+          '<div class="student-name">' + (s.name||'—') + '</div>' +
+          '<div class="student-meta">' + (s.qualification||'') + ' &middot; ' + (s.mobile||'') + '</div>' +
+        '</div>' +
+        '<span class="reg-tag">' + (s.regNo||'—') + '</span>' +
+        '<button class="print-mini-btn" onclick="event.stopPropagation();printSlip(' + i + ')">Print</button>' +
+      '</div>' +
+      '<div class="student-detail" id="detail_' + i + '">' +
+        '<div class="detail-grid">' +
+          '<div class="detail-item"><label>Parent Name</label><span>' + (s.parentName||'—') + '</span></div>' +
+          '<div class="detail-item"><label>Gender</label><span>' + (s.gender||'—') + '</span></div>' +
+          '<div class="detail-item"><label>Date of Birth</label><span>' + (s.dob||'—') + '</span></div>' +
+          '<div class="detail-item"><label>WhatsApp</label><span>' + (s.whatsapp||'—') + '</span></div>' +
+          '<div class="detail-item"><label>Email</label><span>' + (s.email||'—') + '</span></div>' +
+          '<div class="detail-item"><label>Institution</label><span>' + (s.institution||'—') + '</span></div>' +
+          '<div class="detail-item"><label>Prior Python</label><span>' + (s.priorPython||'—') + '</span></div>' +
+          '<div class="detail-item"><label>Place / Date</label><span>' + (s.place||'—') + ' / ' + (s.date||'—') + '</span></div>' +
+          '<div class="detail-item"><label>Registered On</label><span>' + (s.timestamp||'—') + '</span></div>' +
+        '</div>' +
+        '<div style="margin-top:10px;font-size:12px;color:#5a5a6a;"><strong>Address:</strong> ' + (s.commAddress||'—') + '</div>' +
+      '</div>' +
+    '</div>';
+  });
+  sec.innerHTML = html;
 }
 
 function toggleDetail(i) {
-  const d = document.getElementById(`detail_${i}`);
+  var d = document.getElementById('detail_' + i);
   d.style.display = d.style.display === 'block' ? 'none' : 'block';
 }
 
-// ── PRINT SLIP ───────────────────────────────────────────────────────────────
 function printSlip(i) {
-  const s = allStudents.filter(x => {
-    const q = document.getElementById('searchInput').value.toLowerCase().trim();
-    let list = allStudents;
-    if (activeFilter !== 'all') list = list.filter(st => st.gender===activeFilter||st.priorPython===activeFilter);
-    if (q) list = list.filter(st=>
-      (st.name||'').toLowerCase().includes(q)||
-      (st.regNo||'').toLowerCase().includes(q)||
-      (st.mobile||'').toLowerCase().includes(q)||
-      (st.qualification||'').toLowerCase().includes(q)||
-      (st.institution||'').toLowerCase().includes(q)
-    );
-    return list[i];
-  });
+  var s = currentList[i];
+  if (!s) return;
+  var photoHtml = s.photoBase64
+    ? '<img src="' + s.photoBase64 + '" alt="Photo">'
+    : '<span style="font-size:10px;color:#9a9aaa;padding:6px;">Paste Photo Here</span>';
 
-  // get the actual student from rendered list
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  let list = allStudents;
-  if (activeFilter !== 'all') list = list.filter(st => st.gender===activeFilter||st.priorPython===activeFilter);
-  if (q) list = list.filter(st=>
-    (st.name||'').toLowerCase().includes(q)||
-    (st.regNo||'').toLowerCase().includes(q)||
-    (st.mobile||'').toLowerCase().includes(q)||
-    (st.qualification||'').toLowerCase().includes(q)||
-    (st.institution||'').toLowerCase().includes(q)
-  );
-  const student = list[i];
-  if (!student) return;
-
-  const photoHtml = student.photoBase64
-    ? `<img src="${student.photoBase64}" alt="Photo">`
-    : `<span style="font-size:10px;color:#9a9aaa;text-align:center;padding:6px;">Paste<br>Photo<br>Here</span>`;
-
-  document.getElementById('printSlip').innerHTML = `
-  <div class="slip-page">
-    <div class="slip-header">
-      <div class="slip-college">NAM COLLEGE KALLIKKANDY</div>
-      <div class="slip-accre">Re-accredited with NAAC 'A' Grade · Aided &amp; Affiliated to Kannur University</div>
-      <div class="slip-accre">P.O. Kallikkandy, Kannur Dt., PIN – 670 693 · namcollege@yahoo.co.in · 0490 – 2375900</div>
-      <div class="slip-dept">DEPARTMENT OF MATHEMATICS</div>
-    </div>
-
-    <div class="slip-course-band">
-      <div class="sc-title">📖 Certificate Course · CC26MAT01 · PyMath Pro — Computational Mathematics with Python &amp; NumPy</div>
-      <div class="sc-sub">30 Hours · 100 Marks · Course Coordinator: Gafoor I, Assistant Professor</div>
-    </div>
-
-    <div class="slip-form-title">Registration Form</div>
-
-    <div class="slip-body">
-      <div class="slip-photo-name">
-        <table class="slip-table" style="flex:1;">
-          <tr><td>Name of the Applicant</td><td>${student.name||'—'}</td></tr>
-          <tr><td>Parent's Name (Father / Mother)</td><td>${student.parentName||'—'}</td></tr>
-          <tr><td>Gender</td><td>${student.gender||'—'}</td></tr>
-          <tr><td>Date of Birth</td><td>${student.dob||'—'}</td></tr>
-          <tr><td>Educational Qualification</td><td>${student.qualification||'—'}</td></tr>
-          <tr><td>Learnt Python before (Y/N)</td><td>${student.priorPython||'—'}</td></tr>
-          <tr><td>College / Institution</td><td>${student.institution||'—'}</td></tr>
-        </table>
-        <div class="slip-photo-box">${photoHtml}</div>
-      </div>
-
-      <table class="slip-table" style="margin-top:4px;">
-        <tr><td>Address for Communication</td><td>${student.commAddress||'—'}</td></tr>
-        <tr><td>Permanent Address</td><td>${student.permAddress||student.commAddress||'—'}</td></tr>
-        <tr><td>Mobile</td><td>${student.mobile||'—'}</td></tr>
-        <tr><td>WhatsApp No.</td><td>${student.whatsapp||'—'}</td></tr>
-        <tr><td>Phone</td><td>${student.phone||'—'}</td></tr>
-        <tr><td>E-mail</td><td>${student.email||'—'}</td></tr>
-      </table>
-
-      <div class="slip-declaration">
-        I hereby declare that the particulars furnished above are true, complete and correct to the best of my knowledge and belief.
-      </div>
-
-      <div class="slip-sig-row">
-        <div class="slip-sig-col">
-          <div style="font-size:11px;color:#3a3a4a;font-weight:600;margin-bottom:4px;">Place: ${student.place||'______________'}</div>
-          <div style="font-size:11px;color:#3a3a4a;font-weight:600;">Date: ${student.date||'______________'}</div>
-        </div>
-        <div class="slip-sig-col">
-          <div class="sig-line"></div>
-          <div class="sig-label">Name &amp; Signature of Applicant</div>
-        </div>
-      </div>
-
-      <div class="slip-office-box">
-        <div class="office-left">
-          <div style="font-size:11px;font-weight:800;color:#2C3E66;letter-spacing:0.5px;text-transform:uppercase;">Office Use Only</div>
-          <div class="office-reg">${student.regNo||'CC26MAT01R - ______'}</div>
-          <div style="font-size:10px;color:#6a6a7a;margin-top:4px;">Registered: ${student.timestamp||'—'}</div>
-        </div>
-        <div class="office-right">
-          <div class="seal-box">Seal</div>
-          <div class="coordinator-label">Course Coordinator</div>
-        </div>
-      </div>
-
-      <div class="slip-enquiry">For enquiry contact: 9895297473</div>
-    </div>
-  </div>`;
+  document.getElementById('printSlip').innerHTML =
+    '<div class="slip-page">' +
+      '<div class="slip-header">' +
+        '<div class="slip-college">NAM COLLEGE KALLIKKANDY</div>' +
+        '<div class="slip-accre">Re-accredited with NAAC A Grade &middot; Aided &amp; Affiliated to Kannur University</div>' +
+        '<div class="slip-accre">P.O. Kallikkandy, Kannur Dt., PIN &ndash; 670 693 &middot; namcollege@yahoo.co.in &middot; 0490 &ndash; 2375900</div>' +
+        '<div class="slip-dept">DEPARTMENT OF MATHEMATICS</div>' +
+      '</div>' +
+      '<div class="slip-course-band">' +
+        '<div class="sc-title">Certificate Course &middot; CC26MAT01 &middot; PyMath Pro &mdash; Computational Mathematics with Python &amp; NumPy</div>' +
+        '<div class="sc-sub">30 Hours &middot; 100 Marks &middot; Course Coordinator: Gafoor I, Assistant Professor</div>' +
+      '</div>' +
+      '<div class="slip-form-title">Registration Form</div>' +
+      '<div style="display:flex;gap:14px;margin-bottom:10px;align-items:flex-start;">' +
+        '<table class="slip-table" style="flex:1;">' +
+          '<tr><td>Name of the Applicant</td><td>' + (s.name||'&mdash;') + '</td></tr>' +
+          '<tr><td>Parent\'s Name (Father / Mother)</td><td>' + (s.parentName||'&mdash;') + '</td></tr>' +
+          '<tr><td>Gender</td><td>' + (s.gender||'&mdash;') + '</td></tr>' +
+          '<tr><td>Date of Birth</td><td>' + (s.dob||'&mdash;') + '</td></tr>' +
+          '<tr><td>Educational Qualification</td><td>' + (s.qualification||'&mdash;') + '</td></tr>' +
+          '<tr><td>Learnt Python before (Y/N)</td><td>' + (s.priorPython||'&mdash;') + '</td></tr>' +
+          '<tr><td>College / Institution</td><td>' + (s.institution||'&mdash;') + '</td></tr>' +
+        '</table>' +
+        '<div class="slip-photo-box">' + photoHtml + '</div>' +
+      '</div>' +
+      '<table class="slip-table" style="margin-top:4px;">' +
+        '<tr><td>Address for Communication</td><td>' + (s.commAddress||'&mdash;') + '</td></tr>' +
+        '<tr><td>Permanent Address</td><td>' + (s.permAddress||s.commAddress||'&mdash;') + '</td></tr>' +
+        '<tr><td>Mobile</td><td>' + (s.mobile||'&mdash;') + '</td></tr>' +
+        '<tr><td>WhatsApp No.</td><td>' + (s.whatsapp||'&mdash;') + '</td></tr>' +
+        '<tr><td>Phone</td><td>' + (s.phone||'&mdash;') + '</td></tr>' +
+        '<tr><td>E-mail</td><td>' + (s.email||'&mdash;') + '</td></tr>' +
+      '</table>' +
+      '<div class="slip-declaration">I hereby declare that the particulars furnished above are true, complete and correct to the best of my knowledge and belief.</div>' +
+      '<div class="slip-sig-row">' +
+        '<div class="slip-sig-col">' +
+          '<div style="font-size:11px;color:#3a3a4a;font-weight:600;margin-bottom:4px;">Place: ' + (s.place||'______________') + '</div>' +
+          '<div style="font-size:11px;color:#3a3a4a;font-weight:600;">Date: ' + (s.date||'______________') + '</div>' +
+        '</div>' +
+        '<div class="slip-sig-col">' +
+          '<div class="sig-line"></div>' +
+          '<div class="sig-label">Name &amp; Signature of Applicant</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="slip-office-box">' +
+        '<div>' +
+          '<div style="font-size:11px;font-weight:800;color:#2C3E66;text-transform:uppercase;letter-spacing:0.5px;">Office Use Only</div>' +
+          '<div style="font-size:14px;font-weight:900;color:#2C3E66;margin-top:4px;">' + (s.regNo||'CC26MAT01R - ______') + '</div>' +
+          '<div style="font-size:10px;color:#6a6a7a;margin-top:4px;">Registered: ' + (s.timestamp||'&mdash;') + '</div>' +
+        '</div>' +
+        '<div style="text-align:center;">' +
+          '<div class="seal-box">Seal</div>' +
+          '<div class="coordinator-label">Course Coordinator</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="slip-enquiry">For enquiry contact: 9895297473</div>' +
+    '</div>';
 
   window.print();
 }
