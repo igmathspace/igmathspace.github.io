@@ -216,7 +216,7 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
 
 </div>
 <script>
-var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
 
 document.getElementById('regdate').valueAsDate = new Date();
 
@@ -237,9 +237,9 @@ function generateRegNo() {
 }
 
 function submitForm() {
-  var fields = ['name','parentName','gender','dob','qualification','mobile','commAddress','place','regdate','priorPython'];
+  var required = ['name','parentName','gender','dob','qualification','mobile','commAddress','place','regdate','priorPython'];
   var valid = true;
-  fields.forEach(function(id) {
+  required.forEach(function(id) {
     var el = document.getElementById(id);
     if (!el.value.trim()) {
       el.style.borderColor = '#D43F6B';
@@ -248,10 +248,7 @@ function submitForm() {
       el.style.borderColor = '#D0C8E0';
     }
   });
-  if (!valid) {
-    alert('Please fill in all required fields marked with *');
-    return;
-  }
+  if (!valid) { alert('Please fill all required fields marked with *'); return; }
 
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
@@ -262,18 +259,17 @@ function submitForm() {
 
   if (photoFile) {
     var reader = new FileReader();
-    reader.onload = function() {
-      sendToSheet(regNo, reader.result, btn);
-    };
+    reader.onload = function() { send(regNo, reader.result, btn); };
     reader.readAsDataURL(photoFile);
   } else {
-    sendToSheet(regNo, '', btn);
+    send(regNo, '', btn);
   }
 }
 
-function sendToSheet(regNo, photoBase64, btn) {
-  var data = {
+function send(regNo, photo, btn) {
+  var payload = JSON.stringify({
     regNo:         regNo,
+    timestamp:     new Date().toLocaleString('en-IN'),
     name:          document.getElementById('name').value.trim(),
     parentName:    document.getElementById('parentName').value.trim(),
     gender:        document.getElementById('gender').value,
@@ -289,41 +285,23 @@ function sendToSheet(regNo, photoBase64, btn) {
     permAddress:   document.getElementById('permAddress').value.trim(),
     place:         document.getElementById('place').value.trim(),
     date:          document.getElementById('regdate').value,
-    photoBase64:   photoBase64,
-    timestamp:     new Date().toLocaleString('en-IN')
-  };
+    photoBase64:   photo
+  });
 
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', APPS_SCRIPT_URL, true);
-  xhr.setRequestHeader('Content-Type', 'text/plain');
-
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-      // Show success regardless of response (no-cors means we won't get response body)
-      showSuccess(regNo);
-      btn.disabled = false;
-      btn.innerHTML = 'Submit Registration';
-    }
-  };
-
-  xhr.onerror = function() {
-    // Even on network error event, the POST may have gone through
-    // Show success and let admin verify in sheet
+  xhr.open('POST', SCRIPT_URL);
+  xhr.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+  xhr.onload = function() {
     showSuccess(regNo);
     btn.disabled = false;
     btn.innerHTML = 'Submit Registration';
   };
-
-  xhr.send(JSON.stringify(data));
-
-  // Safety fallback — show success after 4 seconds no matter what
-  setTimeout(function() {
-    if (document.getElementById('formCard').style.display !== 'none') {
-      showSuccess(regNo);
-      btn.disabled = false;
-      btn.innerHTML = 'Submit Registration';
-    }
-  }, 4000);
+  xhr.onerror = function() {
+    showSuccess(regNo);
+    btn.disabled = false;
+    btn.innerHTML = 'Submit Registration';
+  };
+  xhr.send(payload);
 }
 
 function showSuccess(regNo) {
