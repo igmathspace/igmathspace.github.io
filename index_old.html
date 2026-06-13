@@ -202,90 +202,6 @@
             text-decoration: underline;
         }
 
-        /* ---- FIFA 2026 WORLD CUP BANNER ---- */
-        .fifa-banner {
-            background: linear-gradient(135deg, #8B0000 0%, #C62828 40%, #B71C1C 60%, #880E4F 100%);
-            border-radius: 12px;
-            padding: 22px 30px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 8px 25px rgba(139,0,0,0.35);
-            border: 2px solid #FFD700;
-            gap: 20px;
-            flex-wrap: wrap;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .fifa-banner:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(139,0,0,0.5);
-        }
-
-        .fifa-banner-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .fifa-trophy {
-            font-size: 48px;
-            animation: trophy-glow 2s ease-in-out infinite alternate;
-            flex-shrink: 0;
-        }
-
-        @keyframes trophy-glow {
-            from { filter: drop-shadow(0 0 4px #FFD700); }
-            to   { filter: drop-shadow(0 0 14px #FFD700); }
-        }
-
-        .fifa-text-block .fifa-label {
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 3px;
-            color: #FFD700;
-            text-transform: uppercase;
-            margin-bottom: 3px;
-        }
-
-        .fifa-text-block .fifa-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: white;
-            line-height: 1.2;
-        }
-
-        .fifa-text-block .fifa-sub {
-            font-size: 13px;
-            color: #ffcdd2;
-            margin-top: 3px;
-        }
-
-        .fifa-cta {
-            background-color: #FFD700;
-            color: #8B0000;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 10px 22px;
-            border-radius: 25px;
-            white-space: nowrap;
-            flex-shrink: 0;
-            letter-spacing: 0.5px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 600px) {
-            .fifa-banner {
-                flex-direction: column;
-                text-align: center;
-            }
-            .fifa-banner-left {
-                flex-direction: column;
-            }
-        }
-
         /* ---- FOOTER ---- */
         .footer {
             background-color: #1a237e;
@@ -399,19 +315,6 @@
                 </a>
 
             </div>
-
-        <!-- FIFA 2026 WORLD CUP BANNER -->
-        <a href="fifa2026.html" class="fifa-banner">
-            <div class="fifa-banner-left">
-                <div class="fifa-trophy">🏆</div>
-                <div class="fifa-text-block">
-                    <div class="fifa-label">⚽ Featured</div>
-                    <div class="fifa-title">2026 FIFA World Cup</div>
-                    <div class="fifa-sub">USA · Canada · Mexico &nbsp;|&nbsp; Math Behind the Game</div>
-                </div>
-            </div>
-            <div class="fifa-cta">Explore Now →</div>
-        </a>
 
     </div>
 
