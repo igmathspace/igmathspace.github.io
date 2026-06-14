@@ -9,8 +9,6 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; padding:24px 16px; }
 .container { max-width:800px; margin:0 auto; }
-
-/* LOGIN */
 .login-wrap { display:flex; align-items:center; justify-content:center; min-height:90vh; }
 .login-card { background:white; border-radius:20px; box-shadow:0 8px 32px rgba(0,0,0,0.12); padding:44px 36px; text-align:center; width:100%; max-width:380px; }
 .lock-icon { font-size:48px; margin-bottom:14px; }
@@ -20,18 +18,13 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
 .login-card input:focus { border-color:#D43F6B; }
 .login-btn { width:100%; padding:13px; background:linear-gradient(98deg,#D43F6B,#2C6E9E); border:none; border-radius:10px; color:white; font-size:15px; font-weight:800; cursor:pointer; font-family:'DM Sans',sans-serif; }
 .login-error { color:#D43F6B; font-size:12px; margin-top:10px; display:none; font-weight:600; }
-
-/* ADMIN PANEL */
 .admin-panel { display:none; }
-
 .header-card { background:linear-gradient(135deg,#FFE4EC 0%,#E3F0FF 100%); border:1px solid rgba(212,63,107,0.25); border-radius:16px; padding:16px 20px; margin-bottom:14px; display:flex; align-items:center; gap:14px; }
 .emblem { width:52px; height:52px; flex-shrink:0; background:#2C3E66; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; color:white; }
 .hdr-text .college { font-size:16px; font-weight:800; color:#1a1a2e; }
 .hdr-text .sub { font-size:10px; color:#5a5a6a; margin-top:2px; }
 .hdr-text .dept { font-size:12px; font-weight:800; color:#b13256; margin-top:4px; }
 .logout-btn { margin-left:auto; padding:8px 16px; background:#FFE4EC; border:none; border-radius:20px; font-size:12px; font-weight:700; color:#b13256; cursor:pointer; font-family:'DM Sans',sans-serif; flex-shrink:0; }
-
-/* SEARCH CARD */
 .search-card { background:white; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,0.07); padding:20px 22px; margin-bottom:14px; }
 .search-card h3 { font-size:12px; font-weight:800; color:#2C3E66; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; }
 .search-row { display:flex; gap:10px; }
@@ -39,17 +32,11 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
 .search-row input:focus { border-color:#D43F6B; }
 .btn-search { padding:11px 22px; background:linear-gradient(98deg,#D43F6B,#2C6E9E); border:none; border-radius:10px; color:white; font-size:14px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap; }
 .btn-reload { padding:11px 16px; background:#EDE8F4; border:none; border-radius:10px; color:#2C3E66; font-size:13px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap; }
-.action-row { display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; }
-.btn-genlist { padding:10px 20px; background:linear-gradient(98deg,#2C6E9E,#2C3E66); border:none; border-radius:10px; color:white; font-size:13px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; display:flex; align-items:center; gap:6px; }
-.btn-genlist:hover { opacity:0.9; }
-.count-badge { background:#E3F0FF; color:#1e5a7a; font-size:12px; font-weight:800; padding:5px 14px; border-radius:20px; display:flex; align-items:center; gap:4px; }
-
-/* RESULTS */
-.results-section { margin-bottom:20px; }
+.action-row { display:flex; gap:10px; margin-top:10px; flex-wrap:wrap; align-items:center; }
+.btn-genlist { padding:10px 20px; background:linear-gradient(98deg,#2C6E9E,#2C3E66); border:none; border-radius:10px; color:white; font-size:13px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; }
+.count-badge { background:#E3F0FF; color:#1e5a7a; font-size:12px; font-weight:800; padding:5px 14px; border-radius:20px; }
 .results-label { font-size:12px; color:#7a7a8a; font-weight:600; margin-bottom:10px; }
-
-.student-card { background:white; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); margin-bottom:10px; overflow:hidden; border-left:4px solid #D43F6B; transition:box-shadow 0.15s; }
-.student-card:hover { box-shadow:0 4px 18px rgba(0,0,0,0.11); }
+.student-card { background:white; border-radius:14px; box-shadow:0 2px 10px rgba(0,0,0,0.06); margin-bottom:10px; overflow:hidden; border-left:4px solid #D43F6B; }
 .student-card-header { display:flex; align-items:center; padding:14px 18px; gap:12px; cursor:pointer; }
 .student-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,#FFE4EC,#E3F0FF); display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:800; color:#b13256; flex-shrink:0; overflow:hidden; }
 .student-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
@@ -58,29 +45,29 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
 .student-meta { font-size:12px; color:#6a6a7a; margin-top:2px; }
 .reg-tag { background:#E3F0FF; color:#1e5a7a; font-size:11px; font-weight:800; padding:4px 10px; border-radius:20px; flex-shrink:0; white-space:nowrap; }
 .btn-print-slip { padding:7px 14px; background:linear-gradient(98deg,#D43F6B,#2C6E9E); border:none; border-radius:20px; color:white; font-size:12px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; flex-shrink:0; }
-
+.btn-delete { padding:7px 14px; background:#fff0f0; border:1.5px solid #ffcccc; border-radius:20px; color:#cc2222; font-size:12px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; flex-shrink:0; transition:background 0.15s; }
+.btn-delete:hover { background:#ffe0e0; }
 .student-detail { display:none; padding:4px 18px 16px; border-top:1px solid #EDE8F4; }
 .detail-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:12px; }
 .detail-item label { font-size:10px; font-weight:700; color:#9a9aaa; text-transform:uppercase; }
 .detail-item span { display:block; font-size:13px; font-weight:600; color:#1a1a2e; margin-top:2px; }
-
 .empty-state { text-align:center; padding:48px 20px; color:#9a9aaa; font-size:14px; }
 .empty-state .icon { font-size:44px; margin-bottom:12px; }
-
-.spinner-inline { display:inline-block; width:14px; height:14px; border:2px solid rgba(255,255,255,0.4); border-top-color:white; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:4px; }
+.spinner-inline { display:inline-block; width:14px; height:14px; border:2px solid rgba(0,0,0,0.15); border-top-color:#cc2222; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; }
 @keyframes spin { to { transform:rotate(360deg); } }
 
-/* ── PRINT STYLES ── */
-#printArea { display:none; }
+/* Toast notification */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:#1a1a2e; color:white; padding:12px 24px; border-radius:30px; font-size:13px; font-weight:700; z-index:9999; opacity:0; transition:opacity 0.3s; pointer-events:none; }
+.toast.show { opacity:1; }
 
+/* PRINT */
+#printArea { display:none; }
 @media print {
   body * { visibility:hidden; }
   #printArea, #printArea * { visibility:visible; }
   #printArea { display:block !important; position:fixed; top:0; left:0; width:100%; }
   @page { size:A4; margin:1.2cm; }
 }
-
-/* Slip */
 .slip-page { font-family:'DM Sans',sans-serif; max-width:700px; margin:0 auto; background:white; }
 .slip-header { background:linear-gradient(135deg,#FFE4EC 0%,#E3F0FF 100%); border:1.5px solid rgba(212,63,107,0.3); border-radius:12px; padding:14px 18px; text-align:center; margin-bottom:10px; }
 .slip-college { font-size:17px; font-weight:900; color:#1a1a2e; }
@@ -90,7 +77,6 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
 .slip-band .sc-title { font-size:13px; font-weight:800; }
 .slip-band .sc-sub { font-size:10px; opacity:0.88; margin-top:2px; }
 .slip-form-title { text-align:center; font-size:13px; font-weight:800; color:#2C3E66; text-transform:uppercase; letter-spacing:1px; border-bottom:2px solid #D43F6B; padding-bottom:6px; margin-bottom:12px; }
-.slip-body-row { display:flex; gap:14px; margin-bottom:8px; align-items:flex-start; }
 .slip-photo-box { width:88px; height:108px; flex-shrink:0; border:1.5px solid #C5B8D4; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9a9aaa; text-align:center; overflow:hidden; background:#fafafa; }
 .slip-photo-box img { width:100%; height:100%; object-fit:cover; }
 .slip-table { width:100%; border-collapse:collapse; font-size:12px; }
@@ -104,27 +90,18 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
 .slip-office { border:1.5px solid #2C3E66; border-radius:10px; padding:11px 16px; margin-top:10px; display:flex; justify-content:space-between; align-items:center; }
 .seal-box { width:76px; height:56px; border:1.5px dashed #C5B8D4; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#9a9aaa; }
 .slip-enquiry { text-align:center; font-size:10px; color:#6a6a7a; margin-top:7px; font-weight:600; }
-
-/* Student list PDF */
 .list-page { font-family:'DM Sans',sans-serif; max-width:700px; margin:0 auto; background:white; }
-.list-header { background:linear-gradient(135deg,#FFE4EC 0%,#E3F0FF 100%); border:1.5px solid rgba(212,63,107,0.3); border-radius:12px; padding:12px 18px; text-align:center; margin-bottom:8px; }
 .list-title { font-size:13px; font-weight:800; color:#2C3E66; text-transform:uppercase; letter-spacing:0.8px; border-bottom:2px solid #D43F6B; padding-bottom:6px; margin-bottom:10px; text-align:center; }
 .list-table { width:100%; border-collapse:collapse; font-size:12px; }
 .list-table th { background:#2C3E66; color:white; padding:8px 10px; font-size:11px; font-weight:700; text-align:left; }
 .list-table td { padding:7px 10px; border-bottom:0.8px solid #D0C8E0; color:#1a1a2e; }
 .list-table tr:nth-child(even) td { background:#F8F5FC; }
 .list-footer { margin-top:14px; font-size:11px; color:#5a5a6a; display:flex; justify-content:space-between; }
-
-@media (max-width:560px) {
-  .detail-grid { grid-template-columns:1fr 1fr; }
-  .search-row { flex-direction:column; }
-  .action-row { flex-direction:column; }
-}
+@media (max-width:560px) { .detail-grid { grid-template-columns:1fr 1fr; } .search-row { flex-direction:column; } }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginSection">
   <div class="login-wrap">
     <div class="login-card">
@@ -138,9 +115,7 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
 <div class="admin-panel container" id="adminPanel">
-
   <div class="header-card">
     <div class="emblem">NAM</div>
     <div class="hdr-text">
@@ -151,7 +126,6 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
     <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 
-  <!-- Search & Actions -->
   <div class="search-card">
     <h3>&#128269; Search &amp; Actions</h3>
     <div class="search-row">
@@ -160,28 +134,22 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
       <button class="btn-reload" onclick="loadData()">&#8635; Reload</button>
     </div>
     <div class="action-row">
-      <button class="btn-genlist" onclick="generateList()">
-        &#128196; Generate Student List
-      </button>
-      <div class="count-badge" id="countBadge">&#128100; 0 students loaded</div>
+      <button class="btn-genlist" onclick="generateList()">&#128196; Generate Student List</button>
+      <div class="count-badge" id="countBadge">&#128100; 0 students</div>
     </div>
   </div>
 
-  <!-- Results -->
-  <div class="results-section">
-    <div class="results-label" id="resultsLabel"></div>
-    <div id="resultsSection">
-      <div class="empty-state">
-        <div class="icon">&#128194;</div>
-        <div>Click <strong>Reload</strong> to load registrations from the database.</div>
-      </div>
+  <div class="results-label" id="resultsLabel"></div>
+  <div id="resultsSection">
+    <div class="empty-state">
+      <div class="icon">&#128194;</div>
+      <div>Click <strong>Reload</strong> to load registrations.</div>
     </div>
   </div>
-
 </div>
 
-<!-- PRINT AREA -->
 <div id="printArea"></div>
+<div class="toast" id="toast"></div>
 
 <script>
 var SCRIPT_URL     = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
@@ -189,7 +157,6 @@ var ADMIN_PASSWORD = '18July1981!';
 var allStudents    = [];
 var currentList    = [];
 
-/* ── LOGIN ── */
 function doLogin() {
   if (document.getElementById('pwdInput').value === ADMIN_PASSWORD) {
     document.getElementById('loginSection').style.display = 'none';
@@ -206,62 +173,57 @@ function logout() {
   document.getElementById('pwdInput').value = '';
 }
 
-/* ── LOAD DATA ── */
+function showToast(msg, color) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color || '#1a1a2e';
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+
 function loadData() {
   var sec = document.getElementById('resultsSection');
-  sec.innerHTML = '<div class="empty-state"><div class="icon">&#8987;</div><div>Loading registrations...</div></div>';
-  document.getElementById('resultsLabel').textContent = '';
-  document.getElementById('countBadge').textContent   = 'Loading...';
+  sec.innerHTML = '<div class="empty-state"><div class="icon">&#8987;</div><div>Loading...</div></div>';
+  document.getElementById('countBadge').textContent = 'Loading...';
 
   fetch(SCRIPT_URL + '?action=getAll')
     .then(function(r) { return r.json(); })
     .then(function(data) {
-      allStudents = (data.records || []).filter(function(r) { return r.name && r.name.toString().trim() !== ''; });
+      allStudents = (data.records || []).filter(function(r) { return r.name && r.name.toString().trim(); });
       currentList = allStudents.slice();
-      document.getElementById('countBadge').textContent = '👤 ' + allStudents.length + ' student(s) loaded';
+      document.getElementById('countBadge').textContent = '👤 ' + allStudents.length + ' student(s)';
       renderList(currentList);
     })
     .catch(function() {
-      sec.innerHTML = '<div class="empty-state"><div class="icon">&#9888;</div><div>Failed to load. Check connection and try Reload.</div></div>';
-      document.getElementById('countBadge').textContent = 'Load failed';
+      sec.innerHTML = '<div class="empty-state"><div class="icon">&#9888;</div><div>Failed to load. Try Reload.</div></div>';
     });
 }
 
-/* ── SEARCH / FILTER ── */
 function filterStudents() {
   var q = document.getElementById('searchInput').value.toLowerCase().trim();
-  if (!q) {
-    currentList = allStudents.slice();
-  } else {
-    currentList = allStudents.filter(function(s) {
-      return (s.name          || '').toLowerCase().includes(q) ||
-             (s.regNo         || '').toLowerCase().includes(q) ||
-             (s.mobile        || '').toLowerCase().includes(q) ||
-             (s.qualification || '').toLowerCase().includes(q) ||
-             (s.institution   || '').toLowerCase().includes(q);
-    });
-  }
+  currentList = q ? allStudents.filter(function(s) {
+    return (s.name||'').toLowerCase().includes(q) ||
+           (s.regNo||'').toLowerCase().includes(q) ||
+           (s.mobile||'').toLowerCase().includes(q) ||
+           (s.qualification||'').toLowerCase().includes(q) ||
+           (s.institution||'').toLowerCase().includes(q);
+  }) : allStudents.slice();
   renderList(currentList);
 }
 
-/* ── RENDER CARDS ── */
 function renderList(list) {
-  var sec   = document.getElementById('resultsSection');
-  var label = document.getElementById('resultsLabel');
-
+  var sec = document.getElementById('resultsSection');
+  document.getElementById('resultsLabel').textContent = list.length ? list.length + ' record(s) found' : '';
   if (!list.length) {
-    label.textContent = '';
     sec.innerHTML = '<div class="empty-state"><div class="icon">&#128269;</div><div>No matching records found.</div></div>';
     return;
   }
-
-  label.textContent = list.length + ' record(s) found';
   var html = '';
   list.forEach(function(s, i) {
-    var initials = (s.name || '?').split(' ').map(function(w) { return w[0]; }).join('').slice(0,2).toUpperCase();
+    var initials = (s.name||'?').split(' ').map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
     var avatar   = s.photoBase64 ? '<img src="' + s.photoBase64 + '" alt="">' : initials;
     html +=
-      '<div class="student-card">' +
+      '<div class="student-card" id="card_' + i + '">' +
         '<div class="student-card-header" onclick="toggleDetail(' + i + ')">' +
           '<div class="student-avatar">' + avatar + '</div>' +
           '<div class="student-info">' +
@@ -270,6 +232,7 @@ function renderList(list) {
           '</div>' +
           '<span class="reg-tag">' + esc(s.regNo) + '</span>' +
           '<button class="btn-print-slip" onclick="event.stopPropagation();printSlip(' + i + ')">&#128438; Print Slip</button>' +
+          '<button class="btn-delete" onclick="event.stopPropagation();deleteRecord(' + i + ')" title="Delete this record">&#128465; Delete</button>' +
         '</div>' +
         '<div class="student-detail" id="det_' + i + '">' +
           '<div class="detail-grid">' +
@@ -296,11 +259,39 @@ function toggleDetail(i) {
 }
 
 function esc(v) {
-  return (v || '&mdash;').toString()
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return (v||'&mdash;').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-/* ── PRINT INDIVIDUAL SLIP ── */
+/* ── DELETE RECORD ── */
+function deleteRecord(i) {
+  var s = currentList[i];
+  if (!s) return;
+  if (!confirm('Delete registration of ' + s.name + ' (' + s.regNo + ')?\n\nThis cannot be undone.')) return;
+
+  var btn = document.querySelector('#card_' + i + ' .btn-delete');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner-inline"></span>'; }
+
+  fetch(SCRIPT_URL + '?action=delete&regNo=' + encodeURIComponent(s.regNo))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        // Remove from local arrays
+        allStudents = allStudents.filter(function(x) { return x.regNo !== s.regNo; });
+        filterStudents();
+        document.getElementById('countBadge').textContent = '👤 ' + allStudents.length + ' student(s)';
+        showToast('✅ Deleted: ' + s.name, '#1a6622');
+      } else {
+        showToast('❌ Delete failed: ' + (data.error || 'Unknown error'), '#cc2222');
+        if (btn) { btn.disabled = false; btn.innerHTML = '🗑 Delete'; }
+      }
+    })
+    .catch(function() {
+      showToast('❌ Network error. Try again.', '#cc2222');
+      if (btn) { btn.disabled = false; btn.innerHTML = '🗑 Delete'; }
+    });
+}
+
+/* ── PRINT SLIP ── */
 function printSlip(i) {
   var s = currentList[i];
   if (!s) return;
@@ -321,7 +312,7 @@ function printSlip(i) {
         '<div class="sc-sub">30 Hours &middot; 100 Marks &middot; Course Coordinator: Gafoor I, Assistant Professor</div>' +
       '</div>' +
       '<div class="slip-form-title">Registration Form</div>' +
-      '<div class="slip-body-row">' +
+      '<div style="display:flex;gap:14px;margin-bottom:8px;align-items:flex-start;">' +
         '<table class="slip-table" style="flex:1;">' +
           '<tr><td>Name of the Applicant</td><td>' + esc(s.name) + '</td></tr>' +
           '<tr><td>Parent\'s Name</td><td>' + esc(s.parentName) + '</td></tr>' +
@@ -351,7 +342,7 @@ function printSlip(i) {
       '</div>' +
       '<div class="slip-office">' +
         '<div>' +
-          '<div style="font-size:10px;font-weight:800;color:#2C3E66;text-transform:uppercase;letter-spacing:0.5px;">Office Use Only</div>' +
+          '<div style="font-size:10px;font-weight:800;color:#2C3E66;text-transform:uppercase;">Office Use Only</div>' +
           '<div style="font-size:15px;font-weight:900;color:#2C3E66;margin-top:4px;">' + esc(s.regNo) + '</div>' +
           '<div style="font-size:10px;color:#6a6a7a;margin-top:3px;">Registered: ' + esc(s.timestamp) + '</div>' +
         '</div>' +
@@ -362,59 +353,37 @@ function printSlip(i) {
   window.print();
 }
 
-/* ── GENERATE STUDENT LIST PDF ── */
+/* ── GENERATE STUDENT LIST ── */
 function generateList() {
   var list = currentList.length ? currentList : allStudents;
-  if (!list.length) {
-    alert('No students loaded. Please click Reload first.');
-    return;
-  }
-
-  var rows = '';
-  list.forEach(function(s, i) {
-    rows +=
-      '<tr>' +
-        '<td style="text-align:center;">' + (i + 1) + '</td>' +
-        '<td>' + esc(s.regNo) + '</td>' +
-        '<td>' + esc(s.name) + '</td>' +
-        '<td>' + esc(s.mobile) + '</td>' +
-      '</tr>';
-  });
-
-  var today = new Date().toLocaleDateString('en-IN', {day:'2-digit', month:'long', year:'numeric'});
+  if (!list.length) { alert('No students loaded. Click Reload first.'); return; }
+  var today = new Date().toLocaleDateString('en-IN', {day:'2-digit',month:'long',year:'numeric'});
+  var rows  = list.map(function(s, i) {
+    return '<tr><td style="text-align:center;">' + (i+1) + '</td><td>' + esc(s.regNo) + '</td><td>' + esc(s.name) + '</td><td>' + esc(s.mobile) + '</td></tr>';
+  }).join('');
 
   document.getElementById('printArea').innerHTML =
     '<div class="list-page">' +
-      '<div class="list-header">' +
+      '<div class="slip-header">' +
         '<div class="slip-college">NAM COLLEGE KALLIKKANDY</div>' +
         '<div class="slip-accre">Re-accredited with NAAC A Grade &middot; Aided &amp; Affiliated to Kannur University</div>' +
         '<div class="slip-accre">P.O. Kallikkandy, Kannur Dt., PIN &ndash; 670 693</div>' +
         '<div class="slip-dept">DEPARTMENT OF MATHEMATICS</div>' +
       '</div>' +
-      '<div class="slip-band" style="margin-bottom:10px;">' +
+      '<div class="slip-band" style="margin:10px 0;">' +
         '<div class="sc-title">Certificate Course &middot; CC26MAT01 &middot; PyMath Pro &mdash; Computational Mathematics with Python &amp; NumPy</div>' +
         '<div class="sc-sub">30 Hours &middot; 100 Marks &middot; Course Coordinator: Gafoor I, Assistant Professor</div>' +
       '</div>' +
       '<div class="list-title">List of Registered Students</div>' +
       '<table class="list-table">' +
-        '<thead><tr>' +
-          '<th style="width:8%;text-align:center;">Sl No</th>' +
-          '<th style="width:28%;">Register Number</th>' +
-          '<th style="width:40%;">Name</th>' +
-          '<th style="width:24%;">Phone Number</th>' +
-        '</tr></thead>' +
+        '<thead><tr><th style="width:8%;text-align:center;">Sl No</th><th style="width:28%;">Register Number</th><th style="width:40%;">Name</th><th style="width:24%;">Phone Number</th></tr></thead>' +
         '<tbody>' + rows + '</tbody>' +
       '</table>' +
-      '<div class="list-footer">' +
-        '<span>Total: <strong>' + list.length + '</strong> student(s)</span>' +
-        '<span>Generated on: ' + today + '</span>' +
-      '</div>' +
+      '<div class="list-footer"><span>Total: <strong>' + list.length + '</strong> student(s)</span><span>Generated on: ' + today + '</span></div>' +
       '<div style="margin-top:32px;display:flex;justify-content:flex-end;">' +
-        '<div style="text-align:center;">' +
-          '<div style="width:150px;border-bottom:1px solid #1a1a2e;margin-bottom:4px;"></div>' +
-          '<div style="font-size:11px;font-weight:700;color:#3a3a4a;">Course Coordinator</div>' +
-          '<div style="font-size:10px;color:#5a5a6a;">Gafoor I, Asst. Professor</div>' +
-        '</div>' +
+        '<div style="text-align:center;"><div style="width:150px;border-bottom:1px solid #1a1a2e;margin-bottom:4px;"></div>' +
+        '<div style="font-size:11px;font-weight:700;color:#3a3a4a;">Course Coordinator</div>' +
+        '<div style="font-size:10px;color:#5a5a6a;">Gafoor I, Asst. Professor</div></div>' +
       '</div>' +
     '</div>';
   window.print();
