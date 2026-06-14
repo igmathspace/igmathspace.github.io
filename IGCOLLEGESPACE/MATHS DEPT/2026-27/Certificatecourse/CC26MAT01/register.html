@@ -215,7 +215,16 @@ body { font-family:'DM Sans',sans-serif; background:#e8e0f0; min-height:100vh; p
 </div>
 
 </div>
+
+<!-- Hidden iframe to catch Google Form response without page redirect -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
 <script>
+// Google Form submission details
+var FORM_URL   = 'https://docs.google.com/forms/d/e/1FAIpQLSdw_xHZXKhe3vyr6wrmnnK0n63uua3voV_l5vhDo7uSgv8yVA/formResponse';
+var ENTRY_ID   = 'entry.1655416704';
+
+// Apps Script URL for admin panel reads
 var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKT92siQiZEPP_C7Ulx3pQ3nUzkr5nCVHdeX3xUvUsUMR2gvY-24T3fXYb2aoQEfKn/exec';
 
 document.getElementById('regdate').valueAsDate = new Date();
@@ -230,9 +239,9 @@ function previewPhoto(event) {
 
 function generateRegNo() {
   var now = new Date();
-  var yr = now.getFullYear().toString().slice(2);
-  var mn = String(now.getMonth() + 1).padStart(2, '0');
-  var ts = Date.now().toString().slice(-4);
+  var yr  = now.getFullYear().toString().slice(2);
+  var mn  = String(now.getMonth() + 1).padStart(2, '0');
+  var ts  = Date.now().toString().slice(-4);
   return 'CC26MAT01R-' + yr + mn + ts;
 }
 
@@ -255,19 +264,21 @@ function submitForm() {
   btn.innerHTML = '<span class="spinner"></span> Submitting...';
 
   var regNo = generateRegNo();
-  var photoFile = document.getElementById('photoInput').files[0];
 
+  var photoFile = document.getElementById('photoInput').files[0];
   if (photoFile) {
     var reader = new FileReader();
-    reader.onload = function() { send(regNo, reader.result, btn); };
+    reader.onload = function() { doSubmit(regNo, reader.result, btn); };
     reader.readAsDataURL(photoFile);
   } else {
-    send(regNo, '', btn);
+    doSubmit(regNo, '', btn);
   }
 }
 
-function send(regNo, photo, btn) {
-  var payload = JSON.stringify({
+function doSubmit(regNo, photoBase64, btn) {
+  // Build the full data payload as a single JSON string
+  // This gets sent to Google Form → Google Sheet via the hidden iframe trick
+  var payload = {
     regNo:         regNo,
     timestamp:     new Date().toLocaleString('en-IN'),
     name:          document.getElementById('name').value.trim(),
@@ -285,37 +296,45 @@ function send(regNo, photo, btn) {
     permAddress:   document.getElementById('permAddress').value.trim(),
     place:         document.getElementById('place').value.trim(),
     date:          document.getElementById('regdate').value,
-    photoBase64:   photo
-  });
+    photoBase64:   photoBase64
+  };
 
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', SCRIPT_URL);
-  xhr.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
-  xhr.onload = function() {
+  // Create a hidden form targeting the hidden iframe
+  var form = document.createElement('form');
+  form.method  = 'POST';
+  form.action  = FORM_URL;
+  form.target  = 'hidden_iframe';
+
+  var input    = document.createElement('input');
+  input.type   = 'hidden';
+  input.name   = ENTRY_ID;
+  input.value  = JSON.stringify(payload);
+  form.appendChild(input);
+
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  // Show success after short delay
+  setTimeout(function() {
     showSuccess(regNo);
     btn.disabled = false;
     btn.innerHTML = 'Submit Registration';
-  };
-  xhr.onerror = function() {
-    showSuccess(regNo);
-    btn.disabled = false;
-    btn.innerHTML = 'Submit Registration';
-  };
-  xhr.send(payload);
+  }, 2000);
 }
 
 function showSuccess(regNo) {
-  document.getElementById('formCard').style.display = 'none';
+  document.getElementById('formCard').style.display    = 'none';
   document.getElementById('successScreen').style.display = 'block';
-  document.getElementById('regNumDisplay').textContent = regNo;
+  document.getElementById('regNumDisplay').textContent   = regNo;
 }
 
 function resetForm() {
-  document.getElementById('formCard').style.display = 'block';
+  document.getElementById('formCard').style.display      = 'block';
   document.getElementById('successScreen').style.display = 'none';
   document.querySelectorAll('input, select, textarea').forEach(function(el) { el.value = ''; });
   document.getElementById('regdate').valueAsDate = new Date();
-  document.getElementById('photoPreview').style.display = 'none';
+  document.getElementById('photoPreview').style.display  = 'none';
 }
 </script>
 </body>
