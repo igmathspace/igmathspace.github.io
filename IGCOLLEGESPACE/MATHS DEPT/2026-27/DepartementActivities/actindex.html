@@ -120,39 +120,129 @@
             text-decoration: underline;
         }
 
-        /* Blank Activities Area - Ready to Add Content */
+        /* Activities Area - Cards Layout */
         .activities-area {
-            background: white;
+            background: transparent;
             border-radius: 20px;
-            padding: 3rem 2rem;
-            text-align: center;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            padding: 0;
+            text-align: left;
             margin-bottom: 2rem;
             min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
+        /* Activity Card */
+        .activity-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(38, 166, 154, 0.2);
+        }
+        .activity-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 28px 40px -16px rgba(0,77,64,0.25);
+        }
+
+        .card-header {
+            background: linear-gradient(115deg, #ffffff 0%, #f4fbf9 100%);
+            padding: 1.8rem 2rem 1rem 2rem;
+            border-bottom: 2px solid #26a69a;
+        }
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #004d40;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+        .card-sub {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #2c7a6e;
+            background: #e0f2f1;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            margin-top: 0.3rem;
+        }
+        .card-body {
+            padding: 1.6rem 2rem 2rem 2rem;
+        }
+
+        /* button group */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+        .event-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f7f5;
+            padding: 0.65rem 1.4rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.25s;
+            border: 1px solid #b2dfdb;
+            color: #004d40;
+            cursor: pointer;
+        }
+        .event-btn i {
+            font-style: normal;
+            font-weight: normal;
+            font-size: 1.1rem;
+        }
+        .event-btn:hover {
+            background: #26a69a;
+            color: white;
+            border-color: #26a69a;
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(0,105,92,0.2);
+        }
+        .btn-highlight {
+            background: #00695c;
+            border-color: #004d40;
+            color: white;
+        }
+        .btn-highlight:hover {
+            background: #004d40;
+        }
+        .drive-link {
+            background: #e8eef1;
+        }
+
+        /* empty state hidden after adding card */
+        .empty-state-wrapper {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
         .empty-state-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
             opacity: 0.6;
         }
-
         .empty-state-text {
             color: #00695c;
             font-size: 1.3rem;
             font-weight: 500;
             margin-bottom: 0.5rem;
         }
-
         .empty-state-sub {
             color: #78909c;
             font-size: 0.95rem;
         }
-
         .add-hint {
             margin-top: 1.5rem;
             background: #e0f2f1;
@@ -163,6 +253,24 @@
             color: #004d40;
         }
 
+        /* additional card decoration */
+        .badge-date {
+            background: #e0f2f1;
+            color: #00695c;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-left: 0.8rem;
+            vertical-align: middle;
+        }
+        hr {
+            margin: 0.8rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #b2dfdb, transparent);
+        }
         /* Footer */
         .footer {
             background: linear-gradient(135deg, #004d40 0%, #00332a 100%);
@@ -192,8 +300,15 @@
             .header h1 {
                 font-size: 1.6rem;
             }
-            .activities-area {
-                padding: 2rem 1rem;
+            .card-title {
+                font-size: 1.4rem;
+            }
+            .button-group {
+                gap: 0.7rem;
+            }
+            .event-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -225,12 +340,57 @@
             </div>
         </div>
 
-        <!-- BLANK ACTIVITIES AREA - Ready for you to add content one by one -->
-        <div class="activities-area">
-            <div class="empty-state-icon">📂</div>
-            <div class="empty-state-text">No activities added yet</div>
-            <div class="empty-state-sub">Department activities will appear here</div>
-            <div class="add-hint">✨ Add events, workshops, seminars, and achievements one by one</div>
+        <!-- ACTIVITIES AREA: Now contains the first event card (Reading Beyond Limits) -->
+        <div class="activities-area" id="activitiesContainer">
+            <!-- First Programme Card : "♾️ Reading Beyond Limits - An Infinity Initiative ♾️ | 📖 National Reading Day Campaign | June 19" -->
+            <div class="activity-card" id="eventCardInfinity">
+                <div class="card-header">
+                    <div class="card-title">
+                        ♾️ Reading Beyond Limits - An Infinity Initiative ♾️
+                        <span class="badge-date">📅 June 19</span>
+                    </div>
+                    <div class="card-sub">
+                        📖 National Reading Day Campaign | June 19
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p style="margin-bottom: 1.2rem; color: #2c3e2f; font-size: 0.98rem;">
+                        🌟 <strong>“Expand your mind, read without boundaries.”</strong> The Department of Mathematics proudly launches 
+                        <strong>Reading Beyond Limits – An Infinity Initiative</strong> on the occasion of National Reading Day. 
+                        This campaign encourages students, faculty, and book lovers to explore the infinite world of knowledge beyond textbooks.
+                    </p>
+                    <div class="button-group">
+                        <!-- 1. Event Details -->
+                        <a href="Readers_day_june19/readersdayindex.html" class="event-btn">
+                            <i>📋</i> Event Details
+                        </a>
+                        <!-- 2. Poster -->
+                        <a href="Readers_day_june19/poster.png" class="event-btn">
+                            <i>🖼️</i> Poster
+                        </a>
+                        <!-- 3. Register -->
+                        <a href="Readers_day_june19/June17register.html" class="event-btn btn-highlight">
+                            <i>✅</i> Register
+                        </a>
+                        <!-- 4. Report -->
+                        <a href="Readers_day_june19/report.html" class="event-btn">
+                            <i>📄</i> Report
+                        </a>
+                        <!-- 5. Photos (Google Drive link placeholder) -->
+                        <a href="https://drive.google.com/drive/folders/1XQz7Bc3DeFgHjKlMnBvCxZz9QwErTyU?usp=sharing" class="event-btn drive-link" target="_blank">
+                            <i>📸</i> Photos
+                        </a>
+                    </div>
+                    <hr>
+                    <div style="font-size: 0.75rem; color: #6c8b86; margin-top: 0.8rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <span>📍 Department of Mathematics, NAM College Kallikkannady</span>
+                        <span>•</span>
+                        <span>⏱️ 10:00 AM - 2:00 PM</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Additional activities can be appended below dynamically in future (placeholder for future cards) -->
+            <div id="futureActivitiesPlaceholder" style="margin-top: 0;"></div>
         </div>
     </div>
 
@@ -281,6 +441,11 @@
                 opacity: 1;
             }
         }
+        /* ensure empty state is not displayed because we added the card */
+        .hidden-empty {
+            display: none;
+        }
+        /* small hover transition for cards */
     </style>
 
     <script>
@@ -317,6 +482,45 @@
                 });
             }
         });
+
+        // Additional Script: The empty state message is replaced by the event card, but to keep consistency
+        // we ensure no leftover 'no activities' container exists. The HTML already contains only the new card.
+        // But we also guarantee that if any previous .empty-state-wrapper accidentally appears, we hide it.
+        // The original design had a div with class="activities-area" that contained a blank placeholder.
+        // We've completely replaced that content with event card + future placeholder.
+        // In case any dynamic remnants, we remove any .empty-state-wrapper inside activities-area (just to be safe)
+        const activitiesArea = document.getElementById('activitiesContainer');
+        if (activitiesArea) {
+            const possibleEmptyWrappers = activitiesArea.querySelectorAll('.empty-state-wrapper');
+            possibleEmptyWrappers.forEach(wrapper => wrapper.remove());
+        }
+
+        // Enable smooth navigation for all action buttons (optional: add fallback for missing relative paths)
+        // All required button hyperlinks have been set exactly as:
+        // 1. Event Details -> Readers_day_june19/readersdayindex.html
+        // 2. Poster -> Readers_day_june19/poster.png
+        // 3. Register -> Readers_day_june19/June17register.html
+        // 4. Report -> Readers_day_june19/report.html
+        // 5. Photos -> Google Drive link (provided placeholder but can be updated)
+        // No extra changes needed.
+        
+        // Additionally, to enhance UX for the Photos drive link: it's currently pointing to a sample drive folder.
+        // The link is editable directly in the <a> tag if needed.
+        console.log("Activity page ready: 'Reading Beyond Limits' card added successfully.");
+        
+        // Optional: if any user clicks on the Photos button and the drive link is not final, they can update later
+        // The placeholder shows a generic drive link, but the instruction: "drive link here" replaced with actual placeholder.
+        // According to requirement: 'Photos : with hyper link : drive link here' - we have set a valid Google Drive style link
+        // but the department can modify the 'href' attribute directly.
+        
+        // Small improvement: Ensure that if any external link fails, it opens in new tab? We use target for photos only (new tab), 
+        // others open normally (internal pages). Already set Poster, Event Details, Register, Report open in same tab by default.
+        // Keep consistent.
+        const photosBtn = document.querySelector('.drive-link');
+        if (photosBtn && photosBtn.getAttribute('href') === 'https://drive.google.com/drive/folders/1XQz7Bc3DeFgHjKlMnBvCxZz9QwErTyU?usp=sharing') {
+            // It's a representative drive link. Can be updated by admin
+            // No additional action.
+        }
     </script>
 </body>
 </html>
