@@ -13,55 +13,37 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Light, refreshing background with a very subtle rainbow tint */
-            background: linear-gradient(135deg, #f3f8fc 0%, #f7f3fd 50%, #fdf5f7 100%);
-            color: #1e293b;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            color: #333;
             line-height: 1.6;
-            min-height: 100vh;
         }
 
-        /* Header Section - Full Vibrant Spectrum Fluid Gradient */
+        /* Header Section - Reddish Violet Theme */
         .header {
-            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981);
-            background-size: 200% 200%;
-            animation: spectrumShift 10s ease infinite;
+            background: linear-gradient(135deg, #4a148c 0%, #880e4f 100%);
             color: white;
-            padding: 3rem 0;
+            padding: 2rem 0;
             text-align: center;
-            box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);
-        }
-
-        @keyframes spectrumShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .header h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
         }
 
         .header p {
-            font-size: 1.15rem;
-            opacity: 0.95;
-            font-weight: 600;
-            color: #ffffff;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
-        /* Navigation Bar - Solid Spectrum Background Accent */
+        /* Navigation Bar */
         .navbar {
-            background: #2563eb;
-            background: linear-gradient(90deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
-            padding: 0.9rem 0;
+            background-color: #4a148c;
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
 
         .nav-container {
@@ -74,173 +56,127 @@
         }
 
         .nav-link {
-            color: #ffffff;
+            color: white;
             text-decoration: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.25);
+            background-color: #ad1457;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3.5rem 2rem;
+            padding: 2rem;
         }
 
-        /* Hero Section - Iridescent Radiant Banner */
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 50%, #fce7f3 100%);
-            border: 2px solid transparent;
-            background-image: linear-gradient(#e0f2fe, #fce7f3), linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            color: #1e3a8a;
-            padding: 3.5rem 2rem;
-            border-radius: 24px;
+            background: linear-gradient(135deg, #d81b60 0%, #8e24aa 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
             text-align: center;
-            margin-bottom: 4rem;
-            box-shadow: 0 10px 35px rgba(139, 92, 246, 0.12);
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .hero h2 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-            background: linear-gradient(90deg, #1d4ed8, #6d28d9, #be185d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: #4338ca;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            font-size: 1.05rem;
+            font-size: 2rem;
+            margin-bottom: 1rem;
         }
 
         /* Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
             margin-bottom: 3rem;
         }
 
-        /* Individual Card Style */
         .card {
             background: white;
-            border-radius: 24px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            border: 1px solid #e2e8f0;
-            position: relative;
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.15);
-            border-color: #d8b4fe;
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
 
         .card-header {
-            /* Distinct Gradient sets for distinct cards to create the multi-color rainbow breakdown */
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #880e4f 0%, #4a148c 100%);
             color: white;
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
         }
 
-        /* Set the second card header to continue the spectrum */
-        .cards-grid .card:nth-child(2) .card-header {
-            background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
-        }
-
         .card-header h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.1);
         }
 
         .card-header .course-code {
-            font-size: 1rem;
-            color: white;
+            font-size: 1.1rem;
+            opacity: 0.9;
             letter-spacing: 1px;
-            font-weight: 700;
-            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.15);
             display: inline-block;
-            padding: 0.25rem 1rem;
-            border-radius: 6px;
+            padding: 0.2rem 0.8rem;
+            border-radius: 4px;
             margin-top: 0.25rem;
-            backdrop-filter: blur(2px);
         }
 
         .card-body {
-            padding: 2.2rem 1.8rem;
+            padding: 1.5rem;
             flex: 1;
-            background-color: #fff;
         }
 
         .tags-container {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
-        /* List Items / Links - Rainbow Hover Shifting Effect */
         .tag {
             display: flex;
             align-items: center;
-            padding: 0.9rem 1.3rem;
-            background: #f8fafc;
-            border-left: 4px solid #3b82f6;
-            border-radius: 12px;
+            padding: 0.7rem 1rem;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            border-left: 4px solid #d81b60;
+            border-radius: 8px;
             text-decoration: none;
-            color: #334155;
+            color: #4a148c;
             transition: all 0.3s ease;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
-            border: 1px solid #f1f5f9;
-            border-left: none;
         }
 
-        /* Distinct border accents per item block mimicking a rainbow matrix stack */
-        .tags-container a:nth-child(1) { border-left: 4px solid #3b82f6; color: #1d4ed8; background: #f0f6ff; }
-        .tags-container a:nth-child(2) { border-left: 4px solid #8b5cf6; color: #6d28d9; background: #f5f3ff; }
-        .tags-container a:nth-child(3) { border-left: 4px solid #ec4899; color: #be185d; background: #fdf2f8; }
-        .tags-container a:nth-child(4) { border-left: 4px solid #f59e0b; color: #b45309; background: #fffbeb; }
-        .tags-container a:nth-child(5) { border-left: 4px solid #10b981; color: #047857; background: #f0fdf4; }
-
         .tag:hover {
-            /* Dynamic smooth fluid background transitions across the full rainbow line on interaction */
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
-            background-size: 300% 100%;
-            color: white !important;
-            transform: translateX(6px);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.18);
-            border-color: transparent;
+            background: linear-gradient(135deg, #d81b60 0%, #8e24aa 100%);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .tag-icon {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             margin-right: 0.8rem;
         }
 
@@ -250,46 +186,34 @@
 
         .tag-arrow {
             font-size: 1.2rem;
-            opacity: 0.4;
-            transform: translateX(-4px);
-            transition: all 0.25s ease;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .tag:hover .tag-arrow {
             opacity: 1;
-            transform: translateX(0);
-            color: white;
         }
 
-        /* Footer Section */
+        /* Footer */
         .footer {
-            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-            color: #94a3b8;
+            background: linear-gradient(135deg, #4a148c 0%, #2a0854 100%);
+            color: white;
             text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 6rem;
-            position: relative;
-        }
-
-        /* Tiny rainbow hairline over the dark footer to tie it together */
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981);
+            padding: 2rem;
+            margin-top: 3rem;
         }
 
         .footer p {
-            font-size: 0.98rem;
-            letter-spacing: 0.3px;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
         }
 
         @media (max-width: 768px) {
             .container {
-                padding: 1.5rem 1rem;
+                padding: 1rem;
             }
             .hero h2 {
-                font-size: 1.75rem;
+                font-size: 1.5rem;
             }
             .cards-grid {
                 grid-template-columns: 1fr;
@@ -300,7 +224,7 @@
                 gap: 0.5rem;
             }
             .header h1 {
-                font-size: 2.1rem;
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -345,10 +269,10 @@
                             <span class="tag-arrow">→</span>
                         </a>
                         <a href="CC26MAT01/register.html" class="tag">
-                            <span class="tag-icon">📝</span>
-                            <span class="tag-text">Registration Form</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
+    <span class="tag-icon">📝</span>
+    <span class="tag-text">Registration Form</span>
+    <span class="tag-arrow">→</span>
+</a>
                         <a href="CC26MAT01/Assignment01.html" target="_blank" class="tag">
                             <span class="tag-icon">✍️</span>
                             <span class="tag-text">Assignment</span>
