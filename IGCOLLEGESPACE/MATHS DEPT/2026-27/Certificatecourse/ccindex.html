@@ -1,452 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Courses - Department of Mathematics</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Courses — Department of Mathematics | NAM College</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:#0f1628; min-height:100vh; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Light, refreshing background with a very subtle rainbow tint */
-            background: linear-gradient(135deg, #f3f8fc 0%, #f7f3fd 50%, #fdf5f7 100%);
-            color: #1e293b;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        /* Header Section - Full Vibrant Spectrum Fluid Gradient */
-        .header {
-            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981);
-            background-size: 200% 200%;
-            animation: spectrumShift 10s ease infinite;
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-            box-shadow: 0 4px 25px rgba(139, 92, 246, 0.2);
-        }
-
-        @keyframes spectrumShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .header p {
-            font-size: 1.15rem;
-            opacity: 0.95;
-            font-weight: 600;
-            color: #ffffff;
-            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Navigation Bar - Solid Spectrum Background Accent */
-        .navbar {
-            background: #2563eb;
-            background: linear-gradient(90deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
-            padding: 0.9rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            color: #ffffff;
-            text-decoration: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 8px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .nav-link:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3.5rem 2rem;
-        }
-
-        /* Hero Section - Iridescent Radiant Banner */
-        .hero {
-            background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 50%, #fce7f3 100%);
-            border: 2px solid transparent;
-            background-image: linear-gradient(#e0f2fe, #fce7f3), linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
-            background-origin: border-box;
-            background-clip: padding-box, border-box;
-            color: #1e3a8a;
-            padding: 3.5rem 2rem;
-            border-radius: 24px;
-            text-align: center;
-            margin-bottom: 4rem;
-            box-shadow: 0 10px 35px rgba(139, 92, 246, 0.12);
-        }
-
-        .hero h2 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            margin-bottom: 0.8rem;
-            background: linear-gradient(90deg, #1d4ed8, #6d28d9, #be185d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: #4338ca;
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            font-size: 1.05rem;
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        /* Individual Card Style */
-        .card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #e2e8f0;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.15);
-            border-color: #d8b4fe;
-        }
-
-        .card-header {
-            /* Distinct Gradient sets for distinct cards to create the multi-color rainbow breakdown */
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        /* Set the second card header to continue the spectrum */
-        .cards-grid .card:nth-child(2) .card-header {
-            background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
-        }
-
-        .card-header h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.1);
-        }
-
-        .card-header .course-code {
-            font-size: 1rem;
-            color: white;
-            letter-spacing: 1px;
-            font-weight: 700;
-            background: rgba(255, 255, 255, 0.2);
-            display: inline-block;
-            padding: 0.25rem 1rem;
-            border-radius: 6px;
-            margin-top: 0.25rem;
-            backdrop-filter: blur(2px);
-        }
-
-        .card-body {
-            padding: 2.2rem 1.8rem;
-            flex: 1;
-            background-color: #fff;
-        }
-
-        .tags-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        /* List Items / Links - Rainbow Hover Shifting Effect */
-        .tag {
-            display: flex;
-            align-items: center;
-            padding: 0.9rem 1.3rem;
-            background: #f8fafc;
-            border-left: 4px solid #3b82f6;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #334155;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid #f1f5f9;
-            border-left: none;
-        }
-
-        /* Distinct border accents per item block mimicking a rainbow matrix stack */
-        .tags-container a:nth-child(1) { border-left: 4px solid #3b82f6; color: #1d4ed8; background: #f0f6ff; }
-        .tags-container a:nth-child(2) { border-left: 4px solid #8b5cf6; color: #6d28d9; background: #f5f3ff; }
-        .tags-container a:nth-child(3) { border-left: 4px solid #ec4899; color: #be185d; background: #fdf2f8; }
-        .tags-container a:nth-child(4) { border-left: 4px solid #f59e0b; color: #b45309; background: #fffbeb; }
-        .tags-container a:nth-child(5) { border-left: 4px solid #10b981; color: #047857; background: #f0fdf4; }
-
-        .tag:hover {
-            /* Dynamic smooth fluid background transitions across the full rainbow line on interaction */
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
-            background-size: 300% 100%;
-            color: white !important;
-            transform: translateX(6px);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.18);
-            border-color: transparent;
-        }
-
-        .tag-icon {
-            font-size: 1.35rem;
-            margin-right: 0.8rem;
-        }
-
-        .tag-text {
-            flex: 1;
-        }
-
-        .tag-arrow {
-            font-size: 1.2rem;
-            opacity: 0.4;
-            transform: translateX(-4px);
-            transition: all 0.25s ease;
-        }
-
-        .tag:hover .tag-arrow {
-            opacity: 1;
-            transform: translateX(0);
-            color: white;
-        }
-
-        /* Footer Section */
-        .footer {
-            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-            color: #94a3b8;
-            text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 6rem;
-            position: relative;
-        }
-
-        /* Tiny rainbow hairline over the dark footer to tie it together */
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981);
-        }
-
-        .footer p {
-            font-size: 0.98rem;
-            letter-spacing: 0.3px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem 1rem;
-            }
-            .hero h2 {
-                font-size: 1.75rem;
-            }
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            .nav-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.5rem;
-            }
-            .header h1 {
-                font-size: 2.1rem;
-            }
-        }
-        /* 1. Center the inner content */
-.heading-container {
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(135deg, #1a2444 0%, #0f1628 50%, #1a1040 100%);
+  padding: 48px 24px 60px;
   text-align: center;
-  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; top:-60px; left:-60px;
+  width:300px; height:300px;
+  background: radial-gradient(circle, rgba(212,63,107,0.15) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero::after {
+  content:'';
+  position:absolute; bottom:-80px; right:-40px;
+  width:350px; height:350px;
+  background: radial-gradient(circle, rgba(44,110,158,0.18) 0%, transparent 70%);
+  pointer-events:none;
+}
+.college-badge {
+  display:inline-flex; align-items:center; gap:10px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:30px; padding:8px 20px;
+  margin-bottom:24px;
+}
+.college-badge img {
+  width:32px; height:32px; object-fit:contain;
+}
+.college-badge span {
+  font-size:12px; font-weight:700; color:rgba(255,255,255,0.7);
+  letter-spacing:0.5px;
+}
+.hero h1 {
+  font-size:36px; font-weight:900; color:white;
+  line-height:1.2; margin-bottom:10px;
+}
+.hero h1 span { color:#D43F6B; }
+.hero p {
+  font-size:14px; color:rgba(255,255,255,0.55);
+  max-width:480px; margin:0 auto; line-height:1.7;
+}
+.dept-tag {
+  display:inline-block; margin-top:16px;
+  background:linear-gradient(98deg,#D43F6B,#2C6E9E);
+  color:white; font-size:11px; font-weight:800;
+  padding:5px 18px; border-radius:20px; letter-spacing:0.8px;
+  text-transform:uppercase;
 }
 
-/* 2. Your heading styling (updated to h3) */
-.fake-button-heading {
-  font-size: 1.17em; /* Default h3 size */
-  font-weight: bold;
-  display: inline-block;
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: sans-serif;
-  cursor: default; 
-  user-select: none;
+/* ── MAIN ── */
+.main { max-width:1100px; margin:0 auto; padding:40px 24px 60px; }
+
+.section-label {
+  font-size:11px; font-weight:800; color:#D43F6B;
+  text-transform:uppercase; letter-spacing:1.5px;
+  margin-bottom:20px; display:flex; align-items:center; gap:10px;
 }
-    </style>
+.section-label::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(90deg,rgba(212,63,107,0.4),transparent);
+}
+
+/* ── COURSE CARDS GRID ── */
+.courses-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap:20px;
+}
+
+.course-card {
+  background:linear-gradient(145deg, #1e2a4a, #16213a);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px; overflow:hidden;
+  text-decoration:none;
+  transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display:block;
+  position:relative;
+}
+.course-card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  border-color:rgba(212,63,107,0.4);
+}
+.card-top {
+  padding:22px 22px 16px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.card-code {
+  font-size:10px; font-weight:800; letter-spacing:1.5px;
+  color:#D43F6B; text-transform:uppercase; margin-bottom:8px;
+}
+.card-title {
+  font-size:20px; font-weight:900; color:white;
+  margin-bottom:4px; line-height:1.2;
+}
+.card-sub {
+  font-size:12px; color:rgba(255,255,255,0.45);
+  font-weight:500; line-height:1.5;
+}
+.card-meta {
+  display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;
+}
+.meta-chip {
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px; padding:4px 12px;
+  font-size:10px; font-weight:600; color:rgba(255,255,255,0.6);
+}
+.card-bottom {
+  padding:14px 22px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.card-coordinator {
+  font-size:11px; color:rgba(255,255,255,0.4); font-weight:600;
+}
+.card-arrow {
+  width:32px; height:32px;
+  background:linear-gradient(135deg,#D43F6B,#2C6E9E);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:14px; color:white;
+  transition:transform 0.2s;
+}
+.course-card:hover .card-arrow { transform:translateX(3px); }
+
+/* Active vs Coming Soon */
+.card-status-active {
+  position:absolute; top:16px; right:16px;
+  background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.3);
+  color:#4ade80; font-size:9px; font-weight:800;
+  padding:3px 10px; border-radius:20px; letter-spacing:0.8px;
+  text-transform:uppercase;
+}
+.card-status-soon {
+  position:absolute; top:16px; right:16px;
+  background:rgba(251,191,36,0.12); border:1px solid rgba(251,191,36,0.25);
+  color:#fbbf24; font-size:9px; font-weight:800;
+  padding:3px 10px; border-radius:20px; letter-spacing:0.8px;
+  text-transform:uppercase;
+}
+
+/* Coming soon card style */
+.course-card.soon {
+  opacity:0.6; pointer-events:none;
+}
+
+/* ── FOOTER ── */
+.footer {
+  text-align:center; padding:24px;
+  font-size:11px; color:rgba(255,255,255,0.2);
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+
+@media (max-width:600px) {
+  .hero h1 { font-size:26px; }
+  .courses-grid { grid-template-columns:1fr; }
+}
+</style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>🚀 SkillUp Maths</h1>
-        <p>Department of Mathematics | NAM College, Kallikkanady</p>
-    </div>
-
-    <div class="navbar">
-        <div class="nav-container">
-            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/" class="nav-link">📐 Dept. Home</a>
-            <a href="https://igmathspace.github.io/" target="_blank" class="nav-link">🏠 Page Home</a>
-            <a href="https://igmathspace.github.io/lessons.html" target="_blank" class="nav-link">📚 Learning Materials</a>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="hero">
-            <h2>Value-Added & Certificate Programmes</h2>
-            <p>Academic Year 2026 - 2027</p>
-        </div>
-
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Certificate Course I</h3>
-                    <div class="course-code">CC26MAT01</div>
-                    <h2>PyMath Pro</h2>
-                    <a href="CC26MAT01/CC26MAT01.html" target="_blank" class="tag">
-                            <span class="tag-icon">📖</span>
-                            <span class="tag-text">Course Home</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                </div>
-                <div class="heading-container">
-  <h3 class="fake-button-heading">Quick Links 👇</h3>
+<!-- HERO -->
+<div class="hero">
+  <div class="college-badge">
+    <img src="NAM.png" alt="NAM College">
+    <span>NAM COLLEGE KALLIKKANDY</span>
+  </div>
+  <h1>Certificate <span>Courses</span></h1>
+  <p>Skill-based short-term programmes offered by the Department of Mathematics for academic year 2026–27</p>
+  <div class="dept-tag">Department of Mathematics</div>
 </div>
-                <div class="card-body">
-                    <div class="tags-container">
-                        <a href="CC26MAT01/CC26MAT01_PyMath Pro.png" target="_blank" class="tag">
-                            <span class="tag-icon">🖼️</span>
-                            <span class="tag-text">Poster</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="CC26MAT01/syllabus01.html" target="_blank" class="tag">
-                            <span class="tag-icon">📖</span>
-                            <span class="tag-text">Syllabus</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="CC26MAT01/register (1).html" class="tag">
-                            <span class="tag-icon">📝</span>
-                            <span class="tag-text">Registration Form</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="CC26MAT01/Assignment01.html" target="_blank" class="tag">
-                            <span class="tag-icon">✍️</span>
-                            <span class="tag-text">Assignment</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="#" class="tag placeholder-link">
-                            <span class="tag-icon">⚙️</span>
-                            <span class="tag-text">Question Paper Generator (Will Update)</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h3>Value Added Course I </h3>
-                    <div class="course-code"> LaTeXing with Overleaf
-                            </div> <br>
-                    <div class="course-code">VAC26MAT01</div>
-                    <div class="course-name">(will be updated during even semesters)
-                    </div>
-            
-            </div> 
-                <div class="card-body">
-                    <div class="tags-container">
-                        <a href="VAC26MAT01/poster02.html" target="_blank" class="tag">
-                            <span class="tag-icon">🖼️</span>
-                            <span class="tag-text">Poster</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="VAC26MAT01/syllabus02.html" target="_blank" class="tag">
-                            <span class="tag-icon">📖</span>
-                            <span class="tag-text">Syllabus</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="#" class="tag placeholder-link">
-                            <span class="tag-icon">📝</span>
-                            <span class="tag-text">Application Form (Will Update)</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="VAC26MAT01/Assignment02.html" target="_blank" class="tag">
-                            <span class="tag-icon">✍️</span>
-                            <span class="tag-text">Assignment</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                        <a href="#" class="tag placeholder-link">
-                            <span class="tag-icon">⚙️</span>
-                            <span class="tag-text">Question Paper Generator (Will Update)</span>
-                            <span class="tag-arrow">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+<!-- MAIN -->
+<div class="main">
+  <div class="section-label">Available Courses</div>
+
+  <div class="courses-grid">
+
+    <!-- CC26MAT01 — ACTIVE -->
+    <a class="course-card" href="CC26MAT01/CC26MAT01.html">
+      <div class="card-status-active">● Active</div>
+      <div class="card-top">
+        <div class="card-code">CC26MAT01</div>
+        <div class="card-title">PyMath Pro</div>
+        <div class="card-sub">Computational Mathematics with Python &amp; NumPy</div>
+        <div class="card-meta">
+          <span class="meta-chip">30 Hours</span>
+          <span class="meta-chip">100 Marks</span>
+          <span class="meta-chip">2026–27</span>
         </div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-coordinator">👨‍🏫 Gafoor I</div>
+        <div class="card-arrow">→</div>
+      </div>
+    </a>
+
+    <!-- Placeholder for future course -->
+    <div class="course-card soon">
+      <div class="card-status-soon">Coming Soon</div>
+      <div class="card-top">
+        <div class="card-code">CC26MAT02</div>
+        <div class="card-title">Coming Soon</div>
+        <div class="card-sub">Next certificate course will be announced shortly</div>
+        <div class="card-meta">
+          <span class="meta-chip">2026–27</span>
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-coordinator">Department of Mathematics</div>
+        <div class="card-arrow">→</div>
+      </div>
     </div>
 
-    <div class="footer">
-        <p>© Gafoor I, Assistant Professor, Department of Mathematics, NAM College Kallikkannady</p>
-    </div>
+  </div>
+</div>
 
-    <script>
-        // Smoothly intercept and notify users clicking on placeholder links
-        document.querySelectorAll('.placeholder-link').forEach(tag => {
-            tag.addEventListener('click', (e) => {
-                e.preventDefault();
-                alert("This resource is being prepared and will be available shortly!");
-            });
-        });
-    </script>
+<div class="footer">
+  NAM College Kallikkandy &middot; Department of Mathematics &middot; 2026–27
+</div>
+
 </body>
 </html>
