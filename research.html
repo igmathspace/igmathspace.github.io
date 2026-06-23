@@ -14,18 +14,18 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f5f7f0;
-            color: #1a3c2c;
+            background: #eef5fb;
+            color: #1b3a52;
             line-height: 1.5;
         }
 
-        /* GREENISH-RED THEME */
+        /* LIGHT BLUISH THEME */
         .hero {
-            background: linear-gradient(115deg, #2d5a3b 0%, #4a7c59 40%, #b64a2c 100%);
+            background: linear-gradient(115deg, #1e4d6b 0%, #4a90c2 40%, #2f8fd1 100%);
             padding: 2.2rem 1.5rem;
             text-align: center;
             position: relative;
-            border-bottom: 4px solid #eab853;
+            border-bottom: 4px solid #8ec4e8;
         }
         .hero::before {
             content: '';
@@ -34,7 +34,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(234, 184, 83, 0.18) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle at 20% 30%, rgba(142, 196, 232, 0.25) 0%, rgba(0,0,0,0) 70%);
             pointer-events: none;
         }
         .hero h1 {
@@ -42,7 +42,7 @@
             font-size: 2.5rem;
             font-weight: 600;
             letter-spacing: -0.3px;
-            background: linear-gradient(135deg, #fef9e6, #fff3cf);
+            background: linear-gradient(135deg, #ffffff, #dbeefa);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
@@ -52,7 +52,7 @@
             gap: 12px;
         }
         .hero .tagline {
-            color: #f7e5b5;
+            color: #dbeefa;
             font-size: 1rem;
             font-weight: 400;
             letter-spacing: 0.3px;
@@ -61,20 +61,20 @@
         }
 
         .nav-bar {
-            background: rgba(45, 70, 45, 0.92);
+            background: rgba(20, 56, 84, 0.92);
             backdrop-filter: blur(10px);
             padding: 0.8rem 2rem;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #c96f3e;
+            border-bottom: 1px solid #5aa8dc;
             position: sticky;
             top: 0;
             z-index: 50;
         }
         .nav-home {
-            color: #f5d98f;
+            color: #cfe8fb;
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
@@ -83,13 +83,13 @@
             gap: 6px;
             transition: 0.2s;
         }
-        .nav-home:hover { color: #ffefb9; text-decoration: underline; }
+        .nav-home:hover { color: #eaf6ff; text-decoration: underline; }
         .nav-badge {
             font-size: 0.75rem;
-            background: #b64a2c40;
+            background: #2f8fd140;
             padding: 4px 10px;
             border-radius: 40px;
-            color: #ffdfa5;
+            color: #cfe8fb;
         }
 
         .container {
@@ -106,26 +106,26 @@
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
             font-weight: 600;
-            background: linear-gradient(120deg, #2d5a3b, #b64a2c);
+            background: linear-gradient(120deg, #1e4d6b, #2f8fd1);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            border-bottom: 3px solid #c96f3e;
+            border-bottom: 3px solid #5aa8dc;
             display: inline-block;
             padding-bottom: 8px;
         }
 
         .tabs-wrapper {
-            background: #fef9ef;
+            background: #f3f9fd;
             border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(45, 90, 59, 0.2);
+            box-shadow: 0 20px 35px -12px rgba(30, 77, 107, 0.2);
             overflow: hidden;
-            border: 1px solid #dbae7a;
+            border: 1px solid #a9cbe8;
         }
         .tab-buttons {
             display: flex;
-            background: #f2edd9;
-            border-bottom: 1px solid #ddb892;
+            background: #e3eef7;
+            border-bottom: 1px solid #b6d4ec;
         }
         .tab-btn {
             flex: 1;
@@ -135,7 +135,7 @@
             font-size: 1rem;
             font-weight: 600;
             font-family: 'Inter', sans-serif;
-            color: #5a3e2b;
+            color: #1b3a52;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -143,11 +143,11 @@
             justify-content: center;
             gap: 8px;
         }
-        .tab-btn:hover { background: #e6e0c9; color: #b64a2c; }
+        .tab-btn:hover { background: #d7e8f5; color: #2f8fd1; }
         .tab-btn.active {
             background: white;
-            color: #b64a2c;
-            border-bottom: 3px solid #b64a2c;
+            color: #2f8fd1;
+            border-bottom: 3px solid #2f8fd1;
             font-weight: 700;
         }
 
@@ -164,7 +164,7 @@
 
         /* researcher card */
         .researcher-card {
-            background: linear-gradient(115deg, #f6f5ea 0%, #ffffff 100%);
+            background: linear-gradient(115deg, #eef6fc 0%, #ffffff 100%);
             border-radius: 1.5rem;
             padding: 1.2rem 1.8rem;
             margin-bottom: 2rem;
@@ -172,21 +172,21 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            border: 1px solid #d4b17c;
-            box-shadow: 0 6px 12px -8px rgba(70, 50, 30, 0.1);
+            border: 1px solid #a9cbe8;
+            box-shadow: 0 6px 12px -8px rgba(30, 60, 90, 0.12);
         }
         .researcher-info h3 {
             font-size: 1.4rem;
             font-weight: 700;
-            color: #2d5a3b;
+            color: #1e4d6b;
         }
         .researcher-info p {
-            color: #6b4c3b;
+            color: #3d6a8a;
             font-size: 0.85rem;
             margin-top: 4px;
         }
         .orcid-btn {
-            background: #b64a2c;
+            background: #2f8fd1;
             color: white;
             border-radius: 40px;
             padding: 0.4rem 1rem;
@@ -198,7 +198,7 @@
             gap: 6px;
             transition: 0.2s;
         }
-        .orcid-btn:hover { background: #9a3e24; transform: scale(1.02); }
+        .orcid-btn:hover { background: #16395a; transform: scale(1.02); }
 
         /* tables */
         .table-responsive {
@@ -212,8 +212,8 @@
             background: white;
         }
         .pub-table thead, .fdp-table thead {
-            background: #2d5a3b;
-            color: #fcf3cf;
+            background: #1e4d6b;
+            color: #eaf6ff;
         }
         .pub-table th, .fdp-table th {
             padding: 12px 12px;
@@ -223,22 +223,22 @@
         }
         .pub-table td, .fdp-table td {
             padding: 12px 12px;
-            border-bottom: 1px solid #e3d5bc;
+            border-bottom: 1px solid #d2e4f3;
             vertical-align: top;
         }
         .pub-table tr:hover, .fdp-table tr:hover {
-            background: #fdf8ed;
+            background: #eef7fc;
             transition: 0.1s;
         }
         .journal-meta {
             font-style: italic;
-            color: #b64a2c;
+            color: #2f8fd1;
             font-weight: 500;
             font-size: 0.8rem;
         }
         .issn-txt {
             font-size: 0.7rem;
-            color: #7c5e3a;
+            color: #3d6a8a;
         }
         .btn-group {
             display: flex;
@@ -258,17 +258,17 @@
             transition: all 0.2s;
         }
         .btn-doi {
-            background: #f2ebda;
-            color: #b64a2c;
-            border: 1px solid #d6b27a;
+            background: #e8f1fb;
+            color: #2f8fd1;
+            border: 1px solid #a9cbe8;
         }
-        .btn-doi:hover { background: #b64a2c; color: white; }
+        .btn-doi:hover { background: #2f8fd1; color: white; }
         .btn-pdf {
-            background: #eef5e8;
-            color: #2d5a3b;
-            border: 1px solid #c0d3af;
+            background: #e3eef8;
+            color: #1e4d6b;
+            border: 1px solid #b6d4ec;
         }
-        .btn-pdf:hover { background: #2d5a3b; color: white; }
+        .btn-pdf:hover { background: #1e4d6b; color: white; }
 
         /* FDP filter area */
         .filter-area {
@@ -281,25 +281,25 @@
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-            border: 1px solid #dec68a;
+            border: 1px solid #a9cbe8;
         }
         .search-input {
-            border: 1px solid #d0b67c;
+            border: 1px solid #a9cbe8;
             border-radius: 2rem;
             padding: 0.45rem 1rem;
             width: 260px;
             font-size: 0.8rem;
             outline: none;
             transition: 0.2s;
-            background: #fffef7;
+            background: #f5fafe;
         }
-        .search-input:focus { border-color: #b64a2c; }
+        .search-input:focus { border-color: #2f8fd1; }
         .filter-group {
             display: flex;
             gap: 0.5rem;
         }
         .filter-chip {
-            background: #f1ecde;
+            background: #e3edf7;
             border: none;
             padding: 0.3rem 1rem;
             border-radius: 2rem;
@@ -307,27 +307,27 @@
             font-weight: 500;
             cursor: pointer;
             transition: 0.2s;
-            color: #4a5c3c;
+            color: #3d6a8a;
         }
         .filter-chip.active {
-            background: #b64a2c;
+            background: #2f8fd1;
             color: white;
         }
         .mode-badge {
             display: inline-block;
-            background: #e4ebd9;
-            color: #2d5a3b;
+            background: #dbeaf6;
+            color: #1e4d6b;
             font-size: 0.7rem;
             font-weight: 600;
             padding: 2px 8px;
             border-radius: 30px;
         }
         .mode-offline {
-            background: #f0ddd2;
-            color: #b64a2c;
+            background: #dceefa;
+            color: #2f8fd1;
         }
         .cert-link {
-            background: #2d5a3b;
+            background: #1e4d6b;
             color: white;
             padding: 4px 10px;
             border-radius: 2rem;
@@ -337,29 +337,29 @@
             display: inline-block;
             transition: 0.2s;
         }
-        .cert-link:hover { background: #b64a2c; transform: scale(1.02); }
+        .cert-link:hover { background: #2f8fd1; transform: scale(1.02); }
 
         .info-note {
-            background: #f9f5e8;
+            background: #e9f3fb;
             margin-top: 1rem;
             padding: 0.8rem 1rem;
             border-radius: 1rem;
             font-size: 0.75rem;
-            border-left: 5px solid #b64a2c;
-            color: #4a5c3c;
+            border-left: 5px solid #2f8fd1;
+            color: #3d6a8a;
         }
 
         .footer {
-            background: #2c4a2e;
-            color: #ddcca5;
+            background: #1c3f57;
+            color: #cfe3f2;
             text-align: center;
             padding: 1.5rem;
             font-size: 0.75rem;
             margin-top: 2.5rem;
-            border-top: 1px solid #b46a40;
+            border-top: 1px solid #5aa8dc;
         }
         .footer a {
-            color: #f7d98a;
+            color: #bfe0f7;
             text-decoration: none;
         }
         @media (max-width: 760px) {
@@ -390,12 +390,12 @@
 
         <div class="tabs-wrapper">
             <div class="tab-buttons">
-                <button class="tab-btn active" id="tabResearchBtn">🔬 Research Details</button>
-                <button class="tab-btn" id="tabFDPBtn">📖 FDP Details</button>
+                <button class="tab-btn" id="tabResearchBtn">🔬 Research Details</button>
+                <button class="tab-btn active" id="tabFDPBtn">📖 FDP Details</button>
             </div>
 
             <!-- RESEARCH PANEL (unchanged) -->
-            <div id="researchPanel" class="tab-pane active-pane">
+            <div id="researchPanel" class="tab-pane">
                 <div class="researcher-card">
                     <div class="researcher-info">
                         <h3>GAFOOR I</h3>
@@ -420,7 +420,7 @@
             </div>
 
             <!-- FDP PANEL - ALL DATES STANDARDIZED to "DD MMM YYYY" format, sorted latest first -->
-            <div id="fdpPanel" class="tab-pane">
+            <div id="fdpPanel" class="tab-pane active-pane">
                 <div class="filter-area">
                     <input type="text" id="searchFDP" class="search-input" placeholder="🔍 Search by title or organizer...">
                     <div class="filter-group">
@@ -449,6 +449,7 @@
         // The event "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX & SCIENTIFIC SKETCHING" 
         // corrected to: 04 Feb 2026 to 06 Feb 2026 (not June)
         const fdpDataRaw = [
+            { title: "3-Day Bootcamp on Academic Writing in the Age of AI: Empowered, Not Replaced. Earning in Dollars", organizer: "SkillArbitrage", mode: "online", startDate: "2026-06-13", endDate: "2026-06-15", dateDisplay: "13 - 15 Jun 2026", certLink: "https://drive.google.com/file/d/1BF8I8Un_Hfr9duMG5QfqK820Y3VmUkYr/view?usp=sharing" },
             { title: "Data analytics with Mathematics and Python", organizer: "Indian Mathematics Professors Association and Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2026-05-25", endDate: "2026-05-29", dateDisplay: "25 - 29 May 2026", certLink: "https://drive.google.com/file/d/1J9COR8WIiSE1NccUNCtIRfZqzEGWuIqF/view?usp=drive_link" },
             { title: "Mathematical Frontiers in Data Science and Artificial Intelligence", organizer: "Department of Mathematics, School of Basic and Applied Sciences, Hindustan Institute of Technology & Science, Chennai", mode: "online", startDate: "2026-05-18", endDate: "2026-05-23", dateDisplay: "18th - 23rd May 2026", certLink: "https://drive.google.com/file/d/1nj4uEe7bTldOyrfxxYf4dG2lCjjQUhNH/view?usp=drive_link" },
             { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX WITH AI", organizer: "Indian Mathematics Professors Association and Infinity Research & Development Institute, Coimbatore", mode: "online", startDate: "2026-04-15", endDate: "2026-04-17", dateDisplay: "15 Apr 2026 to 17 Apr 2026", certLink: "https://drive.google.com/file/d/1z6ppucUdlLZx77MiUgaVkA3yQpMHTnZ5/view?usp=drive_link" },
