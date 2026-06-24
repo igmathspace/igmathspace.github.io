@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 3 | Separable ODEs | KU3DSCMAT211</title>
+    <!-- MathJax for LaTeX-style mathematical equations in display mode -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #e6f7f0;
+            color: #1a4a3a;
+            line-height: 1.5;
+        }
+
+        :root {
+            --sky-teal: #2c7a6e;
+            --green-shade: #3a9e6e;
+            --light-bg: #daf4e8;
+            --blue-accent: #2a7f6e;
+            --border-accent: #2a8b6e;
+            --card-bg: #ffffff;
+        }
+
+        .header-image-container {
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #2c6e5a, #4a9e7a);
+            padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: #eefbef;
+            color: #000000;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.8rem;
+        }
+        .nav-bar {
+            background: #1e5a4a;
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--sky-teal);
+        }
+        .nav-links {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c7a6e, #1e5a4a);
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #3a9e7a, #2a7a5e);
+            transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary {
+            background: linear-gradient(135deg, #3a8e6e, #2a6e52);
+        }
+        .nav-links .btn-secondary:hover {
+            background: linear-gradient(135deg, #4aae7e, #3a7e62);
+        }
+        .nav-links .btn-pdf {
+            background: linear-gradient(135deg, #2a8a6e, #1e6a52);
+        }
+        .nav-links .btn-pdf:hover {
+            background: #3a9e7a;
+        }
+
+        .main-container {
+            max-width: 1280px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .lecture-header {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-left: 10px solid var(--sky-teal);
+        }
+        .course-code-badge {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--sky-teal);
+            letter-spacing: 1px;
+        }
+        .lecture-number {
+            display: inline-block;
+            background: #3a9e6e;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 16px;
+            vertical-align: middle;
+        }
+        .module-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--green-shade);
+            margin-top: 6px;
+            border-bottom: 1px dashed #b8dfcc;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .lecture-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a6e4a;
+            margin: 12px 0 8px 0;
+        }
+        .textbook-ref {
+            background: #e0f5ec;
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #2c7a5e;
+            font-weight: 500;
+        }
+        .faculty-meta {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: #2c6e5a;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+            border: 1px solid #cce6dc;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--sky-teal);
+            border-left: 5px solid var(--sky-teal);
+            padding-left: 20px;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .section-heading:first-of-type {
+            margin-top: 0;
+        }
+        .definition-box {
+            background: #eefaf4;
+            padding: 1.2rem 1.5rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+            border-left: 6px solid #3a9e6e;
+        }
+        .example-box {
+            background: #e6f5ee;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border: 1px solid #cce6dc;
+        }
+        .model-card {
+            background: #f0faf5;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 5px solid #2c7a6e;
+        }
+        .steps-box {
+            background: #fefbf5;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border: 1px solid #d4e8d8;
+        }
+        .steps-box ol {
+            margin-left: 1.5rem;
+        }
+        .steps-box li {
+            margin: 0.5rem 0;
+        }
+        .question-item {
+            background: #fefbf5;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            border-radius: 20px;
+            border-left: 5px solid #2c7a6e;
+            transition: all 0.2s;
+        }
+        .question-text {
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .solution-area {
+            margin-top: 12px;
+            background: #e6f7f0;
+            padding: 1rem;
+            border-radius: 16px;
+            display: none;
+            border-top: 2px solid #b8dfcc;
+        }
+        .solution-area.show {
+            display: block;
+        }
+        .comparison-table, .mistake-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            margin: 1rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .comparison-table th, .comparison-table td, .mistake-table th, .mistake-table td {
+            border: 1px solid #cce0d4;
+            padding: 10px 12px;
+            vertical-align: top;
+        }
+        .comparison-table th, .mistake-table th {
+            background: #daf4e8;
+            font-weight: 700;
+            color: #2c6e5a;
+        }
+        footer {
+            background: #1e5a4a;
+            color: #dfe6cf;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--sky-teal);
+        }
+        .ref-box {
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding: 8px 14px;
+            background: #e0f5ec;
+            border-radius: 30px;
+            display: inline-block;
+            color: #2c7a5e;
+        }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .nav-bar, .btn-pdf, .btn-answer {
+                display: none !important;
+            }
+            .header-image-container {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .header-image {
+                background: #eefbef;
+                color: black !important;
+                print-color-adjust: exact;
+            }
+            .main-container {
+                margin: 0;
+                padding: 0.2in;
+                max-width: 100%;
+            }
+            .lecture-header, .content-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .question-item {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .solution-area {
+                display: block !important;
+                background: #f0faf5;
+                border: 1px solid #cce0d4;
+            }
+            footer {
+                display: none !important;
+                visibility: hidden;
+                height: 0;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+            @page {
+                size: A4;
+                margin: 0.5in;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            mjx-container {
+                font-size: 0.9rem;
+            }
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 0.8rem 0;
+        }
+        .co-badge {
+            background: #3a8e6e;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 10px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .MathJax_Display {
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211 
+            <span class="lecture-number">Lecture 3</span>
+        </div>
+        <div class="module-name">📌 Module I | First Order Ordinary Differential Equations</div>
+        <div class="lecture-title">📖 Topic: Separable ODEs – Method, Standard Form & Examples</div>
+        <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics – E. Kreyszig | Section 1.3</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO1: Solve separable differential equations</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="section-heading">🎯 1. Learning Outcomes (CO1)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+            <li>Recognize a <strong>separable differential equation</strong></li>
+            <li>Apply the <strong>separation of variables</strong> method</li>
+            <li>Solve separable ODEs step by step</li>
+            <li>Find particular solutions using initial conditions</li>
+        </ul>
+
+        <div class="section-heading">📌 2. Definition of a Separable ODE</div>
+        <div class="definition-box">
+            A first-order ODE is called <strong>separable</strong> if it can be written in the form:
+            \[
+            \frac{dy}{dx} = g(x) \cdot h(y)
+            \]
+            or equivalently:
+            \[
+            M(x)\,dx + N(y)\,dy = 0
+            \]
+            where \(M\) is a function of \(x\) only and \(N\) is a function of \(y\) only.
+        </div>
+
+        <div class="section-heading">📝 3. Solution Method – Step by Step</div>
+        <div class="steps-box">
+            <strong>Procedure to solve a separable ODE:</strong>
+            <ol>
+                <li>Write the ODE in the form \(\frac{dy}{dx} = g(x) \cdot h(y)\).</li>
+                <li>Separate the variables: bring all \(y\) terms to one side and all \(x\) terms to the other side.
+                    \[
+                    \frac{1}{h(y)}\,dy = g(x)\,dx
+                    \]
+                </li>
+                <li>Integrate both sides with respect to their variables:
+                    \[
+                    \int \frac{1}{h(y)}\,dy = \int g(x)\,dx + C
+                    \]
+                </li>
+                <li>Solve for \(y\) explicitly if possible.</li>
+                <li>If an initial condition is given, substitute to find the particular solution.</li>
+            </ol>
+        </div>
+
+        <div class="section-heading">📖 4. Worked Examples</div>
+        
+        <div class="example-box">
+            <strong>Example 1 (Kreyszig 1.3):</strong> Solve \(\frac{dy}{dx} = x y\).<br><br>
+            <strong>Step 1:</strong> Separate variables:
+            \[
+            \frac{dy}{y} = x\,dx
+            \]
+            <strong>Step 2:</strong> Integrate both sides:
+            \[
+            \int \frac{dy}{y} = \int x\,dx
+            \]
+            <strong>Step 3:</strong> Perform integration:
+            \[
+            \ln|y| = \frac{x^2}{2} + C
+            \]
+            <strong>Step 4:</strong> Solve for \(y\):
+            \[
+            y = A e^{x^2/2}, \quad \text{where } A = \pm e^C
+            \]
+        </div>
+
+        <div class="example-box">
+            <strong>Example 2:</strong> Solve \(\frac{dy}{dx} = \frac{x}{y}\) with \(y(0) = 2\).<br><br>
+            <strong>Step 1:</strong> Separate variables:
+            \[
+            y\,dy = x\,dx
+            \]
+            <strong>Step 2:</strong> Integrate:
+            \[
+            \int y\,dy = \int x\,dx
+            \]
+            <strong>Step 3:</strong> Perform integration:
+            \[
+            \frac{y^2}{2} = \frac{x^2}{2} + C \quad \Rightarrow \quad y^2 = x^2 + 2C
+            \]
+            <strong>Step 4:</strong> Apply initial condition \(y(0)=2\):
+            \[
+            4 = 0 + 2C \quad \Rightarrow \quad 2C = 4 \quad \Rightarrow \quad C = 2
+            \]
+            <strong>Step 5:</strong> Particular solution:
+            \[
+            y^2 = x^2 + 4 \quad \Rightarrow \quad y = \sqrt{x^2 + 4}
+            \]
+        </div>
+
+        <!-- WORKOUT EXAMPLES -->
+        <div class="section-heading">📚 Workout Examples</div>
+        <p>Problems on separable differential equations. Click <strong>Answer</strong> to see step-by-step solution.</p>
+
+        <!-- A6 from Page 3: dy/dx = cos x -->
+        <div class="question-item" id="q1">
+            <div class="question-text">
+                <span><strong>1.</strong> Solve the ODE \(\frac{dy}{dx} = \cos x\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Separate variables:
+                \[
+                dy = \cos x \, dx
+                \]
+                <strong>Step 2:</strong> Integrate both sides:
+                \[
+                \int dy = \int \cos x \, dx
+                \]
+                <strong>Step 3:</strong> Perform integration:
+                \[
+                y = \sin x + C
+                \]
+                <strong>Final answer:</strong> \(y = \sin x + C\)
+            </div>
+        </div>
+
+        <!-- A7 from Page 3: dy/dx = 1 + y^2 -->
+        <div class="question-item" id="q2">
+            <div class="question-text">
+                <span><strong>2.</strong> Solve the ODE \(\frac{dy}{dx} = 1 + y^2\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Separate variables:
+                \[
+                \frac{dy}{1 + y^2} = dx
+                \]
+                <strong>Step 2:</strong> Integrate both sides:
+                \[
+                \int \frac{dy}{1 + y^2} = \int dx
+                \]
+                <strong>Step 3:</strong> Perform integration:
+                \[
+                \tan^{-1}(y) = x + C
+                \]
+                <strong>Step 4:</strong> Solve for \(y\):
+                \[
+                y = \tan(x + C)
+                \]
+            </div>
+        </div>
+
+        <!-- B2 from Page 3: dy/dx = (x+1)e^{-x} y^2 -->
+        <div class="question-item" id="q3">
+            <div class="question-text">
+                <span><strong>3.</strong> Solve the differential equation \(\frac{dy}{dx} = (x + 1)e^{-x}y^2\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Separate variables:
+                \[
+                \frac{dy}{y^2} = (x+1)e^{-x} dx
+                \]
+                <strong>Step 2:</strong> Integrate both sides:
+                \[
+                \int y^{-2} dy = \int (x+1)e^{-x} dx
+                \]
+                <strong>Step 3:</strong> Left side:
+                \[
+                \int y^{-2} dy = -y^{-1} = -\frac{1}{y}
+                \]
+                <strong>Step 4:</strong> Right side (integration by parts): Let \(u = x+1\), \(dv = e^{-x}dx\).
+                \[
+                \int (x+1)e^{-x} dx = -(x+1)e^{-x} - \int -e^{-x} dx = -(x+1)e^{-x} - e^{-x} + C = -(x+2)e^{-x} + C
+                \]
+                <strong>Step 5:</strong> Equate:
+                \[
+                -\frac{1}{y} = -(x+2)e^{-x} + C \quad \Rightarrow \quad \frac{1}{y} = (x+2)e^{-x} + C
+                \]
+                <strong>Step 6:</strong> Solve for \(y\):
+                \[
+                y = \frac{1}{(x+2)e^{-x} + C}
+                \]
+            </div>
+        </div>
+
+        <!-- B3 from Page 3: y' = -2xy, y(0)=1.8 -->
+        <div class="question-item" id="q4">
+            <div class="question-text">
+                <span><strong>4.</strong> Solve the initial value problem \(y' = -2xy\), \(y(0) = 1.8\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Separate variables:
+                \[
+                \frac{dy}{y} = -2x \, dx
+                \]
+                <strong>Step 2:</strong> Integrate both sides:
+                \[
+                \int \frac{dy}{y} = \int -2x \, dx
+                \]
+                <strong>Step 3:</strong> Perform integration:
+                \[
+                \ln|y| = -x^2 + C
+                \]
+                <strong>Step 4:</strong> Solve for \(y\):
+                \[
+                y = A e^{-x^2}, \quad \text{where } A = \pm e^C
+                \]
+                <strong>Step 5:</strong> Apply initial condition \(y(0) = 1.8\):
+                \[
+                1.8 = A e^{0} = A \quad \Rightarrow \quad A = 1.8
+                \]
+                <strong>Final answer:</strong>
+                \[
+                y = 1.8 e^{-x^2}
+                \]
+            </div>
+        </div>
+
+        <!-- B5 from Page 3: 2xy y' = y^2 - x^2 (reducible to separable) -->
+        <div class="question-item" id="q5">
+            <div class="question-text">
+                <span><strong>5.</strong> Solve \(2xy y' = y^2 - x^2\) by reducing it to separable form. <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <strong>✅ Step-by-step solution (Homogeneous equation):</strong>
+                <br><br>
+                <strong>Step 1:</strong> Rewrite:
+                \[
+                y' = \frac{y^2 - x^2}{2xy}
+                \]
+                <strong>Step 2:</strong> This is homogeneous. Let \(y = vx\) ⇒ \(y' = v + xv'\).
+                <br><br>
+                <strong>Step 3:</strong> Substitute:
+                \[
+                v + xv' = \frac{v^2 x^2 - x^2}{2x(vx)} = \frac{v^2 - 1}{2v}
+                \]
+                <strong>Step 4:</strong> Simplify:
+                \[
+                xv' = \frac{v^2 - 1}{2v} - v = \frac{v^2 - 1 - 2v^2}{2v} = \frac{-1 - v^2}{2v}
+                \]
+                <strong>Step 5:</strong> Separate variables:
+                \[
+                \frac{2v}{1+v^2} dv = -\frac{dx}{x}
+                \]
+                <strong>Step 6:</strong> Integrate:
+                \[
+                \ln(1+v^2) = -\ln|x| + C
+                \]
+                <strong>Step 7:</strong> Simplify:
+                \[
+                1+v^2 = \frac{C}{x} \quad \Rightarrow \quad 1 + \frac{y^2}{x^2} = \frac{C}{x}
+                \]
+                <strong>Step 8:</strong> Multiply by \(x^2\):
+                \[
+                x^2 + y^2 = Cx
+                \]
+            </div>
+        </div>
+
+        <!-- B7 from Page 3: xy' = x + y -->
+        <div class="question-item" id="q6">
+            <div class="question-text">
+                <span><strong>6.</strong> Solve \(xy' = x + y\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="6">📖 Answer</button>
+            </div>
+            <div id="sol6" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Rewrite:
+                \[
+                y' = 1 + \frac{y}{x}
+                \]
+                Let \(y = vx\) ⇒ \(y' = v + xv'\).
+                <br><br>
+                <strong>Step 2:</strong> Substitute:
+                \[
+                v + xv' = 1 + v \quad \Rightarrow \quad xv' = 1
+                \]
+                <strong>Step 3:</strong> Separate variables:
+                \[
+                dv = \frac{dx}{x}
+                \]
+                <strong>Step 4:</strong> Integrate:
+                \[
+                v = \ln|x| + C
+                \]
+                <strong>Step 5:</strong> Substitute back \(v = y/x\):
+                \[
+                \frac{y}{x} = \ln|x| + C \quad \Rightarrow \quad y = x \ln|x| + Cx
+                \]
+            </div>
+        </div>
+
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+        <table class="mistake-table">
+            <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+            <tbody>
+                <tr>
+                    <td>Forgetting to separate variables before integrating</td>
+                    <td>Always isolate \(dy\) and \(dx\) on opposite sides</td>
+                </tr>
+                <tr>
+                    <td>Omitting the constant of integration \(C\)</td>
+                    <td>Always add \(+ C\) after integration</td>
+                </tr>
+                <tr>
+                    <td>Losing solutions when dividing by a function that could be zero</td>
+                    <td>Check for singular solutions separately</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="section-heading">📋 Quick Summary</div>
+        <div class="definition-box" style="background:#e1edda;">
+            <ul>
+                <li><strong>Separable ODE:</strong> \(\frac{dy}{dx} = g(x)h(y)\) or \(M(x)dx + N(y)dy = 0\)</li>
+                <li><strong>Solution method:</strong> 
+                    \[
+                    \int \frac{dy}{h(y)} = \int g(x)\,dx + C
+                    \]
+                </li>
+                <li><strong>Always check for:</strong> Singular solutions, initial conditions</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.3, pp. 12–17.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io" style="color:#ffbc9a;">🏠 Home</a> | 
+            <a href="https://igmathspace.github.io/lessons.html" style="color:#ffbc9a;">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" style="color:#ffbc9a;">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP & Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const qid = this.getAttribute('data-qid');
+            const solDiv = document.getElementById(`sol${qid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture3_Separable_ODEs_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+</body>
+</html>
