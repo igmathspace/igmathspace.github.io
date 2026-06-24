@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Python Programming – Module 1 (mobile friendly)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #f8faff;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 16px 12px 40px;
+      line-height: 1.6;
+      color: #1e1e2f;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      padding: 20px 16px 30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-top: 1.6em;
+      margin-bottom: 0.5em;
+      line-height: 1.3;
+    }
+    h1 { font-size: 1.8rem; margin-top: 0.2em; }
+    h2 { font-size: 1.5rem; border-bottom: 2px solid #eef2f7; padding-bottom: 0.2em; }
+    h3 { font-size: 1.25rem; }
+    h4 { font-size: 1.1rem; font-weight: 600; }
+    p, li, .text-block {
+      margin-bottom: 0.75em;
+    }
+    ul, ol {
+      padding-left: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+    li {
+      margin-bottom: 0.25rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      font-size: 0.9rem;
+      display: block;
+      overflow-x: auto;
+      white-space: normal;
+      word-break: break-word;
+    }
+    th, td {
+      border: 1px solid #d0d9e8;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+      background: white;
+    }
+    th {
+      background: #eef4fc;
+      font-weight: 600;
+    }
+    code, .code, .mono {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Menlo', monospace;
+      font-size: 0.9em;
+      background: #f0f4fe;
+      padding: 0.2em 0.4em;
+      border-radius: 6px;
+      word-break: break-word;
+    }
+    pre {
+      background: #f0f4fe;
+      padding: 14px 16px;
+      border-radius: 14px;
+      overflow-x: auto;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      border: 1px solid #e2e9f5;
+    }
+    .math-block {
+      background: #f8faff;
+      padding: 0.5rem 0.8rem;
+      border-radius: 12px;
+      font-family: 'Times New Roman', 'STIX', 'MathJax', serif;
+      font-size: 1.05rem;
+      margin: 0.8rem 0;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .inline-math {
+      font-family: 'Times New Roman', 'STIX', serif;
+      font-style: italic;
+    }
+    .highlight-box {
+      background: #f4f9ff;
+      border-left: 5px solid #2a6bb0;
+      padding: 0.8rem 1.2rem;
+      border-radius: 0 14px 14px 0;
+      margin: 1.4rem 0;
+    }
+    .keyword-table td {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+    hr {
+      border: none;
+      border-top: 2px dashed #dbe1ed;
+      margin: 2rem 0;
+    }
+    .page-marker {
+      font-size: 0.7rem;
+      color: #6b7a93;
+      text-align: right;
+      margin-top: 1.2rem;
+      border-top: 1px solid #e2e9f5;
+      padding-top: 0.3rem;
+    }
+    .badge-star {
+      background: #f5c542;
+      color: #1e1e2f;
+      font-weight: 600;
+      padding: 0.1rem 0.6rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      display: inline-block;
+    }
+    .section-title {
+      margin-top: 2rem;
+    }
+    .keep-original {
+      all: revert;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .small-note {
+      font-size: 0.85rem;
+      color: #2e405b;
+    }
+    .footnote {
+      font-size: 0.8rem;
+      color: #3e4f66;
+    }
+    .quote {
+      font-style: italic;
+      background: #f2f6fe;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      margin: 0.8rem 0;
+    }
+    .tight-list li {
+      margin-bottom: 0.1rem;
+    }
+    .star {
+      color: #c45a2c;
+      font-weight: 600;
+    }
+    /* top link + footer */
+    .top-home-link {
+      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+    }
+    .top-home-link a {
+      color: #1a5c9e;
+      text-decoration: none;
+      font-weight: 500;
+      background: #e6effa;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      display: inline-block;
+      border: 1px solid #c9daf0;
+    }
+    .top-home-link a:hover {
+      background: #d0e2f7;
+    }
+    .footer-note {
+      margin-top: 2.5rem;
+      padding-top: 1.2rem;
+      border-top: 2px solid #e2e9f5;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #1e2e44;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .footer-note span {
+      background: #f0f5fd;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      display: inline-block;
+    }
+    /* title block */
+    .title-block {
+      text-align: center;
+      margin: 0.2rem 0 1.2rem 0;
+      padding: 0.6rem 0.8rem;
+      background: #f4f9ff;
+      border-radius: 20px;
+      border: 1px solid #dce6f2;
+      line-height: 1.6;
+    }
+    .title-block .main-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.3px;
+    }
+    .title-block .sub {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .title-block .prepared {
+      font-size: 0.9rem;
+      color: #1e3a5f;
+    }
+    .title-block .based {
+      font-size: 0.85rem;
+      color: #2d4a72;
+      font-style: italic;
+    }
+    /* TOC link styling */
+    .toc-link {
+      text-decoration: none;
+      color: #1a5c9e;
+      font-weight: 500;
+      border-bottom: 1px dotted #b8cce0;
+    }
+    .toc-link:hover {
+      color: #00337a;
+      border-bottom: 2px solid #1a5c9e;
+    }
+    .toc-list {
+      list-style: none;
+      padding-left: 0.2rem;
+    }
+    .toc-list li {
+      padding: 0.1rem 0;
+    }
+    .toc-list li a {
+      text-decoration: none;
+      color: #1a5c9e;
+      font-weight: 500;
+      border-bottom: 1px dotted #d0dff0;
+    }
+    .toc-list li a:hover {
+      color: #00337a;
+      border-bottom: 2px solid #1a5c9e;
+    }
+    .toc-indent {
+      padding-left: 1.4rem;
+    }
+    .toc-indent2 {
+      padding-left: 2.6rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- TOP: Go Home link -->
+  <div class="top-home-link">
+    <a href="https://igmathspace.github.io/lessons.html">🏠 Go Home (Learning Materials)</a>
+  </div>
+
+  <!-- ===== TITLE BLOCK ===== -->
+  <div class="title-block">
+    <div class="main-title">KU5DSEMAT303: PROGRAMMING IN PYTHON</div>
+    <div class="sub">Notes on Module 1:- Introduction to Python</div>
+    <div class="prepared">Prepared by Gafoor I, NAM College Kallikkandy</div>
+    <div class="based">(Based on text : Dr. Jeeva Jose, Taming Python by Programming, Khanna Publications)</div>
+  </div>
+
+  <!-- ===== CONTENTS with internal hyperlinks ===== -->
+  <div style="font-size:0.8rem; color:#3f5780; margin-bottom:0.5rem;">Python Programming – Module 1</div>
+  <h1>Contents</h1>
+  <ul class="toc-list">
+    <li><a class="toc-link" href="#why-are-we-doing-this">Why are we doing this? 2</a></li>
+    <li><a class="toc-link" href="#chapter1">1 Chapter 1: Your First Conversation with Python 3</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.1">1.1 What is Python? A Brief History (Just so you know) 3</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.2">1.2 How to Run Python (Setting up your lab) 4</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.3">1.3 Identifiers (Names you give to things) 4</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.4">1.4 Reserved Keywords (Words Python owns) 5</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.5">1.5 Variables (Storing values) ★ Very Important 5</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.6">1.6 Comments (Notes to yourself and others) 6</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.7">1.7 Indentation (Python's secret weapon — and a common trap) 7</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.8">1.8 Multi-Line Statements 8</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.9">1.9 Multiple Statements on One Line 9</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.10">1.10 Quotes in Python 9</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.11">1.11 Input, Output, and Import Functions 9</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.11.1">1.11.1 The print() function — Displaying output 9</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.11.2">1.11.2 The input() function — Reading user input 10</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.11.3">1.11.3 The import statement — Using code from other files 11</a></li>
+    <li class="toc-indent"><a class="toc-link" href="#sec1.12">1.12 Operators (Doing math in Python) ★★ Very Important 11</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.1">1.12.1 Arithmetic Operators (Math operations) 11</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.2">1.12.2 Comparison (Relational) Operators (Asking questions) 12</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.3">1.12.3 Assignment Operators (Shorthand for “do and store”) 13</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.4">1.12.4 Bitwise Operators — Omitted per your syllabus (skip for now) 13</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.5">1.12.5 Logical Operators (Combining conditions) 14</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.6">1.12.6 Membership Operators (Is it in there?) 14</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.7">1.12.7 Identity Operators — Omitted per your syllabus (skip for now) 15</a></li>
+    <li class="toc-indent2"><a class="toc-link" href="#sec1.12.8">1.12.8 Operator Precedence (Order of operations — just like BODMAS/PEMDAS!) 15</a></li>
+    <li><a class="toc-link" href="#conclusion">Conclusion 16</a></li>
+    <li><a class="toc-link" href="#pre-practical">Pre-Practical Exercises 16</a></li>
+    <li><a class="toc-link" href="#quick-ref">Quick Reference Card 18</a></li>
+    <li><a class="toc-link" href="#review-questions">Review Questions 18</a></li>
+  </ul>
+
+  <!-- ===== PAGE 2 ===== -->
+  <div class="page-marker" id="why-are-we-doing-this">Page 2</div>
+  <h2>Why are we doing this? (Read this first, don't skip)</h2>
+  <p>You all know mathematics. You can write 2 + 3 on paper and get 5. But what if you want the computer to compute 2 + 3 for you? You need to talk to the computer in a language it understands.</p>
+  <p>That language is called a programming language. Python is one such language — and the friendliest one for beginners. Think of it this way:</p>
+  <ul>
+    <li>Mathematics is the language of numbers.</li>
+    <li>Python is the language we use to make the computer do math for us.</li>
+  </ul>
+  <p>In this course, you'll use Python to solve mathematical problems (like Newton-Raphson, Simpson's rule, Runge-Kutta — yes, you'll get there). But before that, you need to learn the grammar of Python. That's what Module 1 is about.</p>
+
+  <!-- ===== PAGE 3 ===== -->
+  <div class="page-marker" id="chapter1">Page 3</div>
+  <h2>1 Chapter 1: Your First Conversation with Python</h2>
+  <h3 id="sec1.1">1.1 What is Python? A Brief History (Just so you know)</h3>
+  <p>Python was created by a man named Guido van Rossum in the Netherlands between 1985 and 1990. He was working at the National Research Institute for Mathematics and Computer Science (CWI).</p>
+  <p>Here's the fun part: he named the language "Python" not after the snake, but after a British comedy show called "Monty Python's Flying Circus". He wanted a name that was short, unique, and a little bit mysterious.</p>
+  <p>So when your friends ask, you can say: "Python is a programming language named after a comedy show, made for math and science."</p>
+  <h4>What kind of language is Python?</h4>
+  <ul>
+    <li><strong>General-purpose</strong> → can be used for many things (math, web, AI, data)</li>
+    <li><strong>Interpreted</strong> → you don't need to "compile" it before running. You write the code, hit Run, and it works.</li>
+    <li><strong>Interactive</strong> → you can type commands one at a time and see results immediately</li>
+    <li><strong>Object-Oriented</strong> → everything in Python is an "object" with properties and behaviors. Don't worry about this term yet — just accept it.</li>
+    <li><strong>High-level</strong> → you don't deal with low-level computer stuff like memory addresses.</li>
+  </ul>
+  <h4>The 9 Big Features of Python (Why you should care)</h4>
+  <p>I'll list each feature with why it matters to you as a math student:</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>#</th><th>Feature</th><th>What it means (in plain English)</th><th>Why you should care</th></tr>
+      <tr><td>1</td><td>Simple and easy-to-learn</td><td>Few keywords, clean syntax</td><td>You can learn the basics in a week</td></tr>
+      <tr><td>2</td><td>Interpreted and Interactive</td><td>You can test code line by line</td><td>Great for experimenting with math formulas</td></tr>
+      <tr><td>3</td><td>Object-Oriented</td><td>Code is organized into reusable pieces</td><td>Your programs stay clean as they grow</td></tr>
+      <tr><td>4</td><td>Portable</td><td>Same code runs on Windows, Mac, Linux</td><td>Your lab work works everywhere</td></tr>
+      <tr><td>5</td><td>Scalable</td><td>Good for small scripts AND big projects</td><td>Start small, grow later</td></tr>
+      <tr><td>6</td><td>Extendable</td><td>You can add C/C++/Java code if needed</td><td>One day you might need speed; Python can borrow it</td></tr>
+      <tr><td>7</td><td>Dynamic</td><td>You don’t declare variable types</td><td>You write less code, get more done</td></tr>
+      <tr><td>8</td><td>GUI Programming &amp; Databases</td><td>Can make windows and connect to databases</td><td>Useful for projects</td></tr>
+      <tr><td>9</td><td>Broad Standard Library</td><td>Lots of pre-built tools come with Python</td><td>You don’t reinvent the wheel</td></tr>
+    </table>
+  </div>
+  <p><span class="inline-math">Math analogy:</span> Think of Python like a calculator that grew up. A calculator does one operation at a time. Python can do sequences of operations, save intermediate results, make decisions (if this, then that), and repeat work — all in one place.</p>
+
+  <!-- ===== PAGE 4 ===== -->
+  <div class="page-marker" id="sec1.2">Page 4</div>
+  <h3>1.2 How to Run Python (Setting up your lab)</h3>
+  <p>You have three ways to use Python:</p>
+  <p><strong>Option A: Interactive Mode (best for learning)</strong></p>
+  <p>Open a terminal (Command Prompt on Windows, Terminal on Mac/Linux) and type <code>python</code>. You'll see something like:</p>
+  <pre>Python 3.10.0 (default, ...) <span style="color:#2a6bb0;">>>></span></pre>
+  <p>The >>> is called the prompt. Python is now waiting for you to type. Try this:</p>
+  <pre>>>> 2 + 3
+5</pre>
+  <p>You typed 2 + 3, hit Enter, and Python answered 5. Congratulations — you just wrote your first program!</p>
+  <p><strong>Option B: Script Mode (for real work)</strong></p>
+  <p>Open any text editor (Notepad, VS Code, PyCharm, Thonny — your college may use one), type this:</p>
+  <pre>print("Hello, I am learning Python")
+a = 10
+b = 20
+print("Sum is", a + b)</pre>
+  <p>Save it as <code>first.py</code> and run it. You'll see:</p>
+  <pre>Hello, I am learning Python
+Sum is 30</pre>
+  <p><strong>Option C: IDE / Notebook (Jupyter)</strong></p>
+  <p>Jupyter Notebooks are very popular in mathematics. They let you mix code, formulas, and notes. You'll probably use this in your lab.</p>
+  <p>For this course, you need Option A or B at minimum. Talk to your lab instructor about which one your college uses.</p>
+
+  <h3 id="sec1.3">1.3 Identifiers (Names you give to things)</h3>
+  <p>An identifier is just a name. In math, you write things like <span class="inline-math">x = 5</span> or <span class="inline-math">f(x) = x² + 1</span>. The x and f are names. In Python, we also give names to things — variables, functions, modules, etc.</p>
+  <p><strong>Rules for naming (memorize these):</strong></p>
+  <ul>
+    <li>✓ Names can contain letters (a-z, A-Z), digits (0-9), and underscore (_)</li>
+    <li>✓ Names must start with a letter or underscore — NOT a digit</li>
+    <li>✓ Names are case-sensitive → Age and age are TWO different names</li>
+    <li>✓ You cannot use reserved keywords (like if, for, class — see next section)</li>
+    <li>✓ No spaces, no special characters (!, @, #, %, etc.)</li>
+  </ul>
+  <p><strong>Examples:</strong></p>
+  <div style="display:flex; flex-wrap:wrap; gap:1.5rem;">
+    <div><strong>Valid names</strong><br><code>a = 5</code><br><code>my_age = 20</code><br><code>x1 = 10</code><br><code>_sum = 100</code><br><code>firstName = "Anu"</code></div>
+    <div><strong>Invalid names</strong><br><code>1a = 5</code> # starts with digit<br><code>my age = 20</code> # has space<br><code>for = 10</code> # 'for' is a keyword<br><code>my-age = 5</code> # hyphen not allowed</div>
+  </div>
+  <p><span class="inline-math">Math analogy:</span> Identifiers in Python are like variable names in algebra. Just like in algebra, x and X are different things in Python too.</p>
+
+  <!-- ===== PAGE 5 ===== -->
+  <div class="page-marker" id="sec1.4">Page 5</div>
+  <h3>1.4 Reserved Keywords (Words Python owns)</h3>
+  <p>These words have special meaning in Python. You cannot use them as identifiers. There are 33 of them:</p>
+  <div class="table-wrap">
+    <table class="keyword-table">
+      <tr><td>False</td><td>class</td><td>finally</td><td>is</td></tr>
+      <tr><td>None</td><td>continue</td><td>for</td><td>lambda</td></tr>
+      <tr><td>True</td><td>def</td><td>from</td><td>nonlocal</td></tr>
+      <tr><td>and</td><td>del</td><td>global</td><td>not</td></tr>
+      <tr><td>as</td><td>elif</td><td>if</td><td>or</td></tr>
+      <tr><td>assert</td><td>else</td><td>import</td><td>pass</td></tr>
+      <tr><td>async</td><td>except</td><td>in</td><td>raise</td></tr>
+      <tr><td>await</td><td>finally</td><td>yield</td><td>return</td></tr>
+      <tr><td>break</td><td>try</td><td>while</td><td></td></tr>
+    </table>
+  </div>
+  <p>Tip: If you ever forget, just type <code>help("keywords")</code> in the Python prompt and it'll show you the full list.</p>
+
+  <h3 id="sec1.5">1.5 Variables (Storing values) <span class="star">★ Very Important</span></h3>
+  <p>A variable is a named box that holds a value. Think of it as a labeled container in memory.</p>
+  <p>The math way you know it:</p>
+  <div class="math-block">x = 5<br>y = x² + 1 = 26</div>
+  <p>The Python way (almost identical!):</p>
+  <pre>x = 5
+y = x ** 2 + 1
+print(y)  # prints 26</pre>
+  <p>Notice: in math, you write x². In Python, you write x**2 (two asterisks). We'll get to that in the operators section.</p>
+  <h4>Key points about Python variables:</h4>
+  <ol>
+    <li><strong>No declaration needed.</strong> You just assign a value, and Python automatically creates the variable.
+      <pre>x = 10          # Python automatically understands x is an integer
+x = "hello"    # Now x is a string. Python doesn't complain!</pre>
+    </li>
+    <li>The = sign means "assign to", not "equals". When you write x = 5, you are saying "put 5 into the box labeled x", not "x equals 5" (that's == in Python).</li>
+    <li><strong>Multiple assignments in one line:</strong>
+      <pre>a = b = c = 1          # all three get value 1
+a, b, c = 1, 2, 3      # a gets 1, b gets 2, c gets 3</pre>
+    </li>
+  </ol>
+  <p><strong>Example 1: Basic variables</strong></p>
+  <pre>a = 100            # an integer
+b = 1000.0         # a floating point (decimal)
+name = "John"      # a string (text)
+
+print(a)           # 100
+print(b)           # 1000.0
+print(name)        # John</pre>
+  <p><strong>Example 2: Assigning the same value to many variables</strong></p>
+  <pre>a = b = c = 1
+print(a, b, c)     # 1 1 1</pre>
+  <p><strong>Example 3: Assigning multiple values at once</strong></p>
+  <pre>a, b, c = 1, 2, "Tom"
+print(a)           # 1
+print(b)           # 2
+print(c)           # Tom</pre>
+  <p><span class="inline-math">Math analogy:</span> A variable is like a labeled drawer. The label is the variable name, the content is the value. You can replace the content anytime.</p>
+
+  <!-- ===== PAGE 6 ===== -->
+  <div class="page-marker" id="sec1.6">Page 6</div>
+  <h3>1.6 Comments (Notes to yourself and others)</h3>
+  <p>A comment is text in your code that Python ignores. It's there for humans, not for the computer.</p>
+  <p><strong>Why use comments?</strong></p>
+  <ul>
+    <li>To explain what a piece of code does</li>
+    <li>To leave notes for yourself</li>
+    <li>To disable code temporarily (for testing)</li>
+  </ul>
+  <p><strong>How to write comments in Python:</strong></p>
+  <ul>
+    <li><strong>Single-line comments</strong> - use #<br><code># This is a comment. Python ignores it.</code><br><code>x = 5      # You can also put a comment after code</code></li>
+    <li><strong>Multi-line comments</strong> - three options:<br>
+      Option 1: Use # on every line<br>
+      <code># This is a long comment<br># that spans multiple<br># lines.</code><br>
+      Option 2: Use triple quotes """ or '''<br>
+      <pre>"""
+This is also a comment.
+It can span multiple lines.
+Python will ignore everything inside.
+"""</pre>
+      <span class="small-note">Important: Triple quotes are technically multi-line strings, not comments. But if you don't assign them to a variable, Python ignores them. So they work as comments.</span>
+    </li>
+  </ul>
+  <p><strong>Example:</strong></p>
+  <pre># Program to greet the user
+name = "Anu"               # store the name
+print("Hello,", name)      # print greeting
+print("Welcome to Python!")</pre>
+  <p>When you run this:</p>
+  <pre>Hello, Anu
+Welcome to Python!</pre>
+  <p><span class="inline-math">Math analogy:</span> Comments are like the "working out" or annotations you write on the side of a math problem. The teacher doesn't grade the side notes, but they help anyone reading your work.</p>
+
+  <!-- ===== PAGE 7 ===== -->
+  <div class="page-marker" id="sec1.7">Page 7</div>
+  <h3>1.7 Indentation (Python's secret weapon — and a common trap)</h3>
+  <p><strong>This is the most important section for beginners. Read it twice.</strong></p>
+  <h4>The problem Python solves</h4>
+  <p>In most languages (C, C++, Java), you mark blocks of code with curly braces { }:</p>
+  <pre>if (x > 0) {
+    printf("positive");
+}</pre>
+  <p>In Python, you use indentation (spaces at the beginning of a line). There are no curly braces.</p>
+  <h4>The rule:</h4>
+  <ul>
+    <li>All statements inside a block must be indented by the same amount.</li>
+    <li>Usually, 4 spaces per indent level.</li>
+    <li>You can use Tab, but 4 spaces is preferred.</li>
+  </ul>
+  <p><strong>Example 1: Correct indentation</strong></p>
+  <pre>if True:
+    print("Correct")
+else:
+    print("Wrong")</pre>
+  <p><strong>Example 2: WRONG indentation</strong></p>
+  <pre>if True:
+    print("Answer")
+    print("Correct")    # also indented, so it belongs to the if
+else:
+    print("Answer")
+print("Wrong")         # NOT indented, so it runs after the if-else</pre>
+  <p>This will give you an <code>IndentationError</code>. Python will say: "expected an indented block" or "unindent does not match any outer indentation level".</p>
+  <p><strong>The visual rule:</strong></p>
+  <pre>if condition:
+    STATEMENT 1     &lt;- indented (4 spaces)
+    STATEMENT 2     &lt;- indented (4 spaces) - same level as STATEMENT 1
+STATEMENT 3         &lt;- no indent - this runs UNCONDITIONALLY (always)</pre>
+  <p><span class="inline-math">Math analogy:</span> Think of indentation like writing steps in a proof. Steps that are part of the same case are aligned. When you move to a new case, you indent further. When you finish that case, you come back out.</p>
+  <p><strong>Pro tip:</strong> Configure your editor to use 4 spaces when you press Tab. Mixing tabs and spaces is a classic source of errors.</p>
+
+  <!-- ===== PAGE 8 ===== -->
+  <div class="page-marker" id="sec1.8">Page 8</div>
+  <h3>1.8 Multi-Line Statements</h3>
+  <p>Normally, one line of code is one statement. But sometimes a statement is too long. You can break it using \ (backslash):</p>
+  <pre># Long line, hard to read
+total = a + b + c + d + e + f + g + h + i + j
+
+# Same thing, broken across lines
+total = a + b + c + \
+        d + e + f + \
+        g + h + i + j</pre>
+  <p><span class="inline-math">Math analogy:</span> Like writing a long equation on multiple lines of a notebook. The \ is your "this equation continues..." marker.</p>
+
+  <h3 id="sec1.9">1.9 Multiple Statements on One Line</h3>
+  <p>You can put multiple statements on one line using ;</p>
+  <pre>a = 10; b = 20; c = 30
+print(a, b, c)        # 10 20 30</pre>
+  <p>Don't do this unless you have a good reason. It makes code hard to read.</p>
+
+  <h3 id="sec1.10">1.10 Quotes in Python</h3>
+  <p>You can use single ', double ", or triple """ quotes to make strings. They're all valid.</p>
+  <pre>word1 = 'Hello'
+word2 = "Hello"
+word3 = '''Hello'''
+word4 = """Hello"""</pre>
+  <p>When to use which?</p>
+  <ul>
+    <li>Use ".." if your string contains a single quote: <code>"It's raining"</code></li>
+    <li>Use '..' if your string contains a double quote: <code>'He said "hi"'</code></li>
+    <li>Use """..""" for multi-line strings:
+      <pre>paragraph = """This is a long text
+that spans multiple lines."""</pre>
+    </li>
+  </ul>
+
+  <!-- ===== PAGE 9 ===== -->
+  <div class="page-marker" id="sec1.11">Page 9</div>
+  <h3>1.11 Input, Output, and Import Functions</h3>
+  <p>This is where Python gets interactive — you can ask the user for input and show them results.</p>
+  <h4 id="sec1.11.1">1.11.1 The print() function — Displaying output</h4>
+  <p><code>print()</code> is how Python shows something on the screen.</p>
+  <p><strong>Basic usage:</strong></p>
+  <pre>print("Learning Python is fun and enjoy it.")</pre>
+  <p>Output: <code>Learning Python is fun and enjoy it.</code></p>
+  <p><strong>Printing multiple things (separated by commas):</strong></p>
+  <pre>a = 2
+print("The value of a is", a)</pre>
+  <p>Output: <code>The value of a is 2</code></p>
+  <p>Notice the space between "is" and 2. Python adds a space automatically between comma-separated values. Try removing the comma and see what happens.</p>
+  <p><strong>The full syntax of print():</strong></p>
+  <pre>print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)</pre>
+  <p>Don't panic! Most of this you'll never use. Just remember:</p>
+  <ul>
+    <li>sep = the separator between values (default is space ' ')</li>
+    <li>end = what to print at the end (default is newline '\n')</li>
+  </ul>
+  <p><strong>Example showing sep and end:</strong></p>
+  <pre>print(1, 2, 3, 4)                    # sep=' ', end='\n' (default)
+print(1, 2, 3, 4, sep='+')
+print(1, 2, 3, 4, sep='+', end='\n')</pre>
+  <p>Output:</p>
+  <pre>1 2 3 4
+1+2+3+4
+1+2+3+4%</pre>
+  <p><span class="inline-math">Math analogy:</span> print is like your "show your work" step. Whatever you want the reader (or the computer screen) to see goes inside print().</p>
+
+  <!-- ===== PAGE 10 ===== -->
+  <div class="page-marker" id="sec1.11.2">Page 10</div>
+  <h4>1.11.2 The input() function — Reading user input</h4>
+  <p><code>input()</code> lets the user type something, and Python reads it.</p>
+  <p>In Python 3 (which your college uses):</p>
+  <pre>n = input("Enter a number: ")
+print("The number is :", n)</pre>
+  <p>Run it:</p>
+  <pre>Enter a number: 5
+The number is : 5</pre>
+  <p><strong>Important detail:</strong> <code>input()</code> always returns a string, even if the user types a number. If you want to do math with it, you need to convert it:</p>
+  <pre>n = input("Enter a number: ")   # n is the string "5"
+n = int(n)                    # now n is the integer 5
+print(n * 2)                  # 10</pre>
+  <p><strong>Example with an expression:</strong></p>
+  <pre>n = input("Enter an expression: ")
+print("The result is :", n)</pre>
+  <p>Run it:</p>
+  <pre>Enter an expression: 5*2
+The result is : 10</pre>
+  <p>Wait, the user typed 5*2 but the result is 10? That's because <code>input()</code> evaluates the expression. So you can ask the user to type a formula and Python will compute it!</p>
+  <p><strong>Note on raw_input():</strong> In Python 2 (very old), there were two functions: raw_input() (which just reads text) and input() (which evaluates). In Python 3 (which you should be using), there is only input(), and it works like the old raw_input(). If your textbook shows raw_input(), just replace it with input().</p>
+
+  <!-- ===== PAGE 11 ===== -->
+  <div class="page-marker" id="sec1.11.3">Page 11</div>
+  <h4>1.11.3 The import statement — Using code from other files</h4>
+  <p>Imagine you have a math formula library. You don't want to rewrite sin, cos, sqrt from scratch. Python has modules — pre-written code you can borrow.</p>
+  <p>A module is a file with Python code, ending in .py. The math module has sqrt, sin, cos, pi, etc.</p>
+  <pre># How to use a module:
+import math
+print(math.pi)              # 3.141592653589793
+print(math.sqrt(16))        # 4.0
+print(math.sin(0))          # 0.0</pre>
+  <p>The <code>math.pi</code> means: "the variable pi inside the math module". The dot . is how you access things inside a module.</p>
+  <p><span class="inline-math">Math analogy:</span> import is like pulling out a reference book. You don't memorize the formulas — you just look them up when needed.</p>
+
+  <h3 id="sec1.12">1.12 Operators (Doing math in Python) <span class="star">★★ Very Important</span></h3>
+  <p>This is the section you'll use every single day in this course. Take your time.</p>
+  <h4>What is an operator?</h4>
+  <p>An operator is a symbol that performs an operation on values (called operands).</p>
+  <p>For example, in a + b:</p>
+  <ul><li>a and b are operands</li><li>+ is the operator</li></ul>
+  <p>Python has 7 types of operators. We'll go through each.</p>
+
+  <h4 id="sec1.12.1">1.12.1 Arithmetic Operators (Math operations)</h4>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Operator</th><th>Name</th><th>What it does</th><th>Example</th></tr>
+      <tr><td>+</td><td>Addition</td><td>Adds</td><td>5 + 3 → 8</td></tr>
+      <tr><td>-</td><td>Subtraction</td><td>Subtracts</td><td>5 - 3 → 2</td></tr>
+      <tr><td>*</td><td>Multiplication</td><td>Multiplies</td><td>5 * 3 → 15</td></tr>
+      <tr><td>/</td><td>Division</td><td>Divides (always returns float)</td><td>5 / 2 → 2.5</td></tr>
+      <tr><td>%</td><td>Modulus</td><td>Remainder</td><td>5 % 2 → 1</td></tr>
+      <tr><td>**</td><td>Exponent</td><td>Power</td><td>5 ** 2 → 25 (i.e., 5²)</td></tr>
+      <tr><td>//</td><td>Floor Division</td><td>Divide and round down</td><td>5 // 2 → 2</td></tr>
+    </table>
+  </div>
+  <p><strong>Worked example:</strong></p>
+  <pre>a, b, c = 10, 5, 2
+print("Sum =", a + b)               # Sum = 15
+print("Difference =", a - b)        # Difference = 5
+print("Product =", a * b)           # Product = 50
+print("Quotient =", a / b)          # Quotient = 2.0
+print("Remainder =", b % c)         # Remainder = 1
+print("Exponent =", b ** 2)         # Exponent = 25
+print("Floor Division =", b // c)   # Floor Division = 2</pre>
+  <p><strong>Watch out for / vs //:</strong></p>
+  <pre>print(7 / 2)      # 3.5  (true division, gives decimal)
+print(7 // 2)     # 3    (floor division, rounds DOWN)
+print(-7 // 2)    # -4   (rounds DOWN, not toward zero!)</pre>
+  <p><span class="inline-math">Math analogy:</span> ** is your "raise to the power" button. // is like asking "how many whole times does this fit?" - if you have 7 apples and want to put 2 in each bag, you fill 3 bags (7 // 2 = 3), with 1 apple left over (7 % 2 = 1).</p>
+
+  <!-- ===== PAGE 12 ===== -->
+  <div class="page-marker" id="sec1.12.2">Page 12</div>
+  <h4>1.12.2 Comparison (Relational) Operators (Asking questions)</h4>
+  <p>These operators compare two values and give back either True or False (a Boolean).</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+      <tr><td>==</td><td>Equal to</td><td>5 == 5</td><td>True</td></tr>
+      <tr><td>!=</td><td>Not equal to</td><td>5 != 3</td><td>True</td></tr>
+      <tr><td>&gt;</td><td>Greater than</td><td>5 &gt; 3</td><td>True</td></tr>
+      <tr><td>&lt;</td><td>Less than</td><td>5 &lt; 3</td><td>False</td></tr>
+      <tr><td>&gt;=</td><td>Greater than or equal to</td><td>5 &gt;= 5</td><td>True</td></tr>
+      <tr><td>&lt;=</td><td>Less than or equal to</td><td>3 &lt;= 5</td><td>True</td></tr>
+    </table>
+  </div>
+  <p><strong>Worked example:</strong></p>
+  <pre>a, b = 10, 5
+print("a == b is", a == b)    # False
+print("a != b is", a != b)    # True
+print("a > b is", a > b)      # True
+print("a < b is", a < b)      # False
+print("a >= b is", a >= b)    # True
+print("a <= b is", a <= b)    # False</pre>
+  <p><strong>Common beginner mistake:</strong> Using = (assignment) when you mean == (comparison).</p>
+  <ul>
+    <li><code>x = 5</code> → "put 5 in x"</li>
+    <li><code>x == 5</code> → "is x equal to 5?"</li>
+  </ul>
+  <p><span class="inline-math">Math analogy:</span> Comparison operators are like the questions in word problems. "Is x greater than 10? If yes, do this; if no, do that." You'll use these a lot in if statements (next module).</p>
+
+  <!-- ===== PAGE 13 ===== -->
+  <div class="page-marker" id="sec1.12.3">Page 13</div>
+  <h4>1.12.3 Assignment Operators (Shorthand for "do and store")</h4>
+  <p>Sometimes you want to update a variable. For example, add 5 to x and store the result back in x.</p>
+  <p>The long way: <code>x = x + 5</code></p>
+  <p>The short way: <code>x += 5</code></p>
+  <p>Both are the same. The short way is called a shorthand assignment operator.</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Operator</th><th>Example</th><th>Same as</th><th>Meaning</th></tr>
+      <tr><td>=</td><td>x = 5</td><td></td><td>Assign 5 to x</td></tr>
+      <tr><td>+=</td><td>x += 3</td><td>x = x + 3</td><td>Add and assign</td></tr>
+      <tr><td>-=</td><td>x -= 3</td><td>x = x - 3</td><td>Subtract and assign</td></tr>
+      <tr><td>*=</td><td>x *= 3</td><td>x = x * 3</td><td>Multiply and assign</td></tr>
+      <tr><td>/=</td><td>x /= 3</td><td>x = x / 3</td><td>Divide and assign</td></tr>
+      <tr><td>%=</td><td>x %= 3</td><td>x = x % 3</td><td>Modulus and assign</td></tr>
+      <tr><td>**=</td><td>x **= 3</td><td>x = x ** 3</td><td>Power and assign</td></tr>
+      <tr><td>//=</td><td>x //= 3</td><td>x = x // 3</td><td>Floor divide and assign</td></tr>
+    </table>
+  </div>
+  <p><strong>Worked example:</strong></p>
+  <pre>a, b = 10, 5
+a += b      # a becomes 15
+print(a)    # 15
+
+a, b = 10, 5
+a -= b      # a becomes 5
+print(a)    # 5
+
+a, b = 10, 5
+a *= b      # a becomes 50
+print(a)    # 50
+
+a, b = 10, 5
+a /= b      # a becomes 2.0
+print(a)    # 2.0
+
+b, c = 5, 2
+b %= c      # b becomes 1
+print(b)    # 1
+
+b, c = 5, 2
+b **= c     # b becomes 25
+print(b)    # 25
+
+b, c = 5, 2
+b //= c     # b becomes 2
+print(b)    # 2</pre>
+  <p><span class="inline-math">Math analogy:</span> Think of x += 3 as "increase x by 3". In math class, you might write x ← x + 3 with an arrow. The arrow symbol is replaced by += in Python.</p>
+
+  <h4 id="sec1.12.4">1.12.4 Bitwise Operators — Omitted per your syllabus (skip for now)</h4>
+  <p>Your syllabus says "1.12.4 and 1.12.7 omitted" for Module 1. You'll skip Bitwise Operators. They're used for low-level work and not needed for math programming. Skip to the next section.</p>
+
+  <!-- ===== PAGE 14 ===== -->
+  <div class="page-marker" id="sec1.12.5">Page 14</div>
+  <h4>1.12.5 Logical Operators (Combining conditions)</h4>
+  <p>Use these when you want to check multiple conditions at once.</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+      <tr><td>and</td><td>Both must be True</td><td>(5 &gt; 3) and (2 &lt; 4)</td><td>True</td></tr>
+      <tr><td>or</td><td>At least one must be True</td><td>(5 &lt; 3) or (2 &lt; 4)</td><td>True</td></tr>
+      <tr><td>not</td><td>Reverses True/False</td><td>not (5 &gt; 3)</td><td>False</td></tr>
+    </table>
+  </div>
+  <p><strong>Truth table for and:</strong></p>
+  <div class="table-wrap"><table><tr><th>A</th><th>B</th><th>A and B</th></tr><tr><td>T</td><td>T</td><td>T</td></tr><tr><td>T</td><td>F</td><td>F</td></tr><tr><td>F</td><td>T</td><td>F</td></tr><tr><td>F</td><td>F</td><td>F</td></tr></table></div>
+  <p><strong>Truth table for or:</strong></p>
+  <div class="table-wrap"><table><tr><th>A</th><th>B</th><th>A or B</th></tr><tr><td>T</td><td>T</td><td>T</td></tr><tr><td>T</td><td>F</td><td>T</td></tr><tr><td>F</td><td>T</td><td>T</td></tr><tr><td>F</td><td>F</td><td>F</td></tr></table></div>
+  <p><strong>Worked example:</strong></p>
+  <pre>a, b, c, d = 10, 5, 2, 1
+print((a > b) and (c > d))    # True and True -> True
+print((a > b) or (d > c))     # True or False -> True
+print(not (a > b))            # not True -> False</pre>
+  <p>Output:</p>
+  <pre>True
+True
+False</pre>
+  <p><span class="inline-math">Math analogy:</span> and = logical conjunction, or = logical disjunction, not = negation. If you've studied logic, this is exactly that.</p>
+
+  <h4 id="sec1.12.6">1.12.6 Membership Operators (Is it in there?)</h4>
+  <p>These check if something is inside a sequence (string, list, tuple, etc.).</p>
+  <p><span class="inline-math">Math analogy:</span> Like asking "is the element x in the set S?" This is the set membership check x ∈ S.</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+      <tr><td>in</td><td>True if value exists</td><td>'a' in 'apple'</td><td>True</td></tr>
+      <tr><td>not in</td><td>True if value does not exist</td><td>'b' not in 'apple'</td><td>True</td></tr>
+    </table>
+  </div>
+
+  <!-- ===== PAGE 15 ===== -->
+  <div class="page-marker" id="sec1.12.7">Page 15</div>
+  <h4>1.12.7 Identity Operators — Omitted per your syllabus (skip for now)</h4>
+  <p>Another topic your syllabus skips. Don't worry about it for now.</p>
+
+  <h4 id="sec1.12.8">1.12.8 Operator Precedence (Order of operations — just like BODMAS/PEMDAS!)</h4>
+  <p>Yes, Python has a precedence order, just like math. When in doubt, use parentheses.</p>
+  <p>Here's the order, from highest (do first) to lowest (do last):</p>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Precedence</th><th>Operators</th><th>Description</th></tr>
+      <tr><td>1 (highest)</td><td>**</td><td>Exponentiation (power)</td></tr>
+      <tr><td>2</td><td>~, +, -</td><td>Complement, unary plus, unary minus</td></tr>
+      <tr><td>3</td><td>*, /, %, //</td><td>Multiply, divide, modulo, floor division</td></tr>
+      <tr><td>4</td><td>+, -</td><td>Add, subtract</td></tr>
+      <tr><td>5</td><td>&gt;&gt;, &lt;&lt;</td><td>Bitwise shift (skipped)</td></tr>
+      <tr><td>6</td><td>&amp;</td><td>Bitwise AND (skipped)</td></tr>
+      <tr><td>7</td><td>~, |</td><td>Bitwise XOR, OR (skipped)</td></tr>
+      <tr><td>8</td><td>&lt;=, &lt;, &gt;, &gt;=</td><td>Comparison operators</td></tr>
+      <tr><td>9</td><td>&lt;&gt;, ==, !=</td><td>Equality operators</td></tr>
+      <tr><td>10</td><td>=, %=, /=, //=, -=, +=, *=, **=</td><td>Assignment operators</td></tr>
+      <tr><td>11</td><td>is, is not</td><td>Identity operators (skipped)</td></tr>
+      <tr><td>12</td><td>in, not in</td><td>Membership operators</td></tr>
+      <tr><td>13 (lowest)</td><td>not, or, and</td><td>Logical operators</td></tr>
+    </table>
+  </div>
+  <p><strong>Examples:</strong></p>
+  <pre># Without parens - Python follows precedence
+print(2 + 3 * 4)      # 14, not 20 (multiplication first)
+
+# With parens - clearer
+print((2 + 3) * 4)    # 20
+
+# Power binds tightest on the right
+print(2 ** 3 ** 2)    # 2 ** 9 = 512, NOT (2 ** 3) ** 2 = 64</pre>
+  <p><span class="inline-math">Math analogy:</span> This is BODMAS/PEMDAS with extras. When confused, just put parentheses. (2 + 3) * 4 always works, no matter the precedence rules.</p>
+
+  <!-- ===== PAGE 16 ===== -->
+  <div class="page-marker" id="conclusion">Page 16</div>
+  <h2>Conclusion — What you just learned</h2>
+  <p>In this chapter, you learned:</p>
+  <ul>
+    <li>What Python is and why we use it</li>
+    <li>How to give things names (identifiers)</li>
+    <li>How to store values (variables)</li>
+    <li>How to write notes (comments)</li>
+    <li>How to use indentation (Python's block structure)</li>
+    <li>How to take input and show output</li>
+    <li>How to borrow from modules (import)</li>
+    <li>All the operators (arithmetic, comparison, assignment, logical, membership, precedence)</li>
+  </ul>
+  <p>This is your foundation. Module 2 will build on this by adding data types (numbers, lists, tuples, sets, dictionaries). Module 3 will add flow control (if/else, loops). Module 4 will bring in matplotlib for plotting. Module 5 (Teacher Specific) will apply all of this to actual math problems.</p>
+
+  <h3 id="pre-practical">Pre-Practical Exercises (Do these before the lab)</h3>
+  <p>Try these on your own first. Type them out, don't copy-paste. Your fingers need to learn the keyboard.</p>
+
+  <h4>Exercise 1: Variables and print</h4>
+  <p>Write a program that:</p>
+  <ul>
+    <li>Creates variables x = 7, y = 3</li>
+    <li>Prints their sum, difference, product, and quotient (with labels)</li>
+  </ul>
+  <p><strong>Expected output:</strong></p>
+  <pre>Sum = 10
+Difference = 4
+Product = 21
+Quotient = 2.3333333333333335</pre>
+
+  <h4>Exercise 2: User input</h4>
+  <p>Write a program that:</p>
+  <ul>
+    <li>Asks the user for their name</li>
+    <li>Asks the user for their age</li>
+    <li>Prints: "Hello &lt;name&gt;, you are &lt;age&gt; years old."</li>
+  </ul>
+  <p><strong>Expected output:</strong></p>
+  <pre>Enter your name: Ravi
+Enter your age: 21
+Hello Ravi, you are 21 years old.</pre>
+
+  <!-- ===== PAGE 17 ===== -->
+  <div class="page-marker">Page 17</div>
+  <h4>Exercise 3: Area of a circle</h4>
+  <p>Write a program that:</p>
+  <ul>
+    <li>Asks the user for the radius r</li>
+    <li>Computes area = π × r²</li>
+    <li>Prints: "Area of circle with radius &lt;r&gt; is &lt;area&gt;"</li>
+  </ul>
+  <p>Hint: You'll need import math and math.pi.</p>
+
+  <h4>Exercise 4: Modulus check</h4>
+  <p>Write a program that:</p>
+  <ul>
+    <li>Asks the user for an integer</li>
+    <li>Tells whether the integer is even or odd (use % 2)</li>
+    <li>Even: n % 2 == 0</li>
+    <li>Odd: otherwise</li>
+  </ul>
+
+  <h4>Exercise 5: Operator precedence</h4>
+  <p>Without running the code, predict the output of each:</p>
+  <pre>print(2 + 3 * 4)
+print((2 + 3) * 4)
+print(2 ** 3 ** 2)
+print(10 - 3 + 2)
+print(10 // 3)
+print(10 % 3)
+print(2 * 0.5)</pre>
+  <p>Then run them and check. If you got any wrong, re-read the precedence section.</p>
+
+  <h4>Exercise 6: Type conversion</h4>
+  <p>Write a program that:</p>
+  <ul>
+    <li>Asks the user for two numbers (use input())</li>
+    <li>Converts them to integers</li>
+    <li>Prints their sum</li>
+  </ul>
+  <p>Hint: int(input("...")) does the conversion in one step.</p>
+
+  <h4>Exercise 7: Membership in strings</h4>
+  <p>Ask the user to enter a word. Check if the letter 'a' is in the word. Print True or False.</p>
+
+  <h4>Exercise 8: Logical operators</h4>
+  <p>Ask the user for an integer. Check and print whether:</p>
+  <ul>
+    <li>It is positive AND even</li>
+    <li>It is positive OR negative (i.e., not zero)</li>
+    <li>It is NOT positive</li>
+  </ul>
+  <p>Expected behavior for input -3:</p>
+  <pre>Positive and even? False
+Positive or negative? True
+Not positive? True</pre>
+
+  <!-- ===== PAGE 18 ===== -->
+  <div class="page-marker" id="quick-ref">Page 18</div>
+  <h3>Quick Reference Card (Save this!)</h3>
+  <pre># VARIABLES
+x = 5               # integer
+y = 3.14            # float
+name = "Anu"        # string
+a, b, c = 1, 2, 3   # multiple at once
+
+# PRINT
+print("Hello")                 # basic
+print("x =", x)                # with variable
+print(a, b, sep="+")           # custom separator
+print("end", end="!")          # custom ending
+
+# INPUT
+name = input("Your name:")     # always a string
+n = int(input("Number: "))     # convert to int
+
+# COMMENTS
+# single line
+""" multi-line """
+
+# INDENTATION
+if True:
+    print("yes")               # 4 spaces
+
+# OPERATORS
+# Arithmetic: + - * / % ** //
+# Compare: == != < > <= >=
+# Assign: = += -= *= /= %= **= //=
+# Logical: and or not
+# Membership: in, not in</pre>
+
+  <h3 id="review-questions">Review Questions (Try before checking the answers)</h3>
+  <ol>
+    <li>List 5 features of Python.</li>
+    <li>Is Python case-sensitive? Give an example.</li>
+    <li>What is the difference between = and ==?</li>
+    <li>How do you write comments in Python? Give examples.</li>
+    <li>What is indentation? Why does Python need it?</li>
+    <li>What does import math do? How do you use it?</li>
+    <li>What's the difference between / and //?</li>
+    <li>What does the % operator do?</li>
+    <li>Write a Python program to swap two numbers (use a third variable, and then without one).</li>
+    <li>Predict the output: print(2 ** 3 * 2 + 1). Now check.</li>
+  </ol>
+
+  <!-- ===== PAGE 19 ===== -->
+  <div class="page-marker">Page 19</div>
+  <p><strong>Final words:</strong> Don't try to memorize everything. Read it, understand it, try the exercises. The more you type, the more natural it becomes. The lab is where the real learning happens — this note is just to make sure you're not lost when you get there. See you in the lab.</p>
+
+  <hr>
+
+  <!-- FOOTER -->
+  <div class="footer-note">
+    <span>@Gafoor I, Assistant Professor, Department of Mathematics, NAM College Kallikkandy</span>
+  </div>
+
+</div>
+</body>
+</html>
