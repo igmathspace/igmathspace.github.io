@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 2 | Modeling using Differential Equations | KU3DSCMAT211</title>
+    <!-- MathJax for LaTeX-style mathematical equations in display mode -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #fef0f5;
+            color: #5a2a3e;
+            line-height: 1.5;
+        }
+
+        :root {
+            --pink-primary: #c94f7c;
+            --pink-dark: #a63e63;
+            --pink-light: #fce4ec;
+            --pink-accent: #d96b94;
+            --pink-muted: #f8d0e0;
+            --card-bg: #ffffff;
+        }
+
+        .header-image-container {
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #a63e63, #c94f7c);
+            padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: #fff5f8;
+            color: #000000;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.8rem;
+        }
+        .nav-bar {
+            background: #7a2e4a;
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--pink-primary);
+        }
+        .nav-links {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #c94f7c, #a63e63);
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #d96b94, #b84a6e);
+            transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary {
+            background: linear-gradient(135deg, #b84a6e, #963a58);
+        }
+        .nav-links .btn-secondary:hover {
+            background: linear-gradient(135deg, #c95a7e, #a84a68);
+        }
+        .nav-links .btn-pdf {
+            background: linear-gradient(135deg, #a63e63, #7a2e4a);
+        }
+        .nav-links .btn-pdf:hover {
+            background: #c94f7c;
+        }
+
+        .main-container {
+            max-width: 1280px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .lecture-header {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-left: 10px solid var(--pink-primary);
+        }
+        .course-code-badge {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--pink-primary);
+            letter-spacing: 1px;
+        }
+        .lecture-number {
+            display: inline-block;
+            background: #c94f7c;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 16px;
+            vertical-align: middle;
+        }
+        .module-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--pink-dark);
+            margin-top: 6px;
+            border-bottom: 1px dashed #f0c0d0;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .lecture-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8a3a5a;
+            margin: 12px 0 8px 0;
+        }
+        .textbook-ref {
+            background: #fce4ec;
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #a63e63;
+            font-weight: 500;
+        }
+        .faculty-meta {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: #8a4a6a;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+            border: 1px solid #f0d0e0;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--pink-primary);
+            border-left: 5px solid var(--pink-primary);
+            padding-left: 20px;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .section-heading:first-of-type {
+            margin-top: 0;
+        }
+        .definition-box {
+            background: #fef5f8;
+            padding: 1.2rem 1.5rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+            border-left: 6px solid #c94f7c;
+        }
+        .example-box {
+            background: #fdf0f5;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border: 1px solid #f0d0e0;
+        }
+        .question-item {
+            background: #fffbfd;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            border-radius: 20px;
+            border-left: 5px solid #c94f7c;
+            transition: all 0.2s;
+        }
+        .question-text {
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .solution-area {
+            margin-top: 12px;
+            background: #fef0f5;
+            padding: 1rem;
+            border-radius: 16px;
+            display: none;
+            border-top: 2px solid #f0c8d8;
+        }
+        .solution-area.show {
+            display: block;
+        }
+        .comparison-table, .mistake-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            margin: 1rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .comparison-table th, .comparison-table td, .mistake-table th, .mistake-table td {
+            border: 1px solid #e8c8d8;
+            padding: 10px 12px;
+            vertical-align: top;
+        }
+        .comparison-table th, .mistake-table th {
+            background: #fce4ec;
+            font-weight: 700;
+            color: #a63e63;
+        }
+        footer {
+            background: #7a2e4a;
+            color: #fce4ec;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--pink-primary);
+        }
+        .ref-box {
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding: 8px 14px;
+            background: #fce4ec;
+            border-radius: 30px;
+            display: inline-block;
+            color: #a63e63;
+        }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .nav-bar, .btn-pdf, .btn-answer {
+                display: none !important;
+            }
+            .header-image-container {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .header-image {
+                background: #fff5f8;
+                color: black !important;
+                print-color-adjust: exact;
+            }
+            .main-container {
+                margin: 0;
+                padding: 0.2in;
+                max-width: 100%;
+            }
+            .lecture-header, .content-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .question-item {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .solution-area {
+                display: block !important;
+                background: #fef0f5;
+                border: 1px solid #e8c8d8;
+            }
+            footer {
+                display: none !important;
+                visibility: hidden;
+                height: 0;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+            @page {
+                size: A4;
+                margin: 0.5in;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            mjx-container {
+                font-size: 0.9rem;
+            }
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 0.8rem 0;
+        }
+        .co-badge {
+            background: #c94f7c;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 10px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .MathJax_Display {
+            margin: 1em 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211 
+            <span class="lecture-number">Lecture 2</span>
+        </div>
+        <div class="module-name">📌 Module I | First Order Ordinary Differential Equations</div>
+        <div class="lecture-title">📖 Topic: Modeling using Differential Equations – Population Growth, Radioactive Decay</div>
+        <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics – E. Kreyszig | Section 1.2</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO1: Understand methods of solving Differential Equations</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="section-heading">🎯 1. Learning Outcomes (CO1)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+            <li>Understand the process of <strong>mathematical modeling</strong> using ODEs</li>
+            <li>Formulate and solve <strong>exponential growth/decay</strong> models</li>
+            <li>Apply models to <strong>population growth</strong> and <strong>radioactive decay</strong> problems</li>
+            <li>Interpret solutions in real-world contexts</li>
+        </ul>
+
+        <div class="section-heading">🧪 2. What is Mathematical Modeling?</div>
+        <div class="definition-box">
+            <strong>Mathematical Modeling</strong> is the process of translating real-world phenomena into mathematical equations. The steps are:
+            <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Identify the relevant quantities and variables</li>
+                <li>Establish relationships (laws, principles) governing the system</li>
+                <li>Formulate a differential equation</li>
+                <li>Solve the ODE</li>
+                <li>Interpret the solution back to the real world</li>
+            </ol>
+        </div>
+
+        <div class="section-heading">📈 3. Exponential Growth/Decay Model</div>
+        <div class="definition-box">
+            The simplest and most fundamental model states that the <strong>rate of change</strong> of a quantity \(y\) is proportional to the amount present:
+            \[
+            \frac{dy}{dt} = k y
+            \]
+            where:
+            <ul>
+                <li>\(k > 0\) → <strong>exponential growth</strong></li>
+                <li>\(k < 0\) → <strong>exponential decay</strong></li>
+            </ul>
+            The general solution is:
+            \[
+            y(t) = y_0 e^{kt}
+            \]
+            where \(y_0 = y(0)\) is the initial amount.
+        </div>
+
+        <div class="example-box">
+            <strong>🔬 Application 1: Population Growth (Malthusian Model)</strong><br>
+            If a population grows at a rate proportional to its size, then:
+            \[
+            \frac{dP}{dt} = r P, \quad P(0) = P_0
+            \]
+            Solution: 
+            \[
+            P(t) = P_0 e^{rt}
+            \]
+            where \(r\) is the growth rate (birth rate − death rate).
+        </div>
+
+        <div class="example-box">
+            <strong>⚛️ Application 2: Radioactive Decay</strong><br>
+            Radioactive substances decay at a rate proportional to the amount present:
+            \[
+            \frac{dN}{dt} = -\lambda N, \quad N(0) = N_0
+            \]
+            Solution:
+            \[
+            N(t) = N_0 e^{-\lambda t}
+            \]
+            where \(\lambda > 0\) is the <strong>decay constant</strong>. The <strong>half-life</strong> \(T_{1/2}\) is the time for half of the substance to decay:
+            \[
+            T_{1/2} = \frac{\ln 2}{\lambda}
+            \]
+        </div>
+
+        <div class="section-heading">🔍 4. Modeling Procedure Summary</div>
+        <table class="comparison-table">
+            <thead><tr><th>Step</th><th>Action</th></tr></thead>
+            <tbody>
+                <tr><td style="text-align:center;">1</td><td>Identify the dependent variable (quantity that changes) and independent variable (usually time \(t\))</td></tr>
+                <tr><td style="text-align:center;">2</td><td>Express the rate of change as a derivative \(\frac{dy}{dt}\)</td></tr>
+                <tr><td style="text-align:center;">3</td><td>Set up equation: rate of change = (rate in) − (rate out) or proportional relationship</td></tr>
+                <tr><td style="text-align:center;">4</td><td>Solve the ODE (often separable or linear)</td></tr>
+                <tr><td style="text-align:center;">5</td><td>Apply initial condition to find particular solution</td></tr>
+            </tbody>
+        </table>
+
+        <!-- WORKOUT EXAMPLES -->
+        <div class="section-heading">📚 Workout Examples</div>
+        <p>Problems on modeling with exponential growth and decay. Click <strong>Answer</strong> to see step-by-step solution.</p>
+
+        <!-- QB B3: y' = -2xy, y(0)=1.8 -->
+        <div class="question-item" id="q1">
+            <div class="question-text">
+                <span><strong>1.</strong> Solve the initial value problem \(y' = -2xy\), \(y(0) = 1.8\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Separate variables:
+                \[
+                \frac{dy}{y} = -2x \, dx
+                \]
+                <strong>Step 2:</strong> Integrate both sides:
+                \[
+                \int \frac{dy}{y} = \int -2x \, dx
+                \]
+                <strong>Step 3:</strong> Perform integration:
+                \[
+                \ln|y| = -x^2 + C
+                \]
+                <strong>Step 4:</strong> Solve for \(y\):
+                \[
+                y = A e^{-x^2}, \quad \text{where } A = \pm e^C
+                \]
+                <strong>Step 5:</strong> Apply initial condition \(y(0) = 1.8\):
+                \[
+                1.8 = A e^{0} = A \quad \Rightarrow \quad A = 1.8
+                \]
+                <strong>Final answer:</strong>
+                \[
+                y = 1.8 e^{-x^2}
+                \]
+            </div>
+        </div>
+
+        <!-- QB C3 part: xy' + y = 0, y(4)=6 -->
+        <div class="question-item" id="q2">
+            <div class="question-text">
+                <span><strong>2.</strong> Solve the initial value problem \(xy' + y = 0\), \(y(4) = 6\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Rewrite as:
+                \[
+                \frac{dy}{dx} = -\frac{y}{x}
+                \]
+                <strong>Step 2:</strong> Separate variables:
+                \[
+                \frac{dy}{y} = -\frac{dx}{x}
+                \]
+                <strong>Step 3:</strong> Integrate:
+                \[
+                \ln|y| = -\ln|x| + C
+                \]
+                <strong>Step 4:</strong> Simplify:
+                \[
+                y = \frac{C}{x}
+                \]
+                <strong>Step 5:</strong> Apply initial condition \(y(4) = 6\):
+                \[
+                6 = \frac{C}{4} \quad \Rightarrow \quad C = 24
+                \]
+                <strong>Final answer:</strong>
+                \[
+                y = \frac{24}{x}
+                \]
+            </div>
+        </div>
+
+        <!-- QB B5: y' = Ay - By^2 (Logistic Model) -->
+        <div class="question-item" id="q3">
+            <div class="question-text">
+                <span><strong>3.</strong> Solve the logistic growth model \(y' = Ay - By^2\). <span class="co-badge">CO1</span></span>
+                <button class="btn-primary btn-answer" data-qid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong>✅ Step-by-step solution:</strong>
+                <br><br>
+                <strong>Step 1:</strong> Rewrite as:
+                \[
+                \frac{dy}{dt} = y(A - By)
+                \]
+                <strong>Step 2:</strong> Separate variables:
+                \[
+                \frac{dy}{y(A-By)} = dt
+                \]
+                <strong>Step 3:</strong> Using partial fractions:
+                \[
+                \frac{1}{y(A-By)} = \frac{1}{A}\left(\frac{1}{y} + \frac{B}{A-By}\right)
+                \]
+                <strong>Step 4:</strong> Integrate:
+                \[
+                \frac{1}{A}(\ln|y| - \ln|A-By|) = t + C
+                \]
+                <strong>Step 5:</strong> Simplify:
+                \[
+                \ln\left|\frac{y}{A-By}\right| = A t + C' \quad \Rightarrow \quad \frac{y}{A-By} = Ce^{At}
+                \]
+                <strong>Step 6:</strong> Solve for \(y\):
+                \[
+                y = \frac{A}{B + k e^{-At}}
+                \]
+                where \(k = \frac{A - By_0}{y_0}\). This is the logistic growth curve with carrying capacity \(A/B\).
+            </div>
+        </div>
+
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+        <table class="mistake-table">
+            <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+            <tbody>
+                <tr><td>Confusing growth and decay (sign of \(k\))</td><td>\(k > 0\) for growth, \(k < 0\) for decay</td></tr>
+                <tr><td>Forgetting to use initial condition</td><td>Always apply \(y(0) = y_0\) to find particular solution</td></tr>
+                <tr><td>Misinterpreting half-life formula</td><td>\(T_{1/2} = \frac{\ln 2}{\lambda}\), not \(\frac{0.5}{\lambda}\)</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-heading">📋 Quick Summary</div>
+        <div class="definition-box" style="background:#fef0f5;">
+            <ul>
+                <li><strong>Exponential Growth/Decay Model:</strong> 
+                    \[
+                    \frac{dy}{dt} = ky \quad \Rightarrow \quad y(t) = y_0 e^{kt}
+                    \]
+                </li>
+                <li><strong>Population Growth:</strong> 
+                    \[
+                    P(t) = P_0 e^{rt}
+                    \]
+                </li>
+                <li><strong>Radioactive Decay:</strong> 
+                    \[
+                    N(t) = N_0 e^{-\lambda t}, \quad T_{1/2} = \frac{\ln 2}{\lambda}
+                    \]
+                </li>
+                <li><strong>Modeling Steps:</strong> Identify variables → Set up ODE → Solve → Interpret</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.2, pp. 9–17.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #8a4a6a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io" style="color:#ffbc9a;">🏠 Home</a> | 
+            <a href="https://igmathspace.github.io/lessons.html" style="color:#ffbc9a;">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" style="color:#ffbc9a;">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP & Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const qid = this.getAttribute('data-qid');
+            const solDiv = document.getElementById(`sol${qid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture2_Modeling_Exponential_Growth_Decay_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+</body>
+</html>
