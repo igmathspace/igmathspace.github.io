@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,system-ui,sans-serif);background:transparent;color:#1a1a2e}
+.wrap{padding:1.5rem 0}
+.card{background:#fff;border:1.5px solid #1b2a6b;border-radius:12px;overflow:hidden;box-shadow:0 4px 18px rgba(27,42,107,0.10)}
+.card-header{background:#1b2a6b;padding:1.25rem 1.75rem;display:flex;align-items:center;gap:12px}
+.logo-icon{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:22px}
+.logo-text h2{font-size:16px;font-weight:600;color:#fff;margin-bottom:2px}
+.logo-text p{font-size:12px;color:rgba(255,255,255,0.7)}
+.card-body{padding:1.5rem 1.75rem}
+.field{margin-bottom:1rem}
+label{display:block;font-size:13px;color:#1b2a6b;margin-bottom:5px;font-weight:600}
+input{width:100%;padding:9px 13px;font-size:14px;border:1.5px solid #b0b8d8;border-radius:8px;background:#f4f6fb;color:#1a1a2e;outline:none;transition:border-color 0.15s}
+input:focus{border-color:#1b2a6b;box-shadow:0 0 0 3px rgba(27,42,107,0.10)}
+input::placeholder{color:#8892b0}
+.divider{border:none;border-top:1.5px solid #dde3f5;margin:1.25rem 0}
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:0.5rem}
+.mod-badge{font-size:11px;background:#e8ecf8;color:#1b2a6b;border-radius:4px;padding:3px 9px;display:inline-block;font-weight:600;border:1px solid #c0c9e8}
+.mod-label{font-size:12px;color:#6b7599;margin-left:4px}
+.btn{width:100%;padding:11px;background:#1b2a6b;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:0.5rem;transition:background 0.15s,opacity 0.15s;letter-spacing:0.3px}
+.btn:hover{background:#253d99}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.success-bar{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:10px 14px;font-size:13px;color:#2e7d32;display:none;margin-top:0.75rem;align-items:center;gap:8px}
+.info-row{display:flex;align-items:center;gap:6px;font-size:12px;color:#8892b0;margin-top:1rem}
+.page-footer{margin-top:1.5rem;padding-top:1rem;border-top:1.5px solid #dde3f5;text-align:center;font-size:11.5px;color:#4a5280;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="card-header">
+      <div class="logo-icon">📄</div>
+      <div class="logo-text">
+        <h2>Question Paper Generator</h2>
+        <p>LaTeX Practical Exam &nbsp;·&nbsp; KU4VACMAT203 &nbsp;·&nbsp; 32-Task Bank</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label for="sname">Student name</label>
+        <input id="sname" type="text" placeholder="e.g. Fatima Rashid" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label for="roll">Roll number</label>
+        <input id="roll" type="text" placeholder="e.g. 2024MAT001" autocomplete="off" />
+      </div>
+
+      <hr class="divider" />
+
+      <div style="font-size:12px;color:#1b2a6b;margin-bottom:9px;font-weight:600">Questions drawn per unit</div>
+      <div class="module-grid">
+        <span><span class="mod-badge">Unit I</span><span class="mod-label">Getting Started · 2 Qs</span></span>
+        <span><span class="mod-badge">Unit II</span><span class="mod-label">Doc Formatting · 2 Qs</span></span>
+      </div>
+      <div class="module-grid">
+        <span><span class="mod-badge">Unit III</span><span class="mod-label">Tables & Figures · 2 Qs</span></span>
+        <span><span class="mod-badge">Unit IV</span><span class="mod-label">Math Mode · 2 Qs</span></span>
+      </div>
+
+      <button class="btn" id="genBtn" onclick="generatePDF()">Generate Question Paper</button>
+
+      <div class="success-bar" id="successBar">
+        ✅ PDF generated and downloaded successfully!
+      </div>
+
+      <div class="info-row">
+        <svg width="13" height="13" fill="none" stroke="#8892b0" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+        8 questions picked randomly · attempt any 6 · 10 min each
+      </div>
+
+      <div class="page-footer">
+        Copyright &copy; Gafoor I, Assistant Professor of Mathematics, NAM College Kallikkandy
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = {
+  1: [
+    { num:1,  text:"Write a LaTeX document using the article class that produces the following output.", output:"Hello World\nThis is my first LaTeX document using article class." },
+    { num:2,  text:"Use \\section, \\subsection, and \\subsubsection commands along with a normal paragraph to produce the following structured output.", output:"1  Section Title\n1.1  Subsection Title\n1.1.1  Subsubsection Title\nThis is a normal paragraph." },
+    { num:3,  text:"Use \\textbf, \\textit, \\underline, {\\Large ...}, {\\Huge ...}, and the xcolor package to produce the following text formatting output.", output:"This is Bold Text, this is Italic Text, and this is Underlined Text.\nLarge: BIG   Huge: HUGE   Red Color Text" },
+    { num:4,  text:"Create an itemize list and an enumerate list to produce the following output.", output:"• Apple\n• Banana\n• Cherry\n\n1. First Item\n2. Second Item" },
+    { num:5,  text:"Use \\textbf, the xcolor package, and math mode to produce the following output.", output:"This line is bold and blue.\nE = mc\u00B2" },
+    { num:6,  text:"Use paragraph environments and font style commands to produce the following output.", output:"This is normal text.\nThis paragraph is bold. This paragraph is italic.\nA new paragraph starts after a blank line." },
+    { num:7,  text:"Use \\begin{center}, font size commands (\\small, \\normalsize, \\large), and a title to produce the following output.", output:"Basics of LaTeX\nWelcome to Unit I\nSmall   Normal   Large" },
+    { num:8,  text:"Use a nested itemize list with different bullet levels to produce the following output.", output:"My Hobbies\n• Reading books\n  \u2013 Fiction\n  \u2013 Non-fiction\n• Playing sports\n• Listening to music" },
+    { num:9,  text:"Combine bold-italic formatting and an enumerate list to produce the following output.", output:"Important Note: This text is bold and italic combined.\n1. First point\n2. Second point" },
+    { num:10, text:"Write a complete short LaTeX document demonstrating basics: a title, a sentence, and an itemize list.", output:"Introduction to LaTeX\nThis is a complete short document demonstrating basics.\n• Item One\n• Item Two" }
+  ],
+  2: [
+    { num:11, text:"Use \\title, \\author, \\date, and \\maketitle along with the geometry package (custom margins) to produce a formatted title page.", output:"Title page with custom margins using geometry package.\n(Left: 1.5in, Right: 1in, Top: 1in, Bottom: 1in)" },
+    { num:12, text:"Use the fancyhdr package to add a custom header (course name on left, date on right) and a centred page number in the footer.", output:"Header: My Course (left) | June 2025 (right)\nBody text demonstrating fancyhdr.\nFooter: centred page number" },
+    { num:13, text:"Add a \\footnote{} to a sentence so that footnote text appears at the bottom of the page.", output:"LaTeX is a powerful typesetting system used widely in academia.\u00B9\n\n\u00B9 Developed by Leslie Lamport, based on TeX by Donald Knuth." },
+    { num:14, text:"Use the multicol package with \\begin{multicols}{2} to produce a two-column layout.", output:"Two-column layout of a paragraph about LaTeX usage in mathematics, physics, computer science, and engineering." },
+    { num:15, text:"Use \\emph{} in both normal and italic contexts to show how emphasis switches style.", output:"The word emphasis is italicised in normal text. Inside italic text, emphasis becomes upright." },
+    { num:16, text:"Define a custom command using \\newcommand that applies bold and underline formatting together.", output:"Using a custom command: Important Term.\nYou can define reusable commands with \\newcommand." },
+    { num:17, text:"Use the description environment to produce a definition-style list.", output:"LaTeX \u2014 A document preparation system.\nPDF \u2014 Portable Document Format.\nTeX \u2014 A typesetting engine by Knuth." },
+    { num:18, text:"Use \\paragraph{} to create a run-in heading followed by text on the same line.", output:"Note: A paragraph command produces a run-in heading. This text follows immediately after the heading." },
+    { num:19, text:"Use the xcolor package with \\color{} and % comments (not shown in output) to produce coloured text.", output:"The sky is blue and the grass is green." },
+    { num:20, text:"Use \\setlength to adjust \\parindent and \\parskip and demonstrate the effect on paragraph spacing.", output:"Paragraph with custom indentation and spacing settings applied using \\setlength commands." }
+  ],
+  3: [
+    { num:21, text:"Using the tabular environment with \\hline and column spec, produce the following simple bordered table.", output:"Name   | Age | City\nAlice  | 25  | New York\nBob    | 30  | London" },
+    { num:22, text:"Create a marks table with bold headers, merged cells (using \\multicolumn), and a totals row.", output:"Subject      | Marks | Grade | Remark\nMathematics  | 92    | A+    |\nPhysics      | 85    | A     |\nTotal        | 177   | A+    | Excellent" },
+    { num:23, text:"Produce the following student marks table with an Average row.", output:"Roll No | Student Name   | Math  | Physics | Chemistry | Total\n101     | Rahul Sharma   | 94    | 88      | 91        | 273\n102     | Priya Patel    | 85    | 92      | 78        | 255\n103     | Arjun Singh    | 78    | 81      | 89        | 248\nAverage | -              | 85.67 | 87      | 86        | 258.67" },
+    { num:24, text:"Use \\multirow and \\multicolumn (multirow package) to produce the following department-wise student table.", output:"Department        | Student Name   | CGPA\nComputer Science  | Alice Johnson  | 9.2\n                  | Bob Williams   | 8.7\nMathematics       | Carol Brown    | 9.5\n                  | David Miller   | 8.9" }
+  ],
+  4: [
+    { num:25, text:"Use math mode to typeset the following two mathematical expressions.", output:"a\u00B2 + b\u00B2 = 1\n(\u03B1 + \u03B2)\u00B2 = \u03B1\u00B2 + 2\u03B1\u03B2 + \u03B2\u00B2" },
+    { num:26, text:"Typeset Greek letters, a summation, and an integral in display math mode as shown.", output:"Greek: \u03B1, \u03B2, \u03B3\n\u03A3 i (i from 1 to n)\n\u222B\u2080^\u221E e^(-x) dx = 1" },
+    { num:27, text:"Use the amsmath align environment to typeset a system of two equations with equation numbers.", output:"x + y = 5   (1)\nx \u2212 y = 1   (2)" },
+    { num:28, text:"Use amsmath with pmatrix to typeset the following 2\u00D72 matrix.", output:"( 1  2 )\n( 3  4 )" },
+    { num:29, text:"Use the align environment to typeset a system of three equations with equation numbers.", output:"2x + 3y = 12   (1)\n4x \u2212 y  = 5    (2)\nx  + y  = 7    (3)" },
+    { num:30, text:"Use amsmath with bmatrix to typeset the following 3\u00D73 matrix.", output:"[ 1  2  3 ]\n[ 4  5  6 ]\n[ 7  8  9 ]" },
+    { num:31, text:"Use the amsthm package with \\newtheorem and the proof environment to state and prove the AM-GM inequality.", output:"If a and b are positive real numbers, then \u221A(ab) \u2264 (a+b)/2.\nProof. By AM-GM inequality. Equality when a = b." },
+    { num:32, text:"Demonstrate inline math and display math in the same document as shown.", output:"Inline math: E = mc\u00B2\nDisplay math: a/b + c/d = (ad + bc)/(bd)" }
+  ]
+};
+
+function pickRandom(arr, n) {
+  return [...arr].sort(() => Math.random() - 0.5).slice(0, n);
+}
+
+function generatePDF() {
+  const name = document.getElementById('sname').value.trim();
+  const roll = document.getElementById('roll').value.trim();
+  if (!name || !roll) { alert('Please enter both name and roll number.'); return; }
+
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.textContent = 'Generating\u2026';
+
+  setTimeout(() => {
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+      const W = 210, H = 297, margin = 18, usable = W - 2 * margin;
+      let y = 16;
+
+      const footerText = 'Copyright \u00A9 Gafoor I, Assistant Professor of Mathematics, NAM College Kallikkandy';
+
+      function addFooter() {
+        doc.setDrawColor(27, 42, 107);
+        doc.setLineWidth(0.4);
+        doc.line(margin, H - 11, W - margin, H - 11);
+        doc.setFontSize(8);
+        doc.setTextColor(27, 42, 107);
+        doc.setFont('helvetica', 'italic');
+        doc.text(footerText, W / 2, H - 6, { align: 'center' });
+        doc.setTextColor(0);
+        doc.setFont('helvetica', 'normal');
+      }
+
+      function checkPage(needed) {
+        if (y + needed > H - 18) {
+          addFooter();
+          doc.addPage();
+          y = 18;
+        }
+      }
+
+      // --- Header box ---
+      const boxTop = y - 4;
+      const boxHeight = 66;
+      doc.setDrawColor(27, 42, 107);
+      doc.setLineWidth(1);
+      doc.rect(margin - 2, boxTop, usable + 4, boxHeight);
+
+      doc.setFontSize(13);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(27, 42, 107);
+      doc.text('NAM COLLEGE KALLIKKANDY', W / 2, y + 4, { align: 'center' });
+
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(40, 40, 40);
+      doc.text('DEPARTMENT OF MATHEMATICS', W / 2, y + 10, { align: 'center' });
+
+      y += 17;
+      doc.setFontSize(9.5);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(0);
+      doc.text('END EVALUATION EXAM', W / 2, y, { align: 'center' });
+
+      y += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.text('CERTIFICATE COURSE : CC25MAT \u2014 LaTeXing With Overleaf', W / 2, y, { align: 'center' });
+
+      y += 8;
+      const col1x = margin + 6;
+      const col2x = W / 2 + 6;
+      doc.setFontSize(9.5);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(27, 42, 107);
+      doc.text('Name :', col1x, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0);
+      doc.text(name, col1x + 20, y);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(27, 42, 107);
+      doc.text('Roll Number :', col2x, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(0);
+      doc.text(roll, col2x + 30, y);
+
+      y += 7;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.setTextColor(0);
+      doc.text('Attempt any SIX tasks from the eight tasks below.', W / 2, y, { align: 'center' });
+
+      y += 6;
+      doc.setFont('helvetica', 'italic');
+      doc.setFontSize(8);
+      doc.setTextColor(80);
+      doc.text('Time per question: 10 minutes  |  Total duration: 60 minutes  |  All questions carry equal marks', W / 2, y, { align: 'center' });
+      doc.setTextColor(0);
+
+      y = boxTop + boxHeight + 8;
+      addFooter();
+
+      // --- Questions ---
+      const unitNames = {
+        1: 'Unit I \u2014 Getting Started',
+        2: 'Unit II \u2014 Document Formatting',
+        3: 'Unit III \u2014 Tables & Figures',
+        4: 'Unit IV \u2014 Math Mode'
+      };
+
+      const selected = {
+        1: pickRandom(QUESTIONS[1], 2),
+        2: pickRandom(QUESTIONS[2], 2),
+        3: pickRandom(QUESTIONS[3], 2),
+        4: pickRandom(QUESTIONS[4], 2)
+      };
+
+      let globalQ = 1;
+      [1, 2, 3, 4].forEach(unit => {
+        selected[unit].forEach(q => {
+          checkPage(55);
+
+          // Question label bar — navy blue
+          doc.setDrawColor(27, 42, 107);
+          doc.setLineWidth(0.4);
+          doc.setFillColor(232, 236, 248);
+          doc.roundedRect(margin - 2, y - 1, usable + 4, 8, 1.5, 1.5, 'FD');
+
+          doc.setFontSize(9);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(27, 42, 107);
+          doc.text('Question ' + globalQ, margin + 2, y + 5);
+
+          doc.setFont('helvetica', 'italic');
+          doc.setFontSize(8);
+          doc.setTextColor(80, 90, 130);
+          doc.text('[Task ' + q.num + ' \u00B7 ' + unitNames[unit] + ']', W - margin - 2, y + 5, { align: 'right' });
+          doc.setTextColor(0);
+
+          y += 12;
+
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9.5);
+          const taskLines = doc.splitTextToSize(q.text, usable - 2);
+          doc.text(taskLines, margin + 2, y);
+          y += taskLines.length * 5 + 3;
+
+          // Expected output box
+          doc.setFillColor(248, 249, 253);
+          doc.setDrawColor(180, 190, 220);
+          doc.setLineWidth(0.3);
+          const outputLines = doc.splitTextToSize(q.output, usable - 10);
+          const boxH = outputLines.length * 4.5 + 10;
+          doc.roundedRect(margin + 4, y, usable - 8, boxH, 2, 2, 'FD');
+
+          doc.setFontSize(7.5);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(27, 42, 107);
+          doc.text('EXPECTED OUTPUT', margin + 8, y + 5);
+
+          doc.setFont('courier', 'normal');
+          doc.setFontSize(8);
+          doc.setTextColor(30);
+          doc.text(outputLines, margin + 8, y + 10);
+
+          y += boxH + 8;
+
+          doc.setDrawColor(200, 210, 235);
+          doc.setLineWidth(0.2);
+          doc.line(margin, y - 3, W - margin, y - 3);
+
+          globalQ++;
+        });
+      });
+
+      doc.save('QP_' + roll.replace(/\s+/g, '_') + '_LaTeX_Exam.pdf');
+
+      btn.disabled = false;
+      btn.textContent = 'Generate Question Paper';
+      const bar = document.getElementById('successBar');
+      bar.style.display = 'flex';
+      setTimeout(() => { bar.style.display = 'none'; }, 4000);
+
+    } catch(e) {
+      console.error(e);
+      alert('PDF generation failed: ' + e.message);
+      btn.disabled = false;
+      btn.textContent = 'Generate Question Paper';
+    }
+  }, 100);
+}
+</script>
+</body>
+</html>
