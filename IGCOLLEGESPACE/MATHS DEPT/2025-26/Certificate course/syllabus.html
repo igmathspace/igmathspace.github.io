@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Syllabus — LaTeXing with Overleaf | NAM College</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0a1428;
+      min-height: 100vh;
+      color: #f0f4ff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(145deg, #0b1a33 0%, #0f1f3a 40%, #07122a 100%);
+      padding: 32px 24px 0;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(44, 110, 158, 0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -60px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(212, 63, 107, 0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-bottom: 28px;
+      transition: color 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .back-link:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .code-badge {
+      display: inline-block;
+      background: rgba(44, 110, 158, 0.18);
+      border: 1px solid rgba(44, 110, 158, 0.4);
+      color: #7bb3e0;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 18px;
+      border-radius: 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .hero-title span {
+      color: #7bb3e0;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+      padding-bottom: 32px;
+    }
+
+    .stat-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      backdrop-filter: blur(2px);
+    }
+
+    .stat-chip .label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .stat-chip .value {
+      font-size: 15px;
+      font-weight: 800;
+      color: white;
+    }
+
+    /* Wave divider */
+    .wave {
+      width: 100%;
+      height: 40px;
+      display: block;
+      background: linear-gradient(to bottom right, transparent 49%, #0a1428 50%);
+    }
+
+    /* ── MAIN ── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #7bb3e0;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(44, 110, 158, 0.4), transparent);
+    }
+
+    /* ── SYLLABUS CARD ── */
+    .syllabus-card {
+      background: linear-gradient(145deg, #13233f, #0d1a30);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      padding: 28px 28px;
+      margin-bottom: 28px;
+    }
+
+    .syllabus-card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .syllabus-card p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.8;
+    }
+
+    /* ── MODULE BLOCKS ── */
+    .module-block {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+      transition: border-color 0.2s;
+    }
+
+    .module-block:hover {
+      border-color: rgba(44, 110, 158, 0.3);
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .module-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .module-hours {
+      font-size: 12px;
+      font-weight: 700;
+      color: #7bb3e0;
+      background: rgba(44, 110, 158, 0.15);
+      padding: 4px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(44, 110, 158, 0.2);
+    }
+
+    .module-topic-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .module-topic-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+    }
+
+    .module-topic-list li::before {
+      content: '▹';
+      color: #7bb3e0;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── DETAILS GRID ── */
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .detail-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .detail-item .d-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .detail-item .d-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 4px;
+    }
+
+    /* ── LEARNING OUTCOMES ── */
+    .outcomes-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .outcomes-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.6;
+    }
+
+    .outcomes-list li::before {
+      content: '✦';
+      color: #7bb3e0;
+      font-size: 10px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* ── ASSESSMENT TABLE ── */
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .assessment-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      text-align: center;
+    }
+
+    .assessment-item .a-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .assessment-item .a-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      margin-top: 4px;
+    }
+
+    .assessment-item .a-desc {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.3);
+      margin-top: 2px;
+    }
+
+    /* ── COORDINATOR ── */
+    .coordinator-card {
+      background: linear-gradient(145deg, #13233f, #0d1a30);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .coord-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2c6e9e, #1a4060);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(44, 110, 158, 0.2);
+    }
+
+    .coord-info .name {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .coord-info .role {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 3px;
+    }
+
+    .coord-info .dept {
+      font-size: 11px;
+      color: #7bb3e0;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .coord-info .contact {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 4px;
+    }
+
+    .coord-info .contact a {
+      color: #7bb3e0;
+      text-decoration: none;
+    }
+
+    .coord-info .contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.18);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 12px;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 32px;
+      }
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+      .assessment-grid {
+        grid-template-columns: 1fr;
+      }
+      .coordinator-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .module-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <a class="back-link" href="./index.html">← Back to Course Home</a>
+      <div class="code-badge">CC25MAT · Syllabus</div>
+      <div class="hero-title">LaTeXing <span>with Overleaf</span></div>
+      <div class="hero-sub">Mastering LaTeX documentation · Hybrid Mode</div>
+      <div class="stats-row">
+        <div class="stat-chip"><span class="label">Duration</span><span class="value">30 Hours</span></div>
+        <div class="stat-chip"><span class="label">Theory</span><span class="value">10 Hours</span></div>
+        <div class="stat-chip"><span class="label">Practical</span><span class="value">20 Hours</span></div>
+        <div class="stat-chip"><span class="label">Mode</span><span class="value">Hybrid</span></div>
+        <div class="stat-chip"><span class="label">Academic Year</span><span class="value">2025–26</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wave"></div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- COURSE DETAILS -->
+    <div class="section-label">Course Details</div>
+    <div class="syllabus-card">
+      <h3>Programme Overview</h3>
+      <p>
+        CC25MAT — LaTeXing with Overleaf is a comprehensive certificate course designed to equip students with professional documentation skills using LaTeX and Overleaf. The course covers everything from basic document structure to advanced mathematical typesetting, enabling learners to create high-quality academic and research documents.
+      </p>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="d-label">Course Code</div>
+          <div class="d-value">CC25MAT</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Course Title</div>
+          <div class="d-value">LaTeXing with Overleaf</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Total Hours</div>
+          <div class="d-value">30 (Theory: 10 | Practical: 20)</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Mode</div>
+          <div class="d-value">Hybrid Mode</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Department</div>
+          <div class="d-value">Mathematics</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Academic Year</div>
+          <div class="d-value">2025–26</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Institution</div>
+          <div class="d-value">NAM College Kallikkandy</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Affiliated To</div>
+          <div class="d-value">Kannur University</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SYLLABUS / MODULES -->
+    <div class="section-label">Course Content</div>
+    <div class="syllabus-card">
+
+      <!-- Module 1 -->
+      <div class="module-block">
+        <div class="module-header">
+          <div class="module-title">Module I : Foundations</div>
+          <div class="module-hours">6 Hours</div>
+        </div>
+        <ul class="module-topic-list">
+          <li>Overleaf interface — navigation and workspace setup</li>
+          <li>Hello World — first LaTeX document</li>
+          <li>Document hierarchy — classes, sections, and structure</li>
+          <li>Text formatting — bold, italic, underline, font styles</li>
+          <li>Lists — itemize, enumerate, and description environments</li>
+        </ul>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="module-block">
+        <div class="module-header">
+          <div class="module-title">Module II : Page Design</div>
+          <div class="module-hours">6 Hours</div>
+        </div>
+        <ul class="module-topic-list">
+          <li>Front matter — \maketitle, titlepage, abstract</li>
+          <li>Headers and footers — fancyhdr package</li>
+          <li>Multi-column layouts — multicol and twocolumn options</li>
+          <li>Research formatting — IEEE/ACM templates, article styling</li>
+        </ul>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="module-block">
+        <div class="module-header">
+          <div class="module-title">Module III : Tables &amp; Graphics</div>
+          <div class="module-hours">8 Hours</div>
+        </div>
+        <ul class="module-topic-list">
+          <li>Grids &amp; merging — tabular, multirow, multicolumn</li>
+          <li>booktabs borders — professional-quality table rules</li>
+          <li>Images — graphicx package, figure environment</li>
+          <li>Captions &amp; referencing — \caption, \label, \ref</li>
+        </ul>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="module-block">
+        <div class="module-header">
+          <div class="module-title">Module IV : Math Typesetting</div>
+          <div class="module-hours">10 Hours</div>
+        </div>
+        <ul class="module-topic-list">
+          <li>Inline and display math — \( ... \), \[ ... \], equation environment</li>
+          <li>Greek letters &amp; operators — \alpha, \sum, \int, \lim</li>
+          <li>Multi-line alignment — align, gather, split environments</li>
+          <li>Matrices &amp; theorems — matrix, pmatrix, bmatrix, theorem environments</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- LEARNING OUTCOMES -->
+    <div class="section-label">Learning Outcomes</div>
+    <div class="syllabus-card">
+      <h3>What You'll Learn</h3>
+      <ul class="outcomes-list">
+        <li>Master the Overleaf interface and LaTeX document structure</li>
+        <li>Create professional academic documents with proper formatting</li>
+        <li>Design sophisticated tables, graphics, and multi-column layouts</li>
+        <li>Typeset complex mathematical expressions, matrices, and theorems</li>
+        <li>Prepare research papers and documentation with LaTeX standards</li>
+        <li>Work efficiently in both theory and practical sessions with hybrid learning</li>
+      </ul>
+    </div>
+
+    <!-- ASSESSMENT -->
+    <div class="section-label">Assessment Structure</div>
+    <div class="syllabus-card">
+      <h3>Evaluation Criteria</h3>
+      <div class="assessment-grid">
+        <div class="assessment-item">
+          <div class="a-label">Theory</div>
+          <div class="a-value">40%</div>
+          <div class="a-desc">Conceptual understanding</div>
+        </div>
+        <div class="assessment-item">
+          <div class="a-label">Practical</div>
+          <div class="a-value">40%</div>
+          <div class="a-desc">Hands-on LaTeX documentation</div>
+        </div>
+        <div class="assessment-item">
+          <div class="a-label">Assignment</div>
+          <div class="a-value">20%</div>
+          <div class="a-desc">Project / portfolio submission</div>
+        </div>
+      </div>
+      <p style="margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.35); text-align: center;">
+        Total Marks: 100 (Theory 40 + Practical 40 + Assignment 20)
+      </p>
+    </div>
+
+    <!-- COORDINATOR -->
+    <div class="section-label">Course Coordinator</div>
+    <div class="coordinator-card">
+      <div class="coord-avatar">G</div>
+      <div class="coord-info">
+        <div class="name">Gafoor I.</div>
+        <div class="role">Assistant Professor</div>
+        <div class="dept">Department of Mathematics · NAM College Kallikkandy</div>
+        <div class="contact">📞 9895297473 &nbsp;|&nbsp; ✉️ <a href="mailto:gafoorbabui@gmail.com">gafoorbabui@gmail.com</a></div>
+      </div>
+    </div>
+
+    <!-- Scan for details hint -->
+    <div style="margin-top: 20px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px;">
+      📲 Scan the QR code on the poster for more details
+    </div>
+
+  </div>
+
+  <div class="footer">
+    NAM College Kallikkandy &middot; Department of Mathematics &middot; 2025–26 &middot;
+    <a href="./index.html">← Back to Course Home</a>
+  </div>
+
+</body>
+</html>

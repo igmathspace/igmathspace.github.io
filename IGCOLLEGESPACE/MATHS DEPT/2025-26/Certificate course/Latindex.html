@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CC25MAT — LaTeXing with Overleaf | NAM College</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0a1428;
+      min-height: 100vh;
+      color: #f0f4ff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(145deg, #0b1a33 0%, #0f1f3a 40%, #07122a 100%);
+      padding: 32px 24px 0;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(44, 110, 158, 0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -60px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(212, 63, 107, 0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-bottom: 28px;
+      transition: color 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .back-link:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .code-badge {
+      display: inline-block;
+      background: rgba(44, 110, 158, 0.18);
+      border: 1px solid rgba(44, 110, 158, 0.4);
+      color: #7bb3e0;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 18px;
+      border-radius: 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .hero-title span {
+      color: #7bb3e0;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+      padding-bottom: 32px;
+    }
+
+    .stat-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      backdrop-filter: blur(2px);
+    }
+
+    .stat-chip .label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .stat-chip .value {
+      font-size: 15px;
+      font-weight: 800;
+      color: white;
+    }
+
+    /* Wave divider */
+    .wave {
+      width: 100%;
+      height: 40px;
+      display: block;
+      background: linear-gradient(to bottom right, transparent 49%, #0a1428 50%);
+    }
+
+    /* ── MAIN ── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    /* ── QUICK LINKS ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #7bb3e0;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(44, 110, 158, 0.4), transparent);
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+
+    .link-card {
+      background: linear-gradient(145deg, #13233f, #0d1a30);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 18px;
+      padding: 20px 18px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      cursor: pointer;
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .link-card.pink {
+      border-color: rgba(212, 63, 107, 0.15);
+    }
+    .link-card.blue {
+      border-color: rgba(44, 110, 158, 0.15);
+    }
+    .link-card.green {
+      border-color: rgba(34, 197, 94, 0.15);
+    }
+    .link-card.gold {
+      border-color: rgba(251, 191, 36, 0.15);
+    }
+    .link-card.purple {
+      border-color: rgba(139, 92, 246, 0.15);
+    }
+
+    .link-card:hover.pink {
+      border-color: rgba(212, 63, 107, 0.6);
+      box-shadow: 0 14px 30px rgba(212, 63, 107, 0.12);
+    }
+    .link-card:hover.blue {
+      border-color: rgba(44, 110, 158, 0.6);
+      box-shadow: 0 14px 30px rgba(44, 110, 158, 0.12);
+    }
+    .link-card:hover.green {
+      border-color: rgba(34, 197, 94, 0.6);
+      box-shadow: 0 14px 30px rgba(34, 197, 94, 0.10);
+    }
+    .link-card:hover.gold {
+      border-color: rgba(251, 191, 36, 0.6);
+      box-shadow: 0 14px 30px rgba(251, 191, 36, 0.10);
+    }
+    .link-card:hover.purple {
+      border-color: rgba(139, 92, 246, 0.6);
+      box-shadow: 0 14px 30px rgba(139, 92, 246, 0.10);
+    }
+
+    .link-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .pink .link-icon {
+      background: rgba(212, 63, 107, 0.15);
+    }
+    .blue .link-icon {
+      background: rgba(44, 110, 158, 0.15);
+    }
+    .green .link-icon {
+      background: rgba(34, 197, 94, 0.12);
+    }
+    .gold .link-icon {
+      background: rgba(251, 191, 36, 0.12);
+    }
+    .purple .link-icon {
+      background: rgba(139, 92, 246, 0.12);
+    }
+
+    .link-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .link-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .link-arrow {
+      margin-top: auto;
+      align-self: flex-end;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.2);
+      transition: color 0.18s, transform 0.18s;
+    }
+
+    .link-card:hover .link-arrow {
+      color: rgba(255, 255, 255, 0.7);
+      transform: translateX(3px);
+    }
+
+    /* ── ABOUT SECTION ── */
+    .about-card {
+      background: linear-gradient(145deg, #13233f, #0d1a30);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      padding: 28px 28px;
+      margin-bottom: 28px;
+    }
+
+    .about-card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .about-card p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.8;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .detail-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .detail-item .d-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .detail-item .d-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 4px;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .module-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .module-item .mod-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #7bb3e0;
+      margin-bottom: 6px;
+    }
+
+    .module-item .mod-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.5;
+    }
+
+    .objectives-list {
+      list-style: none;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .objectives-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.6;
+    }
+
+    .objectives-list li::before {
+      content: '✦';
+      color: #7bb3e0;
+      font-size: 10px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* Coordinator */
+    .coordinator-card {
+      background: linear-gradient(145deg, #13233f, #0d1a30);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .coord-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2c6e9e, #1a4060);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(44, 110, 158, 0.2);
+    }
+
+    .coord-info .name {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .coord-info .role {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 3px;
+    }
+
+    .coord-info .dept {
+      font-size: 11px;
+      color: #7bb3e0;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .coord-info .contact {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 4px;
+    }
+
+    .coord-info .contact a {
+      color: #7bb3e0;
+      text-decoration: none;
+    }
+
+    .coord-info .contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.18);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 12px;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 32px;
+      }
+      .links-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+      .module-grid {
+        grid-template-columns: 1fr;
+      }
+      .coordinator-card {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <a class="back-link" href="#">← All Certificate Courses</a>
+      <div class="code-badge">CC25MAT · 2025–26</div>
+      <div class="hero-title">LaTeXing <span>with Overleaf</span></div>
+      <div class="hero-sub">Mastering LaTeX documentation · Hybrid Mode</div>
+      <div class="stats-row">
+        <div class="stat-chip"><span class="label">Duration</span><span class="value">30 Hours</span></div>
+        <div class="stat-chip"><span class="label">Theory</span><span class="value">10 Hours</span></div>
+        <div class="stat-chip"><span class="label">Practical</span><span class="value">20 Hours</span></div>
+        <div class="stat-chip"><span class="label">Mode</span><span class="value">Hybrid</span></div>
+        <div class="stat-chip"><span class="label">Academic Year</span><span class="value">2025–26</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wave"></div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- QUICK LINKS -->
+    <div class="section-label">Quick Links</div>
+    <div class="links-grid">
+
+      <!-- Poster card -->
+      <a class="link-card pink" href="#">
+        <div class="link-icon">🖼️</div>
+        <div class="link-title">Course Poster</div>
+        <div class="link-desc">View &amp; download the official poster</div>
+        <div class="link-arrow">→</div>
+      </a>
+
+      <!-- Syllabus card -->
+      <a class="link-card blue" href="#">
+        <div class="link-icon">📋</div>
+        <div class="link-title">Syllabus</div>
+        <div class="link-desc">Full course syllabus with module breakdown</div>
+        <div class="link-arrow">→</div>
+      </a>
+
+      <!-- Register card -->
+      <a class="link-card green" href="#">
+        <div class="link-icon">📝</div>
+        <div class="link-title">Register</div>
+        <div class="link-desc">Apply now for CC25MAT — LaTeXing with Overleaf</div>
+        <div class="link-arrow">→</div>
+      </a>
+
+      <!-- Assignment card -->
+      <a class="link-card gold" href="#">
+        <div class="link-icon">📂</div>
+        <div class="link-title">Assignment</div>
+        <div class="link-desc">Download questions &amp; submission details</div>
+        <div class="link-arrow">→</div>
+      </a>
+
+      <!-- QP Generator card -->
+      <a class="link-card purple" href="#">
+        <div class="link-icon">⚙️</div>
+        <div class="link-title">QP Generator</div>
+        <div class="link-desc">Generate question papers for this course</div>
+        <div class="link-arrow">→</div>
+      </a>
+
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section-label">About the Course</div>
+    <div class="about-card">
+      <h3>Course Overview</h3>
+      <p>
+        CC25MAT — LaTeXing with Overleaf is a comprehensive certificate course designed to equip students with professional documentation skills using LaTeX and Overleaf. The course covers everything from basic document structure to advanced mathematical typesetting, enabling learners to create high-quality academic and research documents.
+      </p>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="d-label">Course Code</div>
+          <div class="d-value">CC25MAT</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Course Title</div>
+          <div class="d-value">LaTeXing with Overleaf</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Duration</div>
+          <div class="d-value">30 Hours (Theory: 10 | Practical: 20)</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Mode</div>
+          <div class="d-value">Hybrid Mode</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Department</div>
+          <div class="d-value">Mathematics</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Academic Year</div>
+          <div class="d-value">2025–26</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Institution</div>
+          <div class="d-value">NAM College Kallikkandy</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Affiliated To</div>
+          <div class="d-value">Kannur University</div>
+        </div>
+      </div>
+
+      <!-- Course Content / Modules -->
+      <div style="margin-top: 24px;">
+        <h3>Course Content</h3>
+        <div class="module-grid">
+          <div class="module-item">
+            <div class="mod-title">Module I : Foundations (6 hrs)</div>
+            <div class="mod-desc">Overleaf interface · Hello World · Document hierarchy · Text formatting · Lists</div>
+          </div>
+          <div class="module-item">
+            <div class="mod-title">Module II : Page Design (6 hrs)</div>
+            <div class="mod-desc">Front matter (maketitle) · Headers · Multi-column layouts · Research formatting</div>
+          </div>
+          <div class="module-item">
+            <div class="mod-title">Module III : Tables &amp; Graphics (8 hrs)</div>
+            <div class="mod-desc">Grids &amp; merging · booktabs borders · Images (graphicx) · Captions &amp; referencing</div>
+          </div>
+          <div class="module-item">
+            <div class="mod-title">Module IV : Math Typesetting (10 hrs)</div>
+            <div class="mod-desc">Inline/display math · Greek letters &amp; operators · Multi-line alignment · Matrices &amp; theorems</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 22px;">
+        <h3>Course Objectives</h3>
+        <ul class="objectives-list">
+          <li>Master the Overleaf interface and LaTeX document structure</li>
+          <li>Create professional academic documents with proper formatting</li>
+          <li>Design sophisticated tables, graphics, and multi-column layouts</li>
+          <li>Typeset complex mathematical expressions, matrices, and theorems</li>
+          <li>Prepare research papers and documentation with LaTeX standards</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- COORDINATOR -->
+    <div class="section-label">Course Coordinator</div>
+    <div class="coordinator-card">
+      <div class="coord-avatar">G</div>
+      <div class="coord-info">
+        <div class="name">Gafoor I.</div>
+        <div class="role">Assistant Professor</div>
+        <div class="dept">Department of Mathematics · NAM College Kallikkandy</div>
+        <div class="contact">📞 9895297473 &nbsp;|&nbsp; ✉️ <a href="mailto:gafoorbabui@gmail.com">gafoorbabui@gmail.com</a></div>
+      </div>
+    </div>
+
+    <!-- Scan for details hint -->
+    <div style="margin-top: 20px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 0.5px;">
+      📲 Scan the QR code on the poster for more details
+    </div>
+
+  </div>
+
+  <div class="footer">
+    NAM College Kallikkandy &middot; Department of Mathematics &middot; 2025–26 &middot;
+    <a href="#">Back to Courses</a>
+  </div>
+
+</body>
+</html>

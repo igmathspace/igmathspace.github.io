@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Introduction to Python – Teaching Note | IG Math Space</title>
+<style>
+  /* ── TOKENS ─────────────────────────────────────── */
+  :root{
+    --navy:     #1a3557;
+    --blue:     #2b6cb0;
+    --sky:      #ebf4ff;
+    --amber:    #e07b00;
+    --amber-lt: #fff8e1;
+    --green-bg: #e6f4ea;
+    --green-tx: #1a4731;
+    --code-bg:  #f4f6f8;
+    --code-bd:  #c0cfe0;
+    --text:     #2d3748;
+    --muted:    #64748b;
+    --white:    #ffffff;
+    --radius:   10px;
+    --shadow:   0 4px 24px rgba(26,53,87,.12);
+  }
+
+  /* ── RESET ──────────────────────────────────────── */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:#f0f4f8;
+    color:var(--text);
+    line-height:1.7;
+  }
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ── NAV ─────────────────────────────────────────── */
+  header{
+    background:var(--navy);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+  .brand{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 32px 0;
+  }
+  .brand-icon{
+    width:44px;height:44px;border-radius:50%;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;font-weight:900;color:var(--navy);
+    box-shadow:0 0 0 3px rgba(255,208,128,.35);
+  }
+  .brand-text h1{font-size:.92rem;color:var(--white);font-weight:700;letter-spacing:.5px}
+  .brand-text p{font-size:.72rem;color:#a8c8f0;margin-top:-2px}
+  nav{
+    display:flex;flex-wrap:wrap;gap:2px;
+    padding:0 24px;margin-top:10px;
+  }
+  nav a{
+    font-size:.75rem;font-weight:600;letter-spacing:.6px;
+    color:#a8c8f0;padding:8px 14px;text-transform:uppercase;
+    border-bottom:3px solid transparent;transition:all .2s;
+  }
+  nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--amber);text-decoration:none}
+
+  /* ── HERO ────────────────────────────────────────── */
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    padding:64px 32px 56px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'∑ ∫ π λ ∂ ≈ ∞ √';
+    position:absolute;inset:0;
+    font-size:6rem;font-weight:900;color:rgba(255,255,255,.04);
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:30px;pointer-events:none;
+  }
+  .hero-eyebrow{
+    display:inline-block;
+    background:rgba(224,123,0,.18);
+    border:1px solid rgba(224,123,0,.5);
+    color:#ffd080;
+    font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:5px 16px;border-radius:99px;margin-bottom:18px;
+  }
+  .hero h2{
+    font-size:clamp(1.8rem,5vw,3rem);
+    font-weight:800;color:var(--white);
+    line-height:1.2;margin-bottom:12px;
+  }
+  .hero h2 span{color:#ffd080}
+  .hero p{color:#c0d8f4;font-size:1.05rem;max-width:620px;margin:0 auto 28px}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    font-size:.82rem;color:#a8c8f0;
+  }
+  .hero-meta span{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    padding:5px 14px;border-radius:99px;
+  }
+  .hero-meta span b{color:var(--white)}
+
+  /* ── LAYOUT ──────────────────────────────────────── */
+  .page{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+
+  /* ── SECTION HEADING ─────────────────────────────── */
+  .sec-head{
+    background:var(--navy);
+    color:var(--white);
+    padding:12px 22px;border-radius:var(--radius) var(--radius) 0 0;
+    font-size:1rem;font-weight:700;letter-spacing:.4px;
+    display:flex;align-items:center;gap:10px;
+    margin-top:36px;
+  }
+  .sec-head .num{
+    background:var(--amber);color:var(--navy);
+    font-size:.78rem;font-weight:800;
+    padding:2px 9px;border-radius:99px;
+  }
+  .sec-body{
+    background:var(--white);
+    border:1px solid var(--code-bd);
+    border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+    padding:24px 28px;
+    box-shadow:var(--shadow);
+  }
+
+  /* ── TYPOGRAPHY ──────────────────────────────────── */
+  h3{font-size:.95rem;font-weight:700;color:var(--navy);margin:20px 0 8px;border-left:3px solid var(--amber);padding-left:10px}
+  h4{font-size:.88rem;font-weight:600;color:var(--blue);margin:16px 0 6px}
+  p{margin-bottom:10px;font-size:.93rem}
+
+  ul.dot{list-style:none;padding-left:0}
+  ul.dot li{padding:4px 0 4px 22px;font-size:.92rem;position:relative}
+  ul.dot li::before{content:"◆";color:var(--amber);font-size:.55rem;position:absolute;left:4px;top:9px}
+
+  /* ── FEATURE TABLE ───────────────────────────────── */
+  .tbl-wrap{overflow-x:auto;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:.87rem}
+  thead tr{background:var(--navy);color:var(--white)}
+  thead th{padding:10px 14px;text-align:left;font-weight:600}
+  tbody tr:nth-child(even){background:var(--sky)}
+  tbody tr:hover{background:#dceeff;transition:background .15s}
+  tbody td{padding:9px 14px;border-bottom:1px solid var(--code-bd);vertical-align:top}
+  td strong{color:var(--navy)}
+
+  /* ── CODE BLOCK ──────────────────────────────────── */
+  pre{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    border-left:4px solid var(--blue);
+    border-radius:var(--radius);
+    padding:14px 18px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.83rem;
+    line-height:1.65;
+    overflow-x:auto;
+    margin:10px 0 16px;
+    color:#1a1a2e;
+  }
+  code{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    padding:1px 5px;border-radius:4px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.83em;color:#1a1a2e;
+  }
+
+  /* ── CALLOUTS ────────────────────────────────────── */
+  .note,.tip{border-radius:var(--radius);padding:12px 16px;font-size:.88rem;margin:12px 0}
+  .note{background:var(--amber-lt);border-left:4px solid var(--amber);color:#5a4000}
+  .note b,.note-icon{color:var(--amber)}
+  .tip{background:var(--green-bg);border-left:4px solid #2e7d52;color:var(--green-tx)}
+  .tip b{color:#2e7d52}
+
+  /* ── KEYWORD GRID ────────────────────────────────── */
+  .kw-grid{
+    display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;
+  }
+  .kw{
+    background:var(--sky);border:1px solid var(--code-bd);
+    color:var(--navy);font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.8rem;font-weight:600;padding:4px 12px;border-radius:6px;
+  }
+
+  /* ── OPERATOR TABLE ─────────────────────────────── */
+  .op-head{background:var(--navy)!important}
+  .op-head th{color:var(--white)!important}
+
+  /* ── REVIEW Q's ──────────────────────────────────── */
+  .q-list{counter-reset:q}
+  .q-list li{
+    counter-increment:q;list-style:none;
+    padding:10px 14px 10px 50px;position:relative;
+    border-bottom:1px dashed var(--code-bd);font-size:.91rem;
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:counter(q);
+    position:absolute;left:12px;top:9px;
+    background:var(--navy);color:var(--white);
+    width:24px;height:24px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.75rem;font-weight:700;
+  }
+
+  /* ── ACTIVITY BOX ────────────────────────────────── */
+  .activity{
+    background:linear-gradient(135deg,var(--sky),#d6eaff);
+    border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:18px 22px;margin:14px 0;
+  }
+  .activity h4{margin-top:0;border-left:3px solid var(--blue);padding-left:8px}
+
+  /* ── SUMMARY CARD ────────────────────────────────── */
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:14px}
+  .sum-card{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:16px 18px;
+    border-top:3px solid var(--amber);
+    box-shadow:0 2px 8px rgba(26,53,87,.07);
+    font-size:.88rem;
+  }
+  .sum-card .icon{font-size:1.4rem;margin-bottom:6px}
+  .sum-card strong{display:block;color:var(--navy);margin-bottom:4px;font-size:.9rem}
+
+  /* ── SIGN-OFF ─────────────────────────────────────── */
+  .signoff{
+    background:var(--navy);color:var(--white);
+    border-radius:var(--radius);padding:24px 32px;
+    margin-top:40px;display:flex;align-items:center;gap:20px;
+    box-shadow:var(--shadow);
+  }
+  .signoff-icon{
+    width:60px;height:60px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;font-weight:900;color:var(--navy);
+  }
+  .signoff h3{font-size:1.1rem;color:#ffd080;border:none;padding:0;margin:0 0 4px}
+  .signoff p{color:#a8c8f0;font-size:.85rem;margin:0}
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer{
+    background:var(--navy);color:#7090b0;
+    text-align:center;font-size:.78rem;padding:18px;
+    border-top:2px solid var(--amber);
+  }
+  footer span{color:#a8c8f0}
+
+  /* ── TOC ─────────────────────────────────────────── */
+  .toc{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:20px 24px;
+    box-shadow:var(--shadow);margin-bottom:10px;
+  }
+  .toc h3{margin-top:0;border-left:3px solid var(--amber);padding-left:10px;margin-bottom:12px}
+  .toc ol{padding-left:20px;font-size:.88rem}
+  .toc ol li{padding:3px 0}
+  .toc ol li a{color:var(--blue)}
+  .toc ol li a:hover{color:var(--amber)}
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media(max-width:640px){
+    .brand{padding:12px 16px 0}
+    nav{padding:0 12px}
+    nav a{font-size:.68rem;padding:6px 10px}
+    .hero{padding:40px 16px 36px}
+    .page{padding:24px 12px 60px}
+    .sec-body{padding:16px}
+    .signoff{flex-direction:column;text-align:center}
+  }
+
+  /* ── SCROLL REVEAL ───────────────────────────────── */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════ -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">IG</div>
+    <div class="brand-text">
+      <h1>IG Math Space</h1>
+      <p>Mathematics Teaching and Research</p>
+    </div>
+  </div>
+  <nav>
+    <a href="https://igmathspace.github.io/index.html">🏠 Home Space</a>
+    <a href="https://igmathspace.github.io/lessons.html" class="active">📚 Classroom Space</a>
+    <a href="https://igmathspace.github.io/research.html">🔬 Research &amp; FDP</a>
+    <a href="https://igmathspace.github.io/students.html">🎓 Student Space</a>
+    <a href="https://igmathspace.github.io/IGBOOKSPACE/">📖 Book Space</a>
+    <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ Official Space</a>
+  </nav>
+</header>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">📚 Classroom Space · Teaching Note</div>
+  <h2>Introduction to <span>Python</span></h2>
+  <p>Chapter 1 — A comprehensive classroom teaching note covering features, variables, operators and I/O functions.</p>
+  <div class="hero-meta">
+    <span>👨‍🏫 <b>Gafoor I</b></span>
+    <span>🏛️ <b>NAM College Kallikkandy</b></span>
+    <span>📐 Department of Mathematics</span>
+    <span>📘 Taming Python by Programming</span>
+  </div>
+</section>
+
+<!-- ═══ PAGE BODY ═══════════════════════════════════════ -->
+<main class="page">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <h3>📋 Contents</h3>
+    <ol>
+      <li><a href="#obj">Learning Objectives</a></li>
+      <li><a href="#history">History &amp; Background</a></li>
+      <li><a href="#features">Features of Python</a></li>
+      <li><a href="#identifiers">Identifiers &amp; Keywords</a></li>
+      <li><a href="#variables">Variables</a></li>
+      <li><a href="#comments">Comments</a></li>
+      <li><a href="#indentation">Indentation</a></li>
+      <li><a href="#multiline">Multi-line Statements &amp; Quotes</a></li>
+      <li><a href="#io">Input, Output &amp; Import</a></li>
+      <li><a href="#operators">Operators</a></li>
+      <li><a href="#activities">Classroom Activities</a></li>
+      <li><a href="#review">Review Questions</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ol>
+  </div>
+
+  <!-- ── 1. OBJECTIVES ──────────────────────────────── -->
+  <div id="obj" class="reveal">
+    <div class="sec-head"><span class="num">01</span> Learning Objectives</div>
+    <div class="sec-body">
+      <p>By the end of this class session, students will be able to:</p>
+      <ul class="dot">
+        <li>Describe the history and key features of the Python programming language.</li>
+        <li>Understand identifiers, reserved keywords, variables and comments.</li>
+        <li>Apply indentation rules and use multi-line / multiple-statement constructs.</li>
+        <li>Use <code>input()</code>, <code>print()</code> and <code>import</code> functions effectively.</li>
+        <li>Identify and apply all seven categories of Python operators.</li>
+        <li>Understand operator precedence and associativity.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 2. HISTORY ─────────────────────────────────── -->
+  <div id="history" class="reveal">
+    <div class="sec-head"><span class="num">02</span> History &amp; Background</div>
+    <div class="sec-body">
+      <p>Python was developed by <strong>Guido van Rossum</strong> at the <strong>National Research Institute for Mathematics and Computer Science, Netherlands</strong> during <strong>1985–1990</strong>. It is derived from languages such as ABC, Modula-3, C, C++, Algol-68, SmallTalk and Unix shell scripts.</p>
+      <p>The name <em>Python</em> was inspired by the BBC comedy series <strong>Monty Python's Flying Circus</strong>. Rossum wanted a short, unique and mysterious name.</p>
+      <p>Python is a <strong>general-purpose, interpreted, interactive, object-oriented and high-level</strong> programming language. Its source code is available under the <strong>GNU General Public License (GPL)</strong>.</p>
+    </div>
+  </div>
+
+  <!-- ── 3. FEATURES ────────────────────────────────── -->
+  <div id="features" class="reveal">
+    <div class="sec-head"><span class="num">03</span> Features of Python</div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Simple &amp; Easy-to-Learn</strong></td><td>Few keywords, simple structure, clearly defined syntax — ideal for beginners.</td></tr>
+            <tr><td><strong>Interpreted &amp; Interactive</strong></td><td>Processed at runtime; no pre-compilation needed. Interactive mode allows line-by-line testing.</td></tr>
+            <tr><td><strong>Object-Oriented</strong></td><td>Supports data hiding, operator overloading, inheritance. Also supports functional and structured programming.</td></tr>
+            <tr><td><strong>Portable</strong></td><td>Same interface on all platforms: Windows, Unix, Linux and Macintosh.</td></tr>
+            <tr><td><strong>Scalable</strong></td><td>Suitable for both small scripts and large applications; can compile to platform-independent bytecode.</td></tr>
+            <tr><td><strong>Extendable</strong></td><td>Low-level modules can be added; easily integrates with C, C++, COM, ActiveX, CORBA and Java.</td></tr>
+            <tr><td><strong>Dynamic</strong></td><td>High-level dynamic data types, dynamic type checking and automatic garbage collection.</td></tr>
+            <tr><td><strong>GUI &amp; Databases</strong></td><td>Supports GUI applications (Windows MFC, X Window) and interfaces to all major commercial databases.</td></tr>
+            <tr><td><strong>Broad Standard Library</strong></td><td>Portable, cross-platform library supporting text processing, browsers and more.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. IDENTIFIERS & KEYWORDS ──────────────────── -->
+  <div id="identifiers" class="reveal">
+    <div class="sec-head"><span class="num">04</span> Identifiers &amp; Reserved Keywords</div>
+    <div class="sec-body">
+      <h3>Identifiers</h3>
+      <p>An <strong>identifier</strong> is a name used to identify a variable, function, class or module. Rules:</p>
+      <ul class="dot">
+        <li>Must begin with a letter (A–Z or a–z) or an underscore (<code>_</code>).</li>
+        <li>Can be followed by letters, digits (0–9) or underscores.</li>
+        <li><strong>Case-sensitive</strong>: <code>myVar</code> and <code>myvar</code> are different identifiers.</li>
+        <li>Special characters (@, #, $ etc.) are not allowed.</li>
+        <li>Reserved keywords cannot be used as identifiers.</li>
+      </ul>
+      <div class="note">💡 <strong>Note:</strong> Python is a <strong>case-sensitive</strong> language.</div>
+
+      <h3>Reserved Keywords</h3>
+      <p>The following words are reserved and <strong>cannot</strong> be used as identifiers:</p>
+      <div class="kw-grid">
+        <span class="kw">False</span><span class="kw">None</span><span class="kw">True</span>
+        <span class="kw">and</span><span class="kw">as</span><span class="kw">assert</span>
+        <span class="kw">async</span><span class="kw">await</span><span class="kw">break</span>
+        <span class="kw">class</span><span class="kw">continue</span><span class="kw">def</span>
+        <span class="kw">del</span><span class="kw">elif</span><span class="kw">else</span>
+        <span class="kw">except</span><span class="kw">finally</span><span class="kw">for</span>
+        <span class="kw">from</span><span class="kw">global</span><span class="kw">if</span>
+        <span class="kw">import</span><span class="kw">in</span><span class="kw">is</span>
+        <span class="kw">lambda</span><span class="kw">nonlocal</span><span class="kw">not</span>
+        <span class="kw">or</span><span class="kw">pass</span><span class="kw">raise</span>
+        <span class="kw">return</span><span class="kw">try</span><span class="kw">while</span>
+        <span class="kw">with</span><span class="kw">yield</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. VARIABLES ───────────────────────────────── -->
+  <div id="variables" class="reveal">
+    <div class="sec-head"><span class="num">05</span> Variables</div>
+    <div class="sec-body">
+      <p>Variables are <strong>reserved memory locations</strong> to store values. The interpreter allocates memory based on the data type and decides what can be stored.</p>
+      <p>Python variables do <strong>not</strong> need explicit declaration — memory is reserved automatically when a value is assigned using the <code>=</code> operator.</p>
+
+      <h3>Assignment Examples</h3>
+<pre>a    = 100        # Integer
+b    = 1000.0     # Float
+name = "John"     # String
+
+print(a)          # 100
+print(b)          # 1000.0
+print(name)       # John</pre>
+
+      <h3>Multiple Assignment</h3>
+<pre>a = b = c = 1              # Same value to multiple variables
+a, b, c = 1, 2, "Tom"     # Different values to multiple variables</pre>
+      <div class="tip">✅ <strong>Tip:</strong> The left side of <code>=</code> is always the variable name; the right side is the value to store.</div>
+    </div>
+  </div>
+
+  <!-- ── 6. COMMENTS ───────────────────────────────── -->
+  <div id="comments" class="reveal">
+    <div class="sec-head"><span class="num">06</span> Comments in Python</div>
+    <div class="sec-body">
+      <p>Comments describe what the code does and are for programmer readability. Python ignores comments during execution.</p>
+      <ul class="dot">
+        <li>Single-line comment — use the <code>#</code> symbol.</li>
+        <li>Multi-line comment — use <code>#</code> on each line, or enclose in triple quotes (<code>'''</code> or <code>"""</code>).</li>
+      </ul>
+<pre># This is a single-line comment
+
+# This is a multi-line comment
+# that spans several lines
+
+"""
+This is another
+multi-line comment
+using triple quotes
+"""</pre>
+      <div class="note">💡 <strong>Note:</strong> A <code>#</code> inside a string literal does <strong>not</strong> start a comment.</div>
+    </div>
+  </div>
+
+  <!-- ── 7. INDENTATION ────────────────────────────── -->
+  <div id="indentation" class="reveal">
+    <div class="sec-head"><span class="num">07</span> Indentation in Python</div>
+    <div class="sec-body">
+      <p>Unlike C, C++ or Java which use braces <code>{}</code>, Python uses <strong>indentation</strong> to define blocks of code. A block starts with indentation and ends with the first un-indented line.</p>
+      <p>Four whitespaces are the recommended convention (preferred over a tab character).</p>
+<pre>if True:
+    print("Correct")   # indented — inside the if block
+else:
+    print("Wrong")</pre>
+      <div class="note">💡 <strong>Note:</strong> Inconsistent indentation raises an <strong>IndentationError</strong> at runtime.</div>
+    </div>
+  </div>
+
+  <!-- ── 8. MULTI-LINE & QUOTES ────────────────────── -->
+  <div id="multiline" class="reveal">
+    <div class="sec-head"><span class="num">08</span> Multi-line Statements &amp; Quotes</div>
+    <div class="sec-body">
+      <h3>Multi-Line Statements</h3>
+      <p>Use the line continuation character <code>\</code> or enclose in brackets to span a statement across lines:</p>
+<pre>total = 1 + 2 + \
+        3 + 4
+
+# Or using parentheses
+total = (1 + 2 +
+         3 + 4)</pre>
+
+      <h3>Multiple Statements on One Line</h3>
+      <p>A group of individual statements making a code block is called a <strong>suite</strong>. Use a semicolon to write multiple statements on one line:</p>
+<pre>x = 10; y = 20; print(x + y)</pre>
+
+      <h3>Quotes in Python</h3>
+      <p>Python accepts single (<code>'</code>), double (<code>"</code>) and triple (<code>'''</code> / <code>"""</code>) quotes to denote string literals. Triple quotes can span multiple lines.</p>
+<pre>s1 = 'Hello'
+s2 = "World"
+s3 = """This string
+spans multiple
+lines."""</pre>
+    </div>
+  </div>
+
+  <!-- ── 9. I/O & IMPORT ───────────────────────────── -->
+  <div id="io" class="reveal">
+    <div class="sec-head"><span class="num">09</span> Input, Output &amp; Import Functions</div>
+    <div class="sec-body">
+      <h3>print() — Displaying Output</h3>
+      <p>The <code>print()</code> function converts expressions to strings and writes to standard output.</p>
+<pre>print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)</pre>
+      <p><strong>sep</strong> — separator between values (default: space) &nbsp;|&nbsp; <strong>end</strong> — character after last value (default: newline)</p>
+<pre>print(1, 2, 3, 4)                   # 1 2 3 4
+print(1, 2, 3, 4, sep='+')          # 1+2+3+4
+print(1, 2, 3, 4, sep='+', end='%') # 1+2+3+4%</pre>
+
+      <h3>input() — Reading Input</h3>
+      <p>Reads a line from the keyboard and <strong>always returns a string</strong>.</p>
+<pre>name = input("Enter your name: ")
+print("Your name is:", name)
+
+n = int(input("Enter a number: "))   # convert to int
+print("The number is:", n)</pre>
+      <div class="note">💡 <strong>Note:</strong> <code>raw_input()</code> is Python 2 only and is <strong>not supported</strong> in Python 3. Always use <code>input()</code>.</div>
+
+      <h3>import — Using Modules</h3>
+      <p>When code grows large, it is organised into <strong>modules</strong> (.py files). Use the <code>import</code> keyword:</p>
+<pre>import math
+print(math.pi)       # 3.141592653589793
+print(math.sqrt(16)) # 4.0</pre>
+      <div class="tip">✅ <strong>Tip:</strong> Use <code>from math import pi</code> to import specific names directly into the namespace.</div>
+    </div>
+  </div>
+
+  <!-- ── 10. OPERATORS ─────────────────────────────── -->
+  <div id="operators" class="reveal">
+    <div class="sec-head"><span class="num">10</span> Operators in Python</div>
+    <div class="sec-body">
+      <p>An <strong>operator</strong> manipulates operands. In <code>a = b + c</code>, <em>a, b, c</em> are operands and <em>=, +</em> are operators. Python supports seven categories:</p>
+
+      <!-- 10.1 Arithmetic -->
+      <h3>10.1 Arithmetic Operators</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Op</th><th>Operation</th><th>Description</th><th>Example (a=10, b=5)</th></tr></thead>
+          <tbody>
+            <tr><td><code>+</code></td><td>Addition</td><td>Adds values on either side</td><td><code>a+b = 15</code></td></tr>
+            <tr><td><code>-</code></td><td>Subtraction</td><td>Subtracts right from left</td><td><code>a-b = 5</code></td></tr>
+            <tr><td><code>*</code></td><td>Multiplication</td><td>Multiplies values on either side</td><td><code>a*b = 50</code></td></tr>
+            <tr><td><code>/</code></td><td>Division</td><td>Divides left by right</td><td><code>a/b = 2.0</code></td></tr>
+            <tr><td><code>%</code></td><td>Modulus</td><td>Returns remainder</td><td><code>b%2 = 1</code></td></tr>
+            <tr><td><code>**</code></td><td>Exponent</td><td>Raises left to power of right</td><td><code>b**2 = 25</code></td></tr>
+            <tr><td><code>//</code></td><td>Floor Division</td><td>Quotient with decimal removed</td><td><code>b//2 = 2</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+<pre>a, b, c = 10, 5, 2
+print("Sum=",        a+b)   # 15
+print("Difference=", a-b)   # 5
+print("Product=",    a*b)   # 50
+print("Quotient=",   a/b)   # 2.0
+print("Remainder=",  b%c)   # 1
+print("Exponent=",   b**c)  # 25
+print("Floor Div=",  b//c)  # 2</pre>
+
+      <!-- 10.2 Comparison -->
+      <h3>10.2 Comparison (Relational) Operators</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Op</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>==</code></td><td>True if both operands are equal</td></tr>
+            <tr><td><code>!=</code></td><td>True if operands are not equal</td></tr>
+            <tr><td><code>&gt;</code></td><td>True if left is greater than right</td></tr>
+            <tr><td><code>&lt;</code></td><td>True if left is less than right</td></tr>
+            <tr><td><code>&gt;=</code></td><td>True if left is greater than or equal to right</td></tr>
+            <tr><td><code>&lt;=</code></td><td>True if left is less than or equal to right</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 10.3 Assignment -->
+      <h3>10.3 Assignment Operators</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Op</th><th>Equivalent To</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>+=</code></td><td><code>c = c+a</code></td><td>Add and assign</td></tr>
+            <tr><td><code>-=</code></td><td><code>c = c-a</code></td><td>Subtract and assign</td></tr>
+            <tr><td><code>*=</code></td><td><code>c = c*a</code></td><td>Multiply and assign</td></tr>
+            <tr><td><code>/=</code></td><td><code>c = c/a</code></td><td>Divide and assign</td></tr>
+            <tr><td><code>%=</code></td><td><code>c = c%a</code></td><td>Modulus and assign</td></tr>
+            <tr><td><code>**=</code></td><td><code>c = c**a</code></td><td>Exponent and assign</td></tr>
+            <tr><td><code>//=</code></td><td><code>c = c//a</code></td><td>Floor divide and assign</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 10.4 Logical -->
+      <h3>10.4 Logical Operators</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Operator</th><th>Operation</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>and</code></td><td>Logical AND</td><td>True if <strong>both</strong> operands are True</td></tr>
+            <tr><td><code>or</code></td><td>Logical OR</td><td>True if <strong>any</strong> operand is True</td></tr>
+            <tr><td><code>not</code></td><td>Logical NOT</td><td>Reverses the logical state of its operand</td></tr>
+          </tbody>
+        </table>
+      </div>
+<pre>a, b, c, d = 10, 5, 2, 1
+print((a>b) and (c>d))   # True
+print((a>b) or  (d>c))   # True
+print(not(a>b))           # False</pre>
+
+      <!-- 10.5 Bitwise -->
+      <h3>10.5 Bitwise Operators</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Op</th><th>Name</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>&amp;</code></td><td>AND</td><td>Bits set in both operands</td></tr>
+            <tr><td><code>|</code></td><td>OR</td><td>Bits set in either operand</td></tr>
+            <tr><td><code>^</code></td><td>XOR</td><td>Bits set in one but not both</td></tr>
+            <tr><td><code>~</code></td><td>NOT</td><td>Inverts all bits</td></tr>
+            <tr><td><code>&lt;&lt;</code></td><td>Left Shift</td><td>Shift left by pushing zeros from right</td></tr>
+            <tr><td><code>&gt;&gt;</code></td><td>Right Shift</td><td>Shift right; leftmost copies fill from left</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 10.6 Membership -->
+      <h3>10.6 Membership Operators</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Operator</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>in</code></td><td>True if value is found in the sequence</td></tr>
+            <tr><td><code>not in</code></td><td>True if value is NOT found in the sequence</td></tr>
+          </tbody>
+        </table>
+      </div>
+<pre>s = 'abcde'
+print('a' in s)       # True
+print('f' in s)       # False
+print('f' not in s)   # True</pre>
+
+      <!-- 10.7 Identity -->
+      <h3>10.7 Identity Operators</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Operator</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>is</code></td><td>True if both variables refer to the same object in memory</td></tr>
+            <tr><td><code>is not</code></td><td>True if variables do NOT refer to the same object</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">💡 <strong>Note:</strong> <code>is</code> checks <strong>identity</strong> (memory address), while <code>==</code> checks <strong>equality</strong> (value).</div>
+
+      <!-- 10.8 Precedence -->
+      <h3>10.8 Operator Precedence (Highest → Lowest)</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Operator(s)</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>**</code></td><td>Exponentiation (right-associative)</td></tr>
+            <tr><td><code>~, +, -</code></td><td>Complement, unary plus and minus</td></tr>
+            <tr><td><code>*, /, %, //</code></td><td>Multiply, divide, modulo, floor division</td></tr>
+            <tr><td><code>+, -</code></td><td>Addition and subtraction</td></tr>
+            <tr><td><code>&gt;&gt;, &lt;&lt;</code></td><td>Right and left bitwise shift</td></tr>
+            <tr><td><code>&amp;</code></td><td>Bitwise AND</td></tr>
+            <tr><td><code>^, |</code></td><td>Bitwise XOR and OR</td></tr>
+            <tr><td><code>&lt;=, &lt;, &gt;, &gt;=</code></td><td>Comparison operators</td></tr>
+            <tr><td><code>&lt;&gt;, ==, !=</code></td><td>Equality operators</td></tr>
+            <tr><td><code>=, %=, /=, //=, -=, +=, *=, **=</code></td><td>Assignment operators</td></tr>
+            <tr><td><code>is, is not</code></td><td>Identity operators</td></tr>
+            <tr><td><code>in, not in</code></td><td>Membership operators</td></tr>
+            <tr><td><code>not, or, and</code></td><td>Logical operators (lowest precedence)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip">✅ <strong>Tip:</strong> In Python, <code>=</code> (assignment) and <code>**</code> (exponent) are right-associative; all other operators are left-associative.</div>
+    </div>
+  </div>
+
+  <!-- ── 11. ACTIVITIES ─────────────────────────────── -->
+  <div id="activities" class="reveal">
+    <div class="sec-head"><span class="num">11</span> Classroom Activities</div>
+    <div class="sec-body">
+
+      <div class="activity">
+        <h4>🔍 Activity 1 — Predict the Output</h4>
+        <p>What will the following code print? Work it out on paper first, then verify.</p>
+<pre>a, b = 7, 3
+print(a ** b)
+print(a // b)
+print(a % b)
+print(a > b and b > 0)</pre>
+      </div>
+
+      <div class="activity">
+        <h4>🐛 Activity 2 — Debug the Code</h4>
+        <p>Find and fix the error in the code below:</p>
+<pre>x = input("Enter a number:")
+y = x + 10
+print(y)</pre>
+      </div>
+
+      <div class="activity">
+        <h4>✏️ Activity 3 — Write the Program</h4>
+        <p>Write a Python program that:</p>
+        <ul class="dot">
+          <li>Accepts two numbers from the user.</li>
+          <li>Prints their sum, difference, product, quotient and remainder.</li>
+          <li>Checks whether the first number is greater than the second.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 12. REVIEW QUESTIONS ──────────────────────── -->
+  <div id="review" class="reveal">
+    <div class="sec-head"><span class="num">12</span> Review Questions</div>
+    <div class="sec-body">
+      <ol class="q-list">
+        <li>List any <strong>five features</strong> of Python with brief explanations.</li>
+        <li>Is Python a case-sensitive language? Give an example.</li>
+        <li>How can you run Python programs? Name at least two modes.</li>
+        <li>State the rules for naming an <strong>identifier</strong> in Python.</li>
+        <li>How are single-line and multi-line comments written in Python?</li>
+        <li>What is the difference between <code>=</code> (assignment) and <code>==</code> (comparison)?</li>
+        <li>Differentiate between <code>is</code> and <code>==</code> with an example.</li>
+        <li>What is the purpose of the <code>import</code> statement? Give an example.</li>
+        <li>Evaluate: <code>5 + 3 * 2 ** 2 // 4 - 1</code> — show step-by-step working.</li>
+        <li>Write a Python program to demonstrate all assignment operators.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ── 13. SUMMARY ───────────────────────────────── -->
+  <div id="summary" class="reveal">
+    <div class="sec-head"><span class="num">13</span> Summary</div>
+    <div class="sec-body">
+      <div class="summary-grid">
+        <div class="sum-card"><div class="icon">🐍</div><strong>History</strong>Created by Guido van Rossum (1985–1990); GPL licensed; general-purpose and high-level.</div>
+        <div class="sum-card"><div class="icon">⭐</div><strong>Features</strong>Simple, interpreted, OOP, portable, scalable, extendable, dynamic, GUI-capable, broad library.</div>
+        <div class="sum-card"><div class="icon">🏷️</div><strong>Identifiers</strong>User-defined names; case-sensitive; cannot be reserved keywords; no special characters.</div>
+        <div class="sum-card"><div class="icon">📦</div><strong>Variables</strong>No explicit declaration needed; type decided at assignment time using <code>=</code>.</div>
+        <div class="sum-card"><div class="icon">💬</div><strong>Comments</strong>Single-line: <code>#</code>; multi-line: triple quotes. Interpreter ignores comments.</div>
+        <div class="sum-card"><div class="icon">↵</div><strong>Indentation</strong>Defines code blocks; 4 spaces recommended; inconsistency causes IndentationError.</div>
+        <div class="sum-card"><div class="icon">⌨️</div><strong>I/O</strong><code>print()</code> for output; <code>input()</code> returns a string; <code>import</code> loads modules.</div>
+        <div class="sum-card"><div class="icon">➕</div><strong>Operators</strong>7 types: Arithmetic, Comparison, Assignment, Logical, Bitwise, Membership, Identity.</div>
+        <div class="sum-card"><div class="icon">📊</div><strong>Precedence</strong><code>**</code> is highest; logical operators lowest; <code>=</code> and <code>**</code> are right-associative.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SIGN-OFF ───────────────────────────────────── -->
+  <div class="signoff reveal">
+    <div class="signoff-icon">G</div>
+    <div>
+      <h3>Gafoor I</h3>
+      <p>Assistant Professor &nbsp;|&nbsp; Department of Mathematics &nbsp;|&nbsp; NAM College Kallikkandy</p>
+      <p style="margin-top:4px;font-size:.8rem;color:#7090b0;">Teaching Note · Chapter 1 · Introduction to Python · Academic Year 2025–26</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <span>IG Math Space</span> — Mathematics Teaching Website &nbsp;|&nbsp; igmathspace.github.io
+</footer>
+
+<!-- ── SCROLL REVEAL SCRIPT ──────────────────────────── -->
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
