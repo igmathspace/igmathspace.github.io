@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Calendar 2025-26 | NAM College Kallikkandy - Mathematics Department</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #87ceeb;
+            --accent-color: #87ceeb;
+            --secondary-color: #87ceeb;
+            --text-primary: #000000;
+            --text-secondary: #333333;
+            --border-color: #d4d4c8;
+            --bg-light: #f5f5f0;
+            --bg-white: #fffef8;
+            --success: #4caf50;
+            --warning: #ff9800;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #87ceeb;
+                --accent-color: #87ceeb;
+                --secondary-color: #87ceeb;
+                --text-primary: #000000;
+                --text-secondary: #333333;
+                --border-color: #d4d4c8;
+                --bg-light: #f5f5f0;
+                --bg-white: #fffef8;
+            }
+        }
+        
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 2px solid #87ceeb;
+            padding-bottom: 1.5rem;
+        }
+        
+        .logo-section {
+            margin-bottom: 1rem;
+        }
+        
+        .college-name {
+            font-size: 24px;
+            font-weight: 600;
+            color: #87ceeb;
+            letter-spacing: 0.5px;
+        }
+        
+        .department-name {
+            font-size: 18px;
+            font-weight: 500;
+            color: #87ceeb;
+            margin-top: 0.3rem;
+        }
+        
+        .calendar-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .semester-section {
+            margin-bottom: 3rem;
+        }
+        
+        .semester-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            background-color: #87ceeb;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+        
+        .commencement-info {
+            background-color: #87ceeb;
+            color: #000000;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 14px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .commencement-item {
+            padding: 0.5rem 0;
+        }
+        
+        .commencement-label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 13px;
+            color: #000000;
+        }
+        
+        .commencement-date {
+            font-style: italic;
+            color: #000000;
+        }
+        
+        .month-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .month-header {
+            font-size: 16px;
+            font-weight: 600;
+            background-color: #87ceeb;
+            color: #000000;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-white);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .calendar-table thead {
+            background-color: var(--bg-light);
+        }
+        
+        .calendar-table thead th {
+            background-color: #87ceeb;
+            color: #000000;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .calendar-table thead th:last-child {
+            border-right: none;
+        }
+        
+        .calendar-table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .calendar-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        
+        .calendar-table tbody tr:hover {
+            background-color: var(--bg-light);
+        }
+        
+        .calendar-table td {
+            padding: 1.2rem 1rem;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .week-column {
+            font-weight: 600;
+            color: #87ceeb;
+            width: 120px;
+            vertical-align: top;
+        }
+        
+        .activities-column {
+            color: var(--text-primary);
+        }
+        
+        .activities-column ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        
+        .activities-column li {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .activities-column li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .note {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 0.3rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 12px;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .calendar-table {
+                font-size: 13px;
+            }
+            
+            .calendar-table td {
+                padding: 0.8rem 0.6rem;
+            }
+            
+            .week-column {
+                width: 80px;
+                font-size: 13px;
+            }
+            
+            .college-name {
+                font-size: 18px;
+            }
+            
+            .department-name {
+                font-size: 14px;
+            }
+            
+            .commencement-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <div class="college-name">NAM College Kallikkandy</div>
+                <div class="department-name">Department of Mathematics</div>
+            </div>
+            <div class="calendar-title">Academic cum Examination Calendar</div>
+            <div class="calendar-title" style="font-weight: 600;">For Odd & Even Semesters 2025-26</div>
+        </div>
+
+        <!-- ODD SEMESTER -->
+        <div class="semester-section">
+            <div class="semester-title">Odd Semester 2025-26</div>
+            
+            <div class="commencement-info">
+                <div class="commencement-item">
+                    <span class="commencement-label">1st Semester UG</span>
+                    <span class="commencement-date">After admission (as per university notification)</span>
+                </div>
+                <div class="commencement-item">
+                    <span class="commencement-label">3rd Semester UG</span>
+                    <span class="commencement-date">1st week of June 2025</span>
+                </div>
+                <div class="commencement-item">
+                    <span class="commencement-label">5th Semester UG</span>
+                    <span class="commencement-date">1st week of June 2025</span>
+                </div>
+            </div>
+
+            <!-- JUNE -->
+            <div class="month-section">
+                <div class="month-header">June</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Department level meeting</li>
+                                    <li>Work distribution</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Preparation of Department level year plan</li>
+                                    <li>Result Analysis of University Examinations</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Preparative work of Tutorial, Remedial, Mentoring and Slow learners classes</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Preparative meeting to start Certificate / Diploma Courses</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- JULY -->
+            <div class="month-section">
+                <div class="month-header">July</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Commencement of I Sem BSc Class</li>
+                                    <li>Publication of Monthly Attendance</li>
+                                    <li>Commencement of Certificate/Diploma Courses</li>
+                                    <li>Allocation of Assignments and Seminars for the students</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Class wise PTA meeting of III and V semester students</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>First Internal Examination V, III Sem BSc</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Commencement of Tutorial/Mentoring/Remedial Classes</li>
+                                    <li>Classes for Advanced and Slow Learners</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- AUGUST -->
+            <div class="month-section">
+                <div class="month-header">August</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I & II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Publication of Monthly Attendance</li>
+                                    <li>Result publication of First Internal Examination V and III sem</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>First internal examination for I semester UG class</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Quarterly Report Submission</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SEPTEMBER -->
+            <div class="month-section">
+                <div class="month-header">September</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Publication of Monthly Attendance</li>
+                                    <li>Result publication of internal examination and evaluation of internal exam results</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II & III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Evaluation/Assessment of student assignments and seminars</li>
+                                    <li>Department level evaluation meeting</li>
+                                    <li>Academic seminar</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Department level evaluation meeting</li>
+                                    <li>II Internal/Model Examination for V Sem UG</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- OCTOBER -->
+            <div class="month-section">
+                <div class="month-header">October</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Publication of Monthly Attendance</li>
+                                    <li>Soft Skill Training Programme</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Commencement of orientation and bridge courses for first year classes</li>
+                                    <li>Progress analysis meeting & Document submission</li>
+                                    <li>Commencement of University Examination for V Sem UG</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Progress Evaluation/Assessment of Certificate / Diploma courses</li>
+                                    <li>Model/Second Internal examination for I and III semester UG classes</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Second Internal /Model Examination for I & III Sem UG</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- EVEN SEMESTER -->
+        <div class="semester-section">
+            <div class="semester-title">Even Semester 2025-26</div>
+            
+            <div class="commencement-info">
+                <div class="commencement-item">
+                    <span class="commencement-label">2nd Semester UG</span>
+                    <span class="commencement-date">Third week of November 2025</span>
+                </div>
+                <div class="commencement-item">
+                    <span class="commencement-label">4th Semester UG</span>
+                    <span class="commencement-date">Last week of November 2025</span>
+                </div>
+                <div class="commencement-item">
+                    <span class="commencement-label">6th Semester UG</span>
+                    <span class="commencement-date">First week of November 2025</span>
+                </div>
+            </div>
+
+            <!-- NOVEMBER -->
+            <div class="month-section">
+                <div class="month-header">November</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>I Sem UG University Examination</li>
+                                    <li>Feedback collection from Students/PTA/Alumnae/Teachers</li>
+                                    <li>Department Level Analysis</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>University Examination for III Sem UG</li>
+                                    <li>Issue of Certificate for Certificate / Diploma courses</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Department Meeting for Current semester</li>
+                                    <li>Commencement VI sem BSc Maths class</li>
+                                    <li>University Examination for III Sem UG</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Counseling class for BSc Mathematics</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- DECEMBER -->
+            <div class="month-section">
+                <div class="month-header">December</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Commencement IV sem BSc Mathematics class</li>
+                                    <li>AI Tools for academic excellence - Seminar</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Preparative work of Tutorial, Remedial, Mentoring and Slow learners' classes</li>
+                                    <li>Seminars and assignments</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Progress Evaluation/Assessment of Certificate / Diploma courses</li>
+                                    <li>Seminar on Human Rights in day to day life</li>
+                                    <li>First internal examination for VI Sem UG</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- JANUARY -->
+            <div class="month-section">
+                <div class="month-header">January</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Publication of Monthly Attendance</li>
+                                    <li>Allocation of Assignments and Seminars to the students</li>
+                                    <li>First internal examination for II Sem UG</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II & III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>First internal examination for IV Sem UG</li>
+                                    <li>Class wise PTA meeting of all semester classes</li>
+                                    <li>Commencement of tutorial, remedial, low learner's classes</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Academic seminar (Martyr's day celebration)</li>
+                                    <li>Department level evaluation meeting</li>
+                                    <li>Seminar on Health and fitness</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- FEBRUARY -->
+            <div class="month-section">
+                <div class="month-header">February</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">I Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Publication of Monthly Attendance</li>
+                                    <li>Second internal examination for VI Sem UG</li>
+                                    <li>Workshop</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Evaluation of Internal /University exam results if any</li>
+                                    <li>Evaluation/Assessment of students' Assignments and Seminars</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III & IV Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Second internal examination for II Sem UG</li>
+                                    <li>Extension Activities and Best Practices</li>
+                                    <li>First Internal Examination for all semester classes</li>
+                                    <li>Communication/ Language skill</li>
+                                    <li>Second internal examination for IV Sem UG</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- MARCH -->
+            <div class="month-section">
+                <div class="month-header">March</div>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Week</th>
+                            <th>Activities</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="week-column">II Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Display and Reporting of Monthly Attendance</li>
+                                    <li>Publication of model examination results</li>
+                                    <li>Career guidance Programme</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="week-column">III Week</td>
+                            <td class="activities-column">
+                                <ul>
+                                    <li>Internal marks preparation</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Academic Calendar 2025-26 | NAM College Kallikkandy | Department of Mathematics</p>
+            <p style="margin-top: 0.5rem;">* Subject to approval and amendments as per university notification</p>
+        </div>
+    </div>
+</body>
+</html>
