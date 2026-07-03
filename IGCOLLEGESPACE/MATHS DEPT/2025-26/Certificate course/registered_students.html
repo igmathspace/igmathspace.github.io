@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registered Students — LaTeXing with Overleaf | NAM College</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #0a1428;
+      min-height: 100vh;
+      color: #f0f4ff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(145deg, #0b1a33 0%, #0f1f3a 40%, #07122a 100%);
+      padding: 32px 24px 0;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(44, 110, 158, 0.25) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -60px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(212, 63, 107, 0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ── TOP NAV LINKS ── */
+    .top-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(44, 110, 158, 0.15);
+      border: 1px solid rgba(44, 110, 158, 0.35);
+      color: #7bb3e0;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .top-link-btn:hover {
+      background: rgba(44, 110, 158, 0.3);
+      color: #cfe6f7;
+      border-color: rgba(44, 110, 158, 0.6);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-bottom: 28px;
+      transition: color 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .back-link:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .code-badge {
+      display: inline-block;
+      background: rgba(44, 110, 158, 0.18);
+      border: 1px solid rgba(44, 110, 158, 0.4);
+      color: #7bb3e0;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 18px;
+      border-radius: 30px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 48px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .hero-title span {
+      color: #7bb3e0;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 0;
+      padding-bottom: 32px;
+    }
+
+    .stat-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 10px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      backdrop-filter: blur(2px);
+    }
+
+    .stat-chip .label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .stat-chip .value {
+      font-size: 15px;
+      font-weight: 800;
+      color: white;
+    }
+
+    /* Wave divider */
+    .wave {
+      width: 100%;
+      height: 40px;
+      display: block;
+      background: linear-gradient(to bottom right, transparent 49%, #0a1428 50%);
+    }
+
+    /* ── MAIN ── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #7bb3e0;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(44, 110, 158, 0.4), transparent);
+    }
+
+    /* ── CARD ── */
+    .syllabus-card {
+      background: linear-gradient(145deg, #13233f, #0d1a30);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      padding: 28px 28px;
+      margin-bottom: 28px;
+    }
+
+    .syllabus-card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .syllabus-card p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.8;
+    }
+
+    /* ── DETAILS GRID ── */
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .detail-item {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .detail-item .d-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .detail-item .d-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 4px;
+    }
+
+    /* ── STUDENT TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    table.students-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .students-table thead th {
+      background: rgba(44, 110, 158, 0.18);
+      color: #7bb3e0;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(44, 110, 158, 0.3);
+      white-space: nowrap;
+    }
+
+    .students-table tbody td {
+      padding: 11px 16px;
+      color: rgba(255, 255, 255, 0.75);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-weight: 500;
+    }
+
+    .students-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .students-table tbody tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .students-table td.sl {
+      color: rgba(255, 255, 255, 0.35);
+      font-weight: 700;
+      width: 50px;
+    }
+
+    .students-table td.reg {
+      color: #7bb3e0;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .students-table td.name {
+      color: white;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    /* ── COORDINATOR ── */
+    .coordinator-card {
+      background: linear-gradient(145deg, #13233f, #0d1a30);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 22px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .coord-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2c6e9e, #1a4060);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 2px rgba(44, 110, 158, 0.2);
+    }
+
+    .coord-info .name {
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+    }
+
+    .coord-info .role {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 3px;
+    }
+
+    .coord-info .dept {
+      font-size: 11px;
+      color: #7bb3e0;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .coord-info .contact {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 4px;
+    }
+
+    .coord-info .contact a {
+      color: #7bb3e0;
+      text-decoration: none;
+    }
+
+    .coord-info .contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.18);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      margin-top: 12px;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer a:hover {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .hero-title {
+        font-size: 32px;
+      }
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+      .coordinator-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      .students-table {
+        font-size: 12px;
+      }
+      .students-table thead th,
+      .students-table tbody td {
+        padding: 9px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="top-links">
+        <a class="top-link-btn" href="https://igmathspace.github.io/" target="_blank" rel="noopener">🌐 IGMathSpace Home</a>
+      </div>
+      <a class="back-link" href="./index.html">← Back to Course Home</a>
+      <div class="code-badge">CC25MAT01 · Registered Students</div>
+      <div class="hero-title">LaTeXing <span>with Overleaf</span></div>
+      <div class="hero-sub">Certificate Course · Department of Mathematics</div>
+      <div class="stats-row">
+        <div class="stat-chip"><span class="label">Course Code</span><span class="value">CC25MAT01</span></div>
+        <div class="stat-chip"><span class="label">Total Registered</span><span class="value">20 Students</span></div>
+        <div class="stat-chip"><span class="label">Academic Year</span><span class="value">2025–26</span></div>
+        <div class="stat-chip"><span class="label">Affiliated To</span><span class="value">Kannur University</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="wave"></div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- INSTITUTION DETAILS -->
+    <div class="section-label">Institution Details</div>
+    <div class="syllabus-card">
+      <h3>N.A.M. College Kallikkandy</h3>
+      <p>
+        Re-Accredited with NAAC A-Grade · Aided &amp; Affiliated to Kannur University. This is the official list of students registered for the Certificate Course CC25MAT01 — LaTeXing with Overleaf, offered by the Department of Mathematics.
+      </p>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="d-label">Course Code</div>
+          <div class="d-value">CC25MAT01</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Course Title</div>
+          <div class="d-value">LaTeXing with Overleaf</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Department</div>
+          <div class="d-value">Mathematics</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Institution</div>
+          <div class="d-value">NAM College Kallikkandy</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Address</div>
+          <div class="d-value">P.O. Kallikkandy, Kannur Dt., PIN – 670 693</div>
+        </div>
+        <div class="detail-item">
+          <div class="d-label">Contact</div>
+          <div class="d-value">namcollege@yahoo.co.in · 0490-2375900</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDENT LIST -->
+    <div class="section-label">Registered Students</div>
+    <div class="syllabus-card">
+      <div class="table-wrap">
+        <table class="students-table">
+          <thead>
+            <tr>
+              <th>Sl. No.</th>
+              <th>CC Reg. No.</th>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="sl">1</td><td class="reg">CC25MATR01</td><td class="name">Ayshathul Hidhaya. C. V</td></tr>
+            <tr><td class="sl">2</td><td class="reg">CC25MATR02</td><td class="name">Farhana Unniyatham Kandiyil</td></tr>
+            <tr><td class="sl">3</td><td class="reg">CC25MATR03</td><td class="name">Fasiha Febin T</td></tr>
+            <tr><td class="sl">4</td><td class="reg">CC25MATR04</td><td class="name">Fathimath Menha Rasheed D</td></tr>
+            <tr><td class="sl">5</td><td class="reg">CC25MATR05</td><td class="name">Fidha Fathima T K</td></tr>
+            <tr><td class="sl">6</td><td class="reg">CC25MATR06</td><td class="name">Hidha Fathima N</td></tr>
+            <tr><td class="sl">7</td><td class="reg">CC25MATR07</td><td class="name">Irfana. P. P</td></tr>
+            <tr><td class="sl">8</td><td class="reg">CC25MATR08</td><td class="name">K Musheera</td></tr>
+            <tr><td class="sl">9</td><td class="reg">CC25MATR09</td><td class="name">Nida Fathima</td></tr>
+            <tr><td class="sl">10</td><td class="reg">CC25MATR10</td><td class="name">Sahla Fathima K P</td></tr>
+            <tr><td class="sl">11</td><td class="reg">CC25MATR11</td><td class="name">Shahaba Sharin K</td></tr>
+            <tr><td class="sl">12</td><td class="reg">CC25MATR12</td><td class="name">Shahana Lira P P</td></tr>
+            <tr><td class="sl">13</td><td class="reg">CC25MATR13</td><td class="name">Varda V K</td></tr>
+            <tr><td class="sl">14</td><td class="reg">CC25MATR14</td><td class="name">Amrutha A</td></tr>
+            <tr><td class="sl">15</td><td class="reg">CC25MATR15</td><td class="name">Nahla K</td></tr>
+            <tr><td class="sl">16</td><td class="reg">CC25MATR16</td><td class="name">Ajeet Sonkar</td></tr>
+            <tr><td class="sl">17</td><td class="reg">CC25MATR17</td><td class="name">Anamika. T</td></tr>
+            <tr><td class="sl">18</td><td class="reg">CC25MATR18</td><td class="name">Misba Sherin K</td></tr>
+            <tr><td class="sl">19</td><td class="reg">CC25MATR19</td><td class="name">Adwaith Babu. P. P</td></tr>
+            <tr><td class="sl">20</td><td class="reg">CC25MATR20</td><td class="name">Muhammed Ramees T</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COORDINATOR -->
+    <div class="section-label">Course Coordinator</div>
+    <div class="coordinator-card">
+      <div class="coord-avatar">G</div>
+      <div class="coord-info">
+        <div class="name">Gafoor I.</div>
+        <div class="role">Assistant Professor</div>
+        <div class="dept">Department of Mathematics · NAM College Kallikkandy</div>
+        <div class="contact">📞 9895297473 &nbsp;|&nbsp; ✉️ <a href="mailto:gafoorbabui@gmail.com">gafoorbabui@gmail.com</a></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    NAM College Kallikkandy &middot; Department of Mathematics &middot; 2025–26 &middot;
+    <a href="./index.html">← Back to Course Home</a>
+  </div>
+
+</body>
+</html>
