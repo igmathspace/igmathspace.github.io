@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>IG College Space | NAM College & Maths Dept.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏛️ Official Space | NAM College & Maths Dept</title>
     <style>
         * {
             margin: 0;
@@ -13,399 +13,453 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            line-height: 1.5;
+            background-color: #F5F1E8;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
 
-        /* ===== MAIN THEME inspired by igmathspace.github.io ===== */
-        /* clean, modern, with subtle gradients and cards */
-        .top-banner {
-            background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            border-bottom: 4px solid #f59e0b;
+        /* ===== HEADER & BANNER COMBINED ===== */
+        header {
+            background-color: #6BA3D4;
+            padding: 0.8rem 1.5rem;
+            border-bottom: 2px solid #5285BB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .top-banner h1 {
-            font-size: 2.4rem;
-            letter-spacing: -0.5px;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
+        /* ===== HEADER ===== */
+        header {
+            background-color: #6BA3D4;
+            padding: 0.6rem 1.5rem 0.8rem;
+            border-bottom: 2px solid #5285BB;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .top-banner h1 span {
-            background: #f59e0b20;
-            padding: 0 12px;
-            border-radius: 40px;
-            font-size: 1.8rem;
-        }
-
-        .top-banner p {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            max-width: 700px;
+        .header-content {
+            max-width: 100%;
             margin: 0 auto;
-        }
-
-        /* navigation bar (home link) */
-        .nav-home {
-            background-color: #ffffff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            padding: 12px 24px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .nav-home a {
-            color: #0f172a;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
+            gap: 0.5rem;
         }
 
-        .nav-home a:hover {
-            color: #f59e0b;
+        .header-title {
+            display: none;
         }
 
-        /* container */
-        .container {
-            max-width: 1280px;
-            margin: 2rem auto;
-            padding: 0 24px;
+        nav {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 0.6rem;
+            align-items: center;
+            width: 100%;
         }
 
-        /* college grid */
-        .college-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        /* card design (soft shadows, rounded corners) */
-        .card {
-            background: white;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
-            transition: all 0.25s ease;
-            border: 1px solid #eef2ff;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
-            border-color: #cbdff2;
-        }
-
-        .card-header {
-            background: linear-gradient(115deg, #1e2b5c 0%, #2a3f7e 100%);
+        nav a {
+            text-decoration: none;
             color: white;
-            padding: 1.6rem 1.5rem;
-            text-align: center;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        .card-header .emoji-big {
-            font-size: 3rem;
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* ===== BANNER - BELOW NAV, CENTERED ===== */
+        .banner-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0.3rem 0 0;
+        }
+
+        .banner-image {
+            width: 24cm;
+            height: 4cm;
             display: block;
-            margin-bottom: 0.5rem;
+            object-fit: fill;
         }
 
-        .card-header h2 {
-            font-size: 1.8rem;
+        .naac-stamp {
+            display: none;
+        }
+
+        /* ===== COLLEGE IMAGE ===== */
+        .college-image-section {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            justify-items: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            background-color: #F5F1E8;
+        }
+
+        .college-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* ===== MISSION & VISION SECTION ===== */
+        .mission-vision {
+            position: relative;
+            max-width: 350px;
+            width: 100%;
             margin: 0;
-            font-weight: 700;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
         }
 
-        .subheading {
-            font-size: 0.9rem;
-            margin-top: 10px;
-            opacity: 0.9;
-            font-style: italic;
-            font-weight: 400;
-            border-top: 1px dashed rgba(255,255,240,0.3);
-            display: inline-block;
-            padding-top: 6px;
-        }
-
-        .card-body {
-            padding: 1.8rem;
-        }
-
-        .vision-mission {
-            background: #f8fafc;
+        .mv-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 4px solid #6BA3D4;
             padding: 1.2rem;
-            border-radius: 20px;
-            margin: 1.2rem 0;
-            border-left: 5px solid #f59e0b;
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .vision-mission p {
-            margin: 8px 0;
-            line-height: 1.5;
+        .mv-card:hover {
+            box-shadow: 0 8px 20px rgba(107, 163, 212, 0.2);
+            border-left-color: #5285BB;
         }
 
-        .vision-mission strong {
-            color: #0f172a;
+        .mv-card:hover .scroll-text {
+            animation-play-state: paused;
+        }
+
+        .scroll-text {
+            position: absolute;
+            width: calc(100% - 2.4rem);
+            animation: scrollUp 10s linear infinite;
+        }
+
+        @keyframes scrollUp {
+            0%   { transform: translateY(100%); }
+            100% { transform: translateY(-100%); }
+        }
+
+        .mv-card h3 {
+            color: #C41E3A;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            letter-spacing: 0.4px;
             font-weight: 700;
+        }
+
+        .mv-card p {
+            color: #333;
+            line-height: 1.7;
+            font-size: 0.85rem;
+            text-align: justify;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-style: italic;
+            letter-spacing: 0.3px;
+            word-spacing: 1px;
+        }
+
+        /* Scrollbar styling */
+        .mv-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .mv-card::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .mv-card::-webkit-scrollbar-thumb {
+            background: #6BA3D4;
+            border-radius: 3px;
+        }
+
+        .mv-card::-webkit-scrollbar-thumb:hover {
+            background: #5285BB;
+        }
+
+        /* ===== BUTTONS SECTION ===== */
+        .buttons-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            justify-items: center;
         }
 
         .btn {
-            display: inline-block;
-            background-color: #f59e0b;
-            color: #0f172a;
+            background: linear-gradient(180deg, #7BB8E8 0%, #4A82B8 40%, #3A6A9E 100%);
+            color: white;
+            padding: 1rem 2.8rem;
+            font-size: 1rem;
             font-weight: 700;
-            padding: 10px 24px;
-            border-radius: 40px;
-            text-decoration: none;
-            transition: all 0.2s;
-            margin-top: 12px;
             border: none;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 0.9rem;
-            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 0 #2A4E7A, 0 8px 12px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
+            min-width: 200px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .btn:hover {
-            background-color: #e68a00;
-            transform: scale(1.02);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(180deg, #8BCAF5 0%, #5A92C8 40%, #4A7AAE 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #2A4E7A, 0 10px 16px rgba(0,0,0,0.3);
         }
 
-        .btn-outline {
-            background: #eef2ff;
-            color: #1e293b;
-            border: 1px solid #cbd5e1;
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #2A4E7A, 0 4px 8px rgba(0,0,0,0.2);
         }
 
-        .btn-outline:hover {
-            background: #e2e8f0;
+        /* ===== EXTERNAL LINKS SECTION ===== */
+        .links-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1.5rem;
         }
 
-        /* quick links area (styled as modern resources) */
-        .quick-links {
-            background: white;
-            border-radius: 28px;
-            padding: 1.8rem 2rem;
-            margin-top: 2rem;
-            border: 1px solid #eef2ff;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-        }
-
-        .quick-links h3 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            color: #0f172a;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 1rem;
-            border-left: 5px solid #f59e0b;
-            padding-left: 20px;
-        }
-
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .link-item {
-            background: #f1f5f9;
-            border-radius: 18px;
-            padding: 0.9rem 1.2rem;
-            transition: all 0.2s;
-            border: 1px solid #e2e8f0;
-        }
-
-        .link-item:hover {
-            background: #ffffff;
-            border-color: #f59e0b60;
-            transform: translateX(4px);
-        }
-
-        .link-item a {
-            font-weight: 700;
-            color: #1e293b;
-            text-decoration: none;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .link-item a span:first-child {
-            font-size: 1.3rem;
-        }
-
-        .link-desc {
-            font-size: 0.75rem;
-            color: #475569;
-            margin-top: 6px;
-            padding-left: 28px;
-        }
-
-        .footer {
-            background: #0f172a;
-            color: #94a3b8;
+        .links-title {
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            font-size: 0.85rem;
-            border-top: 1px solid #1e293b;
+            font-size: 1.5rem;
+            color: #C41E3A;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+            font-weight: 700;
         }
 
-        .footer a {
-            color: #f59e0b;
+        .links-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .link-card {
+            background: white;
+            border: 2px solid #E8E0D6;
+            border-radius: 6px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .link-card:hover {
+            border-color: #6BA3D4;
+            box-shadow: 0 6px 14px rgba(107, 163, 212, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .link-card h4 {
+            color: #C41E3A;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .link-card p {
+            color: #666;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .link-card a {
+            display: inline-block;
+            background: #6BA3D4;
+            color: white;
+            padding: 0.6rem 1.2rem;
             text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
         }
 
-        @media (max-width: 680px) {
-            .container {
-                padding: 0 1rem;
-            }
-            .card-header h2 {
-                font-size: 1.5rem;
-            }
-            .top-banner h1 {
-                font-size: 1.8rem;
-            }
+        .link-card a:hover {
+            background: #5285BB;
+            transform: scale(1.05);
         }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #6BA3D4;
+            border-top: 2px solid #5285BB;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            color: white;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .college-image-section { gap: 1rem; padding: 1.5rem; }
+            .college-image { max-width: 500px; }
+            .mission-vision { max-width: 300px; }
+            .mv-card { max-height: 250px; padding: 1rem; }
+            .mv-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+            .mv-card p { font-size: 0.75rem; line-height: 1.4; }
+            .header-content { gap: 0.4rem; }
+            nav { gap: 0.4rem; }
+            nav a { font-size: 0.7rem; padding: 0.3rem 0.5rem; }
+            .banner-image { width: 20cm; height: 3.5cm; object-fit: fill; }
+        }
+
+        @media (max-width: 768px) {
+            .college-image-section { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
+            .college-image { max-width: 100%; width: 70%; margin: 0 auto; }
+            .mission-vision { max-width: 100%; width: 85%; margin: 0 auto; }
+            .mv-card { max-height: 220px; padding: 1rem; }
+            .mv-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+            .mv-card p { font-size: 0.75rem; line-height: 1.4; }
+            nav { flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+            nav a { font-size: 0.65rem; padding: 0.3rem 0.4rem; }
+            .banner-image { width: 15cm; height: 3cm; object-fit: fill; }
+            .buttons-container { grid-template-columns: 1fr; }
+            .btn { min-width: 100%; }
+        }
+
+        @media (max-width: 480px) {
+            .college-image-section { grid-template-columns: 1fr; gap: 1rem; padding: 1rem; }
+            .college-image { max-width: 100%; width: 80%; margin: 0 auto; }
+            .mission-vision { max-width: 100%; width: 90%; margin: 0 auto; }
+            .mv-card { max-height: 180px; padding: 0.8rem; }
+            .mv-card h3 { font-size: 0.9rem; margin-bottom: 0.4rem; }
+            .mv-card p { font-size: 0.7rem; line-height: 1.3; }
+            nav { gap: 0.3rem; flex-wrap: wrap; justify-content: center; }
+            nav a { font-size: 0.6rem; padding: 0.2rem 0.3rem; }
+            .banner-image { width: 10cm; height: 2.2cm; object-fit: fill; }
+            .links-container { grid-template-columns: 1fr; }
+        }
+
     </style>
 </head>
 <body>
+    <!-- ===== HEADER WITH BANNER ===== -->
+    <header>
+        <div class="header-content">
+            <div class="header-title">🏛️ IG MATH SPACE</div>
+            <nav>
+                <a href="https://igmathspace.github.io/index.html">HOME</a>
+                <a href="https://igmathspace.github.io/lessons.html">CLASSROOM</a>
+                <a href="https://igmathspace.github.io/research.html">RESEARCH</a>
+                <a href="https://igmathspace.github.io/students.html">STUDENT</a>
+                <a href="https://igmathspace.github.io/IGBOOKSPACE/">📚 BOOK</a>
+                <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ OFFICIAL</a>
+            </nav>
+            <section class="banner-section">
+                <img src="image1.png" alt="NAM College Banner" class="banner-image">
+            </section>
+        </div>
+    </header>
 
-    <!-- Header identical in spirit to igmathspace.github.io: clean, gradient, bold -->
-    <div class="top-banner">
-        <h1>
-            <span>🏛️</span> IG College Space
-        </h1>
-        <p>Your gateway to college resources, time tables, and academic excellence — part of IG Math Space ecosystem</p>
-    </div>
-
-    <!-- navigation: back to home (exactly like igmathspace.github.io style) -->
-    <div class="nav-home">
-        <a href="https://igmathspace.github.io">
-            ← 🏠 Back to Home / IG Math Space
-        </a>
-    </div>
-
-    <div class="container">
-        <!-- two main cards: NAM College Kallikkandy & Department of Mathematics -->
-        <div class="college-grid">
-            
-            <!-- NAM College Card (UPDATED name & vision/mission) -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="emoji-big">📚🏛️</span>
-                    <h2>NAM College Kallikkandy</h2>
-                    <div class="subheading">Affiliated to Kannur University | Re-Accredited with NAAC A grade</div>
-                </div>
-                <div class="card-body">
-                    <div class="vision-mission">
-                        <p><strong>✨ Vision:</strong> Education for Intellectual Formation, Liberation and National Integration.</p>
-                        <p><strong>🎯 Mission:</strong> To impart quality education to students belonging to different communities, especially the minority community in the rural area, and equip them to achieve and manage the latest requirements of living through innovation and updating, and in unison to buttress the intellectual and moral strengthening of the youth to act as a creative force in the process of nation building.</p>
-                    </div>
-                    <p style="color: #334155; margin-bottom: 10px;">📅 Time tables, academic materials & resources for students and faculty.</p>
-                    <!-- keep consistent with the previous relative link pattern: NAMC/TIME TABLE/2026-27/ -->
-                    <a href="NAMC/TIME%20TABLE/2026-27/" class="btn">📖 Access NAMC Resources →</a>
+    <!-- ===== COLLEGE IMAGE WITH MISSION & VISION ON SIDES ===== -->
+    <section class="college-image-section">
+        <!-- ===== MISSION (LEFT) ===== -->
+        <section class="mission-vision">
+            <div class="mv-card">
+                <h3>📋 Mission</h3>
+                <div class="scroll-text">
+                    <p>
+                        To provide high-quality education and foster intellectual excellence, empowering students with knowledge, skills, and values necessary to become responsible citizens and contributing members of society. We are committed to promoting academic rigor, research-driven learning, and holistic development.
+                    </p>
                 </div>
             </div>
+        </section>
 
-            <!-- Department Of Mathematics Card (renamed + vision/mission + galileo quote) -->
-            <!-- Department Of Mathematics Card -->
-<div class="card">
-    <div class="card-header">
-        <span class="emoji-big">📐🧮</span>
-        <h2>Department of Mathematics</h2>
-        <div class="subheading"><i><strong>"Nature is written in mathematical language."</strong> — Galileo Galilei</i></div>
-    </div>
-    <div class="card-body">
-        <div class="vision-mission">
-            <p><strong>🔭 VISION:</strong> Aim to make Mathematics education accessible to everyone in the community regardless of their socio-economic status.</p>
-            <p><strong>📌 MISSION:</strong> To help students from socially backward rural areas, to develop mathematical skills to equip them for higher studies and careers.</p>
-        </div>
-        <p style="color: #334155;">Department-specific resources, materials, and academic content for faculty and students. Explore mathematical universe.</p>
-        <a href="MATHS%20DEPT/" class="btn btn-outline" style="background:#f59e0b; color:#0f172a;">✨ Enter →</a>
-    </div>
-</div>
+        <!-- ===== COLLEGE IMAGE (CENTER) ===== -->
+        <img src="image2.jpg" alt="NAM College Building" class="college-image">
 
-        <!-- Quick Links Section: completely replaced with the provided links + description -->
-        <div class="quick-links">
-            <h3>🔗 Quick Access & Official Portals</h3>
-            <div class="links-grid">
-                <div class="link-item">
-                    <a href="https://www.namcollege.ac.in/" target="_blank" rel="noopener noreferrer">
-                        <span>🏛️</span> NAM College Official Website
-                    </a>
-                    <div class="link-desc">College portal – notices, academics, departments, and e-resources.</div>
-                </div>
-                <div class="link-item">
-                    <a href="https://www.kannuruniversity.ac.in/en/" target="_blank" rel="noopener noreferrer">
-                        <span>🎓</span> Kannur University
-                    </a>
-                    <div class="link-desc">University homepage – syllabus, results, examinations and updates.</div>
-                </div>
-                <div class="link-item">
-                    <a href="https://kannur.kreap.co.in/" target="_blank" rel="noopener noreferrer">
-                        <span>📊</span> KREAP – Kannur University ERP
-                    </a>
-                    <div class="link-desc">Student portal for attendance, marks, and academic management.</div>
-                </div>
-                <div class="link-item">
-                    <a href="https://admissions.kannuruniversity.ac.in/" target="_blank" rel="noopener noreferrer">
-                        <span>📝</span> Kannur University Admissions
-                    </a>
-                    <div class="link-desc">UG/PG admission portal, prospectus, and online applications.</div>
-                </div>
-                <div class="link-item">
-                    <a href="https://scholarship.kshec.kerala.gov.in/" target="_blank" rel="noopener noreferrer">
-                        <span>💰</span> Kerala Scholarship Portal (KSHeC)
-                    </a>
-                    <div class="link-desc">Scholarship schemes for eligible students – apply online.</div>
-                </div>
-                <div class="link-item">
-                    <a href="https://highereducation.kerala.gov.in/" target="_blank" rel="noopener noreferrer">
-                        <span>🏛️</span> Dept. of Higher Education, Kerala
-                    </a>
-                    <div class="link-desc">Policies, higher education initiatives and official gazettes.</div>
-                </div>
-                <div class="link-item">
-                    <a href="https://internshipkerala.org/" target="_blank" rel="noopener noreferrer">
-                        <span>💼</span> Internship Kerala
-                    </a>
-                    <div class="link-desc">Opportunities for internships, skill development and training.</div>
+        <!-- ===== VISION (RIGHT) ===== -->
+        <section class="mission-vision">
+            <div class="mv-card">
+                <h3>🎯 Vision</h3>
+                <div class="scroll-text">
+                    <p>
+                        To be a premier institution of higher learning recognized for academic excellence, innovative research, and social responsibility. We envision NAM College as a beacon of quality education that nurtures global leaders and professionals equipped to address contemporary challenges with wisdom and integrity.
+                    </p>
                 </div>
             </div>
+        </section>
+    </section>
+
+    <!-- ===== BUTTONS ===== -->
+    <section class="buttons-section">
+        <div class="buttons-container">
+            <button class="btn" onclick="alert('Department Space - Coming Soon!')">Department Space</button>
+            <button class="btn" onclick="alert('FYUGP Information - Coming Soon!')">FYUGP</button>
+            <button class="btn" onclick="alert('Admission Portal - Coming Soon!')">Admission</button>
+            <button class="btn" onclick="alert('TimeTable - Coming Soon!')">TimeTable</button>
         </div>
+    </section>
 
-        <!-- additional info: timetable hint (optional) aligns with NAMC structure -->
-        <div style="margin-top: 2rem; background: #fff7ed; border-radius: 24px; padding: 1rem 1.8rem; border: 1px solid #ffe4c4;">
-            <p style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: space-between;">
-                <span style="font-weight: 600;">📅 <strong>NAMC Time Table 2026-27</strong> — updated regularly for all semesters.</span>
-                <a href="NAMC/TIME%20TABLE/2026-27/" style="color:#f59e0b; font-weight: 500;">Direct Access →</a>
-            </p>
+    <!-- ===== EXTERNAL LINKS ===== -->
+    <section class="links-section">
+        <h2 class="links-title">📚 Useful Links</h2>
+        <div class="links-container">
+            <div class="link-card">
+                <h4>NAM College Kallikkandy</h4>
+                <p>Official website of NAM College with admissions, programs, and college news</p>
+                <a href="https://www.namcollege.ac.in/" target="_blank">Visit Official Site</a>
+            </div>
+            <div class="link-card">
+                <h4>Kannur University</h4>
+                <p>Academic authority offering degree programs, affiliations, and examination schedules</p>
+                <a href="https://www.kannuruniversity.ac.in/en/" target="_blank">Visit University</a>
+            </div>
+            <div class="link-card">
+                <h4>Higher Education, Kerala</h4>
+                <p>State portal for higher education policies, schemes, and academic updates</p>
+                <a href="https://highereducation.kerala.gov.in/" target="_blank">Visit Portal</a>
+            </div>
+            <div class="link-card">
+                <h4>Internship Kerala</h4>
+                <p>Internship opportunities and placement support for students</p>
+                <a href="https://internshipkerala.org/" target="_blank">Explore Internships</a>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="footer">
-        <p>@ Gafoor I, Assistant Professor, Department of Mathematics, NAM College, Kallkkandy & Department of Mathematics</p>
-        <p>📍 Resources for students & educators | Innovation | Integrity | Inclusion</p>
-    </div>
-
-    <script>
-        // Optional: small console greeting to confirm load (no functional changes needed)
-        console.log("IG College Space — Theme aligned with IG Math Space | All updates applied (Vision/Mission, Quick Links, Maths Dept)");
-    </script>
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>Copyright © Gafoor I</p>
+        <p>Assistant Professor, Department of Mathematics</p>
+        <p>NAM College Kallikkandy</p>
+    </footer>
 </body>
 </html>

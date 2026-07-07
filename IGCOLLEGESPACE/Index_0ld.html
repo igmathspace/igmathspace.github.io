@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>IG College Space | NAM College & Maths Dept.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        /* ===== MAIN THEME inspired by igmathspace.github.io ===== */
+        /* clean, modern, with subtle gradients and cards */
+        .top-banner {
+            background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid #f59e0b;
+        }
+
+        .top-banner h1 {
+            font-size: 2.4rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .top-banner h1 span {
+            background: #f59e0b20;
+            padding: 0 12px;
+            border-radius: 40px;
+            font-size: 1.8rem;
+        }
+
+        .top-banner p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* navigation bar (home link) */
+        .nav-home {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 12px 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .nav-home a {
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .nav-home a:hover {
+            color: #f59e0b;
+        }
+
+        /* container */
+        .container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 24px;
+        }
+
+        /* college grid */
+        .college-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* card design (soft shadows, rounded corners) */
+        .card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            transition: all 0.25s ease;
+            border: 1px solid #eef2ff;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+            border-color: #cbdff2;
+        }
+
+        .card-header {
+            background: linear-gradient(115deg, #1e2b5c 0%, #2a3f7e 100%);
+            color: white;
+            padding: 1.6rem 1.5rem;
+            text-align: center;
+        }
+
+        .card-header .emoji-big {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .subheading {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            opacity: 0.9;
+            font-style: italic;
+            font-weight: 400;
+            border-top: 1px dashed rgba(255,255,240,0.3);
+            display: inline-block;
+            padding-top: 6px;
+        }
+
+        .card-body {
+            padding: 1.8rem;
+        }
+
+        .vision-mission {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 20px;
+            margin: 1.2rem 0;
+            border-left: 5px solid #f59e0b;
+        }
+
+        .vision-mission p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .vision-mission strong {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #f59e0b;
+            color: #0f172a;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-top: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #e68a00;
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-outline {
+            background: #eef2ff;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn-outline:hover {
+            background: #e2e8f0;
+        }
+
+        /* quick links area (styled as modern resources) */
+        .quick-links {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin-top: 2rem;
+            border: 1px solid #eef2ff;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+
+        .quick-links h3 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+            border-left: 5px solid #f59e0b;
+            padding-left: 20px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .link-item {
+            background: #f1f5f9;
+            border-radius: 18px;
+            padding: 0.9rem 1.2rem;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .link-item:hover {
+            background: #ffffff;
+            border-color: #f59e0b60;
+            transform: translateX(4px);
+        }
+
+        .link-item a {
+            font-weight: 700;
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .link-item a span:first-child {
+            font-size: 1.3rem;
+        }
+
+        .link-desc {
+            font-size: 0.75rem;
+            color: #475569;
+            margin-top: 6px;
+            padding-left: 28px;
+        }
+
+        .footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 0.85rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        .footer a {
+            color: #f59e0b;
+            text-decoration: none;
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 0 1rem;
+            }
+            .card-header h2 {
+                font-size: 1.5rem;
+            }
+            .top-banner h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header identical in spirit to igmathspace.github.io: clean, gradient, bold -->
+    <div class="top-banner">
+        <h1>
+            <span>🏛️</span> IG College Space
+        </h1>
+        <p>Your gateway to college resources, time tables, and academic excellence — part of IG Math Space ecosystem</p>
+    </div>
+
+    <!-- navigation: back to home (exactly like igmathspace.github.io style) -->
+    <div class="nav-home">
+        <a href="https://igmathspace.github.io">
+            ← 🏠 Back to Home / IG Math Space
+        </a>
+    </div>
+
+    <div class="container">
+        <!-- two main cards: NAM College Kallikkandy & Department of Mathematics -->
+        <div class="college-grid">
+            
+            <!-- NAM College Card (UPDATED name & vision/mission) -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="emoji-big">📚🏛️</span>
+                    <h2>NAM College Kallikkandy</h2>
+                    <div class="subheading">Affiliated to Kannur University | Re-Accredited with NAAC A grade</div>
+                </div>
+                <div class="card-body">
+                    <div class="vision-mission">
+                        <p><strong>✨ Vision:</strong> Education for Intellectual Formation, Liberation and National Integration.</p>
+                        <p><strong>🎯 Mission:</strong> To impart quality education to students belonging to different communities, especially the minority community in the rural area, and equip them to achieve and manage the latest requirements of living through innovation and updating, and in unison to buttress the intellectual and moral strengthening of the youth to act as a creative force in the process of nation building.</p>
+                    </div>
+                    <p style="color: #334155; margin-bottom: 10px;">📅 Time tables, academic materials & resources for students and faculty.</p>
+                    <!-- keep consistent with the previous relative link pattern: NAMC/TIME TABLE/2026-27/ -->
+                    <a href="NAMC/TIME%20TABLE/2026-27/" class="btn">📖 Access NAMC Resources →</a>
+                </div>
+            </div>
+
+            <!-- Department Of Mathematics Card (renamed + vision/mission + galileo quote) -->
+            <!-- Department Of Mathematics Card -->
+<div class="card">
+    <div class="card-header">
+        <span class="emoji-big">📐🧮</span>
+        <h2>Department of Mathematics</h2>
+        <div class="subheading"><i><strong>"Nature is written in mathematical language."</strong> — Galileo Galilei</i></div>
+    </div>
+    <div class="card-body">
+        <div class="vision-mission">
+            <p><strong>🔭 VISION:</strong> Aim to make Mathematics education accessible to everyone in the community regardless of their socio-economic status.</p>
+            <p><strong>📌 MISSION:</strong> To help students from socially backward rural areas, to develop mathematical skills to equip them for higher studies and careers.</p>
+        </div>
+        <p style="color: #334155;">Department-specific resources, materials, and academic content for faculty and students. Explore mathematical universe.</p>
+        <a href="MATHS%20DEPT/" class="btn btn-outline" style="background:#f59e0b; color:#0f172a;">✨ Enter →</a>
+    </div>
+</div>
+
+        <!-- Quick Links Section: completely replaced with the provided links + description -->
+        <div class="quick-links">
+            <h3>🔗 Quick Access & Official Portals</h3>
+            <div class="links-grid">
+                <div class="link-item">
+                    <a href="https://www.namcollege.ac.in/" target="_blank" rel="noopener noreferrer">
+                        <span>🏛️</span> NAM College Official Website
+                    </a>
+                    <div class="link-desc">College portal – notices, academics, departments, and e-resources.</div>
+                </div>
+                <div class="link-item">
+                    <a href="https://www.kannuruniversity.ac.in/en/" target="_blank" rel="noopener noreferrer">
+                        <span>🎓</span> Kannur University
+                    </a>
+                    <div class="link-desc">University homepage – syllabus, results, examinations and updates.</div>
+                </div>
+                <div class="link-item">
+                    <a href="https://kannur.kreap.co.in/" target="_blank" rel="noopener noreferrer">
+                        <span>📊</span> KREAP – Kannur University ERP
+                    </a>
+                    <div class="link-desc">Student portal for attendance, marks, and academic management.</div>
+                </div>
+                <div class="link-item">
+                    <a href="https://admissions.kannuruniversity.ac.in/" target="_blank" rel="noopener noreferrer">
+                        <span>📝</span> Kannur University Admissions
+                    </a>
+                    <div class="link-desc">UG/PG admission portal, prospectus, and online applications.</div>
+                </div>
+                <div class="link-item">
+                    <a href="https://scholarship.kshec.kerala.gov.in/" target="_blank" rel="noopener noreferrer">
+                        <span>💰</span> Kerala Scholarship Portal (KSHeC)
+                    </a>
+                    <div class="link-desc">Scholarship schemes for eligible students – apply online.</div>
+                </div>
+                <div class="link-item">
+                    <a href="https://highereducation.kerala.gov.in/" target="_blank" rel="noopener noreferrer">
+                        <span>🏛️</span> Dept. of Higher Education, Kerala
+                    </a>
+                    <div class="link-desc">Policies, higher education initiatives and official gazettes.</div>
+                </div>
+                <div class="link-item">
+                    <a href="https://internshipkerala.org/" target="_blank" rel="noopener noreferrer">
+                        <span>💼</span> Internship Kerala
+                    </a>
+                    <div class="link-desc">Opportunities for internships, skill development and training.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- additional info: timetable hint (optional) aligns with NAMC structure -->
+        <div style="margin-top: 2rem; background: #fff7ed; border-radius: 24px; padding: 1rem 1.8rem; border: 1px solid #ffe4c4;">
+            <p style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: space-between;">
+                <span style="font-weight: 600;">📅 <strong>NAMC Time Table 2026-27</strong> — updated regularly for all semesters.</span>
+                <a href="NAMC/TIME%20TABLE/2026-27/" style="color:#f59e0b; font-weight: 500;">Direct Access →</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>@ Gafoor I, Assistant Professor, Department of Mathematics, NAM College, Kallkkandy & Department of Mathematics</p>
+        <p>📍 Resources for students & educators | Innovation | Integrity | Inclusion</p>
+    </div>
+
+    <script>
+        // Optional: small console greeting to confirm load (no functional changes needed)
+        console.log("IG College Space — Theme aligned with IG Math Space | All updates applied (Vision/Mission, Quick Links, Maths Dept)");
+    </script>
+</body>
+</html>
