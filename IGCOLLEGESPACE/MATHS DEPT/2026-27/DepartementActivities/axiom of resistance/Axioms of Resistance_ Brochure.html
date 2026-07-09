@@ -33,19 +33,23 @@
     .banner-frame {
       width: 100%;
       background: linear-gradient(135deg, #0f1f3d 0%, #1d4ed8 100%);
-      padding: 0.4rem;
+      padding: 0.3rem;
+      display: flex;
+      justify-content: center;
     }
     .banner-frame img {
       display: block;
-      width: 100%;
+      width: auto;
       height: auto;
-      max-height: 260px;
-      object-fit: cover;
-      border-radius: 18px;
+      max-width: 100%;
+      max-height: 140px;
+      object-fit: contain;
+      border-radius: 14px;
+      background: #ffffff;
     }
     .programme-heading {
       text-align: center;
-      padding: 1.8rem 2rem 0.6rem;
+      padding: 1rem 1.5rem 0.4rem;
       background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 100%);
     }
     .programme-heading .eyebrow {
@@ -53,31 +57,31 @@
       background: #eef4ff;
       color: #1d4ed8;
       font-weight: 700;
-      font-size: 0.78rem;
-      letter-spacing: 1.5px;
+      font-size: 0.68rem;
+      letter-spacing: 1.4px;
       text-transform: uppercase;
-      padding: 0.35rem 1.2rem;
+      padding: 0.28rem 1rem;
       border-radius: 40px;
       border: 1px solid #c3d4f0;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
     }
     .programme-heading h1 {
-      font-size: 2.6rem;
+      font-size: 1.7rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1.15;
       color: #0f1f3d;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.3rem 0;
     }
     .programme-heading h1 i {
       color: #f5a623;
-      font-size: 2.1rem;
-      margin-right: 8px;
+      font-size: 1.4rem;
+      margin-right: 6px;
     }
     .programme-heading .gold-divider {
-      width: 90px;
-      height: 4px;
-      margin: 0.6rem auto 0;
+      width: 70px;
+      height: 3px;
+      margin: 0.35rem auto 0;
       background: linear-gradient(90deg, #1d4ed8, #f5a623);
       border-radius: 4px;
     }
@@ -110,7 +114,7 @@
       background: #c3d4f0;
     }
     .brochure-content {
-      padding: 2rem 2.5rem 2.8rem;
+      padding: 1.4rem 2rem 2rem;
     }
     /* English & Malayalam panels */
     .lang-panel {
@@ -126,7 +130,7 @@
     }
     /* typography */
     .title-main {
-      font-size: 2.8rem;
+      font-size: 1.7rem;
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.1;
@@ -136,92 +140,96 @@
     }
     .title-main i {
       color: #1d4ed8;
-      font-size: 2.2rem;
+      font-size: 1.4rem;
       margin-right: 6px;
     }
     .subhead {
-      font-size: 1.15rem;
+      font-size: 0.9rem;
       font-weight: 400;
       color: #2f4066;
-      border-left: 5px solid #f5a623;
-      margin: 0.4rem 0 1.8rem 0;
+      border-left: 4px solid #f5a623;
+      margin: 0.3rem 0 1.1rem 0;
       background: #eef4ff;
-      padding: 0.75rem 1.4rem;
+      padding: 0.5rem 1rem;
       border-radius: 0 40px 40px 0;
       display: inline-block;
+      line-height: 1.4;
     }
     .event-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem 3rem;
+      gap: 1.2rem 2rem;
       background: #eef4ff;
-      padding: 1.2rem 2rem;
+      padding: 0.85rem 1.4rem;
       border-radius: 60px;
-      margin: 1.5rem 0 2.2rem 0;
+      margin: 1rem 0 1.4rem 0;
       align-items: center;
     }
     .event-meta-item {
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      font-size: 1rem;
+      gap: 0.5rem;
+      font-size: 0.85rem;
       color: #1c2b4a;
     }
     .event-meta-item i {
       color: #1d4ed8;
-      width: 1.4rem;
-      font-size: 1.2rem;
+      width: 1.1rem;
+      font-size: 1rem;
     }
     .coordinator-box {
       background: #e3ebf9;
-      padding: 0.8rem 1.6rem;
+      padding: 0.55rem 1.2rem;
       border-radius: 60px;
       font-weight: 500;
+      font-size: 0.82rem;
       border: 1px solid #c3d4f0;
       display: inline-block;
-      margin: 0.3rem 0 0.8rem 0;
+      margin: 0.3rem 0 0.6rem 0;
     }
     .section-title {
-      font-size: 1.6rem;
+      font-size: 1.15rem;
       font-weight: 600;
       color: #0f1f3d;
-      margin: 2rem 0 0.8rem 0;
-      border-bottom: 3px solid #1d4ed8;
-      padding-bottom: 0.25rem;
+      margin: 1.3rem 0 0.55rem 0;
+      border-bottom: 2px solid #1d4ed8;
+      padding-bottom: 0.2rem;
       display: inline-block;
     }
     .section-title i {
-      margin-right: 10px;
+      margin-right: 8px;
       color: #1d4ed8;
     }
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.6rem;
-      margin: 1.5rem 0 1rem 0;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      margin: 0.9rem 0 0.7rem 0;
     }
     .card {
       background: #f7faff;
-      padding: 1.2rem 1.6rem;
-      border-radius: 24px;
-      border-left: 5px solid #1d4ed8;
+      padding: 0.85rem 1.1rem;
+      border-radius: 20px;
+      border-left: 4px solid #1d4ed8;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
     .card h3 {
       font-weight: 600;
+      font-size: 0.92rem;
       color: #16305e;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 0.4rem;
+      gap: 6px;
+      margin-bottom: 0.3rem;
     }
     .card h3 i {
       color: #1d4ed8;
+      font-size: 0.9rem;
     }
     .card p {
       color: #33415e;
-      line-height: 1.5;
-      font-size: 0.98rem;
+      line-height: 1.45;
+      font-size: 0.82rem;
     }
     .importance-list {
       list-style: none;
@@ -234,22 +242,23 @@
     }
     .speaker-block {
       background: #e3ebf9;
-      padding: 0.8rem 1.8rem;
+      padding: 0.55rem 1.3rem;
       border-radius: 60px;
       display: inline-block;
-      margin: 0.5rem 0 0.2rem 0;
+      margin: 0.4rem 0 0.2rem 0;
       font-weight: 500;
+      font-size: 0.82rem;
     }
     .footer-note {
-      margin-top: 2rem;
-      font-size: 0.95rem;
+      margin-top: 1.3rem;
+      font-size: 0.8rem;
       color: #4a5878;
       border-top: 1px solid #d7e3f7;
-      padding-top: 1.2rem;
+      padding-top: 0.85rem;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 0.8rem;
+      gap: 0.6rem;
     }
     .footer-note i {
       color: #1d4ed8;
@@ -260,17 +269,20 @@
     }
     /* malayalam specific */
     .ml .title-main {
-      font-size: 2.4rem;
+      font-size: 1.5rem;
     }
     .ml .subhead {
-      font-size: 1rem;
+      font-size: 0.85rem;
     }
     @media (max-width: 700px) {
-      .brochure-content { padding: 1.2rem; }
-      .title-main { font-size: 2rem; }
+      .brochure-content { padding: 1rem; }
+      .title-main { font-size: 1.4rem; }
+      .programme-heading h1 { font-size: 1.4rem; }
+      .section-title { font-size: 1rem; }
       .card-grid { grid-template-columns: 1fr; }
-      .event-meta { flex-direction: column; align-items: flex-start; gap: 0.8rem; border-radius: 30px; }
+      .event-meta { flex-direction: column; align-items: flex-start; gap: 0.5rem; border-radius: 24px; }
       .lang-toggle { padding: 0.5rem 1rem; }
+      .banner-frame img { max-height: 110px; }
     }
     @media print {
       .lang-toggle { display: none; }
