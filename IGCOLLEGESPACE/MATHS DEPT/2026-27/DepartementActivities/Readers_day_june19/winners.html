@@ -227,6 +227,11 @@
         }
         .save-pdf-btn:active { transform: translateY(0); }
 
+        /* ===== Print-only copyright footer (shown on each PDF card) ===== */
+        .card-print-footer {
+            display: none;
+        }
+
         /* ===== Footer — tiny blue banner ===== */
         .page-footer {
             background: #1d4ed8;
@@ -276,6 +281,16 @@
                 border: 2px solid #0e7c6e !important;
             }
             .save-pdf-btn { display: none !important; }
+            .card-print-footer {
+                display: block !important;
+                text-align: center !important;
+                margin-top: 1.4rem !important;
+                padding-top: 0.6rem !important;
+                border-top: 1px solid #999 !important;
+                font-size: 9pt !important;
+                color: #444 !important;
+                letter-spacing: 0.2px !important;
+            }
         }
 
         /* ===== Responsive ===== */
@@ -351,6 +366,7 @@
                 📄 Save as PDF
             </button>
         </div>
+        <div class="card-print-footer">Copyright@Mathematics Department, NAMC</div>
     </article>
 
     <!-- ============== MALAYALAM REVIEW CARD ============== -->
@@ -395,6 +411,7 @@
                 📄 Save as PDF
             </button>
         </div>
+        <div class="card-print-footer">copyright@Mathematics Department, NAMC</div>
     </article>
 
     <footer class="page-footer">
@@ -416,6 +433,14 @@
 
         // ===== Save as PDF =====
         // Uses the browser's built-in "Print → Save as PDF" — no external libs needed.
+        // The document title is temporarily changed so that Chrome/Edge/etc.
+        // pre-fill the "Save as" filename in the print dialog.
+        const PDF_FILE_NAMES = {
+            'card-english': 'Work of Afnan',
+            'card-malayalam': 'work of Fathima AK'
+        };
+        const ORIGINAL_TITLE = document.title;
+
         function saveCardAsPDF(cardId) {
             // 1. Make sure the target card is the active one
             const tab = cardId.replace('card-', '');
@@ -423,11 +448,20 @@
             if (tabBtn && !tabBtn.classList.contains('active')) {
                 tabBtn.click();
             }
-            // 2. Wait a tick for the layout to settle, then open the print dialog
+
+            // 2. Set the document title so it becomes the suggested PDF filename
+            document.title = PDF_FILE_NAMES[cardId] || ORIGINAL_TITLE;
+
+            // 3. Wait a tick for the layout to settle, then open the print dialog
             setTimeout(() => {
                 window.print();
             }, 150);
         }
+
+        // Restore the original page title once the print dialog is closed
+        window.addEventListener('afterprint', () => {
+            document.title = ORIGINAL_TITLE;
+        });
     </script>
 </body>
 </html>
