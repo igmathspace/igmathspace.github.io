@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Winner's Work · Review Writing Competition · NAM College</title>
+    <style>
+        /* ===== Theme — matches "Reading Beyond Limits" event details page ===== */
+        :root {
+            --primary: #2dd4bf;            /* teal accent */
+            --primary-dark: #0e7c6e;       /* deep teal */
+            --dark: #0f172a;               /* navy near-black */
+            --navy: #1e2b3c;
+            --text: #1e293b;
+            --text-muted: #5b6e8c;
+            --bg: #f5f7fc;
+            --card-bg: #FFFFF0;            /* ivory */
+            --card-border: #d6c89a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Roboto', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding-bottom: 0;
+        }
+
+        /* ===== Top banner — 639px × 171px ===== */
+        .top-banner-wrap {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0 0.4rem;
+        }
+        .top-banner {
+            width: 639px;
+            max-width: 100%;
+            height: 171px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* ===== Page heading ===== */
+        .page-heading {
+            text-align: center;
+            padding: 0.8rem 1.5rem 0.4rem;
+            max-width: 940px;
+            margin: 0 auto;
+        }
+        .heading-regular {
+            margin-bottom: 1.1rem;
+        }
+        .heading-regular h1 {
+            font-size: 1.6rem;
+            color: var(--dark);
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.3px;
+        }
+        .heading-regular p {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0.12rem;
+        }
+
+        /* Bold sub-heading */
+        .heading-bold {
+            background: linear-gradient(135deg, #e6f7f5 0%, #f0f4ff 100%);
+            border-radius: 12px;
+            padding: 1rem 1.4rem;
+            border-left: 5px solid var(--primary);
+            border-right: 5px solid var(--primary);
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .heading-bold h2 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+        }
+        .heading-bold p {
+            font-size: 0.95rem;
+            color: var(--dark);
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+        }
+        .winner-badge {
+            display: inline-block;
+            border: 3px solid var(--primary-dark);
+            background: #ffffff;
+            color: var(--primary-dark);
+            padding: 0.45rem 1.4rem;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-top: 0.7rem;
+            box-shadow: 0 3px 10px rgba(45, 212, 191, 0.25);
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== Tabs ===== */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 40px;
+            width: fit-content;
+            margin: 1.4rem auto 1.2rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+        .tab-btn {
+            padding: 0.6rem 1.4rem;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            background: transparent;
+            color: #0e7c6e;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .tab-btn:hover { background: #e6f7f5; }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2dd4bf 0%, #0e7c6e 100%);
+            color: white;
+            border-color: #0f2b3d;
+            box-shadow: 0 4px 12px rgba(14, 124, 110, 0.3);
+        }
+
+        /* ===== Review card (ivory, black text) ===== */
+        .review-card {
+            display: none;
+            background: var(--card-bg);
+            color: #000;
+            max-width: 880px;
+            margin: 0 auto 1.6rem;
+            border-radius: 14px;
+            padding: 2.2rem 2.6rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 1px solid var(--card-border);
+        }
+        .review-card.active { display: block; }
+
+        .card-header {
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1.3rem;
+            margin-bottom: 1.4rem;
+        }
+        .card-header h2 {
+            font-size: 1.35rem;
+            color: #000;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            line-height: 1.4;
+        }
+        .by-line {
+            font-size: 0.98rem;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+        .author-photo {
+            display: block;
+            width: 3.5cm;
+            height: 4.5cm;
+            object-fit: cover;
+            margin: 0 auto 0.7rem;
+            border: 2px solid var(--card-border);
+            background: #f5f0d8;
+        }
+        .author-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 0.1rem;
+        }
+        .author-class {
+            font-size: 0.9rem;
+            color: #4a3f1f;
+        }
+
+        .card-body {
+            text-align: justify;
+            color: #000;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        .card-body p {
+            margin-bottom: 0.85rem;
+        }
+        .card-body p:last-child { margin-bottom: 0; }
+
+        .card-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--card-border);
+        }
+        .save-pdf-btn {
+            background: linear-gradient(135deg, #2dd4bf 0%, #0e7c6e 100%);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(14, 124, 110, 0.3);
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .save-pdf-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(14, 124, 110, 0.4);
+        }
+        .save-pdf-btn:active { transform: translateY(0); }
+
+        /* ===== Footer — tiny blue banner ===== */
+        .page-footer {
+            background: #1d4ed8;
+            color: #ffffff;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.78rem;
+            margin-top: 0.8rem;
+            letter-spacing: 0.2px;
+        }
+
+        /* ===== Print styles — clean PDF ===== */
+        @page {
+            size: A4;
+            margin: 12mm;
+        }
+        @media print {
+            .top-banner-wrap, .page-heading, .tabs, .page-footer, .save-pdf-btn {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .review-card {
+                display: block !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                max-width: 100% !important;
+                box-shadow: none !important;
+                border: 1px solid #999 !important;
+                margin: 0 !important;
+                padding: 1.5rem 1.8rem !important;
+                page-break-inside: auto;
+            }
+            .review-card:not(.active) { display: none !important; }
+            .card-header {
+                border-bottom: 2px solid #0e7c6e !important;
+            }
+            .card-body {
+                text-align: justify !important;
+                font-size: 11pt !important;
+                line-height: 1.55 !important;
+            }
+            .author-photo {
+                border: 2px solid #0e7c6e !important;
+            }
+            .save-pdf-btn { display: none !important; }
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .review-card { padding: 1.4rem 1.5rem; }
+            .heading-regular h1 { font-size: 1.3rem; }
+            .heading-bold h2 { font-size: 1.1rem; }
+            .tab-btn { padding: 0.5rem 0.9rem; font-size: 0.8rem; }
+            .card-header h2 { font-size: 1.15rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top banner (banner.png: 639px × 171px) -->
+    <div class="top-banner-wrap">
+        <img src="banner.png" alt="Reading Beyond Limits · NAM College" class="top-banner"
+             onerror="this.onerror=null; this.removeAttribute('src'); this.style.background='linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%)';">
+    </div>
+
+    <!-- Page heading -->
+   
+        <div class="heading-bold">
+            <h2>Review Writing Competition </h2>
+            <p>♾️ Reading Beyond Limits – An Infinity Initiative ♾️</p>
+            <p>June 19</p>
+            <p>📖 National Reading Day Campaign</p>
+            <p>Organised by Department of Mathematics, NAM College Kallikandy</p>
+            <div class="winner-badge">🏆 Winner's Work</div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs" role="tablist">
+        <button class="tab-btn active" data-tab="english" type="button" role="tab">
+            🇬🇧 Top-tier Review (English)
+        </button>
+        <button class="tab-btn" data-tab="malayalam" type="button" role="tab">
+            🌐 Top-tier Review (Malayalam)
+        </button>
+    </div>
+
+    <!-- ============== ENGLISH REVIEW CARD ============== -->
+    <article id="card-english" class="review-card active">
+        <div class="card-header">
+            <h2>A review on ഒന്നാം പാഠം: ബഹിരാകാശം</h2>
+            <p class="by-line">Written by: <strong>Afnan Khaleel</strong></p>
+            <img src="afnan.jpg" alt="Afnan Khaleel" class="author-photo"
+                 onerror="this.onerror=null; this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=\'author-photo\' style=\'display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:#7c6a30;background:#f5f0d8;\'>Photo</div>');">
+            <p class="author-name">Afnan Khaleel</p>
+            <p class="author-class">III Semester B.A English</p>
+        </div>
+        <div class="card-body">
+            <p>The short story " ഒന്നാം പാഠം : ബഹിരാകാശം " by Aymanam John is a melancholic narrative, a quiet tragedy, exploring the impact of a father's absence in his family.</p>
+
+            <p>The story begins with the father travelling to space, which initially is celebrated by his family, soon falls into a slight resentment from his children. The story is narrated through the lens of the eldest son, the 14 year old Vivek.</p>
+
+            <p>Although the language is not very complicated, John does not disappoint with his style. The events that take place over the course of 3 years is condensed into a few paragraphs, while remaining remarkably compact. Beautiful metaphors and imagery is used to draw the reader into simultaneously share the speakers emotions.</p>
+
+            <p>The narration style is almost rhythmic, like a lullaby with the choice of words being well crafted. There is a beautiful contrast shown in the story where Vivek is being scolded by his mother for playing cricket instead of staying with his mother, forcing him to bear the responsibility of being the man of the house prematurely expiring his childhood, where meanwhile his father is compared to a foetus, curled in the sterile security of the spaceship. The irony in the situation is so painful, yet subtly written.</p>
+
+            <p>This can also be seen as a metaphorical representation of the 'Gulf custom' common in the state. Like how the family stands waiting on the terrace to see the speck of light, families suffice their wish to see their man by watching them through screens. It makes us question if the 'better future' or 'the greater good' is actually worth the loneliness, the heartbreak, the absence of the root in our systems.</p>
+
+            <p>Aymanam John's style of writing appeals to most because it uses sensory experiences as elements of the story, helping the readers to connect with it more. The part where the son describes the laughter of his father, the smell of his sweat, the callousness of his hands, reverberates through your sense, leaving behind a hollow sensation unable to be named.</p>
+
+            <p>The story ends with their the family's bittersweet gaze towards the sky, revelling on the glimpse of their father, yet weighed down by the fact that he'd be gone for another two years. The youngest son asks about the father and whether he's become god. Vivek establishes this statement, but not applauding, rather mourning. Because God is someone who's invisible, distant, someone who provides, and exists in most minds through abstract faith. By equating the father to God, he becomes a mere concept, someone not reachable, someone distant.</p>
+
+            <p>Aymanam John successfully crafted this story into something that stays with you long after you're finished reading it. It pushes you through numerous emotions all at once. Rather than a story about success or scientific discovery, expeditions or such like the title may suggest, the story ironically guides through the earthly realities, exploring loneliness, alienation, love and the absence of love.</p>
+        </div>
+        <div class="card-footer">
+            <button class="save-pdf-btn" type="button" onclick="saveCardAsPDF('card-english')">
+                📄 Save as PDF
+            </button>
+        </div>
+    </article>
+
+    <!-- ============== MALAYALAM REVIEW CARD ============== -->
+    <article id="card-malayalam" class="review-card">
+        <div class="card-header">
+            <h2>'ഒന്നാം പാഠം ബഹിരാകാശം' പങ്ക് വെക്കുന്ന ചിന്തകള്‍</h2>
+            <p class="by-line">എഴുതിയത് : <strong>ഫാത്തിമ കെ കെ</strong></p>
+            <img src="Fathima.jpg" alt="Fathima AK" class="author-photo"
+                 onerror="this.onerror=null; this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=\'author-photo\' style=\'display:flex;align-items:center;justify-content:center;font-size:0.8rem;color:#7c6a30;background:#f5f0d8;\'>Photo</div>');">
+            <p class="author-name">Fathima AK</p>
+            <p class="author-class">III Semester B.A English</p>
+        </div>
+        <div class="card-body">
+            <p>ചില കഥകൾ വായിച്ചുകഴിഞ്ഞാൽ മറന്നുപോകും, ചിലത് അതിനു ശേഷവും മനസ്സിൽ തങ്ങിനിൽക്കും, എന്നാൽ മറ്റുചിലതുണ്ട് ജീവിതത്തോടുള്ള നമ്മുടെ കാഴ്ചപ്പാടുതന്നെ മാറ്റിമറിക്കും. അങ്ങനെയൊരു ചെറുകഥയാണ് അയ്മനം ജോൺ രചിച്ച "ഒന്നാംപാഠം ബഹിരാകാശം" എന്ന ഈ കഥ.</p>
+
+            <p>ഹൃദയത്തിൽ ആഴ്ന്നിറങ്ങുന്ന ആശയങ്ങളും ഭാഷാ സാഹിത്യം തൊട്ടുള്ള ഉള്ളടക്കം വായനക്കാരിലേക്ക് ശ്രദ്ധ എത്തിക്കാനും ഏറെ പ്രശംസതീയമാണ് ഇദ്ദേഹത്തിന്റെ രചനകൾ. കഥയുടെ ഘടകം ബഹിരാകാശം സംബന്ധിച്ചുള്ളതാണെങ്കിൽ പോലും, ആ ഒരു പശ്ചാത്തലത്തിലുപരി കുടുംബബന്ധങ്ങളുടെ ആശയം, അതിന്റെ ആഴം, വൈകാരികത, സ്നേഹബന്ധം, വേർപാട്, ഇതെല്ലാം അദ്ദേഹം വളരെ നല്ല രീതിയിൽ കഥയിൽ ഉൾക്കൊള്ളിച്ചിട്ടുണ്ട്.</p>
+
+            <p>ഇതിലെ കേന്ദ്രകഥാപാത്രമായ വിവേക്, തന്റെ അച്ഛൻ ബഹിരാകാശകപ്പലിൽ ജോലി ലഭിക്കുകയും അതിനുവേണ്ടി കുടുംബവുമായി വിട്ടുനിൽക്കേണ്ടി വരുന്നതും, അതിലൂടെ വിവേക് എന്ന കഥാപാത്രത്തിന്റെ വൈകാരികമായ മാറ്റങ്ങളും ആശങ്കകളും ഇതിൽ ഉൾപ്പെടുത്തിയിട്ടുണ്ട്. തന്റെ കുടുംബം വളരെ നല്ല രീതിയിൽ കരകയറ്റാൻ വേണ്ടിയാണ് അവരുടെ നന്മയ്ക്കും ഉത്തമമായ ജീവിത സാഹചര്യത്തിനും വേണ്ടിയാണ് ആ അച്ഛൻ എന്തു ത്യാഗം സഹിച്ചും അവരിൽ നിന്നും അഞ്ച് വർഷത്തേക്ക് മാറിനിൽക്കാൻ പുറപ്പെടുന്നത്. കുടുംബത്തിന്റെ നല്ല നാളേയ്ക്കായ് ജീവനും ജീവിതവും ത്യജിക്കുന്ന ഒരു പിതാവിനെ ഇതിലൂടെ നമുക്ക് കാണുവാൻ സാധിക്കുന്നു.</p>
+
+            <p>കഥയിൽ ഉടനീളം വായനക്കാരെ കീഴ്പ്പെടുത്തിയ ഒരു കഥാപാത്രമാണ് അമ്മ. തന്റെ ഭർത്താവിന് ആ ജോലി ലഭിക്കാൻ ഏറ്റവും അധികം ആഗ്രഹിച്ചതും എന്നാൽ ജോലി കിട്ടിയപ്പോൾ ഏറ്റവും അധികം ആഹ്ലാദിച്ചതും, എന്നാൽ വേർപിരിയേണ്ടിവരുന്നതോർത്ത് ഏറ്റവും കൂടുതൽ കരഞ്ഞതും ആവലാതിപ്പെട്ടതും ആതേ ഭാര്യ തന്നെയായി കാണാം. ഒരു ഭാര്യയ്ക്ക് തന്റെ ഭർത്താവിനോടുള്ള കരുതലും , സ്നേഹവും, മാത്രമല്ല അയാളുടെ അഭാവത്തിൽ ആ കുടുംബം എങ്ങനെ മുന്നോട്ട് എന്ന ആശങ്കകൊണ്ടാവാം, ആ അമ്മ അത്രമേൽ ദുഃഖിച്ചത്. തന്റെ കുടുംബത്തെ മാറിയിരിക്കുന്നതിൽ ഒരുപാട് വിഷമം ഉണ്ടായിട്ട്കൂടിയും ഇതിൽ അച്ചൻ എല്ലാം മറച്ച്പിടിച്ച് സന്തോഷത്തോടെ യാത്രപറയുകയാണ്.</p>
+
+            <p>അച്ഛന്റെ മക്കളായ  വിവേകും അനിയൻ രാഹുലും അവന്റെ ആ അച്ഛന്റെ സംരക്ഷണത്തിൽ  വളർന്നു വരുകയായ അവർക്ക് അച്ഛന്റെ അഭാവം ഉൾക്കൊള്ളുക എന്നത് വലിയ പ്രയാസമായിരുന്നു. വിവേക് തന്റെ ബാല്യം ആസ്വദിച്ചു വന്നുകൊണ്ടിരിക്കുകയാണ് കൊണ്ടാണെന്ന് അച്ഛന്റെ  യാത്രയും ആ കുടുംബത്തിന്റെ ഉത്തവാദിത്യവും പക്വതയോടു കൂടെ അമ്മയെയും അനിയനെയും വീടും കൈകാര്യം ചെയ്യണം എന്ന ചിന്തയും അവന്റെ ഉള്ളിൽ ഒരുപാട് വൈകാരികമായ ചിന്തകളും വ്യാകുലതകളും സംശയങ്ങളും ഉണ്ടാക്കിയതായി കഥയിലുടനീളം കാണാവുന്നതാണ്. താൻ ആസ്വദിച്ചു നടക്കേണ്ടിയിരുന്ന ബാല്യം ഉത്തരവാദിത്തബോധം എന്ന കാര്യത്തിൽ നഷ്ടപ്പെട്ടു പോകുന്നുണ്ട് എന്ന ചോദ്യം അവനിൽ പ്രകടമാണ്.</p>
+
+            <p>ചിരിച്ചും കളിച്ചും ആഹ്ലാദിച്ചും മുന്നോട്ട് പോയിക്കൊണ്ടിരുന്ന ആ കുടുംബം അച്ഛൻ പോയതോട് കൂടെനിശ്ശബ്ദമായി മാറുകയാണ്. കാടുകേറി വളർന്ന അച്ഛന്റെ കൃഷി ത്തോട്ടം രാത്രിയിലെ നക്ഷത്രങ്ങൾ, അങ്ങനെ ചില ഘടകങ്ങൾ.ആ വീട് അദ്ദേഹത്തിന്റെ അഭാവത്തിൽ എത്രകണ്ട് ശൂന്യമാവുന്നു എന്നും വെളിച്ചും നഷ്ടമായി എന്നും മനസ്സിലാക്കിത്തരുന്നുണ്ട്.</p>
+
+            <p>ബഹിരാകാശം എന്ന ശ്രദ്ധേയമായ ഒരുസ്ഥലവും അവിടുത്തെ സംബന്ധിച്ചുള്ള കാര്യങ്ങളും ശാസ്ത്രം ഉൾപ്പെടുത്തുന്ന ഭാഗവും ഈ ചെറുകഥയിൽ ഉണ്ടെങ്കിൽ കൂടിയും, ഈ കുടുംബത്തിന്റെ സ്നേഹവും കരുതലും വേർപാടിന്റെ ആഴവുമാണ് ശ്രദ്ധേയം. അവരെ സംബന്ധിച്ച് ബഹിരാകാശം എന്നത് വെറുമൊരു സ്ഥലമല്ല, അവരുടെ വികാരങ്ങളുടെ വിശാലമായ കേന്ദ്രമാണ്.</p>
+
+            <p>ബഹിരാകാശത്ത് എത്തിയിട്ടും ആശങ്കയോടെ സർപ്പക്കാവിലേക്ക് പോകുന്ന അമ്മ, രാത്രിയിൽ ഞെട്ടിയുണർന്ന് കുടുംബത്തെ കുറിച്ച് ആശങ്കപ്പെടുന്ന അമ്മ, എല്ലാം അവരുടെ ഇടയിലെ ബന്ധവും കരുതലും സ്നേഹവും വ്യക്തമായി പ്രകടമാക്കുന്നുണ്ട്.</p>
+
+            <p>കഥയുടെ അവസാന ഭാഗങ്ങളിൽ അവരുടെ അച്ഛന്റെ ബഹിരാകാശക്കപ്പൽ കേരളത്തിലൂടെ കടന്നുപോകുന്നുണ്ട് എന്ന് അറിഞ്ഞപ്പോൾ  അത് കാണാനായി ടെറസിനു മുകളിൽ കേറി നോക്കുന്ന ആ കുടുംബത്തിന്റെ ചിത്രം മനസ്സിൽ  ഒരുപാട് ഇടം നേടിയിരിക്കുന്നു, അപ്പോൾ രാഹുൽ പറയുന്നു: "അച്ഛൻ എത്രമാത്രം ഉയരത്തിലാ ദൈവത്തിന്റെ അത്രയും ഉയരത്തിൽ" എന്ന വാചകം കഥയുടെ പ്രധാന ആശയം വെളിവാക്കുന്നതായി കാണാം. മാതാപിതാക്കൾ ദൈവത്തിന് സമാനമാണ്,തങ്ങളുടെ ഇഷ്ടങ്ങളും സന്തോഷങ്ങളും ജീവിതആസ്വാദനങ്ങളും അപ്പുറം മക്കൾക്കുവേണ്ടി ജീവിതം ത്യാഗം ചെയ്യുന്ന മാതാപിതാക്കൾ, അവരാണ് യഥാർത്ഥത്തിൽ ദൈവം, കൺകണ്ട ദൈവം!</p>
+
+            <p>ഭൗതികമായി ബഹിരാകാശത്ത് കഴിയുന്ന അച്ഛൻ, എന്നാൽ മാനസികമായി അച്ഛനോടൊപ്പം നിലനിന്നു പോകുന്ന കുടുംബം, എത്ര ഭംഗിയോടുകൂടിയാണ് ഒരു കുടുംബത്തേയും അവരുടെ ആത്മീയ ബന്ധത്തെയും ദൃഢപ്പെടുത്തുന്ന വികാരങ്ങൾ കഥയിലൂടെ കാണിച്ചത്!!</p>
+
+            <p>കഥയുടെ ഭാഷയെക്കുറിച്ച് പറയുകയാണെങ്കിൽ വളരെ ലളിതമായ ഭാഷയിൽ, ഓരോ വരിയിലും സന്ദർഭത്തിലും ആഴത്തിലുള്ള ആശയം ഉൾപെടുത്തികൊണ്ട് വായനക്കാർക്ക് മനസ്സ് കൊണ്ട് വായിക്കാൻ എളുപ്പമാക്കുകയും ഒരുപാട് ചിന്തിപ്പിക്കുകയും ചെയ്ത ഒരു മികച്ച ചെറുകഥ.</p>
+
+            <p>യഥാർത്ഥത്തിൽ നമ്മുടെ ജീവിതത്തിൽ മാതാപിതാക്കൾ തന്നെയാണ് കൺകണ്ട ദൈവം. ഒരുകുടുംബം എത്രകണ്ട് സ്നേഹത്തിന്റെയും കരുതലിന്റെയും അടിത്തറ കൊണ്ടാണ് സൃഷ്ടിക്കപ്പെടുന്നത് എന്ന് ഇതിൽ വ്യക്തമായി പ്രകടമാണ്. വേർപാടിന്റെ വേദനയും അത് നമ്മുടെ വേണ്ടപ്പെട്ടവരുടേതാവുമ്പോൾ അത് എത്രത്തോളം നമ്മുടെ ജീവിതത്തെ ബാധിക്കുന്നു എന്നതും എഴുത്തുകാരൻ ലളിതമായും എന്നാൽ ആഴത്തിലും പതിപ്പിച്ചിട്ടുണ്ട്.പലപ്പോഴും സ്നേഹിക്കുന്നവരുടെയും കരുതലോടെ ചേർത്തു നിർത്തുന്നവരുടെയും വില നമ്മൾ മനസ്സിലാക്കാതെ പോകുന്നുണ്ട്. പിന്നീട് അയാളുടെ അഭാവത്തിലാകും നമ്മളിൽ പലർക്കും വില തിരിച്ചറിയുന്നത്. അപ്പോഴേക്കും കയ്യെത്താ ദൂരത്ത് അവർ അകന്നിട്ടുമുണ്ടാകും.</p>
+
+            <p>ഈ കഥയിലൂടെ തീവ്രമായ ബന്ധങ്ങൾ എങ്ങനെ കൈകാര്യം ചെയ്യണമെന്നും അവയ്ക്ക് അവയുടെ  സാന്നിധ്യത്തിൽ തന്നെ സ്നേഹം പ്രകടമാക്കുവാനും മനസ്സിലാക്കിത്തരുന്നുണ്ട്. അയ്മനം ജോണിന്റെ വളരെയധികം ചിന്തിപ്പിച്ച, ഒരുപാട് വികാരങ്ങൾ ചൂണ്ടിക്കാട്ടിയ ഉത്തമമായ മനസ്സിൽ എന്നും പാഠം ആകാവുന്ന മികച്ച ചെറുകഥയായി തോന്നി.</p>
+        </div>
+        <div class="card-footer">
+            <button class="save-pdf-btn" type="button" onclick="saveCardAsPDF('card-malayalam')">
+                📄 Save as PDF
+            </button>
+        </div>
+    </article>
+
+    <footer class="page-footer">
+        Copyright@ Gafoor I, Assistant Professor, department of mathematics
+    </footer>
+
+    <script>
+        // ===== Tab switching =====
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = btn.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.review-card').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('card-' + target).classList.add('active');
+                window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 20, behavior: 'smooth' });
+            });
+        });
+
+        // ===== Save as PDF =====
+        // Uses the browser's built-in "Print → Save as PDF" — no external libs needed.
+        function saveCardAsPDF(cardId) {
+            // 1. Make sure the target card is the active one
+            const tab = cardId.replace('card-', '');
+            const tabBtn = document.querySelector(`[data-tab="${tab}"]`);
+            if (tabBtn && !tabBtn.classList.contains('active')) {
+                tabBtn.click();
+            }
+            // 2. Wait a tick for the layout to settle, then open the print dialog
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+    </script>
+</body>
+</html>
