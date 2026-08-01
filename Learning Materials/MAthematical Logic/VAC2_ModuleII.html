@@ -237,18 +237,39 @@
         }
 
         /* –– badge / header –– */
+        .badge-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 1.8rem;
+        }
+
         .module-badge {
             display: inline-block;
             background: #0a1e3c;
             color: #ffffff;
-            padding: 0.3rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
+            padding: 0.4rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
             font-weight: 600;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            margin-bottom: 0.5rem;
             font-family: 'Segoe UI', 'Roboto', sans-serif;
+            box-shadow: 0 2px 8px rgba(10, 30, 60, 0.15);
+            text-align: center;
+            width: auto;
+        }
+
+        /* new distinct color for the module badge (centralized) */
+        .module-badge.central {
+            background: #1e4a7a;    /* deeper blue-purple */
+            color: #f0f7ff;
+            box-shadow: 0 4px 12px rgba(20, 60, 120, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+            padding: 0.45rem 2.2rem;
+            letter-spacing: 0.08em;
         }
 
         /* –– responsive –– */
@@ -272,11 +293,14 @@
 <body>
 <div class="book-page">
 
-    <!-- module badge -->
-    <div class="module-badge">📐 VAC · KU3VACMAT202:Mathematical Logic</div> <br>
-    <div class="module-badge"> 👨‍🏫 Gafoor I, Assistant Professor Departemnt of Mathematics, NAMC</div> <br>
-    <div class="module-badge">  Module II: Logic And Propotional Calculus I</div> <br>
-  
+    <!-- ====== CENTRALIZED BADGE with distinct color ====== -->
+    <div class="badge-wrapper">
+        <div class="module-badge">📐 VAC · KU3VACMAT202: Mathematical Logic</div>
+        <div class="module-badge">👨‍🏫 Gafoor I, Assistant Professor, Department of Mathematics, NAMC</div>
+        <!-- this is the badge you asked to centralize and give another colour -->
+        <div class="module-badge central">🧠 Module II: Logic And Propositional Calculus I</div>
+    </div>
+
     <!-- ====== 10.1 ====== -->
     <h3><span class="section-number">10.1</span> INTRODUCTION</h3>
     <p>Many proofs in mathematics and many algorithms in computer science use logical expressions such as</p>
@@ -451,8 +475,6 @@
         <p>For example, \(\neg p\wedge q\) means \((\neg p)\wedge q\) and not \(\neg (p\wedge q)\).</p>
     </div>
 
-    
-
     <!-- ====== 10.5 ====== -->
     <h3><span class="section-number">10.5</span> TAUTOLOGIES AND CONTRADICTIONS</h3>
     <p>Some propositions \(P(p,q,\ldots)\) contain only T in the last column of their truth tables or, in other words, they are true for any truth values of their variables. Such propositions are called <strong>tautologies</strong>. Analogously, a proposition \(P(p,q,\ldots)\) is called a <strong>contradiction</strong> if it contains only F in the last column of its truth table or, in other words, if it is false for any truth values of its variables. For example, the proposition “\(p\) or not \(p\)”, that is, \(p\vee \neg p\), is a tautology, and the proposition “\(p\) and not \(p\)”, that is, \(p\wedge \neg p\), is a contradiction. This is verified by looking at their truth tables in <strong>Fig. 10-5</strong>. (The truth tables have only two rows since each proposition has only the one variable \(p\).)</p>
@@ -479,7 +501,7 @@
     <p>Note that the negation of a tautology is a contradiction since it is always false, and the negation of a contradiction is a tautology since it is always true.</p>
 
     <hr class="divider">
-    <div class="footer-note">@Gafoor I, Assistant Profeesor, Department of Mathematics</div>
+    <div class="footer-note">@Gafoor I, Assistant Professor, Department of Mathematics</div>
 
 </div>
 </body>
