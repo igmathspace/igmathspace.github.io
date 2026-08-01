@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAC Mathematical Logic · Module II (10.1–10.5)</title>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        /* –– reset & base –– */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            color: #1a2332;
+        }
+
+        .book-page {
+            max-width: 1050px;
+            width: 100%;
+            background: #ffffff;
+            padding: 3rem 3.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0, 20, 40, 0.08), 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e8ecf0;
+            line-height: 1.7;
+            color: #1a2332;
+            transition: all 0.2s ease;
+        }
+
+        /* –– typography –– */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 2.4rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            color: #0a1e3c;
+            font-weight: 700;
+            border-bottom: 3px solid #2a7de1;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #1a3a6a;
+            font-weight: 600;
+        }
+
+        .section-number {
+            font-weight: 700;
+            color: #2a7de1;
+            margin-right: 0.3rem;
+        }
+
+        p {
+            margin: 0.9rem 0;
+            text-align: justify;
+        }
+
+        /* –– math content –– */
+        .math {
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        /* –– definition / example cards –– */
+        .example-block {
+            margin: 1.2rem 0 1.2rem 0.5rem;
+            padding: 1rem 1.5rem;
+            background: #f7f9fc;
+            border-left: 5px solid #2a7de1;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 8px rgba(42, 125, 225, 0.06);
+        }
+
+        .example-label {
+            font-weight: 700;
+            color: #1a3a6a;
+            font-size: 1.05rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .definition {
+            margin: 1rem 0 1rem 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #eef4fb;
+            border-radius: 8px;
+            border-left: 6px solid #1a5bb5;
+            font-weight: 500;
+        }
+
+        .def-label {
+            font-weight: 700;
+            color: #0a2a5a;
+        }
+
+        .remark {
+            margin: 1.2rem 0 1.2rem 0.5rem;
+            padding: 0.7rem 1.5rem;
+            background: #f5f7fa;
+            border-left: 4px solid #6b8db5;
+            border-radius: 0 8px 8px 0;
+            color: #1a2a3a;
+        }
+
+        .remark strong {
+            color: #1a3a6a;
+        }
+
+        .centered {
+            text-align: center;
+            margin: 1.8rem 0 1rem 0;
+            font-weight: 600;
+            color: #1a3a6a;
+            letter-spacing: 0.02em;
+            font-size: 1.05rem;
+        }
+
+        /* –– lists –– */
+        .list-roman, .list-alpha {
+            list-style: none;
+            padding-left: 1.8rem;
+            margin: 0.6rem 0;
+        }
+        .list-roman li, .list-alpha li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* –– tables –– */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 0.8rem auto;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1rem;
+            background: #fafcfe;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        th, td {
+            border: 1px solid #d6dee8;
+            padding: 0.5rem 1.2rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #e8edf5;
+            color: #0a1e3c;
+            font-weight: 700;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        tr:nth-child(even) {
+            background: #f6f9fe;
+        }
+
+        /* –– figure boxes –– */
+        .fig-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem 2.5rem;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        .fig-box {
+            background: #f8faff;
+            padding: 0.9rem 1.2rem 0.5rem 1.2rem;
+            border-radius: 14px;
+            border: 1px solid #dce4ee;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            min-width: 150px;
+        }
+
+        .fig-box table {
+            background: transparent;
+            box-shadow: none;
+            margin: 0.2rem auto;
+        }
+        .fig-box table td, .fig-box table th {
+            border: 1px solid #c8d2df;
+            padding: 0.25rem 0.8rem;
+            background: #ffffff;
+        }
+        .fig-box table th {
+            background: #e2e9f3;
+        }
+        .fig-box table caption {
+            caption-side: bottom;
+            margin-top: 0.4rem;
+            font-weight: 500;
+            color: #2a4a7a;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        /* –– decorations –– */
+        .divider {
+            margin: 2.8rem 0 1.5rem 0;
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, #d6dee8, #2a7de1, #d6dee8);
+            opacity: 0.4;
+        }
+
+        .footer-note {
+            text-align: right;
+            font-size: 0.95rem;
+            color: #5a6f8a;
+            margin-top: 2rem;
+            font-style: italic;
+            border-top: 1px solid #e8ecf0;
+            padding-top: 1.2rem;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        /* –– badge / header –– */
+        .module-badge {
+            display: inline-block;
+            background: #0a1e3c;
+            color: #ffffff;
+            padding: 0.3rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        /* –– responsive –– */
+        @media (max-width: 650px) {
+            .book-page { padding: 1.5rem; }
+            .fig-row { flex-direction: column; align-items: center; }
+            .example-block, .definition, .remark { margin-left: 0; }
+        }
+
+        /* –– code / inline –– */
+        .inline-code {
+            font-family: 'Courier New', monospace;
+            background: #eef2f7;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #1a3a6a;
+        }
+    </style>
+</head>
+<body>
+<div class="book-page">
+
+    <!-- module badge -->
+    <div class="module-badge">📐 VAC · KU3VACMAT202:Mathematical Logic</div> <br>
+    <div class="module-badge"> 👨‍🏫 Gafoor I, Assistant Professor Departemnt of Mathematics, NAMC</div> <br>
+    <!-- ====== 10.1 ====== -->
+    <h3><span class="section-number">10.1</span> INTRODUCTION</h3>
+    <p>Many proofs in mathematics and many algorithms in computer science use logical expressions such as</p>
+    <p style="font-style: italic; padding-left: 1.8rem; font-size: 1.05rem; color: #1a3a6a;">
+        “IF \(p\) THEN \(q\)” or “IF \(p_1\) AND \(p_2\), THEN \(q_1\) OR \(q_2\)”
+    </p>
+    <p>It is therefore necessary to know the cases in which these expressions are either TRUE or FALSE: what we refer to as the <strong>truth values</strong> of such expressions. We discuss these issues in this chapter.</p>
+    <p>We also investigate the truth value of quantified statements, which are statements which use the logical quantifiers “for every” and “there exists”.</p>
+
+    <!-- ====== 10.2 ====== -->
+    <h3><span class="section-number">10.2</span> PROPOSITIONS AND COMPOUND PROPOSITIONS</h3>
+    <p>A <strong>proposition</strong> (or statement) is a declarative sentence which is true or false, but not both. Consider, for example, the following eight sentences:</p>
+    <ul class="list-roman" style="list-style-type: none; padding-left: 2rem;">
+        <li>(i) Paris is in France.</li>
+        <li>(ii) \(1 + 1 = 2\)</li>
+        <li>(iii) \(2 + 2 = 3\)</li>
+        <li>(iv) London is in Denmark.</li>
+        <li>(v) \(9 < 6\)</li>
+        <li>(vi) \(x = 2\) is a solution of \(x^{2} = 4\)</li>
+        <li>(vii) Where are you going?</li>
+        <li>(viii) Do your homework.</li>
+    </ul>
+    <p>All of them are propositions except (vii) and (viii). Moreover, (i), (ii), and (vi) are true, whereas, (iii), (iv), and (v) are false.</p>
+
+    <h3>Compound Propositions</h3>
+    <p>Many propositions are composite, that is, composed of subpropositions and various connectives discussed subsequently. Such composite propositions are called <strong>compound propositions</strong>. A proposition is said to be <strong>primitive</strong> if it cannot be broken down into simpler propositions, that is, if it is not composite.</p>
+
+    <div class="example-block">
+        <span class="example-label">EXAMPLE 10.1</span>
+        <p>(a) “Roses are red and violets are blue” is a compound proposition with subpropositions “Roses are red” and “Violets are blue”.<br>
+        (b) “John is intelligent or studies every night” is a compound proposition with subpropositions “John is intelligent” and “John studies every night”.<br>
+        (c) The above propositions (i) through (vi) are all primitive propositions; they cannot be broken down into simpler propositions.</p>
+    </div>
+
+    <!-- ====== 10.3 ====== -->
+    <h3><span class="section-number">10.3</span> BASIC LOGICAL OPERATIONS</h3>
+    <p>This section discusses the three basic logical operations of conjunction, disjunction, and negation which correspond, respectively, to the English words “and”, “or”, and “not”.</p>
+
+    <h3>Conjunction \(p \wedge q\)</h3>
+    <p>Any two propositions can be combined by the word “and” to form a compound proposition called the <strong>conjunction</strong> of the original propositions. Symbolically,</p>
+    <p style="text-align: center; font-size: 1.3rem; font-weight: 500; color: #0a1e3c;">\(p \wedge q\)</p>
+    <p>read “\(p\) and \(q\)”, denotes the conjunction of \(p\) and \(q\). Since \(p \wedge q\) is a proposition it has a truth value, and this truth value depends only on the truth values of \(p\) and \(q\). Specifically:</p>
+    <div class="definition">
+        <span class="def-label">Definition 10.1:</span> If \(p\) and \(q\) are true, then \(p \wedge q\) is true; otherwise \(p \wedge q\) is false.
+    </div>
+    <p>The truth value of \(p \wedge q\) may be defined equivalently by the table in <strong>Fig. 10-1(a)</strong>. Here, the first line is a short way of saying that if \(p\) is true and \(q\) is true, then \(p \wedge q\) is true. The second line says that if \(p\) is true and \(q\) is false, then \(p \wedge q\) is false. And so on. Observe that there are four lines corresponding to the four possible combinations of T and F for the two subpropositions \(p\) and \(q\). Note that \(p \wedge q\) is true only when both \(p\) and \(q\) are true.</p>
+
+    <div class="centered">Fig. 10-1 — Truth tables for conjunction, disjunction, negation</div>
+    <div class="fig-row">
+        <div class="fig-box">
+            <table>
+                <caption>(a) \(p \wedge q\)</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \wedge q\)</th></tr>
+                <tr><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>F</td></tr>
+                <tr><td>F</td><td>F</td><td>F</td></tr>
+            </table>
+        </div>
+        <div class="fig-box">
+            <table>
+                <caption>(b) \(p \vee q\)</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \vee q\)</th></tr>
+                <tr><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>F</td></tr>
+            </table>
+        </div>
+        <div class="fig-box">
+            <table>
+                <caption>(c) \(\neg p\)</caption>
+                <tr><th>\(p\)</th><th>\(\neg p\)</th></tr>
+                <tr><td>T</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="example-block">
+        <span class="example-label">EXAMPLE 10.2</span>
+        <p>Consider the following four statements:<br>
+        (i) Paris is in France and \(2 + 2 = 4\).<br>
+        (ii) Paris is in England and \(2 + 2 = 4\).<br>
+        (iii) Paris is in France and \(2 + 2 = 5\).<br>
+        (iv) Paris is in England and \(2 + 2 = 5\).<br>
+        Only the first statement is true. Each of the other statements is false since at least one of its sub statements is false.</p>
+    </div>
+
+    <h3>Disjunction, \(p \vee q\)</h3>
+    <p>Any two propositions can be combined by the word “or” to form a compound proposition called the <strong>disjunction</strong> of the original propositions. Symbolically,</p>
+    <p style="text-align: center; font-size: 1.3rem; font-weight: 500; color: #0a1e3c;">\(p \vee q\)</p>
+    <p>read “\(p\) or \(q\)”, denotes the disjunction of \(p\) and \(q\). The truth value of \(p \vee q\) depends only on the truth values of \(p\) and \(q\) as follows.</p>
+    <div class="definition">
+        <span class="def-label">Definition 10.2:</span> If \(p\) and \(q\) are false, then \(p \lor q\) is false; otherwise \(p \lor q\) is true.
+    </div>
+    <p>The truth value of \(p \lor q\) may be defined equivalently by the table in <strong>Fig. 10-1(b)</strong>. Observe that \(p \lor q\) is false only in the fourth case when both \(p\) and \(q\) are false.</p>
+
+    <div class="example-block">
+        <span class="example-label">EXAMPLE 10.3</span>
+        <p>Consider the following four statements:<br>
+        (i) Paris is in France or \(2 + 2 = 4\).<br>
+        (ii) Paris is in France or \(2 + 2 = 5\).<br>
+        (iii) Paris is in England or \(2 + 2 = 4\).<br>
+        (iv) Paris is in England or \(2 + 2 = 5\).<br>
+        Only the last statement (iv) is false. Each of the other statements is true since at least one of its sub statements is true.</p>
+    </div>
+
+    <div class="remark">
+        <p><strong>Remark:</strong> The English word “or” is commonly used in two distinct ways. Sometimes it is used in the sense of “\(p\) or \(q\) or both”, i.e., at least one of the two alternatives occurs, as above, and sometimes it is used in the sense of “\(p\) or \(q\) but not both”, i.e., exactly one of the two alternatives occurs. For example, the sentence “He will go to Harvard or to Yale” uses “or” in the latter sense, called the exclusive disjunction. Unless otherwise stated, “or” shall be used in the former sense. This discussion points out the precision we gain from our symbolic language: \(p \lor q\) is defined by its truth table and always means “\(p\) and/or \(q\).”</p>
+    </div>
+
+    <h3>Negation, \(\neg p\)</h3>
+    <p>Given any proposition \(p\), another proposition, called the <strong>negation</strong> of \(p\), can be formed by writing “It is not the case that . . . ” or “It is false that . . . ” before \(p\) or, if possible, by inserting in \(p\) the word “not”. Symbolically,</p>
+    <p style="text-align: center; font-size: 1.3rem; font-weight: 500; color: #0a1e3c;">\(\neg p\)</p>
+    <p>read “not \(p\)”, denotes the negation of \(p\). The truth value of \(\neg p\) depends on the truth value of \(p\) as follows.</p>
+    <div class="definition">
+        <span class="def-label">Definition 10.3:</span> If \(p\) is true, then \(\neg p\) is false; and if \(p\) is false, then \(\neg p\) is true.
+    </div>
+    <p>The truth value of \(\neg p\) may be defined equivalently by the table in <strong>Fig. 10-1(c)</strong>. Thus the truth value of the negation of \(p\) is always the opposite of the truth value of \(p\).</p>
+
+    <div class="example-block">
+        <span class="example-label">EXAMPLE 10.4</span>
+        <p>Consider the following six statements.<br>
+        (a1) Paris is in France.<br>
+        (a2) It is not the case that Paris is in France.<br>
+        (a3) Paris is not in France.<br>
+        (b1) \(2 + 2 = 5\).<br>
+        (b2) It is not the case that \(2 + 2 = 5\).<br>
+        (b3) \(2 + 2 \neq 5\).<br>
+        Then (a2) and (a3) are each the negation of (a1); and (b2) and (b3) are each the negation of (b1). Since (a1) is true, (a2) and (a3) are false; and since (b1) is false, (b2) and (b3) are true.</p>
+    </div>
+
+    <div class="remark">
+        <p><strong>Remark:</strong> The logical notation for the connectives “and”, “or”, and “not” are not completely standard. For example, some texts use:</p>
+    </div>
+
+    <!-- ====== 10.4 ====== -->
+    <h3><span class="section-number">10.4</span> PROPOSITIONS AND TRUTH TABLES</h3>
+    <p>Let \(P(p,q,\ldots)\) denote an expression constructed from logical variables \(p,q,\ldots\), which take on the value TRUE (T) or FALSE (F), and the logical connectives \(\wedge\), \(\vee\), and \(\neg\) (and others discussed subsequently). Such an expression \(P(p,q,\ldots)\) will be called a <strong>proposition</strong>.</p>
+    <p>The main property of a proposition \(P(p,q,\ldots)\) is that its truth value depends exclusively upon the truth values of its variables, that is, the truth value of a proposition is known once the truth value of each of its variables is known. A simple concise way to show this relationship is through a <strong>truth table</strong>. We describe a way to obtain such a truth table below.</p>
+    <p>Consider, for example, the proposition \(\neg (p\wedge \neg q)\). <strong>Figure 10-2(a)</strong> indicates how the truth table of \(\neg (p\wedge \neg q)\) is constructed. Observe that the first columns of the table are for the variables \(p,q,\ldots\) and that there are enough rows in the table to allow for all possible combinations of T and F for these variables. (For 2 variables, 4 rows are necessary; for 3 variables, 8 rows are necessary; and, in general, for \(n\) variables \(2^{n}\) rows are required.) There is then a column for each “elementary” stage of the construction of the proposition, the truth table at each step being determined from the previous stages by the definitions of the connectives \(\wedge\), \(\vee\), \(\neg\). Finally we obtain the truth value of the proposition, which appears in the last column.</p>
+    <p>The actual truth table of the proposition \(\neg (p\wedge \neg q)\) is shown in <strong>Fig. 10-2(b)</strong>. It consists precisely of the columns in Fig. 10-2(a) which appear under the variables and under the proposition; the other columns were merely used in the construction of the truth table.</p>
+
+    <div class="centered">Fig. 10-2 — Construction of truth table for \(\neg (p\wedge \neg q)\)</div>
+    <div class="fig-row">
+        <div class="fig-box">
+            <table>
+                <caption>(a) Step-by-step</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(\neg q\)</th><th>\(p \wedge \neg q\)</th><th>\(\neg (p \wedge \neg q)\)</th></tr>
+                <tr><td>T</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>T</td><td>T</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td><td>F</td><td>T</td></tr>
+            </table>
+        </div>
+        <div class="fig-box">
+            <table>
+                <caption>(b) Final truth table</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(\neg (p \wedge \neg q)\)</th></tr>
+                <tr><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="remark">
+        <p><strong>Remark:</strong> In order to avoid an excessive number of parentheses, we sometimes adopt an order of precedence for the logical connectives. Specifically:</p>
+        <p style="padding-left: 2.4rem; font-weight: 600; color: #1a3a6a;">\(\neg\) has precedence over \(\wedge\) which has precedence over \(\vee\).</p>
+        <p>For example, \(\neg p\wedge q\) means \((\neg p)\wedge q\) and not \(\neg (p\wedge q)\).</p>
+    </div>
+
+    
+
+    <!-- ====== 10.5 ====== -->
+    <h3><span class="section-number">10.5</span> TAUTOLOGIES AND CONTRADICTIONS</h3>
+    <p>Some propositions \(P(p,q,\ldots)\) contain only T in the last column of their truth tables or, in other words, they are true for any truth values of their variables. Such propositions are called <strong>tautologies</strong>. Analogously, a proposition \(P(p,q,\ldots)\) is called a <strong>contradiction</strong> if it contains only F in the last column of its truth table or, in other words, if it is false for any truth values of its variables. For example, the proposition “\(p\) or not \(p\)”, that is, \(p\vee \neg p\), is a tautology, and the proposition “\(p\) and not \(p\)”, that is, \(p\wedge \neg p\), is a contradiction. This is verified by looking at their truth tables in <strong>Fig. 10-5</strong>. (The truth tables have only two rows since each proposition has only the one variable \(p\).)</p>
+
+    <div class="centered">Fig. 10-5 — Tautology and contradiction</div>
+    <div class="fig-row">
+        <div class="fig-box">
+            <table>
+                <caption>\(p \vee \neg p\) (Tautology)</caption>
+                <tr><th>\(p\)</th><th>\(\neg p\)</th><th>\(p \vee \neg p\)</th></tr>
+                <tr><td>T</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>T</td><td>T</td></tr>
+            </table>
+        </div>
+        <div class="fig-box">
+            <table>
+                <caption>\(p \wedge \neg p\) (Contradiction)</caption>
+                <tr><th>\(p\)</th><th>\(\neg p\)</th><th>\(p \wedge \neg p\)</th></tr>
+                <tr><td>T</td><td>F</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>F</td></tr>
+            </table>
+        </div>
+    </div>
+    <p>Note that the negation of a tautology is a contradiction since it is always false, and the negation of a contradiction is a tautology since it is always true.</p>
+
+    <hr class="divider">
+    <div class="footer-note">@Gafoor I, Assistant Profeesor, Department of Mathematics</div>
+
+</div>
+</body>
+</html>
