@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAC Mathematical Logic · Module II (10.6–10.9)</title>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+        /* –– reset & base –– */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            color: #1a2332;
+        }
+
+        .book-page {
+            max-width: 1050px;
+            width: 100%;
+            background: #ffffff;
+            padding: 3rem 3.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0, 20, 40, 0.08), 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e8ecf0;
+            line-height: 1.7;
+            color: #1a2332;
+            transition: all 0.2s ease;
+        }
+
+        /* –– typography –– */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            margin-top: 2.4rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            color: #0a1e3c;
+            font-weight: 700;
+            border-bottom: 3px solid #2a7de1;
+            display: inline-block;
+        }
+
+        h4 {
+            font-size: 1.4rem;
+            margin-top: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #1a3a6a;
+            font-weight: 600;
+        }
+
+        .section-number {
+            font-weight: 700;
+            color: #2a7de1;
+            margin-right: 0.3rem;
+        }
+
+        p {
+            margin: 0.9rem 0;
+            text-align: justify;
+        }
+
+        /* –– math content –– */
+        .math {
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        /* –– definition / example cards –– */
+        .example-block {
+            margin: 1.2rem 0 1.2rem 0.5rem;
+            padding: 1rem 1.5rem;
+            background: #f7f9fc;
+            border-left: 5px solid #2a7de1;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 8px rgba(42, 125, 225, 0.06);
+        }
+
+        .example-label {
+            font-weight: 700;
+            color: #1a3a6a;
+            font-size: 1.05rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .definition {
+            margin: 1rem 0 1rem 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #eef4fb;
+            border-radius: 8px;
+            border-left: 6px solid #1a5bb5;
+            font-weight: 500;
+        }
+
+        .def-label {
+            font-weight: 700;
+            color: #0a2a5a;
+        }
+
+        .remark {
+            margin: 1.2rem 0 1.2rem 0.5rem;
+            padding: 0.7rem 1.5rem;
+            background: #f5f7fa;
+            border-left: 4px solid #6b8db5;
+            border-radius: 0 8px 8px 0;
+            color: #1a2a3a;
+        }
+
+        .remark strong {
+            color: #1a3a6a;
+        }
+
+        .centered {
+            text-align: center;
+            margin: 1.8rem 0 1rem 0;
+            font-weight: 600;
+            color: #1a3a6a;
+            letter-spacing: 0.02em;
+            font-size: 1.05rem;
+        }
+
+        /* –– lists –– */
+        .list-roman, .list-alpha {
+            list-style: none;
+            padding-left: 1.8rem;
+            margin: 0.6rem 0;
+        }
+        .list-roman li, .list-alpha li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* –– tables –– */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 0.8rem auto;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 1rem;
+            background: #fafcfe;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        th, td {
+            border: 1px solid #d6dee8;
+            padding: 0.5rem 1.2rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #e8edf5;
+            color: #0a1e3c;
+            font-weight: 700;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        tr:nth-child(even) {
+            background: #f6f9fe;
+        }
+
+        /* –– figure boxes –– */
+        .fig-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.8rem 2.5rem;
+            margin: 1.2rem 0 0.8rem 0;
+        }
+
+        .fig-box {
+            background: #f8faff;
+            padding: 0.9rem 1.2rem 0.5rem 1.2rem;
+            border-radius: 14px;
+            border: 1px solid #dce4ee;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            min-width: 150px;
+        }
+
+        .fig-box table {
+            background: transparent;
+            box-shadow: none;
+            margin: 0.2rem auto;
+        }
+        .fig-box table td, .fig-box table th {
+            border: 1px solid #c8d2df;
+            padding: 0.25rem 0.8rem;
+            background: #ffffff;
+        }
+        .fig-box table th {
+            background: #e2e9f3;
+        }
+        .fig-box table caption {
+            caption-side: bottom;
+            margin-top: 0.4rem;
+            font-weight: 500;
+            color: #2a4a7a;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        /* –– decorations –– */
+        .divider {
+            margin: 2.8rem 0 1.5rem 0;
+            border: 0;
+            height: 2px;
+            background: linear-gradient(to right, #d6dee8, #2a7de1, #d6dee8);
+            opacity: 0.4;
+        }
+
+        .footer-note {
+            text-align: right;
+            font-size: 0.95rem;
+            color: #5a6f8a;
+            margin-top: 2rem;
+            font-style: italic;
+            border-top: 1px solid #e8ecf0;
+            padding-top: 1.2rem;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        /* –– badge / header –– */
+        .badge-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .module-badge {
+            display: inline-block;
+            background: #0a1e3c;
+            color: #ffffff;
+            padding: 0.4rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            box-shadow: 0 2px 8px rgba(10, 30, 60, 0.15);
+            text-align: center;
+            width: auto;
+        }
+
+        .module-badge.central {
+            background: #1e4a7a;
+            color: #f0f7ff;
+            box-shadow: 0 4px 12px rgba(20, 60, 120, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+            padding: 0.45rem 2.2rem;
+            letter-spacing: 0.08em;
+        }
+
+        /* –– responsive –– */
+        @media (max-width: 650px) {
+            .book-page { padding: 1.5rem; }
+            .fig-row { flex-direction: column; align-items: center; }
+            .example-block, .definition, .remark { margin-left: 0; }
+        }
+
+        /* –– code / inline –– */
+        .inline-code {
+            font-family: 'Courier New', monospace;
+            background: #eef2f7;
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #1a3a6a;
+        }
+
+        /* –– real-life example styling –– */
+        .real-life-box {
+            margin: 1rem 0 1.2rem 1.8rem;
+            padding: 0.8rem 1.5rem;
+            background: #eef6f0;
+            border-left: 5px solid #1a8a4a;
+            border-radius: 0 8px 8px 0;
+        }
+        .real-life-box strong {
+            color: #0a4a2a;
+        }
+
+        .argument-box {
+            margin: 1rem 0 1.2rem 1.8rem;
+            padding: 0.8rem 1.5rem;
+            background: #f0f4fa;
+            border-left: 5px solid #2a6a8a;
+            border-radius: 0 8px 8px 0;
+        }
+        .argument-box strong {
+            color: #0a3a5a;
+        }
+        .argument-box .valid {
+            color: #1a7a3a;
+            font-weight: 700;
+        }
+        .argument-box .invalid {
+            color: #a03a2a;
+            font-weight: 700;
+        }
+        .truth-table-mini {
+            margin: 0.4rem 0 0.4rem 1.2rem;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .truth-table-mini td, .truth-table-mini th {
+            border: 1px solid #b8c8d8;
+            padding: 0.2rem 0.8rem;
+            text-align: center;
+            background: #fafcfe;
+        }
+        .truth-table-mini th {
+            background: #e2e9f3;
+        }
+    </style>
+</head>
+<body>
+<div class="book-page">
+
+    <!-- ====== CENTRALIZED BADGE ====== -->
+    <div class="badge-wrapper">
+        <div class="module-badge">📐 VAC · KU3VACMAT202: Mathematical Logic</div>
+        <div class="module-badge central">🧠 Module III: Logic And Propositional Calculus II</div>
+    </div>
+
+    <!-- ====== 10.6 ====== -->
+    <h3><span class="section-number">10.6</span> LOGICAL EQUIVALENCE</h3>
+
+    <p>Two propositions \(P(p,q,\ldots)\) and \(Q(p,q,\ldots)\) are said to be <strong>logically equivalent</strong>, or simply <strong>equivalent</strong> or <strong>equal</strong>, denoted by</p>
+    <p style="text-align: center; font-size: 1.2rem; font-weight: 500; color: #0a1e3c;">
+        \(P(p,q,\ldots) \equiv Q(p,q,\ldots)\)
+    </p>
+    <p>if they have identical truth tables. Consider, for example, the truth tables of \(\neg (p \wedge q)\) and \(\neg p \vee \neg q\) appearing in <strong>Fig. 10-6</strong>. Observe that both truth tables are the same, that is, both propositions are false in the first case and true in the other three cases. Accordingly, we can write</p>
+    <p style="text-align: center; font-size: 1.2rem; font-weight: 500; color: #1a3a6a;">
+        \(\neg (p \wedge q) \equiv \neg p \vee \neg q\)
+    </p>
+    <p>In other words, the propositions are logically equivalent.</p>
+
+    <div class="centered">Fig. 10-6 — Logical equivalence of \(\neg (p \wedge q)\) and \(\neg p \vee \neg q\)</div>
+    <div class="fig-row">
+        <div class="fig-box">
+            <table>
+                <caption>\(\neg (p \wedge q)\)</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \wedge q\)</th><th>\(\neg (p \wedge q)\)</th></tr>
+                <tr><td>T</td><td>T</td><td>T</td><td>F</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>T</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+            </table>
+        </div>
+        <div class="fig-box">
+            <table>
+                <caption>\(\neg p \vee \neg q\)</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(\neg p\)</th><th>\(\neg q\)</th><th>\(\neg p \vee \neg q\)</th></tr>
+                <tr><td>T</td><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="remark">
+        <p><strong>Remark:</strong> Consider the statement</p>
+        <p style="padding-left: 1.8rem; font-style: italic;">“It is not the case that roses are red and violets are blue”</p>
+        <p>This statement can be written in the form \(\neg (p \wedge q)\), where \(p\) is “roses are red” and \(q\) is “violets are blue.” However, as noted above, \(\neg (p \wedge q) \equiv \neg p \vee \neg q\). Thus the statement</p>
+        <p style="padding-left: 1.8rem; font-style: italic;">“Roses are not red, or violets are not blue”</p>
+        <p>has the same meaning as the given statement.</p>
+    </div>
+
+    <!-- ====== 10.7 ====== -->
+    <h3><span class="section-number">10.7</span> ALGEBRA OF PROPOSITIONS</h3>
+
+    <p>Propositions satisfy various laws which are listed in <strong>Table 10-1</strong>. (In this table, T and F are restricted to the truth values “true” and “false” respectively.) We state this result formally.</p>
+
+    <div class="definition">
+        <span class="def-label">Theorem 10.2:</span> Propositions satisfy the laws of Table 10-1.
+    </div>
+
+    <div class="centered">Table 10-1 — Laws of the Algebra of Propositions</div>
+    <div class="table-wrap">
+        <table style="min-width: 300px;">
+            <tr><th>Law</th><th>Expression</th></tr>
+            <tr><td><strong>Idempotent laws</strong></td><td>\(p \vee p \equiv p\) &nbsp;&nbsp; \(p \wedge p \equiv p\)</td></tr>
+            <tr><td><strong>Associative laws</strong></td><td>\((p \vee q) \vee r \equiv p \vee (q \vee r)\) &nbsp;&nbsp; \((p \wedge q) \wedge r \equiv p \wedge (q \wedge r)\)</td></tr>
+            <tr><td><strong>Commutative laws</strong></td><td>\(p \vee q \equiv q \vee p\) &nbsp;&nbsp; \(p \wedge q \equiv q \wedge p\)</td></tr>
+            <tr><td><strong>Distributive laws</strong></td><td>\(p \vee (q \wedge r) \equiv (p \vee q) \wedge (p \vee r)\) &nbsp;&nbsp; \(p \wedge (q \vee r) \equiv (p \wedge q) \vee (p \wedge r)\)</td></tr>
+            <tr><td><strong>Identity laws</strong></td><td>\(p \vee \text{F} \equiv p\) &nbsp;&nbsp; \(p \wedge \text{T} \equiv p\)</td></tr>
+            <tr><td><strong>Domination laws</strong></td><td>\(p \vee \text{T} \equiv \text{T}\) &nbsp;&nbsp; \(p \wedge \text{F} \equiv \text{F}\)</td></tr>
+            <tr><td><strong>Complement laws</strong></td><td>\(p \vee \neg p \equiv \text{T}\) &nbsp;&nbsp; \(p \wedge \neg p \equiv \text{F}\)</td></tr>
+            <tr><td><strong>DeMorgan’s laws</strong></td><td>\(\neg (p \vee q) \equiv \neg p \wedge \neg q\) &nbsp;&nbsp; \(\neg (p \wedge q) \equiv \neg p \vee \neg q\)</td></tr>
+            <tr><td><strong>Involution law</strong></td><td>\(\neg (\neg p) \equiv p\)</td></tr>
+        </table>
+    </div>
+
+    <!-- ====== 10.8 ====== -->
+    <h3><span class="section-number">10.8</span> CONDITIONAL AND BICONDITIONAL STATEMENTS</h3>
+
+    <p>Many statements, particularly in mathematics, are of the form “If \(p\) then \(q\)”. Such statements are called <strong>conditional statements</strong>, and are denoted by</p>
+    <p style="text-align: center; font-size: 1.2rem; font-weight: 500; color: #0a1e3c;">\(p \rightarrow q\)</p>
+    <p>The conditional \(p \rightarrow q\) is frequently read “\(p\) implies \(q\)” or “\(p\) only if \(q\)”.</p>
+    <p>Another common statement is of the form “\(p\) if and only if \(q\)”. Such statements are called <strong>biconditional statements</strong>, and are denoted by</p>
+    <p style="text-align: center; font-size: 1.2rem; font-weight: 500; color: #0a1e3c;">\(p \leftrightarrow q\)</p>
+    <p>The truth values of \(p \rightarrow q\) and \(p \leftrightarrow q\) are defined by the tables in <strong>Fig. 10-7</strong>. Observe that:</p>
+    <ul style="padding-left: 2.5rem; margin: 0.6rem 0;">
+        <li>(a) The conditional \(p \rightarrow q\) is false only when the first part \(p\) is true and the second part \(q\) is false. Accordingly, when \(p\) is false, the conditional \(p \rightarrow q\) is true regardless of the truth value of \(q\).</li>
+        <li>(b) The biconditional \(p \leftrightarrow q\) is true whenever \(p\) and \(q\) have the same truth values and false otherwise.</li>
+    </ul>
+
+    <div class="centered">Fig. 10-7 — Truth tables for conditional and biconditional</div>
+    <div class="fig-row">
+        <div class="fig-box">
+            <table>
+                <caption>\(p \rightarrow q\)</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \rightarrow q\)</th></tr>
+                <tr><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td></tr>
+            </table>
+        </div>
+        <div class="fig-box">
+            <table>
+                <caption>\(p \leftrightarrow q\)</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \leftrightarrow q\)</th></tr>
+                <tr><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>F</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- –– REAL-LIFE EXAMPLES for Conditional –– -->
+    <h4 style="margin-top: 1.2rem;">🔍 Real-life Examples: Conditional Statement \(p \rightarrow q\)</h4>
+
+    <div class="real-life-box">
+        <p><strong>Example 1:</strong> “If it rains, then the ground is wet.”</p>
+        <p>Let \(p\) = “It rains”, \(q\) = “The ground is wet”.</p>
+        <ul style="padding-left: 1.8rem; margin: 0.4rem 0;">
+            <li><strong>Case 1:</strong> It rains (\(T\)) and the ground is wet (\(T\)) → statement is <strong>TRUE</strong>.</li>
+            <li><strong>Case 2:</strong> It rains (\(T\)) but the ground is not wet (\(F\)) → statement is <strong>FALSE</strong> (e.g., under a roof).</li>
+            <li><strong>Case 3:</strong> It does not rain (\(F\)) and the ground is wet (\(T\)) → statement is <strong>TRUE</strong> (e.g., someone watered the garden).</li>
+            <li><strong>Case 4:</strong> It does not rain (\(F\)) and the ground is not wet (\(F\)) → statement is <strong>TRUE</strong>.</li>
+        </ul>
+        <p style="font-style: italic; color: #1a4a2a;">Thus, a conditional is false <strong>only</strong> when the hypothesis is true but the conclusion is false.</p>
+    </div>
+
+    <div class="real-life-box">
+        <p><strong>Example 2:</strong> “If you study hard, then you will pass the exam.”</p>
+        <p>Let \(p\) = “You study hard”, \(q\) = “You pass the exam”.</p>
+        <ul style="padding-left: 1.8rem; margin: 0.4rem 0;">
+            <li><strong>Case 1:</strong> Study hard (\(T\)) and pass (\(T\)) → <strong>TRUE</strong>.</li>
+            <li><strong>Case 2:</strong> Study hard (\(T\)) but fail (\(F\)) → <strong>FALSE</strong> (the promise is broken).</li>
+            <li><strong>Case 3:</strong> Do not study hard (\(F\)) but pass (\(T\)) → <strong>TRUE</strong> (the statement does not claim this is impossible).</li>
+            <li><strong>Case 4:</strong> Do not study hard (\(F\)) and fail (\(F\)) → <strong>TRUE</strong>.</li>
+        </ul>
+        <p style="font-style: italic; color: #1a4a2a;">The statement is only false when you study but still fail.</p>
+    </div>
+
+    <!-- –– REAL-LIFE EXAMPLES for Biconditional –– -->
+    <h4 style="margin-top: 1.8rem;">🔍 Real-life Examples: Biconditional Statement \(p \leftrightarrow q\)</h4>
+
+    <div class="real-life-box">
+        <p><strong>Example 1:</strong> “You can vote if and only if you are at least 18 years old.”</p>
+        <p>Let \(p\) = “You can vote”, \(q\) = “You are at least 18 years old”.</p>
+        <ul style="padding-left: 1.8rem; margin: 0.4rem 0;">
+            <li><strong>Case 1:</strong> Can vote (\(T\)) and ≥18 (\(T\)) → <strong>TRUE</strong>.</li>
+            <li><strong>Case 2:</strong> Can vote (\(T\)) but &lt;18 (\(F\)) → <strong>FALSE</strong> (impossible in most places).</li>
+            <li><strong>Case 3:</strong> Cannot vote (\(F\)) but ≥18 (\(T\)) → <strong>FALSE</strong> (e.g., non-citizen).</li>
+            <li><strong>Case 4:</strong> Cannot vote (\(F\)) and &lt;18 (\(F\)) → <strong>TRUE</strong>.</li>
+        </ul>
+        <p style="font-style: italic; color: #1a4a2a;">A biconditional is true only when both parts have the <strong>same</strong> truth value.</p>
+    </div>
+
+    <div class="real-life-box">
+        <p><strong>Example 2:</strong> “A triangle is equilateral if and only if all its angles are 60°.”</p>
+        <p>Let \(p\) = “Triangle is equilateral”, \(q\) = “All angles are 60°”.</p>
+        <ul style="padding-left: 1.8rem; margin: 0.4rem 0;">
+            <li><strong>Case 1:</strong> Equilateral (\(T\)) and all angles 60° (\(T\)) → <strong>TRUE</strong>.</li>
+            <li><strong>Case 2:</strong> Equilateral (\(T\)) but angles not all 60° (\(F\)) → <strong>FALSE</strong>.</li>
+            <li><strong>Case 3:</strong> Not equilateral (\(F\)) but all angles 60° (\(T\)) → <strong>FALSE</strong> (if all angles are 60°, it must be equilateral).</li>
+            <li><strong>Case 4:</strong> Not equilateral (\(F\)) and angles not all 60° (\(F\)) → <strong>TRUE</strong>.</li>
+        </ul>
+        <p style="font-style: italic; color: #1a4a2a;">The biconditional holds because the two properties are equivalent.</p>
+    </div>
+
+    <!-- –– Equivalence of conditional and disjunction –– -->
+    <p>The truth table of the proposition \(\neg p \lor q\) appears in <strong>Fig. 10-8</strong>. Observe that the truth tables of \(\neg p \lor q\) and \(p \to q\) are identical, that is, they are both false only in the second case. Accordingly, \(p \to q\) is logically equivalent to \(\neg p \lor q\); that is,</p>
+    <p style="text-align: center; font-size: 1.2rem; font-weight: 500; color: #1a3a6a;">
+        \(p \to q \equiv \neg p \lor q\)
+    </p>
+    <p>In other words, the conditional statement “If \(p\) then \(q\)” is logically equivalent to the statement “Not \(p\) or \(q\)” which only involves the connectives \(\lor\) and \(\neg\) and thus was already a part of our language. We may regard \(p \to q\) as an abbreviation for an oft-recurring statement.</p>
+
+    <div class="centered">Fig. 10-8 — Equivalence of \(p \to q\) and \(\neg p \lor q\)</div>
+    <div class="fig-row">
+        <div class="fig-box">
+            <table>
+                <caption>\(\neg p \lor q\)</caption>
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(\neg p\)</th><th>\(\neg p \lor q\)</th></tr>
+                <tr><td>T</td><td>T</td><td>F</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ====== 10.9 ====== -->
+    <h3><span class="section-number">10.9</span> ARGUMENTS</h3>
+
+    <p>An <strong>argument</strong> is an assertion that a given set of propositions \(P_{1}, P_{2}, \ldots, P_{n}\), called <strong>premises</strong>, yields (has as a consequence) another proposition \(Q\), called the <strong>conclusion</strong>. Such an argument is denoted by</p>
+    <p style="text-align: center; font-size: 1.2rem; font-weight: 500; color: #0a1e3c;">
+        \(P_{1}, P_{2}, \ldots, P_{n} \vdash Q\)
+    </p>
+    <p>The notion of a “logical argument” or “valid argument” is formalized as follows.</p>
+
+    <div class="definition">
+        <span class="def-label">Definition 10.4:</span> An argument \(P_{1}, P_{2}, \ldots, P_{n} \vdash Q\) is said to be <strong>valid</strong> if \(Q\) is true whenever all the premises \(P_{1}, P_{2}, \ldots, P_{n}\) are true. An argument which is not valid is called a <strong>fallacy</strong>.
+    </div>
+
+    <!-- –– REAL-LIFE EXAMPLES for Arguments –– -->
+    <h4 style="margin-top: 1.2rem;">🔍 Real-life Examples: Valid and Invalid Arguments</h4>
+
+    <div class="argument-box">
+        <p><strong>Example 1 (Valid Argument — Law of Detachment):</strong></p>
+        <p style="padding-left: 1.2rem; font-style: italic;">“If it is raining, then the streets are wet. It is raining. Therefore, the streets are wet.”</p>
+        <p>Let \(p\) = “It is raining”, \(q\) = “The streets are wet”.</p>
+        <p style="padding-left: 1.2rem;">Form: \(p \to q,\; p \;\vdash\; q\)</p>
+        <table class="truth-table-mini" style="margin: 0.4rem 0 0.4rem 1.2rem;">
+            <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \to q\)</th><th>Premises true?</th><th>Conclusion</th></tr>
+            <tr><td>T</td><td>T</td><td>T</td><td>✅</td><td>q = T ✅</td></tr>
+            <tr><td>T</td><td>F</td><td>F</td><td>❌</td><td>—</td></tr>
+            <tr><td>F</td><td>T</td><td>T</td><td>❌</td><td>—</td></tr>
+            <tr><td>F</td><td>F</td><td>T</td><td>❌</td><td>—</td></tr>
+        </table>
+        <p><span class="valid">✅ Valid:</span> Whenever both premises are true (only row 1), the conclusion is also true.</p>
+    </div>
+
+    <div class="argument-box">
+        <p><strong>Example 2 (Invalid Argument — Fallacy):</strong></p>
+        <p style="padding-left: 1.2rem; font-style: italic;">“If it is raining, then the streets are wet. The streets are wet. Therefore, it is raining.”</p>
+        <p>Let \(p\) = “It is raining”, \(q\) = “The streets are wet”.</p>
+        <p style="padding-left: 1.2rem;">Form: \(p \to q,\; q \;\vdash\; p\)</p>
+        <table class="truth-table-mini" style="margin: 0.4rem 0 0.4rem 1.2rem;">
+            <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \to q\)</th><th>Premises true?</th><th>Conclusion</th></tr>
+            <tr><td>T</td><td>T</td><td>T</td><td>✅</td><td>p = T ✅</td></tr>
+            <tr><td>T</td><td>F</td><td>F</td><td>❌</td><td>—</td></tr>
+            <tr><td>F</td><td>T</td><td>T</td><td>✅</td><td>p = F ❌</td></tr>
+            <tr><td>F</td><td>F</td><td>T</td><td>❌</td><td>—</td></tr>
+        </table>
+        <p><span class="invalid">❌ Invalid (Fallacy):</span> In row 3, both premises are true but the conclusion is false. The streets could be wet from a sprinkler, not rain.</p>
+    </div>
+
+    <div class="argument-box">
+        <p><strong>Example 3 (Valid Argument — Law of Syllogism):</strong></p>
+        <p style="padding-left: 1.2rem; font-style: italic;">“If you study, you will get good grades. If you get good grades, you will graduate with honors. Therefore, if you study, you will graduate with honors.”</p>
+        <p>Let \(p\) = “You study”, \(q\) = “You get good grades”, \(r\) = “You graduate with honors”.</p>
+        <p style="padding-left: 1.2rem;">Form: \(p \to q,\; q \to r \;\vdash\; p \to r\)</p>
+        <p><span class="valid">✅ Valid:</span> By the Law of Syllogism, the conclusion follows necessarily from the premises.</p>
+    </div>
+
+    <div class="argument-box">
+        <p><strong>Example 4 (Invalid Argument — Denying the Antecedent):</strong></p>
+        <p style="padding-left: 1.2rem; font-style: italic;">“If you are a citizen, then you can vote. You are not a citizen. Therefore, you cannot vote.”</p>
+        <p>Let \(p\) = “You are a citizen”, \(q\) = “You can vote”.</p>
+        <p style="padding-left: 1.2rem;">Form: \(p \to q,\; \neg p \;\vdash\; \neg q\)</p>
+        <table class="truth-table-mini" style="margin: 0.4rem 0 0.4rem 1.2rem;">
+            <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \to q\)</th><th>\(\neg p\)</th><th>Premises true?</th><th>\(\neg q\)</th></tr>
+            <tr><td>T</td><td>T</td><td>T</td><td>F</td><td>❌</td><td>—</td></tr>
+            <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>❌</td><td>—</td></tr>
+            <tr><td>F</td><td>T</td><td>T</td><td>T</td><td>✅</td><td>F ❌</td></tr>
+            <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>✅</td><td>T ✅</td></tr>
+        </table>
+        <p><span class="invalid">❌ Invalid (Fallacy):</span> In row 3, the premises are true (you are not a citizen, and the conditional holds) but the conclusion “you cannot vote” is false — you might be a permanent resident who can vote in local elections.</p>
+    </div>
+
+    <!-- –– End of real-life examples –– -->
+
+    <p>Now the propositions \(P_{1}, P_{2}, \ldots, P_{n}\) are true simultaneously if and only if the proposition \(P_{1} \wedge P_{2} \wedge \cdots \wedge P_{n}\) is true. Thus the argument \(P_{1}, P_{2}, \ldots, P_{n} \vdash Q\) is valid if and only if \(Q\) is true whenever \(P_{1} \wedge P_{2} \wedge \cdots \wedge P_{n}\) is true or, equivalently, if the proposition \((P_{1} \wedge P_{2} \wedge \cdots \wedge P_{n}) \to Q\) is a tautology. We state this result formally.</p>
+
+    <div class="definition">
+        <span class="def-label">Theorem 10.3:</span> The argument \(P_{1}, P_{2}, \ldots, P_{n} \vdash Q\) is valid if and only if the proposition \((P_{1} \wedge P_{2} \wedge \cdots \wedge P_{n}) \to Q\) is a tautology.
+    </div>
+
+    <p>We apply this theorem in the next example.</p>
+
+    <div class="example-block">
+        <span class="example-label">EXAMPLE 10.6</span>
+        <p>A fundamental principle of logical reasoning states:</p>
+        <p style="padding-left: 1.8rem; font-style: italic;">“If \(p\) implies \(q\) and \(q\) implies \(r\), then \(p\) implies \(r\)”</p>
+        <p>That is, the following argument is valid:</p>
+        <p style="padding-left: 1.8rem; font-weight: 500;">\(p \to q,\; q \to r \;\vdash\; p \to r\) &nbsp;&nbsp; (Law of Syllogism)</p>
+        <p>This fact is verified by the truth table in <strong>Fig. 10-10</strong>, which shows that the following proposition is a tautology:</p>
+        <p style="padding-left: 1.8rem; font-weight: 500;">\([(p \to q) \wedge (q \to r)] \to (p \to r)\)</p>
+        <p>Equivalently, the argument is valid since the premises \(p \to q\) and \(q \to r\) are true simultaneously only in Cases (rows) 1, 5, 7, 8 and in these cases the conclusion \(p \to r\) is also true. (Observe that the truth table required \(2^{3} = 8\) lines since there are three variables, \(p, q, r\).)</p>
+        <div class="centered" style="font-size: 0.95rem;">Fig. 10-10 — Law of Syllogism (tautology)</div>
+        <div class="table-wrap">
+            <table style="margin: 0.4rem auto;">
+                <tr><th>\(p\)</th><th>\(q\)</th><th>\(r\)</th><th>\(p \to q\)</th><th>\(q \to r\)</th><th>\((p \to q) \wedge (q \to r)\)</th><th>\(p \to r\)</th><th>\([(p \to q) \wedge (q \to r)] \to (p \to r)\)</th></tr>
+                <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>F</td><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <p>We now apply the above theory to arguments involving specific statements. We emphasize that the validity of an argument does not depend upon the truth values nor the content of the statements appearing in the argument, but upon the particular <strong>form</strong> of the argument. This is illustrated in the following example.</p>
+
+    <div class="example-block">
+        <span class="example-label">EXAMPLE 10.7</span>
+        <p>Consider the following argument:</p>
+        <p style="padding-left: 1.8rem; font-style: italic;">
+            \(S_{1}\): If a man is a bachelor, he is unhappy.<br />
+            \(S_{2}\): If a man is unhappy, he dies young.<br />
+            \(S\): Bachelors die young.
+        </p>
+        <p>Here the statement \(S\) below the line denotes the conclusion of the argument, and the statements \(S_{1}\) and \(S_{2}\) above the line denote the premises. We claim that the argument \(S_{1}, S_{2} \vdash S\) is valid. For the argument is of the form</p>
+        <p style="padding-left: 1.8rem; font-weight: 500;">\(p \to q,\; q \to r \;\vdash\; p \to r\)</p>
+        <p>where \(p\) is “He is a bachelor”, \(q\) is “He is unhappy” and \(r\) is “He dies young”; and by Example 10.6 this argument (law of syllogism) is valid.</p>
+    </div>
+
+    <!-- ====== DIVIDER & FOOTER ====== -->
+    <hr class="divider">
+    <div class="footer-note">@Gafoor I, Assistant Professor, Department of Mathematics</div>
+
+</div>
+</body>
+</html>
