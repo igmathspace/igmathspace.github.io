@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 FYUGP | Department of Mathematics — NAM College</title>
+<style>
+  :root{
+    --navy:#0f2a4a;
+    --navy-deep:#0a1d33;
+    --gold:#c99a3b;
+    --paper:#f7f5ef;
+    --ink:#1c2733;
+    --muted:#5b6a7a;
+    --card:#ffffff;
+    --line:#e3ddcc;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Cambria',serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  header.site-header{
+    background:linear-gradient(135deg,var(--navy-deep),var(--navy));
+    color:#fff;
+    padding:0;
+    box-shadow:0 2px 10px rgba(10,29,51,0.25);
+  }
+
+  .brand-strip{
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px 24px 10px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .brand-strip .mark{
+    font-size:28px;
+    background:rgba(201,154,59,0.15);
+    border:1px solid rgba(201,154,59,0.5);
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:10px;
+  }
+  .brand-strip .titles h1{
+    margin:0;
+    font-size:19px;
+    letter-spacing:0.5px;
+    font-weight:700;
+  }
+  .brand-strip .titles p{
+    margin:2px 0 0;
+    font-size:12.5px;
+    color:#c9d3de;
+    font-family:'Trebuchet MS',sans-serif;
+  }
+
+  nav.site-nav{
+    border-top:1px solid rgba(255,255,255,0.12);
+    background:rgba(0,0,0,0.15);
+  }
+  nav.site-nav ul{
+    max-width:1100px;
+    margin:0 auto;
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:2px;
+    padding:0 12px;
+  }
+  nav.site-nav a{
+    display:inline-block;
+    padding:12px 16px;
+    color:#e8ecf1;
+    text-decoration:none;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    letter-spacing:0.3px;
+    border-bottom:3px solid transparent;
+    transition:background 0.2s, border-color 0.2s;
+  }
+  nav.site-nav a:hover{
+    background:rgba(255,255,255,0.06);
+    border-bottom-color:var(--gold);
+  }
+  nav.site-nav a.current{
+    border-bottom-color:var(--gold);
+    color:#fff;
+    background:rgba(255,255,255,0.06);
+  }
+
+  .hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:46px 24px 40px;
+  }
+  .hero .eyebrow{
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .hero h2{
+    margin:0 0 10px;
+    font-size:34px;
+    line-height:1.2;
+  }
+  .hero p.lead{
+    margin:0;
+    max-width:640px;
+    font-family:'Trebuchet MS',sans-serif;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+  }
+  @media (max-width:720px){
+    .card-grid{grid-template-columns:1fr;}
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:24px 22px;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    box-shadow:0 1px 3px rgba(15,42,74,0.06);
+    transition:transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 24px rgba(15,42,74,0.12);
+    border-color:var(--gold);
+  }
+  .card .tag{
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#8a6d1e;
+    background:#f3e6c4;
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:20px;
+    width:fit-content;
+    font-weight:700;
+  }
+  .card h3{
+    margin:0;
+    font-size:18px;
+    line-height:1.35;
+    color:var(--navy-deep);
+  }
+  .card p.desc{
+    margin:0;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13.5px;
+    color:var(--muted);
+    line-height:1.55;
+  }
+  .card .btn{
+    margin-top:auto;
+    align-self:flex-start;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    padding:10px 18px;
+    border-radius:5px;
+    transition:background 0.18s ease;
+  }
+  .card .btn:hover{
+    background:var(--gold);
+    color:var(--navy-deep);
+  }
+
+  .note{
+    margin-top:34px;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12.5px;
+    color:var(--muted);
+    background:#fbf9f2;
+    border:1px dashed var(--line);
+    border-radius:6px;
+    padding:14px 18px;
+  }
+
+  footer{
+    background:var(--navy-deep);
+    color:#c9d3de;
+    text-align:center;
+    padding:24px 20px;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12.5px;
+  }
+  footer strong{color:#fff;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand-strip">
+    <div class="mark">🏛️</div>
+    <div class="titles">
+      <h1>IG MATH SPACE</h1>
+      <p>Department of Mathematics · NAM College Kallikkandy</p>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <li><a href="https://igmathspace.github.io/index.html">HOME</a></li>
+      <li><a href="https://igmathspace.github.io/lessons.html">CLASSROOM</a></li>
+      <li><a href="https://igmathspace.github.io/research.html">RESEARCH</a></li>
+      <li><a href="https://igmathspace.github.io/students.html">STUDENT</a></li>
+      <li><a href="https://igmathspace.github.io/IGBOOKSPACE/">📚 BOOK</a></li>
+      <li><a href="https://igmathspace.github.io/IGCOLLEGESPACE/" class="current">🏛️ OFFICIAL</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Official Space · Department Space</div>
+  <h2>🎓 FYUGP</h2>
+  <p class="lead">Four Year Undergraduate Programme — reports, semester registration details, and classroom allotment for the Department of Mathematics.</p>
+</section>
+
+<main>
+  <div class="card-grid">
+
+    <div class="card">
+      <span class="tag">Report</span>
+      <h3>FYUGP Report — II Semester (2025 Admission)</h3>
+      <p class="desc">Consolidated semester report for the 2025 admission batch, II Semester, Department of Mathematics.</p>
+      <a class="btn" href="https://drive.google.com/drive/folders/1a2b3C4dEfGhIjKlMnOpQrStUvWxYz00" target="_blank" rel="noopener">📄 Open Report</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Report</span>
+      <h3>FYUGP Report — IV Semester (2024 Admission)</h3>
+      <p class="desc">Consolidated semester report for the 2024 admission batch, IV Semester, Department of Mathematics.</p>
+      <a class="btn" href="https://drive.google.com/drive/folders/1b3C5dEfGhIjKlMnOpQrStUvWxYz01aB" target="_blank" rel="noopener">📄 Open Report</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Registration</span>
+      <h3>2025-26 · III &amp; V Semester Course Registration (K-REAP)</h3>
+      <p class="desc">Course registration details for III and V Semesters via K-REAP for the academic year 2025-26.</p>
+      <a class="btn" href="https://drive.google.com/drive/folders/1c4D6eFgHiJkLmNoPqRsTuVwXyZ02bC" target="_blank" rel="noopener">🔗 View Details</a>
+    </div>
+
+    <div class="card">
+      <span class="tag">Allotment</span>
+      <h3>Course &amp; Classroom Allotment (2026-27)</h3>
+      <p class="desc">Course allotment and classroom allotment details for the academic year 2026-27.</p>
+      <a class="btn" href="https://drive.google.com/drive/folders/1d5E7fGhIjKlMnOpQrStUvWxYz03cD" target="_blank" rel="noopener">🔗 View Details</a>
+    </div>
+
+  </div>
+
+  <p class="note">📌 Note: Links above are sample Google Drive placeholders. Replace each href with the actual Drive link for the corresponding document before publishing.</p>
+</main>
+
+<footer>
+  © <strong>Gafoor I</strong>, Assistant Professor, Department of Mathematics, NAM College Kallikkandy
+</footer>
+
+</body>
+</html>

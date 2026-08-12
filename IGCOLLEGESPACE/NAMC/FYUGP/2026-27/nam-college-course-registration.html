@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAM College Kallikkandy — Details for Course Affiliation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,680&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16213e;
+    --ink-2:#1f2d52;
+    --paper:#faf8f3;
+    --paper-2:#f1ede2;
+    --gold:#c89b3c;
+    --gold-light:#e6c876;
+    --teal:#1f6f6f;
+    --teal-light:#e7f2f1;
+    --maroon:#7a2e2e;
+    --maroon-light:#f7ebe7;
+    --muted:#5b647a;
+    --line:#ded6c2;
+    --radius:14px;
+    --shadow: 0 10px 30px -14px rgba(22,33,62,.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:680;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .kasavu{
+    height:10px;
+    width:100%;
+    background:
+      repeating-linear-gradient(90deg,
+        var(--gold) 0 3px,
+        transparent 3px 14px);
+    background-color:var(--ink);
+    opacity:.9;
+  }
+  .kasavu.thin{height:6px;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    background:var(--ink);
+    color:var(--paper);
+    padding:22px 6vw 26px;
+  }
+  .topbar-inner{
+    max-width:1080px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand{display:flex; align-items:center; gap:14px;}
+  .brand-mark{
+    width:46px;height:46px;border-radius:50%;
+    background:conic-gradient(from 180deg, var(--gold), var(--gold-light), var(--gold));
+    display:flex;align-items:center;justify-content:center;
+    color:var(--ink); font-family:'Fraunces',serif; font-weight:680; font-size:19px;
+    flex:none;
+  }
+  .brand-text .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:11px;
+    color:var(--gold-light);
+    font-weight:600;
+  }
+  .brand-text h1{ font-size:clamp(20px,2.6vw,27px); color:#fff; }
+  .crumbs{
+    font-size:13px;
+    color:var(--gold-light);
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .crumbs button{
+    background:none;border:none;color:var(--gold-light);
+    cursor:pointer; font-size:13px; padding:2px 0; text-decoration:underline;
+    text-underline-offset:3px;
+  }
+  .crumbs button:hover{color:#fff;}
+  .crumbs .sep{opacity:.5;}
+
+  /* ---------- layout ---------- */
+  main{max-width:1080px; margin:0 auto; padding:42px 6vw 80px;}
+  .page{display:none;}
+  .page.active{display:block; animation:rise .35s ease both;}
+  @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  .hero{margin-bottom:36px;}
+  .hero .tag{
+    display:inline-block;
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--teal); font-weight:600;
+    background:var(--teal-light);
+    padding:5px 12px; border-radius:999px;
+    margin-bottom:14px;
+  }
+  .hero h2{font-size:clamp(26px,4vw,38px); color:var(--ink); max-width:820px;}
+  .hero p{color:var(--muted); max-width:620px; margin-top:12px; font-size:15.5px;}
+
+  /* portal buttons on home */
+  .portal-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+    margin-top:28px;
+  }
+  @media(max-width:680px){.portal-grid{grid-template-columns:1fr;}}
+  .portal-card{
+    position:relative;
+    background:var(--ink);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:30px 26px 26px;
+    text-align:left;
+    cursor:pointer;
+    border:none;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .portal-card:hover{transform:translateY(-4px); box-shadow:0 18px 40px -14px rgba(22,33,62,.5);}
+  .portal-card::after{
+    content:"";
+    position:absolute; inset:auto -30% -60% auto;
+    width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle, rgba(200,155,60,.35), transparent 70%);
+  }
+  .portal-card .num{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; color:var(--gold-light); letter-spacing:.08em;
+  }
+  .portal-card h3{font-size:23px; margin-top:10px; color:#fff;}
+  .portal-card .sub{color:#c7cde0; font-size:13.5px; margin-top:6px;}
+  .portal-card .go{
+    margin-top:18px; display:inline-flex; align-items:center; gap:8px;
+    font-size:13.5px; font-weight:600; color:var(--gold-light);
+  }
+  .portal-card .go svg{transition:transform .2s;}
+  .portal-card:hover .go svg{transform:translateX(4px);}
+
+  /* course link list */
+  .link-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin-top:10px;
+  }
+  @media(max-width:680px){.link-list{grid-template-columns:1fr;}}
+  .link-card{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:5px solid var(--teal);
+    border-radius:10px;
+    padding:16px 18px;
+    text-align:left;
+    cursor:pointer;
+    transition:border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .link-card:hover{transform:translateY(-2px); box-shadow:var(--shadow); border-left-color:var(--gold);}
+  .link-card .lbl{font-weight:600; font-size:15.5px;}
+  .link-card .arrow{color:var(--muted); flex:none;}
+  .page[id^="v-"] .link-card{border-left-color:var(--maroon);}
+
+  /* back link */
+  .back{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:13.5px; font-weight:600; color:var(--teal);
+    background:none; border:none; cursor:pointer; padding:0;
+    margin-bottom:18px;
+  }
+  .back:hover{text-decoration:underline;}
+
+  /* course table page */
+  .course-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:18px; flex-wrap:wrap;
+    border-bottom:2px solid var(--ink); padding-bottom:16px; margin-bottom:22px;
+  }
+  .course-head h2{font-size:clamp(22px,3.4vw,30px);}
+  .course-head .meta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px; color:var(--muted);
+    text-align:right;
+  }
+  .badge{
+    display:inline-block; font-size:11.5px; font-weight:600; letter-spacing:.05em;
+    padding:3px 10px; border-radius:999px; text-transform:uppercase;
+  }
+  table{width:100%; border-collapse:collapse; margin-top:6px; background:#fff; border-radius:10px; overflow:hidden; box-shadow:var(--shadow);}
+  thead th{
+    text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+    background:var(--ink); color:var(--gold-light);
+    padding:13px 16px; font-weight:600;
+  }
+  tbody td{padding:13px 16px; border-bottom:1px solid var(--line); font-size:14.5px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even){background:var(--paper-2);}
+  tbody tr:hover{background:var(--teal-light);}
+  td.code{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink-2);}
+  td.count{font-weight:700; text-align:right; color:var(--ink);}
+  td.type .type-pill{
+    font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:999px;
+    background:var(--teal-light); color:var(--teal); white-space:nowrap;
+  }
+  .table-note{margin-top:14px; font-size:12.5px; color:var(--muted); font-family:'IBM Plex Mono',monospace;}
+  .table-scroll{overflow-x:auto; border-radius:10px;}
+
+  /* footer */
+  footer{
+    background:var(--ink);
+    color:#c7cde0;
+    padding:22px 6vw;
+    margin-top:60px;
+    font-size:13.5px;
+  }
+  .footer-inner{
+    max-width:1080px; margin:0 auto;
+    display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .footer-inner strong{color:#fff; font-weight:600;}
+  .footer-inner .role{color:var(--gold-light);}
+
+  ::selection{background:var(--gold-light); color:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="kasavu"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">N</div>
+      <div class="brand-text">
+        <div class="eyebrow">NAM College, Kallikkandy</div>
+        <h1>K-REAP : details for Course Affiliation</h1>
+      </div>
+    </div>
+    <nav class="crumbs" id="crumbs"></nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HOME ============ -->
+  <section class="page active" id="home">
+    <div class="hero">
+      
+      <h2>Course Affiliation Details — III &amp; V Semester, March 2026</h2>
+      <p>Select a semester below to view programme-wise paper details: paper name, paper code, course type and the number of students registered.</p>
+    </div>
+
+    <div class="portal-grid">
+      <button class="portal-card" onclick="goTo('iii-home')">
+        <div class="num">Button 01</div>
+        <h3>III Semester</h3>
+        <div class="sub">B.A. English · B.A. History · B.Sc. Computer Science · B.Sc. Mathematics · B.Sc. Polymer Chemistry · B.Com</div>
+        <div class="go">View course details
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </button>
+      <button class="portal-card" onclick="goTo('v-home')">
+        <div class="num">Button 02</div>
+        <h3>V Semester</h3>
+        <div class="sub">B.A. English · B.A. History · B.Sc. Computer Science · B.Sc. Mathematics · B.Sc. Polymer Chemistry · B.Com</div>
+        <div class="go">View course details
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ III SEM INDEX ============ -->
+  <section class="page" id="iii-home">
+    <button class="back" onclick="goTo('home')">← Back to Page Home</button>
+    <div class="hero">
+      <span class="tag" style="color:var(--teal)">III Semester</span>
+      <h2>III Semester Course Details</h2>
+      <p>Choose a programme to view its paper list, paper codes, course type and registered count.</p>
+    </div>
+    <div class="link-list" id="iii-links"></div>
+  </section>
+
+  <!-- ============ V SEM INDEX ============ -->
+  <section class="page" id="v-home">
+    <button class="back" onclick="goTo('home')">← Back to Page Home</button>
+    <div class="hero">
+      <span class="tag" style="color:var(--maroon); background:var(--maroon-light)">V Semester</span>
+      <h2>V Semester Course Details</h2>
+      <p>Choose a programme to view its paper list, paper codes, course type and registered count.</p>
+    </div>
+    <div class="link-list" id="v-links"></div>
+  </section>
+
+  <!-- ============ COURSE TEMPLATE (rendered by JS) ============ -->
+  <section class="page" id="course-page">
+    <button class="back" id="course-back" onclick="">← Back</button>
+    <div class="course-head">
+      <div>
+        <span class="badge" id="course-sem-badge">Semester</span>
+        <h2 id="course-title" style="margin-top:8px;">Programme Title</h2>
+      </div>
+      <div class="meta" id="course-meta"></div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Paper Name</th><th>Paper Code</th><th>Course Type</th><th style="text-align:right;">Registered</th></tr>
+        </thead>
+        <tbody id="course-tbody"></tbody>
+      </table>
+    </div>
+    <div class="table-note" id="course-note"></div>
+  </section>
+
+</main>
+
+<div class="kasavu thin"></div>
+<footer>
+  <div class="footer-inner">
+    <span>NAM College Kallikkandy · FYUGP Course Registration</span>
+    <span><strong>Gafoor I</strong> &nbsp;·&nbsp; <span class="role">FYUGP Coordinator, NAMC</span></span>
+  </div>
+</footer>
+
+<script>
+/* ---------------- Data ---------------- */
+const III = {
+  "iii-eng": {
+    title:"B.A. English Honours", sem:"Third Semester", tag:"III",
+    rows:[
+      ["Chaucer to Contemporary Poets","KU3DSCENG201","Major","40"],
+      ["Literature in Context – Old English to Medieval English","KU3DSCENG203","Major","40"],
+      ["Kerala Culture in Arabic Literature","KU3MDCARB203","MDC 3","7"],
+      ["Kerala Knowledge Systems","KU3MDCENG201","MDC 3","13"],
+      ["Keral ki lok kalayen","KU3MDCHIN103","MDC 3","3"],
+      ["കേരളീയാധുനികത","KU3MDCMAL103","MDC 3","4"],
+      ["Kerala Ka Muthala","KU3MDCURD203","MDC 3","13"],
+      ["Event Management","KU3DSCCOM204","Minor 5","21"],
+      ["History of Indian National Movement","KU3DSCHIS205","Minor 5","5"],
+      ["Media and Society","KU3DSCSOC202","Minor 5","14"],
+      ["Financial Management","KU3DSCCOM205","Minor 6","2"],
+      ["Basics of Object Oriented Programming using C++","KU3DSCCSC204","Minor 6","8"],
+      ["Economics of Care and Ageing","KU3DSCECO205","Minor 6","9"],
+      ["Documentary Film Production","KU3DSCJMC203","Minor 6","14"],
+      ["Introduction to Kerala Social Realities","KU3DSCSOC203","Minor 6","7"],
+      ["Data Analytics Using R","KU3VACCSC103","VAC I","9"],
+      ["Recovering Nature","KU3VACENG201","VAC I","18"],
+      ["Reconstructing Gender","KU3VACENG202","VAC I","8"],
+      ["Hindi Sahithya Evam Manavadhikar","KU3VACHIN102","VAC I","2"],
+      ["Ethics in Media","KU3VACJMC209","VAC I","1"],
+      ["Thahzeeb Aur Saqafath","KU3VACURD202","VAC I","2"],
+    ]
+  },
+  "iii-his": {
+    title:"B.A. History Honours", sem:"Third Semester", tag:"III",
+    rows:[
+      ["World from Iron Age to Medieval Times","KU3DSCHIS201","Major","60"],
+      ["Social Formations in Early India (Earliest Times to Maurya)","KU3DSCHIS202","Major","60"],
+      ["Kerala Culture in Arabic Literature","KU3MDCARB203","MDC 3","11"],
+      ["Kerala Knowledge Systems","KU3MDCENG201","MDC 3","5"],
+      ["Keral ki lok kalayen","KU3MDCHIN103","MDC 3","1"],
+      ["കേരളീയാധുനികത","KU3MDCMAL103","MDC 3","18"],
+      ["Kerala Ka Muthala","KU3MDCURD203","MDC 3","25"],
+      ["Economics of Banking and Finance","KU3DSCECO203","Minor 5","25"],
+      ["Narratives of Love and Friendship","KU3DSCFNG203","Minor 5","14"],
+      ["History of Indian National Movement","KU3DSCHIS205","Minor 5","1"],
+      ["Media and Society","KU3DSCSOC202","Minor 5","20"],
+      ["Financial Management","KU3DSCCOM205","Minor 6","1"],
+      ["Economics of Care and Ageing","KU3DSCECO205","Minor 6","27"],
+      ["Documentary Film Production","KU3DSCJMC203","Minor 6","6"],
+      ["Introduction to Kerala Social Realities","KU3DSCSOC203","Minor 6","26"],
+      ["Human Right Movements in Modern India","KU3VACHIS201","VAC I","46"],
+      ["Ethics in Media","KU3VACJMC209","VAC I","2"],
+      ["മലബാർ - സമൂഹവുംനവോത്ഥാനവും","KU3VACMAL101","VAC I","1"],
+      ["Thahzeeb Aur Saqafath","KU3VACURD202","VAC I","11"],
+    ]
+  },
+  "iii-csc": {
+    title:"B.Sc. Computer Science Honours", sem:"Third Semester", tag:"III",
+    rows:[
+      ["Object Oriented Programming using Java","KU3DSCCSC201","Major","44"],
+      ["Digital Systems","KU3DSCCSC202","Major","44"],
+      ["Kerala Ka Muthala","KU3MDCURD204","MDC 1","0"],
+      ["Kerala Culture in Arabic Literature","KU3MDCARB203","MDC 3","20"],
+      ["Kerala Knowledge Systems","KU3MDCENG201","MDC 3","7"],
+      ["Keral ki lok kalayen","KU3MDCHIN103","MDC 3","5"],
+      ["കേരളീയാധുനികത","KU3MDCMAL103","MDC 3","3"],
+      ["Kerala Ka Muthala","KU3MDCURD203","MDC 3","9"],
+      ["Event Management","KU3DSCCOM204","Minor 5","9"],
+      ["Differential Equations, Laplace Transforms, Linear Programming and Numerical Methods","KU3DSCMAT211","Minor 5","35"],
+      ["Statistical Inference","KU3DSCSTA222","Minor 6","42"],
+      ["Financial Management","KU3DSCCOM205","Minor 6","2"],
+      ["Professional Ethics in Business and Corporate Responsibility","KU3VACCOM200","VAC I","0"],
+      ["Data Analytics Using R","KU3VACCSC103","VAC I","39"],
+      ["Reconstructing Gender","KU3VACENG202","VAC I","3"],
+      ["മലബാർ - സമൂഹവുംനവോത്ഥാനവും","KU3VACMAL101","VAC I","1"],
+      ["Mathematical Logic","KU3VACMAT202","VAC I","1"],
+    ]
+  },
+  "iii-mat": {
+    title:"B.Sc. Mathematics Honours", sem:"Third Semester", tag:"III",
+    rows:[
+      ["Algebra","KU3DSCMAT201","Major","24"],
+      ["Coordinate Systems and Multiple Integrals","KU3DSCMAT202","Major","24"],
+      ["Kerala Culture in Arabic Literature","KU3MDCARB203","MDC 3","10"],
+      ["Kerala Knowledge Systems","KU3MDCENG201","MDC 3","2"],
+      ["Keral ki lok kalayen","KU3MDCHIN103","MDC 3","2"],
+      ["കേരളീയാധുനികത","KU3MDCMAL103","MDC 3","4"],
+      ["Kerala Ka Muthala","KU3MDCURD203","MDC 3","6"],
+      ["Event Management","KU3DSCCOM204","Minor 5","2"],
+      ["Media and Society","KU3DSCSOC202","Minor 5","1"],
+      ["Probability Distributions","KU3DSCSTA221","Minor 5","21"],
+      ["Financial Management","KU3DSCCOM205","Minor 6","1"],
+      ["Basics of Object Oriented Programming using C++","KU3DSCCSC204","Minor 6","22"],
+      ["Introduction to Kerala Social Realities","KU3DSCSOC203","Minor 6","1"],
+      ["Professional Ethics in Business and Corporate Responsibility","KU3VACCOM200","VAC I","7"],
+      ["Recovering Nature","KU3VACENG201","VAC I","1"],
+      ["Reconstructing Gender","KU3VACENG202","VAC I","5"],
+      ["മലബാർ - സമൂഹവുംനവോത്ഥാനവും","KU3VACMAL101","VAC I","2"],
+      ["Mathematical Logic","KU3VACMAT202","VAC I","9"],
+    ]
+  },
+  "iii-pch": {
+    title:"B.Sc. Polymer Chemistry Honours", sem:"Third Semester", tag:"III",
+    rows:[
+      ["Inorganic Chemistry I","KU3DSCCHE201","Major","27"],
+      ["Inorganic Qualitative Analysis 1","KU3DSCCHE201(P)","Major","27"],
+      ["Organic Chemistry I","KU3DSCCHE202","Major","27"],
+      ["Kerala Ka Muthala","KU3MDCURD204","MDC 1","0"],
+      ["Kerala Culture in Arabic Literature","KU3MDCARB203","MDC 3","9"],
+      ["Kerala Knowledge Systems","KU3MDCENG201","MDC 3","4"],
+      ["Kerala Ka Muthala","KU3MDCURD203","MDC 3","14"],
+      ["Python for Data Analytics","KU3DSCCSC203","Minor 5","10"],
+      ["Economics of Banking and Finance","KU3DSCECO203","Minor 5","2"],
+      ["Narratives of Love and Friendship","KU3DSCFNG203","Minor 5","2"],
+      ["Differential Equations, Laplace Transforms, Linear Programming and Numerical Methods","KU3DSCMAT211","Minor 5","13"],
+      ["Oscillations and Waves","KU3DSCPHY214","Minor 6","27"],
+      ["Polymers and Polymer Composites","KU3VACPCH102","VAC I","27"],
+    ]
+  },
+  "iii-com": {
+    title:"B.Com", sem:"Third Semester", tag:"III",
+    rows:[
+      ["Corporate Accounting","KU3DSCCOM200","Major","62"],
+      ["Company Law and Administration","KU3DSCCOM201","Major","62"],
+      ["Kerala Culture in Arabic Literature","KU3MDCARB203","MDC 3","34"],
+      ["Kerala Knowledge Systems","KU3MDCENG201","MDC 3","14"],
+      ["Keral ki lok kalayen","KU3MDCHIN103","MDC 3","2"],
+      ["കേരളീയാധുനികത","KU3MDCMAL103","MDC 3","8"],
+      ["Kerala Ka Muthala","KU3MDCURD203","MDC 3","4"],
+      ["Python for Data Analytics","KU3DSCCSC203","Minor 5","55"],
+      ["Narratives of Love and Friendship","KU3DSCFNG203","Minor 5","1"],
+      ["History of Indian National Movement","KU3DSCHIS205","Minor 5","5"],
+      ["Media and Society","KU3DSCSOC202","Minor 5","1"],
+      ["Fundamentals of Stock Trading","KU3DSCBBA204","Minor 6","61"],
+      ["Introduction to Kerala Social Realities","KU3DSCSOC203","Minor 6","1"],
+      ["Arabic Literature for Humanity","KU3VACARB201","VAC I","2"],
+      ["Professional Ethics in Business and Corporate Responsibility","KU3VACCOM200","VAC I","20"],
+      ["Data Analytics Using R","KU3VACCSC103","VAC I","3"],
+      ["Recovering Nature","KU3VACENG201","VAC I","21"],
+      ["Reconstructing Gender","KU3VACENG202","VAC I","3"],
+      ["Ethics in Media","KU3VACJMC209","VAC I","13"],
+    ]
+  }
+};
+
+const V = {
+  "v-csc": {
+    title:"B.Sc. Computer Science Honours", sem:"Fifth Semester", tag:"V",
+    rows:[
+      ["Design and Analysis of Algorithms","KU5DSECSC302","Elective 1","42"],
+      ["Artificial Intelligence and Machine Learning","KU5DSECSC303","Elective 2","42"],
+      ["Software Engineering","KU5DSCCSC301","Major","42"],
+      ["Python Programming","KU5DSCCSC302","Major","42"],
+      ["Web Technology","KU5DSCCSC303","Major","42"],
+      ["Introduction to Data Science","KU5SECCSC106","SEC 2","41"],
+      ["Digital Media Skills","KU5SECENG302","SEC 2","1"],
+    ]
+  },
+  "v-mat": {
+    title:"B.Sc. Mathematics Honours", sem:"Fifth Semester", tag:"V",
+    rows:[
+      ["Numerical Analysis","KU5DSEMAT301","Elective 1","20"],
+      ["Programming in Python","KU5DSEMAT303","Elective 2","20"],
+      ["Real Analysis I","KU5DSCMAT301","Major","20"],
+      ["Basic Abstract Algebra","KU5DSCMAT302","Major","20"],
+      ["Matrices, Fourier Series and Partial Differential Equations","KU5DSCMAT303","Major","20"],
+      ["Academic Research Skills","KU5SECENG301","SEC 2","10"],
+      ["LaTeX","KU5SECMAT301","SEC 2","10"],
+    ]
+  },
+  "v-pch": {
+    title:"B.Sc. Polymer Chemistry Honours", sem:"Fifth Semester", tag:"V",
+    rows:[
+      ["Polymer Chemistry","KU5DSEPCH305","Elective 1","25"],
+      ["Environmental Chemistry","KU5DSECHE303","Elective 2","25"],
+      ["Physical Chemistry II","KU5DSCCHE301","Major","25"],
+      ["Physical Chemistry Experiment 2","KU5DSCCHE301(P)","Major","25"],
+      ["Inorganic Chemistry III","KU5DSCCHE302","Major","25"],
+      ["Gravimetric Analysis","KU5DSCCHE302(P)","Major","25"],
+      ["Theoretical Chemistry I","KU5DSCCHE303","Major","25"],
+      ["Cosmetics and Personal Care Products","KU5SECCHE301","SEC 2","18"],
+      ["Introduction to Data Science","KU5SECCSC106","SEC 2","7"],
+    ]
+  },
+  "v-eng": {
+    title:"B.A. English Honours", sem:"Fifth Semester", tag:"V",
+    rows:[
+      ["World Poetry in English","KU5DSEENG301","Elective 1","40"],
+      ["Theatre and Performance Studies","KU5DSEENG302","Elective 2","40"],
+      ["Literary Criticism","KU5DSCENG301","Major","40"],
+      ["Applied Linguistics","KU5DSCENG302","Major","40"],
+      ["Literature in Context: The Romantic and the Victorians","KU5DSCENG303","Major","40"],
+      ["Accounting Packages and Spreadsheet Applications in Business","KU5SECCOM101","SEC 2","4"],
+      ["Academic Research Skills","KU5SECENG301","SEC 2","1"],
+      ["Digital Media Skills","KU5SECENG302","SEC 2","35"],
+    ]
+  },
+  "v-his": {
+    title:"B.A. History Honours", sem:"Fifth Semester", tag:"V",
+    rows:[
+      ["Developmental History of Kerala","KU5DSEHIS301","Elective 1","56"],
+      ["Revolutions in the Modern World","KU5DSEHIS303","Elective 2","56"],
+      ["History of Kerala from 15th Century to Early Resistance Movement","KU5DSCHIS301","Major","56"],
+      ["Transformations in the Modern World from 1815 to 1945","KU5DSCHIS303","Major","56"],
+      ["State and Society in India (1206 AD – 1757 AD)","KU5DSCHIS304","Major","56"],
+      ["Accounting Packages and Spreadsheet Applications in Business","KU5SECCOM101","SEC 2","4"],
+      ["Academic Research Skills","KU5SECENG301","SEC 2","1"],
+      ["Digital Media Skills","KU5SECENG302","SEC 2","4"],
+      ["Cartography – Map Making","KU5SECHIS301","SEC 2","47"],
+    ]
+  },
+  "v-com": {
+    title:"B.Com", sem:"Fifth Semester", tag:"V",
+    rows:[
+      ["Concept and Evaluation of Cooperation","KU5DSECOM300","Elective 1","61"],
+      ["Cooperative Institutions","KU5DSECOM301","Elective 2","61"],
+      ["Modern Banking Principles and Practices","KU5DSCCOM300","Major","61"],
+      ["Income Tax","KU5DSCCOM301","Major","61"],
+      ["Accounting for Managerial Decisions","KU5DSCCOM302","Major","61"],
+      ["Accounting Packages and Spreadsheet Applications in Business","KU5SECCOM101","SEC 2","61"],
+      ["Digital Media Skills","KU5SECENG302","SEC 2","0"],
+      ["Cartography – Map Making","KU5SECHIS301","SEC 2","0"],
+    ]
+  }
+};
+
+const III_LABELS = [
+  ["iii-eng","III Semester B.A. English"],
+  ["iii-his","III Semester B.A. History"],
+  ["iii-csc","III Semester B.Sc. Computer Science"],
+  ["iii-mat","III Semester B.Sc. Mathematics"],
+  ["iii-pch","III Semester B.Sc. Polymer Chemistry"],
+  ["iii-com","III Semester B.Com"],
+];
+const V_LABELS = [
+  ["v-eng","V Semester B.A. English"],
+  ["v-his","V Semester B.A. History"],
+  ["v-csc","V Semester B.Sc. Computer Science"],
+  ["v-mat","V Semester B.Sc. Mathematics"],
+  ["v-pch","V Semester B.Sc. Polymer Chemistry"],
+  ["v-com","V Semester B.Com"],
+];
+
+const ALL_COURSES = Object.assign({}, III, V);
+
+/* ---------------- Render link lists ---------------- */
+function arrowSvg(){
+  return '<svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function renderLinks(containerId, labels){
+  const el = document.getElementById(containerId);
+  el.innerHTML = labels.map(([id,label]) =>
+    `<button class="link-card" onclick="openCourse('${id}')"><span class="lbl">${label}</span>${arrowSvg()}</button>`
+  ).join("");
+}
+renderLinks("iii-links", III_LABELS);
+renderLinks("v-links", V_LABELS);
+
+/* ---------------- Navigation ---------------- */
+let lastCourseParent = "iii-home";
+function goTo(id){
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({top:0, behavior:"smooth"});
+  updateCrumbs(id);
+}
+
+function openCourse(id){
+  const data = ALL_COURSES[id];
+  if(!data) return;
+  lastCourseParent = data.tag === "III" ? "iii-home" : "v-home";
+
+  document.getElementById("course-title").textContent = data.title;
+  const badge = document.getElementById("course-sem-badge");
+  badge.textContent = data.sem;
+  badge.style.background = data.tag === "III" ? "var(--teal-light)" : "var(--maroon-light)";
+  badge.style.color = data.tag === "III" ? "var(--teal)" : "var(--maroon)";
+  document.getElementById("course-meta").innerHTML = `Page Home &middot; ${data.tag} Semester`;
+  document.getElementById("course-back").setAttribute("onclick", `goTo('${lastCourseParent}')`);
+
+  const tbody = document.getElementById("course-tbody");
+  tbody.innerHTML = data.rows.map(r => `
+    <tr>
+      <td>${r[0]}</td>
+      <td class="code">${r[1]}</td>
+      <td class="type"><span class="type-pill">${r[2]}</span></td>
+      <td class="count">${r[3]}</td>
+    </tr>`).join("");
+
+  const total = data.rows.reduce((s,r) => s + (parseInt(r[3],10)||0), 0);
+  document.getElementById("course-note").textContent =
+    `${data.rows.length} papers listed · ${total} total registrations · Data as of 10/08/2026, 22:14`;
+
+  goTo("course-page");
+}
+
+function updateCrumbs(id){
+  const crumbs = document.getElementById("crumbs");
+  let trail = [["home"]];
+  if(id === "iii-home") trail.push(["iii-home","III Semester"]);
+  else if(id === "v-home") trail.push(["v-home","V Semester"]);
+  else if(id === "course-page"){
+    trail.push([lastCourseParent, lastCourseParent === "iii-home" ? "III Semester" : "V Semester"]);
+    trail.push(["course-page", document.getElementById("course-title").textContent]);
+  }
+  crumbs.innerHTML = trail.map(([tid,label],i) =>
+    (i>0 ? '<span class="sep">/</span>' : '') +
+    `<button onclick="goTo('${tid}')">${label}</button>`
+  ).join("");
+}
+updateCrumbs("home");
+</script>
+</body>
+</html>
