@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Separable ODEs: Applications | Kreyszig §1.3</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5efe8;
+            color: #2c241a;
+            line-height: 1.6;
+        }
+        :root {
+            --brown-dark: #4a3320;
+            --brown-medium: #7a5a3a;
+            --brown-light: #b8956a;
+            --gold: #d4a34a;
+            --gold-light: #f0e0b8;
+            --cream: #fcf7f0;
+            --sage: #b8c4a8;
+            --sage-light: #e4ece0;
+            --accent: #8a6e3e;
+            --bg-card: #ffffff;
+            --crime-red: #8b1a1a;
+            --crime-dark: #2a0a0a;
+        }
+        .header-bar {
+            background: linear-gradient(135deg, #4a3320, #7a5a3a);
+            color: #f5efe8;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #4a3320;
+            padding: 0.6rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #d4a34a;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+        }
+        .nav-bar a, .nav-bar button {
+            background: #6a4e2e;
+            color: #f5efe8;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-bar a:hover, .nav-bar button:hover {
+            background: #d4a34a;
+            color: #3a2a1a;
+            transform: translateY(-2px);
+        }
+        .nav-bar .pdf-btn {
+            background: #8a6e3e;
+        }
+        .nav-bar .pdf-btn:hover {
+            background: #d4a34a;
+            color: #3a2a1a;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+        .lecture-header {
+            background: var(--cream);
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-left: 10px solid var(--brown-medium);
+        }
+        .course-code {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--brown-dark);
+        }
+        .lecture-badge {
+            display: inline-block;
+            background: var(--brown-medium);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-left: 14px;
+            vertical-align: middle;
+        }
+        .module-name {
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 6px;
+            border-bottom: 1px dashed #d4c4a8;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .lecture-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #5a3a20;
+            margin: 10px 0 6px;
+        }
+        .textbook-ref {
+            background: #ede4d8;
+            padding: 6px 18px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5a3a20;
+        }
+        .content-card {
+            background: var(--cream);
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid #e0d4c4;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+            border-left: 6px solid var(--gold);
+            padding-left: 20px;
+            margin: 1.8rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .def-box {
+            background: var(--sage-light);
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid var(--sage);
+        }
+        .example-box {
+            background: #fcf8f0;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            margin: 1rem 0;
+            border: 1px solid #e0d4c4;
+        }
+        .steps-box {
+            background: #faf5ec;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            border: 1px solid #e0d4c4;
+            margin: 1rem 0;
+        }
+        .steps-box ol { margin-left: 1.5rem; }
+        .steps-box li { margin: 0.5rem 0; }
+        .question-item {
+            background: #faf5ec;
+            padding: 1rem 1.4rem;
+            margin-bottom: 1.2rem;
+            border-radius: 20px;
+            border-left: 5px solid var(--brown-medium);
+            transition: 0.2s;
+        }
+        .question-text {
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .solution-area {
+            margin-top: 14px;
+            background: #ede4d8;
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            display: none;
+            border-top: 2px solid #d4c4a8;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: var(--brown-medium);
+            color: white;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.85rem;
+        }
+        .btn-answer:hover { background: var(--gold); color: #3a2a1a; }
+        .mistake-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .mistake-table th, .mistake-table td {
+            border: 1px solid #e0d4c4;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .mistake-table th { background: #ede4d8; color: var(--brown-dark); }
+        .ref-box {
+            background: #ede4d8;
+            padding: 10px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #5a3a20;
+            margin-top: 1.2rem;
+        }
+        .formula-box {
+            background: #f8f0e4;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #d4c4a8;
+            text-align: center;
+        }
+        .key-point {
+            background: #fcf3e0;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+            margin: 0.8rem 0;
+        }
+        .crime-box {
+            background: #1a0a0a;
+            color: #e8d4c4;
+            padding: 1.5rem 2rem;
+            border-radius: 20px;
+            margin: 1.5rem 0;
+            border: 2px solid #8b1a1a;
+            box-shadow: 0 0 30px rgba(139, 26, 26, 0.15);
+        }
+        .crime-box .section-heading {
+            color: #d4a34a;
+            border-left-color: #8b1a1a;
+        }
+        .crime-box .def-box {
+            background: #2a1a10;
+            border-left-color: #8b1a1a;
+            color: #e8d4c4;
+        }
+        .crime-box .example-box {
+            background: #2a1a10;
+            border-color: #4a2a1a;
+            color: #e8d4c4;
+        }
+        .crime-box .formula-box {
+            background: #1a0a0a;
+            border-color: #4a2a1a;
+            color: #e8d4c4;
+        }
+        .crime-box .key-point {
+            background: #2a1a0a;
+            border-left-color: #8b1a1a;
+            color: #e8d4c4;
+        }
+        .crime-box .btn-answer {
+            background: #8b1a1a;
+        }
+        .crime-box .btn-answer:hover {
+            background: #d4a34a;
+            color: #1a0a0a;
+        }
+        .crime-box .solution-area {
+            background: #1a0a0a;
+            border-top-color: #8b1a1a;
+            color: #e8d4c4;
+        }
+        .crime-badge {
+            display: inline-block;
+            background: #8b1a1a;
+            color: #f5efe8;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-left: 14px;
+            vertical-align: middle;
+            border: 1px solid #d4a34a;
+        }
+        footer {
+            background: #4a3320;
+            color: #d4c4a8;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--gold);
+        }
+        footer a { color: #d4a34a; text-decoration: none; }
+        footer a:hover { color: #f0e0b8; }
+        .badge-co { background: var(--accent); color: white; font-size: 0.7rem; border-radius: 30px; padding: 2px 12px; display: inline-block; margin-left: 10px; }
+        .fig-placeholder {
+            background: #ede4d8;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border: 1px dashed #b8956a;
+            font-style: italic;
+            color: #7a5a3a;
+        }
+        .divider-crime {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #8b1a1a, #d4a34a, #8b1a1a, transparent);
+            margin: 2rem 0;
+        }
+        @media print {
+            body { background: white; }
+            .nav-bar, .pdf-btn, .btn-answer { display: none !important; }
+            .content-card, .lecture-header { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .solution-area { display: block !important; background: #f5efe8; }
+            footer { display: none; }
+            .header-bar { background: #4a3320 !important; color: #f5efe8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .content-card { background: white !important; }
+            .lecture-header { background: white !important; }
+            .crime-box { background: #f5f0ea !important; color: #2c241a !important; border-color: #8b1a1a !important; }
+            .crime-box .section-heading { color: #4a3320 !important; }
+            .crime-box .def-box { background: #ede4d8 !important; color: #2c241a !important; }
+            .crime-box .example-box { background: #f5efe8 !important; color: #2c241a !important; }
+            .crime-box .formula-box { background: #ede4d8 !important; color: #2c241a !important; }
+            .crime-box .key-point { background: #f5efe8 !important; color: #2c241a !important; }
+            .crime-box .solution-area { background: #f5efe8 !important; color: #2c241a !important; }
+            .crime-badge { background: #8b1a1a !important; color: white !important; }
+        }
+        mjx-container { overflow-x: auto; margin: 0.8rem 0; }
+        .co-badge { background: var(--accent); color: white; font-size: 0.7rem; border-radius: 30px; padding: 2px 12px; display: inline-block; margin-left: 10px; }
+        .crime-emoji { font-size: 1.4rem; vertical-align: middle; }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+<div class="nav-bar">
+    <a href="#">🏠 Home</a>
+    <a href="#">📘 Course Home</a>
+    <button class="pdf-btn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+</div>
+
+<div class="main-container">
+
+    <!-- LECTURE HEADER -->
+    <div class="lecture-header">
+        <div class="course-code">
+            KU3DSCMAT211 
+            <span class="lecture-badge">Lecture 1.3</span>
+        </div>
+        <div class="module-name">📌 Module I | First Order ODEs</div>
+        <div class="lecture-title">📖 Separable ODEs – Applications</div>
+        <div class="textbook-ref">📚 Kreyszig §1.3 (Separable ODEs. Modeling)</div>
+        <div style="margin-top: 12px; font-size: 0.9rem; color: #5a4a3a;">
+            👨‍🏫 Faculty: Gafoor I &nbsp;|&nbsp; 🎯 CO1: Solve separable ODEs &amp; apply to modeling
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-card">
+
+        <!-- 1. Learning Outcomes -->
+        <div class="section-heading">🎯 Learning Outcomes</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1.2rem;">
+            <li>Recognize a <strong>separable ODE</strong> and solve it by separation of variables</li>
+            <li>Set up mathematical models for <strong>mixing problems</strong></li>
+            <li>Apply <strong>Newton's law of cooling</strong> to heating/cooling problems</li>
+            <li>Solve <strong>Torricelli's law</strong> problems (leaking tanks)</li>
+            <li>Interpret solutions in physical terms</li>
+        </ul>
+
+        <!-- 2. Review: Separable ODE Method -->
+        <div class="section-heading">📌 Review: Separable ODE Method</div>
+        <div class="def-box">
+            A first-order ODE is called <strong>separable</strong> if it can be written in the form:
+            \[
+            \frac{dy}{dx} = g(x)h(y) \quad \text{or} \quad M(x)\,dx + N(y)\,dy = 0
+            \]
+            <strong>Solution Method:</strong>
+            \[
+            \int \frac{dy}{h(y)} = \int g(x)\,dx + C
+            \]
+            Always introduce the constant of integration <strong>immediately</strong> after integration!
+        </div>
+
+        <!-- 3. The Modeling Process -->
+        <div class="section-heading">🔧 The Modeling Process</div>
+        <div class="steps-box">
+            <strong>Three Steps of Modeling:</strong>
+            <ol>
+                <li><strong>Step 1: Setting up the model</strong> — Translate the physical situation into a mathematical expression (an ODE with initial condition).</li>
+                <li><strong>Step 2: Mathematical solution</strong> — Solve the ODE using appropriate methods (separation of variables, etc.).</li>
+                <li><strong>Step 3: Interpretation</strong> — Translate the mathematical result back into physical terms.</li>
+            </ol>
+            <div class="key-point">
+                💡 <strong>Key Insight:</strong> Your computer (CAS) may help with Step 2, but Steps 1 and 3 are essentially your work!
+            </div>
+        </div>
+
+        <!-- 4. APPLICATION 1: MIXING PROBLEMS -->
+        <div class="section-heading">🧪 Application 1: Mixing Problems</div>
+        
+        <div class="def-box">
+            <strong>General Setup for Mixing Problems:</strong>
+            <ul>
+                <li>A tank contains a solution (e.g., salt in water) of volume V.</li>
+                <li>Brine (or other solution) flows in at a certain rate and concentration.</li>
+                <li>The mixture is kept uniform by stirring.</li>
+                <li>Solution flows out at a certain rate.</li>
+                <li><strong>Balance Law:</strong> Rate of change = Inflow rate − Outflow rate</li>
+            </ul>
+            <div class="formula-box">
+                \[
+                \frac{dy}{dt} = \text{(Inflow concentration)} \times \text{(Inflow rate)} - \frac{y(t)}{V(t)} \times \text{(Outflow rate)}
+                \]
+            </div>
+        </div>
+
+        <!-- Example 1: Mixing Problem -->
+        <div class="example-box">
+            <strong>📖 Example 1: Mixing Problem (Kreyszig Example 5, p. 14)</strong><br><br>
+            <p><strong>Problem:</strong> A tank contains 1000 gal of water with 100 lb of salt dissolved. Brine runs in at 10 gal/min, each gallon containing 5 lb of salt. The mixture is kept uniform. Brine runs out at 10 gal/min. Find the amount of salt in the tank at any time t.</p>
+            
+            <strong>Solution:</strong><br>
+            <strong>Step 1: Setting up the model.</strong><br>
+            Let y(t) = amount of salt in the tank at time t.<br>
+            Inflow: 5 lb/gal × 10 gal/min = 50 lb/min<br>
+            Outflow: 10 gal/min is 10/1000 = 1% of the tank, so outflow = 0.01y(t)<br>
+            \[
+            \frac{dy}{dt} = 50 - 0.01y = -0.01(y - 5000)
+            \]
+            Initial condition: y(0) = 100<br><br>
+            
+            <strong>Step 2: Mathematical solution.</strong><br>
+            \[
+            \frac{dy}{y - 5000} = -0.01\,dt
+            \]
+            \[
+            \ln|y - 5000| = -0.01t + C
+            \]
+            \[
+            y - 5000 = ce^{-0.01t}
+            \]
+            Using y(0) = 100:
+            \[
+            100 - 5000 = c \Rightarrow c = -4900
+            \]
+            \[
+            \boxed{y(t) = 5000 - 4900e^{-0.01t}}
+            \]
+            
+            <strong>Step 3: Interpretation.</strong><br>
+            As t → ∞, y(t) → 5000 lb. This is the limiting salt content when the brine in the tank reaches the same concentration as the incoming brine (5 lb/gal × 1000 gal = 5000 lb). The solution shows exponential approach to equilibrium.
+        </div>
+
+        <!-- Additional Mixing Problem -->
+        <div class="example-box">
+            <strong>📖 Example 2: Mixing Problem – Fresh Water Inflow</strong><br><br>
+            <p><strong>Problem:</strong> A tank contains 400 gal of brine with 100 lb of salt dissolved. Fresh water runs in at 2 gal/min. The mixture, kept uniform, runs out at the same rate. How much salt will be in the tank after 1 hour?</p>
+            
+            <strong>Solution:</strong><br>
+            Let y(t) = amount of salt in the tank at time t.<br>
+            Inflow: fresh water contains 0 lb of salt, so inflow = 0<br>
+            Outflow: 2 gal/min out of 400 gal = 2/400 = 0.005 of the tank per minute<br>
+            Outflow rate = 0.005y(t)<br><br>
+            
+            \[
+            \frac{dy}{dt} = -0.005y
+            \]
+            \[
+            \frac{dy}{y} = -0.005\,dt
+            \]
+            \[
+            \ln|y| = -0.005t + C
+            \]
+            \[
+            y = ce^{-0.005t}
+            \]
+            y(0) = 100 ⇒ c = 100<br>
+            \[
+            y(t) = 100e^{-0.005t}
+            \]
+            At t = 60 min:
+            \[
+            y(60) = 100e^{-0.3} = 100 \times 0.7408 = \boxed{74.08 \text{ lb}}
+            \]
+        </div>
+
+        <!-- 5. APPLICATION 2: NEWTON'S LAW OF COOLING -->
+        <div class="section-heading">🌡️ Application 2: Newton's Law of Cooling</div>
+        
+        <div class="def-box">
+            <strong>Newton's Law of Cooling:</strong><br>
+            The time rate of change of the temperature T of a body is proportional to the difference between T and the temperature of the surrounding medium Tₐ.
+            \[
+            \frac{dT}{dt} = k(T - T_a)
+            \]
+            where k is a constant (k < 0 for cooling, k > 0 for heating).
+            <div class="key-point">
+                💡 <strong>Golden Rule:</strong> If you cannot solve your problem, try to solve a simpler one!
+            </div>
+        </div>
+
+        <!-- Example 3: Newton's Law of Cooling -->
+        <div class="example-box">
+            <strong>📖 Example 3: Heating an Office Building (Kreyszig Example 6, p. 15)</strong><br><br>
+            <p><strong>Problem:</strong> Daytime temperature in an office is maintained at 70°F. Heating is shut off at 10 PM and turned on at 6 AM. At 2 AM, the temperature was 65°F. Outside temperature was 50°F at 10 PM and dropped to 40°F by 6 AM. What was the temperature when the heat was turned on at 6 AM?</p>
+            
+            <strong>Solution:</strong><br>
+            <strong>Step 1: Setting up the model.</strong><br>
+            Let T(t) = temperature inside the building.<br>
+            Let Tₐ = outside temperature (we'll use the average: 45°F).<br>
+            By Newton's law:
+            \[
+            \frac{dT}{dt} = k(T - 45)
+            \]
+            
+            <strong>Step 2: General solution.</strong><br>
+            \[
+            \frac{dT}{T - 45} = k\,dt
+            \]
+            \[
+            \ln|T - 45| = kt + C
+            \]
+            \[
+            T(t) = 45 + ce^{kt}
+            \]
+            
+            <strong>Step 3: Particular solution.</strong><br>
+            Choose t = 0 at 10 PM. T(0) = 70:
+            \[
+            70 = 45 + c \Rightarrow c = 25
+            \]
+            \[
+            T(t) = 45 + 25e^{kt}
+            \]
+            
+            <strong>Step 4: Determine k.</strong><br>
+            At t = 4 (2 AM), T(4) = 65:
+            \[
+            65 = 45 + 25e^{4k}
+            \]
+            \[
+            e^{4k} = 0.8
+            \]
+            \[
+            k = \frac{1}{4}\ln(0.8) = -0.0558
+            \]
+            \[
+            T(t) = 45 + 25e^{-0.0558t}
+            \]
+            
+            <strong>Step 5: Answer.</strong><br>
+            At t = 8 (6 AM):
+            \[
+            T(8) = 45 + 25e^{-0.0558 \times 8} = 45 + 25(0.639) = \boxed{60.98^\circ\text{F}}
+            \]
+        </div>
+
+        <!-- Example 4: Cooling of a Cake -->
+        <div class="example-box">
+            <strong>📖 Example 4: Cooling of a Cake</strong><br><br>
+            <p><strong>Problem:</strong> A cake is at 300°F when it leaves the oven. Ten minutes later, it is 200°F. The room temperature is 60°F. When will the cake be practically at room temperature (say, 61°F)?</p>
+            
+            <strong>Solution:</strong><br>
+            Let T(t) = temperature of the cake at time t (in minutes).<br>
+            Room temperature Tₐ = 60°F.<br>
+            By Newton's law:
+            \[
+            \frac{dT}{dt} = k(T - 60)
+            \]
+            \[
+            T(t) = 60 + ce^{kt}
+            \]
+            T(0) = 300: 300 = 60 + c ⇒ c = 240<br>
+            \[
+            T(t) = 60 + 240e^{kt}
+            \]
+            T(10) = 200:
+            \[
+            200 = 60 + 240e^{10k}
+            \]
+            \[
+            e^{10k} = \frac{140}{240} = \frac{7}{12}
+            \]
+            \[
+            k = \frac{1}{10}\ln\left(\frac{7}{12}\right) = -0.0539
+            \]
+            \[
+            T(t) = 60 + 240e^{-0.0539t}
+            \]
+            For T = 61°F:
+            \[
+            61 = 60 + 240e^{-0.0539t}
+            \]
+            \[
+            e^{-0.0539t} = \frac{1}{240}
+            \]
+            \[
+            t = \frac{\ln(240)}{0.0539} = \frac{5.4806}{0.0539} \approx \boxed{101.7 \text{ minutes}}
+            \]
+        </div>
+
+        <!-- 6. APPLICATION 3: TORRICELLI'S LAW -->
+        <div class="section-heading">💧 Application 3: Torricelli's Law (Leaking Tank)</div>
+        
+        <div class="def-box">
+            <strong>Torricelli's Law:</strong><br>
+            Under the influence of gravity, the outflow velocity from a hole in a tank is:
+            \[
+            v(t) = 0.600\sqrt{2gh(t)}
+            \]
+            where h(t) is the height of water above the hole, and g = 980 cm/sec² = 32.17 ft/sec².<br><br>
+            <strong>Model:</strong>
+            \[
+            \frac{dh}{dt} = -26.56\frac{A}{B}\sqrt{h}
+            \]
+            where A = area of hole, B = cross-sectional area of tank.
+        </div>
+
+        <!-- Example 5: Leaking Tank -->
+        <div class="example-box">
+            <strong>📖 Example 5: Leaking Cylindrical Tank (Kreyszig Example 7, p. 16)</strong><br><br>
+            <p><strong>Problem:</strong> A cylindrical tank of diameter 2 m has a hole of diameter 1 cm at the bottom. The initial height of water is 2.25 m. Find the height h(t) at any time and determine when the tank will be empty.</p>
+            
+            <strong>Solution:</strong><br>
+            <strong>Step 1: Setting up the model.</strong><br>
+            A = π(0.005)² = 7.854 × 10⁻⁵ m²<br>
+            B = π(1)² = π m²<br>
+            A/B = 7.854 × 10⁻⁵ / π = 2.5 × 10⁻⁵<br>
+            26.56 × (A/B) = 26.56 × 2.5 × 10⁻⁵ = 0.000664<br>
+            \[
+            \frac{dh}{dt} = -0.000664\sqrt{h}
+            \]
+            
+            <strong>Step 2: General solution.</strong><br>
+            \[
+            \frac{dh}{\sqrt{h}} = -0.000664\,dt
+            \]
+            \[
+            2\sqrt{h} = C - 0.000664t
+            \]
+            \[
+            h(t) = \left(C - 0.000332t\right)^2
+            \]
+            
+            <strong>Step 3: Particular solution.</strong><br>
+            h(0) = 2.25 m = 225 cm ⇒ C = 15.00<br>
+            \[
+            h(t) = (15.00 - 0.000332t)^2 \quad \text{(h in cm, t in seconds)}
+            \]
+            
+            <strong>Step 4: Tank empty.</strong><br>
+            h(t) = 0 when:
+            \[
+            15.00 - 0.000332t = 0
+            \]
+            \[
+            t = \frac{15.00}{0.000332} = \boxed{45,181 \text{ sec} = 12.6 \text{ hours}}
+            \]
+        </div>
+
+        <!-- 7. Practice Problem -->
+        <div class="section-heading">✏️ Practice Problem</div>
+        
+        <div class="question-item" id="q1">
+            <div class="question-text">
+                <span><strong>Problem:</strong> A tank contains 500 L of brine with 40 kg of salt dissolved. Brine containing 0.2 kg/L of salt flows in at 5 L/min. The mixture is kept uniform and flows out at 5 L/min. Find the amount of salt in the tank at time t. When will the salt content reach 95% of its limiting value? <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="1">📖 Show Solution</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong>✅ Solution:</strong><br><br>
+                <strong>Step 1: Setting up the model.</strong><br>
+                Let y(t) = amount of salt in the tank at time t (kg).<br>
+                Volume of tank = 500 L (constant because inflow = outflow).<br>
+                Inflow: 0.2 kg/L × 5 L/min = 1.0 kg/min<br>
+                Outflow: (y/500) × 5 = y/100 kg/min<br><br>
+                \[
+                \frac{dy}{dt} = 1.0 - \frac{y}{100} = -\frac{1}{100}(y - 100)
+                \]
+                Initial condition: y(0) = 40<br><br>
+                
+                <strong>Step 2: Solve.</strong><br>
+                \[
+                \frac{dy}{y - 100} = -\frac{1}{100}\,dt
+                \]
+                \[
+                \ln|y - 100| = -\frac{t}{100} + C
+                \]
+                \[
+                y - 100 = ce^{-t/100}
+                \]
+                y(0) = 40: 40 - 100 = c ⇒ c = -60<br>
+                \[
+                \boxed{y(t) = 100 - 60e^{-t/100}}
+                \]
+                
+                <strong>Step 3: Limiting value.</strong><br>
+                As t → ∞, y(t) → 100 kg.<br>
+                95% of limiting value = 95 kg.<br>
+                \[
+                95 = 100 - 60e^{-t/100}
+                \]
+                \[
+                60e^{-t/100} = 5
+                \]
+                \[
+                e^{-t/100} = \frac{1}{12}
+                \]
+                \[
+                t = 100\ln(12) \approx \boxed{248.5 \text{ minutes} \approx 4.14 \text{ hours}}
+                \]
+            </div>
+        </div>
+
+        <!-- 8. Common Mistakes -->
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+        <table class="mistake-table">
+            <tr><th>Mistake</th><th>Correction</th></tr>
+            <tr><td>Forgetting the constant of integration C</td><td>Always add +C immediately after integration. If you add it later, you may get a wrong solution!</td></tr>
+            <tr><td>Confusing inflow and outflow rates/concentrations</td><td>Carefully identify: Inflow rate × Inflow concentration gives inflow of substance. Outflow rate × (amount/volume) gives outflow.</td></tr>
+            <tr><td>Using wrong sign in Newton's law</td><td>For cooling: dT/dt = k(T - Tₐ) with k < 0. For heating: k > 0.</td></tr>
+            <tr><td>Forgetting units in Torricelli's law</td><td>Consistent units are essential! Use cm for g, meters for MKS.</td></tr>
+        </table>
+
+        <!-- 9. Summary -->
+        <div class="section-heading">📋 Quick Summary</div>
+        <div class="def-box" style="background: #ede4d8;">
+            <ul>
+                <li><strong>Mixing Problem:</strong> y' = Inflow − Outflow, where Outflow = (y/V) × outflow rate</li>
+                <li><strong>Newton's Law of Cooling:</strong> dT/dt = k(T − Tₐ), solution T(t) = Tₐ + (T₀ − Tₐ)e^(kt)</li>
+                <li><strong>Torricelli's Law:</strong> dh/dt = −26.56(A/B)√h, solution h(t) = (√h₀ − 13.28(A/B)t)²</li>
+                <li><strong>Modeling Steps:</strong> Set up model → Solve mathematically → Interpret physically</li>
+            </ul>
+        </div>
+
+        <hr class="divider-crime">
+
+        <!-- ============================================================ -->
+        <!-- 10. CURIOSITY PROBLEM: THE ALIBI CLOCK (FORENSIC APPLICATION) -->
+        <!-- ============================================================ -->
+        
+        <div class="crime-box">
+            <div class="section-heading">
+                🕵️‍♂️ Case File #2026-MATH-08: The Alibi Clock
+                <span class="crime-badge">🔴 FORENSICS</span>
+            </div>
+
+            <p style="font-size: 1.05rem; margin-bottom: 0.5rem;">
+                <span class="crime-emoji">🕵️</span> <strong>Monday Morning, 9:58 AM.</strong>
+            </p>
+            <p style="margin-bottom: 1rem;">
+                You walk up to your professor's office. The door is slightly ajar. You push it open, step inside, and freeze—your professor is lying motionless on the carpet.
+            </p>
+            <p style="margin-bottom: 1rem;">
+                The lead detective turns to you: 
+                <em>"CCTV shows you entering this wing at 9:55 AM. No one else has passed through since 7:30 AM. Unless you can prove where you were the exact minute the crime occurred, you are our primary suspect."</em>
+            </p>
+            <p style="margin-bottom: 1rem;">
+                You need an alibi. But an alibi is useless unless you know the precise <strong>time of death</strong>.
+            </p>
+
+            <div class="def-box">
+                <strong>📊 Forensic Data:</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li>🕐 <strong>10:00 AM:</strong> Body temperature = 30°C</li>
+                    <li>🕐 <strong>11:00 AM:</strong> Body temperature = 28°C</li>
+                    <li>🌡️ <strong>Room Temperature (Tₐ):</strong> 24°C (constant)</li>
+                    <li>❤️ <strong>Normal Living Body Temperature:</strong> 37°C</li>
+                </ul>
+            </div>
+
+            <div class="key-point">
+                💡 <strong>Key Insight:</strong> Thermal cooling obeys Newton's Law of Cooling. If you can solve the ODE, you can calculate the exact time of death and clear your name!
+            </div>
+
+            <div class="example-box">
+                <strong>🔍 Step 1: Formulating the Differential Equation</strong><br><br>
+                By Newton's Law of Cooling:
+                \[
+                \frac{dT}{dt} = k(T - 24)
+                \]
+                where:
+                <ul>
+                    <li>T(t) = Body temperature at time t (hours)</li>
+                    <li>t = 0 corresponds to <strong>10:00 AM</strong></li>
+                    <li>Tₐ = 24°C</li>
+                    <li>k = cooling constant (k < 0)</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <strong>🔍 Step 2: General Solution</strong><br><br>
+                Separate variables:
+                \[
+                \frac{dT}{T - 24} = k\,dt
+                \]
+                Integrate:
+                \[
+                \ln|T - 24| = kt + C_1
+                \]
+                \[
+                T(t) = 24 + Ce^{kt} \quad \text{— (Equation 1)}
+                \]
+            </div>
+
+            <div class="example-box">
+                <strong>🔍 Step 3: Determine C</strong><br><br>
+                Using T(0) = 30°C:
+                \[
+                30 = 24 + C \Rightarrow C = 6
+                \]
+                \[
+                T(t) = 24 + 6e^{kt} \quad \text{— (Equation 2)}
+                \]
+            </div>
+
+            <div class="example-box">
+                <strong>🔍 Step 4: Determine k</strong><br><br>
+                Using T(1) = 28°C:
+                \[
+                28 = 24 + 6e^{k}
+                \]
+                \[
+                e^{k} = \frac{2}{3}
+                \]
+                \[
+                k = \ln\left(\frac{2}{3}\right) \approx -0.4055
+                \]
+                \[
+                T(t) = 24 + 6e^{-0.4055t} \quad \text{— (Equation 3)}
+                \]
+            </div>
+
+            <div class="example-box">
+                <strong>🔍 Step 5: Calculate Time of Death (t_d)</strong><br><br>
+                At death, T(t_d) = 37°C:
+                \[
+                37 = 24 + 6e^{-0.4055t_d}
+                \]
+                \[
+                e^{-0.4055t_d} = \frac{13}{6}
+                \]
+                \[
+                -0.4055t_d = \ln\left(\frac{13}{6}\right) \approx 0.77319
+                \]
+                \[
+                t_d = \frac{0.77319}{-0.4055} \approx -1.9068 \text{ hours}
+                \]
+                \[
+                0.9068 \times 60 \approx 54 \text{ minutes}
+                \]
+                \[
+                \boxed{t_d \approx -1 \text{ hour } 54 \text{ minutes}}
+                \]
+            </div>
+
+            <div class="def-box" style="background: #1a0a0a; border-left-color: #d4a34a;">
+                <strong>🔎 Forensic Conclusion:</strong><br><br>
+                Since t = 0 is 10:00 AM, t_d = -1h 54m means death occurred:
+                \[
+                \text{10:00 AM} - \text{1 hour 54 minutes} = \boxed{\mathbf{8:06 \text{ AM}}}
+                \]
+                <br>
+                <strong>✅ Case Outcome:</strong> You show the police your cafeteria receipt and library log proving you were on the other side of campus from <strong>7:45 AM to 9:30 AM</strong>. Thanks to <strong>Newton's Law of Cooling</strong> and <strong>separation of variables</strong>, your name is cleared!
+            </div>
+
+            <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #b8956a; text-align: right;">
+                🧮 <em>Mathematics saves the day!</em>
+            </div>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.3, pp. 12–19.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="#">🏠 Home</a> | <a href="#">📘 Classroom Space</a> | <a href="#">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods</p>
+    </footer>
+</div>
+
+<script>
+    // Toggle solution visibility
+    document.querySelectorAll('.btn-answer').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const qid = this.getAttribute('data-qid');
+            const sol = document.getElementById('sol' + qid);
+            if (sol) {
+                sol.classList.toggle('show');
+                this.textContent = sol.classList.contains('show') ? '🙈 Hide Solution' : '📖 Show Solution';
+            }
+        });
+    });
+
+    // Save as PDF
+    function saveAsPDF() {
+        document.title = "Lecture1.3_Separable_ODEs_Applications.pdf";
+        window.print();
+        setTimeout(() => { document.title = "Separable ODEs: Applications | Kreyszig §1.3"; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+</body>
+</html>
