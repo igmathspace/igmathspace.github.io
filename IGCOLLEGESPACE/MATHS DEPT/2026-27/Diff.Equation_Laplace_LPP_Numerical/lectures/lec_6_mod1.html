@@ -254,6 +254,20 @@
         mjx-container { overflow-x: auto; margin: 0.8rem 0; }
         .badge-co { background: var(--accent); color: white; font-size: 0.7rem; border-radius: 30px; padding: 2px 12px; display: inline-block; margin-left: 10px; }
         .badge-new { background: #1a6a8a; color: white; font-size: 0.65rem; border-radius: 30px; padding: 2px 10px; display: inline-block; margin-left: 8px; }
+        .corrected-badge {
+            background: #c0392b;
+            color: white;
+            font-size: 0.6rem;
+            border-radius: 30px;
+            padding: 2px 10px;
+            display: inline-block;
+            margin-left: 8px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
@@ -628,11 +642,17 @@
             </div>
             <div id="sol16" class="solution-area">
                 <strong>✅ Solution:</strong><br>
-                \(M = 1 + e^{x/y},\; N = e^{x/y}\left(1 - \frac{x}{y}\right)\)<br>
+                \(M = 1 + e^{x/y},\; N = e^{x/y}\left(1 - \frac{x}{y}\right)\)<br><br>
+                <strong>Check exactness:</strong><br>
                 \(M_y = e^{x/y} \cdot \left(-\frac{x}{y^2}\right) = -\frac{x}{y^2}e^{x/y}\)<br>
-                \(N_x = e^{x/y} \cdot \frac{1}{y} + e^{x/y}\left(1 - \frac{x}{y}\right)\frac{1}{y} = e^{x/y}\left(\frac{1}{y} + \frac{1}{y} - \frac{x}{y^2}\right) = e^{x/y}\left(\frac{2}{y} - \frac{x}{y^2}\right)\)<br>
-                ❌ Not exact in this form. This requires an integrating factor or a substitution.<br>
-                <em>(Note: This is a homogeneous ODE; set \(x = vy\) to solve.)</em>
+                \(N_x = e^{x/y}\cdot \frac{1}{y}\left(1 - \frac{x}{y}\right) + e^{x/y}\left(-\frac{1}{y}\right)\)<br>
+                \(N_x = e^{x/y}\left(\frac{1}{y} - \frac{x}{y^2} - \frac{1}{y}\right) = -\frac{x}{y^2}e^{x/y}\) ✅ Exact.<br><br>
+                <strong>Apply shortcut:</strong><br>
+                \(\int M\,dx = \int (1 + e^{x/y})\,dx = x + y e^{x/y}\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br><br>
+                \[
+                \boxed{x + y e^{x/y} = C}
+                \]
             </div>
         </div>
 
