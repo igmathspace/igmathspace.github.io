@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exact ODEs: Solving Exact Equations | Kreyszig §1.4</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #e8f4f8;
+            color: #0a2a3a;
+            line-height: 1.6;
+        }
+        :root {
+            --blue-dark: #0a3a5a;
+            --blue-medium: #1a6a8a;
+            --blue-light: #4a9aba;
+            --blue-pale: #d4eaf2;
+            --blue-bg: #e8f4f8;
+            --accent: #2a8aaa;
+            --bg-card: #ffffff;
+        }
+        .header-bar {
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #0a3a5a;
+            padding: 0.6rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #4a9aba;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+        }
+        .nav-bar a, .nav-bar button {
+            background: #1a6a8a;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-bar a:hover, .nav-bar button:hover {
+            background: #4a9aba;
+            transform: translateY(-2px);
+        }
+        .nav-bar .pdf-btn {
+            background: #1a5a7a;
+        }
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+        .lecture-header {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-left: 10px solid var(--blue-medium);
+        }
+        .course-code {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--blue-dark);
+        }
+        .lecture-badge {
+            display: inline-block;
+            background: var(--blue-medium);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-left: 14px;
+            vertical-align: middle;
+        }
+        .module-name {
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 6px;
+            border-bottom: 1px dashed #b0d0dc;
+            display: inline-block;
+            padding-bottom: 4px;
+        }
+        .lecture-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #0a4a6a;
+            margin: 10px 0 6px;
+        }
+        .textbook-ref {
+            background: #d4eaf2;
+            padding: 6px 18px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #0a4a6a;
+        }
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid #c0dce8;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--blue-dark);
+            border-left: 6px solid var(--blue-light);
+            padding-left: 20px;
+            margin: 1.8rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .def-box {
+            background: #e8f4f8;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid var(--blue-light);
+        }
+        .example-box {
+            background: #f0f8fc;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            margin: 1rem 0;
+            border: 1px solid #c0dce8;
+        }
+        .steps-box {
+            background: #f8fcfe;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            border: 1px solid #c0dce8;
+            margin: 1rem 0;
+        }
+        .steps-box ol { margin-left: 1.5rem; }
+        .steps-box li { margin: 0.5rem 0; }
+        .question-item {
+            background: #f6fafc;
+            padding: 1rem 1.4rem;
+            margin-bottom: 1.2rem;
+            border-radius: 20px;
+            border-left: 5px solid var(--blue-medium);
+            transition: 0.2s;
+        }
+        .question-text {
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+        .solution-area {
+            margin-top: 14px;
+            background: #d4eaf2;
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            display: none;
+            border-top: 2px solid #4a9aba;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: var(--blue-medium);
+            color: white;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.85rem;
+        }
+        .btn-answer:hover { background: var(--blue-light); }
+        .mistake-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .mistake-table th, .mistake-table td {
+            border: 1px solid #c0dce8;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .mistake-table th { background: #d4eaf2; color: var(--blue-dark); }
+        .ref-box {
+            background: #d4eaf2;
+            padding: 10px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #0a4a6a;
+            margin-top: 1.2rem;
+        }
+        .formula-box {
+            background: #e8f4f8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #b0d0dc;
+            text-align: center;
+        }
+        .key-point {
+            background: #e8f4f8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue-light);
+            margin: 0.8rem 0;
+        }
+        footer {
+            background: #0a3a5a;
+            color: #b0d0dc;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--blue-light);
+        }
+        footer a { color: #4a9aba; text-decoration: none; }
+        @media print {
+            body { background: white; }
+            .nav-bar, .pdf-btn, .btn-answer { display: none !important; }
+            .content-card, .lecture-header { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .solution-area { display: block !important; background: #e8f4f8; }
+            footer { display: none; }
+            .header-bar { background: #0a3a5a !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+        mjx-container { overflow-x: auto; margin: 0.8rem 0; }
+        .badge-co { background: var(--accent); color: white; font-size: 0.7rem; border-radius: 30px; padding: 2px 12px; display: inline-block; margin-left: 10px; }
+        .badge-new { background: #1a6a8a; color: white; font-size: 0.65rem; border-radius: 30px; padding: 2px 10px; display: inline-block; margin-left: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+<div class="nav-bar">
+    <a href="#">🏠 Home</a>
+    <a href="#">📘 Course Home</a>
+    <button class="pdf-btn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+</div>
+
+<div class="main-container">
+
+    <!-- LECTURE HEADER -->
+    <div class="lecture-header">
+        <div class="course-code">
+            KU3DSCMAT211 
+            <span class="lecture-badge">Lecture 1.6</span>
+        </div>
+        <div class="module-name">📌 Module I | First Order ODEs</div>
+        <div class="lecture-title">📖 Exact ODEs – Solving Exact Equations with Examples</div>
+        <div class="textbook-ref">📚 Kreyszig §1.4 (Exact ODEs) – Problem Set 1.4</div>
+        <div style="margin-top: 12px; font-size: 0.9rem; color: #1a5a7a;">
+            👨‍🏫 Faculty: Gafoor I &nbsp;|&nbsp; 🎯 CO1: Solve exact differential equations
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-card">
+
+        <!-- 1. Learning Outcomes -->
+        <div class="section-heading">🎯 Learning Outcomes</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1.2rem;">
+            <li>Identify an <strong>exact differential equation</strong> using the exactness condition</li>
+            <li>Apply the <strong>shortcut solution method</strong> (Integrate M + Integrate N₁(y))</li>
+            <li>Solve exact ODEs from Kreyszig Problem Set 1.4</li>
+            <li>Solve additional exact ODE problems</li>
+        </ul>
+
+        <!-- 2. Review: Shortcut Method -->
+        <div class="section-heading">⚡ Review: Shortcut Solution Method</div>
+        <div class="def-box" style="background: #d4eaf2; border-left-color: #1a6a8a;">
+            <p style="font-size: 1.05rem; font-weight: 600;">For an exact ODE \(M\,dx + N\,dy = 0\), the solution is:</p>
+            <div class="formula-box" style="background: white;">
+                \[
+                \boxed{\int M\,dx + \int N_1(y)\,dy = C}
+                \]
+            </div>
+            <ul style="margin-top: 10px; list-style: none; padding-left: 0;">
+                <li>✅ In \(\int M\,dx\), treat \(y\) as <strong>constant</strong>.</li>
+                <li>✅ \(N_1(y)\) = all terms in \(N(x,y)\) that are <strong>independent of \(x\)</strong> (purely \(y\)-terms).</li>
+                <li>✅ \(C\) is the arbitrary constant.</li>
+                <li>✅ <strong>Always check exactness first:</strong> \(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</li>
+            </ul>
+            <div class="key-point" style="background: white;">
+                💡 <strong>Why this works:</strong> The shortcut skips the \(\phi(y)\) step. The \(N_1(y)\) terms come from the \(\phi(y)\) integration constant in the standard method.
+            </div>
+        </div>
+
+        <!-- 3. Worked Example -->
+        <div class="section-heading">📖 Worked Example</div>
+        <div class="example-box">
+            <strong>Solve:</strong> \((2xy + 3x^2)\,dx + (x^2 + 4y^3)\,dy = 0\)<br><br>
+            <strong>Step 1: Check exactness</strong><br>
+            \(M = 2xy + 3x^2 \Rightarrow M_y = 2x\)<br>
+            \(N = x^2 + 4y^3 \Rightarrow N_x = 2x\)<br>
+            \(M_y = N_x\) ✅ Exact.<br><br>
+            <strong>Step 2: Apply shortcut</strong><br>
+            \(\int M\,dx = \int (2xy + 3x^2)\,dx = x^2y + x^3\)<br>
+            \(N_1(y)\) = terms in \(N\) with no \(x\): \(4y^3\)<br>
+            \(\int N_1(y)\,dy = \int 4y^3\,dy = y^4\)<br><br>
+            <strong>Solution:</strong>
+            \[
+            x^2y + x^3 + y^4 = C
+            \]
+        </div>
+
+        <!-- 4. Problems from Kreyszig §1.4 (Not in Previous Lecture) -->
+        <div class="section-heading">📚 Kreyszig Problem Set 1.4 (Remaining Problems)</div>
+        <p style="margin-bottom: 1rem;">These problems are from <strong>Kreyszig §1.4</strong> — avoiding the ones already covered in the previous lecture.</p>
+
+        <!-- Problem 1: 2xy dx + x² dy = 0 -->
+        <div class="question-item" id="q1">
+            <div class="question-text">
+                <span><strong>Prob. 1:</strong> \(2xy\,dx + x^2\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="1">📖 Solution</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = 2xy,\; N = x^2\)<br>
+                \(M_y = 2x,\; N_x = 2x\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int 2xy\,dx = x^2y\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br>
+                \[
+                \boxed{x^2y = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 2: x³ dx + y³ dy = 0 -->
+        <div class="question-item" id="q2">
+            <div class="question-text">
+                <span><strong>Prob. 2:</strong> \(x^3\,dx + y^3\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="2">📖 Solution</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = x^3,\; N = y^3\)<br>
+                \(M_y = 0,\; N_x = 0\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int x^3\,dx = \frac{x^4}{4}\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): \(y^3\)<br>
+                \(\int y^3\,dy = \frac{y^4}{4}\)<br>
+                \[
+                \boxed{x^4 + y^4 = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 3: sin x cos y dx + cos x sin y dy = 0 -->
+        <div class="question-item" id="q3">
+            <div class="question-text">
+                <span><strong>Prob. 3:</strong> \(\sin x \cos y\,dx + \cos x \sin y\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="3">📖 Solution</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = \sin x \cos y,\; N = \cos x \sin y\)<br>
+                \(M_y = -\sin x \sin y,\; N_x = -\sin x \sin y\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int \sin x \cos y\,dx = -\cos x \cos y\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br>
+                \[
+                \boxed{\cos x \cos y = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 4: e^(3θ)(dr + 3r dθ) = 0 -->
+        <div class="question-item" id="q4">
+            <div class="question-text">
+                <span><strong>Prob. 4:</strong> \(e^{3\theta}(dr + 3r\,d\theta) = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="4">📖 Solution</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                Expand: \(e^{3\theta}\,dr + 3r e^{3\theta}\,d\theta = 0\)<br>
+                \(M = e^{3\theta},\; N = 3r e^{3\theta}\)<br>
+                \(M_\theta = 3e^{3\theta},\; N_r = 3e^{3\theta}\) ✅ Exact.<br><br>
+                \(\int M\,dr = \int e^{3\theta}\,dr = r e^{3\theta}\)<br>
+                \(N_1(\theta)\) = terms in \(N\) with no \(r\): none → 0<br>
+                \[
+                \boxed{r e^{3\theta} = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 5: (x² + y²) dx - 2xy dy = 0 -->
+        <div class="question-item" id="q5">
+            <div class="question-text">
+                <span><strong>Prob. 5:</strong> \((x^2 + y^2)\,dx - 2xy\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="5">📖 Solution</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = x^2 + y^2,\; N = -2xy\)<br>
+                \(M_y = 2y,\; N_x = -2y\) ❌ Not exact.<br>
+                <em>This is not exact — it requires an integrating factor or can be solved as a homogeneous ODE.</em>
+            </div>
+        </div>
+
+        <!-- Problem 6: 3(y+1) dx = 2x dy -->
+        <div class="question-item" id="q6">
+            <div class="question-text">
+                <span><strong>Prob. 6:</strong> \(3(y+1)\,dx = 2x\,dy\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="6">📖 Solution</button>
+            </div>
+            <div id="sol6" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                Rewrite: \(3(y+1)\,dx - 2x\,dy = 0\)<br>
+                \(M = 3(y+1),\; N = -2x\)<br>
+                \(M_y = 3,\; N_x = -2\) ❌ Not exact.<br>
+                <em>This is separable: \(\frac{3}{2x}\,dx = \frac{1}{y+1}\,dy\)</em><br>
+                \[
+                \boxed{(y+1)^2 = Cx^3}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 7: 2x tan y dx + sec² y dy = 0 -->
+        <div class="question-item" id="q7">
+            <div class="question-text">
+                <span><strong>Prob. 7:</strong> \(2x \tan y\,dx + \sec^2 y\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="7">📖 Solution</button>
+            </div>
+            <div id="sol7" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = 2x \tan y,\; N = \sec^2 y\)<br>
+                \(M_y = 2x \sec^2 y,\; N_x = 0\) ❌ Not exact.<br>
+                <em>This is separable: \(2x\,dx = -\frac{\sec^2 y}{\tan y}\,dy\)</em><br>
+                \[
+                \boxed{x^2 + \ln|\tan y| = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 8: e^x(cos y dx - sin y dy) = 0 -->
+        <div class="question-item" id="q8">
+            <div class="question-text">
+                <span><strong>Prob. 8:</strong> \(e^x(\cos y\,dx - \sin y\,dy) = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="8">📖 Solution</button>
+            </div>
+            <div id="sol8" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(e^x \cos y\,dx - e^x \sin y\,dy = 0\)<br>
+                \(M = e^x \cos y,\; N = -e^x \sin y\)<br>
+                \(M_y = -e^x \sin y,\; N_x = -e^x \sin y\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int e^x \cos y\,dx = e^x \cos y\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br>
+                \[
+                \boxed{e^x \cos y = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 9: e^(2x)(2 cos y dx - sin y dy) = 0, y(0) = 0 -->
+        <div class="question-item" id="q9">
+            <div class="question-text">
+                <span><strong>Prob. 9 (IVP):</strong> \(e^{2x}(2\cos y\,dx - \sin y\,dy) = 0,\; y(0) = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="9">📖 Solution</button>
+            </div>
+            <div id="sol9" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(2e^{2x}\cos y\,dx - e^{2x}\sin y\,dy = 0\)<br>
+                \(M = 2e^{2x}\cos y,\; N = -e^{2x}\sin y\)<br>
+                \(M_y = -2e^{2x}\sin y,\; N_x = -2e^{2x}\sin y\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int 2e^{2x}\cos y\,dx = e^{2x}\cos y\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br>
+                General solution: \(e^{2x}\cos y = C\)<br>
+                Apply \(y(0)=0\): \(e^0 \cos 0 = 1 = C\)<br>
+                \[
+                \boxed{e^{2x}\cos y = 1}
+                \]
+            </div>
+        </div>
+
+        <!-- Problem 12: (2xy dx + dy) e^(x²) = 0, y(0) = 2 -->
+        <div class="question-item" id="q10">
+            <div class="question-text">
+                <span><strong>Prob. 12 (IVP):</strong> \((2xy\,dx + dy)e^{x^2} = 0,\; y(0) = 2\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="10">📖 Solution</button>
+            </div>
+            <div id="sol10" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(2x y e^{x^2}\,dx + e^{x^2}\,dy = 0\)<br>
+                \(M = 2xy e^{x^2},\; N = e^{x^2}\)<br>
+                \(M_y = 2x e^{x^2},\; N_x = 2x e^{x^2}\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int 2xy e^{x^2}\,dx = y e^{x^2}\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br>
+                General solution: \(y e^{x^2} = C\)<br>
+                Apply \(y(0)=2\): \(2 \cdot 1 = C \Rightarrow C = 2\)<br>
+                \[
+                \boxed{y e^{x^2} = 2}
+                \]
+            </div>
+        </div>
+
+        <!-- 5. Additional Problems (From the Provided List) -->
+        <div class="section-heading">📝 Additional Exact ODE Problems</div>
+
+        <!-- Additional Problem 1 -->
+        <div class="question-item" id="q11">
+            <div class="question-text">
+                <span><strong>Prob. A1:</strong> \((e^y + 1)\cos x\,dx + e^y \sin x\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="11">📖 Solution</button>
+            </div>
+            <div id="sol11" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = (e^y + 1)\cos x,\; N = e^y \sin x\)<br>
+                \(M_y = e^y \cos x,\; N_x = e^y \cos x\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int (e^y + 1)\cos x\,dx = (e^y + 1)\sin x\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br>
+                \[
+                \boxed{(e^y + 1)\sin x = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Additional Problem 2 -->
+        <div class="question-item" id="q12">
+            <div class="question-text">
+                <span><strong>Prob. A2:</strong> \((y\cos x + \sin y + y)\,dx + (\sin x + x\cos y + x)\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="12">📖 Solution</button>
+            </div>
+            <div id="sol12" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = y\cos x + \sin y + y,\; N = \sin x + x\cos y + x\)<br>
+                \(M_y = \cos x + \cos y + 1\)<br>
+                \(N_x = \cos x + \cos y + 1\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int (y\cos x + \sin y + y)\,dx = y\sin x + x(\sin y + y)\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): none → 0<br>
+                \[
+                \boxed{y\sin x + x(\sin y + y) = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Additional Problem 3 -->
+        <div class="question-item" id="q13">
+            <div class="question-text">
+                <span><strong>Prob. A3:</strong> \((x^2 - ay)\,dx = (ax - y^2)\,dy\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="13">📖 Solution</button>
+            </div>
+            <div id="sol13" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                Rewrite: \((x^2 - ay)\,dx + (y^2 - ax)\,dy = 0\)<br>
+                \(M = x^2 - ay,\; N = y^2 - ax\)<br>
+                \(M_y = -a,\; N_x = -a\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int (x^2 - ay)\,dx = \frac{x^3}{3} - axy\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): \(y^2\)<br>
+                \(\int y^2\,dy = \frac{y^3}{3}\)<br>
+                \[
+                \boxed{x^3 + y^3 - 3axy = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Additional Problem 4 -->
+        <div class="question-item" id="q14">
+            <div class="question-text">
+                <span><strong>Prob. A4:</strong> \((ax + hy + g)\,dx + (hx + by + f)\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="14">📖 Solution</button>
+            </div>
+            <div id="sol14" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = ax + hy + g,\; N = hx + by + f\)<br>
+                \(M_y = h,\; N_x = h\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int (ax + hy + g)\,dx = \frac{ax^2}{2} + hxy + gx\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): \(by + f\)<br>
+                \(\int (by + f)\,dy = \frac{by^2}{2} + fy\)<br>
+                \[
+                \boxed{\frac{ax^2}{2} + hxy + \frac{by^2}{2} + gx + fy = C}
+                \]
+            </div>
+        </div>
+
+        <!-- Additional Problem 5 -->
+        <div class="question-item" id="q15">
+            <div class="question-text">
+                <span><strong>Prob. A5:</strong> \((x^2 + y^2 - a^2)x\,dx + (x^2 - y^2 - b^2)y\,dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="15">📖 Solution</button>
+            </div>
+            <div id="sol15" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = x(x^2 + y^2 - a^2) = x^3 + xy^2 - a^2x\)<br>
+                \(N = y(x^2 - y^2 - b^2) = x^2y - y^3 - b^2y\)<br>
+                \(M_y = 2xy,\; N_x = 2xy\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int (x^3 + xy^2 - a^2x)\,dx = \frac{x^4}{4} + \frac{x^2y^2}{2} - \frac{a^2x^2}{2}\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): \(-y^3 - b^2y\)<br>
+                \(\int (-y^3 - b^2y)\,dy = -\frac{y^4}{4} - \frac{b^2y^2}{2}\)<br>
+                Multiply by 4:
+                \[
+                \boxed{x^4 + 2x^2y^2 - 2a^2x^2 - y^4 - 2b^2y^2 = 4C}
+                \]
+            </div>
+        </div>
+
+        <!-- Additional Problem 6: (1 + e^(x/y)) dx + e^(x/y)(1 - x/y) dy = 0 -->
+        <div class="question-item" id="q16">
+            <div class="question-text">
+                <span><strong>Prob. A6:</strong> \((1 + e^{x/y})\,dx + e^{x/y}\left(1 - \frac{x}{y}\right)dy = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="16">📖 Solution</button>
+            </div>
+            <div id="sol16" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                \(M = 1 + e^{x/y},\; N = e^{x/y}\left(1 - \frac{x}{y}\right)\)<br>
+                \(M_y = e^{x/y} \cdot \left(-\frac{x}{y^2}\right) = -\frac{x}{y^2}e^{x/y}\)<br>
+                \(N_x = e^{x/y} \cdot \frac{1}{y} + e^{x/y}\left(1 - \frac{x}{y}\right)\frac{1}{y} = e^{x/y}\left(\frac{1}{y} + \frac{1}{y} - \frac{x}{y^2}\right) = e^{x/y}\left(\frac{2}{y} - \frac{x}{y^2}\right)\)<br>
+                ❌ Not exact in this form. This requires an integrating factor or a substitution.<br>
+                <em>(Note: This is a homogeneous ODE; set \(x = vy\) to solve.)</em>
+            </div>
+        </div>
+
+        <!-- Additional Problem 7: (x + 2y - 3) dy - (2x - y + 1) dx = 0 -->
+        <div class="question-item" id="q17">
+            <div class="question-text">
+                <span><strong>Prob. A7:</strong> \((x + 2y - 3)\,dy - (2x - y + 1)\,dx = 0\) <span class="badge-co">CO1</span></span>
+                <button class="btn-answer" data-qid="17">📖 Solution</button>
+            </div>
+            <div id="sol17" class="solution-area">
+                <strong>✅ Solution:</strong><br>
+                Rewrite: \(-(2x - y + 1)\,dx + (x + 2y - 3)\,dy = 0\)<br>
+                \(M = -2x + y - 1,\; N = x + 2y - 3\)<br>
+                \(M_y = 1,\; N_x = 1\) ✅ Exact.<br><br>
+                \(\int M\,dx = \int (-2x + y - 1)\,dx = -x^2 + xy - x\)<br>
+                \(N_1(y)\) = terms in \(N\) with no \(x\): \(2y - 3\)<br>
+                \(\int (2y - 3)\,dy = y^2 - 3y\)<br>
+                \[
+                \boxed{-x^2 + xy - x + y^2 - 3y = C}
+                \]
+            </div>
+        </div>
+
+        <!-- 6. Common Mistakes -->
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+        <table class="mistake-table">
+            <tr><th>Mistake</th><th>Correction</th></tr>
+            <tr><td>Forgetting to check exactness before applying the shortcut</td><td>Always verify \(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\) first.</td></tr>
+            <tr><td>Including \(x\)-terms in \(N_1(y)\)</td><td>Only terms with <strong>no</strong> \(x\) go into \(N_1(y)\).</td></tr>
+            <tr><td>Omitting the constant \(C\) in the final solution</td><td>Always write \(u(x,y) = C\).</td></tr>
+            <tr><td>Forgetting the integration constant when integrating \(N_1(y)\)</td><td>The constant \(C\) is added at the end of the solution.</td></tr>
+        </table>
+
+        <!-- 7. Summary -->
+        <div class="section-heading">📋 Quick Summary</div>
+        <div class="def-box" style="background: #d4eaf2;">
+            <ul>
+                <li><strong>Exact ODE form:</strong> \(M\,dx + N\,dy = 0\)</li>
+                <li><strong>Condition:</strong> \(\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}\)</li>
+                <li><strong>Shortcut solution:</strong> \(\int M\,dx + \int N_1(y)\,dy = C\)</li>
+                <li>\(N_1(y)\) = purely \(y\)-terms from \(N\)</li>
+                <li>Always verify the solution by implicit differentiation.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.4, Problem Set 1.4, pp. 26–27.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="#">🏠 Home</a> | <a href="#">📘 Classroom Space</a> | <a href="#">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods</p>
+    </footer>
+</div>
+
+<script>
+    // Toggle solution visibility
+    document.querySelectorAll('.btn-answer').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const qid = this.getAttribute('data-qid');
+            const sol = document.getElementById('sol' + qid);
+            if (sol) {
+                sol.classList.toggle('show');
+                this.textContent = sol.classList.contains('show') ? '🙈 Hide Solution' : '📖 Solution';
+            }
+        });
+    });
+
+    // Save as PDF
+    function saveAsPDF() {
+        document.title = "Lecture1.6_Exact_ODEs_Examples_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = "Exact ODEs: Solving Exact Equations | Kreyszig §1.4"; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+</body>
+</html>
