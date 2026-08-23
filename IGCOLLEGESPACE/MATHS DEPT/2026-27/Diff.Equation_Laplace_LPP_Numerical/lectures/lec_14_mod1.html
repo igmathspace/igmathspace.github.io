@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Differential Equations – Complete Solutions</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5efe6;
+            color: #3d2e1e;
+            line-height: 1.7;
+            padding: 20px;
+        }
+        .main-container { max-width: 1100px; margin: 0 auto; }
+        .header-bar {
+            background: linear-gradient(135deg, #5a3d2b, #8b6b4f);
+            color: #f5ede4;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+        }
+        .content-card {
+            background: #fcf8f2;
+            border-radius: 28px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 8px 22px rgba(60, 40, 20, 0.10);
+            border: 1px solid #dacfc4;
+            margin-bottom: 30px;
+        }
+        .section-heading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #4a3222;
+            border-left: 6px solid #b8956a;
+            padding-left: 20px;
+            margin: 1.8rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .problem-box {
+            background: #f5efe8;
+            padding: 1rem 1.4rem;
+            border-radius: 20px;
+            border-left: 5px solid #8b6b4f;
+            margin-bottom: 1.2rem;
+        }
+        .problem-box .q {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #4a3222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .solution-content {
+            margin-top: 12px;
+            background: #ede3d7;
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+            border-top: 2px solid #b8956a;
+            display: none;
+        }
+        .solution-content.show { display: block; }
+        .solution-content .step {
+            margin: 0.4rem 0;
+            padding-left: 8px;
+            border-left: 3px solid #8b6b4f;
+        }
+        .solution-content .step strong { color: #4a3222; }
+        .solution-content .step .desc {
+            color: #6a5a4a;
+            font-style: italic;
+            font-size: 0.92rem;
+        }
+        .btn-answer {
+            background: #8b6b4f;
+            color: #f5ede4;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+        .btn-answer:hover { background: #b8956a; }
+        .btn-pdf {
+            background: #8b6b4f;
+            color: #f5ede4;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .btn-pdf:hover { background: #b8956a; }
+        .pdf-controls { text-align: center; margin: 10px 0; }
+        .ref-box {
+            background: #ede3d7;
+            padding: 10px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #4a3222;
+            margin-top: 1.2rem;
+        }
+        .def-box-dark {
+            background: #ede3d7;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid #8b6b4f;
+        }
+        ul, ol { margin-left: 1.5rem; padding-left: 0.5rem; }
+        li { margin: 0.4rem 0; }
+        footer {
+            background: #5a3d2b;
+            color: #dacfc4;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 30px;
+            border-top: 6px solid #b8956a;
+            border-radius: 28px;
+        }
+        @media print {
+            body { background: white; }
+            .content-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .btn-pdf, .btn-answer { display: none; }
+            .pdf-controls { display: none; }
+            .solution-content { display: block !important; background: #ede3d7; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="pdf-controls">
+        <button class="btn-pdf" id="downloadPdf">📄 Save as PDF (A4)</button>
+    </div>
+
+    <div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+    <div class="content-card" id="note-content">
+
+        <div style="border-bottom: 2px solid #dacfc4; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="font-size: 1.8rem; font-weight: 800; color: #4a3222;">KU3DSCMAT211</span>
+            <span style="display: inline-block; background: #8b6b4f; color: #f5ede4; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Solutions</span>
+            <div style="font-size: 1.3rem; font-weight: 700; color: #4a3222; margin-top: 6px;">📖 Differential Equations – Complete Solutions</div>
+        </div>
+
+        <!-- ====== DEFINITIONS & BASICS ====== -->
+        <div class="section-heading">📌 Definitions &amp; Basics</div>
+
+        <!-- Q1: Define ODE -->
+        <div class="problem-box" id="q1">
+            <div class="q">
+                <span><strong>1.</strong> Define an ordinary differential equation.</span>
+                <button class="btn-answer" data-target="sol1">📖 Solution</button>
+            </div>
+            <div id="sol1" class="solution-content">
+                <div class="step"><strong>Definition:</strong> An ordinary differential equation (ODE) is an equation that contains one or more derivatives of an unknown function with respect to a single independent variable. <span class="desc">(This is the standard definition of an ODE.)</span></div>
+                <div class="step"><span class="desc">Example: \( \frac{dy}{dx} = 2x \) or \( y'' + 3y' + 2y = 0 \).</span></div>
+            </div>
+        </div>
+
+        <!-- Q2: Order and degree -->
+        <div class="problem-box" id="q2">
+            <div class="q">
+                <span><strong>2.</strong> Find the order and degree of \( \frac{d^2y}{dx^2} + 9y = e^{-2x} \)</span>
+                <button class="btn-answer" data-target="sol2">📖 Solution</button>
+            </div>
+            <div id="sol2" class="solution-content">
+                <div class="step"><strong>Order:</strong> The highest derivative is \( \frac{d^2y}{dx^2} \) <span class="desc">(second derivative is the highest order)</span> → order = 2</div>
+                <div class="step"><strong>Degree:</strong> The highest derivative is raised to power 1 <span class="desc">(no power other than 1 on the highest derivative)</span> → degree = 1</div>
+                <div class="step"><span class="desc">Answer: Order = 2, Degree = 1</span></div>
+            </div>
+        </div>
+
+        <!-- Q3: Order with sqrt -->
+        <div class="problem-box" id="q3">
+            <div class="q">
+                <span><strong>3.</strong> Find the order of \( \frac{d^3y}{dx^3} + 2\left(\frac{dy}{dx}\right)^{1/2} = 0 \)</span>
+                <button class="btn-answer" data-target="sol3">📖 Solution</button>
+            </div>
+            <div id="sol3" class="solution-content">
+                <div class="step"><strong>Order:</strong> The highest derivative is \( \frac{d^3y}{dx^3} \) <span class="desc">(third derivative is the highest order present)</span> → order = 3</div>
+                <div class="step"><span class="desc">Note: Degree is not defined because the derivative appears under a radical (fractional power).</span></div>
+                <div class="step"><span class="desc">Answer: Order = 3</span></div>
+            </div>
+        </div>
+
+        <!-- Q4: Verify y = c/x -->
+        <div class="problem-box" id="q4">
+            <div class="q">
+                <span><strong>4.</strong> Verify that \( y = \frac{c}{x} \) is a solution of \( xy' = -y \)</span>
+                <button class="btn-answer" data-target="sol4">📖 Solution</button>
+            </div>
+            <div id="sol4" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Given \( y = \frac{c}{x} \) <span class="desc">(take the candidate solution)</span></div>
+                <div class="step"><strong>Step 2:</strong> Differentiate: \( y' = -\frac{c}{x^2} \) <span class="desc">(apply derivative with respect to x)</span></div>
+                <div class="step"><strong>Step 3:</strong> Substitute into \( xy' = -y \): <span class="desc">(check if the ODE is satisfied)</span><br>
+                LHS = \( x \cdot (-\frac{c}{x^2}) = -\frac{c}{x} \) <span class="desc">(simplify the left-hand side)</span><br>
+                RHS = \( -y = -\frac{c}{x} \) <span class="desc">(simplify the right-hand side)</span></div>
+                <div class="step"><strong>Step 4:</strong> LHS = RHS → Verified. <span class="desc">(the candidate satisfies the ODE)</span></div>
+            </div>
+        </div>
+
+        <!-- Q5: Verify x² + y² = c -->
+        <div class="problem-box" id="q5">
+            <div class="q">
+                <span><strong>5.</strong> Verify that \( x^2 + y^2 = c \) is a solution of \( yy' = -x \)</span>
+                <button class="btn-answer" data-target="sol5">📖 Solution</button>
+            </div>
+            <div id="sol5" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Given \( x^2 + y^2 = c \) <span class="desc">(implicitly defined solution)</span></div>
+                <div class="step"><strong>Step 2:</strong> Differentiate implicitly: \( 2x + 2yy' = 0 \) <span class="desc">(differentiate both sides with respect to x)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( yy' = -x \) <span class="desc">(divide both sides by 2 to get the ODE form)</span></div>
+                <div class="step"><strong>Step 4:</strong> This matches the given ODE exactly → Verified. <span class="desc">(the implicit solution satisfies the ODE)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== SEPARABLE ODEs ====== -->
+        <div class="section-heading">📝 Separable ODEs</div>
+
+        <!-- Q6: dy/dx = cos x -->
+        <div class="problem-box" id="q6">
+            <div class="q">
+                <span><strong>6.</strong> Solve \( \frac{dy}{dx} = \cos x \)</span>
+                <button class="btn-answer" data-target="sol6">📖 Solution</button>
+            </div>
+            <div id="sol6" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Separate variables: \( dy = \cos x \, dx \) <span class="desc">(move all y terms to LHS, x terms to RHS)</span></div>
+                <div class="step"><strong>Step 2:</strong> Integrate both sides: \( \int dy = \int \cos x \, dx \) <span class="desc">(apply integration to both sides)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( y = \sin x + C \) <span class="desc">(integrate cos x to get sin x, add constant of integration)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \sin x + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q7: dy/dx = 1 + y² -->
+        <div class="problem-box" id="q7">
+            <div class="q">
+                <span><strong>7.</strong> Solve \( \frac{dy}{dx} = 1 + y^2 \)</span>
+                <button class="btn-answer" data-target="sol7">📖 Solution</button>
+            </div>
+            <div id="sol7" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Separate variables: \( \frac{dy}{1 + y^2} = dx \) <span class="desc">(move y terms to LHS, x terms to RHS)</span></div>
+                <div class="step"><strong>Step 2:</strong> Integrate: \( \int \frac{dy}{1 + y^2} = \int dx \) <span class="desc">(apply integration to both sides)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( \tan^{-1} y = x + C \) <span class="desc">(integrate LHS using formula \( \int \frac{dy}{1+y^2} = \tan^{-1} y \))</span></div>
+                <div class="step"><strong>Step 4:</strong> \( y = \tan(x + C) \) <span class="desc">(take tangent on both sides to solve for y)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \tan(x + C) \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q8: dy/dx = 1 + x² + y² + x²y² -->
+        <div class="problem-box" id="q8">
+            <div class="q">
+                <span><strong>8.</strong> Solve \( \frac{dy}{dx} = 1 + x^2 + y^2 + x^2y^2 \)</span>
+                <button class="btn-answer" data-target="sol8">📖 Solution</button>
+            </div>
+            <div id="sol8" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Factor RHS: \( 1 + x^2 + y^2 + x^2y^2 = (1 + x^2)(1 + y^2) \) <span class="desc">(factor by grouping)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{dy}{dx} = (1 + x^2)(1 + y^2) \) <span class="desc">(separated form)</span></div>
+                <div class="step"><strong>Step 3:</strong> Separate: \( \frac{dy}{1 + y^2} = (1 + x^2) dx \) <span class="desc">(move y terms to LHS, x terms to RHS)</span></div>
+                <div class="step"><strong>Step 4:</strong> Integrate: \( \tan^{-1} y = x + \frac{x^3}{3} + C \) <span class="desc">(integrate both sides)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \tan\left(x + \frac{x^3}{3} + C\right) \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q9: dy/dx = e^{x+y} -->
+        <div class="problem-box" id="q9">
+            <div class="q">
+                <span><strong>9.</strong> Solve \( \frac{dy}{dx} = e^{x+y} \)</span>
+                <button class="btn-answer" data-target="sol9">📖 Solution</button>
+            </div>
+            <div id="sol9" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} = e^x e^y \) <span class="desc">(use property \( e^{x+y} = e^x e^y \))</span></div>
+                <div class="step"><strong>Step 2:</strong> Separate: \( e^{-y} dy = e^x dx \) <span class="desc">(move y terms to LHS, x terms to RHS)</span></div>
+                <div class="step"><strong>Step 3:</strong> Integrate: \( -e^{-y} = e^x + C \) <span class="desc">(integrate both sides)</span></div>
+                <div class="step"><span class="desc">Solution: \( e^{-y} = C - e^x \) or \( y = -\ln(C - e^x) \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q10: (2 - x)dy - (3 + y)dx = 0 -->
+        <div class="problem-box" id="q10">
+            <div class="q">
+                <span><strong>10.</strong> Solve \( (2 - x)dy - (3 + y)dx = 0 \)</span>
+                <button class="btn-answer" data-target="sol10">📖 Solution</button>
+            </div>
+            <div id="sol10" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( (2 - x)dy = (3 + y)dx \) <span class="desc">(rearrange the equation)</span></div>
+                <div class="step"><strong>Step 2:</strong> Separate: \( \frac{dy}{3 + y} = \frac{dx}{2 - x} \) <span class="desc">(divide both sides appropriately)</span></div>
+                <div class="step"><strong>Step 3:</strong> Integrate: \( \ln|3 + y| = -\ln|2 - x| + C \) <span class="desc">(integrate both sides)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( (3 + y)(2 - x) = C \) <span class="desc">(take exponential and simplify)</span></div>
+                <div class="step"><span class="desc">Solution: \( (3 + y)(2 - x) = C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q11: dy/dx = e^{x-y} + x²e^{-y} -->
+        <div class="problem-box" id="q11">
+            <div class="q">
+                <span><strong>11.</strong> Solve \( \frac{dy}{dx} = e^{x-y} + x^2e^{-y} \)</span>
+                <button class="btn-answer" data-target="sol11">📖 Solution</button>
+            </div>
+            <div id="sol11" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} = e^{-y}(e^x + x^2) \) <span class="desc">(factor out \( e^{-y} \))</span></div>
+                <div class="step"><strong>Step 2:</strong> Separate: \( e^y dy = (e^x + x^2) dx \) <span class="desc">(multiply both sides by \( e^y \))</span></div>
+                <div class="step"><strong>Step 3:</strong> Integrate: \( e^y = e^x + \frac{x^3}{3} + C \) <span class="desc">(integrate both sides)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \ln\left(e^x + \frac{x^3}{3} + C\right) \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q12: dy/dx = tan(x + y) -->
+        <div class="problem-box" id="q12">
+            <div class="q">
+                <span><strong>12.</strong> Solve \( \frac{dy}{dx} = \tan(x + y) \)</span>
+                <button class="btn-answer" data-target="sol12">📖 Solution</button>
+            </div>
+            <div id="sol12" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Let \( u = x + y \) → \( \frac{du}{dx} = 1 + \frac{dy}{dx} \) <span class="desc">(substitute to simplify)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{du}{dx} = 1 + \tan u \) <span class="desc">(replace dy/dx with tan u)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( \frac{du}{1 + \tan u} = dx \) <span class="desc">(separate variables)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( \frac{\cos u}{\sin u + \cos u} du = dx \) <span class="desc">(simplify: \( 1 + \tan u = \frac{\sin u + \cos u}{\cos u} \))</span></div>
+                <div class="step"><strong>Step 5:</strong> \( \frac{1}{2}\left(1 + \frac{\cos u - \sin u}{\sin u + \cos u}\right) du = dx \) <span class="desc">(rewrite for integration)</span></div>
+                <div class="step"><strong>Step 6:</strong> \( \frac{u}{2} + \frac{1}{2}\ln|\sin u + \cos u| = x + C \) <span class="desc">(integrate both sides)</span></div>
+                <div class="step"><span class="desc">Solution: \( \frac{x+y}{2} + \frac{1}{2}\ln|\sin(x+y) + \cos(x+y)| = x + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q13: dy/dx = 2/(x + 2y - 3) -->
+        <div class="problem-box" id="q13">
+            <div class="q">
+                <span><strong>13.</strong> Solve \( \frac{dy}{dx} = \frac{2}{x + 2y - 3} \)</span>
+                <button class="btn-answer" data-target="sol13">📖 Solution</button>
+            </div>
+            <div id="sol13" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Let \( u = x + 2y - 3 \) → \( \frac{du}{dx} = 1 + 2\frac{dy}{dx} \) <span class="desc">(substitute to simplify)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{du}{dx} = 1 + 2 \cdot \frac{2}{u} = 1 + \frac{4}{u} = \frac{u+4}{u} \) <span class="desc">(replace dy/dx)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( \frac{u}{u+4} du = dx \) <span class="desc">(separate variables)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( \left(1 - \frac{4}{u+4}\right) du = dx \) <span class="desc">(rewrite the integrand)</span></div>
+                <div class="step"><strong>Step 5:</strong> \( u - 4\ln|u+4| = x + C \) <span class="desc">(integrate both sides)</span></div>
+                <div class="step"><span class="desc">Solution: \( x + 2y - 3 - 4\ln|x + 2y + 1| = x + C \) → \( 2y - 3 - 4\ln|x + 2y + 1| = C \)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== LINEAR ODEs ====== -->
+        <div class="section-heading">📝 Linear ODEs (\( y' + p(x)y = q(x) \))</div>
+
+        <!-- Q14: y' + 4y = 1.4, verify -->
+        <div class="problem-box" id="q14">
+            <div class="q">
+                <span><strong>14.</strong> Verify \( y = ce^{-4x} + 0.35 \) solves \( y' + 4y = 1.4 \), find c for y(0)=2</span>
+                <button class="btn-answer" data-target="sol14">📖 Solution</button>
+            </div>
+            <div id="sol14" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( y = ce^{-4x} + 0.35 \) → \( y' = -4ce^{-4x} \) <span class="desc">(differentiate the candidate solution)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( y' + 4y = -4ce^{-4x} + 4(ce^{-4x} + 0.35) = 1.4 \) → Verified. <span class="desc">(substitute into the ODE to verify)</span></div>
+                <div class="step"><strong>Step 3:</strong> Apply \( y(0)=2 \): \( 2 = c + 0.35 \) → \( c = 1.65 \) <span class="desc">(use initial condition to find c)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = 1.65e^{-4x} + 0.35 \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q15: (1 + x²)dy/dx + 2yx - 6x² = 0 -->
+        <div class="problem-box" id="q15">
+            <div class="q">
+                <span><strong>15.</strong> Solve \( (1 + x^2)\frac{dy}{dx} + 2yx - 6x^2 = 0 \)</span>
+                <button class="btn-answer" data-target="sol15">📖 Solution</button>
+            </div>
+            <div id="sol15" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} + \frac{2x}{1+x^2}y = \frac{6x^2}{1+x^2} \) <span class="desc">(divide by \( 1+x^2 \) to get standard form)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( p(x) = \frac{2x}{1+x^2} \), \( q(x) = \frac{6x^2}{1+x^2} \) <span class="desc">(identify p and q)</span></div>
+                <div class="step"><strong>Step 3:</strong> IF = \( e^{\int \frac{2x}{1+x^2} dx} = e^{\ln(1+x^2)} = 1+x^2 \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( y(1+x^2) = \int \frac{6x^2}{1+x^2} \cdot (1+x^2) dx = \int 6x^2 dx = 2x^3 + C \) <span class="desc">(multiply by IF and integrate)</span></div>
+                <div class="step"><span class="desc">Solution: \( y(1+x^2) = 2x^3 + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q16: x log x dy/dx + y = 2 log x -->
+        <div class="problem-box" id="q16">
+            <div class="q">
+                <span><strong>16.</strong> Solve \( x \log x \, \frac{dy}{dx} + y = 2 \log x \)</span>
+                <button class="btn-answer" data-target="sol16">📖 Solution</button>
+            </div>
+            <div id="sol16" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} + \frac{1}{x\log x}y = \frac{2}{x} \) <span class="desc">(divide by \( x\log x \) to get standard form)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( p(x) = \frac{1}{x\log x} \), \( q(x) = \frac{2}{x} \) <span class="desc">(identify p and q)</span></div>
+                <div class="step"><strong>Step 3:</strong> IF = \( e^{\int \frac{1}{x\log x} dx} = e^{\ln(\log x)} = \log x \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( y\log x = \int \frac{2}{x} \cdot \log x \, dx \) <span class="desc">(multiply by IF and integrate)</span></div>
+                <div class="step"><strong>Step 5:</strong> \( \int \frac{2\log x}{x} dx = (\log x)^2 + C \) <span class="desc">(integrate using substitution \( u = \log x \))</span></div>
+                <div class="step"><span class="desc">Solution: \( y\log x = (\log x)^2 + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q17: x cos x dy/dx + y(x sin x + cos x) = 1 -->
+        <div class="problem-box" id="q17">
+            <div class="q">
+                <span><strong>17.</strong> Solve \( x\cos x \frac{dy}{dx} + y(x\sin x + \cos x) = 1 \)</span>
+                <button class="btn-answer" data-target="sol17">📖 Solution</button>
+            </div>
+            <div id="sol17" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} + \frac{x\sin x + \cos x}{x\cos x}y = \frac{1}{x\cos x} \) <span class="desc">(divide by \( x\cos x \))</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{x\sin x + \cos x}{x\cos x} = \tan x + \frac{1}{x} \) <span class="desc">(simplify p(x))</span></div>
+                <div class="step"><strong>Step 3:</strong> \( p(x) = \tan x + \frac{1}{x} \), \( q(x) = \frac{1}{x\cos x} \) <span class="desc">(identify p and q)</span></div>
+                <div class="step"><strong>Step 4:</strong> IF = \( e^{\int (\tan x + 1/x) dx} = e^{\ln|\sec x| + \ln|x|} = x\sec x \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 5:</strong> \( y(x\sec x) = \int \frac{1}{x\cos x} \cdot x\sec x \, dx = \int \sec^2 x \, dx = \tan x + C \) <span class="desc">(multiply by IF and integrate)</span></div>
+                <div class="step"><span class="desc">Solution: \( yx\sec x = \tan x + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q18: dy/dx + 2y tan x = sin x, y(π/3)=0 -->
+        <div class="problem-box" id="q18">
+            <div class="q">
+                <span><strong>18.</strong> Solve \( \frac{dy}{dx} + 2y\tan x = \sin x, \; y(\pi/3) = 0 \)</span>
+                <button class="btn-answer" data-target="sol18">📖 Solution</button>
+            </div>
+            <div id="sol18" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( p(x) = 2\tan x \), \( q(x) = \sin x \) <span class="desc">(identify p and q)</span></div>
+                <div class="step"><strong>Step 2:</strong> IF = \( e^{\int 2\tan x dx} = e^{-2\ln|\cos x|} = \sec^2 x \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( y\sec^2 x = \int \sin x \sec^2 x \, dx = \int \frac{\sin x}{\cos^2 x} dx = \sec x + C \) <span class="desc">(multiply by IF and integrate)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( y = \cos^2 x(\sec x + C) = \cos x + C\cos^2 x \) <span class="desc">(solve for y)</span></div>
+                <div class="step"><strong>Step 5:</strong> Apply \( y(\pi/3)=0 \): \( 0 = \cos(\pi/3) + C\cos^2(\pi/3) = \frac{1}{2} + C \cdot \frac{1}{4} \) → \( C = -2 \) <span class="desc">(use initial condition)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \cos x - 2\cos^2 x \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q19: cos²x dy/dx + y = tan x -->
+        <div class="problem-box" id="q19">
+            <div class="q">
+                <span><strong>19.</strong> Solve \( \cos^2 x \frac{dy}{dx} + y = \tan x \)</span>
+                <button class="btn-answer" data-target="sol19">📖 Solution</button>
+            </div>
+            <div id="sol19" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} + \sec^2 x \, y = \tan x \sec^2 x \) <span class="desc">(divide by \( \cos^2 x \))</span></div>
+                <div class="step"><strong>Step 2:</strong> \( p(x) = \sec^2 x \), \( q(x) = \tan x \sec^2 x \) <span class="desc">(identify p and q)</span></div>
+                <div class="step"><strong>Step 3:</strong> IF = \( e^{\int \sec^2 x dx} = e^{\tan x} \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( y e^{\tan x} = \int \tan x \sec^2 x \, e^{\tan x} dx \) <span class="desc">(multiply by IF)</span></div>
+                <div class="step"><strong>Step 5:</strong> Let \( u = \tan x \) → \( du = \sec^2 x dx \) → \( \int u e^u du = e^u(u-1) + C \) <span class="desc">(integrate by parts)</span></div>
+                <div class="step"><strong>Step 6:</strong> \( y e^{\tan x} = e^{\tan x}(\tan x - 1) + C \) <span class="desc">(substitute back)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \tan x - 1 + C e^{-\tan x} \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q20: dy/dx + y cot x = 4x csc x, y(π/2)=0 -->
+        <div class="problem-box" id="q20">
+            <div class="q">
+                <span><strong>20.</strong> Solve \( \frac{dy}{dx} + y\cot x = 4x\csc x, \; y(\pi/2) = 0 \)</span>
+                <button class="btn-answer" data-target="sol20">📖 Solution</button>
+            </div>
+            <div id="sol20" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( p(x) = \cot x \), \( q(x) = 4x\csc x \) <span class="desc">(identify p and q)</span></div>
+                <div class="step"><strong>Step 2:</strong> IF = \( e^{\int \cot x dx} = e^{\ln|\sin x|} = \sin x \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( y\sin x = \int 4x\csc x \cdot \sin x \, dx = \int 4x \, dx = 2x^2 + C \) <span class="desc">(multiply by IF and integrate)</span></div>
+                <div class="step"><strong>Step 4:</strong> Apply \( y(\pi/2)=0 \): \( 0 = 2(\pi/2)^2 + C \) → \( C = -\frac{\pi^2}{2} \) <span class="desc">(use initial condition)</span></div>
+                <div class="step"><span class="desc">Solution: \( y\sin x = 2x^2 - \frac{\pi^2}{2} \)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== EXACT ODEs ====== -->
+        <div class="section-heading">📝 Exact ODEs</div>
+
+        <!-- Q21: Define exact ODE -->
+        <div class="problem-box" id="q21">
+            <div class="q">
+                <span><strong>21.</strong> (a) Define an exact differential equation. (b) Solve \( e^{3y}(dx + 3xdy) = 0 \)</span>
+                <button class="btn-answer" data-target="sol21">📖 Solution</button>
+            </div>
+            <div id="sol21" class="solution-content">
+                <div class="step"><strong>(a) Definition:</strong> An ODE \( M(x,y)dx + N(x,y)dy = 0 \) is exact if \( \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} \). <span class="desc">(condition for exactness)</span></div>
+                <div class="step"><strong>(b) Step 1:</strong> \( e^{3y}dx + 3xe^{3y}dy = 0 \) → \( M = e^{3y} \), \( N = 3xe^{3y} \) <span class="desc">(identify M and N)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( M_y = 3e^{3y} \), \( N_x = 3e^{3y} \) → Exact <span class="desc">(check exactness condition)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( u = \int M dx = xe^{3y} + h(y) \) <span class="desc">(integrate M with respect to x)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( u_y = 3xe^{3y} + h'(y) = 3xe^{3y} \) → \( h'(y) = 0 \) → \( h(y) = C \) <span class="desc">(compare with N to find h(y))</span></div>
+                <div class="step"><span class="desc">Solution: \( xe^{3y} = C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q22: 3e^x tan y dx + (1 - e^x) sec²y dy = 0 -->
+        <div class="problem-box" id="q22">
+            <div class="q">
+                <span><strong>22.</strong> Solve \( 3e^x \tan y \, dx + (1 - e^x)\sec^2 y \, dy = 0 \)</span>
+                <button class="btn-answer" data-target="sol22">📖 Solution</button>
+            </div>
+            <div id="sol22" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( M = 3e^x \tan y \), \( N = (1 - e^x)\sec^2 y \) <span class="desc">(identify M and N)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( M_y = 3e^x \sec^2 y \), \( N_x = -e^x \sec^2 y \) → Not exact <span class="desc">(check exactness: \( M_y \neq N_x \))</span></div>
+                <div class="step"><strong>Step 3:</strong> Find IF: \( \frac{M_y - N_x}{N} = \frac{3e^x \sec^2 y + e^x \sec^2 y}{(1 - e^x)\sec^2 y} = \frac{4e^x}{1 - e^x} \) <span class="desc">(function of x only)</span></div>
+                <div class="step"><strong>Step 4:</strong> IF = \( e^{\int \frac{4e^x}{1-e^x} dx} = e^{-4\ln|1-e^x|} = (1 - e^x)^{-4} \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 5:</strong> Multiply: \( \frac{3e^x \tan y}{(1-e^x)^4} dx + \frac{\sec^2 y}{(1-e^x)^3} dy = 0 \) <span class="desc">(exact now)</span></div>
+                <div class="step"><strong>Step 6:</strong> \( u = \int \frac{\sec^2 y}{(1-e^x)^3} dy = \frac{\tan y}{(1-e^x)^3} + h(x) \) <span class="desc">(integrate N with respect to y)</span></div>
+                <div class="step"><strong>Step 7:</strong> \( u_x = \frac{3e^x \tan y}{(1-e^x)^4} + h'(x) = \frac{3e^x \tan y}{(1-e^x)^4} \) → \( h'(x) = 0 \) <span class="desc">(compare with M)</span></div>
+                <div class="step"><span class="desc">Solution: \( \frac{\tan y}{(1-e^x)^3} = C \)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== BERNOULLI EQUATIONS ====== -->
+        <div class="section-heading">📝 Bernoulli Equations</div>
+
+        <!-- Q23: y' = 3.2y - 10y² -->
+        <div class="problem-box" id="q23">
+            <div class="q">
+                <span><strong>23.</strong> Solve \( y' = 3.2y - 10y^2 \) (Logistic equation)</span>
+                <button class="btn-answer" data-target="sol23">📖 Solution</button>
+            </div>
+            <div id="sol23" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( y' - 3.2y = -10y^2 \) <span class="desc">(rearrange to Bernoulli form \( y' + p(x)y = g(x)y^a \))</span></div>
+                <div class="step"><strong>Step 2:</strong> \( a = 2 \), \( p(x) = -3.2 \), \( g(x) = -10 \) <span class="desc">(identify parameters)</span></div>
+                <div class="step"><strong>Step 3:</strong> Let \( u = y^{-1} \) → \( u' = -y^{-2}y' \) <span class="desc">(substitute)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( -u' - 3.2u = -10 \) → \( u' + 3.2u = 10 \) <span class="desc">(linear ODE in u)</span></div>
+                <div class="step"><strong>Step 5:</strong> IF = \( e^{3.2x} \) → \( u e^{3.2x} = \int 10 e^{3.2x} dx = \frac{10}{3.2} e^{3.2x} + C \) <span class="desc">(solve linear ODE)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \frac{1}{3.125 + C e^{-3.2x}} \)</span> <span class="desc">(also y=0 is a solution)</span></div>
+            </div>
+        </div>
+
+        <!-- Q24: y - x dy/dx = a(y² + dy/dx) -->
+        <div class="problem-box" id="q24">
+            <div class="q">
+                <span><strong>24.</strong> Solve \( y - x\frac{dy}{dx} = a\left(y^2 + \frac{dy}{dx}\right) \)</span>
+                <button class="btn-answer" data-target="sol24">📖 Solution</button>
+            </div>
+            <div id="sol24" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( y - xy' = a y^2 + a y' \) <span class="desc">(expand RHS)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( -xy' - ay' = a y^2 - y \) → \( -(x+a)y' = a y^2 - y \) <span class="desc">(rearrange terms)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( y' = \frac{y - a y^2}{x + a} \) <span class="desc">(solve for y')</span></div>
+                <div class="step"><strong>Step 4:</strong> Bernoulli: \( y' + \frac{a}{x+a}y = \frac{1}{x+a}y^2 \) <span class="desc">(write in standard Bernoulli form \( y' + p(x)y = g(x)y^2 \))</span></div>
+                <div class="step"><strong>Step 5:</strong> \( a = 2 \), let \( u = y^{-1} \) → \( u' = -y^{-2}y' \) <span class="desc">(substitute)</span></div>
+                <div class="step"><strong>Step 6:</strong> \( -u' + \frac{a}{x+a}u = \frac{1}{x+a} \) → \( u' - \frac{a}{x+a}u = -\frac{1}{x+a} \) <span class="desc">(linear ODE in u)</span></div>
+                <div class="step"><strong>Step 7:</strong> IF = \( e^{\int -a/(x+a) dx} = e^{-a\ln|x+a|} = (x+a)^{-a} \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><span class="desc">Solution: \( u(x+a)^{-a} = \int -\frac{1}{x+a}(x+a)^{-a} dx = \frac{(x+a)^{-a}}{a} + C \) → \( y = \frac{1}{1/a + C(x+a)^a} \)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== HOMOGENEOUS ODEs ====== -->
+        <div class="section-heading">📝 Homogeneous ODEs</div>
+
+        <!-- Q25: (x - y)2 dy/dx = a² -->
+        <div class="problem-box" id="q25">
+            <div class="q">
+                <span><strong>25.</strong> Solve \( (x - y)2\frac{dy}{dx} = a^2 \)</span>
+                <button class="btn-answer" data-target="sol25">📖 Solution</button>
+            </div>
+            <div id="sol25" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} = \frac{a^2}{2(x-y)} \) <span class="desc">(solve for y')</span></div>
+                <div class="step"><strong>Step 2:</strong> Homogeneous type: Let \( y = vx \) → \( \frac{dy}{dx} = v + x\frac{dv}{dx} \) <span class="desc">(substitute)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( v + xv' = \frac{a^2}{2x(1-v)} \) <span class="desc">(substitute y = vx)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( xv' = \frac{a^2}{2x(1-v)} - v = \frac{a^2 - 2vx^2(1-v)}{2x(1-v)} \) <span class="desc">(rearrange)</span></div>
+                <div class="step"><span class="desc">This is not homogeneous in the standard sense. Let \( u = x - y \) → \( \frac{du}{dx} = 1 - \frac{dy}{dx} \)</span></div>
+                <div class="step"><strong>Step 5:</strong> \( \frac{du}{dx} = 1 - \frac{a^2}{2u} \) → \( \frac{2u}{2u - a^2} du = dx \) <span class="desc">(separate variables)</span></div>
+                <div class="step"><span class="desc">Solution: \( u + \frac{a^2}{2}\ln|2u - a^2| = x + C \) → \( x-y + \frac{a^2}{2}\ln|2(x-y) - a^2| = x + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q26: (x + y + 1)dy/dx = 1 -->
+        <div class="problem-box" id="q26">
+            <div class="q">
+                <span><strong>26.</strong> Solve \( (x + y + 1)\frac{dy}{dx} = 1 \)</span>
+                <button class="btn-answer" data-target="sol26">📖 Solution</button>
+            </div>
+            <div id="sol26" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( \frac{dy}{dx} = \frac{1}{x+y+1} \) <span class="desc">(solve for y')</span></div>
+                <div class="step"><strong>Step 2:</strong> Let \( u = x + y + 1 \) → \( \frac{du}{dx} = 1 + \frac{dy}{dx} \) <span class="desc">(substitute)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( \frac{du}{dx} = 1 + \frac{1}{u} = \frac{u+1}{u} \) <span class="desc">(replace dy/dx)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( \frac{u}{u+1} du = dx \) → \( \left(1 - \frac{1}{u+1}\right) du = dx \) <span class="desc">(separate variables)</span></div>
+                <div class="step"><strong>Step 5:</strong> \( u - \ln|u+1| = x + C \) <span class="desc">(integrate both sides)</span></div>
+                <div class="step"><span class="desc">Solution: \( x + y + 1 - \ln|x + y + 2| = x + C \) → \( y + 1 - \ln|x + y + 2| = C \)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== SUBSTITUTION METHODS (Reducible to Separable) ====== -->
+        <div class="section-heading">📝 Substitution Methods (Reducible to Separable)</div>
+
+        <!-- Q27: dy/dx = (4x + y + 1)² -->
+        <div class="problem-box" id="q27">
+            <div class="q">
+                <span><strong>27.</strong> Solve \( \frac{dy}{dx} = (4x + y + 1)^2 \)</span>
+                <button class="btn-answer" data-target="sol27">📖 Solution</button>
+            </div>
+            <div id="sol27" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Let \( u = 4x + y + 1 \) → \( \frac{du}{dx} = 4 + \frac{dy}{dx} \) <span class="desc">(substitute)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{du}{dx} = 4 + u^2 \) <span class="desc">(replace dy/dx with u²)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( \frac{du}{u^2 + 4} = dx \) <span class="desc">(separate variables)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( \frac{1}{2}\tan^{-1}\left(\frac{u}{2}\right) = x + C \) <span class="desc">(integrate)</span></div>
+                <div class="step"><span class="desc">Solution: \( \tan^{-1}\left(\frac{4x+y+1}{2}\right) = 2x + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q28: dy/dx = (3x + 4y + 1)² -->
+        <div class="problem-box" id="q28">
+            <div class="q">
+                <span><strong>28.</strong> Solve \( \frac{dy}{dx} = (3x + 4y + 1)^2 \)</span>
+                <button class="btn-answer" data-target="sol28">📖 Solution</button>
+            </div>
+            <div id="sol28" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Let \( u = 3x + 4y + 1 \) → \( \frac{du}{dx} = 3 + 4\frac{dy}{dx} \) <span class="desc">(substitute)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{du}{dx} = 3 + 4u^2 \) <span class="desc">(replace dy/dx with u²)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( \frac{du}{3 + 4u^2} = dx \) <span class="desc">(separate variables)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( \frac{1}{2\sqrt{3}}\tan^{-1}\left(\frac{2u}{\sqrt{3}}\right) = x + C \) <span class="desc">(integrate using formula)</span></div>
+                <div class="step"><span class="desc">Solution: \( \tan^{-1}\left(\frac{2(3x+4y+1)}{\sqrt{3}}\right) = 2\sqrt{3}x + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q29: dy/dx = (2x + y + 1)² -->
+        <div class="problem-box" id="q29">
+            <div class="q">
+                <span><strong>29.</strong> Solve \( \frac{dy}{dx} = (2x + y + 1)^2 \)</span>
+                <button class="btn-answer" data-target="sol29">📖 Solution</button>
+            </div>
+            <div id="sol29" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Let \( u = 2x + y + 1 \) → \( \frac{du}{dx} = 2 + \frac{dy}{dx} \) <span class="desc">(substitute)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{du}{dx} = 2 + u^2 \) <span class="desc">(replace dy/dx with u²)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( \frac{du}{u^2 + 2} = dx \) <span class="desc">(separate variables)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( \frac{1}{\sqrt{2}}\tan^{-1}\left(\frac{u}{\sqrt{2}}\right) = x + C \) <span class="desc">(integrate)</span></div>
+                <div class="step"><span class="desc">Solution: \( \tan^{-1}\left(\frac{2x+y+1}{\sqrt{2}}\right) = \sqrt{2}x + C \)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== INITIAL VALUE PROBLEMS ====== -->
+        <div class="section-heading">📝 Initial Value Problems</div>
+
+        <!-- Q30: xy' + y = 0, y(4)=6 -->
+        <div class="problem-box" id="q30">
+            <div class="q">
+                <span><strong>30.</strong> Solve \( xy' + y = 0, \; y(4) = 6 \)</span>
+                <button class="btn-answer" data-target="sol30">📖 Solution</button>
+            </div>
+            <div id="sol30" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( y' = -\frac{y}{x} \) → \( \frac{dy}{y} = -\frac{dx}{x} \) <span class="desc">(rearrange and separate variables)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \ln|y| = -\ln|x| + C \) → \( y = \frac{C_1}{x} \) <span class="desc">(integrate and take exponential)</span></div>
+                <div class="step"><strong>Step 3:</strong> Apply \( y(4)=6 \): \( 6 = \frac{C_1}{4} \) → \( C_1 = 24 \) <span class="desc">(use initial condition to find C₁)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \frac{24}{x} \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q31: y' = 1 + 4y², y(1)=0 -->
+        <div class="problem-box" id="q31">
+            <div class="q">
+                <span><strong>31.</strong> Solve \( y' = 1 + 4y^2, \; y(1) = 0 \)</span>
+                <button class="btn-answer" data-target="sol31">📖 Solution</button>
+            </div>
+            <div id="sol31" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Separate: \( \frac{dy}{1+4y^2} = dx \) <span class="desc">(move y terms to LHS)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( \frac{1}{2}\tan^{-1}(2y) = x + C \) <span class="desc">(integrate using \( \int \frac{dy}{1+(2y)^2} = \frac{1}{2}\tan^{-1}(2y) \))</span></div>
+                <div class="step"><strong>Step 3:</strong> Apply \( y(1)=0 \): \( \frac{1}{2}\tan^{-1}(0) = 1 + C \) → \( C = -1 \) <span class="desc">(use initial condition to find C)</span></div>
+                <div class="step"><span class="desc">Solution: \( \tan^{-1}(2y) = 2x - 2 \) → \( y = \frac{1}{2}\tan(2x - 2) \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q32: y' + 2y = 4cos2x, y(π/4)=3 -->
+        <div class="problem-box" id="q32">
+            <div class="q">
+                <span><strong>32.</strong> Solve \( y' + 2y = 4\cos 2x, \; y(\pi/4) = 3 \)</span>
+                <button class="btn-answer" data-target="sol32">📖 Solution</button>
+            </div>
+            <div id="sol32" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( p(x)=2 \), \( q(x)=4\cos 2x \) <span class="desc">(identify p and q)</span></div>
+                <div class="step"><strong>Step 2:</strong> IF = \( e^{2x} \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 3:</strong> \( y e^{2x} = \int 4\cos 2x \, e^{2x} dx = e^{2x}(\cos 2x + \sin 2x) + C \) <span class="desc">(integrate using formula)</span></div>
+                <div class="step"><strong>Step 4:</strong> \( y = \cos 2x + \sin 2x + C e^{-2x} \) <span class="desc">(solve for y)</span></div>
+                <div class="step"><strong>Step 5:</strong> Apply \( y(\pi/4)=3 \): \( 3 = 0 + 1 + C e^{-\pi/2} \) → \( C = 2e^{\pi/2} \) <span class="desc">(use initial condition)</span></div>
+                <div class="step"><span class="desc">Solution: \( y = \cos 2x + \sin 2x + 2e^{\pi/2 - 2x} \)</span></div>
+            </div>
+        </div>
+
+        <!-- Q33: (e^{x+y} + ye^y)dx + (xe^y - 1)dy = 0, y(0)=-1 -->
+        <div class="problem-box" id="q33">
+            <div class="q">
+                <span><strong>33.</strong> Solve \( (e^{x+y} + ye^y)dx + (xe^y - 1)dy = 0, \; y(0) = -1 \)</span>
+                <button class="btn-answer" data-target="sol33">📖 Solution</button>
+            </div>
+            <div id="sol33" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( M = e^{x+y} + ye^y \), \( N = xe^y - 1 \) <span class="desc">(identify M and N)</span></div>
+                <div class="step"><strong>Step 2:</strong> \( M_y = e^{x+y} + e^y + ye^y \), \( N_x = e^y \) → Not exact <span class="desc">(check exactness condition)</span></div>
+                <div class="step"><strong>Step 3:</strong> Find IF: \( R^* = \frac{1}{M}(N_x - M_y) = -1 \) → IF = \( e^{-y} \) <span class="desc">(compute integrating factor)</span></div>
+                <div class="step"><strong>Step 4:</strong> Multiply: \( (e^x + y)dx + (x - e^{-y})dy = 0 \) <span class="desc">(exact now)</span></div>
+                <div class="step"><strong>Step 5:</strong> \( u = e^x + xy + e^{-y} = C \) <span class="desc">(integrate to find potential function)</span></div>
+                <div class="step"><strong>Step 6:</strong> Apply \( y(0)=-1 \): \( 1 + 0 + e = C \) → \( C = 1 + e \) <span class="desc">(use initial condition)</span></div>
+                <div class="step"><span class="desc">Solution: \( e^x + xy + e^{-y} = 1 + e \)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== SUMMARY ====== -->
+        <div class="section-heading">📋 Quick Reference</div>
+        <div class="def-box-dark">
+            <ul>
+                <li><strong>Separable:</strong> \( g(y)dy = f(x)dx \) <span class="desc">(separate variables and integrate)</span></li>
+                <li><strong>Linear:</strong> \( y' + p(x)y = q(x) \) → IF = \( e^{\int p(x)dx} \) <span class="desc">(multiply by IF and integrate)</span></li>
+                <li><strong>Exact:</strong> \( Mdx + Ndy = 0 \), \( M_y = N_x \) → \( u = \int M dx \) <span class="desc">(find potential function u)</span></li>
+                <li><strong>Bernoulli:</strong> \( y' + p(x)y = g(x)y^a \) → \( u = y^{1-a} \) <span class="desc">(substitute to get linear ODE)</span></li>
+                <li><strong>Homogeneous:</strong> \( y' = f(y/x) \) → let \( y = vx \) <span class="desc">(substitute and separate variables)</span></li>
+                <li><strong>Reducible:</strong> Let \( u = ax + by + c \) <span class="desc">(substitute to simplify)</span></li>
+            </ul>
+        </div>
+
+        <div class="ref-box">📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.).</div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a4a; text-align: right;">🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics</div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+    </footer>
+
+</div>
+
+<script>
+    // Toggle solution visibility
+    document.querySelectorAll('.btn-answer').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const solutionDiv = document.getElementById(targetId);
+            if (solutionDiv) {
+                solutionDiv.classList.toggle('show');
+                this.textContent = solutionDiv.classList.contains('show') ? '🙈 Hide Solution' : '📖 Solution';
+            }
+        });
+    });
+
+    // PDF download
+    document.getElementById('downloadPdf').addEventListener('click', function() {
+        const element = document.getElementById('note-content');
+        const opt = {
+            margin:        [0.5, 0.5, 0.5, 0.5],
+            filename:     'Differential_Equations_Complete_Solutions.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    });
+</script>
+
+</body>
+</html>
