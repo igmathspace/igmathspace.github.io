@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bernoulli Equation – Step-by-Step Method</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #fdf0ed;
+            color: #3d1a1a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .main-container { max-width: 1100px; margin: 0 auto; }
+        .header-bar {
+            background: linear-gradient(135deg, #6b1a1a, #a52a2a);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+        }
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 8px 22px rgba(120, 20, 20, 0.10);
+            border: 1px solid #ecc8c8;
+            margin-bottom: 30px;
+        }
+        .section-heading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #6b1a1a;
+            border-left: 6px solid #b33a3a;
+            padding-left: 20px;
+            margin: 1.6rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .formula-box {
+            background: #fef1ef;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #e6b8b8;
+            text-align: center;
+        }
+        .formula-box-light {
+            background: #fdf5f3;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #e6b8b8;
+            text-align: center;
+        }
+        .def-box {
+            background: #fef1ef;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid #b33a3a;
+        }
+        .def-box-dark {
+            background: #fce4e0;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid #8b2a2a;
+        }
+        .step-box {
+            background: #fdf5f3;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #e6b8b8;
+            margin: 0.6rem 0;
+        }
+        .step-box strong { color: #6b1a1a; }
+        .key-point {
+            background: #fef1ef;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid #b33a3a;
+            margin: 0.8rem 0;
+        }
+        .golden-rule-box {
+            background: #fdf3e8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            border: 2px solid #c47a2a;
+            margin: 1.2rem 0;
+            text-align: center;
+        }
+        .problem-box {
+            background: #fdf5f3;
+            padding: 1rem 1.4rem;
+            border-radius: 20px;
+            border-left: 5px solid #8b2a2a;
+            margin-bottom: 1.2rem;
+        }
+        .problem-box .q {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #5a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .solution-content {
+            margin-top: 12px;
+            background: #fce4e0;
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+            border-top: 2px solid #b33a3a;
+            display: none;
+        }
+        .solution-content.show { display: block; }
+        .solution-content .step { margin: 0.4rem 0; }
+        .solution-content .step strong { color: #6b1a1a; }
+        .btn-answer {
+            background: #8b2a2a;
+            color: white;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+        .btn-answer:hover { background: #b33a3a; }
+        .btn-pdf {
+            background: #8b2a2a;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .btn-pdf:hover { background: #b33a3a; }
+        .pdf-controls { text-align: center; margin: 10px 0; }
+        .ref-box {
+            background: #fce4e0;
+            padding: 10px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #5a1a1a;
+            margin-top: 1.2rem;
+        }
+        ul, ol { margin-left: 1.5rem; padding-left: 0.5rem; }
+        li { margin: 0.4rem 0; }
+        footer {
+            background: #6b1a1a;
+            color: #e8c8c8;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 30px;
+            border-top: 6px solid #b33a3a;
+            border-radius: 28px;
+        }
+        .badge-step {
+            display: inline-block;
+            background: #b33a3a;
+            color: white;
+            border-radius: 30px;
+            padding: 0px 12px;
+            font-size: 0.75rem;
+            margin-right: 6px;
+        }
+        @media print {
+            body { background: white; }
+            .content-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .btn-pdf, .btn-answer { display: none; }
+            .pdf-controls { display: none; }
+            .solution-content { display: block !important; background: #f5e6e6; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="pdf-controls">
+        <button class="btn-pdf" id="downloadPdf">📄 Save as PDF (A4)</button>
+    </div>
+
+    <div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+    <div class="content-card" id="note-content">
+
+        <div style="border-bottom: 2px solid #e6b8b8; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="font-size: 1.8rem; font-weight: 800; color: #6b1a1a;">KU3DSCMAT211</span>
+            <span style="display: inline-block; background: #8b2a2a; color: white; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Section 1.6</span>
+            <div style="font-size: 1.3rem; font-weight: 700; color: #5a1a1a; margin-top: 6px;">📖 Bernoulli Equation – Step-by-Step Method</div>
+        </div>
+
+        <!-- ====== INTRODUCTION ====== -->
+        <div class="section-heading">📌 Bernoulli Equation</div>
+
+        <div class="def-box">
+            <p>A Bernoulli equation has the form:</p>
+            <div class="formula-box">\[ y' + p(x)\,y = g(x)\,y^a \]</div>
+            <p>where \(a\) is any real number. If \(a = 0\) or \(a = 1\), the equation is linear. Otherwise, it is nonlinear.</p>
+        </div>
+
+        <!-- ====== STEP-BY-STEP METHOD ====== -->
+        <div class="section-heading">⚡ Step-by-Step Solution Method</div>
+
+        <div class="golden-rule-box">
+            <strong>📐 Standard Procedure for Bernoulli Equations</strong>
+        </div>
+
+        <div class="step-box">
+            <strong>Step 1:</strong> Identify the exponent \(a\) in \( y' + p(x)y = g(x)y^a \).
+        </div>
+
+        <div class="step-box">
+            <strong>Step 2:</strong> Divide throughout by \(y^a\):
+            \[ y^{-a}y' + p(x)y^{1-a} = g(x) \]
+        </div>
+
+        <div class="step-box">
+            <strong>Step 3:</strong> Substitute \( z = y^{1-a} \). Then \( z' = (1-a)y^{-a}y' \), so:
+            \[ \frac{1}{1-a} z' + p(x) z = g(x) \quad \Rightarrow \quad z' + (1-a)p(x)z = (1-a)g(x) \]
+        </div>
+
+        <div class="step-box">
+            <strong>Step 4:</strong> Solve the resulting <strong>linear</strong> ODE in \(z\) using the integrating factor method.
+        </div>
+
+        <div class="step-box">
+            <strong>Step 5:</strong> Substitute back \( z = y^{1-a} \) to get the solution in terms of \(y\).
+        </div>
+
+        <div class="key-point">
+            💡 <strong>Special cases:</strong> \( y = 0 \) is often a solution (especially when \(a > 0\)). Don't forget to include it if applicable.
+        </div>
+
+        <!-- ====== WORKED EXAMPLE ====== -->
+        <div class="section-heading">📖 Worked Example</div>
+
+        <div class="def-box-dark">
+            <p><strong>Problem:</strong> \( y' + y = y^2 \)</p>
+            <div class="step-box"><strong>Step 1:</strong> \( a = 2 \), \( p(x) = 1 \), \( g(x) = 1 \).</div>
+            <div class="step-box"><strong>Step 2:</strong> Divide by \( y^2 \): \( y^{-2}y' + y^{-1} = 1 \).</div>
+            <div class="step-box"><strong>Step 3:</strong> Let \( z = y^{1-2} = y^{-1} \). Then \( z' = -y^{-2}y' \). So \( -z' + z = 1 \) → \( z' - z = -1 \).</div>
+            <div class="step-box"><strong>Step 4:</strong> Linear in \(z\): \( z' - z = -1 \), IF = \( e^{-x} \). \( (z e^{-x})' = -e^{-x} \) → \( z e^{-x} = e^{-x} + C \) → \( z = 1 + C e^{x} \).</div>
+            <div class="step-box"><strong>Step 5:</strong> \( \frac{1}{y} = 1 + C e^{x} \) → \( y = \frac{1}{1 + C e^{x}} \). Also \( y = 0 \) is a solution.</div>
+        </div>
+
+        <!-- ====== PROBLEMS ====== -->
+        <div class="section-heading">📝 Practice Problems</div>
+
+        <!-- Problem 22 -->
+        <div class="problem-box" id="prob22">
+            <div class="q">
+                <span><strong>22.</strong> \( y' + y = y^2, \quad y(0) = -\frac{1}{3} \)</span>
+                <button class="btn-answer" data-target="sol22">📖 Solution</button>
+            </div>
+            <div id="sol22" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( a = 2 \), \( p(x)=1 \), \( g(x)=1 \).</div>
+                <div class="step"><strong>Step 2:</strong> Divide by \( y^2 \): \( y^{-2}y' + y^{-1} = 1 \).</div>
+                <div class="step"><strong>Step 3:</strong> \( z = y^{-1} \), \( z' = -y^{-2}y' \) → \( -z' + z = 1 \) → \( z' - z = -1 \).</div>
+                <div class="step"><strong>Step 4:</strong> IF = \( e^{-x} \). \( (z e^{-x})' = -e^{-x} \) → \( z = 1 + C e^{x} \).</div>
+                <div class="step"><strong>Step 5:</strong> \( y = \frac{1}{1 + C e^{x}} \). IC: \( -\frac{1}{3} = \frac{1}{1+C} \) → \( C = -4 \). <br> <strong>Solution:</strong> \( y = \frac{1}{1 - 4 e^{x}} \).</div>
+            </div>
+        </div>
+
+        <!-- Problem 23 -->
+        <div class="problem-box" id="prob23">
+            <div class="q">
+                <span><strong>23.</strong> \( y' + xy = xy^{-1}, \quad y(0) = 3 \)</span>
+                <button class="btn-answer" data-target="sol23">📖 Solution</button>
+            </div>
+            <div id="sol23" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( a = -1 \), \( p(x)=x \), \( g(x)=x \).</div>
+                <div class="step"><strong>Step 2:</strong> Divide by \( y^{-1} \): \( y^{1}y' + x y^{2} = x \) → \( y y' + x y^2 = x \).</div>
+                <div class="step"><strong>Step 3:</strong> \( z = y^{1-(-1)} = y^2 \), \( z' = 2y y' \) → \( \frac{1}{2}z' + x z = x \) → \( z' + 2x z = 2x \).</div>
+                <div class="step"><strong>Step 4:</strong> IF = \( e^{x^2} \). \( (z e^{x^2})' = 2x e^{x^2} \) → \( z = 1 + C e^{-x^2} \).</div>
+                <div class="step"><strong>Step 5:</strong> \( y^2 = 1 + C e^{-x^2} \). IC: \( 9 = 1 + C \) → \( C = 8 \). <br> <strong>Solution:</strong> \( y = \sqrt{1 + 8 e^{-x^2}} \) (positive branch).</div>
+            </div>
+        </div>
+
+        <!-- Problem 24 -->
+        <div class="problem-box" id="prob24">
+            <div class="q">
+                <span><strong>24.</strong> \( y' + y = -x/y \)</span>
+                <button class="btn-answer" data-target="sol24">📖 Solution</button>
+            </div>
+            <div id="sol24" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Multiply by \( y \): \( y y' + y^2 = -x \). Here \( a = -1 \) if written as \( y' + y = -x y^{-1} \).</div>
+                <div class="step"><strong>Step 2:</strong> Divide by \( y^{-1} \): \( y y' + y^2 = -x \).</div>
+                <div class="step"><strong>Step 3:</strong> \( z = y^2 \), \( z' = 2y y' \) → \( \frac{1}{2}z' + z = -x \) → \( z' + 2z = -2x \).</div>
+                <div class="step"><strong>Step 4:</strong> IF = \( e^{2x} \). \( (z e^{2x})' = -2x e^{2x} \) → \( z e^{2x} = -x e^{2x} + \frac{1}{2} e^{2x} + C \).</div>
+                <div class="step"><strong>Step 5:</strong> \( z = -x + \frac{1}{2} + C e^{-2x} \) → \( y^2 = -x + \frac{1}{2} + C e^{-2x} \).</div>
+            </div>
+        </div>
+
+        <!-- Problem 25 -->
+        <div class="problem-box" id="prob25">
+            <div class="q">
+                <span><strong>25.</strong> \( y' = 3.2y - 10y^2 \)</span>
+                <button class="btn-answer" data-target="sol25">📖 Solution</button>
+            </div>
+            <div id="sol25" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> \( y' - 3.2y = -10y^2 \) → \( a = 2 \), \( p(x) = -3.2 \), \( g(x) = -10 \).</div>
+                <div class="step"><strong>Step 2:</strong> Divide by \( y^2 \): \( y^{-2}y' - 3.2 y^{-1} = -10 \).</div>
+                <div class="step"><strong>Step 3:</strong> \( z = y^{-1} \), \( z' = -y^{-2}y' \) → \( -z' - 3.2 z = -10 \) → \( z' + 3.2 z = 10 \).</div>
+                <div class="step"><strong>Step 4:</strong> IF = \( e^{3.2x} \). \( (z e^{3.2x})' = 10 e^{3.2x} \) → \( z = 3.125 + C e^{-3.2x} \).</div>
+                <div class="step"><strong>Step 5:</strong> \( y = \frac{1}{3.125 + C e^{-3.2x}} \). Also \( y = 0 \) is a solution.</div>
+            </div>
+        </div>
+
+        <!-- Problem 26 -->
+        <div class="problem-box" id="prob26">
+            <div class="q">
+                <span><strong>26.</strong> \( y' = \frac{\tan y}{x - 1}, \quad y(0) = \frac{\pi}{2} \)</span>
+                <button class="btn-answer" data-target="sol26">📖 Solution</button>
+            </div>
+            <div id="sol26" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> This is not in Bernoulli form directly. Rewrite: \( \frac{dy}{dx} = \frac{\tan y}{x-1} \).</div>
+                <div class="step"><strong>Step 2:</strong> Invert: \( \frac{dx}{dy} = \frac{x-1}{\tan y} \) → \( \frac{dx}{dy} - (\cot y) x = -\cot y \).</div>
+                <div class="step"><strong>Step 3:</strong> Linear in \( x(y) \): \( p(y) = -\cot y \), \( q(y) = -\cot y \). IF = \( e^{\int -\cot y \, dy} = \csc y \).</div>
+                <div class="step"><strong>Step 4:</strong> \( (x \csc y)' = -\cot y \csc y \) → \( x \csc y = \csc y + C \).</div>
+                <div class="step"><strong>Step 5:</strong> \( x = 1 + C \sin y \). IC: \( y(0)=\pi/2 \) → \( 0 = 1 + C \) → \( C = -1 \). <br> <strong>Solution:</strong> \( x = 1 - \sin y \) (implicit).</div>
+            </div>
+        </div>
+
+        <!-- ====== SUMMARY ====== -->
+        <div class="section-heading">📋 Quick Summary</div>
+        <div class="def-box-dark">
+            <ul>
+                <li><strong>Bernoulli form:</strong> \( y' + p(x)y = g(x)y^a \)</li>
+                <li><strong>Divide by \( y^a \):</strong> \( y^{-a}y' + p(x)y^{1-a} = g(x) \)</li>
+                <li><strong>Substitute:</strong> \( z = y^{1-a} \) → \( z' + (1-a)p(x)z = (1-a)g(x) \)</li>
+                <li><strong>Solve linear ODE</strong> for \( z \), then substitute back.</li>
+                <li><strong>Logistic equation:</strong> \( y' = Ay - By^2 \) → \( u' + A u = B \)</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.6.</div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #5a1a1a; text-align: right;">🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics</div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+    </footer>
+
+</div>
+
+<script>
+    // Toggle solution visibility
+    document.querySelectorAll('.btn-answer').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const solutionDiv = document.getElementById(targetId);
+            if (solutionDiv) {
+                solutionDiv.classList.toggle('show');
+                this.textContent = solutionDiv.classList.contains('show') ? '🙈 Hide Solution' : '📖 Solution';
+            }
+        });
+    });
+
+    // PDF download
+    document.getElementById('downloadPdf').addEventListener('click', function() {
+        const element = document.getElementById('note-content');
+        const opt = {
+            margin:        [0.5, 0.5, 0.5, 0.5],
+            filename:     'Bernoulli_Equation_Stepwise.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    });
+</script>
+
+</body>
+</html>

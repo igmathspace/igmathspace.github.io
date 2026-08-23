@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orthogonal Trajectories – Method & Solutions</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #e8f4f8;
+            color: #0a2a3a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .main-container { max-width: 1100px; margin: 0 auto; }
+        .header-bar {
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+        }
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid #c0dce8;
+            margin-bottom: 30px;
+        }
+        .section-heading {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0a3a5a;
+            border-left: 6px solid #4a9aba;
+            padding-left: 20px;
+            margin: 1.6rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .formula-box {
+            background: #e8f4f8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #b0d0dc;
+            text-align: center;
+        }
+        .formula-box-light {
+            background: #f5fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #b0d0dc;
+            text-align: center;
+        }
+        .def-box {
+            background: #e8f4f8;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid #4a9aba;
+        }
+        .def-box-dark {
+            background: #d4eaf2;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid #1a6a8a;
+        }
+        .step-box {
+            background: #f8fcfe;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #c0dce8;
+            margin: 0.6rem 0;
+        }
+        .step-box strong { color: #0a3a5a; }
+        .key-point {
+            background: #e8f4f8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid #4a9aba;
+            margin: 0.8rem 0;
+        }
+        .key-point-gold {
+            background: #fcf8e8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid #d4a017;
+            margin: 0.8rem 0;
+        }
+        .golden-rule-box {
+            background: #fcf8e8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            border: 2px solid #d4a017;
+            margin: 1.2rem 0;
+            text-align: center;
+        }
+        .problem-box {
+            background: #f6fafc;
+            padding: 1rem 1.4rem;
+            border-radius: 20px;
+            border-left: 5px solid #1a6a8a;
+            margin-bottom: 1.2rem;
+        }
+        .problem-box .q {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #0a3a5a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .solution-content {
+            margin-top: 12px;
+            background: #d4eaf2;
+            padding: 0.8rem 1.2rem;
+            border-radius: 16px;
+            border-top: 2px solid #4a9aba;
+            display: none;
+        }
+        .solution-content.show { display: block; }
+        .solution-content .step {
+            margin: 0.4rem 0;
+            padding-left: 8px;
+            border-left: 3px solid #1a6a8a;
+        }
+        .solution-content .step strong { color: #0a4a6a; }
+        .solution-content .step .desc {
+            color: #3a6a7a;
+            font-style: italic;
+            font-size: 0.92rem;
+        }
+        .btn-answer {
+            background: #1a6a8a;
+            color: white;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+        .btn-answer:hover { background: #4a9aba; }
+        .btn-pdf {
+            background: #1a6a8a;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .btn-pdf:hover { background: #4a9aba; }
+        .pdf-controls { text-align: center; margin: 10px 0; }
+        .ref-box {
+            background: #d4eaf2;
+            padding: 10px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #0a4a6a;
+            margin-top: 1.2rem;
+        }
+        ul, ol { margin-left: 1.5rem; padding-left: 0.5rem; }
+        li { margin: 0.4rem 0; }
+        .application-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 1rem 0;
+        }
+        .app-item {
+            background: #f0f8fc;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid #c0dce8;
+            text-align: center;
+        }
+        footer {
+            background: #0a3a5a;
+            color: #b0d0dc;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 30px;
+            border-top: 6px solid #4a9aba;
+            border-radius: 28px;
+        }
+        @media print {
+            body { background: white; }
+            .content-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .btn-pdf, .btn-answer { display: none; }
+            .pdf-controls { display: none; }
+            .solution-content { display: block !important; background: #e8f4f8; }
+        }
+        @media (max-width: 600px) {
+            .application-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+
+    <div class="pdf-controls">
+        <button class="btn-pdf" id="downloadPdf">📄 Save as PDF (A4)</button>
+    </div>
+
+    <div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+    <div class="content-card" id="note-content">
+
+        <div style="border-bottom: 2px solid #c0dce8; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="font-size: 1.8rem; font-weight: 800; color: #0a3a5a;">KU3DSCMAT211</span>
+            <span style="display: inline-block; background: #1a6a8a; color: white; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Section 1.6</span>
+            <div style="font-size: 1.3rem; font-weight: 700; color: #0a4a6a; margin-top: 6px;">📖 Orthogonal Trajectories – Method &amp; Solutions</div>
+        </div>
+
+        <!-- ====== DEFINITION ====== -->
+        <div class="section-heading">📌 Definition: Orthogonal Trajectories</div>
+
+        <div class="def-box">
+            <p><strong>Orthogonal trajectories</strong> are a family of curves that intersect a given family of curves at <strong>right angles</strong> (90°).</p>
+            <p>If two curves intersect at a point, the angle between them is defined as the angle between their <strong>tangents</strong> at that point. <em>Orthogonal</em> is another word for <em>perpendicular</em>.</p>
+        </div>
+
+        <div class="key-point">
+            💡 <strong>Key idea:</strong> If a curve from the given family has slope \( m \) at a point, the orthogonal trajectory through that point must have slope \( -\frac{1}{m} \) (since the product of slopes of perpendicular lines is \(-1\)).
+        </div>
+
+        <!-- ====== APPLICATIONS ====== -->
+        <div class="section-heading">🔬 Applications of Orthogonal Trajectories</div>
+
+        <div class="application-grid">
+            <div class="app-item">🌡️ <strong>Isotherms</strong> (equal temperature) &amp; <strong>Heat flow</strong> curves</div>
+            <div class="app-item">🗺️ <strong>Contour lines</strong> (equal altitude) &amp; <strong>Steepest descent</strong> curves</div>
+            <div class="app-item">⚡ <strong>Equipotential curves</strong> (equal voltage) &amp; <strong>Electric force</strong> lines</div>
+            <div class="app-item">🧲 <strong>Magnetic field lines</strong> &amp; <strong>Equipotential surfaces</strong></div>
+        </div>
+
+        <!-- ====== STEP-BY-STEP METHOD ====== -->
+        <div class="section-heading">⚡ Method for Finding Orthogonal Trajectories</div>
+
+        <div class="golden-rule-box">
+            <strong>📐 Step-by-Step Procedure</strong>
+        </div>
+
+        <div class="step-box">
+            <strong>Step 1:</strong> Given a one-parameter family of curves \( G(x, y, c) = 0 \), find an ODE for which this family is the general solution.
+            <ul>
+                <li>Differentiate \( G(x, y, c) = 0 \) implicitly with respect to \( x \).</li>
+                <li>Eliminate the parameter \( c \) to obtain an ODE of the form:
+                \[ y' = f(x, y) \]</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <strong>Step 2:</strong> Find the ODE for the orthogonal trajectories.
+            <ul>
+                <li>If the given family has slope \( f(x, y) \), the orthogonal trajectories must have slope \( -\frac{1}{f(x, y)} \).</li>
+                <li>Thus, the ODE for the orthogonal trajectories is:
+                \[ \bar{y}' = -\frac{1}{f(x, \bar{y})} \]</li>
+                <li>Equivalently, replace \( y' \) with \( -\frac{1}{y'} \) in the ODE from Step 1.</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <strong>Step 3:</strong> Solve the ODE from Step 2.
+            <ul>
+                <li>This ODE is often separable or linear.</li>
+                <li>The general solution \( \bar{y} = \bar{y}(x, c) \) gives the family of orthogonal trajectories.</li>
+            </ul>
+        </div>
+
+        <!-- ====== PROBLEMS ====== -->
+        <div class="section-heading">📝 Practice Problems</div>
+
+        <!-- Problem 1 -->
+        <div class="problem-box" id="prob1">
+            <div class="q">
+                <span><strong>1.</strong> Find the orthogonal trajectories of \( y^2 = 4cx \)</span>
+                <button class="btn-answer" data-target="sol1">📖 Solution</button>
+            </div>
+            <div id="sol1" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Differentiate \( y^2 = 4cx \) implicitly <span class="desc">(differentiate both sides with respect to x)</span><br>
+                \( 2y y' = 4c \)</div>
+                <div class="step"><strong>Step 1 (cont):</strong> Eliminate \( c \) using \( c = \frac{y^2}{4x} \) <span class="desc">(from the original equation)</span><br>
+                \( 2y y' = 4 \cdot \frac{y^2}{4x} = \frac{y^2}{x} \) → \( y' = \frac{y}{2x} \) <span class="desc">(ODE of the given family)</span></div>
+                <div class="step"><strong>Step 2:</strong> Replace \( y' \) with \( -\frac{1}{y'} \) <span class="desc">(negative reciprocal for orthogonal trajectories)</span><br>
+                \( \bar{y}' = -\frac{2x}{\bar{y}} \)</div>
+                <div class="step"><strong>Step 3:</strong> Separate variables <span class="desc">(rearrange to get y terms on one side, x terms on the other)</span><br>
+                \( \bar{y} \, d\bar{y} = -2x \, dx \)</div>
+                <div class="step"><strong>Step 3 (cont):</strong> Integrate both sides <span class="desc">(apply integration)</span><br>
+                \( \int \bar{y} \, d\bar{y} = \int -2x \, dx \) → \( \frac{\bar{y}^2}{2} = -x^2 + c \)</div>
+                <div class="step"><strong>Final:</strong> Multiply by 2 <span class="desc">(simplify to get the family of orthogonal trajectories)</span><br>
+                \( \bar{y}^2 + 2x^2 = C \) or \( x^2 + \frac{y^2}{2} = C \) <span class="desc">(family of ellipses)</span></div>
+            </div>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="problem-box" id="prob2">
+            <div class="q">
+                <span><strong>2.</strong> Find the orthogonal trajectories of \( x^2 + y^2 = 2cx \)</span>
+                <button class="btn-answer" data-target="sol2">📖 Solution</button>
+            </div>
+            <div id="sol2" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Differentiate \( x^2 + y^2 = 2cx \) implicitly <span class="desc">(differentiate both sides with respect to x)</span><br>
+                \( 2x + 2y y' = 2c \)</div>
+                <div class="step"><strong>Step 1 (cont):</strong> Eliminate \( c \) using \( c = \frac{x^2 + y^2}{2x} \) <span class="desc">(from the original equation)</span><br>
+                \( 2x + 2y y' = 2 \cdot \frac{x^2 + y^2}{2x} = \frac{x^2 + y^2}{x} \)<br>
+                \( 2x + 2y y' = x + \frac{y^2}{x} \) → \( 2y y' = \frac{y^2}{x} - x = \frac{y^2 - x^2}{x} \)<br>
+                \( y' = \frac{y^2 - x^2}{2xy} \) <span class="desc">(ODE of the given family)</span></div>
+                <div class="step"><strong>Step 2:</strong> Replace \( y' \) with \( -\frac{1}{y'} \) <span class="desc">(negative reciprocal for orthogonal trajectories)</span><br>
+                \( \bar{y}' = -\frac{2x\bar{y}}{\bar{y}^2 - x^2} = \frac{2x\bar{y}}{x^2 - \bar{y}^2} \)</div>
+                <div class="step"><strong>Step 3:</strong> This is homogeneous. Let \( \bar{y} = vx \) <span class="desc">(substitute to solve homogeneous ODE)</span><br>
+                \( v + x v' = \frac{2x(vx)}{x^2 - v^2 x^2} = \frac{2v}{1 - v^2} \)</div>
+                <div class="step"><strong>Step 3 (cont):</strong> Simplify <span class="desc">(rearrange to separate variables)</span><br>
+                \( x v' = \frac{2v}{1 - v^2} - v = \frac{2v - v + v^3}{1 - v^2} = \frac{v + v^3}{1 - v^2} = \frac{v(1 + v^2)}{1 - v^2} \)</div>
+                <div class="step"><strong>Step 3 (cont):</strong> Separate variables <span class="desc">(rearrange to integrate)</span><br>
+                \( \frac{1 - v^2}{v(1 + v^2)} dv = \frac{dx}{x} \)</div>
+                <div class="step"><strong>Step 3 (cont):</strong> Integrate <span class="desc">(apply partial fractions)</span><br>
+                \( \ln|v| - \ln|1 + v^2| = \ln|x| + c \) → \( \frac{v}{1 + v^2} = Cx \)</div>
+                <div class="step"><strong>Final:</strong> Substitute back \( v = \frac{y}{x} \) <span class="desc">(return to original variables)</span><br>
+                \( \frac{y/x}{1 + y^2/x^2} = Cx \) → \( \frac{xy}{x^2 + y^2} = Cx \) → \( x^2 + y^2 = \frac{y}{C} \)<br>
+                \( x^2 + y^2 = ky \) <span class="desc">(family of circles passing through the origin)</span></div>
+            </div>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="problem-box" id="prob3">
+            <div class="q">
+                <span><strong>3.</strong> Find the orthogonal trajectories of \( y = cx^2 \)</span>
+                <button class="btn-answer" data-target="sol3">📖 Solution</button>
+            </div>
+            <div id="sol3" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Differentiate \( y = cx^2 \) <span class="desc">(differentiate with respect to x)</span><br>
+                \( y' = 2cx \)</div>
+                <div class="step"><strong>Step 1 (cont):</strong> Eliminate \( c \) using \( c = \frac{y}{x^2} \) <span class="desc">(from the original equation)</span><br>
+                \( y' = 2 \cdot \frac{y}{x^2} \cdot x = \frac{2y}{x} \) <span class="desc">(ODE of the given family)</span></div>
+                <div class="step"><strong>Step 2:</strong> Replace \( y' \) with \( -\frac{1}{y'} \) <span class="desc">(negative reciprocal for orthogonal trajectories)</span><br>
+                \( \bar{y}' = -\frac{x}{2\bar{y}} \)</div>
+                <div class="step"><strong>Step 3:</strong> Separate variables <span class="desc">(rearrange to integrate)</span><br>
+                \( 2\bar{y} \, d\bar{y} = -x \, dx \)</div>
+                <div class="step"><strong>Step 3 (cont):</strong> Integrate both sides <span class="desc">(apply integration)</span><br>
+                \( \int 2\bar{y} \, d\bar{y} = \int -x \, dx \) → \( \bar{y}^2 = -\frac{x^2}{2} + c \)</div>
+                <div class="step"><strong>Final:</strong> Simplify <span class="desc">(write in standard form)</span><br>
+                \( 2y^2 + x^2 = C \) or \( \frac{x^2}{C} + \frac{y^2}{C/2} = 1 \) <span class="desc">(family of ellipses)</span></div>
+            </div>
+        </div>
+
+        <!-- Problem 4 -->
+        <div class="problem-box" id="prob4">
+            <div class="q">
+                <span><strong>4.</strong> Find the orthogonal trajectories of \( x^2 + y^2 = c^2 \)</span>
+                <button class="btn-answer" data-target="sol4">📖 Solution</button>
+            </div>
+            <div id="sol4" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Differentiate \( x^2 + y^2 = c^2 \) implicitly <span class="desc">(differentiate both sides with respect to x)</span><br>
+                \( 2x + 2y y' = 0 \)</div>
+                <div class="step"><strong>Step 1 (cont):</strong> Solve for \( y' \) <span class="desc">(rearrange to get ODE)</span><br>
+                \( y' = -\frac{x}{y} \) <span class="desc">(ODE of the given family — circles centered at origin)</span></div>
+                <div class="step"><strong>Step 2:</strong> Replace \( y' \) with \( -\frac{1}{y'} \) <span class="desc">(negative reciprocal for orthogonal trajectories)</span><br>
+                \( \bar{y}' = \frac{\bar{y}}{x} \)</div>
+                <div class="step"><strong>Step 3:</strong> Separate variables <span class="desc">(rearrange to integrate)</span><br>
+                \( \frac{d\bar{y}}{\bar{y}} = \frac{dx}{x} \)</div>
+                <div class="step"><strong>Step 3 (cont):</strong> Integrate both sides <span class="desc">(apply integration)</span><br>
+                \( \ln|\bar{y}| = \ln|x| + c \)</div>
+                <div class="step"><strong>Final:</strong> Take exponents <span class="desc">(solve for y)</span><br>
+                \( \bar{y} = kx \) <span class="desc">(family of straight lines through the origin — radial lines)</span></div>
+            </div>
+        </div>
+
+        <!-- Problem 5 -->
+        <div class="problem-box" id="prob5">
+            <div class="q">
+                <span><strong>5.</strong> Find the orthogonal trajectories of \( y = c e^{x} \)</span>
+                <button class="btn-answer" data-target="sol5">📖 Solution</button>
+            </div>
+            <div id="sol5" class="solution-content">
+                <div class="step"><strong>Step 1:</strong> Differentiate \( y = c e^{x} \) <span class="desc">(differentiate with respect to x)</span><br>
+                \( y' = c e^{x} \)</div>
+                <div class="step"><strong>Step 1 (cont):</strong> Eliminate \( c \) using \( c = y e^{-x} \) <span class="desc">(from the original equation)</span><br>
+                \( y' = y e^{-x} \cdot e^{x} = y \) <span class="desc">(ODE of the given family)</span></div>
+                <div class="step"><strong>Step 2:</strong> Replace \( y' \) with \( -\frac{1}{y'} \) <span class="desc">(negative reciprocal for orthogonal trajectories)</span><br>
+                \( \bar{y}' = -\frac{1}{\bar{y}} \)</div>
+                <div class="step"><strong>Step 3:</strong> Separate variables <span class="desc">(rearrange to integrate)</span><br>
+                \( \bar{y} \, d\bar{y} = -dx \)</div>
+                <div class="step"><strong>Step 3 (cont):</strong> Integrate both sides <span class="desc">(apply integration)</span><br>
+                \( \int \bar{y} \, d\bar{y} = \int -dx \) → \( \frac{\bar{y}^2}{2} = -x + c \)</div>
+                <div class="step"><strong>Final:</strong> Multiply by 2 <span class="desc">(write in standard form)</span><br>
+                \( y^2 = C - 2x \) or \( y^2 + 2x = C \) <span class="desc">(family of parabolas)</span></div>
+            </div>
+        </div>
+
+        <!-- ====== IMPORTANT NOTES ====== -->
+        <div class="section-heading">📝 Important Notes</div>
+
+        <div class="def-box-dark">
+            <ul>
+                <li><strong>Angle of intersection:</strong> The angle between two curves is the angle between their tangents at the intersection point.</li>
+                <li><strong>Orthogonal condition:</strong> Two curves are orthogonal if the product of their slopes at the intersection point is \(-1\):
+                \[ m_1 \cdot m_2 = -1 \]</li>
+                <li><strong>Special case:</strong> If the given family has vertical tangents (\( f(x,y) = \infty \)), the orthogonal trajectories have horizontal tangents, and vice versa.</li>
+                <li><strong>One-parameter family:</strong> The method applies to families of curves that depend on a single parameter \( c \).</li>
+            </ul>
+        </div>
+
+        <!-- ====== SUMMARY ====== -->
+        <div class="section-heading">📋 Quick Summary</div>
+
+        <div class="def-box" style="border-left-color: #1a6a8a;">
+            <p><strong>Given family:</strong> \( G(x, y, c) = 0 \)</p>
+            <div class="formula-box-light">
+                <strong>Step 1:</strong> Differentiate → eliminate \( c \) → \( y' = f(x, y) \)
+            </div>
+            <div class="formula-box-light">
+                <strong>Step 2:</strong> Replace \( y' \) with \( -\frac{1}{y'} \) → \( \bar{y}' = -\frac{1}{f(x, \bar{y})} \)
+            </div>
+            <div class="formula-box-light">
+                <strong>Step 3:</strong> Solve the ODE → orthogonal trajectories \( \bar{y}(x, c) \)
+            </div>
+        </div>
+
+        <div class="key-point-gold">
+            🥇 <strong>Key Takeaway:</strong> Orthogonal trajectories are found by replacing the slope \( y' \) with its negative reciprocal \( -1/y' \) in the ODE of the given family.
+        </div>
+
+        <div class="ref-box">📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.6.</div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics</div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+    </footer>
+
+</div>
+
+<script>
+    // Toggle solution visibility
+    document.querySelectorAll('.btn-answer').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const solutionDiv = document.getElementById(targetId);
+            if (solutionDiv) {
+                solutionDiv.classList.toggle('show');
+                this.textContent = solutionDiv.classList.contains('show') ? '🙈 Hide Solution' : '📖 Solution';
+            }
+        });
+    });
+
+    // PDF download
+    document.getElementById('downloadPdf').addEventListener('click', function() {
+        const element = document.getElementById('note-content');
+        const opt = {
+            margin:        [0.5, 0.5, 0.5, 0.5],
+            filename:     'Orthogonal_Trajectories_With_Solutions.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    });
+</script>
+
+</body>
+</html>
