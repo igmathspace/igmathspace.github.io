@@ -3,107 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1.4 Integrating Factors | Exact ODEs</title>
+    <title>1.4 Integrating Factors – Introduction & Proof</title>
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             background: #e8f4f8;
             color: #0a2a3a;
             line-height: 1.6;
+            padding: 24px;
         }
-        :root {
-            --blue-dark: #0a3a5a;
-            --blue-medium: #1a6a8a;
-            --blue-light: #4a9aba;
-            --blue-pale: #d4eaf2;
-            --blue-bg: #e8f4f8;
-            --accent: #2a8aaa;
-            --bg-card: #ffffff;
-        }
-        .header-bar {
-            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
-            color: white;
-            text-align: center;
-            padding: 0.8rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        .main-container {
+        .slide-card {
             max-width: 1100px;
             margin: 30px auto;
-            padding: 0 24px;
-        }
-        .content-card {
             background: white;
             border-radius: 28px;
             padding: 2rem 2.5rem;
-            margin-bottom: 40px;
             box-shadow: 0 8px 22px rgba(0,0,0,0.07);
             border: 1px solid #c0dce8;
-        }
-        .content-card-dark {
-            background: #f0f8fc;
-            border-radius: 28px;
-            padding: 2rem 2.5rem;
             margin-bottom: 40px;
-            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
-            border: 1px solid #b0d0dc;
         }
         .section-heading {
             font-size: 1.7rem;
             font-weight: 700;
-            color: var(--blue-dark);
-            border-left: 6px solid var(--blue-light);
+            color: #0a3a5a;
+            border-left: 6px solid #4a9aba;
             padding-left: 20px;
             margin: 1.8rem 0 1rem 0;
         }
         .section-heading:first-of-type { margin-top: 0; }
-        .section-heading-small {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--blue-dark);
-            border-left: 4px solid var(--blue-light);
-            padding-left: 16px;
-            margin: 1.5rem 0 0.8rem 0;
-        }
-        .def-box {
-            background: #e8f4f8;
-            padding: 1.2rem 1.5rem;
-            border-radius: 20px;
-            margin: 1rem 0;
-            border-left: 6px solid var(--blue-light);
-        }
-        .def-box-dark {
-            background: #d4eaf2;
-            padding: 1.2rem 1.5rem;
-            border-radius: 20px;
-            margin: 1rem 0;
-            border-left: 6px solid var(--blue-medium);
-        }
-        .example-box {
-            background: #f0f8fc;
-            padding: 1rem 1.5rem;
-            border-radius: 18px;
-            margin: 1rem 0;
-            border: 1px solid #c0dce8;
-        }
         .formula-box {
             background: #e8f4f8;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
-            margin: 1rem 0;
-            border: 1px solid #b0d0dc;
-            text-align: center;
-        }
-        .formula-box-light {
-            background: #f5fafc;
             padding: 1rem 1.5rem;
             border-radius: 16px;
             margin: 1rem 0;
@@ -114,7 +46,7 @@
             background: #e8f4f8;
             padding: 0.8rem 1.2rem;
             border-radius: 12px;
-            border-left: 4px solid var(--blue-light);
+            border-left: 4px solid #4a9aba;
             margin: 0.8rem 0;
         }
         .key-point-gold {
@@ -124,32 +56,19 @@
             border-left: 4px solid #d4a017;
             margin: 0.8rem 0;
         }
-        .key-point-blue {
-            background: #d4eaf2;
+        .step-box {
+            background: #f8fcfe;
             padding: 0.8rem 1.2rem;
             border-radius: 12px;
-            border-left: 4px solid var(--blue-dark);
-            margin: 0.8rem 0;
-        }
-        .mistake-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .mistake-table th, .mistake-table td {
             border: 1px solid #c0dce8;
-            padding: 10px 14px;
-            text-align: left;
+            margin: 0.6rem 0;
         }
-        .mistake-table th {
-            background: #d4eaf2;
-            color: var(--blue-dark);
-        }
-        .mistake-table tr:nth-child(even) {
-            background: #f6fafc;
+        .example-box {
+            background: #f0f8fc;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            margin: 1rem 0;
+            border: 1px solid #c0dce8;
         }
         .ref-box {
             background: #d4eaf2;
@@ -160,93 +79,36 @@
             color: #0a4a6a;
             margin-top: 1.2rem;
         }
-        .badge-co {
-            background: var(--accent);
+        .header-bar {
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
             color: white;
-            font-size: 0.7rem;
-            border-radius: 30px;
-            padding: 2px 12px;
-            display: inline-block;
-            margin-left: 10px;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 40px;
+            max-width: 1100px;
+            margin: 0 auto 20px auto;
         }
-        .badge-theorem {
+        .btn-pdf {
             background: #1a6a8a;
             color: white;
-            font-size: 0.7rem;
-            border-radius: 30px;
-            padding: 2px 12px;
-            display: inline-block;
-            margin-right: 8px;
-        }
-        .question-item {
-            background: #f6fafc;
-            padding: 1rem 1.4rem;
-            margin-bottom: 1.2rem;
-            border-radius: 20px;
-            border-left: 5px solid var(--blue-medium);
-            transition: 0.2s;
-        }
-        .question-text {
-            font-weight: 600;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 12px;
-        }
-        .solution-area {
-            margin-top: 14px;
-            background: #d4eaf2;
-            padding: 1rem 1.4rem;
-            border-radius: 16px;
-            display: none;
-            border-top: 2px solid #4a9aba;
-        }
-        .solution-area.show { display: block; }
-        .btn-answer {
-            background: var(--blue-medium);
-            color: white;
             border: none;
-            padding: 6px 18px;
+            padding: 12px 30px;
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
+            font-size: 1rem;
             transition: 0.3s;
-            font-size: 0.85rem;
+            display: inline-block;
+            margin: 10px 0;
         }
-        .btn-answer:hover { background: var(--blue-light); }
-        ul, ol { margin-left: 1.5rem; padding-left: 0.5rem; }
-        li { margin: 0.4rem 0; }
-        mjx-container { overflow-x: auto; margin: 0.8rem 0; }
-        .step-box {
-            background: #f8fcfe;
-            padding: 0.8rem 1.2rem;
-            border-radius: 12px;
-            border: 1px solid #c0dce8;
-            margin: 0.6rem 0;
-        }
-        .step-box strong {
-            color: var(--blue-dark);
-        }
-        .intro-sentence {
-            background: #e8f4f8;
-            padding: 0.8rem 1.2rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--blue-light);
-            margin: 1rem 0 1.5rem 0;
-            font-style: italic;
-        }
-        .golden-rule-box {
-            background: #fcf8e8;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
-            border: 2px solid #d4a017;
-            margin: 1.2rem 0;
+        .btn-pdf:hover { background: #4a9aba; }
+        .pdf-controls {
             text-align: center;
-        }
-        .golden-rule-box strong {
-            color: #b8860b;
-            font-size: 1.1rem;
+            max-width: 1100px;
+            margin: 0 auto 10px auto;
         }
         footer {
             background: #0a3a5a;
@@ -254,430 +116,103 @@
             text-align: center;
             padding: 24px 20px;
             margin-top: 40px;
-            border-top: 6px solid var(--blue-light);
+            border-top: 6px solid #4a9aba;
+            border-radius: 28px;
         }
-        footer a { color: #4a9aba; text-decoration: none; }
         @media print {
             body { background: white; }
-            .btn-answer { display: none !important; }
-            .content-card, .content-card-dark { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
-            .solution-area { display: block !important; background: #e8f4f8; }
-            footer { display: none; }
-            .header-bar { background: #0a3a5a !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .slide-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .btn-pdf { display: none; }
+            .pdf-controls { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
-
-<div class="main-container">
-
-    <div class="content-card">
-
-        <!-- ============================================================ -->
-        <!-- HEADER -->
-        <!-- ============================================================ -->
-        <div style="border-bottom: 2px solid #c0dce8; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
-            <span style="font-size: 1.8rem; font-weight: 800; color: var(--blue-dark);">KU3DSCMAT211</span>
-            <span style="display: inline-block; background: var(--blue-medium); color: white; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Section 1.4</span>
-            <div style="font-size: 1.3rem; font-weight: 700; color: #0a4a6a; margin-top: 6px;">📖 Integrating Factors – Finding Integrating Factor (Function of x or y only)</div>
-            <div style="font-size: 0.9rem; color: #1a5a7a;">📚 Kreyszig §1.4 (Exact ODEs) – Integrating Factors</div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 1. INTRODUCTION -->
-        <!-- ============================================================ -->
-        <div class="section-heading">🎯 Introduction: The Idea of Integrating Factors</div>
-
-        <p>Consider the non-exact ODE:</p>
-        <div class="formula-box">
-            \[
-            -y \, dx + x \, dy = 0
-            \]
-        </div>
-        <p>If we multiply by \(1/x^2\), we get an <strong>exact</strong> equation:</p>
-        <div class="formula-box">
-            \[
-            \frac{-y \, dx + x \, dy}{x^2} = -\frac{y}{x^2} \, dx + \frac{1}{x} \, dy = d\left(\frac{y}{x}\right) = 0
-            \]
-        </div>
-        <p>Integration gives: \(\frac{y}{x} = C\) → \(y = Cx\).</p>
-
-        <div class="key-point">
-            💡 <strong>Definition:</strong> A function \(F(x, y)\) that multiplies a non-exact ODE to make it exact is called an <strong>integrating factor</strong>.
-        </div>
-
-        <div class="example-box">
-            <strong>Other Integrating Factors for \(-y \, dx + x \, dy = 0\):</strong><br>
-            \(F = 1/y^2\) gives \(d(x/y) = 0\)<br>
-            \(F = 1/(xy)\) gives \(-d(\ln(x/y)) = 0\)<br>
-            \(F = 1/(x^2 + y^2)\) gives \(d(\arctan(x/y)) = 0\)
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 2. GENERAL METHOD -->
-        <!-- ============================================================ -->
-        <div class="section-heading">⚡ General Method for Finding Integrating Factors</div>
-
-        <p>For a non-exact ODE:</p>
-        <div class="formula-box">
-            \[
-            P(x, y) \, dx + Q(x, y) \, dy = 0
-            \]
-        </div>
-
-        <p>We multiply by \(F(x, y)\) to get:</p>
-        <div class="formula-box">
-            \[
-            FP \, dx + FQ \, dy = 0
-            \]
-        </div>
-
-        <p>The new equation is exact if:</p>
-        <div class="formula-box">
-            \[
-            \frac{\partial}{\partial y}(FP) = \frac{\partial}{\partial x}(FQ)
-            \]
-        </div>
-
-        <p>By the product rule:</p>
-        <div class="formula-box">
-            \[
-            F_y P + F P_y = F_x Q + F Q_x
-            \]
-        </div>
-
-        <div class="key-point-gold">
-            🥇 <strong>Golden Rule:</strong> "If you cannot solve your problem, try to solve a simpler one."<br>
-            Look for an integrating factor depending on <strong>only one variable</strong>.
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 3. THEOREM 1: F(x) -->
-        <!-- ============================================================ -->
-        <div class="section-heading">📐 Theorem 1: Integrating Factor \(F(x)\) (Function of x only)</div>
-
-        <div class="def-box-dark">
-            <p>If the expression:</p>
-            <div class="formula-box-light">
-                \[
-                R = \frac{1}{Q} \left( \frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} \right)
-                \]
-            </div>
-            <p>depends <strong>only on x</strong> (and not on y), then the ODE has an integrating factor:</p>
-            <div class="formula-box-light">
-                \[
-                F(x) = \exp\left( \int R(x) \, dx \right)
-                \]
-            </div>
-        </div>
-
-        <div class="step-box">
-            <strong>Derivation:</strong> Let \(F = F(x)\). Then \(F_y = 0\) and \(F_x = F' = dF/dx\).<br>
-            Substituting into the exactness condition:
-            \[
-            F P_y = F' Q + F Q_x
-            \]
-            Dividing by \(FQ\):
-            \[
-            \frac{1}{F} \frac{dF}{dx} = \frac{1}{Q} \left( \frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} \right) = R
-            \]
-            Integrating gives \(F(x) = \exp(\int R \, dx)\).
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 4. THEOREM 2: F(y) -->
-        <!-- ============================================================ -->
-        <div class="section-heading">📐 Theorem 2: Integrating Factor \(F^*(y)\) (Function of y only)</div>
-
-        <div class="def-box-dark">
-            <p>If the expression:</p>
-            <div class="formula-box-light">
-                \[
-                R^* = \frac{1}{P} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right)
-                \]
-            </div>
-            <p>depends <strong>only on y</strong> (and not on x), then the ODE has an integrating factor:</p>
-            <div class="formula-box-light">
-                \[
-                F^*(y) = \exp\left( \int R^*(y) \, dy \right)
-                \]
-            </div>
-        </div>
-
-        <div class="step-box">
-            <strong>Derivation:</strong> Let \(F^* = F^*(y)\). Then \(F^*_x = 0\) and \(F^*_y = dF^*/dy\).<br>
-            \[
-            F^* P_y + F^*_y P = F^* Q_x
-            \]
-            Dividing by \(F^*P\):
-            \[
-            \frac{1}{F^*} \frac{dF^*}{dy} = \frac{1}{P} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) = R^*
-            \]
-            Integrating gives \(F^*(y) = \exp(\int R^* \, dy)\).
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- GOLDEN RULE FOR FINDING INTEGRATING FACTORS -->
-        <!-- ============================================================ -->
-        <div class="golden-rule-box">
-            <strong>🏆 Theorem 1 and Theorem 2 together are termed as the <span style="color: #b8860b;">GOLDEN RULE</span> for finding integrating factors.</strong>
-        </div>
-
-        <div class="key-point-blue">
-            📌 <strong>Summary of the Golden Rule:</strong><br>
-            <ul>
-                <li><strong>Check \(F(x)\):</strong> Compute \(R = \frac{1}{Q}(P_y - Q_x)\). If \(R\) depends only on \(x\), then \(F(x) = e^{\int R \, dx}\).</li>
-                <li><strong>Check \(F(y)\):</strong> Compute \(R^* = \frac{1}{P}(Q_x - P_y)\). If \(R^*\) depends only on \(y\), then \(F(y) = e^{\int R^* \, dy}\).</li>
-                <li>If neither works, try inspection or look for an integrating factor that depends on both variables.</li>
-            </ul>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 5. STEP-BY-STEP PROCEDURE -->
-        <!-- ============================================================ -->
-        <div class="section-heading">📋 Step-by-Step Procedure</div>
-
-        <div class="step-box">
-            <strong>Step 1:</strong> Check exactness. Compute \(\partial P/\partial y\) and \(\partial Q/\partial x\).<br>
-            If they are equal → the ODE is already exact. Solve directly.
-        </div>
-
-        <div class="step-box">
-            <strong>Step 2:</strong> Try Theorem 1 (\(F(x)\)).<br>
-            Compute \(R = (1/Q)(P_y - Q_x)\).<br>
-            If R depends <strong>only on x</strong>, calculate \(F(x) = e^{\int R \, dx}\).<br>
-            Multiply the ODE by F(x) and solve the resulting exact equation.
-        </div>
-
-        <div class="step-box">
-            <strong>Step 3:</strong> Try Theorem 2 (\(F(y)\)).<br>
-            Compute \(R^* = (1/P)(Q_x - P_y)\).<br>
-            If \(R^*\) depends <strong>only on y</strong>, calculate \(F^*(y) = e^{\int R^* \, dy}\).<br>
-            Multiply the ODE by \(F^*(y)\) and solve the resulting exact equation.
-        </div>
-
-        <div class="key-point">
-            ✅ <strong>After multiplying by the integrating factor, always verify that the new equation is exact</strong> before proceeding to solve.
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 6. WORKED EXAMPLE -->
-        <!-- ============================================================ -->
-        <div class="section-heading">📖 Worked Example: IVP with Integrating Factor</div>
-
-        <p><strong>Problem:</strong> Solve the initial value problem:</p>
-        <div class="formula-box">
-            \[
-            (e^{x+y} + y e^y) \, dx + (x e^y - 1) \, dy = 0, \qquad y(0) = -1
-            \]
-        </div>
-
-        <div class="step-box">
-            <strong>Step 1: Check Exactness</strong><br>
-            \(P = e^{x+y} + y e^y\), &nbsp; \(Q = x e^y - 1\)<br>
-            \(P_y = e^{x+y} + e^y + y e^y\)<br>
-            \(Q_x = e^y\)<br>
-            \(P_y \neq Q_x\) → <strong>Not exact</strong>.
-        </div>
-
-        <div class="step-box">
-            <strong>Step 2: Try Theorem 1 (\(F(x)\))</strong><br>
-            \(R = (1/Q)(P_y - Q_x) = (e^{x+y} + y e^y)/(x e^y - 1)\)<br>
-            This depends on <strong>both</strong> x and y → Theorem 1 <strong>fails</strong>.
-        </div>
-
-        <div class="step-box">
-            <strong>Step 3: Try Theorem 2 (\(F(y)\))</strong><br>
-            \(R^* = (1/P)(Q_x - P_y) = -1\)<br>
-            This depends <strong>only on y</strong> → Theorem 2 works!<br>
-            \(F^*(y) = e^{\int -1 \, dy} = e^{-y}\)
-        </div>
-
-        <div class="step-box">
-            <strong>Step 4: Multiply and Solve</strong><br>
-            Multiply the ODE by \(e^{-y}\):<br>
-            \((e^x + y) \, dx + (x - e^{-y}) \, dy = 0\)<br><br>
-            <strong>Check Exactness:</strong><br>
-            \(M = e^x + y\), &nbsp; \(N = x - e^{-y}\)<br>
-            \(M_y = 1\), &nbsp; \(N_x = 1\) → ✅ <strong>Exact</strong>.
-        </div>
-
-        <div class="step-box">
-            <strong>Step 5: Find \(u(x, y)\)</strong><br>
-            \(u = \int M \, dx = \int (e^x + y) \, dx = e^x + xy + k(y)\)<br>
-            \(\partial u/\partial y = x + dk/dy = N = x - e^{-y}\)<br>
-            \(dk/dy = -e^{-y}\) → \(k(y) = e^{-y}\)<br><br>
-            <strong>General Solution:</strong>
-            \[
-            e^x + xy + e^{-y} = C
-            \]
-        </div>
-
-        <div class="step-box">
-            <strong>Step 6: Apply Initial Condition</strong><br>
-            \(y(0) = -1\):<br>
-            \(e^0 + 0 + e^{1} = 1 + e\)<br>
-            \(C = 1 + e\)<br><br>
-            <strong>Particular Solution:</strong>
-            \[
-            e^x + xy + e^{-y} = 1 + e
-            \]
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 7. PROBLEMS FROM THE IMAGE -->
-        <!-- ============================================================ -->
-        <div class="section-heading">📝 Problems from the Text (Image)</div>
-
-        <div class="intro-sentence">
-            In the following problems, a function \(F(x, y)\) is given. Check whether this \(F\) can form an integrating factor of the given differential equation.
-        </div>
-
-        <!-- Problem 13 -->
-        <div class="question-item" id="q13">
-            <div class="question-text">
-                <span><strong>Prob. 13:</strong> \(e^{-y} dx + e^{-x}(-e^{-y} + 1) dy = 0\), &nbsp; \(F = e^{x+y}\) <span class="badge-co">CO1</span></span>
-                <button class="btn-answer" data-qid="13">📖 Solution</button>
-            </div>
-            <div id="sol13" class="solution-area">
-                <strong>✅ Solution:</strong><br>
-                Given: \(P = e^{-y}\), \(Q = e^{-x}(-e^{-y} + 1)\)<br>
-                Integrating factor: \(F = e^{x+y}\)<br><br>
-                Multiply the ODE by \(F\):<br>
-                \(e^{x+y} \cdot e^{-y} \, dx + e^{x+y} \cdot e^{-x}(-e^{-y} + 1) \, dy = 0\)<br>
-                \(e^x \, dx + (e^y)(-e^{-y} + 1) \, dy = 0\)<br>
-                \(e^x \, dx + (-1 + e^y) \, dy = 0\)<br><br>
-                Now: \(M = e^x\), \(N = -1 + e^y\)<br>
-                \(M_y = 0\), \(N_x = 0\) → ✅ <strong>Exact</strong><br><br>
-                \(u = \int M \, dx = \int e^x \, dx = e^x + k(y)\)<br>
-                \(\partial u/\partial y = dk/dy = N = -1 + e^y\)<br>
-                \(k(y) = -y + e^y\)<br><br>
-                <strong>Solution:</strong>
-                \[
-                e^x - y + e^y = C
-                \]
-            </div>
-        </div>
-
-        <!-- Problem 14 -->
-        <div class="question-item" id="q14">
-            <div class="question-text">
-                <span><strong>Prob. 14:</strong> \((a+1)y \, dx + (b+1)x \, dy = 0\), &nbsp; \(y(1) = 1\), &nbsp; \(F = x^a y^b\) <span class="badge-co">CO1</span></span>
-                <button class="btn-answer" data-qid="14">📖 Solution</button>
-            </div>
-            <div id="sol14" class="solution-area">
-                <strong>✅ Solution:</strong><br>
-                Given: \(P = (a+1)y\), \(Q = (b+1)x\)<br>
-                Integrating factor: \(F = x^a y^b\)<br><br>
-                Multiply the ODE by \(F\):<br>
-                \((a+1) x^a y^{b+1} \, dx + (b+1) x^{a+1} y^b \, dy = 0\)<br><br>
-                Now: \(M = (a+1) x^a y^{b+1}\), \(N = (b+1) x^{a+1} y^b\)<br>
-                \(M_y = (a+1)(b+1) x^a y^b\)<br>
-                \(N_x = (b+1)(a+1) x^a y^b\) → ✅ <strong>Exact</strong><br><br>
-                \(u = \int M \, dx = \int (a+1) x^a y^{b+1} \, dx = x^{a+1} y^{b+1} + k(y)\)<br>
-                \(\partial u/\partial y = (b+1) x^{a+1} y^b + dk/dy = N = (b+1) x^{a+1} y^b\)<br>
-                \(dk/dy = 0\) → \(k(y) = 0\) (or constant)<br><br>
-                <strong>General Solution:</strong>
-                \[
-                x^{a+1} y^{b+1} = C
-                \]
-                <br>
-                <strong>Apply initial condition:</strong> \(y(1) = 1\):<br>
-                \(1^{a+1} \cdot 1^{b+1} = 1 = C\)<br><br>
-                <strong>Particular Solution:</strong>
-                \[
-                x^{a+1} y^{b+1} = 1
-                \]
-            </div>
-        </div>
-
-        <!-- ============================================================ -->
-        <!-- 8. COMMON MISTAKES -->
-        <!-- ============================================================ -->
-        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
-
-        <table class="mistake-table">
-            <tr><th>Mistake</th><th>Correction</th></tr>
-            <tr>
-                <td>Forgetting to check exactness before applying the shortcut</td>
-                <td>Always verify \(\partial M/\partial y = \partial N/\partial x\) first.</td>
-            </tr>
-            <tr>
-                <td>Including \(x\)-terms in \(N_1(y)\)</td>
-                <td>Only terms with <strong>no</strong> \(x\) go into \(N_1(y)\).</td>
-            </tr>
-            <tr>
-                <td>Omitting the constant \(C\) in the final solution</td>
-                <td>Always write \(u(x,y) = C\).</td>
-            </tr>
-            <tr>
-                <td>Forgetting to verify the integrating factor works</td>
-                <td>After multiplying, check that the new equation is exact.</td>
-            </tr>
-            <tr>
-                <td>Confusing \(F(x)\) with \(F(y)\) conditions</td>
-                <td>\(R\) must depend only on \(x\); \(R^*\) must depend only on \(y\).</td>
-            </tr>
-        </table>
-
-        <!-- ============================================================ -->
-        <!-- 9. SUMMARY -->
-        <!-- ============================================================ -->
-        <div class="section-heading">📋 Quick Summary</div>
-
-        <div class="def-box-dark">
-            <ul>
-                <li><strong>Exact ODE form:</strong> \(M \, dx + N \, dy = 0\)</li>
-                <li><strong>Exactness condition:</strong> \(\partial M/\partial y = \partial N/\partial x\)</li>
-                <li><strong>Shortcut solution:</strong> \(\int M \, dx + \int N_1(y) \, dy = C\)</li>
-                <li><strong>\(N_1(y)\)</strong> = purely \(y\)-terms from \(N\)</li>
-                <li><strong>Integrating factor \(F(x)\):</strong> \(F(x) = \exp\left(\int \frac{1}{Q}(P_y - Q_x) \, dx\right)\)</li>
-                <li><strong>Integrating factor \(F(y)\):</strong> \(F(y) = \exp\left(\int \frac{1}{P}(Q_x - P_y) \, dy\right)\)</li>
-                <li><strong>🏆 Theorem 1 and Theorem 2 together are the GOLDEN RULE for finding integrating factors.</strong></li>
-            </ul>
-        </div>
-
-        <div class="ref-box">
-            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.4, pp. 23–27.
-        </div>
-
-        <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">
-            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
-        </div>
-
-    </div>
-
-    <footer>
-        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
-        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
-        <div style="margin-top: 8px;">
-            <a href="#">🏠 Home</a> | <a href="#">📘 Classroom Space</a> | <a href="#">📖 Syllabus</a>
-        </div>
-        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods</p>
-    </footer>
-
+<div class="pdf-controls">
+    <button class="btn-pdf" id="downloadPdf1">📄 Save as PDF (A4)</button>
 </div>
 
+<div class="header-bar">📐 NAM College Kallikkandy | FYUGP 2026 📘</div>
+
+<div class="slide-card" id="slide1-content">
+    <div style="border-bottom: 2px solid #c0dce8; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+        <span style="font-size: 1.8rem; font-weight: 800; color: #0a3a5a;">KU3DSCMAT211</span>
+        <span style="display: inline-block; background: #1a6a8a; color: white; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Section 1.4</span>
+        <div style="font-size: 1.3rem; font-weight: 700; color: #0a4a6a; margin-top: 6px;">📖 Integrating Factors – Introduction &amp; Proof of three examples</div>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div class="section-heading">🎯 Introduction: The Idea of Integrating Factors</div>
+    <p>Consider the non-exact ODE:</p>
+    <div class="formula-box">\[ -y \, dx + x \, dy = 0 \]</div>
+    <p>If we multiply by \(1/x^2\), we get an <strong>exact</strong> equation:</p>
+    <div class="formula-box">\[ \frac{-y \, dx + x \, dy}{x^2} = -\frac{y}{x^2} \, dx + \frac{1}{x} \, dy = d\left(\frac{y}{x}\right) = 0 \]</div>
+    <p>Integration gives: \(\frac{y}{x} = C\) → \(y = Cx\).</p>
+    <div class="key-point">💡 <strong>Definition:</strong> A function \(F(x, y)\) that multiplies a non-exact ODE to make it exact is called an <strong>integrating factor</strong>.</div>
+
+    <!-- PROOF OF THREE INTEGRATING FACTORS -->
+    <div class="section-heading">📐 Proof: Three other integrating factors for \(-y \, dx + x \, dy = 0\)</div>
+    <div class="example-box"><p style="font-weight: 600; margin-bottom: 0.6rem;">We verify that each of the following is an integrating factor.</p></div>
+
+    <!-- Factor 1: 1/y² -->
+    <div class="step-box">
+        <strong>1. \(F = \frac{1}{y^2}\)</strong><br>
+        Multiply the ODE by \(F\):
+        \[ \frac{-y}{y^2} dx + \frac{x}{y^2} dy = -\frac{1}{y} dx + \frac{x}{y^2} dy = 0 \]
+        Let \(M = -\frac{1}{y}\), \(N = \frac{x}{y^2}\).<br>
+        Check exactness: \(M_y = \frac{1}{y^2}\), \(N_x = \frac{1}{y^2}\) → ✅ <strong>exact</strong>.<br>
+        Moreover, \(d(x/y) = \frac{1}{y} dx - \frac{x}{y^2} dy = 0\), so the equation is \( -d(x/y) = 0\).
+        <span style="display: inline-block; background: #d4eaf2; padding: 0.1rem 0.8rem; border-radius: 30px; margin-left: 10px; font-size: 0.8rem;">verified</span>
+    </div>
+
+    <!-- Factor 2: 1/(xy) -->
+    <div class="step-box">
+        <strong>2. \(F = \frac{1}{xy}\)</strong><br>
+        Multiply:
+        \[ \frac{-y}{xy} dx + \frac{x}{xy} dy = -\frac{1}{x} dx + \frac{1}{y} dy = 0 \]
+        Let \(M = -\frac{1}{x}\), \(N = \frac{1}{y}\).<br>
+        \(M_y = 0\), \(N_x = 0\) → ✅ <strong>exact</strong>.<br>
+        Also, \(-d(\ln(x/y)) = -(\frac{1}{x}dx - \frac{1}{y}dy) = -\frac{1}{x}dx + \frac{1}{y}dy = 0\). Verified.
+        <span style="display: inline-block; background: #d4eaf2; padding: 0.1rem 0.8rem; border-radius: 30px; margin-left: 10px; font-size: 0.8rem;">verified</span>
+    </div>
+
+    <!-- Factor 3: 1/(x²+y²) -->
+    <div class="step-box">
+        <strong>3. \(F = \frac{1}{x^2 + y^2}\)</strong><br>
+        Multiply:
+        \[ \frac{-y}{x^2+y^2} dx + \frac{x}{x^2+y^2} dy = 0 \]
+        Let \(M = -\frac{y}{x^2+y^2}\), \(N = \frac{x}{x^2+y^2}\).<br>
+        Check exactness:
+        \[ M_y = -\frac{x^2 - y^2}{(x^2+y^2)^2}, \quad N_x = \frac{y^2 - x^2}{(x^2+y^2)^2} \]
+        Since \(M_y = N_x\) → ✅ <strong>exact</strong>.<br>
+        And \(d(\arctan(x/y)) = \frac{-y\,dx + x\,dy}{x^2+y^2} = 0\). Verified.
+        <span style="display: inline-block; background: #d4eaf2; padding: 0.1rem 0.8rem; border-radius: 30px; margin-left: 10px; font-size: 0.8rem;">verified</span>
+    </div>
+
+    <div class="key-point-gold">🥇 <strong>Observation:</strong> An ODE can have many integrating factors. The choice depends on the form of the equation.</div>
+
+    <div class="ref-box">📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.4.</div>
+    <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics</div>
+</div>
+
+<footer>
+    <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+    <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+</footer>
+
 <script>
-    // Toggle solution visibility
-    document.querySelectorAll('.btn-answer').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const qid = this.getAttribute('data-qid');
-            const sol = document.getElementById('sol' + qid);
-            if (sol) {
-                sol.classList.toggle('show');
-                this.textContent = sol.classList.contains('show') ? '🙈 Hide Solution' : '📖 Solution';
-            }
-        });
+    document.getElementById('downloadPdf1').addEventListener('click', function() {
+        const element = document.getElementById('slide1-content');
+        const opt = {
+            margin:        [0.5, 0.5, 0.5, 0.5], // top, right, bottom, left (in inches)
+            filename:     'Integrating_Factors_Introduction_Proof.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
     });
-
-    // Render MathJax
-    if (window.MathJax) {
-        MathJax.typesetPromise();
-    }
 </script>
-
 </body>
 </html>

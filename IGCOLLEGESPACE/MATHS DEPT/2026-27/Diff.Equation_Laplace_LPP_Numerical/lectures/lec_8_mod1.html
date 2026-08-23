@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.4 Integrating Factors – General Method & Golden Rule</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #e8f4f8;
+            color: #0a2a3a;
+            line-height: 1.6;
+            padding: 24px;
+        }
+        .slide-card {
+            max-width: 1100px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2.5rem;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid #c0dce8;
+            margin-bottom: 40px;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0a3a5a;
+            border-left: 6px solid #4a9aba;
+            padding-left: 20px;
+            margin: 1.8rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .formula-box {
+            background: #e8f4f8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #b0d0dc;
+            text-align: center;
+        }
+        .formula-box-light {
+            background: #f5fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #b0d0dc;
+            text-align: center;
+        }
+        .def-box-dark {
+            background: #d4eaf2;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid #1a6a8a;
+        }
+        .step-box {
+            background: #f8fcfe;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #c0dce8;
+            margin: 0.6rem 0;
+        }
+        .key-point {
+            background: #e8f4f8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid #4a9aba;
+            margin: 0.8rem 0;
+        }
+        .key-point-gold {
+            background: #fcf8e8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid #d4a017;
+            margin: 0.8rem 0;
+        }
+        .key-point-blue {
+            background: #d4eaf2;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid #0a3a5a;
+            margin: 0.8rem 0;
+        }
+        .golden-rule-box {
+            background: #fcf8e8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            border: 2px solid #d4a017;
+            margin: 1.2rem 0;
+            text-align: center;
+        }
+        .badge-co {
+            background: #2a8aaa;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 12px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .ref-box {
+            background: #d4eaf2;
+            padding: 10px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #0a4a6a;
+            margin-top: 1.2rem;
+        }
+        .header-bar {
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 40px;
+            max-width: 1100px;
+            margin: 0 auto 20px auto;
+        }
+        .btn-pdf {
+            background: #1a6a8a;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .btn-pdf:hover { background: #4a9aba; }
+        .pdf-controls {
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto 10px auto;
+        }
+        .intro-sentence {
+            background: #e8f4f8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid #4a9aba;
+            margin: 1rem 0 1.5rem 0;
+            font-style: italic;
+        }
+        .mistake-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .mistake-table th, .mistake-table td {
+            border: 1px solid #c0dce8;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .mistake-table th {
+            background: #d4eaf2;
+            color: #0a3a5a;
+        }
+        .mistake-table tr:nth-child(even) {
+            background: #f6fafc;
+        }
+        ul, ol { margin-left: 1.5rem; padding-left: 0.5rem; }
+        li { margin: 0.4rem 0; }
+        footer {
+            background: #0a3a5a;
+            color: #b0d0dc;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid #4a9aba;
+            border-radius: 28px;
+        }
+        @media print {
+            body { background: white; }
+            .slide-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            .btn-pdf { display: none; }
+            .pdf-controls { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="pdf-controls">
+    <button class="btn-pdf" id="downloadPdf2">📄 Save as PDF (A4)</button>
+</div>
+
+<div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics 📘</div>
+
+<div class="slide-card" id="slide2-content">
+    <div style="border-bottom: 2px solid #c0dce8; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+        <span style="font-size: 1.8rem; font-weight: 800; color: #0a3a5a;">KU3DSCMAT211</span>
+        <span style="display: inline-block; background: #1a6a8a; color: white; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Section 1.4</span>
+        <div style="font-size: 1.3rem; font-weight: 700; color: #0a4a6a; margin-top: 6px;">⚡ General Method &amp; Golden Rule for Integrating Factors</div>
+    </div>
+
+    <!-- GENERAL METHOD -->
+    <div class="section-heading">⚡ General Method for Finding Integrating Factors</div>
+    <p>For a non-exact ODE:</p>
+    <div class="formula-box">\[ P(x, y) \, dx + Q(x, y) \, dy = 0 \]</div>
+    <p>We multiply by \(F(x, y)\) to get:</p>
+    <div class="formula-box">\[ FP \, dx + FQ \, dy = 0 \]</div>
+    <p>The new equation is exact if:</p>
+    <div class="formula-box">\[ \frac{\partial}{\partial y}(FP) = \frac{\partial}{\partial x}(FQ) \]</div>
+    <p>By the product rule:</p>
+    <div class="formula-box">\[ F_y P + F P_y = F_x Q + F Q_x \]</div>
+    <div class="key-point-gold">🥇 <strong>Golden Rule:</strong> "If you cannot solve your problem, try to solve a simpler one."<br>Look for an integrating factor depending on <strong>only one variable</strong>.</div>
+
+    <!-- THEOREM 1 -->
+    <div class="section-heading">📐 Theorem 1: Integrating Factor \(F(x)\) (function of x only)</div>
+    <div class="def-box-dark">
+        <p>If the expression:</p>
+        <div class="formula-box-light">\[ R = \frac{1}{Q} \left( \frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} \right) \]</div>
+        <p>depends <strong>only on x</strong> (and not on y), then the ODE has an integrating factor:</p>
+        <div class="formula-box-light">\[ F(x) = \exp\left( \int R(x) \, dx \right) \]</div>
+    </div>
+    <div class="step-box">
+        <strong>Derivation:</strong> Let \(F = F(x)\). Then \(F_y = 0\) and \(F_x = F' = dF/dx\).<br>
+        Substituting: \(F P_y = F' Q + F Q_x\) → \(\frac{1}{F} \frac{dF}{dx} = \frac{1}{Q}(P_y - Q_x) = R\). Integrating gives \(F(x) = \exp(\int R \, dx)\).
+    </div>
+
+    <!-- THEOREM 2 -->
+    <div class="section-heading">📐 Theorem 2: Integrating Factor \(F^*(y)\) (function of y only)</div>
+    <div class="def-box-dark">
+        <p>If the expression:</p>
+        <div class="formula-box-light">\[ R^* = \frac{1}{P} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \]</div>
+        <p>depends <strong>only on y</strong> (and not on x), then the ODE has an integrating factor:</p>
+        <div class="formula-box-light">\[ F^*(y) = \exp\left( \int R^*(y) \, dy \right) \]</div>
+    </div>
+    <div class="step-box">
+        <strong>Derivation:</strong> Let \(F^* = F^*(y)\). Then \(F^*_x = 0\) and \(F^*_y = dF^*/dy\).<br>
+        \(F^* P_y + F^*_y P = F^* Q_x\) → \(\frac{1}{F^*} \frac{dF^*}{dy} = \frac{1}{P}(Q_x - P_y) = R^*\). Integrating gives \(F^*(y) = \exp(\int R^* \, dy)\).
+    </div>
+
+    <!-- GOLDEN RULE -->
+    <div class="golden-rule-box">
+        <strong>🏆 Theorem 1 and Theorem 2 together are termed as the <span style="color: #b8860b;">GOLDEN RULE</span> for finding integrating factors.</strong>
+    </div>
+    <div class="key-point-blue">
+        📌 <strong>Summary of the Golden Rule:</strong><br>
+        <ul>
+            <li><strong>Check \(F(x)\):</strong> Compute \(R = \frac{1}{Q}(P_y - Q_x)\). If \(R\) depends only on \(x\), then \(F(x) = e^{\int R \, dx}\).</li>
+            <li><strong>Check \(F(y)\):</strong> Compute \(R^* = \frac{1}{P}(Q_x - P_y)\). If \(R^*\) depends only on \(y\), then \(F(y) = e^{\int R^* \, dy}\).</li>
+            <li>If neither works, try inspection or look for an integrating factor that depends on both variables.</li>
+        </ul>
+    </div>
+
+    <!-- STEP-BY-STEP -->
+    <div class="section-heading">📋 Step-by-Step Procedure</div>
+    <div class="step-box"><strong>Step 1:</strong> Check exactness. Compute \(P_y\) and \(Q_x\). If equal → already exact.</div>
+    <div class="step-box"><strong>Step 2:</strong> Try Theorem 1 (\(F(x)\)). Compute \(R = (1/Q)(P_y - Q_x)\). If \(R\) depends only on \(x\), find \(F(x) = e^{\int R dx}\).</div>
+    <div class="step-box"><strong>Step 3:</strong> Try Theorem 2 (\(F(y)\)). Compute \(R^* = (1/P)(Q_x - P_y)\). If \(R^*\) depends only on \(y\), find \(F(y) = e^{\int R^* dy}\).</div>
+    <div class="key-point">✅ <strong>After multiplying by the integrating factor, always verify that the new equation is exact</strong> before proceeding.</div>
+
+    <!-- WORKED EXAMPLE -->
+    <div class="section-heading">📖 Worked Example: IVP with Integrating Factor</div>
+    <p><strong>Problem:</strong> Solve the IVP:</p>
+    <div class="formula-box">\[ (e^{x+y} + y e^y) \, dx + (x e^y - 1) \, dy = 0, \qquad y(0) = -1 \]</div>
+    <div class="step-box"><strong>Step 1 (exactness):</strong> \(P = e^{x+y} + y e^y\), \(Q = x e^y - 1\). \(P_y = e^{x+y} + e^y + y e^y\), \(Q_x = e^y\). Not exact.</div>
+    <div class="step-box"><strong>Step 2 (F(x)):</strong> \(R = (1/Q)(P_y - Q_x) = (e^{x+y} + y e^y)/(x e^y - 1)\) depends on both → fails.</div>
+    <div class="step-box"><strong>Step 3 (F(y)):</strong> \(R^* = (1/P)(Q_x - P_y) = -1\) depends only on y → works. \(F^*(y) = e^{-y}\).</div>
+    <div class="step-box"><strong>Step 4 (multiply):</strong> \((e^x + y) dx + (x - e^{-y}) dy = 0\). Check: \(M_y = 1\), \(N_x = 1\) → exact.</div>
+    <div class="step-box"><strong>Step 5 (solve):</strong> \(u = \int (e^x + y) dx = e^x + xy + k(y)\). Then \(u_y = x + k'(y) = x - e^{-y}\) → \(k(y) = e^{-y}\). General solution: \(e^x + xy + e^{-y} = C\).</div>
+    <div class="step-box"><strong>Step 6 (IC):</strong> \(y(0) = -1\) → \(1 + 0 + e = 1+e\) → \(C = 1+e\). Particular: \(e^x + xy + e^{-y} = 1+e\).</div>
+
+    <!-- PROBLEMS -->
+    <div class="section-heading">📝 Problems from the Text</div>
+    <div class="intro-sentence">In the following problems, a function \(F(x, y)\) is given. Check whether this \(F\) can form an integrating factor.</div>
+
+    <div style="background: #f6fafc; padding: 1rem 1.4rem; border-radius: 20px; border-left: 5px solid #1a6a8a; margin-bottom: 1.2rem;">
+        <div style="font-weight: 600;"><strong>Prob. 13:</strong> \(e^{-y} dx + e^{-x}(-e^{-y} + 1) dy = 0\), &nbsp; \(F = e^{x+y}\) <span class="badge-co">CO1</span></div>
+        <div style="margin-top: 10px; background: #d4eaf2; padding: 0.8rem 1.2rem; border-radius: 16px;">
+            <strong>✅ Solution:</strong> Multiply: \(e^x dx + (-1 + e^y) dy = 0\). \(M = e^x\), \(N = -1+e^y\). \(M_y = 0 = N_x\) → exact. \(u = e^x - y + e^y = C\).
+        </div>
+    </div>
+
+    <div style="background: #f6fafc; padding: 1rem 1.4rem; border-radius: 20px; border-left: 5px solid #1a6a8a; margin-bottom: 1.2rem;">
+        <div style="font-weight: 600;"><strong>Prob. 14:</strong> \((a+1)y \, dx + (b+1)x \, dy = 0\), \(y(1)=1\), \(F = x^a y^b\) <span class="badge-co">CO1</span></div>
+        <div style="margin-top: 10px; background: #d4eaf2; padding: 0.8rem 1.2rem; border-radius: 16px;">
+            <strong>✅ Solution:</strong> Multiply: \((a+1)x^a y^{b+1} dx + (b+1)x^{a+1} y^b dy = 0\). \(M_y = (a+1)(b+1)x^a y^b\), \(N_x = (b+1)(a+1)x^a y^b\) → exact. \(u = x^{a+1} y^{b+1} = C\). IC gives \(C=1\). Particular: \(x^{a+1} y^{b+1} = 1\).
+        </div>
+    </div>
+
+    <!-- COMMON MISTAKES -->
+    <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+    <table class="mistake-table">
+        <tr><th>Mistake</th><th>Correction</th></tr>
+        <tr><td>Forgetting to check exactness before shortcut</td><td>Always verify \(M_y = N_x\) first.</td></tr>
+        <tr><td>Including \(x\)-terms in \(N_1(y)\)</td><td>Only terms with <strong>no</strong> \(x\) go into \(N_1(y)\).</td></tr>
+        <tr><td>Omitting the constant \(C\)</td><td>Always write \(u(x,y) = C\).</td></tr>
+        <tr><td>Forgetting to verify the integrating factor works</td><td>After multiplying, check exactness.</td></tr>
+        <tr><td>Confusing \(F(x)\) with \(F(y)\) conditions</td><td>\(R\) must depend only on \(x\); \(R^*\) only on \(y\).</td></tr>
+    </table>
+
+    <!-- SUMMARY -->
+    <div class="section-heading">📋 Quick Summary</div>
+    <div class="def-box-dark" style="border-left-color: #0a3a5a;">
+        <ul>
+            <li><strong>Exact ODE form:</strong> \(M \, dx + N \, dy = 0\)</li>
+            <li><strong>Exactness condition:</strong> \(\partial M/\partial y = \partial N/\partial x\)</li>
+            <li><strong>Shortcut solution:</strong> \(\int M \, dx + \int N_1(y) \, dy = C\)</li>
+            <li><strong>\(N_1(y)\)</strong> = purely \(y\)-terms from \(N\)</li>
+            <li><strong>Integrating factor \(F(x)\):</strong> \(F(x) = \exp\left(\int \frac{1}{Q}(P_y - Q_x) \, dx\right)\)</li>
+            <li><strong>Integrating factor \(F(y)\):</strong> \(F(y) = \exp\left(\int \frac{1}{P}(Q_x - P_y) \, dy\right)\)</li>
+            <li><strong>🏆 Theorem 1 and Theorem 2 together are the GOLDEN RULE.</strong></li>
+        </ul>
+    </div>
+
+    <div class="ref-box">📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.4, pp. 23–27.</div>
+    <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics</div>
+</div>
+
+<footer>
+    <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+    <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+</footer>
+
+<script>
+    document.getElementById('downloadPdf2').addEventListener('click', function() {
+        const element = document.getElementById('slide2-content');
+        const opt = {
+            margin:        [0.5, 0.5, 0.5, 0.5],
+            filename:     'Integrating_Factors_General_Method.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().set(opt).from(element).save();
+    });
+</script>
+</body>
+</html>
