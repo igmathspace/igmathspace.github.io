@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear ODEs | Applications & Population Dynamics | Kreyszig §1.5</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #e8f4f8;
+            color: #0a2a3a;
+            line-height: 1.7;
+        }
+        :root {
+            --blue-dark: #0a3a5a;
+            --blue-medium: #1a6a8a;
+            --blue-light: #4a9aba;
+            --blue-pale: #d4eaf2;
+            --blue-bg: #e8f4f8;
+            --accent: #2a8aaa;
+            --bg-card: #ffffff;
+            --gold: #d4a017;
+            --gold-light: #fcf8e8;
+        }
+        .header-bar {
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #0a3a5a;
+            padding: 0.6rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #4a9aba;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+        }
+        .nav-bar a, .nav-bar button {
+            background: #1a6a8a;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-bar a:hover, .nav-bar button:hover {
+            background: #4a9aba;
+            transform: translateY(-2px);
+        }
+        .nav-bar .pdf-btn {
+            background: #1a5a7a;
+        }
+        .main-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid #c0dce8;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--blue-dark);
+            border-left: 6px solid var(--blue-light);
+            padding-left: 20px;
+            margin: 1.8rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .formula-box {
+            background: #e8f4f8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #b0d0dc;
+            text-align: center;
+        }
+        .formula-box-highlight {
+            background: #fcf8e8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 2px solid var(--gold);
+            text-align: center;
+        }
+        .example-box {
+            background: #f0f8fc;
+            padding: 1.2rem 1.5rem;
+            border-radius: 18px;
+            margin: 1rem 0;
+            border: 1px solid #c0dce8;
+        }
+        .key-point {
+            background: #e8f4f8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue-light);
+            margin: 0.8rem 0;
+        }
+        .key-point-gold {
+            background: #fcf8e8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+            margin: 0.8rem 0;
+        }
+        .key-point-blue {
+            background: #d4eaf2;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue-dark);
+            margin: 0.8rem 0;
+        }
+        .shortcut-box {
+            background: #fcf8e8;
+            padding: 1.2rem 1.8rem;
+            border-radius: 16px;
+            margin: 1.2rem 0;
+            border: 2px solid var(--gold);
+        }
+        .shortcut-box h3 {
+            color: var(--blue-dark);
+            margin-bottom: 0.8rem;
+        }
+        .step-box {
+            background: #f8fcfe;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #c0dce8;
+            margin: 0.6rem 0;
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--blue-medium);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+        .badge-example {
+            background: var(--gold);
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 12px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .solution-steps {
+            background: #f0f8fc;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue-medium);
+            margin: 1rem 0;
+        }
+        .mistake-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .mistake-table th, .mistake-table td {
+            border: 1px solid #c0dce8;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .mistake-table th {
+            background: #d4eaf2;
+            color: var(--blue-dark);
+        }
+        .mistake-table tr:nth-child(even) {
+            background: #f6fafc;
+        }
+        .ref-box {
+            background: #d4eaf2;
+            padding: 10px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #0a4a6a;
+            margin-top: 1.2rem;
+        }
+        .badge-theorem {
+            background: #1a6a8a;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 12px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        ul, ol { margin-left: 1.5rem; padding-left: 0.5rem; }
+        li { margin: 0.4rem 0; }
+        mjx-container { overflow-x: auto; margin: 0.8rem 0; }
+        footer {
+            background: #0a3a5a;
+            color: #b0d0dc;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--blue-light);
+        }
+        footer a { color: #4a9aba; text-decoration: none; }
+        @media print {
+            body { background: white; }
+            .nav-bar, .pdf-btn { display: none !important; }
+            .content-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            footer { display: none; }
+            .header-bar { background: #0a3a5a !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+<div class="nav-bar">
+    <a href="#">🏠 Home</a>
+    <a href="#">📘 Course Home</a>
+    <button class="pdf-btn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+</div>
+
+<div class="main-container">
+
+    <div class="content-card">
+
+        <!-- ============================================================ -->
+        <!-- HEADER -->
+        <!-- ============================================================ -->
+        <div style="border-bottom: 2px solid #c0dce8; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="font-size: 1.8rem; font-weight: 800; color: var(--blue-dark);">KU3DSCMAT211</span>
+            <span style="display: inline-block; background: var(--blue-medium); color: white; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Section 1.5</span>
+            <div style="font-size: 1.3rem; font-weight: 700; color: #0a4a6a; margin-top: 6px;">📖 Linear ODEs – Applications & Population Dynamics</div>
+            <div style="font-size: 0.9rem; color: #1a5a7a;">📚 Kreyszig §1.5 (Linear ODEs) – Newton's Law of Cooling, Air Circulation, Population Dynamics</div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 1. DEFINITION OF LINEAR ODE -->
+        <!-- ============================================================ -->
+        <div class="section-heading">📌 Definition of Linear ODE</div>
+
+        <p>A first-order ODE is said to be <strong>linear</strong> if it can be brought into the form:</p>
+
+        <div class="formula-box">
+            \[
+            y' + p(x)y = r(x)
+            \]
+        </div>
+
+        <p>and <strong>nonlinear</strong> if it cannot be brought into this form.</p>
+
+        <div class="key-point">
+            <strong>Key Features:</strong>
+            <ul>
+                <li>The equation is linear in both the unknown function \(y\) and its derivative \(y' = dy/dx\)</li>
+                <li>\(p(x)\) and \(r(x)\) may be <strong>any</strong> given functions of \(x\)</li>
+                <li>If the independent variable is time, we write \(t\) instead of \(x\)</li>
+            </ul>
+        </div>
+
+        <div class="key-point-blue">
+            <strong>📐 Standard Form:</strong> If the first term is \(f(x)y'\) (instead of \(y'\)), divide the equation by \(f(x)\) to get the <strong>standard form</strong> with \(y'\) as the first term.
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 2. SHORTCUT METHOD -->
+        <!-- ============================================================ -->
+        <div class="section-heading">🚀 Shortcut Method for Solving Linear ODEs</div>
+
+        <div class="shortcut-box">
+            <h3>📋 Step-by-Step Shortcut</h3>
+
+            <div class="step-box">
+                <strong><span class="step-number">1</span> Rewrite the Equation:</strong><br>
+                Rewrite the equation in the form:
+                \[
+                y' + p(x)y = q(x)
+                \]
+                and identify \(p(x)\) and \(q(x)\) with their correct signs.
+            </div>
+
+            <div class="step-box">
+                <strong><span class="step-number">2</span> Find the Integrating Factor:</strong><br>
+                <div class="formula-box-highlight">
+                    \[
+                    \boxed{\text{I.F} = e^{\int p(x)\,dx}}
+                    \]
+                </div>
+            </div>
+
+            <div class="step-box">
+                <strong><span class="step-number">3</span> Finalize the Solution:</strong><br>
+                Use the ready-made solution frame:
+                <div class="formula-box-highlight">
+                    \[
+                    \boxed{y \times \text{I.F} = \int (q(x) \times \text{I.F})\,dx}
+                    \]
+                </div>
+            </div>
+
+            <div class="key-point">
+                <strong>📝 Note:</strong> Here \(y\) is the dependent variable and \(x\) is the independent variable. As per the variable names, the solution frame has to change accordingly.
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 3. NEWTON'S LAW OF COOLING -->
+        <!-- ============================================================ -->
+        <div class="section-heading">🌡️ Newton's Law of Cooling</div>
+
+        <div class="example-box">
+            <h4><span class="badge-example">PROBLEM</span> Newton's Law of Cooling</h4>
+
+            <p><strong>Problem:</strong> If the temperature of a cake is 300°F when it leaves the oven and is 200°F ten minutes later, when will it be practically equal to the room temperature of 60°F, say, when will it be 61°F?</p>
+
+            <div class="solution-steps">
+                <h4>📝 Step-by-Step Solution:</h4>
+
+                <div class="step-box">
+                    <strong><span class="step-number">1</span> Set up the Model:</strong><br>
+                    Newton's Law of Cooling: \(\frac{dT}{dt} = -k(T - T_s)\), where \(T_s\) is the surrounding temperature.<br>
+                    Here \(T_s = 60°F\).<br>
+                    \[
+                    \frac{dT}{dt} = -k(T - 60)
+                    \]
+                    Standard form:
+                    \[
+                    \frac{dT}{dt} + kT = 60k
+                    \]
+                    So \(p(t) = k\), \(q(t) = 60k\).
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">2</span> Find the Integrating Factor:</strong><br>
+                    \[
+                    \text{I.F} = e^{\int k\,dt} = e^{kt}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">3</span> Apply the Solution Frame:</strong><br>
+                    \[
+                    T e^{kt} = \int 60k e^{kt}\,dt = 60 e^{kt} + C
+                    \]
+                    \[
+                    T = 60 + Ce^{-kt}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">4</span> Apply Initial Condition \(T(0) = 300\):</strong><br>
+                    \[
+                    300 = 60 + C \Rightarrow C = 240
+                    \]
+                    \[
+                    T(t) = 60 + 240e^{-kt}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">5</span> Find \(k\) using \(T(10) = 200\):</strong><br>
+                    \[
+                    200 = 60 + 240e^{-10k}
+                    \]
+                    \[
+                    140 = 240e^{-10k} \Rightarrow e^{-10k} = \frac{140}{240} = \frac{7}{12}
+                    \]
+                    \[
+                    -10k = \ln\left(\frac{7}{12}\right) \Rightarrow k = -\frac{1}{10}\ln\left(\frac{7}{12}\right) = \frac{1}{10}\ln\left(\frac{12}{7}\right)
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">6</span> Find time when \(T = 61°F\):</strong><br>
+                    \[
+                    61 = 60 + 240e^{-kt}
+                    \]
+                    \[
+                    1 = 240e^{-kt} \Rightarrow e^{-kt} = \frac{1}{240}
+                    \]
+                    \[
+                    -kt = \ln\left(\frac{1}{240}\right) = -\ln(240)
+                    \]
+                    \[
+                    t = \frac{\ln(240)}{k} = \frac{\ln(240)}{\frac{1}{10}\ln(12/7)} = \frac{10\ln(240)}{\ln(12/7)}
+                    \]
+                    \[
+                    t \approx \frac{10(5.4806)}{0.5390} \approx 101.7 \text{ minutes}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">7</span> Final Answer:</strong><br>
+                    \[
+                    \boxed{t \approx 101.7 \text{ minutes} \approx 1 \text{ hour and } 42 \text{ minutes}}
+                    \]
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 4. AIR CIRCULATION -->
+        <!-- ============================================================ -->
+        <div class="section-heading">💨 Air Circulation Problem</div>
+
+        <div class="example-box">
+            <h4><span class="badge-example">PROBLEM</span> Air Circulation in a Room</h4>
+
+            <p><strong>Problem:</strong> In a room containing 20,000 ft³ of air, 600 ft³ of fresh air flows in per minute, and the mixture (made practically uniform by circulating fans) is exhausted at a rate of 600 cubic feet per minute (cfm). What is the amount of fresh air \(y(t)\) at any time if \(y(0) = 0\)? After what time will 90% of the air be fresh?</p>
+
+            <div class="solution-steps">
+                <h4>📝 Step-by-Step Solution:</h4>
+
+                <div class="step-box">
+                    <strong><span class="step-number">1</span> Set up the Model:</strong><br>
+                    The rate of change of fresh air = Rate in - Rate out.<br>
+                    Rate in = 600 ft³/min (fresh air coming in).<br>
+                    Rate out = (600/20000) × y(t) = 0.03y(t) (mixture exhausted).<br>
+                    \[
+                    \frac{dy}{dt} = 600 - 0.03y
+                    \]
+                    Standard form:
+                    \[
+                    \frac{dy}{dt} + 0.03y = 600
+                    \]
+                    So \(p(t) = 0.03\), \(q(t) = 600\).
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">2</span> Find the Integrating Factor:</strong><br>
+                    \[
+                    \text{I.F} = e^{\int 0.03\,dt} = e^{0.03t}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">3</span> Apply the Solution Frame:</strong><br>
+                    \[
+                    y e^{0.03t} = \int 600 e^{0.03t}\,dt = \frac{600}{0.03} e^{0.03t} + C = 20000 e^{0.03t} + C
+                    \]
+                    \[
+                    y = 20000 + Ce^{-0.03t}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">4</span> Apply Initial Condition \(y(0) = 0\):</strong><br>
+                    \[
+                    0 = 20000 + C \Rightarrow C = -20000
+                    \]
+                    \[
+                    y(t) = 20000(1 - e^{-0.03t})
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">5</span> Find time when 90% of air is fresh:</strong><br>
+                    90% of 20000 = 18000 ft³.<br>
+                    \[
+                    18000 = 20000(1 - e^{-0.03t})
+                    \]
+                    \[
+                    0.9 = 1 - e^{-0.03t} \Rightarrow e^{-0.03t} = 0.1
+                    \]
+                    \[
+                    -0.03t = \ln(0.1) \Rightarrow t = \frac{-\ln(0.1)}{0.03} = \frac{\ln(10)}{0.03}
+                    \]
+                    \[
+                    t \approx \frac{2.3026}{0.03} \approx 76.75 \text{ minutes}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">6</span> Final Answer:</strong><br>
+                    Amount of fresh air at time \(t\):
+                    \[
+                    \boxed{y(t) = 20000(1 - e^{-0.03t}) \text{ ft}^3}
+                    \]
+                    Time for 90% fresh air:
+                    \[
+                    \boxed{t \approx 76.75 \text{ minutes} \approx 1 \text{ hour and } 17 \text{ minutes}}
+                    \]
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 5. POPULATION DYNAMICS -->
+        <!-- ============================================================ -->
+        <div class="section-heading">👥 Population Dynamics</div>
+
+        <div class="key-point">
+            <strong>Malthus's Law (Exponential Growth):</strong>
+            \[
+            y' = Ay \Rightarrow y = y_0 e^{At}
+            \]
+            This models populations with unlimited resources.
+        </div>
+
+        <div class="key-point-gold">
+            <strong>Logistic Equation (Verhulst Equation):</strong>
+            \[
+            y' = Ay - By^2 = Ay\left(1 - \frac{B}{A}y\right)
+            \]
+            <br>
+            <strong>Solution:</strong>
+            \[
+            y = \frac{A}{B + Ce^{-At}}
+            \]
+            <br>
+            <strong>Carrying Capacity (Limit):</strong>
+            \[
+            \lim_{t\to\infty} y = \frac{A}{B}
+            \]
+        </div>
+
+        <div class="example-box">
+            <h4><span class="badge-example">EXAMPLE</span> Logistic Population Model</h4>
+
+            <p><strong>Problem:</strong> Solve the logistic equation \(y' = Ay - By^2\) with initial condition \(y(0) = y_0\).</p>
+
+            <div class="solution-steps">
+                <h4>📝 Step-by-Step Solution:</h4>
+
+                <div class="step-box">
+                    <strong><span class="step-number">1</span> Rewrite the Equation:</strong><br>
+                    \[
+                    y' = Ay - By^2
+                    \]
+                    This is a Bernoulli equation. Let \(u = 1/y\). Then \(y = 1/u\) and \(y' = -u'/u^2\).<br>
+                    Substituting:
+                    \[
+                    -\frac{u'}{u^2} = A\frac{1}{u} - B\frac{1}{u^2}
+                    \]
+                    Multiply by \(-u^2\):
+                    \[
+                    u' = -Au + B
+                    \]
+                    Standard form:
+                    \[
+                    u' + Au = B
+                    \]
+                    So \(p(t) = A\), \(q(t) = B\).
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">2</span> Find the Integrating Factor:</strong><br>
+                    \[
+                    \text{I.F} = e^{\int A\,dt} = e^{At}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">3</span> Apply the Solution Frame:</strong><br>
+                    \[
+                    u e^{At} = \int B e^{At}\,dt = \frac{B}{A} e^{At} + C
+                    \]
+                    \[
+                    u = \frac{B}{A} + Ce^{-At}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">4</span> Substitute back \(u = 1/y\):</strong><br>
+                    \[
+                    \frac{1}{y} = \frac{B}{A} + Ce^{-At}
+                    \]
+                    \[
+                    y = \frac{1}{\frac{B}{A} + Ce^{-At}} = \frac{A}{B + ACe^{-At}}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">5</span> Apply Initial Condition \(y(0) = y_0\):</strong><br>
+                    \[
+                    y_0 = \frac{A}{B + AC} \Rightarrow B + AC = \frac{A}{y_0} \Rightarrow C = \frac{1}{A}\left(\frac{A}{y_0} - B\right) = \frac{1}{y_0} - \frac{B}{A}
+                    \]
+                    \[
+                    y = \frac{A}{B + A\left(\frac{1}{y_0} - \frac{B}{A}\right)e^{-At}} = \frac{A}{B + \left(\frac{A}{y_0} - B\right)e^{-At}}
+                    \]
+                </div>
+
+                <div class="step-box">
+                    <strong><span class="step-number">6</span> Final Answer:</strong><br>
+                    \[
+                    \boxed{y(t) = \frac{A}{B + \left(\frac{A}{y_0} - B\right)e^{-At}}}
+                    \]
+                    <br>
+                    <strong>Carrying Capacity:</strong>
+                    \[
+                    \boxed{\lim_{t\to\infty} y(t) = \frac{A}{B}}
+                    \]
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 6. STABLE & UNSTABLE EQUILIBRIUM SOLUTIONS -->
+        <!-- ============================================================ -->
+        <div class="section-heading">⚖️ Stable & Unstable Equilibrium Solutions</div>
+
+        <div class="key-point-blue">
+            <strong>Autonomous ODE:</strong> \(y' = f(y)\) (independent variable \(t\) does not appear explicitly).
+        </div>
+
+        <div class="key-point">
+            <strong>Equilibrium Solutions (Critical Points):</strong> Solutions where \(y' = 0\), i.e., \(f(y) = 0\). These are constant solutions.
+        </div>
+
+        <div class="key-point-gold">
+            <strong>Stability Classification:</strong>
+            <ul>
+                <li><strong>Stable:</strong> Solutions close to the equilibrium remain close for all future time.</li>
+                <li><strong>Unstable:</strong> Solutions initially close to the equilibrium do not remain close as \(t\) increases.</li>
+            </ul>
+        </div>
+
+        <div class="example-box">
+            <h4><span class="badge-example">EXAMPLE</span> Logistic Equation Equilibrium</h4>
+
+            <p>For the logistic equation \(y' = Ay - By^2\):</p>
+            <ul>
+                <li>Critical points: \(y = 0\) and \(y = A/B\)</li>
+                <li>\(y = 0\) is <strong>unstable</strong> (solutions move away from 0)</li>
+                <li>\(y = A/B\) is <strong>stable</strong> (solutions approach this value)</li>
+            </ul>
+
+            <div class="step-box">
+                <strong>Phase Line Plot for \(y' = (y-1)(y-2)\):</strong><br>
+                <ul>
+                    <li>\(y_1 = 1\) is <strong>stable</strong></li>
+                    <li>\(y_2 = 2\) is <strong>unstable</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 7. SUMMARY TABLE -->
+        <!-- ============================================================ -->
+        <div class="section-heading">📋 Summary of Applications</div>
+
+        <table class="mistake-table">
+            <tr>
+                <th>Application</th>
+                <th>ODE Model</th>
+                <th>Solution</th>
+                <th>Key Result</th>
+            </tr>
+            <tr>
+                <td>Newton's Law of Cooling</td>
+                <td>\(\frac{dT}{dt} = -k(T - T_s)\)</td>
+                <td>\(T = T_s + (T_0 - T_s)e^{-kt}\)</td>
+                <td>Finds cooling time</td>
+            </tr>
+            <tr>
+                <td>Air Circulation</td>
+                <td>\(\frac{dy}{dt} = \text{In} - \text{Out}\)</td>
+                <td>\(y = C(1 - e^{-rt/V})\)</td>
+                <td>Time to reach % freshness</td>
+            </tr>
+            <tr>
+                <td>Malthusian Growth</td>
+                <td>\(y' = Ay\)</td>
+                <td>\(y = y_0 e^{At}\)</td>
+                <td>Exponential growth</td>
+            </tr>
+            <tr>
+                <td>Logistic Growth</td>
+                <td>\(y' = Ay - By^2\)</td>
+                <td>\(y = \frac{A}{B + Ce^{-At}}\)</td>
+                <td>Carrying capacity \(A/B\)</td>
+            </tr>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- 8. COMMON MISTAKES -->
+        <!-- ============================================================ -->
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+
+        <table class="mistake-table">
+            <tr><th>Mistake</th><th>Correction</th></tr>
+            <tr>
+                <td>Not identifying the surrounding temperature in cooling problems</td>
+                <td>Newton's Law: \(\frac{dT}{dt} = -k(T - T_s)\)</td>
+            </tr>
+            <tr>
+                <td>Forgetting that the mixture is uniform in circulation problems</td>
+                <td>Rate out = (outflow rate / total volume) × current amount</td>
+            </tr>
+            <tr>
+                <td>Confusing stable and unstable equilibrium</td>
+                <td>Stable: solutions approach; Unstable: solutions move away</td>
+            </tr>
+            <tr>
+                <td>Omitting the integration constant \(C\)</td>
+                <td>Always include \(C\) and apply initial conditions</td>
+            </tr>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- 9. REFERENCE -->
+        <!-- ============================================================ -->
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.5, pp. 27–34.
+        </div>
+
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="#">🏠 Home</a> | <a href="#">📘 Classroom Space</a> | <a href="#">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods</p>
+    </footer>
+
+</div>
+
+<script>
+    // Save as PDF function
+    function saveAsPDF() {
+        document.title = "Linear_ODEs_Applications_Kreyszig_Sec1.5.pdf";
+        window.print();
+        setTimeout(() => { 
+            document.title = "Linear ODEs | Applications & Population Dynamics | Kreyszig §1.5"; 
+        }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+
+    // Render MathJax
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear ODEs | Bernoulli Equation | Kreyszig §1.5</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #e8f4f8;
+            color: #0a2a3a;
+            line-height: 1.7;
+        }
+        :root {
+            --blue-dark: #0a3a5a;
+            --blue-medium: #1a6a8a;
+            --blue-light: #4a9aba;
+            --blue-pale: #d4eaf2;
+            --blue-bg: #e8f4f8;
+            --accent: #2a8aaa;
+            --bg-card: #ffffff;
+            --gold: #d4a017;
+            --gold-light: #fcf8e8;
+        }
+        .header-bar {
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .main-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid #c0dce8;
+        }
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--blue-dark);
+            border-left: 6px solid var(--blue-light);
+            padding-left: 20px;
+            margin: 1.8rem 0 1rem 0;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .def-box {
+            background: #e8f4f8;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid var(--blue-light);
+        }
+        .def-box-dark {
+            background: #d4eaf2;
+            padding: 1.2rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border-left: 6px solid var(--blue-medium);
+        }
+        .example-box {
+            background: #f0f8fc;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            margin: 1rem 0;
+            border: 1px solid #c0dce8;
+        }
+        .formula-box {
+            background: #e8f4f8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 1px solid #b0d0dc;
+            text-align: center;
+        }
+        .formula-box-highlight {
+            background: #fcf8e8;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 1rem 0;
+            border: 2px solid var(--gold);
+            text-align: center;
+        }
+        .key-point {
+            background: #e8f4f8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue-light);
+            margin: 0.8rem 0;
+        }
+        .key-point-gold {
+            background: #fcf8e8;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+            margin: 0.8rem 0;
+        }
+        .key-point-blue {
+            background: #d4eaf2;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue-dark);
+            margin: 0.8rem 0;
+        }
+        .shortcut-box {
+            background: #fcf8e8;
+            padding: 1.2rem 1.8rem;
+            border-radius: 16px;
+            margin: 1.2rem 0;
+            border: 2px solid var(--gold);
+        }
+        .shortcut-box h3 {
+            color: var(--blue-dark);
+            margin-bottom: 0.8rem;
+        }
+        ul, ol { margin-left: 1.5rem; padding-left: 0.5rem; }
+        li { margin: 0.4rem 0; }
+        mjx-container { overflow-x: auto; margin: 0.8rem 0; }
+        .step-box {
+            background: #f8fcfe;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid #c0dce8;
+            margin: 0.6rem 0;
+        }
+        .step-box strong {
+            color: var(--blue-dark);
+        }
+        .step-box-number {
+            background: var(--blue-dark);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .step-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 0.4rem 0;
+        }
+        .example-item {
+            background: #f6fafc;
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 0.8rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--blue-light);
+        }
+        .example-item strong {
+            color: var(--blue-dark);
+        }
+        .badge-example {
+            background: var(--gold);
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 12px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .badge-step {
+            background: var(--blue-medium);
+            color: white;
+            font-size: 0.65rem;
+            border-radius: 30px;
+            padding: 2px 10px;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        footer {
+            background: #0a3a5a;
+            color: #b0d0dc;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--blue-light);
+        }
+        footer a { color: #4a9aba; text-decoration: none; }
+        @media print {
+            body { background: white; }
+            .content-card { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+            footer { display: none; }
+            .header-bar { background: #0a3a5a !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+<div class="main-container">
+
+    <div class="content-card">
+
+        <!-- ============================================================ -->
+        <!-- HEADER -->
+        <!-- ============================================================ -->
+        <div style="border-bottom: 2px solid #c0dce8; padding-bottom: 0.5rem; margin-bottom: 1.5rem;">
+            <span style="font-size: 1.8rem; font-weight: 800; color: var(--blue-dark);">KU3DSCMAT211</span>
+            <span style="display: inline-block; background: var(--blue-medium); color: white; padding: 2px 16px; border-radius: 40px; font-size: 0.85rem; margin-left: 14px; vertical-align: middle;">Section 1.5</span>
+            <div style="font-size: 1.3rem; font-weight: 700; color: #0a4a6a; margin-top: 6px;">📖 Linear ODEs – Bernoulli Equation – Population Dynamics</div>
+            <div style="font-size: 0.9rem; color: #1a5a7a;">📚 Kreyszig §1.5 (Linear ODEs) – First-Order Linear Differential Equations</div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 1. DEFINITION -->
+        <!-- ============================================================ -->
+        <div class="section-heading">📌 Definition of Linear ODE</div>
+
+        <p>A first-order ODE is said to be <strong>linear</strong> if it can be brought into the form:</p>
+
+        <div class="formula-box">
+            \[
+            y' + p(x)y = r(x)
+            \]
+        </div>
+
+        <p>and <strong>nonlinear</strong> if it cannot be brought into this form.</p>
+
+        <div class="key-point">
+            <strong>Key Features:</strong>
+            <ul>
+                <li>The equation is linear in both the unknown function \(y\) and its derivative \(y' = dy/dx\)</li>
+                <li>\(p(x)\) and \(r(x)\) may be <strong>any</strong> given functions of \(x\)</li>
+                <li>If the independent variable is time, we write \(t\) instead of \(x\)</li>
+            </ul>
+        </div>
+
+        <div class="key-point-blue">
+            <strong>📐 Standard Form:</strong> If the first term is \(f(x)y'\) (instead of \(y'\)), divide the equation by \(f(x)\) to get the <strong>standard form</strong> with \(y'\) as the first term.
+            <br><br>
+            <strong>Example:</strong> \(y' \cos x + y \sin x = x\) is a linear ODE. Its standard form is:
+            \[
+            y' + y \tan x = x \sec x
+            \]
+        </div>
+
+        <div class="key-point">
+            <strong>Terminology:</strong>
+            <ul>
+                <li>\(r(x)\) is called the <strong>input</strong></li>
+                <li>\(y(x)\) is called the <strong>output</strong> or the <strong>response</strong> to the input</li>
+            </ul>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 2. EXAMPLES OF LINEAR ODEs WITH p(x) and q(x) -->
+        <!-- ============================================================ -->
+        <div class="section-heading">📝 Examples of Linear ODEs</div>
+
+        <p>The following table shows various linear ODEs with their standard form and identified \(p(x)\) and \(q(x)\):</p>
+
+        <div class="example-item">
+            <strong>Example 1:</strong> \(y' + 2xy = e^{-x^2}\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = 2x\), \(q(x) = e^{-x^2}\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 2:</strong> \(y' - 3y = \sin x\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = -3\), \(q(x) = \sin x\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 3:</strong> \(y' + \frac{1}{x}y = x^2\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = \frac{1}{x}\), \(q(x) = x^2\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 4:</strong> \(y' + y\tan x = \sec x\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = \tan x\), \(q(x) = \sec x\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 5:</strong> \(y' - 2xy = x\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = -2x\), \(q(x) = x\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 6:</strong> \(y' + 3y = e^{2x}\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = 3\), \(q(x) = e^{2x}\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 7:</strong> \(y' - \frac{2}{x}y = x^3\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = -\frac{2}{x}\), \(q(x) = x^3\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 8:</strong> \(y' + y\cos x = \sin 2x\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = \cos x\), \(q(x) = \sin 2x\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 9:</strong> \(y' + \frac{3}{x}y = \ln x\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = \frac{3}{x}\), \(q(x) = \ln x\)</span>
+        </div>
+
+        <div class="example-item">
+            <strong>Example 10:</strong> \(y' + y = e^{-x}\cos x\)<br>
+            <span style="color: var(--blue-medium);">\(p(x) = 1\), \(q(x) = e^{-x}\cos x\)</span>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 3. HOMOGENEOUS LINEAR ODE -->
+        <!-- ============================================================ -->
+        <div class="section-heading">🏷️ Homogeneous Linear ODE</div>
+
+        <p>When \(r(x) = 0\) for all \(x\) in the interval, the ODE becomes:</p>
+
+        <div class="formula-box">
+            \[
+            y' + p(x)y = 0
+            \]
+        </div>
+
+        <p>This is called <strong>homogeneous</strong>.</p>
+
+        <div class="step-box">
+            <strong>Solution Steps:</strong>
+            <div class="step-container">
+                <span class="step-box-number">1</span>
+                <span>Separate variables: \(\frac{dy}{y} = -p(x)dx\)</span>
+            </div>
+            <div class="step-container">
+                <span class="step-box-number">2</span>
+                <span>Integrate: \(\ln|y| = -\int p(x)dx + c\)</span>
+            </div>
+            <div class="step-container">
+                <span class="step-box-number">3</span>
+                <span>Take exponents: \(y(x) = ce^{-\int p(x)dx}\)</span>
+            </div>
+            <div style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: #f0f8fc; border-radius: 8px;">
+                <strong>Result:</strong>
+                \[
+                \boxed{y(x) = ce^{-\int p(x)dx}}
+                \]
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 4. NONHOMOGENEOUS LINEAR ODE -->
+        <!-- ============================================================ -->
+        <div class="section-heading">🏷️ Nonhomogeneous Linear ODE</div>
+
+        <p>When \(r(x)\) is not everywhere zero, the ODE is called <strong>nonhomogeneous</strong>:</p>
+
+        <div class="formula-box">
+            \[
+            y' + p(x)y = r(x)
+            \]
+        </div>
+
+        <div class="step-box">
+            <strong>Solution Steps (Integrating Factor Method):</strong>
+            <div class="step-container">
+                <span class="step-box-number">1</span>
+                <span>Compute \(h = \int p(x)dx\)</span>
+            </div>
+            <div class="step-container">
+                <span class="step-box-number">2</span>
+                <span>Find integrating factor: \(F = e^h\)</span>
+            </div>
+            <div class="step-container">
+                <span class="step-box-number">3</span>
+                <span>Multiply the ODE by \(F\): \((e^h y)' = r e^h\)</span>
+            </div>
+            <div class="step-container">
+                <span class="step-box-number">4</span>
+                <span>Integrate: \(e^h y = \int r e^h dx + c\)</span>
+            </div>
+            <div class="step-container">
+                <span class="step-box-number">5</span>
+                <span>Divide by \(e^h\): \(y = e^{-h}(\int e^h r dx + c)\)</span>
+            </div>
+            <div style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: #f0f8fc; border-radius: 8px;">
+                <strong>Result:</strong>
+                \[
+                \boxed{y(x) = e^{-h} \left( \int e^h r \, dx + c \right), \quad h = \int p(x)dx}
+                \]
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 5. STRUCTURE OF THE SOLUTION -->
+        <!-- ============================================================ -->
+        <div class="section-heading">📐 Structure of the Solution</div>
+
+        <p>The solution formula can be written as:</p>
+
+        <div class="formula-box">
+            \[
+            y(x) = e^{-h}\int e^{h} r\,dx + ce^{-h}
+            \]
+        </div>
+
+        <div class="key-point-gold">
+            <strong>💡 Interpretation:</strong>
+            \[
+            \text{Total Output} = \text{Response to the Input } r + \text{Response to the Initial Data}
+            \]
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 6. SHORTCUT METHOD -->
+        <!-- ============================================================ -->
+        <div class="section-heading">🚀 Shortcut Method for Solving Linear ODEs</div>
+
+        <div class="shortcut-box">
+            <h3>📋 Step-by-Step Shortcut</h3>
+
+            <div class="step-container">
+                <span class="step-box-number">1</span>
+                <span><strong>Rewrite</strong> the equation in the form \(y' + p(x)y = q(x)\) and identify \(p(x)\) and \(q(x)\) with their signs.</span>
+            </div>
+
+            <div class="step-container">
+                <span class="step-box-number">2</span>
+                <span><strong>Find</strong> the Integrating Factor:</span>
+            </div>
+            <div class="formula-box-highlight" style="margin: 0.3rem 0 0.3rem 2.5rem;">
+                \[
+                \boxed{\text{I.F} = e^{\int p(x)\,dx}}
+                \]
+            </div>
+
+            <div class="step-container">
+                <span class="step-box-number">3</span>
+                <span><strong>Finalize</strong> the solution using the ready-made frame:</span>
+            </div>
+            <div class="formula-box-highlight" style="margin: 0.3rem 0 0.3rem 2.5rem;">
+                \[
+                \boxed{y \times \text{I.F} = \int (q(x) \times \text{I.F})\,dx}
+                \]
+            </div>
+
+            <div class="key-point" style="margin-top: 0.8rem;">
+                <strong>📝 Note:</strong> Here \(y\) is the dependent variable and \(x\) is the independent variable. As per the variable names, the solution frame has to change accordingly.
+                <br><br>
+                <strong>For example,</strong> if the equation is in terms of \(t\):
+                \[
+                \frac{dy}{dt} + p(t)y = q(t)
+                \]
+                Then:
+                \[
+                \boxed{y \times \text{I.F} = \int (q(t) \times \text{I.F})\,dt}
+                \]
+                where \(\text{I.F} = e^{\int p(t)\,dt}\).
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 7. SUMMARY TABLE -->
+        <!-- ============================================================ -->
+        <div class="section-heading">📋 Summary</div>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: white; border-radius: 16px; overflow: hidden;">
+            <tr style="background: #d4eaf2; color: var(--blue-dark);">
+                <th style="border: 1px solid #c0dce8; padding: 10px 14px; text-align: left;">Type</th>
+                <th style="border: 1px solid #c0dce8; padding: 10px 14px; text-align: left;">Form</th>
+                <th style="border: 1px solid #c0dce8; padding: 10px 14px; text-align: left;">Solution</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;"><strong>Homogeneous Linear</strong></td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">\(y' + p(x)y = 0\)</td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">\(y = ce^{-\int p(x)dx}\)</td>
+            </tr>
+            <tr style="background: #f6fafc;">
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;"><strong>Nonhomogeneous Linear</strong></td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">\(y' + p(x)y = r(x)\)</td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">\(y = e^{-h}(\int e^h r\,dx + c)\), \(h = \int p(x)dx\)</td>
+            </tr>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- 8. QUICK REFERENCE -->
+        <!-- ============================================================ -->
+        <div class="section-heading">📌 Quick Reference: The Shortcut</div>
+
+        <div class="formula-box-highlight">
+            \[
+            \boxed{\text{I.F} = e^{\int p(x)\,dx}}
+            \]
+        </div>
+
+        <div class="formula-box-highlight">
+            \[
+            \boxed{y \times \text{I.F} = \int (q(x) \times \text{I.F})\,dx}
+            \]
+        </div>
+
+        <div class="key-point">
+            <strong>⚠️ Remember:</strong> Always identify \(p(x)\) and \(q(x)\) with their correct signs before applying the formula.
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- 9. COMMON MISTAKES -->
+        <!-- ============================================================ -->
+        <div class="section-heading">⚠️ Common Mistakes to Avoid</div>
+
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: white; border-radius: 16px; overflow: hidden;">
+            <tr style="background: #d4eaf2; color: var(--blue-dark);">
+                <th style="border: 1px solid #c0dce8; padding: 10px 14px; text-align: left;">Mistake</th>
+                <th style="border: 1px solid #c0dce8; padding: 10px 14px; text-align: left;">Correction</th>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Forgetting to divide by the coefficient of \(y'\)</td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Always rewrite as \(y' + p(x)y = q(x)\)</td>
+            </tr>
+            <tr style="background: #f6fafc;">
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Incorrect sign of \(p(x)\)</td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Pay careful attention to signs</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Omitting the constant of integration \(c\)</td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Always include \(c\) in the final solution</td>
+            </tr>
+            <tr style="background: #f6fafc;">
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Forgetting to multiply \(q(x)\) by I.F before integrating</td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Formula: \(y \times \text{I.F} = \int (q \times \text{I.F})\,dx\)</td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">Not changing the solution frame when variables change</td>
+                <td style="border: 1px solid #c0dce8; padding: 10px 14px;">If equation is in \(t\), use \(t\) instead of \(x\)</td>
+            </tr>
+        </table>
+
+        <!-- ============================================================ -->
+        <!-- 10. REFERENCE -->
+        <!-- ============================================================ -->
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 1.5, pp. 27–34.
+        </div>
+
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="#">🏠 Home</a> | <a href="#">📘 Classroom Space</a> | <a href="#">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods</p>
+    </footer>
+
+</div>
+
+<script>
+    // Render MathJax
+    if (window.MathJax) {
+        MathJax.typesetPromise();
+    }
+</script>
+
+</body>
+</html>
