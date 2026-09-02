@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 3 | Linearity Property – Laplace & Inverse | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #e6f7f0;
+            color: #1a4a3a;
+            line-height: 1.6;
+        }
+
+        :root {
+            --sky-teal: #2c7a6e;
+            --green-shade: #3a9e6e;
+            --light-bg: #daf4e8;
+            --card-bg: #ffffff;
+        }
+
+        .header-image-container {
+            width: 100%;
+            text-align: center;
+            background: linear-gradient(135deg, #2c6e5a, #4a9e7a);
+            padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%;
+            max-width: 1280px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: #eefbef;
+            color: #000000;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .nav-bar {
+            background: #1e5a4a;
+            padding: 0.7rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--sky-teal);
+        }
+        .nav-links {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c7a6e, #1e5a4a);
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #3a9e7a, #2a7a5e);
+            transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary {
+            background: linear-gradient(135deg, #3a8e6e, #2a6e52);
+        }
+        .nav-links .btn-secondary:hover {
+            background: linear-gradient(135deg, #4aae7e, #3a7e62);
+        }
+        .nav-links .btn-pdf {
+            background: linear-gradient(135deg, #2a8a6e, #1e6a52);
+        }
+        .nav-links .btn-pdf:hover {
+            background: #3a9e7a;
+        }
+
+        .main-container {
+            max-width: 1280px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .lecture-header {
+            background: white;
+            border-radius: 28px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border-left: 10px solid var(--sky-teal);
+        }
+        .course-code-badge {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--sky-teal);
+            letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block;
+            background: #3a9e6e;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 16px;
+            vertical-align: middle;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--green-shade);
+            margin-top: 6px;
+            border-bottom: 1px dashed #b8dfcc;
+            display: inline-block;
+            padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a6e4a;
+            margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #e0f5ec;
+            padding: 8px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.85rem;
+            color: #2c7a5e;
+            font-weight: 500;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: #2c6e5a;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 28px;
+            padding: 2rem 2rem;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+            border: 1px solid #cce6dc;
+        }
+
+        .section-heading {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--sky-teal);
+            border-left: 5px solid var(--sky-teal);
+            padding-left: 20px;
+            margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type {
+            margin-top: 0;
+        }
+
+        .theorem-box {
+            background: #eefaf4;
+            padding: 1.2rem 1.5rem;
+            border-radius: 24px;
+            margin: 1rem 0;
+            border-left: 6px solid #3a9e6e;
+        }
+        .theorem-box .label {
+            font-weight: 700;
+            color: #1a6e4a;
+            font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .proof-box {
+            background: #f5f9fe;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            margin: 0.8rem 0;
+            border: 1px solid #e3edfb;
+        }
+
+        .eq-line {
+            display: block;
+            margin: 0.15rem 0;
+            padding-left: 1.5rem;
+            text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif;
+            font-size: 1.05rem;
+        }
+        .eq-line .math {
+            display: inline;
+        }
+        .eq-label {
+            display: inline-block;
+            width: 1.8rem;
+            text-align: right;
+            margin-right: 0.3rem;
+            font-weight: 500;
+            color: #1a5a3a;
+        }
+
+        .example-box {
+            background: #e6f5ee;
+            padding: 1rem 1.5rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            border: 1px solid #cce6dc;
+        }
+
+        .problem-item {
+            background: #fefbf5;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            border-radius: 20px;
+            border-left: 5px solid #2c7a6e;
+            transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px;
+            background: #e6f7f0;
+            padding: 1rem;
+            border-radius: 16px;
+            display: none;
+            border-top: 2px solid #b8dfcc;
+        }
+        .solution-area.show {
+            display: block;
+        }
+
+        .btn-answer {
+            background: #3a9e6e;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover {
+            background: #2a7e5e;
+        }
+
+        .co-badge {
+            background: #3a8e6e;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 30px;
+            padding: 2px 10px;
+            display: inline-block;
+            margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .ref-box {
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            padding: 8px 14px;
+            background: #e0f5ec;
+            border-radius: 30px;
+            display: inline-block;
+            color: #2c7a5e;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        .inline-code {
+            background: #e9f0fa;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #10387a;
+            font-family: 'Latin Modern Math', 'Times New Roman', serif;
+        }
+
+        .badge {
+            background: #dce6fa;
+            color: #12317a;
+            border-radius: 30px;
+            padding: 0.1rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        footer {
+            background: #1e5a4a;
+            color: #dfe6cf;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--sky-teal);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a {
+            color: #ffbc9a;
+        }
+
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .nav-bar, .btn-pdf, .btn-answer {
+                display: none !important;
+            }
+            .header-image-container {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            .header-image {
+                background: #eefbef;
+                color: black !important;
+                print-color-adjust: exact;
+            }
+            .main-container {
+                margin: 0;
+                padding: 0.2in;
+                max-width: 100%;
+            }
+            .lecture-header, .content-card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .problem-item {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            .solution-area {
+                display: block !important;
+                background: #f0faf5;
+                border: 1px solid #cce0d4;
+            }
+            footer {
+                display: none !important;
+                visibility: hidden;
+                height: 0;
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+            @page {
+                size: A4;
+                margin: 0.5in;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            mjx-container {
+                font-size: 0.9rem;
+            }
+        }
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            margin: 0.8rem 0;
+        }
+        .MathJax_Display {
+            margin: 1em 0;
+        }
+        .ref-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+        .ref-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0;
+            font-family: 'Latin Modern Math', 'Times New Roman', serif;
+            font-size: 1.05rem;
+        }
+        .ref-list li .func {
+            min-width: 5rem;
+            text-align: right;
+        }
+        .ref-list li .arrow-box {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 0.2rem;
+        }
+        .ref-list li .arrow-box .label {
+            font-size: 0.6rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            color: #1a5a3a;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            background: #dceafa;
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+        .ref-list li .arrow-box .arrow {
+            font-size: 1.3rem;
+            line-height: 1;
+            color: #2c7a6e;
+        }
+        .ref-list li .result {
+            min-width: 8rem;
+            text-align: left;
+        }
+        .ref-list li .cond {
+            font-size: 0.85rem;
+            color: #3a6a5a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            margin-left: 0.5rem;
+            background: #e8f0ec;
+            padding: 0 10px;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211 
+            <span class="lecture-number">Lecture 3</span>
+        </div>
+        <div class="module-name">📌 Module II | Laplace Transforms</div>
+        <div class="lecture-title">📖 Topic: Linearity Property – Laplace & Inverse</div>
+        <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics – E. Kreyszig | Section 6.1</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO2: Understand Laplace Transform, Linearity, first shifting theorem</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO2)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>State and prove the <strong>linearity property</strong> of the Laplace transform</li>
+            <li>Apply linearity to find transforms of combinations of functions</li>
+            <li>State and apply the <strong>linearity property of the inverse Laplace transform</strong></li>
+            <li>Use linearity to find inverse transforms of rational functions</li>
+        </ul>
+
+        <!-- 2. RECALL: STANDARD RESULTS -->
+        <div class="section-heading">📌 2. Recall: Standard Laplace Transform Pairs</div>
+        <div style="background: #fafcff; border-radius: 18px; border: 1px solid #e7eefa; padding: 0.8rem 1.8rem; margin-bottom: 0.5rem;">
+            <ul class="ref-list">
+                <li><span class="func">\(1\)</span><span class="arrow-box"><span class="label">\(\mathcal{L}\)</span><span class="arrow">\(\longrightarrow\)</span></span><span class="result">\(\dfrac{1}{s}\)</span><span class="cond">\(s>0\)</span></li>
+                <li><span class="func">\(e^{at}\)</span><span class="arrow-box"><span class="label">\(\mathcal{L}\)</span><span class="arrow">\(\longrightarrow\)</span></span><span class="result">\(\dfrac{1}{s-a}\)</span><span class="cond">\(s>a\)</span></li>
+                <li><span class="func">\(\sin(at)\)</span><span class="arrow-box"><span class="label">\(\mathcal{L}\)</span><span class="arrow">\(\longrightarrow\)</span></span><span class="result">\(\dfrac{a}{s^2+a^2}\)</span><span class="cond">\(s>0\)</span></li>
+                <li><span class="func">\(\cos(at)\)</span><span class="arrow-box"><span class="label">\(\mathcal{L}\)</span><span class="arrow">\(\longrightarrow\)</span></span><span class="result">\(\dfrac{s}{s^2+a^2}\)</span><span class="cond">\(s>0\)</span></li>
+            </ul>
+        </div>
+
+        <!-- 3. LINEARITY THEOREM -->
+        <div class="section-heading">📐 3. Theorem: Linearity of the Laplace Transform</div>
+        <div class="theorem-box">
+            <div class="label">Theorem 1 (Linearity)</div>
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                The Laplace transform is a <strong>linear operation</strong>. That is, for any functions \( f(t) \) and \( g(t) \) whose transforms exist, and any constants \( a \) and \( b \), the transform of \( af(t) + bg(t) \) exists, and
+            </p>
+            \[
+            \boxed{ \mathcal{L}\{af(t) + bg(t)\} = a\mathcal{L}\{f(t)\} + b\mathcal{L}\{g(t)\} }
+            \]
+        </div>
+
+        <!-- 4. PROOF -->
+        <div class="section-heading">📝 4. Proof of Linearity</div>
+        <div class="proof-box">
+            <p style="font-weight: 500; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Since integration is a linear operation:</p>
+            <div class="eq-line">
+                <span class="eq-label"> </span>
+                <span class="math">\(\mathcal{L}\{af(t) + bg(t)\} = \displaystyle \int_{0}^{\infty} e^{-st} \bigl[ af(t) + bg(t) \bigr] \, dt\)</span>
+            </div>
+            <div class="eq-line">
+                <span class="eq-label"> </span>
+                <span class="math">\(= a \displaystyle \int_{0}^{\infty} e^{-st} f(t) \, dt + b \displaystyle \int_{0}^{\infty} e^{-st} g(t) \, dt\)</span>
+            </div>
+            <div class="eq-line">
+                <span class="eq-label"> </span>
+                <span class="math">\(= a\mathcal{L}\{f(t)\} + b\mathcal{L}\{g(t)\}.\)</span>
+            </div>
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ This proves that the Laplace transform is linear.</p>
+        </div>
+
+        <!-- 5. APPLICATION: HYPERBOLIC FUNCTIONS -->
+        <div class="section-heading">📊 5. Application – Hyperbolic Functions</div>
+        <div class="example-box">
+            <p style="font-weight: 600; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Find \(\mathcal{L}\{\cosh at\}\) and \(\mathcal{L}\{\sinh at\}\).</p>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Using \(\cosh at = \frac{1}{2}(e^{at} + e^{-at})\) and \(\sinh at = \frac{1}{2}(e^{at} - e^{-at})\):</p>
+            <div class="eq-line"><span class="eq-label"> </span><span class="math">\(\mathcal{L}\{\cosh at\} = \dfrac{1}{2}\left( \mathcal{L}\{e^{at}\} + \mathcal{L}\{e^{-at}\} \right)\)</span></div>
+            <div class="eq-line"><span class="eq-label"> </span><span class="math">\(= \dfrac{1}{2}\left( \dfrac{1}{s-a} + \dfrac{1}{s+a} \right) = \dfrac{s}{s^2 - a^2}\)</span></div>
+            <div class="eq-line" style="margin-top: 0.3rem;"><span class="eq-label"> </span><span class="math">\(\mathcal{L}\{\sinh at\} = \dfrac{1}{2}\left( \mathcal{L}\{e^{at}\} - \mathcal{L}\{e^{-at}\} \right)\)</span></div>
+            <div class="eq-line"><span class="eq-label"> </span><span class="math">\(= \dfrac{1}{2}\left( \dfrac{1}{s-a} - \dfrac{1}{s+a} \right) = \dfrac{a}{s^2 - a^2}\)</span></div>
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Thus we have derived the standard transforms for hyperbolic functions using linearity.</p>
+        </div>
+
+        <!-- 6. LINEARITY OF INVERSE LAPLACE -->
+        <div class="section-heading">🔄 6. Linearity of the Inverse Laplace Transform</div>
+        <div class="theorem-box" style="border-left-color: #2a7f6e;">
+            <div class="label">Theorem 2 (Inverse Linearity)</div>
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Since the Laplace transform is linear, its inverse is also <strong>linear</strong>. For any constants \( a \) and \( b \):
+            </p>
+            \[
+            \boxed{ \mathcal{L}^{-1}\{aF(s) + bG(s)\} = a\mathcal{L}^{-1}\{F(s)\} + b\mathcal{L}^{-1}\{G(s)\} }
+            \]
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                This allows us to break complicated \( s \)-domain expressions into simpler parts and invert each term separately.
+            </p>
+        </div>
+
+        <!-- 7. WORKOUT PROBLEMS (Inverse Laplace) -->
+        <div class="section-heading">📚 7. Workout Examples – Inverse Laplace</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Find \( f(t) = \mathcal{L}^{-1}\{F(s)\} \) for each. Click <strong>Answer</strong> to see step-by-step solution.</p>
+
+        <!-- Problem 25 -->
+        <div class="problem-item" id="p25">
+            <div class="problem-text">
+                <span><strong>25.</strong> \( \dfrac{0.2s + 1.8}{s^2 + 3.24} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="25">📖 Answer</button>
+            </div>
+            <div id="sol25" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span class="math">\(F(s) = \dfrac{0.2s + 1.8}{s^2 + 3.24}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 0.2 \cdot \dfrac{s}{s^2 + (1.8)^2} + 1.8 \cdot \dfrac{1}{s^2 + (1.8)^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 0.2 \cdot \dfrac{s}{s^2 + (1.8)^2} + \dfrac{1.8}{1.8} \cdot \dfrac{1.8}{s^2 + (1.8)^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 0.2 \cdot \dfrac{s}{s^2 + (1.8)^2} + 1 \cdot \dfrac{1.8}{s^2 + (1.8)^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = 0.2\cos(1.8t) + \sin(1.8t)\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = 0.2\cos(1.8t) + \sin(1.8t) \)</p>
+            </div>
+        </div>
+
+        <!-- Problem 26 -->
+        <div class="problem-item" id="p26">
+            <div class="problem-text">
+                <span><strong>26.</strong> \( \dfrac{5s + 1}{s^2 - 25} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="26">📖 Answer</button>
+            </div>
+            <div id="sol26" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span class="math">\(F(s) = \dfrac{5s + 1}{s^2 - 25} = 5 \cdot \dfrac{s}{s^2 - 5^2} + 1 \cdot \dfrac{1}{s^2 - 5^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 5 \cdot \dfrac{s}{s^2 - 5^2} + \dfrac{1}{5} \cdot \dfrac{5}{s^2 - 5^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = 5\cosh(5t) + \dfrac{1}{5}\sinh(5t)\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = 5\cosh(5t) + \dfrac{1}{5}\sinh(5t) \)</p>
+            </div>
+        </div>
+
+        <!-- Problem 27 -->
+        <div class="problem-item" id="p27">
+            <div class="problem-text">
+                <span><strong>27.</strong> \( \dfrac{s}{L^2 s^2 + n^2 \pi^2} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="27">📖 Answer</button>
+            </div>
+            <div id="sol27" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span class="math">\(F(s) = \dfrac{s}{L^2 s^2 + n^2 \pi^2} = \dfrac{1}{L^2} \cdot \dfrac{s}{s^2 + \left(\dfrac{n\pi}{L}\right)^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = \dfrac{1}{L^2} \cos\left(\dfrac{n\pi}{L}t\right)\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = \dfrac{1}{L^2} \cos\left(\dfrac{n\pi}{L}t\right) \)</p>
+            </div>
+        </div>
+
+        <!-- Problem 28 -->
+        <div class="problem-item" id="p28">
+            <div class="problem-text">
+                <span><strong>28.</strong> \( \dfrac{1}{(s + \sqrt{2})(s - \sqrt{3})} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="28">📖 Answer</button>
+            </div>
+            <div id="sol28" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step (Partial Fractions):</strong>
+                <div class="eq-line"><span class="math">\(\dfrac{1}{(s + \sqrt{2})(s - \sqrt{3})} = \dfrac{A}{s + \sqrt{2}} + \dfrac{B}{s - \sqrt{3}}\)</span></div>
+                <div class="eq-line"><span class="math">\(1 = A(s - \sqrt{3}) + B(s + \sqrt{2})\)</span></div>
+                <div class="eq-line"><span class="math">\(A = -\dfrac{1}{\sqrt{2}+\sqrt{3}}, \quad B = \dfrac{1}{\sqrt{2}+\sqrt{3}}\)</span></div>
+                <div class="eq-line"><span class="math">\(F(s) = \dfrac{1}{\sqrt{2}+\sqrt{3}} \left( \dfrac{1}{s - \sqrt{3}} - \dfrac{1}{s + \sqrt{2}} \right)\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = \dfrac{1}{\sqrt{2}+\sqrt{3}} \left( e^{\sqrt{3}t} - e^{-\sqrt{2}t} \right)\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = \dfrac{e^{\sqrt{3}t} - e^{-\sqrt{2}t}}{\sqrt{2}+\sqrt{3}} \)</p>
+            </div>
+        </div>
+
+        <!-- Problem 29 -->
+        <div class="problem-item" id="p29">
+            <div class="problem-text">
+                <span><strong>29.</strong> \( \dfrac{12}{s^4} - \dfrac{228}{s^6} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="29">📖 Answer</button>
+            </div>
+            <div id="sol29" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span class="math">\(F(s) = 12 \cdot \dfrac{1}{s^4} - 228 \cdot \dfrac{1}{s^6}\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = 12 \cdot \dfrac{t^3}{3!} - 228 \cdot \dfrac{t^5}{5!}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 12 \cdot \dfrac{t^3}{6} - 228 \cdot \dfrac{t^5}{120}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 2t^3 - \dfrac{19}{10}t^5\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = 2t^3 - \dfrac{19}{10}t^5 \)</p>
+            </div>
+        </div>
+
+        <!-- Problem 30 -->
+        <div class="problem-item" id="p30">
+            <div class="problem-text">
+                <span><strong>30.</strong> \( \dfrac{4s + 32}{s^2 - 16} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="30">📖 Answer</button>
+            </div>
+            <div id="sol30" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span class="math">\(F(s) = \dfrac{4s + 32}{s^2 - 16} = 4 \cdot \dfrac{s}{s^2 - 4^2} + 32 \cdot \dfrac{1}{s^2 - 4^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 4 \cdot \dfrac{s}{s^2 - 4^2} + \dfrac{32}{4} \cdot \dfrac{4}{s^2 - 4^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(= 4 \cdot \dfrac{s}{s^2 - 4^2} + 8 \cdot \dfrac{4}{s^2 - 4^2}\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = 4\cosh(4t) + 8\sinh(4t)\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = 4\cosh(4t) + 8\sinh(4t) \)</p>
+            </div>
+        </div>
+
+        <!-- Problem 31 -->
+        <div class="problem-item" id="p31">
+            <div class="problem-text">
+                <span><strong>31.</strong> \( \dfrac{s + 10}{s^2 - s - 2} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="31">📖 Answer</button>
+            </div>
+            <div id="sol31" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step (Factor + Partial Fractions):</strong>
+                <div class="eq-line"><span class="math">\(s^2 - s - 2 = (s - 2)(s + 1)\)</span></div>
+                <div class="eq-line"><span class="math">\(\dfrac{s + 10}{(s - 2)(s + 1)} = \dfrac{A}{s - 2} + \dfrac{B}{s + 1}\)</span></div>
+                <div class="eq-line"><span class="math">\(s + 10 = A(s + 1) + B(s - 2)\)</span></div>
+                <div class="eq-line"><span class="math">\(s = 2: \quad 12 = 3A \Rightarrow A = 4\)</span></div>
+                <div class="eq-line"><span class="math">\(s = -1: \quad 9 = -3B \Rightarrow B = -3\)</span></div>
+                <div class="eq-line"><span class="math">\(F(s) = \dfrac{4}{s - 2} - \dfrac{3}{s + 1}\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = 4e^{2t} - 3e^{-t}\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = 4e^{2t} - 3e^{-t} \)</p>
+            </div>
+        </div>
+
+        <!-- Problem 32 -->
+        <div class="problem-item" id="p32">
+            <div class="problem-text">
+                <span><strong>32.</strong> \( \dfrac{1}{(s + a)(s + b)} \) <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="32">📖 Answer</button>
+            </div>
+            <div id="sol32" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step (Partial Fractions):</strong>
+                <div class="eq-line"><span class="math">\(\dfrac{1}{(s + a)(s + b)} = \dfrac{A}{s + a} + \dfrac{B}{s + b}\)</span></div>
+                <div class="eq-line"><span class="math">\(1 = A(s + b) + B(s + a)\)</span></div>
+                <div class="eq-line"><span class="math">\(s = -a: \quad 1 = A(b - a) \Rightarrow A = \dfrac{1}{b - a}\)</span></div>
+                <div class="eq-line"><span class="math">\(s = -b: \quad 1 = B(a - b) \Rightarrow B = \dfrac{1}{a - b} = -\dfrac{1}{b - a}\)</span></div>
+                <div class="eq-line"><span class="math">\(F(s) = \dfrac{1}{b - a} \left( \dfrac{1}{s + a} - \dfrac{1}{s + b} \right)\)</span></div>
+                <div class="eq-line"><span class="math">\(\mathcal{L}^{-1}\{F(s)\} = \dfrac{1}{b - a} \left( e^{-at} - e^{-bt} \right)\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( f(t) = \dfrac{e^{-at} - e^{-bt}}{b - a} \)</p>
+            </div>
+        </div>
+
+        <!-- QUICK SUMMARY -->
+        <div class="section-heading">📋 8. Quick Summary</div>
+        <div class="theorem-box" style="background:#e1edda;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Linearity (Laplace):</strong> \(\mathcal{L}\{af + bg\} = a\mathcal{L}\{f\} + b\mathcal{L}\{g\}\)</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Linearity (Inverse):</strong> \(\mathcal{L}^{-1}\{aF + bG\} = a\mathcal{L}^{-1}\{F\} + b\mathcal{L}^{-1}\{G\}\)</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Hyperbolic:</strong> \(\mathcal{L}\{\cosh at\} = \dfrac{s}{s^2-a^2}\), \(\mathcal{L}\{\sinh at\} = \dfrac{a}{s^2-a^2}\)</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 6.1, pp. 206–212.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> | 
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP & Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture3_Linearity_Laplace_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>
