@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming in Python · Section 2.3 — Lists </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4fa;
+            padding: 20px 15px;
+            color: #1a2639;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 25px 30px 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(145deg, #0b1a33 0%, #1d3b66 100%);
+            margin: -25px -30px 30px -30px;
+            padding: 28px 30px 22px;
+            border-radius: 24px 24px 0 0;
+            border-bottom: 6px solid #f9b23f;
+            position: relative;
+        }
+        .header::after {
+            content: "📋";
+            position: absolute;
+            right: 30px;
+            top: 20px;
+            font-size: 3.5rem;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .header h1 span {
+            background: #f9b23f;
+            color: #0b1a33;
+            padding: 2px 16px;
+            border-radius: 40px;
+            font-size: 1.6rem;
+            display: inline-block;
+            margin-top: 6px;
+        }
+        .header .sub {
+            color: #b7d0f0;
+            font-size: 1rem;
+            margin-top: 6px;
+            border-left: 4px solid #f9b23f;
+            padding-left: 16px;
+        }
+        .badge {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Section titles */
+        .section-title {
+            background: #e8eff8;
+            border-left: 7px solid #1d3b66;
+            padding: 10px 20px;
+            margin: 30px 0 18px 0;
+            border-radius: 0 18px 18px 0;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0b1a33;
+        }
+        .sub-title {
+            background: #f2f6fd;
+            border-left: 5px solid #f9b23f;
+            padding: 6px 18px;
+            margin: 22px 0 12px 0;
+            border-radius: 0 14px 14px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1a2c47;
+        }
+        .method-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #1d3b66;
+            margin: 16px 0 6px 0;
+        }
+
+        p {
+            margin-bottom: 12px;
+        }
+
+        /* Code */
+        pre {
+            background: #0e1c2b;
+            color: #e3eaf5;
+            padding: 14px 20px;
+            border-radius: 18px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #2a405a;
+        }
+        pre .comment {
+            color: #8aa5c9;
+        }
+        pre .kw {
+            color: #ffb86b;
+        }
+        pre .str {
+            color: #b1d9b1;
+        }
+        pre .num {
+            color: #b8d4ff;
+        }
+        pre .func {
+            color: #8be9fd;
+        }
+
+        .output {
+            background: #1a2a3a;
+            color: #cbdae9;
+            padding: 10px 18px;
+            border-radius: 14px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 4px 0 14px 0;
+            border-left: 4px solid #f9b23f;
+            white-space: pre-wrap;
+        }
+
+        code {
+            background: #eef2f7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 14px;
+            }
+            .header {
+                margin: -14px -14px 20px -14px;
+                padding: 20px 18px;
+            }
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            .header::after {
+                font-size: 2.5rem;
+                right: 15px;
+                top: 15px;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dce5f0, transparent);
+            margin: 30px 0 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 2px dashed #d6e0ed;
+            color: #435e7a;
+            font-size: 0.9rem;
+        }
+
+        .note-box {
+            background: #fef6ed;
+            border-left: 5px solid #f9b23f;
+            padding: 12px 20px;
+            border-radius: 14px;
+            margin: 14px 0;
+        }
+        .note-box strong {
+            color: #b86b1f;
+        }
+
+        .summary-box {
+            background: #e3edf9;
+            border-radius: 20px;
+            padding: 16px 22px;
+            margin: 20px 0;
+        }
+        .summary-box h3 {
+            font-size: 1.2rem;
+            color: #0b1a33;
+        }
+        .summary-box ul {
+            margin-left: 20px;
+            margin-top: 6px;
+        }
+
+        .toc {
+            background: #f8faff;
+            border: 1px solid #dfe8f2;
+            border-radius: 16px;
+            padding: 14px 20px;
+            margin: 16px 0;
+        }
+        .toc a {
+            color: #1d3b66;
+            text-decoration: none;
+        }
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .toc ul li {
+            padding: 2px 0;
+        }
+        .toc ul li::before {
+            content: "▸ ";
+            color: #f9b23f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="badge">📘 MODULE II · SECTION 2.3</div>
+            <h1>Section 2.3  <br><span>LIST</span></h1>
+            <div class="sub">Every word, example, method, and output — exactly as in the textbook</div>
+        </div>
+
+        <!-- ===== TABLE OF CONTENTS ===== -->
+        <div class="toc">
+            <strong style="font-size: 1.1rem;">📑 Table of Contents</strong>
+            <ul>
+                <li><a href="#sec23">2.3 LIST</a></li>
+                <li><a href="#sec231">2.3.1 Built-in List Functions</a></li>
+                <li><a href="#sec232">2.3.2 Built-in List Methods</a></li>
+                <li><a href="#sec233">2.3.3 Using List as Stacks</a></li>
+                <li><a href="#sec234">2.3.4 Using List as Queues</a></li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--             2.3 LIST — FULL TEXT                          -->
+        <!-- ========================================================= -->
+
+        <div class="section-title" id="sec23">2.3 LIST</div>
+
+        <p>List is an ordered sequence of items. It is one of the most used data type in Python and is very flexible. All the items in a list do not need to be of the same type. Items separated by commas are enclosed within brackets [ ]. To some extent, lists are similar to arrays in C. One difference between them is that all the items belonging to a list can be of different data type. The values stored in a list can be accessed using the slice operator ([ ] and [:]) with indices starting at 0 in the beginning of the list and ending with -1. The plus (+) sign is the list concatenation operator and the asterisk (*) is the repetition operator.</p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre>first_list = ['abcd',147,2.43,'Tom',74.9]
+small_list = [111,'Tom']
+
+print(first_list) # Prints complete list
+print(first_list[0]) # Prints first element of the list
+print(first_list[1:3]) # Prints elements starting from 2nd till 3rd
+print(first_list[2:]) # Prints elements starting from 3rd element
+print(small_list * 2) # Prints list two times
+print(first_list + small_list) # Prints concatenated lists</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">['abcd',147,2.43,'Tom',74.9]
+abcd
+[147,2.43]
+[2.43,'Tom',74.9]
+[111,'Tom',111,'Tom']
+['abcd',147,2.43,'Tom',74.9,111,'Tom']</div>
+
+        <p>We can update lists by using the slice on the left hand side of the assignment operator. Updates can be done on single or multiple elements in a list.</p>
+
+        <p><strong>Example Program</strong></p>
+
+        <p>Demo of List Update</p>
+
+        <pre>list = ['abcd',147,2.43,'Tom',74.9]
+print("Item at position 2=",list[2])
+list[2]=500
+print("Item at position 2=",list[2])
+print("Item at Position 0 and 1 is",list[0],list[1])
+list[0]=20;list[1]='apple'
+print("Item at Position 0 and 1 is", list[0], list[1])</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">Item at position 2= 2.43
+Item at position 2= 500
+Item at Position 0 and 1 is abcd 147
+Item at Position 0 and 1 is 20 apple</div>
+
+        <p>To remove an item from a list, there are two methods. We can use del statement or remove() method which will be discussed in the subsequent session.</p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of List Deletion</span>
+list = ['abcd', 147, 2.43, 'Tom', 74.9]
+print(list)
+del list[2]
+print("List after deletion: ", list)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">['abcd', 147, 2.43, 'Tom', 74.9]
+List after deletion: ['abcd', 147, 'Tom', 74.9]</div>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--             2.3.1 BUILT-IN LIST FUNCTIONS                  -->
+        <!-- ========================================================= -->
+
+        <div class="section-title" id="sec231">2.3.1 Built-in List Functions</div>
+
+        <p><strong>1. len(list) - Gives the total length of the list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of len(list)</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+print(len(list1))</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">4</div>
+
+        <p><strong>2. max(list) - Returns item from the list with maximum value.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of max(list)</span>
+list1 = [1200, 147, 2.43, 1.12]
+list2 = [213, 100, 289]
+print("Maximum value in: ", list1, "is", max(list1))
+print("Maximum value in: ", list2, "is", max(list2))</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">Maximum value in: [1200, 147, 2.43, 1.12] is 1200
+Maximum value in: [213, 100, 289] is 289</div>
+
+        <p><strong>3. min(list) - Returns item from the list with minimum value.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of min(list)</span>
+list1 = [1200, 147, 2.43, 1.12]
+list2 = [213, 100, 289]
+print("Minimum value in: ", list1, "is", min(list1))
+print("Minimum value in: ", list2, "is", min(list2))</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">Minimum value in: [1200, 147, 2.43, 1.12] is 1.12
+Minimum value in: [213, 100, 289] is 100</div>
+
+        <p><strong>4. list(seq) - Returns a tuple into a list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list(seq)</span>
+tuple = ('abcd', 147, 2.43, 'Tom')
+print("List:", list(tuple))</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">List: ['abcd', 147, 2.43, 'Tom']</div>
+
+        <p><strong>5. map(aFunction,aSequence) - One of the common things we do with list and other sequences is applying an operation to each item and collect the result. The map(aFunction,aSequence) function applies a passed-in function to each item in an iterable object and returns a list containing all the function call results.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre>str=input("Enter a list(space separated):")
+lis=list(map(int,str.split()))
+print(lis)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">Enter a list(space separated):1 2 3 4
+[1, 2, 3, 4]</div>
+
+        <p>In the above example, a string is read from the keyboard and each item is converted into int using map(aFunction,aSequence) function.</p>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--             2.3.2 BUILT-IN LIST METHODS                    -->
+        <!-- ========================================================= -->
+
+        <div class="section-title" id="sec232">2.3.2 Built-in List Methods</div>
+
+        <p><strong>1. list.append(obj) - This method appends an object obj passed to the existing list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.append(obj)</span>
+list = ['abcd', 147, 2.43, 'Tom']
+print("Old List before Append:", list)
+list.append(100)
+print("New List after Append:", list)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">Old List before Append: ['abcd', 147, 2.43, 'Tom']
+New List after Append: ['abcd', 147, 2.43, 'Tom', 100]</div>
+
+        <p><strong>2. list.count(obj) - Returns how many times the object obj appears in a list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.count(obj)</span>
+list = ['abcd', 147, 2.43, 'Tom', 147, 200, 147]
+print("The number of times", 147, "appears in", list, "=", list.count(147))</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">The number of times 147 appears in ['abcd', 147, 2.43, 'Tom', 147, 200, 147] = 3</div>
+
+        <p><strong>3. list.remove(obj) - Removes object obj from the list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.remove(obj)</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+list1.remove('Tom')
+print(list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">['abcd', 147, 2.43]</div>
+
+        <p><strong>4. list.index(obj) - Returns index of the object obj if found, otherwise raise an exception indicating that value does not exist.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.index(obj)</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+print(list1.index(2.43))</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">2</div>
+
+        <p><strong>5. list.extend(seq) - Appends the contents in a sequence seq passed to a list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.extend(seq)</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+list2 = ['def', 100]
+list1.extend(list2)
+print(list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">['abcd', 147, 2.43, 'Tom', 'def', 100]</div>
+
+        <p><strong>6. list.reverse() - Reverses objects in a list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.reverse()</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+list1.reverse()
+print(list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">['Tom', 2.43, 147, 'abcd']</div>
+
+        <p><strong>7. list.insert(index,obj) - Returns a list with object obj inserted at the given index.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.insert(index,obj)</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+print("List before insertion:", list1)
+list1.insert(2,222)
+print("List after insertion:", list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">List before insertion: ['abcd', 147, 2.43, 'Tom']
+List after insertion: ['abcd', 147, 222, 2.43, 'Tom']</div>
+
+        <p><strong>8. list.sort([Key=None,Reverse=False]) - Sorts the items in a list and returns the list. If a function is provided, it will compare using the function provided.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.sort([Key=None,Reverse=False])</span>
+list1 = [890, 147, 2.43, 100]
+print("List before sorting:", list1)
+list1.sort()
+print("List after sorting in ascending order:", list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">List before sorting: [890, 147, 2.43, 100]
+List after sorting in ascending order: [2.43, 100, 147, 890]</div>
+
+        <p>The following example illustrates how to sort the list in descending order.</p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.sort([Key=None,Reverse=False])</span>
+list1 = [890, 147, 2.43, 100]
+print("List before sorting:", list1)
+list1.sort(reverse=True)
+print("List after sorting in descending order:", list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">List before sorting: [890, 147, 2.43, 100]
+List after sorting in descending order: [890, 147, 100, 2.43]</div>
+
+        <p><strong>9. list.pop([index]) - Removes or returns the last object obj from a list. We can even pop out any item in a list with the index specified.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.pop([index])</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+print("List before popping:", list1)
+list1.pop(-1)
+print("List after popping:", list1)
+item=list1.pop(-3)
+print("Popped item:", item)
+print("List after popping:", list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">List before popping: ['abcd', 147, 2.43, 'Tom']
+List after popping: ['abcd', 147, 2.43]
+Popped item: 147
+List after popping: ['abcd', 2.43]</div>
+
+        <p><strong>10. list.clear() - Removes all items from a list.</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.clear()</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+print("List before clearing:", list1)
+list1.clear()
+print("List after clearing:", list1)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">List before clearing: ['abcd', 147, 2.43, 'Tom']
+List after clearing: []</div>
+
+        <p><strong>11. list.copy() - Returns a copy of the list</strong></p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of list.copy()</span>
+list1 = ['abcd', 147, 2.43, 'Tom']
+print("List before clearing:", list1)
+list2=list1.copy()
+list1.clear()
+print("List after clearing:", list1)
+print("Copy of the list:", list2)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">List before clearing: ['abcd', 147, 2.43, 'Tom']
+List after clearing: []
+Copy of the list: ['abcd', 147, 2.43, 'Tom']</div>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--             2.3.3 USING LIST AS STACKS                     -->
+        <!-- ========================================================= -->
+
+        <div class="section-title" id="sec233">2.3.3 Using List as Stacks</div>
+
+        <p>The list can be used as a stack (Last IN First Out). Stack is a data structure where the last element added is the first element retrieved. The list methods make it very easy to use a stack. To add an item to the top of the stack, use append(). To retrieve an item from the top of the stack, use pop() without an explicit index.</p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of List as Stack</span>
+stack=[10,20,30,40,50]
+stack.append(60)
+print("Stack after appending:", stack)
+stack.pop()
+print("Stack after popping:", stack)</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">Stack after appending: [10, 20, 30, 40, 50, 60]
+Stack after popping: [10, 20, 30, 40, 50]</div>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--             2.3.4 USING LIST AS QUEUES                     -->
+        <!-- ========================================================= -->
+
+        <div class="section-title" id="sec234">2.3.4 Using List as Queues</div>
+
+        <p>It is also possible to use a list as a queue, where the first element added is the first element retrieved. Queues are Last In First Out (LIFO) data structure. But lists are not efficient for this purpose. While appends and pops from the end of list are fast, doing inserts or pops from the beginning of a list is slow since all of the other elements have to be shifted by one.</p>
+
+        <p>To implement a queue, Python provides a module called collections in which a method called deque is designed to have fast appends and pops from both ends.</p>
+
+        <p><strong>Example Program</strong></p>
+
+        <pre><span class="comment">#Demo of List as Queue</span>
+<span class="kw">from</span> collections <span class="kw">import</span> deque
+queue = deque(["apple", "orange", "pear"])
+queue.append("cherry") # cherry arrives
+queue.append("grapes") # grapes arrives
+queue.popleft() # The first to arrive now leaves
+queue.popleft() # The second to arrive now leaves
+print(queue) # Remaining queue in order of arrival</pre>
+
+        <p><strong>Output</strong></p>
+
+        <div class="output">deque(['pear', 'cherry', 'grapes'])</div>
+
+        <p>More about list data structures like list comprehensions and nested lists will be explained in Chapter 3.</p>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--                     SUMMARY                                -->
+        <!-- ========================================================= -->
+
+        <div class="summary-box">
+            <h3>📌 Summary of Section 2.3</h3>
+            <ul>
+                <li><strong>2.3 List</strong> — Introduction, creating lists, accessing elements, slicing, concatenation (+), repetition (*); example program with output</li>
+                <li><strong>Updating Lists</strong> — Changing elements using assignment; example program with output</li>
+                <li><strong>Deleting from Lists</strong> — Using del statement; example program with output</li>
+                <li><strong>2.3.1 Built-in List Functions</strong> — len(), max(), min(), list(seq), map(); examples with outputs</li>
+                <li><strong>2.3.2 Built-in List Methods</strong> — append(), count(), remove(), index(), extend(), reverse(), insert(), sort() (ascending and descending), pop(), clear(), copy(); all with examples and outputs</li>
+                <li><strong>2.3.3 Using List as Stacks</strong> — LIFO behavior using append() and pop(); example with output</li>
+                <li><strong>2.3.4 Using List as Queues</strong> — FIFO behavior using deque from collections; example with output</li>
+            </ul>
+        </div>
+
+        
+        <div class="footer">
+            🐍 Section 2.3 · Lists · Complete Note @ Gafoor I, Department of Mathematics NAMC 
+        </div>
+
+    </div>
+
+</body>
+</html>
