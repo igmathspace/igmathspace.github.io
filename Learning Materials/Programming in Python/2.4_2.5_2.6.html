@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Data Structures · Tuple, Set, Dictionary</title>
+  <!-- MathJax (optional, but kept for consistency) -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #e8f4f8;
+      color: #0a2a3a;
+      line-height: 1.6;
+    }
+    :root {
+      --blue-dark: #0a3a5a;
+      --blue-medium: #1a6a8a;
+      --blue-light: #4a9aba;
+      --blue-pale: #d4eaf2;
+      --blue-bg: #e8f4f8;
+      --accent: #2a8aaa;
+      --bg-card: #ffffff;
+    }
+    .header-bar {
+      background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+      color: white;
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .nav-bar {
+      background: #0a3a5a;
+      padding: 0.6rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid #4a9aba;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      align-items: center;
+    }
+    .nav-bar a, .nav-bar button {
+      background: #1a6a8a;
+      color: white;
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .nav-bar a:hover, .nav-bar button:hover {
+      background: #4a9aba;
+      transform: translateY(-2px);
+    }
+    .nav-bar .pdf-btn {
+      background: #1a5a7a;
+    }
+    .main-container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+    .lecture-header {
+      background: white;
+      border-radius: 28px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 32px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border-left: 10px solid var(--blue-medium);
+    }
+    .course-code {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--blue-dark);
+    }
+    .lecture-badge {
+      display: inline-block;
+      background: var(--blue-medium);
+      color: white;
+      padding: 4px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      margin-left: 14px;
+      vertical-align: middle;
+    }
+    .module-name {
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 6px;
+      border-bottom: 1px dashed #b0d0dc;
+      display: inline-block;
+      padding-bottom: 4px;
+    }
+    .lecture-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #0a4a6a;
+      margin: 10px 0 6px;
+    }
+    .textbook-ref {
+      background: #d4eaf2;
+      padding: 6px 18px;
+      border-radius: 40px;
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #0a4a6a;
+    }
+    .content-card {
+      background: white;
+      border-radius: 28px;
+      padding: 2rem 2rem;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+      border: 1px solid #c0dce8;
+    }
+    .section-heading {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      border-left: 6px solid var(--blue-light);
+      padding-left: 20px;
+      margin: 1.8rem 0 1rem 0;
+    }
+    .section-heading:first-of-type { margin-top: 0; }
+    .def-box {
+      background: #e8f4f8;
+      padding: 1.2rem 1.5rem;
+      border-radius: 20px;
+      margin: 1rem 0;
+      border-left: 6px solid var(--blue-light);
+    }
+    .example-box {
+      background: #f0f8fc;
+      padding: 1rem 1.5rem;
+      border-radius: 18px;
+      margin: 1rem 0;
+      border: 1px solid #c0dce8;
+    }
+    .steps-box {
+      background: #f8fcfe;
+      padding: 1rem 1.5rem;
+      border-radius: 18px;
+      border: 1px solid #c0dce8;
+      margin: 1rem 0;
+    }
+    .steps-box ol { margin-left: 1.5rem; }
+    .steps-box li { margin: 0.5rem 0; }
+    .question-item {
+      background: #f6fafc;
+      padding: 1rem 1.4rem;
+      margin-bottom: 1.2rem;
+      border-radius: 20px;
+      border-left: 5px solid var(--blue-medium);
+      transition: 0.2s;
+    }
+    .question-text {
+      font-weight: 600;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .solution-area {
+      margin-top: 14px;
+      background: #d4eaf2;
+      padding: 1rem 1.4rem;
+      border-radius: 16px;
+      display: none;
+      border-top: 2px solid #4a9aba;
+    }
+    .solution-area.show { display: block; }
+    .btn-answer {
+      background: var(--blue-medium);
+      color: white;
+      border: none;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.85rem;
+    }
+    .btn-answer:hover { background: var(--blue-light); }
+    .mistake-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .mistake-table th, .mistake-table td {
+      border: 1px solid #c0dce8;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .mistake-table th { background: #d4eaf2; color: var(--blue-dark); }
+    .ref-box {
+      background: #d4eaf2;
+      padding: 10px 20px;
+      border-radius: 40px;
+      display: inline-block;
+      font-size: 0.85rem;
+      color: #0a4a6a;
+      margin-top: 1.2rem;
+    }
+    .formula-box {
+      background: #e8f4f8;
+      padding: 1rem 1.5rem;
+      border-radius: 16px;
+      margin: 1rem 0;
+      border: 1px solid #b0d0dc;
+      text-align: center;
+    }
+    .key-point {
+      background: #e8f4f8;
+      padding: 0.8rem 1.2rem;
+      border-radius: 12px;
+      border-left: 4px solid var(--blue-light);
+      margin: 0.8rem 0;
+    }
+    footer {
+      background: #0a3a5a;
+      color: #b0d0dc;
+      text-align: center;
+      padding: 24px 20px;
+      margin-top: 40px;
+      border-top: 6px solid var(--blue-light);
+    }
+    footer a { color: #4a9aba; text-decoration: none; }
+    @media print {
+      body { background: white; }
+      .nav-bar, .pdf-btn, .btn-answer { display: none !important; }
+      .content-card, .lecture-header { box-shadow: none; border: 1px solid #ccc; break-inside: avoid; }
+      .solution-area { display: block !important; background: #e8f4f8; }
+      footer { display: none; }
+      .header-bar { background: #0a3a5a !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+    mjx-container { overflow-x: auto; margin: 0.8rem 0; }
+    .badge-co { background: var(--accent); color: white; font-size: 0.7rem; border-radius: 30px; padding: 2px 12px; display: inline-block; margin-left: 10px; }
+    .badge-new { background: #1a6a8a; color: white; font-size: 0.65rem; border-radius: 30px; padding: 2px 10px; display: inline-block; margin-left: 8px; }
+    .corrected-badge {
+      background: #c0392b;
+      color: white;
+      font-size: 0.6rem;
+      border-radius: 30px;
+      padding: 2px 10px;
+      display: inline-block;
+      margin-left: 8px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .inline-code {
+      background: #eef2f6;
+      padding: 0.1rem 0.4rem;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em;
+      color: #0f172a;
+    }
+    .func-table {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.3rem 1.5rem;
+      background: #f8fafc;
+      padding: 1rem 1.5rem;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      margin: 0.8rem 0 1.5rem 0;
+    }
+    .func-table .fn {
+      font-weight: 600;
+      color: #1e293b;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .func-table .desc {
+      color: #334155;
+    }
+    .code-block {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 1.2rem 1.6rem;
+      border-radius: 16px;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 1rem 0 1.5rem 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .output-block {
+      background: #f1f5f9;
+      border-left: 4px solid #2563eb;
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      margin: 0.5rem 0 1.5rem 0;
+      color: #0f172a;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .section-sub {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 0.8rem 1.8rem 1.8rem 1.8rem;
+      margin: 1.8rem 0;
+      border: 1px solid #e9edf3;
+    }
+    .text-muted {
+      color: #3a6a7a;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header-bar">🐍 Python Data Structures · Tuple, Set, Dictionary · Taming Python by Programming</div>
+
+<div class="nav-bar">
+  <a href="#">🏠 Home</a>
+  <a href="#">📘 Course Home</a>
+  <button class="pdf-btn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+</div>
+
+<div class="main-container">
+
+  <!-- LECTURE HEADER (adapted) -->
+  <div class="lecture-header">
+    <div class="course-code">
+      PYTHON · DATA STRUCTURES 
+      <span class="lecture-badge">Sections 2.4, 2.5, 2.6</span>
+    </div>
+    <div class="module-name">📌 Taming Python by Programming · Chapter 2</div>
+    <div class="lecture-title">📖 Tuple · Set · Dictionary — complete reference with all examples</div>
+    <div class="textbook-ref">📚 Dr. Jeeva Jose · Khanna Book Publishing · ISBN: 978-93-86173-34-8</div>
+    <div style="margin-top: 12px; font-size: 0.9rem; color: #1a5a7a;">
+      👨‍🏫 Detailed extraction · all functions, methods, frozenset &amp; examples
+    </div>
+  </div>
+
+  <!-- CONTENT CARD -->
+  <div class="content-card">
+
+    <!-- ========== 2.4 TUPLE ========== -->
+    <div class="section-heading">2.4 TUPLE</div>
+    <p>A tuple is another sequence data type that is similar to the list. A tuple consists of a number of values separated by commas. The main differences between lists and tuples are lists are enclosed in square brackets ([ ]) and their elements and size can be changed, while tuples are enclosed in parentheses (() ) and cannot be updated. Tuples can be considered as read-only lists.</p>
+
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">📘 Example Program — tuple basics</h4>
+      <div class="code-block">
+first_tuple = ('abcd', 147, 2.43, 'Tom', 74.9)
+small_tuple = (111, 'Tom')
+
+print(first_tuple)          # Prints complete tuple
+print(first_tuple[0])       # Prints first element of the tuple
+print(first_tuple[1:3])     # Prints elements starting from 2nd till 3rd
+print(first_tuple[2:])      # Prints elements starting from 3rd element
+print(small_tuple * 2)      # Prints tuple two times
+print(first_tuple + small_tuple)  # Prints concatenated tuples
+      </div>
+      <div class="output-block">
+('abcd', 147, 2.43, 'Tom', 74.9)
+abcd
+(147, 2.43)
+(2.43, 'Tom', 74.9)
+(111, 'Tom', 111, 'Tom')
+('abcd', 147, 2.43, 'Tom', 74.9, 111, 'Tom')
+      </div>
+    </div>
+
+    <p><strong>Invalid with tuple (valid with list):</strong></p>
+    <div class="code-block">
+first_list = ['abcd', 147, 2.43, 'Tom', 74.9]
+first_tuple = ('abcd', 147, 2.43, 'Tom', 74.9)
+
+tuple[2] = 100   # Invalid syntax with tuple
+list[2] = 100    # Valid syntax with list
+    </div>
+    <p>To delete an entire tuple we can use the <span class="inline-code">del</span> statement. Example <span class="inline-code">del tuple</span>. It is not possible to remove individual items from a tuple. However it is possible to create tuples which contain mutable objects, such as lists.</p>
+
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">🧩 Demo — Tuple containing Lists</h4>
+      <div class="code-block">
+# Demo of Tuple containing Lists
+t = ([1,2,3], ['apple','pear','orange'])
+print(t)
+      </div>
+      <div class="output-block">
+([1, 2, 3], ['apple', 'pear', 'orange'])
+      </div>
+    </div>
+
+    <p>It is possible to pack values to a tuple and unpack values from a tuple. We can create tuples even without parenthesis. The reverse operation is called sequence unpacking and works for any sequence on the right-hand side. Sequence unpacking requires that there are as many variables on the left side of the equals sign as there are elements in the sequence.</p>
+
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">📦 Demo — Tuple packing and unpacking</h4>
+      <div class="code-block">
+# Demo of Tuple packing and unpacking
+t = "apple", 1, 100
+print(t)
+x, y, z = t
+print(x)
+print(y)
+print(z)
+      </div>
+      <div class="output-block">
+('apple', 1, 100)
+apple
+1
+100
+      </div>
+    </div>
+
+    <h3 style="font-size:1.4rem; margin-top:1.8rem;">4.1 Built-in Tuple Functions</h3>
+    <div class="func-table">
+      <span class="fn">len(tuple)</span><span class="desc">Gives the total length of the tuple.</span>
+      <span class="fn">max(tuple)</span><span class="desc">Returns item from the tuple with maximum value.</span>
+      <span class="fn">min(tuple)</span><span class="desc">Returns item from the tuple with minimum value.</span>
+      <span class="fn">tuple(seq)</span><span class="desc">Returns a list into a tuple.</span>
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 len(tuple) — example</h4>
+    <div class="code-block">
+# Demo of len(tuple)
+tuple1 = ('abcd', 147, 2.43, 'Tom')
+print(len(tuple1))
+    </div>
+    <div class="output-block">4</div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 max(tuple) — example</h4>
+    <div class="code-block">
+# Demo of max(tuple)
+tuple1 = (1200, 147, 2.43, 1.12)
+tuple2 = (213, 100, 289)
+print("Maximum value in:", tuple1, "is", max(tuple1))
+print("Maximum value in:", tuple2, "is", max(tuple2))
+    </div>
+    <div class="output-block">
+Maximum value in: (1200, 147, 2.43, 1.12) is 1200
+Maximum value in: (213, 100, 289) is 289
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 min(tuple) — example</h4>
+    <div class="code-block">
+# Demo of min(tuple)
+tuple1 = (1200, 147, 2.43, 1.12)
+tuple2 = (213, 100, 289)
+print("Minimum value in:", tuple1, "is", min(tuple1))
+print("Minimum value in:", tuple2, "is", min(tuple2))
+    </div>
+    <div class="output-block">
+Minimum value in: (1200, 147, 2.43, 1.12) is 1.12
+Minimum value in: (213, 100, 289) is 100
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 tuple(seq) — example</h4>
+    <div class="code-block">
+# Demo of tuple(seq)
+list = ['abcd', 147, 2.43, 'Tom']
+print("Tuple:", tuple(list))
+    </div>
+    <div class="output-block">
+Tuple: ('abcd', 147, 2.43, 'Tom')
+    </div>
+
+    <hr style="margin:2.5rem 0; border:0; height:1px; background:linear-gradient(to right, #e2e8f0, transparent);">
+
+    <!-- ========== 2.5 SET ========== -->
+    <div class="section-heading">2.5 SET</div>
+    <p>Set is an unordered collection of unique items. Set is defined by values separated by comma inside braces {}. It can have any number of items and they may be of different types (integer, float, tuple, string etc.). Items in a set are not ordered. Since they are unordered we cannot access or change an element of set using indexing or slicing. We can perform set operations like union, intersection, difference on two sets. Set have unique values. They eliminate duplicates. The slicing operator [] does not work with sets. An empty set is created by the function <span class="inline-code">set()</span>.</p>
+
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">🧪 Demo — Set Creation</h4>
+      <div class="code-block">
+# Demo of Set Creation
+s1 = {1, 2, 3}                # set of integer numbers
+print(s1)
+
+s2 = {1, 2, 3, 2, 1, 2}      # output contains only unique values
+print(s2)
+
+s3 = {1, 2.4, 'apple', 'Tom', 3}   # set of mixed data types
+print(s3)
+
+# s4 = {1, 2, [3, 4]}         # sets cannot have mutable items
+# print(s4)                   # Hence not permitted
+
+s5 = set({1, 2, 3, 4})        # using set function to create set from a list
+print(s5)
+      </div>
+      <div class="output-block">
+{1, 2, 3}
+{1, 2, 3}
+{1, 3, 2.4, 'apple', 'Tom'}
+{1, 2, 3, 4}
+      </div>
+    </div>
+
+    <h3 style="font-size:1.4rem; margin-top:1.8rem;">2.5.1 Built-in Set Functions</h3>
+    <div class="func-table">
+      <span class="fn">len(set)</span><span class="desc">Returns the length or total number of items in a set.</span>
+      <span class="fn">max(set)</span><span class="desc">Returns item from the set with maximum value.</span>
+      <span class="fn">min(set)</span><span class="desc">Returns item from the set with minimum value.</span>
+      <span class="fn">sum(set)</span><span class="desc">Returns the sum of all items in the set.</span>
+      <span class="fn">sorted(set)</span><span class="desc">Returns a new sorted list. The set does not sort itself.</span>
+      <span class="fn">enumerate(set)</span><span class="desc">Returns an enumerate object. It contains the index and value of all the items of set as a pair.</span>
+      <span class="fn">any(set)</span><span class="desc">Returns True, if the set contains at least one item, False otherwise.</span>
+      <span class="fn">all(set)</span><span class="desc">Returns True, if all the elements are true or the set is empty.</span>
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 len(set) — example</h4>
+    <div class="code-block">
+# Demo of len(set)
+set1 = {'abcd', 147, 2.43, 'Tom'}
+print(len(set1))
+    </div>
+    <div class="output-block">4</div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 max(set) — example</h4>
+    <div class="code-block">
+# Demo of max(set)
+set1 = {1200, 147, 2.43, 1.12}
+set2 = {213, 100, 289}
+print("Maximum value in:", set1, "is", max(set1))
+print("Maximum value in:", set2, "is", max(set2))
+    </div>
+    <div class="output-block">
+Maximum value in: {1200, 1.12, 2.43, 147} is 1200
+Maximum value in: {289, 100, 213} is 289
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 min(set) — example</h4>
+    <div class="code-block">
+# Demo of min(set)
+set1 = {1200, 147, 2.43, 1.12}
+set2 = {213, 100, 289}
+print("Minimum value in:", set1, "is", min(set1))
+print("Minimum value in:", set2, "is", min(set2))
+    </div>
+    <div class="output-block">
+Minimum value in: {1200, 1.12, 2.43, 147} is 1.12
+Minimum value in: {289, 100, 213} is 100
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 sum(set) — example</h4>
+    <div class="code-block">
+# Demo of sum(set)
+set1 = {147, 2.43}
+set2 = {213, 100, 289}
+print("Sum of elements in", set1, "is", sum(set1))
+print("Sum of elements in", set2, "is", sum(set2))
+    </div>
+    <div class="output-block">
+Sum of elements in {147, 2.43} is 149.43
+Sum of elements in {289, 100, 213} is 602
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 sorted(set) — example</h4>
+    <div class="code-block">
+# Demo of sorted(set)
+set1 = {213, 100, 289, 40, 23, -1, 1000}
+set2 = sorted(set1)
+print("Sum of elements before sorting:", set1)
+print("Sum of elements after sorting:", set2)
+    </div>
+    <div class="output-block">
+Sum of elements before sorting: {1, 100, 289, 1000, 40, 213, 23}
+Sum of elements after sorting: {1, 23, 40, 100, 213, 289, 1000}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 enumerate(set) — example</h4>
+    <div class="code-block">
+# Demo of enumerate(set)
+set1 = {213, 100, 289, 40, 23, 1, 1000}
+print("enumerate(set):", enumerate(set1))
+    </div>
+    <div class="output-block">
+enumerate(set): &lt;enumerate object at 0x7f0a73573690&gt;
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 any(set) — example</h4>
+    <div class="code-block">
+# Demo of any(set)
+set1 = set()
+set2 = {1, 2, 3, 4}
+print("any(set):", any(set1))
+print("any(set):", any(set2))
+    </div>
+    <div class="output-block">
+any(set): False
+any(set): True
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 all(set) — example</h4>
+    <div class="code-block">
+# Demo of all(set)
+set1 = {1, 2, 3}
+set2 = {0, 2, 3}
+print("all(set1):", all(set1))
+print("all(set2):", all(set2))
+    </div>
+    <div class="output-block">
+all(set1): True
+all(set2): False
+    </div>
+
+    <h3 style="font-size:1.4rem; margin-top:1.8rem;">2.5.2 Built-in Set Methods</h3>
+    <div class="func-table">
+      <span class="fn">set.add(obj)</span><span class="desc">Adds an element obj to a set.</span>
+      <span class="fn">set.remove(obj)</span><span class="desc">Removes an element obj from the set. Raises KeyError if the set is empty.</span>
+      <span class="fn">set.discard(obj)</span><span class="desc">Removes an element obj from the set. Nothing happens if the element to be deleted is not in the set.</span>
+      <span class="fn">set.pop()</span><span class="desc">Removes and returns an arbitrary set element. Raises KeyError if the set is empty.</span>
+      <span class="fn">set1.union(set2)</span><span class="desc">Returns the union of two sets as a new set.</span>
+      <span class="fn">set1.update(set2)</span><span class="desc">Update a set with the union of itself and others. The result will be stored in set1.</span>
+      <span class="fn">set1.intersection(set2)</span><span class="desc">Returns the intersection of two sets as a new set.</span>
+      <span class="fn">set1.intersection_update()</span><span class="desc">Update the set with the intersection of itself and another. The result will be stored in set1.</span>
+      <span class="fn">set1.difference(set2)</span><span class="desc">Returns the difference of two or more sets into a new set.</span>
+      <span class="fn">set1.difference_update(set2)</span><span class="desc">Remove all elements of another set set2 from set1 and the result is stored in set1.</span>
+      <span class="fn">set1.symmetric_difference(set2)</span><span class="desc">Return the symmetric difference of two sets as a new set.</span>
+      <span class="fn">set1.symmetric_difference_update(set2)</span><span class="desc">Update a set with the symmetric difference of itself and another.</span>
+      <span class="fn">set1.isdisjoint(set2)</span><span class="desc">Returns True if two sets have a null intersection.</span>
+      <span class="fn">set1.issubset(set2)</span><span class="desc">Returns True if set1 is a subset of set2.</span>
+      <span class="fn">set1.issuperset(set2)</span><span class="desc">Returns True, if set1 is a super set of set2.</span>
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set.add(obj) — example</h4>
+    <div class="code-block">
+# Demo of set.add(obj)
+set1 = {3, 8, 2, 6}
+print("Set before addition:", set1)
+set1.add(9)
+print("Set after addition:", set1)
+    </div>
+    <div class="output-block">
+Set before addition: {8, 2, 3, 6}
+Set after addition: {8, 9, 2, 3, 6}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set.remove(obj) — example</h4>
+    <div class="code-block">
+# Demo of set.remove(obj)
+set1 = {3, 8, 2, 6}
+print("Set before deletion:", set1)
+set1.remove(8)
+print("Set after deletion:", set1)
+    </div>
+    <div class="output-block">
+Set before deletion: {8, 2, 3, 6}
+Set after deletion: {2, 3, 6}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set.discard(obj) — example</h4>
+    <div class="code-block">
+# Demo of set.discard(obj)
+set1 = {3, 8, 2, 6}
+print("Set before discard:", set1)
+set1.discard(8)
+print("Set after discard:", set1)   # Element is present
+set1.discard(9)
+print("Set after discard:", set1)   # Element is not present
+    </div>
+    <div class="output-block">
+Set before discard: {8, 2, 3, 6}
+Set after discard: {2, 3, 6}
+Set after discard: {2, 3, 6}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set.pop() — example</h4>
+    <div class="code-block">
+# Demo of set.pop()
+set1 = {3, 8, 2, 6}
+print("Set before pop:", set1)
+set1.pop()
+print("Set after popping:", set1)
+    </div>
+    <div class="output-block">
+Set before pop: {8, 2, 3, 6}
+Set after popping: {2, 3, 6}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.union(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.union(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set3 = set1.union(set2)   # Unique values will be taken
+print("Union:", set3)
+    </div>
+    <div class="output-block">
+Union: {1, 2, 3, 4, 6, 8, 9}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.update(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.update(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set1.update(set2)
+print("Update Method:", set1)
+    </div>
+    <div class="output-block">
+Update Method: {1, 2, 3, 4, 6, 8, 9}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.intersection(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.intersection(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set3 = set1.intersection(set2)
+print("Intersection:", set3)
+    </div>
+    <div class="output-block">
+Intersection: {2}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.intersection_update() — example</h4>
+    <div class="code-block">
+# Demo of set1.intersection_update(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set1.intersection_update(set2)
+print("Intersection_update:", set1)
+    </div>
+    <div class="output-block">
+Intersection_update: {2}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.difference(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.difference(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set3 = set1.difference(set2)
+print("Difference:", set3)
+    </div>
+    <div class="output-block">
+Difference: {8, 3, 6}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.difference_update(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.difference_update(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set1.difference_update(set2)
+print("Difference Update:", set1)
+    </div>
+    <div class="output-block">
+Difference Update: {8, 3, 6}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.symmetric_difference(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.symmetric_difference(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set3 = set1.symmetric_difference(set2)
+print("Symmetric Difference :", set3)
+    </div>
+    <div class="output-block">
+Symmetric Difference : {1, 3, 4, 6, 8, 9}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.symmetric_difference_update(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.symmetric_difference_update(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 2, 1, 9}
+set1.symmetric_difference_update(set2)
+print("Symmetric Difference Update:", set1)
+    </div>
+    <div class="output-block">
+Symmetric Difference Update: {1, 3, 4, 6, 8, 9}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.isdisjoint(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.isdisjoint(set2)
+set1 = {3, 8, 2, 6}
+set2 = {4, 7, 1, 9}
+print("Result of set1.isdisjoint(set2):", set1.isdisjoint(set2))
+    </div>
+    <div class="output-block">
+Result of set1.isdisjoint(set2): True
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.issubset(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.issubset(set2)
+set1 = {3, 6}
+set2 = {3, 8, 4, 7, 1, 9}
+print("Result of set1.issubset(set2):", set1.issubset(set2))
+    </div>
+    <div class="output-block">
+Result of set1.issubset(set2): True
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 set1.issuperset(set2) — example</h4>
+    <div class="code-block">
+# Demo of set1.issuperset(set2)
+set1 = {3, 8, 4, 6}
+set2 = {3, 8}
+print("Result of set1.issuperset(set2):", set1.issuperset(set2))
+    </div>
+    <div class="output-block">
+Result of set1.issuperset(set2): True
+    </div>
+
+    <h3 style="font-size:1.4rem; margin-top:1.8rem;">2.5.3 Frozenset</h3>
+    <p>Frozenset is a new class that has the characteristics of a set, but its elements cannot be changed once assigned. While tuples are immutable lists, frozensets are immutable sets. Sets being mutable are unhashable, so they can't be used as dictionary keys which will be discussed in the next section. On the other hand, frozensets are hashable and can be used as keys to a dictionary.</p>
+    <p>Frozensets can be created using the function <span class="inline-code">frozenset()</span>. This datatype supports methods like difference(), intersection(), isdisjoint(), issubset(), issuperset(), symmetric_difference() and union(). Being immutable it does not have methods like add(), remove(), update(), difference_update(), intersection_update(), symmetric_difference_update() etc.</p>
+
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">❄️ Demo — frozenset()</h4>
+      <div class="code-block">
+# Demo of frozenset()
+set1 = frozenset({3, 8, 4, 6})
+print("Set1:", set1)
+set2 = frozenset({3, 8})
+print("Set2:", set2)
+print("Result of set1.intersection(set2):", set1.intersection(set2))
+      </div>
+      <div class="output-block">
+Set1: frozenset({8, 3, 4, 6})
+Set2: frozenset({8, 3})
+Result of set1.intersection(set2): frozenset({8, 3})
+      </div>
+    </div>
+
+    <hr style="margin:2.5rem 0; border:0; height:1px; background:linear-gradient(to right, #e2e8f0, transparent);">
+
+    <!-- ========== 2.6 DICTIONARY ========== -->
+    <div class="section-heading">2.6 DICTIONARY</div>
+    <p>Dictionary is an unordered collection of key-value pairs. It is generally used when we have a huge amount of data. We must know the key to retrieve the value. In Python, dictionaries are defined within braces {} with each item being a pair in the form key:value. Key and value can be of any type. Keys are usually numbers or strings. Values, on the other hand, can be any arbitrary Python object. Dictionaries are sometimes found in other languages as "associative memories" or "associative arrays".</p>
+
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">📖 Example Program — dictionary basics</h4>
+      <div class="code-block">
+dict = {'one': 'This is one'}
+dict[2] = "This is two"
+
+tinvdict = {'name': 'john', 'code': 6734, 'dept': 'sales'}
+studentdict = {'name': 'john', 'marks': [35, 80, 90]}
+
+print(dict['one'])          # Prints value for 'one' key
+print(dict[2])              # Prints value for 2 key
+print(tinvdict)             # Prints complete dictionary
+print(tinvdict.keys())      # Prints all the keys
+print(tinvdict.values())    # Prints all the values
+print(studentdict)
+      </div>
+      <div class="output-block">
+This is one
+This is two
+{'dept': 'sales', 'name': 'john', 'code': 6734}
+dict_keys(['dept', 'name', 'code'])
+dict_values(['sales', 'john', 6734])
+{'name': 'john', 'marks': [35, 80, 90]}
+      </div>
+    </div>
+
+    <p>We can update a dictionary by adding a new key-value pair or modifying an existing entry.</p>
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">✏️ Demo — updating and adding new values</h4>
+      <div class="code-block">
+# Demo of updating and adding new values to dictionary
+dict1 = {'Name': 'Tom', 'Age': 20, 'Height': 160}
+print(dict1)
+
+dict1['Age'] = 25          # updating existing value in Key-Value pair
+print("Dictionary after update:", dict1)
+
+dict1['Weight'] = 60       # Adding new Key-value pair
+print("Dictionary after adding new Key-value pair:", dict1)
+      </div>
+      <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Dictionary after update: {'Name': 'Tom', 'Age': 25, 'Height': 160}
+Dictionary after adding new Key-value pair: {'Name': 'Tom', 'Age': 25, 'Height': 160, 'Weight': 60}
+      </div>
+    </div>
+
+    <p>We can delete the entire dictionary elements or individual elements in a dictionary. We can use <span class="inline-code">del</span> statement to delete the dictionary completely. To remove entire elements of a dictionary, we can use the <span class="inline-code">clear()</span> method which will be discussed in the built-in methods of dictionary.</p>
+
+    <div class="section-sub">
+      <h4 style="margin:0 0 0.5rem 0;">🗑️ Demo — Deleting Dictionary</h4>
+      <div class="code-block">
+# Demo of Deleting Dictionary
+dict1 = {'Name': 'Tom', 'Age': 20, 'Height': 160}
+print(dict1)
+
+del dict1['Age']           # deleting Key-value pair 'Age': 20
+print("Dictionary after deletion:", dict1)
+
+dict1.clear()              # Clearing entire dictionary
+print(dict1)
+      </div>
+      <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Dictionary after deletion: {'Name': 'Tom', 'Height': 160}
+{}
+      </div>
+    </div>
+
+    <h3 style="font-size:1.4rem; margin-top:1.8rem;">Properties of Dictionary Keys</h3>
+    <ol style="padding-left:1.8rem; margin:0.6rem 0 1.2rem 0;">
+      <li>More than one entry per key is not allowed, no duplicate key is allowed. When duplicate keys are encountered during assignment, the last assignment is taken.</li>
+      <li>Keys are immutable. This means keys can be numbers, strings or tuple. But it does not permit mutable objects like lists.</li>
+    </ol>
+
+    <h3 style="font-size:1.4rem; margin-top:1.8rem;">2.6.1 Built-in Dictionary Functions</h3>
+    <div class="func-table">
+      <span class="fn">len(dict)</span><span class="desc">Gives the length of the dictionary.</span>
+      <span class="fn">str(dict)</span><span class="desc">Produces a printable string representation of the dictionary.</span>
+      <span class="fn">type(variable)</span><span class="desc">The method type() returns the type of the passed variable. If passed variable is dictionary then it would return a dictionary type.</span>
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 len(dict) — example</h4>
+    <div class="code-block">
+# Demo of len(dict)
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Length of Dictionary =", len(dict1))
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Length of Dictionary = 3
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 str(dict) — example</h4>
+    <div class="code-block">
+# Demo of str(dict)
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Representation of Dictionary =", str(dict1))
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Representation of Dictionary = {'Name': 'Tom', 'Age': 20, 'Height': 160}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">🔹 type(variable) — example</h4>
+    <div class="code-block">
+# Demo of type(variable)
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Type(variable) =", type(dict1))
+
+s = "abcde"
+print("Type(variable) =", type(s))
+
+list1 = [1,'a',23,'Tom']
+print("Type(variable) =", type(list1))
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Type(variable) = &lt;class 'dict'&gt;
+Type(variable) = &lt;class 'str'&gt;
+Type(variable) = &lt;class 'list'&gt;
+    </div>
+
+    <h3 style="font-size:1.4rem; margin-top:1.8rem;">2.6.2 Built-in Dictionary Methods</h3>
+    <div class="func-table">
+      <span class="fn">dict.clear()</span><span class="desc">Removes all elements of dictionary dict.</span>
+      <span class="fn">dict.copy()</span><span class="desc">Returns a copy of the dictionary dict.</span>
+      <span class="fn">dict.keys()</span><span class="desc">Returns a list of keys in dictionary dict.</span>
+      <span class="fn">dict.values()</span><span class="desc">Returns list of all values available in a dictionary.</span>
+      <span class="fn">dict.items()</span><span class="desc">Returns a list of dictionary dict's (key, value) tuple pairs.</span>
+      <span class="fn">dict1.update(dict2)</span><span class="desc">The dictionary dict2's key-value pair will be updated in dictionary dict1.</span>
+      <span class="fn">dict.get(key, default=None)</span><span class="desc">Returns the value corresponding to the key specified and if the key specified is not in the dictionary, it returns the default value.</span>
+      <span class="fn">dict.setdefault(key, default=None)</span><span class="desc">Similar to dict.get() but will set the key with the value passed and if key is not in the dictionary, it will set with the default value.</span>
+      <span class="fn">dict.fromkeys(seq,[val])</span><span class="desc">Creates a new dictionary from sequence seq and values from val.</span>
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.clear() — example</h4>
+    <div class="code-block">
+# Demo of dict.clear()
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+dict1.clear()
+print(dict1)
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+{}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.copy() — example</h4>
+    <div class="code-block">
+# Demo of dict.copy()
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+dict2 = dict1.copy()
+print(dict2)
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.keys() — example</h4>
+    <div class="code-block">
+# Demo of dict.keys()
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Keys in Dictionary:", dict1.keys())
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Keys in Dictionary: dict_keys(['Name', 'Age', 'Height'])
+    </div>
+    <p><strong>Keys in sorted order:</strong></p>
+    <div class="code-block">
+# Demo of dict.keys() in sorted order
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Keys in sorted order:", sorted(dict1.keys()))
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Keys in sorted order: ['Age', 'Height', 'Name']
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.values() — example</h4>
+    <div class="code-block">
+# Demo of dict.values()
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Values in Dictionary:", dict1.values())
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Values in Dictionary: dict_values(['Tom', 20, 160])
+    </div>
+    <p><strong>Values in sorted order:</strong></p>
+    <div class="code-block">
+# Demo of dict.values() in sorted order
+dict1 = {'Height':160, 'Age':20, 'Weight':60}
+print(dict1)
+print("Values in sorted order:", sorted(dict1.values()))
+    </div>
+    <div class="output-block">
+{'Height': 160, 'Age': 20, 'Weight': 60}
+Values in sorted order: [20, 60, 160]
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.items() — example</h4>
+    <div class="code-block">
+# Demo of dict.items()
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Items in Dictionary:", dict1.items())
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Items in Dictionary: dict_items([('Name', 'Tom'), ('Age', 20), ('Height', 160)])
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict1.update(dict2) — example</h4>
+    <div class="code-block">
+# Demo of dict1.update(dict2)
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+dict2 = {'Weight':60}
+dict1.update(dict2)
+print("Dict1 updated Dict2 :", dict1)
+    </div>
+    <div class="output-block">
+Dict1 updated Dict2 : {'Name': 'Tom', 'Age': 20, 'Height': 160, 'Weight': 60}
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.get(key, default=None) — example</h4>
+    <div class="code-block">
+# Demo of dict.get(key, default='Name')
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Dict1.get('Age'):", dict1.get('Age'))
+print("Dict1.get('Phone'):", dict1.get('Phone', 0))   # 'Phone' not a key, hence 0 is given as default
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Dict1.get('Age'): 20
+Dict1.get('Phone'): 0
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.setdefault(key, default=None) — example</h4>
+    <div class="code-block">
+# Demo of dict.setdefault(key, default='Name')
+dict1 = {'Name':'Tom', 'Age':20, 'Height':160}
+print(dict1)
+print("Dict1.setdefault('Age'):", dict1.setdefault('Age'))
+print("Dict1.setdefault('Phone'):", dict1.setdefault('Phone', 0))   # 'Phone' not a key, hence 0 is given as default value.
+    </div>
+    <div class="output-block">
+{'Name': 'Tom', 'Age': 20, 'Height': 160}
+Dict1.setdefault('Age'): 20
+Dict1.setdefault('Phone'): 0
+    </div>
+
+    <h4 style="font-weight:600; margin:1rem 0 0.2rem;">📌 dict.fromkeys(seq,[val]) — example</h4>
+    <div class="code-block">
+# Demo of dict.fromkeys(seq,[val])
+list = {'Name', 'Age', 'Height'}
+dict = dict.fromkeys(list)
+print('New Dictionary:', dict)
+    </div>
+    <div class="output-block">
+New Dictionary: {'Name': None, 'Age': None, 'Height': None}
+    </div>
+
+    <div class="ref-box">
+      📖 <strong>Reference:</strong> Dr. Jeeva Jose, <em>Taming Python by Programming</em>, Khanna Book Publishing, Chapter 2 (Sections 2.4, 2.5, 2.6).
+    </div>
+    <div style="margin-top: 1rem; font-size: 0.8rem; color: #3a6a7a; text-align: right;">
+      🐍 Complete extraction · all examples, functions, methods &amp; frozenset
+    </div>
+  </div>
+
+  <!-- FOOTER (exactly as in the provided theme) -->
+  <footer>
+    <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+    <p>@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+    <div style="margin-top: 8px;">
+      <a href="#">🏠 Home</a> | <a href="#">📘 Classroom Space</a> | <a href="#">📖 Syllabus</a>
+    </div>
+    <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods</p>
+  </footer>
+</div>
+
+<script>
+  // Toggle solution areas (kept for consistency, though not heavily used here)
+  document.querySelectorAll('.btn-answer').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const qid = this.getAttribute('data-qid');
+      const sol = document.getElementById('sol' + qid);
+      if (sol) {
+        sol.classList.toggle('show');
+        this.textContent = sol.classList.contains('show') ? '🙈 Hide Solution' : '📖 Solution';
+      }
+    });
+  });
+
+  // Save as PDF
+  function saveAsPDF() {
+    document.title = "Python_DataStructures_Tuple_Set_Dict.pdf";
+    window.print();
+    setTimeout(() => { document.title = "Python Data Structures · Tuple, Set, Dictionary"; }, 1000);
+  }
+  window.saveAsPDF = saveAsPDF;
+  if (window.MathJax) MathJax.typesetPromise();
+</script>
+</body>
+</html>
