@@ -13,9 +13,9 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background: #f5f8fc;
-            color: #0a2647;
-            line-height: 1.5;
+            background: linear-gradient(135deg, #f0f4f9 0%, #e8f0f7 100%);
+            color: #1a3a5c;
+            line-height: 1.6;
             padding: 1.5rem 1rem;
         }
         .cv-wrapper {
@@ -23,68 +23,93 @@
             margin: 0 auto;
             background: #ffffff;
             border-radius: 1.5rem;
-            box-shadow: 0 20px 40px -12px rgba(10, 38, 71, 0.12);
+            box-shadow: 0 20px 40px -12px rgba(26, 58, 92, 0.15);
             overflow: hidden;
-            border: 1px solid #dce7f2;
+            border: 1px solid #d4e3f0;
         }
         .hero {
-            background: #f0f5fb;
-            padding: 1.4rem 2rem 1.2rem;
-            border-bottom: 3px solid #1a3a5c;
+            background: linear-gradient(135deg, #f8fbfe 0%, #e8f1f8 100%);
+            padding: 2rem;
+            border-bottom: 3px solid #2d5a8c;
             position: relative;
         }
         .hero::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(26, 58, 92, 0.03) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle at 20% 30%, rgba(45, 90, 140, 0.04) 0%, rgba(0,0,0,0) 70%);
             pointer-events: none;
         }
         .hero-content {
             position: relative;
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
-            gap: 0.8rem;
+            gap: 1.5rem;
+        }
+        .hero-photo {
+            flex-shrink: 0;
+        }
+        .hero-photo img {
+            width: 140px;
+            height: 140px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 3px solid #2d5a8c;
+            box-shadow: 0 8px 20px rgba(45, 90, 140, 0.2);
+        }
+        .hero-left {
+            flex: 1;
+            min-width: 280px;
         }
         .hero-left h1 {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
             font-weight: 600;
-            color: #0a2647;
+            color: #1a3a5c;
             letter-spacing: -0.3px;
             margin-bottom: 0.05rem;
         }
         .hero-left .title-tag {
-            color: #1a3a5c;
-            font-weight: 400;
-            font-size: 0.9rem;
-            letter-spacing: 0.2px;
+            color: #2d5a8c;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
         }
         .hero-left .contact-line {
-            margin-top: 0.2rem;
+            margin-top: 0.5rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.2rem 1rem;
-            color: #1a3a5c;
-            font-size: 0.78rem;
+            gap: 0.3rem 1rem;
+            color: #2d5a8c;
+            font-size: 0.82rem;
+            font-weight: 500;
         }
-        .hero-right {
-            background: rgba(26, 58, 92, 0.05);
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            border: 1px solid #dce7f2;
+        .hero-links {
+            margin-top: 0.8rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem 1.2rem;
-            font-size: 0.78rem;
-            color: #0a2647;
+            gap: 0.8rem;
         }
-        .hero-right span {
+        .hero-links a {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            padding: 0.5rem 1rem;
+            background: #e8f1f8;
+            color: #2d5a8c;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid #c4daea;
+            transition: all 0.2s;
+        }
+        .hero-links a:hover {
+            background: #2d5a8c;
+            color: white;
+            transform: translateY(-2px);
         }
         .nav-bar {
             background: #ffffff;
@@ -94,34 +119,35 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #dce7f2;
+            border-bottom: 1px solid #d4e3f0;
             position: sticky;
             top: 0;
             z-index: 50;
         }
         .nav-home {
-            color: #1a3a5c;
+            color: #2d5a8c;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.8rem;
             display: inline-flex;
             align-items: center;
             gap: 5px;
             transition: 0.2s;
         }
-        .nav-home:hover { color: #0a2647; text-decoration: underline; }
+        .nav-home:hover { color: #1a3a5c; text-decoration: underline; }
         .nav-badge {
             font-size: 0.7rem;
-            background: #eaf0f8;
-            padding: 3px 12px;
+            background: #e8f1f8;
+            padding: 4px 12px;
             border-radius: 30px;
-            color: #0a2647;
+            color: #1a3a5c;
+            font-weight: 600;
         }
         .btn-pdf-save {
-            background: #1a3a5c;
+            background: #2d5a8c;
             color: white;
             border: none;
-            padding: 0.3rem 1rem;
+            padding: 0.35rem 1.2rem;
             border-radius: 30px;
             font-weight: 600;
             font-size: 0.72rem;
@@ -129,322 +155,246 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s;
             font-family: 'Inter', sans-serif;
-            box-shadow: 0 3px 8px rgba(10,38,71,0.08);
+            box-shadow: 0 4px 12px rgba(45, 90, 140, 0.25);
         }
-        .btn-pdf-save:hover { background: #0a2647; transform: scale(1.02); }
-        .container {
-            padding: 1.2rem 2rem 1.5rem;
-            background: #ffffff;
+        .btn-pdf-save:hover {
+            background: #1a3a5c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(45, 90, 140, 0.35);
         }
-        /* All section headings now at h3 size */
+        .content-area {
+            padding: 2rem;
+        }
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            color: #0a2647;
-            border-bottom: 2px solid #1a3a5c;
-            display: inline-block;
-            padding-bottom: 3px;
-            margin-bottom: 0.7rem;
+            color: #1a3a5c;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid #c4daea;
         }
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem 2rem;
+        .section-title:first-child {
+            margin-top: 0;
         }
-        @media (max-width: 700px) { .grid-2col { grid-template-columns: 1fr; } }
-        .info-item {
-            margin-bottom: 0.3rem;
-            font-size: 0.82rem;
-            color: #0a2647;
-        }
-        .info-item strong {
+        .subsection-title {
+            font-size: 1rem;
             font-weight: 600;
-            color: #0a2647;
-            display: inline-block;
-            min-width: 110px;
+            color: #2d5a8c;
+            margin-top: 1.2rem;
+            margin-bottom: 0.6rem;
         }
-        .address-block {
-            font-size: 0.82rem;
-            color: #0a2647;
-            line-height: 1.5;
-            margin-bottom: 0.3rem;
-        }
-        .address-block strong {
-            font-weight: 600;
-            color: #0a2647;
-            display: inline-block;
-            min-width: 110px;
-        }
-        .lang-list {
+        ul {
             list-style: none;
-            padding: 0;
-            margin: 0.1rem 0 0.1rem;
+            padding-left: 0;
         }
-        .lang-list li {
-            padding: 0.05rem 0 0.05rem 1.3rem;
+        li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.6rem;
             position: relative;
-            font-size: 0.82rem;
-            color: #0a2647;
+            color: #2d5a8c;
+            line-height: 1.6;
         }
-        .lang-list li::before {
-            content: "▹";
+        li::before {
+            content: '●';
             position: absolute;
             left: 0;
-            color: #1a3a5c;
-            font-weight: 700;
-        }
-        .edu-list {
-            list-style: none;
-            padding: 0;
-            margin: 0.3rem 0 0.1rem;
-        }
-        .edu-list li {
-            padding: 0.25rem 0 0.25rem 1.3rem;
-            position: relative;
-            font-size: 0.82rem;
-            color: #0a2647;
-            border-bottom: 1px solid #eaf0f8;
-        }
-        .edu-list li:last-child { border-bottom: none; }
-        .edu-list li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
-            color: #1a3a5c;
-            font-weight: 700;
-        }
-        .exp-item {
-            background: #f5f8fc;
-            border-radius: 0.8rem;
-            padding: 0.5rem 1rem;
-            margin-bottom: 0.5rem;
-            border-left: 3px solid #1a3a5c;
-            font-size: 0.82rem;
-        }
-        .exp-item .title {
-            font-weight: 700;
-            color: #0a2647;
-        }
-        .exp-item .org {
-            font-weight: 500;
-            color: #1a3a5c;
-        }
-        .exp-item .period {
-            font-size: 0.72rem;
-            color: #2a4a6a;
-        }
-        .duty-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.3rem 0.8rem;
-            margin: 0.3rem 0 0.1rem;
-        }
-        .duty-list li {
-            list-style: none;
-            background: #eaf0f8;
-            padding: 0.15rem 0.7rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #0a2647;
+            color: #2d5a8c;
+            font-weight: bold;
+            font-size: 0.8rem;
         }
         .research-block, .fdp-block {
-            background: #f5f8fc;
-            border-radius: 1.2rem;
-            padding: 0.8rem 1.5rem;
-            margin-bottom: 1rem;
-            border: 1px solid #dce7f2;
+            margin-top: 1.2rem;
         }
         .research-block h3, .fdp-block h3 {
             font-size: 1rem;
             font-weight: 600;
-            color: #0a2647;
-            margin-bottom: 0.3rem;
-        }
-        .research-block ul, .fdp-block ul {
-            list-style: none;
-            padding: 0;
-        }
-        .research-block li, .fdp-block li {
-            padding: 0.35rem 0 0.35rem 1.3rem;
-            border-bottom: 1px solid #dce7f2;
-            position: relative;
-            font-size: 0.8rem;
-            color: #0a2647;
-        }
-        .research-block li:last-child, .fdp-block li:last-child {
-            border-bottom: none;
-        }
-        .research-block li::before, .fdp-block li::before {
-            content: "▹";
-            position: absolute;
-            left: 0;
-            color: #1a3a5c;
-            font-weight: 700;
+            color: #2d5a8c;
+            margin-bottom: 0.8rem;
+            margin-top: 0.8rem;
         }
         .pub-meta {
             display: block;
-            font-size: 0.7rem;
-            color: #1a3a5c;
-            margin-top: 1px;
+            font-size: 0.78rem;
+            color: #5a7a9a;
+            font-weight: 400;
+            margin-top: 0.3rem;
         }
-        .pub-meta .journal {
+        .journal {
             font-style: italic;
-            color: #1a3a5c;
+            color: #2d5a8c;
             font-weight: 500;
         }
         .fdp-meta {
             display: block;
-            font-size: 0.7rem;
-            color: #1a3a5c;
-            margin-top: 1px;
+            font-size: 0.75rem;
+            color: #5a7a9a;
+            font-weight: 400;
+            margin-top: 0.2rem;
         }
-        .fdp-meta .mode {
+        .mode {
             display: inline-block;
-            background: #dce7f2;
-            padding: 0 8px;
+            padding: 2px 8px;
             border-radius: 20px;
             font-size: 0.65rem;
-            font-weight: 600;
-            color: #0a2647;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: #e8f1f8;
+            color: #2d5a8c;
         }
-        .fdp-meta .mode.offline {
-            background: #d0dcec;
-            color: #0a2647;
+        .mode.offline {
+            background: #f5e8e8;
+            color: #8a4545;
         }
         .info-note {
-            background: #eaf0f8;
-            padding: 0.3rem 0.8rem;
-            border-radius: 0.8rem;
-            font-size: 0.68rem;
-            border-left: 4px solid #1a3a5c;
-            color: #0a2647;
-            margin-top: 0.3rem;
+            background: #f0f4f9;
+            padding: 0.6rem 1rem;
+            border-left: 3px solid #2d5a8c;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: #2d5a8c;
+            border-radius: 0 6px 6px 0;
+            font-weight: 500;
         }
         .footer {
-            background: #f0f5fb;
-            color: #0a2647;
+            background: linear-gradient(135deg, #f8fbfe 0%, #e8f1f8 100%);
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #d4e3f0;
             text-align: center;
-            padding: 0.8rem;
-            font-size: 0.65rem;
-            border-top: 1px solid #dce7f2;
+            font-size: 0.8rem;
+            color: #2d5a8c;
         }
-        .footer a { color: #1a3a5c; text-decoration: none; }
-        .footer a:hover { text-decoration: underline; }
-        @media print {
-            body { background: white; padding: 0; }
-            .cv-wrapper { border: none; box-shadow: none; border-radius: 0; }
-            .nav-bar, .btn-pdf-save { display: none; }
-            .hero { background: #f5f8fc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .container { padding: 0.8rem 1.2rem; }
-            .research-block, .fdp-block { break-inside: avoid; }
+        .footer a {
+            color: #2d5a8c;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+            color: #1a3a5c;
+        }
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .hero-photo img {
+                width: 120px;
+                height: 120px;
+            }
+            .hero-left h1 {
+                font-size: 1.8rem;
+            }
+            .content-area {
+                padding: 1.5rem;
+            }
+            .nav-bar {
+                padding: 0.4rem 1rem;
+            }
         }
     </style>
 </head>
 <body>
-<div class="cv-wrapper" id="cvContent">
-    <!-- HERO -->
+
+<div class="cv-wrapper">
+    <!-- NAVIGATION BAR -->
+    <div class="nav-bar">
+        <a class="nav-home" href="https://igmathspace.github.io">← Back to IG Math Space</a>
+        <span class="nav-badge">📄 CV · Gafoor I</span>
+        <button id="savePdfBtn" class="btn-pdf-save">💾 Save as PDF</button>
+    </div>
+
+    <!-- HERO SECTION -->
     <div class="hero">
         <div class="hero-content">
+            <div class="hero-photo">
+                <img src="ig.png" alt="Gafoor I - Profile Photo">
+            </div>
             <div class="hero-left">
-                <h1>GAFOOR I</h1>
-                <div class="title-tag">Assistant Professor · Mathematics · NAM College Kallikkandy</div>
+                <h1>Gafoor I</h1>
+                <div class="title-tag">Assistant Professor · Department of Mathematics</div>
                 <div class="contact-line">
+                    <span>📍 NAM College Kallikkandy, Kannur, Kerala</span>
+                    <span>📧 gafoorbabui@namcollege.ac.in</span>
                     <span>📧 gafoorbabui@gmail.com</span>
-                    <span>📞 +91 9895297473</span>
+                    <span>📞 +91-9846097676</span>
                 </div>
-            </div>
-            <div class="hero-right">
-                <span>📅 18-07-1981</span>
-                <span>📍 Malappuram, Kerala</span>
-                <span>🇮🇳 Indian</span>
+                <div class="hero-links">
+                    <a href="https://igmathspace.github.io" target="_blank">🌐 Personal Github page</a>
+                    <a href="https://igbookspace.blogspot.com" target="_blank">📖 Personal blog page</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- NAV -->
-    <div class="nav-bar">
-        <span class="nav-home">📐 IG Math Space · CV</span>
-        <div style="display:flex; gap:0.6rem; align-items:center;">
-            <span class="nav-badge">📄 Curriculum Vitae</span>
-            <button class="btn-pdf-save" id="savePdfBtn">⬇ Save as PDF</button>
-        </div>
-    </div>
+    <!-- MAIN CONTENT -->
+    <div class="content-area" id="cvContent">
 
-    <div class="container">
-        <!-- PERSONAL & ACADEMIC -->
-        <h3 class="section-title">👤 Personal & Academic</h3>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 2rem;">
-            <div>
-                <div class="address-block">
-                    <strong>Address</strong><br>
-                    Illikkal house,<br>
-                    Kuttippala post,<br>
-                    Edarikode via,<br>
-                    Malappuram Dist,<br>
-                    Kerala, India, Pin: 676501
-                </div>
-                <div class="info-item"><strong>Phone</strong> 04942543013, 9895297473, 9946533013</div>
-                <div class="info-item"><strong>Marital Status</strong> Married · Male</div>
-                <div class="info-item"><strong>Interests</strong> Reading</div>
-            </div>
-            <div>
-                <div class="info-item"><strong>Date of Birth</strong> 18-07-1981</div>
-                <div class="info-item"><strong>Nationality</strong> Indian</div>
-                <div class="info-item">
-                    <strong>Language</strong>
-                    <ul class="lang-list">
-                        <li><strong>Read:</strong> Malayalam, English, Hindi, Arabic</li>
-                        <li><strong>Write:</strong> Malayalam, English, Hindi, Arabic</li>
-                        <li><strong>Speak:</strong> Malayalam, English, Hindi</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- ABOUT -->
+        <div>
+            <h3 class="section-title">👨‍🎓 About Me</h3>
+            <p>Accomplished Assistant Professor of Mathematics with over 18 years in higher education, delivering engaging instruction and supporting academic growth. Proven track record of institutional leadership, having successfully coordinated key responsibilities including college admissions, timetable planning, FYUGP implementation, and curriculum advisory boards. Known for strong organizational skills, effective student mentoring, and integrating modern computational tools into education. Passionate about enhancing academic operations, fostering collaborative learning environments, and contributing to the overall growth of educational institutions through dedicated teaching, administrative support, and continuous professional development.</p>
         </div>
 
-        <!-- EDUCATION AS BULLET LIST (includes NET, SET, CIC) -->
-        <div style="margin-top:0.8rem; background:#f5f8fc; border-radius:1.2rem; padding:0.7rem 1.2rem; border:1px solid #dce7f2;">
-            <h3 style="font-size:0.95rem; font-weight:600; color:#0a2647; margin-bottom:0.2rem;">🎓 Education & Qualifications</h3>
-            <ul class="edu-list">
-                <li><strong>M.Sc Mathematics</strong> – First Class· Calicut University · P.S.M.O College, Tirurangadi</li>
-                <li><strong>B.Sc Mathematics</strong> – First Class· Calicut University · P.S.M.O College, Tirurangadi</li>
-                <li><strong>B.Ed Mathematics</strong> – First Class· Calicut University · CUTEC Manjeri</li>
-                <li><strong>Plus Two (Science)</strong> – First Class· Board of HSE Kerala · MSMHSS Kallingalparamba</li>
-                <li><strong>SSLC</strong> – Distinction-· Kerala Board of Public Examination · MSMHSS Kallingalparamba</li>
+        <!-- QUALIFICATIONS -->
+        <div>
+            <h3 class="section-title">🎓 Education & Qualifications</h3>
+            <ul>
+                <li><strong>M.Sc Mathematics – First Class</strong> · Calicut University · P.S.M.O College, Tirurangadi</li>
+                <li><strong>B.Sc Mathematics – First Class</strong> · Calicut University · P.S.M.O College, Tirurangadi</li>
+                <li><strong>B.Ed Mathematics – First Class</strong> · Calicut University · CUTEC Manjeri</li>
+                <li><strong>Plus Two (Science) – First Class</strong> · Board of HSE Kerala · MSMHSS Kallingalparamba</li>
+                <li><strong>SSLC – Distinction</strong> · Kerala Board of Public Examination · MSMHSS Kallingalparamba</li>
                 <li><strong>NET (Mathematical Sciences)</strong> – AIR: 71/374</li>
                 <li><strong>SET (Mathematical Sciences)</strong> – Qualified</li>
                 <li><strong>CIC (Certificate in Computing)</strong> – IGNOU</li>
             </ul>
         </div>
 
-        <!-- EXPERIENCE -->
-        <h3 class="section-title" style="margin-top:1.2rem;">💼 Experience</h3>
-        <div class="exp-item"><span class="title">Assistant Professor</span> · <span class="org">NAM College Kallikkandy</span> <span class="period">(Aided, Kannur Univ) — 01/10/2012 – present (13 years)</span></div>
-        <div class="exp-item"><span class="title">Assistant Professor</span> · <span class="org">MES College of Engineering Kuttippuram</span> <span class="period">(Calicut Univ) — 06/2008 – 08/2012</span></div>
-        <div class="exp-item"><span class="title">Lecturer (PG Dept)</span> · <span class="org">MAS College Puramannur</span> <span class="period">(Calicut Univ) — 06/2006 – 05/2008</span></div>
+        <!-- ACADEMIC POSITIONS -->
+        <div>
+            <h3 class="section-title">💼 Academic Positions</h3>
+            <ul>
+                <li><strong>Assistant Professor (Level 10)</strong>, Department of Mathematics — NAM College Kallikkandy (2012 – 2018)</li>
+                <li><strong>Assistant Professor (Level 11)</strong>, Department of Mathematics — NAM College Kallikkandy (2018 – 2023)</li>
+                <li><strong>Assistant Professor (Level 12)</strong>, Department of Mathematics — NAM College Kallikkandy (2023 –)</li>
+            </ul>
+        </div>
 
-        <!-- OTHER DUTIES (@ NAMC) -->
-        <h3 class="section-title" style="margin-top:1.2rem;">📋 Other Duties (@ NAMC)</h3>
-        <ul class="duty-list">
-            <li>Nodal officer UG admission (2017, 2026 except 2022)</li>
-            <li>College FYUGP coordinator (2025-26 NAM College)</li>
-            <li>College Time Table Coordinator (2025-26)</li>
-            <li>Mathematics Dept Time Table Coordinator (2025-26)</li>
-            <li>RTI Officer (2018 onwards)</li>
-            <li>University teacher's index Nodal officer (2024 onwards)</li>
-            <li>BOS-Mathematics, Kannur Univ (2015-2018)</li>
-            <li>SSP coordinator (4 yrs)</li>
-            <li>Magazine staff editor (2016-17)</li>
-            <li>Fine arts staff advisor (2014-15)</li>
-            <li>Staff club secretary (5 yrs: 2013-15 & 2022-26)</li>
-        </ul>
+        <!-- RESPONSIBILITIES -->
+        <div>
+            <h3 class="section-title">⚙️ Responsibilities @ NAMC</h3>
+            <ul>
+                <li>Nodal officer UG admission (2017 to 2026 except 2022)</li>
+                <li>College FYUGP coordinator (2025 -)</li>
+                <li>College Time Table Coordinator (2025 -)</li>
+                <li>Mathematics Department Time Table Coordinator (2025 -)</li>
+                <li>RTI Officer (2018 -)</li>
+                <li>University teacher's index Nodal officer (2024 -)</li>
+                <li>SSP (Scholar Support Programme) coordinator (4 years)</li>
+                <li>Magazine staff editor (2016-17)</li>
+                <li>Fine arts staff advisor (2014-15)</li>
+                <li>Staff club secretary (5 years: 2013-15 & 2022-26)</li>
+            </ul>
+        </div>
+
+        <!-- ACADEMIC GOVERNANCE -->
+        <div>
+            <h3 class="section-title">🏛️ Academic Governance & Board Memberships</h3>
+            <ul>
+                <li>Member, Board of Studies (BoS) - UG Mathematics, Kannur University (2015-2018)</li>
+                <li>Member, Board of Studies (BoS) - Mathematics and Statistics, Unity Women's College (Autonomous), Manjeri (2026 – Present)</li>
+            </ul>
+        </div>
 
         <!-- RESEARCH & FDP -->
-        <div style="margin-top:1.2rem;">
-            <h3 class="section-title">📖 Research &amp; FDP</h3>
+        <div style="margin-top: 1.2rem;">
+            <h3 class="section-title">📖 Research & Faculty Development</h3>
             
             <!-- Research Publications -->
             <div class="research-block">
@@ -455,19 +405,19 @@
                         <span class="pub-meta"><span class="journal">International Journal of Advanced Multidisciplinary Application (IJAMA)</span> · ISSN: 3048-9350 · Volume 2, Issue 10, Oct 2025</span>
                     </li>
                     <li>
-                        <strong>Fuzzy and Multi-fuzzy Sequences of Fuzzy Numbers and Their Convergence at a Given Level</strong>
+                        <strong>Fuzzy and Multi-Fuzzy Sequences of Fuzzy Numbers and Their Convergence at a Given Level</strong>
                         <span class="pub-meta"><span class="journal">International Journal of Fuzzy Mathematical Archive</span> · ISSN: 2320–3242 (P) · Vol. 23, No. 1, 2025, pp. 55–66</span>
                     </li>
                     <li>
-                        <strong>Multi-fuzzy Set Similarity Measures Using S and T Operations</strong>
+                        <strong>Multi-Fuzzy Set Similarity Measures Using S and T Operations</strong>
                         <span class="pub-meta"><span class="journal">The Scientific Temper</span> · E-ISSN: 2231-6396 · Vol. 15 (3): 2498–2501, 10 Sept 2024</span>
                     </li>
                     <li>
-                        <strong>A Multi-fuzzy Set Theoretic Framework for Unanimity Measures</strong>
+                        <strong>A Multi-Fuzzy Set Theoretic Framework for Unanimity Measures</strong>
                         <span class="pub-meta"><span class="journal">Mathematics and Statistics</span> · ISSN: 2332-2071 (P) · Vol. 14(1), pp. 98–105, 15 Jan 2026</span>
                     </li>
                 </ul>
-                <div class="info-note">📝 Total Publications: 4 </div>
+                <div class="info-note">📝 Total Publications: 4</div>
             </div>
 
             <!-- FDP List -->
@@ -479,9 +429,11 @@
         </div>
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
-        <p>IG Math Space — Research & FDP Hub | <a href="https://igmathspace.github.io">igmathspace.github.io</a> · Mathematical research • Faculty enrichment</p>
+        <p>IG Math Space — Research & Faculty Development Hub | <a href="https://igmathspace.github.io">igmathspace.github.io</a> · Mathematical Research • Faculty Enrichment</p>
     </div>
+
 </div>
 
 <script>
@@ -490,28 +442,28 @@
         { title: "3-Day Bootcamp on Academic Writing in the Age of AI: Empowered, Not Replaced. Earning in Dollars", organizer: "SkillArbitrage", mode: "online", dateDisplay: "13 - 15 Jun 2026" },
         { title: "Data analytics with Mathematics and Python", organizer: "Indian Mathematics Professors Association and Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "25 - 29 May 2026" },
         { title: "Mathematical Frontiers in Data Science and Artificial Intelligence", organizer: "Department of Mathematics, School of Basic and Applied Sciences, Hindustan Institute of Technology & Science, Chennai", mode: "online", dateDisplay: "18th - 23rd May 2026" },
-        { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX WITH AI", organizer: "Indian Mathematics Professors Association and Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "15 Apr 2026 to 17 Apr 2026" },
-        { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON MASTERING LATEX & SCIENTIFIC SKETCHING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "04 Feb 2026 to 06 Feb 2026" },
-        { title: "NATIONAL-LEVEL ONLINE HANDS-ON WORKSHOP ON HARNESSING AI TOOLS FOR ADVANCED RESEARCH & MODERN TEACHING & LEARNING", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Mar 2026 to 04 Mar 2026" },
+        { title: "National-Level Online Hands-On Workshop on Mastering LaTeX with AI", organizer: "Indian Mathematics Professors Association and Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "15 Apr 2026 to 17 Apr 2026" },
+        { title: "National-Level Online Hands-On Workshop on Mastering LaTeX & Scientific Sketching", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "04 Feb 2026 to 06 Feb 2026" },
+        { title: "National-Level Online Hands-On Workshop on Harnessing AI Tools for Advanced Research & Modern Teaching & Learning", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Mar 2026 to 04 Mar 2026" },
         { title: "One Week Faculty Development Programme (FDP) on 'Training of Faculty Trainers ToFT'", organizer: "Kerala State Higher Education Council (KSHEC) in association with St. Thomas (Autonomous) College, Thrissur", mode: "offline", dateDisplay: "12 Jan 2026 to 16 Jan 2026" },
         { title: "Advanced Deep Dive into the Hidden Mathematical Science of Mechanistic Interpretability", organizer: "AICTE Training and Learning (ATAL) Academy at MADAN MOHAN MALAVIYA UNIVERSITY OF TECHNOLOGY", mode: "online", dateDisplay: "19 Jan 2026 to 24 Jan 2026" },
-        { title: "NATIONAL LEVEL WORKSHOP ON LATEX OVERLEAF FOR ACADEMIC WRITING", organizer: "ESSGEE DIGISKILLS", mode: "online", dateDisplay: "27 Nov 2025 to 26 Dec 2025" },
-        { title: "FROM CHALKBOARDS TO CHATBOTS: FACULTY VOYAGE IN AI V2.0", organizer: "Malaviya Mission Teacher Training Programme (MMTTP) of UGC, organized by IIT Ropar", mode: "online", dateDisplay: "20 Nov 2025 to 19 Dec 2025" },
-        { title: "Five-Day Faculty Development Program (FDP) on Soft Computing", organizer: "MARIAN ENGINEERING COLLEGE, KAZHAKUTTAM, TRIVANDRUM, KERALA", mode: "online", dateDisplay: "01 Dec 2025 to 05 Dec 2025" },
-        { title: "Next Gen-Computing: AI, Supercomputing & Data Science", organizer: "AICTE ATAL Academy at MAJLIS ARTS AND SCIENCE COLLEGE", mode: "online", dateDisplay: "24 Nov 2025 to 29 Nov 2025" },
+        { title: "National Level Workshop on LaTeX Overleaf for Academic Writing", organizer: "ESSGEE DIGISKILLS", mode: "online", dateDisplay: "27 Nov 2025 to 26 Dec 2025" },
+        { title: "From Chalkboards to Chatbots: Faculty Voyage in AI V2.0", organizer: "Malaviya Mission Teacher Training Programme (MMTTP) of UGC, organized by IIT Ropar", mode: "online", dateDisplay: "20 Nov 2025 to 19 Dec 2025" },
+        { title: "Five-Day Faculty Development Program (FDP) on Soft Computing", organizer: "Marian Engineering College, Kazhakuttam, Trivandrum, Kerala", mode: "online", dateDisplay: "01 Dec 2025 to 05 Dec 2025" },
+        { title: "Next Gen-Computing: AI, Supercomputing & Data Science", organizer: "AICTE ATAL Academy at Majlis Arts and Science College", mode: "online", dateDisplay: "24 Nov 2025 to 29 Nov 2025" },
         { title: "Faculty Development Programme on NAAC Webinar on Outcome Based Education (OBE)", organizer: "Luneblaze - Inducing Quality in Education", mode: "online", dateDisplay: "01 Nov 2025" },
         { title: "One Week National-Level Online FDP on Mastering Operations Research (OR) with Advanced Tools Python, SageMath, MATLAB & LaTeX Draw", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "23 Jun 2025 to 28 Jun 2025" },
-        { title: "TWO-DAY ONLINE HANDS-ON WORKSHOP ON MASTERING SKETCHING SCIENCE WITH LATEX", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Jun 2025 to 04 Jun 2025" },
-        { title: "ONE WEEK NATIONAL-LEVEL ONLINE WORKSHOP ON EXPLORING LINEAR ALGEBRA AND GRAPH THEORY WITH SAGEMATH", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Feb 2025 to 07 Feb 2025" },
-        { title: "International Workshop on PYTHON SIMPLIFIED: CORE CODING SKILLS & PRACTICAL APPLICATIONS", organizer: "Inspire Softech Solutions, Chennai", mode: "online", dateDisplay: "07 Apr 2025 to 09 Apr 2025" },
+        { title: "Two-Day Online Hands-On Workshop on Mastering Sketching Science with LaTeX", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Jun 2025 to 04 Jun 2025" },
+        { title: "One Week National-Level Online Workshop on Exploring Linear Algebra and Graph Theory with SageMath", organizer: "Indian Mathematics Professors Association & Infinity Research & Development Institute, Coimbatore", mode: "online", dateDisplay: "03 Feb 2025 to 07 Feb 2025" },
+        { title: "International Workshop on Python Simplified: Core Coding Skills & Practical Applications", organizer: "Inspire Softech Solutions, Chennai", mode: "online", dateDisplay: "07 Apr 2025 to 09 Apr 2025" },
         { title: "Faculty Development Program on Generative AI and Prompt Engineering", organizer: "360DigiTMG, India in association with Additional Skill Acquisition Programme Kerala (ASAP)", mode: "online", dateDisplay: "09 Dec 2024 to 24 Dec 2024" },
         { title: "The International Conclave on Generative AI and the Future of Education 2.0", organizer: "Department of Higher Education and Department of Human Resource Development, Govt of Kerala", mode: "online", dateDisplay: "08 Dec 2024 to 10 Dec 2024" },
         { title: "Online Boot Camp: ChatGPT and Generative AI Tools", organizer: "Additional Skill Acquisition Programme (ASAP) Kerala in association with Riglabs Academy", mode: "online", dateDisplay: "08 Dec 2024" },
-        { title: "Fuzzy Logic for Beginners: A comprehensive webinar series", organizer: "Department of Computational Science and Humanities, Indian Institute of Information Technology (IIIT)", mode: "online", dateDisplay: "02 Jun 2024 to 05 Jun 2024" },
+        { title: "Fuzzy Logic for Beginners: A Comprehensive Webinar Series", organizer: "Department of Computational Science and Humanities, Indian Institute of Information Technology (IIIT)", mode: "online", dateDisplay: "02 Jun 2024 to 05 Jun 2024" },
         { title: "NEP 2020 Orientation & Sensitization Programme", organizer: "Malaviya Mission Teacher Training Programme (MM-TTP) of UGC organized by MMTTC, Kannur University", mode: "online", dateDisplay: "15 Jan 2024 to 24 Jan 2024" },
         { title: "Refresher Course in Mathematics (Mathematics, Statistics)", organizer: "UGC - Human Resource Development Centre", mode: "online", dateDisplay: "07 Mar 2023 to 20 Mar 2024" },
-        { title: "30-day International Online Workshop on Scholarly Writing & Publishing: Emerging Areas and Challenges from AI", organizer: "CMS College Kottayam, Marian College Kuttikkanam, Farook College (Autonomous), Lore & Ed Research Associates", mode: "online", dateDisplay: "29 May 2023 to 03 Jul 2023" },
-        { title: "Five Days National workshop on MATLAB and LaTeX for Beginners", organizer: "Department of Mathematics, National Institute of Technology, Tiruchirapalli", mode: "online", dateDisplay: "04 Apr 2022 to 08 Apr 2022" },
+        { title: "30-Day International Online Workshop on Scholarly Writing & Publishing: Emerging Areas and Challenges from AI", organizer: "CMS College Kottayam, Marian College Kuttikkanam, Farook College (Autonomous), Lore & Ed Research Associates", mode: "online", dateDisplay: "29 May 2023 to 03 Jul 2023" },
+        { title: "Five Days National Workshop on MATLAB and LaTeX for Beginners", organizer: "Department of Mathematics, National Institute of Technology, Tiruchirapalli", mode: "online", dateDisplay: "04 Apr 2022 to 08 Apr 2022" },
         { title: "Refresher Course in Mathematics (Mathematics, Statistics)", organizer: "UGC - Human Resource Development Centre", mode: "offline", dateDisplay: "09 Dec 2019 to 21 Dec 2019" }
     ];
 
@@ -567,5 +519,6 @@
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
 </html>
