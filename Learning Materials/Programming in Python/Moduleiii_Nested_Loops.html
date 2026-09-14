@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nested Loops in Python – Teaching Note | IG Math Space</title>
+<style>
+  /* ── TOKENS ─────────────────────────────────────── */
+  :root{
+    --navy:     #1a3557;
+    --blue:     #2b6cb0;
+    --sky:      #ebf4ff;
+    --amber:    #e07b00;
+    --amber-lt: #fff8e1;
+    --green-bg: #e6f4ea;
+    --green-tx: #1a4731;
+    --code-bg:  #f4f6f8;
+    --code-bd:  #c0cfe0;
+    --text:     #2d3748;
+    --muted:    #64748b;
+    --white:    #ffffff;
+    --radius:   10px;
+    --shadow:   0 4px 24px rgba(26,53,87,.12);
+  }
+
+  /* ── RESET ──────────────────────────────────────── */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:#f0f4f8;
+    color:var(--text);
+    line-height:1.8;
+    font-size:17pt;
+  }
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ── NAV ─────────────────────────────────────────── */
+  header{
+    background:var(--navy);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+  .brand{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 32px 0;
+  }
+  .brand-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:900;color:var(--navy);
+    box-shadow:0 0 0 3px rgba(255,208,128,.35);
+  }
+  .brand-text h1{font-size:1.15rem;color:var(--white);font-weight:700;letter-spacing:.5px}
+  .brand-text p{font-size:.92rem;color:#a8c8f0;margin-top:-2px}
+  nav{
+    display:flex;flex-wrap:wrap;gap:4px;
+    padding:0 24px;margin-top:12px;
+  }
+  nav a{
+    font-size:.88rem;font-weight:600;letter-spacing:.6px;
+    color:#a8c8f0;padding:10px 16px;text-transform:uppercase;
+    border-bottom:3px solid transparent;transition:all .2s;
+  }
+  nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--amber);text-decoration:none}
+
+  /* ── HERO ────────────────────────────────────────── */
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    padding:64px 32px 56px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'outer inner';
+    position:absolute;inset:0;
+    font-size:7rem;font-weight:900;color:rgba(255,255,255,.04);
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:40px;pointer-events:none;
+    text-transform:uppercase;
+  }
+  .hero-eyebrow{
+    display:inline-block;
+    background:rgba(224,123,0,.18);
+    border:1px solid rgba(224,123,0,.5);
+    color:#ffd080;
+    font-size:.88rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 18px;border-radius:99px;margin-bottom:18px;
+  }
+  .hero h2{
+    font-size:clamp(2rem,5vw,3.2rem);
+    font-weight:800;color:var(--white);
+    line-height:1.2;margin-bottom:12px;
+  }
+  .hero h2 span{color:#ffd080}
+  .hero p{color:#c0d8f4;font-size:1.15rem;max-width:680px;margin:0 auto 28px}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    font-size:.95rem;color:#a8c8f0;
+  }
+  .hero-meta span{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    padding:6px 16px;border-radius:99px;
+  }
+  .hero-meta span b{color:var(--white)}
+
+  /* ── LAYOUT ──────────────────────────────────────── */
+  .page{max-width:1050px;margin:0 auto;padding:44px 24px 80px}
+
+  /* ── SECTION HEADING ─────────────────────────────── */
+  .sec-head{
+    background:var(--navy);
+    color:var(--white);
+    padding:14px 24px;border-radius:var(--radius) var(--radius) 0 0;
+    font-size:1.2rem;font-weight:700;letter-spacing:.4px;
+    display:flex;align-items:center;gap:12px;
+    margin-top:40px;
+  }
+  .sec-head .num{
+    background:var(--amber);color:var(--navy);
+    font-size:.92rem;font-weight:800;
+    padding:3px 12px;border-radius:99px;
+  }
+  .sec-body{
+    background:var(--white);
+    border:1px solid var(--code-bd);
+    border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+    padding:26px 32px;
+    box-shadow:var(--shadow);
+  }
+
+  /* ── TYPOGRAPHY ──────────────────────────────────── */
+  h3{font-size:1.25rem;font-weight:700;color:var(--navy);margin:24px 0 10px;border-left:4px solid var(--amber);padding-left:12px}
+  h4{font-size:1.1rem;font-weight:600;color:var(--blue);margin:20px 0 8px}
+  p{margin-bottom:12px;font-size:1.05rem}
+
+  ul.dot{list-style:none;padding-left:0}
+  ul.dot li{padding:6px 0 6px 26px;font-size:1.05rem;position:relative}
+  ul.dot li::before{content:"◆";color:var(--amber);font-size:.7rem;position:absolute;left:4px;top:12px}
+
+  ol{padding-left:26px;font-size:1.05rem}
+  ol li{padding:4px 0}
+
+  /* ── TABLE ───────────────────────────────────────── */
+  .tbl-wrap{overflow-x:auto;margin:14px 0}
+  table{width:100%;border-collapse:collapse;font-size:1rem}
+  thead tr{background:var(--navy);color:var(--white)}
+  thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:1.02rem}
+  tbody tr:nth-child(even){background:var(--sky)}
+  tbody tr:hover{background:#dceeff;transition:background .15s}
+  tbody td{padding:11px 16px;border-bottom:1px solid var(--code-bd);vertical-align:top}
+  td strong{color:var(--navy)}
+
+  /* ── CODE BLOCK ──────────────────────────────────── */
+  pre{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    border-left:5px solid var(--blue);
+    border-radius:var(--radius);
+    padding:16px 20px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:1rem;
+    line-height:1.7;
+    overflow-x:auto;
+    margin:12px 0 12px;
+    color:#1a1a2e;
+  }
+  code{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    padding:2px 7px;border-radius:4px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.92em;color:#1a1a2e;
+  }
+
+  /* ── OUTPUT BLOCK ────────────────────────────────── */
+  .output{
+    background:#0f1a2b;
+    color:#e2e8f0;
+    border-radius:var(--radius);
+    padding:14px 20px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.98rem;
+    line-height:1.7;
+    margin:0 0 20px 0;
+    border-left:5px solid #10b981;
+    position:relative;
+    white-space:pre-wrap;
+    overflow-x:auto;
+  }
+  .output::before{
+    content:"▶ OUTPUT";
+    display:block;
+    font-family:'Segoe UI',sans-serif;
+    font-size:.8rem;
+    font-weight:800;
+    letter-spacing:1.5px;
+    color:#10b981;
+    margin-bottom:8px;
+  }
+
+  /* ── CALLOUTS ────────────────────────────────────── */
+  .note,.tip{border-radius:var(--radius);padding:14px 20px;font-size:1.02rem;margin:14px 0}
+  .note{background:var(--amber-lt);border-left:5px solid var(--amber);color:#5a4000}
+  .note b,.note-icon{color:var(--amber)}
+  .tip{background:var(--green-bg);border-left:5px solid #2e7d52;color:var(--green-tx)}
+  .tip b{color:#2e7d52}
+
+  /* ── REVIEW Q's ──────────────────────────────────── */
+  .q-list{counter-reset:q}
+  .q-list li{
+    counter-increment:q;list-style:none;
+    padding:14px 16px 14px 58px;position:relative;
+    border-bottom:1px dashed var(--code-bd);font-size:1.03rem;
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:counter(q);
+    position:absolute;left:14px;top:13px;
+    background:var(--navy);color:var(--white);
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.9rem;font-weight:700;
+  }
+
+  /* ── ACTIVITY BOX ────────────────────────────────── */
+  .activity{
+    background:linear-gradient(135deg,var(--sky),#d6eaff);
+    border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:22px 26px;margin:16px 0;
+  }
+  .activity h4{margin-top:0;border-left:4px solid var(--blue);padding-left:10px;font-size:1.08rem}
+
+  /* ── SUMMARY CARD ────────────────────────────────── */
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:16px}
+  .sum-card{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:20px 22px;
+    border-top:4px solid var(--amber);
+    box-shadow:0 2px 8px rgba(26,53,87,.07);
+    font-size:1rem;
+  }
+  .sum-card .icon{font-size:1.7rem;margin-bottom:8px}
+  .sum-card strong{display:block;color:var(--navy);margin-bottom:6px;font-size:1.05rem}
+
+  /* ── FLOWCHART ───────────────────────────────────── */
+  .flow-wrap{
+    background:#fafbfc;
+    border:1px solid var(--code-bd);
+    border-radius:var(--radius);
+    padding:22px 16px;
+    margin:16px 0 22px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:auto;
+  }
+  .flow-wrap svg{max-width:100%;height:auto;display:block;min-width:460px}
+  .flow-label{
+    text-align:center;
+    font-size:.95rem;
+    color:var(--muted);
+    margin-top:-10px;
+    margin-bottom:18px;
+    font-style:italic;
+  }
+
+  /* ── PAGE NAV ────────────────────────────────────── */
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .pagenav a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:var(--white);
+    padding:14px 26px;
+    border-radius:99px;
+    font-size:1rem;
+    font-weight:600;
+    text-decoration:none;
+    transition:all .2s;
+    box-shadow:0 3px 10px rgba(26,53,87,.25);
+  }
+  .pagenav a:hover{
+    background:var(--blue);
+    text-decoration:none;
+    transform:translateY(-2px);
+  }
+  .pagenav a.next{background:var(--amber);color:var(--navy)}
+  .pagenav a.next:hover{background:#ffb347}
+
+  /* ── SIGN-OFF ─────────────────────────────────────── */
+  .signoff{
+    background:var(--navy);color:var(--white);
+    border-radius:var(--radius);padding:28px 36px;
+    margin-top:44px;display:flex;align-items:center;gap:22px;
+    box-shadow:var(--shadow);
+  }
+  .signoff-icon{
+    width:70px;height:70px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;font-weight:900;color:var(--navy);
+  }
+  .signoff h3{font-size:1.3rem;color:#ffd080;border:none;padding:0;margin:0 0 6px}
+  .signoff p{color:#a8c8f0;font-size:1rem;margin:0}
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer{
+    background:var(--navy);color:#7090b0;
+    text-align:center;font-size:.92rem;padding:20px;
+    border-top:2px solid var(--amber);
+  }
+  footer span{color:#a8c8f0}
+
+  /* ── TOC ─────────────────────────────────────────── */
+  .toc{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:24px 28px;
+    box-shadow:var(--shadow);margin-bottom:12px;
+  }
+  .toc h3{margin-top:0;border-left:4px solid var(--amber);padding-left:12px;margin-bottom:14px;font-size:1.2rem}
+  .toc ol{padding-left:24px;font-size:1.03rem}
+  .toc ol li{padding:5px 0}
+  .toc ol li a{color:var(--blue)}
+  .toc ol li a:hover{color:var(--amber)}
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media(max-width:700px){
+    body{font-size:15pt}
+    .brand{padding:12px 16px 0}
+    nav{padding:0 12px}
+    nav a{font-size:.78rem;padding:7px 11px}
+    .hero{padding:40px 16px 36px}
+    .page{padding:24px 12px 60px}
+    .sec-body{padding:18px}
+    .signoff{flex-direction:column;text-align:center}
+    .flow-wrap{padding:10px}
+    .flow-wrap svg{min-width:340px}
+    pre{font-size:.92rem}
+    .output{font-size:.9rem}
+  }
+
+  /* ── SCROLL REVEAL ───────────────────────────────── */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════ -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">IG</div>
+    <div class="brand-text">
+      <h1>IG Math Space</h1>
+      <p>Mathematics Teaching and Research</p>
+    </div>
+  </div>
+  <nav>
+    <a href="https://igmathspace.github.io/index.html">🏠 Home Space</a>
+    <a href="https://igmathspace.github.io/lessons.html" class="active">📚 Classroom Space</a>
+    <a href="https://igmathspace.github.io/research.html">🔬 Research &amp; FDP</a>
+    <a href="https://igmathspace.github.io/students.html">🎓 Student Space</a>
+    <a href="https://igmathspace.github.io/IGBOOKSPACE/">📖 Book Space</a>
+    <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ Official Space</a>
+  </nav>
+</header>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">📚 Classroom Space · Teaching Note</div>
+  <h2>Nested <span>Loops</span></h2>
+  <p>Module III — Flow Control (c) · A comprehensive classroom teaching note on nested loops, patterns, matrices and 2D data structures with flowcharts and example programs.</p>
+  <div class="hero-meta">
+    <span>👨‍🏫 <b>Gafoor I</b></span>
+    <span>🏛️ <b>NAM College Kallikkandy</b></span>
+    <span>📐 Department of Mathematics</span>
+    <span>📘 Taming Python by Programming</span>
+  </div>
+</section>
+
+<!-- ═══ PAGE BODY ═══════════════════════════════════════ -->
+<main class="page">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <h3>📋 Contents</h3>
+    <ol>
+      <li><a href="#obj">Learning Objectives</a></li>
+      <li><a href="#intro">Introduction to Nested Loops</a></li>
+      <li><a href="#how">How Nested Loops Work</a></li>
+      <li><a href="#pattern">Pattern Programs</a></li>
+      <li><a href="#matrix">Matrix Programs</a></li>
+      <li><a href="#more">More Nested Loop Programs</a></li>
+      <li><a href="#mistakes">Common Mistakes</a></li>
+      <li><a href="#activities">Classroom Activities</a></li>
+      <li><a href="#review">Review Questions</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ol>
+  </div>
+
+  <!-- ── 1. OBJECTIVES ──────────────────────────────── -->
+  <div id="obj" class="reveal">
+    <div class="sec-head"><span class="num">01</span> Learning Objectives</div>
+    <div class="sec-body">
+      <p>By the end of this class session, students will be able to:</p>
+      <ul class="dot">
+        <li>Understand the concept of a nested loop and how it differs from a simple loop.</li>
+        <li>Trace the execution order of nested loops — outer loop vs inner loop.</li>
+        <li>Compute the total number of iterations as outer × inner.</li>
+        <li>Construct pattern-printing programs using nested loops.</li>
+        <li>Perform matrix operations (addition, traversal) using nested loops.</li>
+        <li>Use nested loops for 2D data structures such as tables and grids.</li>
+        <li>Recognize common errors and choose appropriate loop variable names.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 2. INTRODUCTION ────────────────────────────── -->
+  <div id="intro" class="reveal">
+    <div class="sec-head"><span class="num">02</span> Introduction to Nested Loops</div>
+    <div class="sec-body">
+      <h3>2.1 Definition</h3>
+      <p>A <strong>nested loop</strong> is a loop placed <strong>inside another loop</strong>. The inner loop completes all its iterations for <strong>each single iteration</strong> of the outer loop.</p>
+
+      <h3>2.2 Why do we need nested loops?</h3>
+      <p>Many real-world problems involve <strong>two or more dimensions</strong>:</p>
+      <ul class="dot">
+        <li>Rows and columns of a table</li>
+        <li>Matrices in mathematics</li>
+        <li>Grid-based games (chess, tic-tac-toe)</li>
+        <li>Pixel positions on a screen (x, y)</li>
+        <li>Star and number patterns</li>
+      </ul>
+      <p>A single loop can only walk a 1D list. For 2D data, we need one loop per dimension — hence a loop inside a loop.</p>
+
+      <div class="note">💡 <strong>Key idea:</strong> For each step of the outer loop, the inner loop runs <strong>completely</strong> — from start to finish.</div>
+
+      <h3>2.3 Syntax</h3>
+      <p><strong>Using <code>for</code> loops:</strong></p>
+<pre>for outer_var in outer_sequence:
+    for inner_var in inner_sequence:
+        statement(s)</pre>
+
+      <p><strong>Using <code>while</code> loops:</strong></p>
+<pre>while outer_condition:
+    while inner_condition:
+        statement(s)</pre>
+
+      <p><strong>Mixed form</strong> (a <code>for</code> inside a <code>while</code>, or vice versa) is also valid:</p>
+<pre>for i in range(3):
+    j = 0
+    while j &lt; 3:
+        print(i, j)
+        j += 1</pre>
+    </div>
+  </div>
+
+  <!-- ── 3. HOW IT WORKS ───────────────────────────── -->
+  <div id="how" class="reveal">
+    <div class="sec-head"><span class="num">03</span> How Nested Loops Work</div>
+    <div class="sec-body">
+
+      <h3>3.1 Execution Order</h3>
+      <ol>
+        <li>The <strong>outer loop</strong> starts and picks its first item.</li>
+        <li>Control enters the inner loop, which runs <strong>completely</strong>.</li>
+        <li>Control returns to the outer loop, which picks its next item.</li>
+        <li>Steps 2–3 repeat until the outer loop finishes.</li>
+      </ol>
+
+      <h3>3.2 Total Number of Iterations</h3>
+      <div class="note" style="font-size:1.15rem;text-align:center">
+        <b>Total Iterations = (Outer Iterations) × (Inner Iterations)</b>
+      </div>
+      <p>For example, <code>for i in range(3): for j in range(4):</code> executes the inner body <strong>3 × 4 = 12 times</strong>.</p>
+
+      <h3>3.3 Trace Example</h3>
+      <p>Consider the following code:</p>
+<pre>for i in range(3):
+    for j in range(3):
+        print(i, j)</pre>
+      <p><strong>Trace:</strong></p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Outer i</th><th>Inner j</th><th>Prints</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>0, 1, 2</td><td>0 0, 0 1, 0 2</td></tr>
+            <tr><td>1</td><td>0, 1, 2</td><td>1 0, 1 1, 1 2</td></tr>
+            <tr><td>2</td><td>0, 1, 2</td><td>2 0, 2 1, 2 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>Conceptual Flowchart — Nested Loops</h4>
+      <div class="flow-wrap">
+        <svg viewBox="0 0 440 480" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" font-size="13">
+          <!-- Outer Start -->
+          <rect x="150" y="10" width="140" height="34" rx="17" fill="#2b6cb0"/>
+          <text x="220" y="32" text-anchor="middle" fill="#fff" font-weight="600" font-size="13">Outer Start</text>
+          <line x1="220" y1="44" x2="220" y2="72" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+
+          <!-- Outer Decision -->
+          <polygon points="220,75 340,125 220,175 100,125" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="220" y="118" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Outer Items</text>
+          <text x="220" y="136" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Remaining?</text>
+
+          <!-- No branch (right) -->
+          <line x1="340" y1="125" x2="395" y2="125" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+          <text x="362" y="116" fill="#1a4731" font-weight="700" font-size="12">No</text>
+          <rect x="360" y="108" width="75" height="34" rx="17" fill="#2b6cb0"/>
+          <text x="397" y="130" text-anchor="middle" fill="#fff" font-weight="600" font-size="12">End</text>
+
+          <!-- Yes branch (down) -->
+          <line x1="220" y1="175" x2="220" y2="202" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+          <text x="230" y="192" fill="#1a4731" font-weight="700" font-size="12">Yes</text>
+
+          <!-- Inner Start -->
+          <rect x="150" y="205" width="140" height="32" rx="16" fill="#2b6cb0"/>
+          <text x="220" y="226" text-anchor="middle" fill="#fff" font-weight="600" font-size="13">Inner Start</text>
+          <line x1="220" y1="237" x2="220" y2="262" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+
+          <!-- Inner Decision -->
+          <polygon points="220,265 335,313 220,361 105,313" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="220" y="306" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Inner Items</text>
+          <text x="220" y="324" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Remaining?</text>
+
+          <!-- No branch (right) -> back to outer -->
+          <line x1="335" y1="313" x2="375" y2="313" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+          <text x="352" y="305" fill="#1a4731" font-weight="700" font-size="11">No</text>
+          <path d="M 375 313 L 410 313 L 410 125 L 340 125" fill="none" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+          <text x="418" y="220" fill="#1a4731" font-weight="700" font-size="10" transform="rotate(-90 418 220)">Back to outer</text>
+
+          <!-- Yes branch (down) -->
+          <line x1="220" y1="361" x2="220" y2="388" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+          <text x="230" y="378" fill="#1a4731" font-weight="700" font-size="12">Yes</text>
+
+          <!-- Execute inner body -->
+          <rect x="120" y="391" width="200" height="44" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="220" y="411" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Execute Inner</text>
+          <text x="220" y="428" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Loop Body</text>
+
+          <!-- Loop back to inner decision -->
+          <path d="M 120 413 L 55 413 L 55 313 L 105 313" fill="none" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow3)"/>
+          <text x="47" y="365" fill="#1a4731" font-weight="700" font-size="10" transform="rotate(-90 47 365)">Inner loop</text>
+
+          <defs>
+            <marker id="arrow3" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#4a5568"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+      <p class="flow-label">Fig 1. Flowchart of nested loops — inner loop completes fully for each outer iteration.</p>
+
+      <h3>3.4 Simple Example — 2D Coordinates</h3>
+<pre>for i in range(3):
+    for j in range(3):
+        print(i, j)</pre>
+      <div class="output">0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2</div>
+      <p><strong>Explanation:</strong> For each value of <code>i</code> (0, 1, 2), the inner loop runs for <code>j</code> = 0, 1, 2. Total iterations = 3 × 3 = 9.</p>
+
+      <h3>3.5 Nested <code>while</code> Loop Example</h3>
+<pre>i = 1
+while i &lt;= 3:
+    j = 1
+    while j &lt;= 3:
+        print(i, "*", j, "=", i * j)
+        j += 1
+    print("---")
+    i += 1</pre>
+      <div class="output">1 * 1 = 1
+1 * 2 = 2
+1 * 3 = 3
+---
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+---
+3 * 1 = 3
+3 * 2 = 6
+3 * 3 = 9
+---</div>
+      <div class="tip">✅ <strong>Remember:</strong> In a nested <code>while</code>, the inner loop's control variable (<code>j</code>) must be <strong>re-initialised</strong> before the inner loop each time.</div>
+    </div>
+  </div>
+
+  <!-- ── 4. PATTERN PROGRAMS ───────────────────────── -->
+  <div id="pattern" class="reveal">
+    <div class="sec-head"><span class="num">04</span> Pattern Programs Using Nested Loops</div>
+    <div class="sec-body">
+      <p>Nested loops are the classic tool for printing patterns. The <strong>outer loop</strong> controls the number of rows; the <strong>inner loop</strong> controls what is printed in each row.</p>
+
+      <h4>Example 1: Right-angled triangle of stars</h4>
+<pre>rows = int(input("Enter number of rows: "))
+for i in range(1, rows + 1):
+    for j in range(i):
+        print("*", end=" ")
+    print()</pre>
+      <div class="output">Enter number of rows: 5
+*
+* *
+* * *
+* * * *
+* * * * *</div>
+
+      <h4>Example 2: Inverted right-angled triangle</h4>
+<pre>rows = int(input("Enter number of rows: "))
+for i in range(rows, 0, -1):
+    for j in range(i):
+        print("*", end=" ")
+    print()</pre>
+      <div class="output">Enter number of rows: 5
+* * * * *
+* * * *
+* * *
+* *
+*</div>
+
+      <h4>Example 3: Pyramid pattern</h4>
+<pre>rows = int(input("Enter number of rows: "))
+for i in range(1, rows + 1):
+    for j in range(rows - i):
+        print(" ", end=" ")
+    for k in range(2 * i - 1):
+        print("*", end=" ")
+    print()</pre>
+      <div class="output">Enter number of rows: 5
+        *
+      * * *
+    * * * * *
+  * * * * * * *
+* * * * * * * * *</div>
+
+      <h4>Example 4: Number triangle</h4>
+<pre>rows = int(input("Enter number of rows: "))
+for i in range(1, rows + 1):
+    for j in range(1, i + 1):
+        print(j, end=" ")
+    print()</pre>
+      <div class="output">Enter number of rows: 5
+1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5</div>
+
+      <h4>Example 5: Same number in each row</h4>
+<pre>rows = int(input("Enter number of rows: "))
+for i in range(1, rows + 1):
+    for j in range(1, i + 1):
+        print(i, end=" ")
+    print()</pre>
+      <div class="output">Enter number of rows: 5
+1
+2 2
+3 3 3
+4 4 4 4
+5 5 5 5 5</div>
+
+      <h4>Example 6: Floyd's Triangle</h4>
+<pre>rows = int(input("Enter number of rows: "))
+num = 1
+for i in range(1, rows + 1):
+    for j in range(1, i + 1):
+        print(num, end=" ")
+        num += 1
+    print()</pre>
+      <div class="output">Enter number of rows: 5
+1
+2 3
+4 5 6
+7 8 9 10
+11 12 13 14 15</div>
+
+      <h4>Example 7: Diamond pattern</h4>
+<pre>rows = int(input("Enter number of rows: "))
+
+# Upper half
+for i in range(1, rows + 1):
+    for j in range(rows - i):
+        print(" ", end="")
+    for k in range(2 * i - 1):
+        print("*", end="")
+    print()
+
+# Lower half
+for i in range(rows - 1, 0, -1):
+    for j in range(rows - i):
+        print(" ", end="")
+    for k in range(2 * i - 1):
+        print("*", end="")
+    print()</pre>
+      <div class="output">Enter number of rows: 4
+   *
+  ***
+ *****
+*******
+ *****
+  ***
+   *</div>
+    </div>
+  </div>
+
+  <!-- ── 5. MATRIX PROGRAMS ────────────────────────── -->
+  <div id="matrix" class="reveal">
+    <div class="sec-head"><span class="num">05</span> Matrix Programs Using Nested Loops</div>
+    <div class="sec-body">
+      <p>Matrices are natural 2D structures. Rows are controlled by the outer loop; columns by the inner loop.</p>
+
+      <h4>Example 8: Read and print a matrix</h4>
+<pre>rows = int(input("Enter number of rows: "))
+cols = int(input("Enter number of columns: "))
+
+matrix = []
+for i in range(rows):
+    row = []
+    for j in range(cols):
+        val = int(input(f"Enter element [{i}][{j}]: "))
+        row.append(val)
+    matrix.append(row)
+
+print("\nThe matrix is:")
+for i in range(rows):
+    for j in range(cols):
+        print(matrix[i][j], end=" ")
+    print()</pre>
+      <div class="output">Enter number of rows: 2
+Enter number of columns: 3
+Enter element [0][0]: 1
+Enter element [0][1]: 2
+Enter element [0][2]: 3
+Enter element [1][0]: 4
+Enter element [1][1]: 5
+Enter element [1][2]: 6
+
+The matrix is:
+1 2 3
+4 5 6</div>
+
+      <h4>Example 9: Matrix addition (3×3)</h4>
+<pre>A = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+
+B = [[9, 8, 7],
+     [6, 5, 4],
+     [3, 2, 1]]
+
+C = [[0, 0, 0],
+     [0, 0, 0],
+     [0, 0, 0]]
+
+for i in range(3):
+    for j in range(3):
+        C[i][j] = A[i][j] + B[i][j]
+
+print("Sum of matrices:")
+for row in C:
+    print(row)</pre>
+      <div class="output">Sum of matrices:
+[10, 10, 10]
+[10, 10, 10]
+[10, 10, 10]</div>
+
+      <h4>Example 10: Matrix multiplication (2×2)</h4>
+<pre>A = [[1, 2], [3, 4]]
+B = [[5, 6], [7, 8]]
+C = [[0, 0], [0, 0]]
+
+for i in range(2):
+    for j in range(2):
+        for k in range(2):
+            C[i][j] += A[i][k] * B[k][j]
+
+print("Product of matrices:")
+for row in C:
+    print(row)</pre>
+      <div class="output">Product of matrices:
+[19, 22]
+[43, 50]</div>
+      <div class="note">💡 <strong>Note:</strong> Matrix multiplication requires <strong>three</strong> nested loops — one for each row, one for each column, and one for the dot product.</div>
+
+      <h4>Example 11: Transpose of a matrix</h4>
+<pre>A = [[1, 2, 3], [4, 5, 6]]
+T = [[0, 0], [0, 0], [0, 0]]
+
+for i in range(2):
+    for j in range(3):
+        T[j][i] = A[i][j]
+
+print("Transpose:")
+for row in T:
+    print(row)</pre>
+      <div class="output">Transpose:
+[1, 4]
+[2, 5]
+[3, 6]</div>
+
+      <h4>Example 12: Sum of all elements in a matrix</h4>
+<pre>A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+total = 0
+
+for i in range(3):
+    for j in range(3):
+        total += A[i][j]
+
+print("Sum of all elements:", total)</pre>
+      <div class="output">Sum of all elements: 45</div>
+    </div>
+  </div>
+
+  <!-- ── 6. MORE PROGRAMS ──────────────────────────── -->
+  <div id="more" class="reveal">
+    <div class="sec-head"><span class="num">06</span> More Nested Loop Programs</div>
+    <div class="sec-body">
+
+      <h4>Example 13: Multiplication tables from 1 to 5</h4>
+<pre>for i in range(1, 6):
+    print("Table of", i)
+    for j in range(1, 11):
+        print(i, "x", j, "=", i * j)
+    print()</pre>
+      <div class="output">Table of 1
+1 x 1 = 1
+1 x 2 = 2
+...
+1 x 10 = 10
+
+Table of 2
+2 x 1 = 2
+2 x 2 = 4
+...
+2 x 10 = 20
+
+(and so on up to Table of 5)</div>
+
+      <h4>Example 14: Find all prime numbers up to N</h4>
+<pre>n = int(input("Enter N: "))
+print("Prime numbers up to", n, "are:")
+for num in range(2, n + 1):
+    is_prime = True
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            is_prime = False
+            break
+    if is_prime:
+        print(num, end=" ")</pre>
+      <div class="output">Enter N: 30
+Prime numbers up to 30 are:
+2 3 5 7 11 13 17 19 23 29</div>
+
+      <h4>Example 15: Print all pairs (i, j) whose sum is a target</h4>
+<pre>numbers = [2, 4, 3, 5, 7, 8, 1]
+target = 9
+
+print("Pairs with sum", target, ":")
+for i in range(len(numbers)):
+    for j in range(i + 1, len(numbers)):
+        if numbers[i] + numbers[j] == target:
+            print(numbers[i], "+", numbers[j], "=", target)</pre>
+      <div class="output">Pairs with sum 9 :
+2 + 7 = 9
+4 + 5 = 9
+8 + 1 = 9</div>
+
+      <h4>Example 16: Check whether a matrix is symmetric</h4>
+<pre>A = [[1, 2, 3],
+     [2, 5, 6],
+     [3, 6, 9]]
+
+symmetric = True
+for i in range(3):
+    for j in range(3):
+        if A[i][j] != A[j][i]:
+            symmetric = False
+            break
+
+if symmetric:
+    print("The matrix is symmetric.")
+else:
+    print("The matrix is not symmetric.")</pre>
+      <div class="output">The matrix is symmetric.</div>
+    </div>
+  </div>
+
+  <!-- ── 7. COMMON MISTAKES ────────────────────────── -->
+  <div id="mistakes" class="reveal">
+    <div class="sec-head"><span class="num">07</span> Common Mistakes to Avoid</div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+          <tbody>
+            <tr><td>Using the same variable for both loops</td><td>Use distinct names — <code>i</code> for outer, <code>j</code> for inner</td></tr>
+            <tr><td>Forgetting to re-initialise the inner loop variable in nested <code>while</code></td><td>Reset <code>j = 0</code> (or <code>j = 1</code>) before the inner loop each time</td></tr>
+            <tr><td>Incorrect indentation</td><td>The inner loop must be indented inside the outer loop</td></tr>
+            <tr><td>Confusing outer and inner loop roles</td><td>Outer → rows; Inner → columns / per-row items</td></tr>
+            <tr><td>Forgetting <code>print()</code> after the inner loop</td><td>Prints stay on one line without it</td></tr>
+            <tr><td>Assuming <code>break</code> exits both loops</td><td><code>break</code> exits only the <strong>innermost</strong> loop</td></tr>
+            <tr><td>Using <code>range(1, rows)</code> instead of <code>range(1, rows + 1)</code></td><td>Remember <code>range</code> stops before the end value</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">💡 <strong>Note:</strong> To exit both loops when a condition is met, use a <strong>flag variable</strong> or a <code>return</code> (inside a function).</div>
+    </div>
+  </div>
+
+  <!-- ── 8. ACTIVITIES ─────────────────────────────── -->
+  <div id="activities" class="reveal">
+    <div class="sec-head"><span class="num">08</span> Classroom Activities</div>
+    <div class="sec-body">
+
+      <div class="activity">
+        <h4>🔍 Activity 1 — Predict the Output</h4>
+        <p>What will the following code print? Work it out on paper first, then verify.</p>
+<pre>for i in range(1, 4):
+    for j in range(1, i + 1):
+        print(i * j, end=" ")
+    print()</pre>
+      </div>
+
+      <div class="activity">
+        <h4>🐛 Activity 2 — Debug the Code</h4>
+        <p>Find and fix the error in the code below:</p>
+<pre>rows = 3
+i = 1
+while i &lt;= rows:
+    j = 1
+    while j &lt;= rows:
+        print("*", end=" ")
+    print()
+    i += 1</pre>
+        <p><em>Hint: What must happen to <code>j</code> inside the inner loop?</em></p>
+      </div>
+
+      <div class="activity">
+        <h4>✏️ Activity 3 — Write the Program</h4>
+        <p>Write a Python program using nested loops that:</p>
+        <ul class="dot">
+          <li>Accepts a number N from the user.</li>
+          <li>Prints an <strong>N × N square of stars</strong>.</li>
+          <li>Then prints a <strong>lower triangular pattern</strong> of stars.</li>
+        </ul>
+      </div>
+
+      <div class="activity">
+        <h4>🧩 Activity 4 — Pattern Challenge</h4>
+        <p>Write nested loops to print the following number pattern:</p>
+<pre>1
+2 3
+4 5 6
+7 8 9 10</pre>
+        <p><em>Hint: Use a separate counter variable that increments after each print.</em></p>
+      </div>
+
+      <div class="activity">
+        <h4>📊 Activity 5 — Matrix Task</h4>
+        <p>Given <code>A = [[1, 2], [3, 4]]</code> and <code>B = [[5, 6], [7, 8]]</code>, write a nested loop program to compute and print <code>A + B</code> and <code>A × B</code>.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 9. REVIEW QUESTIONS ───────────────────────── -->
+  <div id="review" class="reveal">
+    <div class="sec-head"><span class="num">09</span> Review Questions</div>
+    <div class="sec-body">
+      <ol class="q-list">
+        <li>What is a nested loop? Give a real-world example where nested loops are useful.</li>
+        <li>How many times does the inner loop execute in <code>for i in range(4): for j in range(5):</code>?</li>
+        <li>Explain the execution order of a nested loop with a trace of <code>for i in range(2): for j in range(3): print(i, j)</code>.</li>
+        <li>Write a Python program to print a right-angled triangle of stars using nested loops.</li>
+        <li>Write a Python program to print a pyramid pattern of stars.</li>
+        <li>Write a Python program to print Floyd's triangle up to N rows.</li>
+        <li>Write a Python program to add two 3×3 matrices using nested loops.</li>
+        <li>Write a Python program to multiply two 2×2 matrices using nested loops.</li>
+        <li>How can you exit both loops of a nested structure when a condition is met?</li>
+        <li>Explain why <code>break</code> inside a nested loop only terminates the inner loop.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ── 10. SUMMARY ───────────────────────────────── -->
+  <div id="summary" class="reveal">
+    <div class="sec-head"><span class="num">10</span> Summary</div>
+    <div class="sec-body">
+      <div class="summary-grid">
+        <div class="sum-card"><div class="icon">🧱</div><strong>Definition</strong>A loop inside another loop. Inner loop runs completely for each outer iteration.</div>
+        <div class="sum-card"><div class="icon">📐</div><strong>Iteration Count</strong>Total iterations = (outer count) × (inner count).</div>
+        <div class="sum-card"><div class="icon">🔄</div><strong>Execution Order</strong>Outer picks an item → inner runs fully → outer picks next → repeat.</div>
+        <div class="sum-card"><div class="icon">⭐</div><strong>Patterns</strong>Outer loop controls rows; inner loop controls what appears in each row.</div>
+        <div class="sum-card"><div class="icon">📊</div><strong>Matrices</strong>Outer loop traverses rows; inner loop traverses columns. Multiplication needs 3 nested loops.</div>
+        <div class="sum-card"><div class="icon">⚠️</div><strong>Common Pitfall</strong>In nested <code>while</code>, always re-initialise the inner loop variable before the inner loop.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE NAVIGATION ───────────────────────────── -->
+  <div class="pagenav reveal">
+    <a href="loops.html">← Previous: Loops</a>
+    <a class="next" href="control-statements.html">Next: Control Statements →</a>
+  </div>
+
+  <!-- ── SIGN-OFF ───────────────────────────────────── -->
+  <div class="signoff reveal">
+    <div class="signoff-icon">G</div>
+    <div>
+      <h3>Gafoor I</h3>
+      <p>Assistant Professor &nbsp;|&nbsp; Department of Mathematics &nbsp;|&nbsp; NAM College Kallikkandy</p>
+      <p style="margin-top:4px;font-size:.92rem;color:#7090b0;">Teaching Note · Module III (c) · Nested Loops in Python · Academic Year 2025–26</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <span>IG Math Space</span> — Mathematics Teaching Website &nbsp;|&nbsp; igmathspace.github.io
+</footer>
+
+<!-- ── SCROLL REVEAL SCRIPT ──────────────────────────── -->
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

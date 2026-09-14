@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Loops in Python – Teaching Note | IG Math Space</title>
+<style>
+  /* ── TOKENS ─────────────────────────────────────── */
+  :root{
+    --navy:     #1a3557;
+    --blue:     #2b6cb0;
+    --sky:      #ebf4ff;
+    --amber:    #e07b00;
+    --amber-lt: #fff8e1;
+    --green-bg: #e6f4ea;
+    --green-tx: #1a4731;
+    --code-bg:  #f4f6f8;
+    --code-bd:  #c0cfe0;
+    --text:     #2d3748;
+    --muted:    #64748b;
+    --white:    #ffffff;
+    --radius:   10px;
+    --shadow:   0 4px 24px rgba(26,53,87,.12);
+  }
+
+  /* ── RESET ──────────────────────────────────────── */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:#f0f4f8;
+    color:var(--text);
+    line-height:1.8;
+    font-size:17pt;
+  }
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ── NAV ─────────────────────────────────────────── */
+  header{
+    background:var(--navy);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+  .brand{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 32px 0;
+  }
+  .brand-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:900;color:var(--navy);
+    box-shadow:0 0 0 3px rgba(255,208,128,.35);
+  }
+  .brand-text h1{font-size:1.15rem;color:var(--white);font-weight:700;letter-spacing:.5px}
+  .brand-text p{font-size:.92rem;color:#a8c8f0;margin-top:-2px}
+  nav{
+    display:flex;flex-wrap:wrap;gap:4px;
+    padding:0 24px;margin-top:12px;
+  }
+  nav a{
+    font-size:.88rem;font-weight:600;letter-spacing:.6px;
+    color:#a8c8f0;padding:10px 16px;text-transform:uppercase;
+    border-bottom:3px solid transparent;transition:all .2s;
+  }
+  nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--amber);text-decoration:none}
+
+  /* ── HERO ────────────────────────────────────────── */
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    padding:64px 32px 56px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'for while';
+    position:absolute;inset:0;
+    font-size:7rem;font-weight:900;color:rgba(255,255,255,.04);
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:40px;pointer-events:none;
+    text-transform:uppercase;
+  }
+  .hero-eyebrow{
+    display:inline-block;
+    background:rgba(224,123,0,.18);
+    border:1px solid rgba(224,123,0,.5);
+    color:#ffd080;
+    font-size:.88rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 18px;border-radius:99px;margin-bottom:18px;
+  }
+  .hero h2{
+    font-size:clamp(2rem,5vw,3.2rem);
+    font-weight:800;color:var(--white);
+    line-height:1.2;margin-bottom:12px;
+  }
+  .hero h2 span{color:#ffd080}
+  .hero p{color:#c0d8f4;font-size:1.15rem;max-width:680px;margin:0 auto 28px}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    font-size:.95rem;color:#a8c8f0;
+  }
+  .hero-meta span{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    padding:6px 16px;border-radius:99px;
+  }
+  .hero-meta span b{color:var(--white)}
+
+  /* ── LAYOUT ──────────────────────────────────────── */
+  .page{max-width:1050px;margin:0 auto;padding:44px 24px 80px}
+
+  /* ── SECTION HEADING ─────────────────────────────── */
+  .sec-head{
+    background:var(--navy);
+    color:var(--white);
+    padding:14px 24px;border-radius:var(--radius) var(--radius) 0 0;
+    font-size:1.2rem;font-weight:700;letter-spacing:.4px;
+    display:flex;align-items:center;gap:12px;
+    margin-top:40px;
+  }
+  .sec-head .num{
+    background:var(--amber);color:var(--navy);
+    font-size:.92rem;font-weight:800;
+    padding:3px 12px;border-radius:99px;
+  }
+  .sec-body{
+    background:var(--white);
+    border:1px solid var(--code-bd);
+    border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+    padding:26px 32px;
+    box-shadow:var(--shadow);
+  }
+
+  /* ── TYPOGRAPHY ──────────────────────────────────── */
+  h3{font-size:1.25rem;font-weight:700;color:var(--navy);margin:24px 0 10px;border-left:4px solid var(--amber);padding-left:12px}
+  h4{font-size:1.1rem;font-weight:600;color:var(--blue);margin:20px 0 8px}
+  p{margin-bottom:12px;font-size:1.05rem}
+
+  ul.dot{list-style:none;padding-left:0}
+  ul.dot li{padding:6px 0 6px 26px;font-size:1.05rem;position:relative}
+  ul.dot li::before{content:"◆";color:var(--amber);font-size:.7rem;position:absolute;left:4px;top:12px}
+
+  ol{padding-left:26px;font-size:1.05rem}
+  ol li{padding:4px 0}
+
+  /* ── TABLE ───────────────────────────────────────── */
+  .tbl-wrap{overflow-x:auto;margin:14px 0}
+  table{width:100%;border-collapse:collapse;font-size:1rem}
+  thead tr{background:var(--navy);color:var(--white)}
+  thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:1.02rem}
+  tbody tr:nth-child(even){background:var(--sky)}
+  tbody tr:hover{background:#dceeff;transition:background .15s}
+  tbody td{padding:11px 16px;border-bottom:1px solid var(--code-bd);vertical-align:top}
+  td strong{color:var(--navy)}
+
+  /* ── CODE BLOCK ──────────────────────────────────── */
+  pre{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    border-left:5px solid var(--blue);
+    border-radius:var(--radius);
+    padding:16px 20px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:1rem;
+    line-height:1.7;
+    overflow-x:auto;
+    margin:12px 0 12px;
+    color:#1a1a2e;
+  }
+  code{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    padding:2px 7px;border-radius:4px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.92em;color:#1a1a2e;
+  }
+
+  /* ── OUTPUT BLOCK ────────────────────────────────── */
+  .output{
+    background:#0f1a2b;
+    color:#e2e8f0;
+    border-radius:var(--radius);
+    padding:14px 20px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.98rem;
+    line-height:1.7;
+    margin:0 0 20px 0;
+    border-left:5px solid #10b981;
+    position:relative;
+    white-space:pre-wrap;
+    overflow-x:auto;
+  }
+  .output::before{
+    content:"▶ OUTPUT";
+    display:block;
+    font-family:'Segoe UI',sans-serif;
+    font-size:.8rem;
+    font-weight:800;
+    letter-spacing:1.5px;
+    color:#10b981;
+    margin-bottom:8px;
+  }
+
+  /* ── CALLOUTS ────────────────────────────────────── */
+  .note,.tip{border-radius:var(--radius);padding:14px 20px;font-size:1.02rem;margin:14px 0}
+  .note{background:var(--amber-lt);border-left:5px solid var(--amber);color:#5a4000}
+  .note b,.note-icon{color:var(--amber)}
+  .tip{background:var(--green-bg);border-left:5px solid #2e7d52;color:var(--green-tx)}
+  .tip b{color:#2e7d52}
+
+  /* ── REVIEW Q's ──────────────────────────────────── */
+  .q-list{counter-reset:q}
+  .q-list li{
+    counter-increment:q;list-style:none;
+    padding:14px 16px 14px 58px;position:relative;
+    border-bottom:1px dashed var(--code-bd);font-size:1.03rem;
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:counter(q);
+    position:absolute;left:14px;top:13px;
+    background:var(--navy);color:var(--white);
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.9rem;font-weight:700;
+  }
+
+  /* ── ACTIVITY BOX ────────────────────────────────── */
+  .activity{
+    background:linear-gradient(135deg,var(--sky),#d6eaff);
+    border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:22px 26px;margin:16px 0;
+  }
+  .activity h4{margin-top:0;border-left:4px solid var(--blue);padding-left:10px;font-size:1.08rem}
+
+  /* ── SUMMARY CARD ────────────────────────────────── */
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:16px}
+  .sum-card{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:20px 22px;
+    border-top:4px solid var(--amber);
+    box-shadow:0 2px 8px rgba(26,53,87,.07);
+    font-size:1rem;
+  }
+  .sum-card .icon{font-size:1.7rem;margin-bottom:8px}
+  .sum-card strong{display:block;color:var(--navy);margin-bottom:6px;font-size:1.05rem}
+
+  /* ── FLOWCHART ───────────────────────────────────── */
+  .flow-wrap{
+    background:#fafbfc;
+    border:1px solid var(--code-bd);
+    border-radius:var(--radius);
+    padding:22px 16px;
+    margin:16px 0 22px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:auto;
+  }
+  .flow-wrap svg{max-width:100%;height:auto;display:block;min-width:420px}
+  .flow-label{
+    text-align:center;
+    font-size:.95rem;
+    color:var(--muted);
+    margin-top:-10px;
+    margin-bottom:18px;
+    font-style:italic;
+  }
+
+  /* ── PAGE NAV ────────────────────────────────────── */
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .pagenav a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:var(--white);
+    padding:14px 26px;
+    border-radius:99px;
+    font-size:1rem;
+    font-weight:600;
+    text-decoration:none;
+    transition:all .2s;
+    box-shadow:0 3px 10px rgba(26,53,87,.25);
+  }
+  .pagenav a:hover{
+    background:var(--blue);
+    text-decoration:none;
+    transform:translateY(-2px);
+  }
+  .pagenav a.next{background:var(--amber);color:var(--navy)}
+  .pagenav a.next:hover{background:#ffb347}
+
+  /* ── SIGN-OFF ─────────────────────────────────────── */
+  .signoff{
+    background:var(--navy);color:var(--white);
+    border-radius:var(--radius);padding:28px 36px;
+    margin-top:44px;display:flex;align-items:center;gap:22px;
+    box-shadow:var(--shadow);
+  }
+  .signoff-icon{
+    width:70px;height:70px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;font-weight:900;color:var(--navy);
+  }
+  .signoff h3{font-size:1.3rem;color:#ffd080;border:none;padding:0;margin:0 0 6px}
+  .signoff p{color:#a8c8f0;font-size:1rem;margin:0}
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer{
+    background:var(--navy);color:#7090b0;
+    text-align:center;font-size:.92rem;padding:20px;
+    border-top:2px solid var(--amber);
+  }
+  footer span{color:#a8c8f0}
+
+  /* ── TOC ─────────────────────────────────────────── */
+  .toc{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:24px 28px;
+    box-shadow:var(--shadow);margin-bottom:12px;
+  }
+  .toc h3{margin-top:0;border-left:4px solid var(--amber);padding-left:12px;margin-bottom:14px;font-size:1.2rem}
+  .toc ol{padding-left:24px;font-size:1.03rem}
+  .toc ol li{padding:5px 0}
+  .toc ol li a{color:var(--blue)}
+  .toc ol li a:hover{color:var(--amber)}
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media(max-width:700px){
+    body{font-size:15pt}
+    .brand{padding:12px 16px 0}
+    nav{padding:0 12px}
+    nav a{font-size:.78rem;padding:7px 11px}
+    .hero{padding:40px 16px 36px}
+    .page{padding:24px 12px 60px}
+    .sec-body{padding:18px}
+    .signoff{flex-direction:column;text-align:center}
+    .flow-wrap{padding:10px}
+    .flow-wrap svg{min-width:340px}
+    pre{font-size:.92rem}
+    .output{font-size:.9rem}
+  }
+
+  /* ── SCROLL REVEAL ───────────────────────────────── */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════ -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">IG</div>
+    <div class="brand-text">
+      <h1>IG Math Space</h1>
+      <p>Mathematics Teaching and Research</p>
+    </div>
+  </div>
+  <nav>
+    <a href="https://igmathspace.github.io/index.html">🏠 Home Space</a>
+    <a href="https://igmathspace.github.io/lessons.html" class="active">📚 Classroom Space</a>
+    <a href="https://igmathspace.github.io/research.html">🔬 Research &amp; FDP</a>
+    <a href="https://igmathspace.github.io/students.html">🎓 Student Space</a>
+    <a href="https://igmathspace.github.io/IGBOOKSPACE/">📖 Book Space</a>
+    <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ Official Space</a>
+  </nav>
+</header>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">📚 Classroom Space · Teaching Note</div>
+  <h2>Loops in <span>Python</span></h2>
+  <p>Module III — Flow Control (b) · A comprehensive classroom teaching note on <code>for</code> loops, <code>while</code> loops, <code>range()</code>, infinite loops and loop <code>else</code> clauses.</p>
+  <div class="hero-meta">
+    <span>👨‍🏫 <b>Gafoor I</b></span>
+    <span>🏛️ <b>NAM College Kallikkandy</b></span>
+    <span>📐 Department of Mathematics</span>
+    <span>📘 Taming Python by Programming</span>
+  </div>
+</section>
+
+<!-- ═══ PAGE BODY ═══════════════════════════════════════ -->
+<main class="page">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <h3>📋 Contents</h3>
+    <ol>
+      <li><a href="#obj">Learning Objectives</a></li>
+      <li><a href="#intro">Introduction to Loops</a></li>
+      <li><a href="#for">The <code>for</code> Loop</a></li>
+      <li><a href="#while">The <code>while</code> Loop</a></li>
+      <li><a href="#infinite">Infinite Loops</a></li>
+      <li><a href="#loopelse">Loop <code>else</code> Clause</a></li>
+      <li><a href="#compare">Comparison: <code>for</code> vs <code>while</code></a></li>
+      <li><a href="#mistakes">Common Mistakes</a></li>
+      <li><a href="#activities">Classroom Activities</a></li>
+      <li><a href="#review">Review Questions</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ol>
+  </div>
+
+  <!-- ── 1. OBJECTIVES ──────────────────────────────── -->
+  <div id="obj" class="reveal">
+    <div class="sec-head"><span class="num">01</span> Learning Objectives</div>
+    <div class="sec-body">
+      <p>By the end of this class session, students will be able to:</p>
+      <ul class="dot">
+        <li>Understand the concept and necessity of loops in programming.</li>
+        <li>Use <code>for</code> loops to iterate over sequences and <code>range()</code>.</li>
+        <li>Use <code>while</code> loops for condition-based repetition.</li>
+        <li>Differentiate between <code>for</code> and <code>while</code> loops and choose the appropriate one.</li>
+        <li>Recognize and avoid infinite loops.</li>
+        <li>Understand the loop <code>else</code> clause and when it executes.</li>
+        <li>Solve practical problems using loops (factorial, prime, Fibonacci, sum of digits).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 2. INTRODUCTION ────────────────────────────── -->
+  <div id="intro" class="reveal">
+    <div class="sec-head"><span class="num">02</span> Introduction to Loops</div>
+    <div class="sec-body">
+      <p>A <strong>loop</strong> is a programming construct that repeats a block of code multiple times. Loops are essential when you need to perform the same operation on multiple items or repeat an action until a condition is met.</p>
+
+      <h3>Why do we need loops?</h3>
+      <p>Without loops, if you wanted to print numbers 1 to 100, you would need 100 <code>print()</code> statements. With a loop, just 2 lines:</p>
+<pre>for i in range(1, 101):
+    print(i)</pre>
+      <div class="output">1
+2
+3
+...
+100</div>
+
+      <h3>Types of Loops in Python</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Loop Type</th><th>When to Use</th></tr></thead>
+          <tbody>
+            <tr><td><code>for</code> loop</td><td>When the number of iterations is <strong>known</strong> or you are iterating over a sequence</td></tr>
+            <tr><td><code>while</code> loop</td><td>When the number of iterations is <strong>unknown</strong> and depends on a condition</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">💡 <strong>Note:</strong> Nested loops and control statements (<code>break</code>, <code>continue</code>, <code>pass</code>) are covered in the <strong>next two parts</strong> of this series.</div>
+    </div>
+  </div>
+
+  <!-- ── 3. FOR LOOP ────────────────────────────────── -->
+  <div id="for" class="reveal">
+    <div class="sec-head"><span class="num">03</span> The <code>for</code> Loop</div>
+    <div class="sec-body">
+
+      <h3>3.1 Definition</h3>
+      <p>A <code>for</code> loop in Python <strong>iterates over a sequence</strong> (such as a list, tuple, string, dictionary, set, or <code>range</code>) and executes a block of code once for each item in the sequence.</p>
+
+      <h3>3.2 Syntax</h3>
+<pre>for variable in sequence:
+    statement(s)</pre>
+      <ul class="dot">
+        <li><strong>variable</strong> — takes the value of each item in the sequence, one at a time.</li>
+        <li><strong>sequence</strong> — any iterable object (list, tuple, string, range, etc.).</li>
+        <li>The block is <strong>indented</strong> (usually 4 spaces).</li>
+      </ul>
+
+      <h3>3.3 How it Works</h3>
+      <ol>
+        <li>Python picks the first item from the sequence and assigns it to the variable.</li>
+        <li>The indented block executes.</li>
+        <li>Python picks the next item, and so on.</li>
+        <li>When the sequence is exhausted, the loop ends.</li>
+      </ol>
+
+      <h4>Conceptual Flowchart — <code>for</code> Loop</h4>
+      <div class="flow-wrap">
+        <svg viewBox="0 0 380 420" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" font-size="13">
+          <rect x="130" y="10" width="120" height="34" rx="17" fill="#2b6cb0"/>
+          <text x="190" y="32" text-anchor="middle" fill="#fff" font-weight="600" font-size="14">Start</text>
+          <line x1="190" y1="44" x2="190" y2="72" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow)"/>
+          <polygon points="190,75 290,125 190,175 90,125" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="190" y="120" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Sequence</text>
+          <text x="190" y="136" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Exhausted?</text>
+          <line x1="290" y1="125" x2="340" y2="125" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow)"/>
+          <text x="312" y="116" fill="#1a4731" font-weight="700" font-size="12">Yes</text>
+          <rect x="300" y="108" width="70" height="34" rx="17" fill="#2b6cb0"/>
+          <text x="335" y="130" text-anchor="middle" fill="#fff" font-weight="600" font-size="13">End</text>
+          <line x1="190" y1="175" x2="190" y2="205" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow)"/>
+          <text x="200" y="193" fill="#1a4731" font-weight="700" font-size="12">No</text>
+          <rect x="110" y="208" width="160" height="38" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="190" y="232" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Get Next Item</text>
+          <line x1="190" y1="246" x2="190" y2="276" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow)"/>
+          <polygon points="190,278 280,318 190,358 100,318" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="190" y="316" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Process</text>
+          <text x="190" y="332" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Item</text>
+          <path d="M 100 318 L 50 318 L 50 125 L 90 125" fill="none" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow)"/>
+          <text x="42" y="225" fill="#1a4731" font-weight="700" font-size="12" transform="rotate(-90 42 225)">Loop</text>
+          <defs>
+            <marker id="arrow" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#4a5568"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+      <p class="flow-label">Fig 1. Flowchart of a <code>for</code> loop — iterate over each item until the sequence is exhausted.</p>
+
+      <h3>3.4 The <code>range()</code> Function</h3>
+      <p>The <code>range()</code> function is commonly used with <code>for</code> loops to generate a sequence of numbers.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Syntax</th><th>Generates</th></tr></thead>
+          <tbody>
+            <tr><td><code>range(stop)</code></td><td>0, 1, 2, ..., stop-1</td></tr>
+            <tr><td><code>range(start, stop)</code></td><td>start, start+1, ..., stop-1</td></tr>
+            <tr><td><code>range(start, stop, step)</code></td><td>start, start+step, ..., stop-1</td></tr>
+          </tbody>
+        </table>
+      </div>
+<pre>range(5)        # 0, 1, 2, 3, 4
+range(1, 6)     # 1, 2, 3, 4, 5
+range(0, 10, 2) # 0, 2, 4, 6, 8
+range(5, 0, -1) # 5, 4, 3, 2, 1</pre>
+
+      <h3>3.5 Example Programs — <code>for</code> Loop</h3>
+
+      <h4>Example 1: Print numbers 1 to 5</h4>
+<pre>for i in range(1, 6):
+    print(i)</pre>
+      <div class="output">1
+2
+3
+4
+5</div>
+
+      <h4>Example 2: Print each character of a string</h4>
+<pre>word = "Python"
+for ch in word:
+    print(ch)</pre>
+      <div class="output">P
+y
+t
+h
+o
+n</div>
+
+      <h4>Example 3: Sum of first N natural numbers</h4>
+<pre>n = int(input("Enter N: "))
+total = 0
+for i in range(1, n + 1):
+    total = total + i
+print("Sum of first", n, "natural numbers is:", total)</pre>
+      <div class="output">Enter N: 5
+Sum of first 5 natural numbers is: 15</div>
+
+      <h4>Example 4: Multiplication table</h4>
+<pre>num = int(input("Enter a number: "))
+for i in range(1, 11):
+    print(num, "x", i, "=", num * i)</pre>
+      <div class="output">Enter a number: 7
+7 x 1 = 7
+7 x 2 = 14
+7 x 3 = 21
+7 x 4 = 28
+7 x 5 = 35
+7 x 6 = 42
+7 x 7 = 49
+7 x 8 = 56
+7 x 9 = 63
+7 x 10 = 70</div>
+
+      <h4>Example 5: Iterate over a list</h4>
+<pre>fruits = ["apple", "banana", "cherry", "mango"]
+for fruit in fruits:
+    print("I like", fruit)</pre>
+      <div class="output">I like apple
+I like banana
+I like cherry
+I like mango</div>
+
+      <h4>Example 6: Factorial of a number</h4>
+<pre>n = int(input("Enter a number: "))
+fact = 1
+for i in range(1, n + 1):
+    fact = fact * i
+print("Factorial of", n, "is", fact)</pre>
+      <div class="output">Enter a number: 5
+Factorial of 5 is 120</div>
+
+      <h4>Example 7: Print even numbers from 1 to 20</h4>
+<pre>for i in range(2, 21, 2):
+    print(i)</pre>
+      <div class="output">2
+4
+6
+8
+10
+12
+14
+16
+18
+20</div>
+
+      <h4>Example 8: <code>for</code> loop with <code>else</code> clause</h4>
+      <p>The <code>else</code> block executes <strong>only if the loop completes normally</strong> (without hitting <code>break</code>).</p>
+<pre>for i in range(1, 5):
+    print(i)
+else:
+    print("Loop completed successfully.")</pre>
+      <div class="output">1
+2
+3
+4
+Loop completed successfully.</div>
+
+    </div>
+  </div>
+
+  <!-- ── 4. WHILE LOOP ──────────────────────────────── -->
+  <div id="while" class="reveal">
+    <div class="sec-head"><span class="num">04</span> The <code>while</code> Loop</div>
+    <div class="sec-body">
+
+      <h3>4.1 Definition</h3>
+      <p>A <code>while</code> loop <strong>repeats a block of code as long as a condition remains True</strong>. It is used when the number of iterations is not known in advance.</p>
+
+      <h3>4.2 Syntax</h3>
+<pre>while condition:
+    statement(s)</pre>
+      <ul class="dot">
+        <li>The <strong>condition</strong> is checked <strong>before</strong> each iteration.</li>
+        <li>If the condition is <code>True</code>, the block executes.</li>
+        <li>If the condition is <code>False</code>, the loop ends.</li>
+        <li><strong>Important:</strong> The block must contain something that eventually makes the condition <code>False</code>; otherwise, you get an <strong>infinite loop</strong>.</li>
+      </ul>
+
+      <h3>4.3 How it Works</h3>
+      <ol>
+        <li>Evaluate the condition.</li>
+        <li>If <code>True</code>, execute the block.</li>
+        <li>Go back to step 1.</li>
+        <li>If <code>False</code>, exit the loop.</li>
+      </ol>
+
+      <h4>Conceptual Flowchart — <code>while</code> Loop</h4>
+      <div class="flow-wrap">
+        <svg viewBox="0 0 380 400" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" font-size="13">
+          <rect x="130" y="10" width="120" height="34" rx="17" fill="#2b6cb0"/>
+          <text x="190" y="32" text-anchor="middle" fill="#fff" font-weight="600" font-size="14">Start</text>
+          <line x1="190" y1="44" x2="190" y2="72" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow2)"/>
+          <polygon points="190,75 295,125 190,175 85,125" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="190" y="120" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Condition</text>
+          <text x="190" y="136" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">True?</text>
+          <line x1="295" y1="125" x2="340" y2="125" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow2)"/>
+          <text x="312" y="116" fill="#1a4731" font-weight="700" font-size="12">No</text>
+          <rect x="300" y="108" width="70" height="34" rx="17" fill="#2b6cb0"/>
+          <text x="335" y="130" text-anchor="middle" fill="#fff" font-weight="600" font-size="13">End</text>
+          <line x1="190" y1="175" x2="190" y2="210" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow2)"/>
+          <text x="200" y="198" fill="#1a4731" font-weight="700" font-size="12">Yes</text>
+          <rect x="100" y="213" width="180" height="42" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="190" y="239" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Execute Loop Body</text>
+          <line x1="190" y1="255" x2="190" y2="285" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow2)"/>
+          <path d="M 190 288 L 190 320 L 50 320 L 50 125 L 85 125" fill="none" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrow2)"/>
+          <text x="42" y="225" fill="#1a4731" font-weight="700" font-size="12" transform="rotate(-90 42 225)">Loop</text>
+          <rect x="230" y="290" width="130" height="34" rx="6" fill="#fff8e1" stroke="#d69e2e" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="295" y="307" text-anchor="middle" fill="#744210" font-size="11" font-weight="600">Manual update</text>
+          <text x="295" y="319" text-anchor="middle" fill="#744210" font-size="11" font-weight="600">in body!</text>
+          <defs>
+            <marker id="arrow2" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#4a5568"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+      <p class="flow-label">Fig 2. Flowchart of a <code>while</code> loop — condition checked before each iteration; body must update the variable.</p>
+
+      <h3>4.4 Example Programs — <code>while</code> Loop</h3>
+
+      <h4>Example 9: Print numbers 0 to 4</h4>
+<pre>n = 0
+while n &lt; 5:
+    print(n)
+    n += 1</pre>
+      <div class="output">0
+1
+2
+3
+4</div>
+
+      <h4>Example 10: Sum of digits of a number</h4>
+<pre>num = int(input("Enter a number: "))
+temp = num
+total = 0
+while temp &gt; 0:
+    digit = temp % 10
+    total = total + digit
+    temp = temp // 10
+print("Sum of digits of", num, "is", total)</pre>
+      <div class="output">Enter a number: 1234
+Sum of digits of 1234 is 10</div>
+
+      <h4>Example 11: Reverse a number</h4>
+<pre>num = int(input("Enter a number: "))
+temp = num
+reverse = 0
+while temp &gt; 0:
+    digit = temp % 10
+    reverse = reverse * 10 + digit
+    temp = temp // 10
+print("Reverse of", num, "is", reverse)</pre>
+      <div class="output">Enter a number: 1234
+Reverse of 1234 is 4321</div>
+
+      <h4>Example 12: Check whether a number is prime</h4>
+<pre>num = int(input("Enter a number: "))
+if num &lt; 2:
+    print(num, "is not a prime number.")
+else:
+    i = 2
+    is_prime = True
+    while i &lt;= num // 2:
+        if num % i == 0:
+            is_prime = False
+            break
+        i += 1
+    if is_prime:
+        print(num, "is a prime number.")
+    else:
+        print(num, "is not a prime number.")</pre>
+      <div class="output">Enter a number: 17
+17 is a prime number.
+
+Enter a number: 18
+18 is not a prime number.</div>
+
+      <h4>Example 13: Sentinel-controlled loop (sum until 0)</h4>
+<pre>total = 0
+num = int(input("Enter a number (0 to stop): "))
+while num != 0:
+    total = total + num
+    num = int(input("Enter a number (0 to stop): "))
+print("Total sum is:", total)</pre>
+      <div class="output">Enter a number (0 to stop): 10
+Enter a number (0 to stop): 20
+Enter a number (0 to stop): 5
+Enter a number (0 to stop): 0
+Total sum is: 35</div>
+
+      <h4>Example 14: <code>while</code> loop with <code>else</code></h4>
+<pre>n = 0
+while n &lt; 3:
+    print(n)
+    n += 1
+else:
+    print("While loop ended normally.")</pre>
+      <div class="output">0
+1
+2
+While loop ended normally.</div>
+
+    </div>
+  </div>
+
+  <!-- ── 5. INFINITE LOOPS ─────────────────────────── -->
+  <div id="infinite" class="reveal">
+    <div class="sec-head"><span class="num">05</span> Infinite Loops</div>
+    <div class="sec-body">
+      <p>An <strong>infinite loop</strong> occurs when the condition of a <code>while</code> loop never becomes <code>False</code>.</p>
+
+      <h4>Example: Infinite loop (do not run without break)</h4>
+<pre>while True:
+    print("This will run forever!")</pre>
+      <div class="output">This will run forever!
+This will run forever!
+This will run forever!
+... (continues indefinitely — press Ctrl+C to stop)</div>
+
+      <p><strong>To stop it:</strong> Use <code>Ctrl + C</code> in the terminal, or include a <code>break</code> statement.</p>
+
+      <h4>Useful infinite loop pattern with break</h4>
+<pre>while True:
+    command = input("Enter command (quit to exit): ")
+    if command == "quit":
+        break
+    print("You entered:", command)</pre>
+      <div class="output">Enter command (quit to exit): hello
+You entered: hello
+Enter command (quit to exit): python
+You entered: python
+Enter command (quit to exit): quit</div>
+
+      <div class="tip">✅ <strong>Tip:</strong> The <code>while True:</code> with <code>break</code> pattern is very common for menu-driven programs and games.</div>
+    </div>
+  </div>
+
+  <!-- ── 6. LOOP ELSE ──────────────────────────────── -->
+  <div id="loopelse" class="reveal">
+    <div class="sec-head"><span class="num">06</span> Loop <code>else</code> Clause</div>
+    <div class="sec-body">
+      <p>Both <code>for</code> and <code>while</code> loops can have an <code>else</code> block. The <code>else</code> block executes <strong>only if the loop completes normally</strong> (i.e., without hitting a <code>break</code>).</p>
+
+      <h4>Syntax</h4>
+<pre>for variable in sequence:
+    statement(s)
+else:
+    statement(s)   # executes if no break</pre>
+
+      <h4>Example 15: <code>for-else</code> with break</h4>
+<pre>numbers = [10, 20, 30, 40, 50]
+target = int(input("Enter number to search: "))
+for num in numbers:
+    if num == target:
+        print(target, "found!")
+        break
+else:
+    print(target, "not found.")</pre>
+      <div class="output">Enter number to search: 30
+30 found!
+
+Enter number to search: 99
+99 not found.</div>
+
+      <h4>Example 16: <code>while-else</code> with break</h4>
+<pre>n = 0
+while n &lt; 5:
+    print(n)
+    n += 1
+else:
+    print("Loop ended normally (no break).")</pre>
+      <div class="output">0
+1
+2
+3
+4
+Loop ended normally (no break).</div>
+    </div>
+  </div>
+
+  <!-- ── 7. COMPARISON ─────────────────────────────── -->
+  <div id="compare" class="reveal">
+    <div class="sec-head"><span class="num">07</span> Comparison: <code>for</code> vs <code>while</code></div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th><code>for</code> Loop</th><th><code>while</code> Loop</th></tr></thead>
+          <tbody>
+            <tr><td>Best for</td><td>Iterating over a <strong>sequence</strong></td><td>Repeating while a <strong>condition</strong> is True</td></tr>
+            <tr><td>Number of iterations</td><td>Usually <strong>known</strong></td><td>Usually <strong>unknown</strong></td></tr>
+            <tr><td>Initialization</td><td>Automatic via sequence</td><td>Manual (before the loop)</td></tr>
+            <tr><td>Update</td><td>Automatic</td><td>Manual (inside the loop)</td></tr>
+            <tr><td>Risk of infinite loop</td><td>Low</td><td>High (if condition never becomes False)</td></tr>
+            <tr><td>Common use</td><td>Lists, strings, <code>range()</code></td><td>Menus, sentinel values, condition-based repetition</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 8. COMMON MISTAKES ────────────────────────── -->
+  <div id="mistakes" class="reveal">
+    <div class="sec-head"><span class="num">08</span> Common Mistakes to Avoid</div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+          <tbody>
+            <tr><td>Forgetting to update the loop variable in <code>while</code></td><td>Always update inside the loop</td></tr>
+            <tr><td>Using <code>=</code> instead of <code>==</code> in condition</td><td>Use <code>==</code> for comparison</td></tr>
+            <tr><td>Incorrect indentation</td><td>Indent the loop body consistently</td></tr>
+            <tr><td>Infinite loop</td><td>Ensure condition eventually becomes False</td></tr>
+            <tr><td>Modifying a list while iterating</td><td>Iterate over a copy if needed</td></tr>
+            <tr><td>Off-by-one errors in <code>range()</code></td><td>Remember <code>range(a, b)</code> excludes <code>b</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 9. ACTIVITIES ─────────────────────────────── -->
+  <div id="activities" class="reveal">
+    <div class="sec-head"><span class="num">09</span> Classroom Activities</div>
+    <div class="sec-body">
+
+      <div class="activity">
+        <h4>🔍 Activity 1 — Predict the Output</h4>
+        <p>What will the following code print? Work it out on paper first, then verify.</p>
+<pre>for i in range(2, 8, 2):
+    print(i)
+
+n = 5
+while n &gt; 0:
+    print(n)
+    n -= 2</pre>
+      </div>
+
+      <div class="activity">
+        <h4>🐛 Activity 2 — Debug the Code</h4>
+        <p>Find and fix the error in the code below:</p>
+<pre>n = 5
+while n &gt; 0:
+    print(n)
+print("Done")</pre>
+        <p><em>Hint: What happens to <code>n</code> inside the loop?</em></p>
+      </div>
+
+      <div class="activity">
+        <h4>✏️ Activity 3 — Write the Program</h4>
+        <p>Write a Python program that:</p>
+        <ul class="dot">
+          <li>Accepts a number N from the user.</li>
+          <li>Prints all even numbers from 1 to N using a <code>for</code> loop.</li>
+          <li>Prints the sum of all odd numbers from 1 to N using a <code>while</code> loop.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 10. REVIEW QUESTIONS ──────────────────────── -->
+  <div id="review" class="reveal">
+    <div class="sec-head"><span class="num">10</span> Review Questions</div>
+    <div class="sec-body">
+      <ol class="q-list">
+        <li>What is a loop? Why are loops used in programming?</li>
+        <li>Differentiate between <code>for</code> and <code>while</code> loops with suitable examples.</li>
+        <li>Explain the <code>range()</code> function with all three forms.</li>
+        <li>What is an infinite loop? How can you avoid it?</li>
+        <li>When does the <code>else</code> clause of a loop execute?</li>
+        <li>Write a Python program to print the multiplication table of a number using a <code>for</code> loop.</li>
+        <li>Write a Python program to check whether a number is prime using a <code>while</code> loop.</li>
+        <li>Write a Python program to find the sum of digits of a number using a <code>while</code> loop.</li>
+        <li>Write a Python program to print the reverse of a number using a <code>while</code> loop.</li>
+        <li>Explain the difference between <code>for-else</code> and <code>while-else</code> with examples.</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ── 11. SUMMARY ───────────────────────────────── -->
+  <div id="summary" class="reveal">
+    <div class="sec-head"><span class="num">11</span> Summary</div>
+    <div class="sec-body">
+      <div class="summary-grid">
+        <div class="sum-card"><div class="icon">🔁</div><strong><code>for</code> Loop</strong>Iterates over sequences; used when the number of iterations is known. Works with <code>range()</code>, lists, strings, tuples.</div>
+        <div class="sum-card"><div class="icon">🔄</div><strong><code>while</code> Loop</strong>Repeats while a condition is True; used when iterations are unknown. Must update the loop variable inside the body.</div>
+        <div class="sum-card"><div class="icon">📏</div><strong><code>range()</code></strong>Generates sequences: <code>range(stop)</code>, <code>range(start, stop)</code>, <code>range(start, stop, step)</code>.</div>
+        <div class="sum-card"><div class="icon">⚠️</div><strong>Infinite Loops</strong>Occur when the condition never becomes False. Avoid unless intentional with a <code>break</code>.</div>
+        <div class="sum-card"><div class="icon">🔚</div><strong>Loop <code>else</code></strong>Executes only if the loop completes without hitting <code>break</code>. Useful for search operations.</div>
+        <div class="sum-card"><div class="icon">🧭</div><strong>Choosing a Loop</strong>Use <code>for</code> for known iterations / sequences; <code>while</code> for unknown iterations / conditions.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE NAVIGATION ───────────────────────────── -->
+  <div class="pagenav reveal">
+    <a href="https://igmathspace.github.io/lessons.html">← Back to Lessons</a>
+    <a class="next" href="nested-loops.html">Next: Nested Loops →</a>
+  </div>
+
+  <!-- ── SIGN-OFF ───────────────────────────────────── -->
+  <div class="signoff reveal">
+    <div class="signoff-icon">G</div>
+    <div>
+      <h3>Gafoor I</h3>
+      <p>Assistant Professor &nbsp;|&nbsp; Department of Mathematics &nbsp;|&nbsp; NAM College Kallikkandy</p>
+      <p style="margin-top:4px;font-size:.92rem;color:#7090b0;">Teaching Note · Module III (b) · Loops in Python · Academic Year 2025–26</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <span>IG Math Space</span> — Mathematics Teaching Website &nbsp;|&nbsp; igmathspace.github.io
+</footer>
+
+<!-- ── SCROLL REVEAL SCRIPT ──────────────────────────── -->
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

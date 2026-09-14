@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module III: Decision Making in Python — Teaching Notes</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f5f7fa;
+      color: #1e2a3a;
+      line-height: 1.7;
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem 2.8rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #0b2b4a;
+      border-bottom: 4px solid #3b82f6;
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: #4b5e77;
+      margin-bottom: 2.2rem;
+      font-weight: 400;
+      border-left: 4px solid #93c5fd;
+      padding-left: 1rem;
+      background: #f0f7ff;
+      border-radius: 0 8px 8px 0;
+      padding: 0.7rem 1rem;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #0b2b4a;
+      margin: 2.5rem 0 1rem 0;
+      padding-bottom: 0.3rem;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1e3a5f;
+      margin: 1.8rem 0 0.8rem 0;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 1.4rem 0 0.5rem 0;
+    }
+
+    p {
+      margin-bottom: 0.9rem;
+      color: #2d3f55;
+    }
+
+    ul, ol {
+      margin: 0.6rem 0 1rem 1.8rem;
+    }
+
+    li {
+      margin-bottom: 0.35rem;
+    }
+
+    code {
+      font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+      background: #eef2f7;
+      padding: 0.15rem 0.45rem;
+      border-radius: 5px;
+      font-size: 0.92em;
+      color: #1e3a5f;
+    }
+
+    pre {
+      background: #0f1a2b;
+      color: #e2e8f0;
+      padding: 1.3rem 1.5rem;
+      border-radius: 14px;
+      overflow-x: auto;
+      font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin: 1rem 0 1.5rem 0;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+      border-left: 5px solid #3b82f6;
+      position: relative;
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+      font-size: inherit;
+      border-radius: 0;
+    }
+
+    .keyword { color: #f472b6; font-weight: 500; }
+    .string { color: #86efac; }
+    .comment { color: #94a3b8; font-style: italic; }
+    .number { color: #fbbf24; }
+    .builtin { color: #7dd3fc; }
+    .function { color: #c4b5fd; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0 1.8rem 0;
+      font-size: 0.95rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    th {
+      background: #1e3a5f;
+      color: white;
+      font-weight: 600;
+      padding: 0.8rem 1rem;
+      text-align: left;
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      background: #ffffff;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: #f8fafc;
+    }
+
+    .note {
+      background: #eff6ff;
+      border-left: 6px solid #3b82f6;
+      padding: 1rem 1.4rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.4rem 0;
+      color: #1e3a5f;
+      font-size: 0.98rem;
+    }
+
+    .warning {
+      background: #fef9c3;
+      border-left: 6px solid #eab308;
+      padding: 1rem 1.4rem;
+      border-radius: 0 12px 12px 0;
+      margin: 1.4rem 0;
+      color: #713f12;
+      font-size: 0.98rem;
+    }
+
+    .example-label {
+      display: inline-block;
+      background: #3b82f6;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      margin-bottom: 0.5rem;
+    }
+
+    .output-box {
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
+      margin: -0.5rem 0 1.5rem 0;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 0.9rem;
+      color: #0f1a2b;
+      border-left: 4px solid #94a3b8;
+    }
+
+    .output-box strong {
+      color: #1e3a5f;
+    }
+
+    .flex-badge {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 0.8rem 0;
+    }
+
+    .badge {
+      background: #dbeafe;
+      color: #1e3a5f;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.25rem 0.9rem;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px dashed #cbd5e1;
+      margin: 2.5rem 0;
+    }
+
+    .toc {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid #e2e8f0;
+    }
+
+    .toc h3 {
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      font-size: 1.15rem;
+      color: #0b2b4a;
+    }
+
+    .toc ul {
+      columns: 2;
+      column-gap: 2rem;
+      margin-left: 1.2rem;
+      list-style-type: none;
+    }
+
+    .toc li {
+      margin-bottom: 0.4rem;
+      break-inside: avoid;
+    }
+
+    .toc a {
+      text-decoration: none;
+      color: #2563eb;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .toc a:hover {
+      text-decoration: underline;
+      color: #1e40af;
+    }
+
+    .flowchart {
+      font-family: 'Fira Code', monospace;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      white-space: pre;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin: 1rem 0 1.5rem 0;
+      color: #1e3a5f;
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 1rem 0.8rem; }
+      .container { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 1.6rem; }
+      h2 { font-size: 1.3rem; }
+      pre { padding: 1rem; font-size: 0.82rem; }
+      .toc ul { columns: 1; }
+      table { font-size: 0.85rem; }
+      th, td { padding: 0.5rem 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ====== HEADER ====== -->
+  <h1>Module III — Flow Control</h1>
+  <div class="subhead">
+    <strong>Topic (a): Decision Making in Python</strong> · Detailed Teaching Notes with Example Programs
+  </div>
+
+  <!-- ====== TABLE OF CONTENTS ====== -->
+  <div class="toc">
+    <h3>📑 Contents</h3>
+    <ul>
+      <li><a href="#intro">1. Introduction</a></li>
+      <li><a href="#if">2. The <code>if</code> Statement</a></li>
+      <li><a href="#ifelse">3. The <code>if-else</code> Statement</a></li>
+      <li><a href="#elif">4. The <code>if-elif-else</code> Statement</a></li>
+      <li><a href="#nested">5. Nested <code>if</code> Statements</a></li>
+      <li><a href="#comparison">6. Comparison Table</a></li>
+      <li><a href="#mistakes">7. Common Mistakes</a></li>
+      <li><a href="#summary">8. Summary Table</a></li>
+      <li><a href="#practice">9. Practice Exercises</a></li>
+      <li><a href="#takeaways">10. Key Takeaways</a></li>
+    </ul>
+  </div>
+
+  <!-- ====== 1. INTRODUCTION ====== -->
+  <h2 id="intro">1. Introduction to Decision Making</h2>
+  <p>
+    Decision-making statements in Python allow a program to <strong>choose different paths of execution</strong>
+    based on whether a condition is <strong>True</strong> or <strong>False</strong>.
+  </p>
+  <p>In real life, we make decisions like:</p>
+  <ul>
+    <li><em>If it rains, I will carry an umbrella.</em></li>
+    <li><em>If marks ≥ 90, grade = A; else if marks ≥ 75, grade = B; else grade = C.</em></li>
+  </ul>
+
+  <p>Python provides the following decision-making statements:</p>
+
+  <table>
+    <thead>
+      <tr><th>Statement</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>if</code></td><td>Executes a block only if the condition is True</td></tr>
+      <tr><td><code>if-else</code></td><td>Executes one block if True, another if False</td></tr>
+      <tr><td><code>if-elif-else</code></td><td>Checks multiple conditions in sequence</td></tr>
+      <tr><td>Nested <code>if</code></td><td>An <code>if</code> inside another <code>if</code></td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>🔑 Key Points:</strong>
+    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+      <li>Python uses <strong>indentation</strong> (usually 4 spaces) to define blocks — not braces <code>{}</code>.</li>
+      <li>The condition is followed by a <strong>colon <code>:</code></strong>.</li>
+      <li>The condition can be any expression that evaluates to <code>True</code> or <code>False</code>.</li>
+      <li><strong>Truthy/Falsy values:</strong> <code>0</code>, <code>0.0</code>, <code>''</code>, <code>[]</code>, <code>()</code>, <code>{}</code>, <code>None</code>, and <code>False</code> are considered <strong>False</strong>; everything else is <strong>True</strong>.</li>
+    </ul>
+  </div>
+
+  <!-- ====== 2. IF STATEMENT ====== -->
+  <h2 id="if">2. The <code>if</code> Statement</h2>
+
+  <h3>Syntax</h3>
+  <pre><code><span class="keyword">if</span> condition:
+    statement(s)</code></pre>
+
+  <h3>How it works</h3>
+  <ol>
+    <li>The <code>condition</code> is evaluated.</li>
+    <li>If it is <code>True</code>, the indented block is executed.</li>
+    <li>If it is <code>False</code>, the block is skipped.</li>
+  </ol>
+
+  <h4>Conceptual Flowchart</h4>
+  <div class="flowchart">
+        [condition?]
+         /       \
+       True      False
+        |          |
+   Execute      Skip block
+    block          |
+        \         /
+         Continue
+  </div>
+
+  <!-- Example 1 -->
+  <span class="example-label">Example 1</span>
+  <h4>Check if a number is positive</h4>
+  <pre><code><span class="comment"># Program to check if a number is positive</span>
+
+num = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter a number: "</span>))
+
+<span class="keyword">if</span> num > <span class="number">0</span>:
+    <span class="builtin">print</span>(<span class="string">"The number is positive."</span>)
+
+<span class="builtin">print</span>(<span class="string">"Program ended."</span>)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output:</strong><br>
+    Enter a number: 7<br>
+    The number is positive.<br>
+    Program ended.
+  </div>
+
+  <p><strong>Explanation:</strong> If the user enters <code>7</code>, the condition <code>num &gt; 0</code> is <code>True</code>, so the message is printed. The last line <code>print("Program ended.")</code> is <strong>outside</strong> the <code>if</code> block (no indentation), so it always executes.</p>
+
+  <!-- Example 2 -->
+  <span class="example-label">Example 2</span>
+  <h4>Check if a person is eligible to vote</h4>
+  <pre><code><span class="comment"># Program to check voting eligibility</span>
+
+age = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter your age: "</span>))
+
+<span class="keyword">if</span> age >= <span class="number">18</span>:
+    <span class="builtin">print</span>(<span class="string">"You are eligible to vote."</span>)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output:</strong><br>
+    Enter your age: 20<br>
+    You are eligible to vote.
+  </div>
+
+  <p><strong>Note:</strong> If age is less than 18, nothing is printed because there is no <code>else</code> block.</p>
+
+  <!-- ====== 3. IF-ELSE ====== -->
+  <h2 id="ifelse">3. The <code>if-else</code> Statement</h2>
+
+  <h3>Syntax</h3>
+  <pre><code><span class="keyword">if</span> condition:
+    statement(s)   <span class="comment"># executes if condition is True</span>
+<span class="keyword">else</span>:
+    statement(s)   <span class="comment"># executes if condition is False</span></code></pre>
+
+  <p><strong>How it works:</strong> Exactly <strong>one</strong> of the two blocks will execute — never both, never neither.</p>
+
+  <h4>Conceptual Flowchart</h4>
+  <div class="flowchart">
+        [condition?]
+         /       \
+       True      False
+        |          |
+   Execute      Execute
+   if-block    else-block
+        \         /
+         Continue
+  </div>
+
+  <!-- Example 3 -->
+  <span class="example-label">Example 3</span>
+  <h4>Check whether a number is even or odd</h4>
+  <pre><code><span class="comment"># Program to check even or odd</span>
+
+num = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter a number: "</span>))
+
+<span class="keyword">if</span> num % <span class="number">2</span> == <span class="number">0</span>:
+    <span class="builtin">print</span>(num, <span class="string">"is even."</span>)
+<span class="keyword">else</span>:
+    <span class="builtin">print</span>(num, <span class="string">"is odd."</span>)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output 1:</strong><br>
+    Enter a number: 8<br>
+    8 is even.<br><br>
+    <strong>▶ Sample Output 2:</strong><br>
+    Enter a number: 5<br>
+    5 is odd.
+  </div>
+
+  <p><strong>Explanation:</strong> <code>num % 2 == 0</code> is <code>True</code> for even numbers → <code>if</code> block runs. Otherwise → <code>else</code> block runs.</p>
+
+  <!-- Example 4 -->
+  <span class="example-label">Example 4</span>
+  <h4>Find the larger of two numbers</h4>
+  <pre><code><span class="comment"># Program to find the larger of two numbers</span>
+
+a = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter first number: "</span>))
+b = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter second number: "</span>))
+
+<span class="keyword">if</span> a > b:
+    <span class="builtin">print</span>(a, <span class="string">"is larger."</span>)
+<span class="keyword">else</span>:
+    <span class="builtin">print</span>(b, <span class="string">"is larger."</span>)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output:</strong><br>
+    Enter first number: 12<br>
+    Enter second number: 25<br>
+    25 is larger.
+  </div>
+
+  <!-- ====== 4. IF-ELIF-ELSE ====== -->
+  <h2 id="elif">4. The <code>if-elif-else</code> Statement</h2>
+
+  <h3>Syntax</h3>
+  <pre><code><span class="keyword">if</span> condition1:
+    statement(s)
+<span class="keyword">elif</span> condition2:
+    statement(s)
+<span class="keyword">elif</span> condition3:
+    statement(s)
+<span class="keyword">else</span>:
+    statement(s)   <span class="comment"># optional</span></code></pre>
+
+  <p><strong>How it works:</strong></p>
+  <ul>
+    <li>Conditions are checked <strong>from top to bottom</strong>.</li>
+    <li>The <strong>first</strong> condition that is <code>True</code> executes its block.</li>
+    <li>The rest are <strong>skipped</strong>.</li>
+    <li>If none are <code>True</code>, the <code>else</code> block runs (if present).</li>
+  </ul>
+
+  <div class="note">
+    <strong>⚠️ Important:</strong>
+    <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+      <li>You can have <strong>any number of <code>elif</code></strong> blocks.</li>
+      <li><code>else</code> is <strong>optional</strong>.</li>
+      <li>Only <strong>one</strong> block executes.</li>
+    </ul>
+  </div>
+
+  <h4>Conceptual Flowchart</h4>
+  <div class="flowchart">
+        [condition1?]
+         /       \
+       True      False
+        |          |
+   Block 1   [condition2?]
+               /       \
+             True      False
+              |          |
+          Block 2   [condition3?]
+                       /       \
+                     True      False
+                      |          |
+                  Block 3    else Block
+  </div>
+
+  <!-- Example 5 -->
+  <span class="example-label">Example 5</span>
+  <h4>Grade calculator</h4>
+  <pre><code><span class="comment"># Program to assign grade based on marks</span>
+
+marks = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter marks (0-100): "</span>))
+
+<span class="keyword">if</span> marks >= <span class="number">90</span>:
+    grade = <span class="string">"A+"</span>
+<span class="keyword">elif</span> marks >= <span class="number">80</span>:
+    grade = <span class="string">"A"</span>
+<span class="keyword">elif</span> marks >= <span class="number">70</span>:
+    grade = <span class="string">"B"</span>
+<span class="keyword">elif</span> marks >= <span class="number">60</span>:
+    grade = <span class="string">"C"</span>
+<span class="keyword">elif</span> marks >= <span class="number">50</span>:
+    grade = <span class="string">"D"</span>
+<span class="keyword">else</span>:
+    grade = <span class="string">"F"</span>
+
+<span class="builtin">print</span>(<span class="string">"Your grade is:"</span>, grade)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output 1:</strong><br>
+    Enter marks (0-100): 85<br>
+    Your grade is: A<br><br>
+    <strong>▶ Sample Output 2:</strong><br>
+    Enter marks (0-100): 45<br>
+    Your grade is: F
+  </div>
+
+  <p><strong>Explanation:</strong> If marks = 85, <code>marks &gt;= 90</code> is False, <code>marks &gt;= 80</code> is True → grade = "A". The remaining <code>elif</code> and <code>else</code> are skipped.</p>
+
+  <!-- Example 6 -->
+  <span class="example-label">Example 6</span>
+  <h4>Check whether a character is a vowel, consonant, or not a letter</h4>
+  <pre><code><span class="comment"># Program to classify a character</span>
+
+ch = <span class="builtin">input</span>(<span class="string">"Enter a character: "</span>)
+
+<span class="keyword">if</span> <span class="builtin">len</span>(ch) != <span class="number">1</span>:
+    <span class="builtin">print</span>(<span class="string">"Please enter exactly one character."</span>)
+<span class="keyword">elif</span> ch.isalpha():
+    <span class="keyword">if</span> ch.lower() <span class="keyword">in</span> <span class="string">"aeiou"</span>:
+        <span class="builtin">print</span>(ch, <span class="string">"is a vowel."</span>)
+    <span class="keyword">else</span>:
+        <span class="builtin">print</span>(ch, <span class="string">"is a consonant."</span>)
+<span class="keyword">else</span>:
+    <span class="builtin">print</span>(ch, <span class="string">"is not a letter."</span>)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output 1:</strong><br>
+    Enter a character: a<br>
+    a is a vowel.<br><br>
+    <strong>▶ Sample Output 2:</strong><br>
+    Enter a character: k<br>
+    k is a consonant.<br><br>
+    <strong>▶ Sample Output 3:</strong><br>
+    Enter a character: 5<br>
+    5 is not a letter.
+  </div>
+
+  <p><strong>Note:</strong> This example uses <strong>nested <code>if</code></strong> inside an <code>elif</code> — a preview of the next topic.</p>
+
+  <!-- Example 7 -->
+  <span class="example-label">Example 7</span>
+  <h4>Simple calculator using if-elif-else</h4>
+  <pre><code><span class="comment"># Simple calculator</span>
+
+a = <span class="builtin">float</span>(<span class="builtin">input</span>(<span class="string">"Enter first number: "</span>))
+b = <span class="builtin">float</span>(<span class="builtin">input</span>(<span class="string">"Enter second number: "</span>))
+op = <span class="builtin">input</span>(<span class="string">"Enter operator (+, -, *, /): "</span>)
+
+<span class="keyword">if</span> op == <span class="string">"+"</span>:
+    result = a + b
+<span class="keyword">elif</span> op == <span class="string">"-"</span>:
+    result = a - b
+<span class="keyword">elif</span> op == <span class="string">"*"</span>:
+    result = a * b
+<span class="keyword">elif</span> op == <span class="string">"/"</span>:
+    <span class="keyword">if</span> b != <span class="number">0</span>:
+        result = a / b
+    <span class="keyword">else</span>:
+        result = <span class="string">"Error: Division by zero"</span>
+<span class="keyword">else</span>:
+    result = <span class="string">"Invalid operator"</span>
+
+<span class="builtin">print</span>(<span class="string">"Result:"</span>, result)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output:</strong><br>
+    Enter first number: 10<br>
+    Enter second number: 4<br>
+    Enter operator (+, -, *, /): /<br>
+    Result: 2.5
+  </div>
+
+  <!-- ====== 5. NESTED IF ====== -->
+  <h2 id="nested">5. Nested <code>if</code> Statements</h2>
+
+  <p><strong>Definition:</strong> A <strong>nested <code>if</code></strong> is an <code>if</code> (or <code>if-else</code>, or <code>if-elif-else</code>) statement placed <strong>inside</strong> another <code>if</code>, <code>elif</code>, or <code>else</code> block.</p>
+
+  <h3>Syntax</h3>
+  <pre><code><span class="keyword">if</span> condition1:
+    <span class="keyword">if</span> condition2:
+        statement(s)
+    <span class="keyword">else</span>:
+        statement(s)
+<span class="keyword">else</span>:
+    statement(s)</code></pre>
+
+  <p><strong>When to use:</strong></p>
+  <ul>
+    <li>When a decision depends on <strong>multiple related conditions</strong>.</li>
+    <li>When the second condition should only be checked if the first is True.</li>
+  </ul>
+
+  <h4>Conceptual Flowchart</h4>
+  <div class="flowchart">
+        [condition1?]
+         /       \
+       True      False
+        |          |
+   [condition2?]  else block
+     /      \
+   True     False
+    |         |
+ Block A   Block B
+  </div>
+
+  <!-- Example 8 -->
+  <span class="example-label">Example 8</span>
+  <h4>Find the largest of three numbers using nested if</h4>
+  <pre><code><span class="comment"># Program to find the largest of three numbers</span>
+
+a = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter first number: "</span>))
+b = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter second number: "</span>))
+c = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter third number: "</span>))
+
+<span class="keyword">if</span> a >= b:
+    <span class="keyword">if</span> a >= c:
+        largest = a
+    <span class="keyword">else</span>:
+        largest = c
+<span class="keyword">else</span>:
+    <span class="keyword">if</span> b >= c:
+        largest = b
+    <span class="keyword">else</span>:
+        largest = c
+
+<span class="builtin">print</span>(<span class="string">"The largest number is:"</span>, largest)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output:</strong><br>
+    Enter first number: 15<br>
+    Enter second number: 42<br>
+    Enter third number: 27<br>
+    The largest number is: 42
+  </div>
+
+  <p><strong>Explanation:</strong> First, compare <code>a</code> and <code>b</code>. If <code>a &gt;= b</code>, then compare <code>a</code> with <code>c</code>. Otherwise, compare <code>b</code> with <code>c</code>.</p>
+
+  <!-- Example 9 -->
+  <span class="example-label">Example 9</span>
+  <h4>Check whether a year is a leap year</h4>
+  <pre><code><span class="comment"># Program to check leap year</span>
+
+year = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter a year: "</span>))
+
+<span class="keyword">if</span> year % <span class="number">4</span> == <span class="number">0</span>:
+    <span class="keyword">if</span> year % <span class="number">100</span> == <span class="number">0</span>:
+        <span class="keyword">if</span> year % <span class="number">400</span> == <span class="number">0</span>:
+            <span class="builtin">print</span>(year, <span class="string">"is a leap year."</span>)
+        <span class="keyword">else</span>:
+            <span class="builtin">print</span>(year, <span class="string">"is not a leap year."</span>)
+    <span class="keyword">else</span>:
+        <span class="builtin">print</span>(year, <span class="string">"is a leap year."</span>)
+<span class="keyword">else</span>:
+    <span class="builtin">print</span>(year, <span class="string">"is not a leap year."</span>)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output 1:</strong><br>
+    Enter a year: 2024<br>
+    2024 is a leap year.<br><br>
+    <strong>▶ Sample Output 2:</strong><br>
+    Enter a year: 1900<br>
+    1900 is not a leap year.<br><br>
+    <strong>▶ Sample Output 3:</strong><br>
+    Enter a year: 2000<br>
+    2000 is a leap year.
+  </div>
+
+  <p><strong>Logic:</strong> A year is a leap year if:</p>
+  <ul>
+    <li>It is divisible by 4, <strong>AND</strong></li>
+    <li>If divisible by 100, it must also be divisible by 400.</li>
+  </ul>
+
+  <!-- Example 10 -->
+  <span class="example-label">Example 10</span>
+  <h4>Check whether a number is positive, negative, or zero — and even/odd</h4>
+  <pre><code><span class="comment"># Nested if: sign and parity</span>
+
+num = <span class="builtin">int</span>(<span class="builtin">input</span>(<span class="string">"Enter a number: "</span>))
+
+<span class="keyword">if</span> num > <span class="number">0</span>:
+    <span class="builtin">print</span>(<span class="string">"Positive number"</span>)
+    <span class="keyword">if</span> num % <span class="number">2</span> == <span class="number">0</span>:
+        <span class="builtin">print</span>(<span class="string">"Even"</span>)
+    <span class="keyword">else</span>:
+        <span class="builtin">print</span>(<span class="string">"Odd"</span>)
+<span class="keyword">elif</span> num < <span class="number">0</span>:
+    <span class="builtin">print</span>(<span class="string">"Negative number"</span>)
+    <span class="keyword">if</span> num % <span class="number">2</span> == <span class="number">0</span>:
+        <span class="builtin">print</span>(<span class="string">"Even"</span>)
+    <span class="keyword">else</span>:
+        <span class="builtin">print</span>(<span class="string">"Odd"</span>)
+<span class="keyword">else</span>:
+    <span class="builtin">print</span>(<span class="string">"Zero"</span>)</code></pre>
+
+  <div class="output-box">
+    <strong>▶ Sample Output:</strong><br>
+    Enter a number: -6<br>
+    Negative number<br>
+    Even
+  </div>
+
+  <!-- ====== 6. COMPARISON ====== -->
+  <h2 id="comparison">6. Comparison of Decision-Making Statements</h2>
+  <table>
+    <thead>
+      <tr><th>Statement</th><th>Use Case</th><th>Blocks Executed</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>if</code></td><td>Single condition</td><td>0 or 1</td></tr>
+      <tr><td><code>if-else</code></td><td>Two-way decision</td><td>Exactly 1</td></tr>
+      <tr><td><code>if-elif-else</code></td><td>Multiple mutually exclusive conditions</td><td>Exactly 1 (or 0 if no else)</td></tr>
+      <tr><td>Nested <code>if</code></td><td>Hierarchical / dependent conditions</td><td>Depends on conditions</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ====== 7. COMMON MISTAKES ====== -->
+  <h2 id="mistakes">7. Common Mistakes to Avoid</h2>
+  <table>
+    <thead>
+      <tr><th>Mistake</th><th>Correction</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Forgetting the colon <code>:</code></td><td>Always end the condition with <code>:</code></td></tr>
+      <tr><td>Incorrect indentation</td><td>Use consistent 4 spaces for each block</td></tr>
+      <tr><td>Using <code>=</code> instead of <code>==</code></td><td><code>=</code> is assignment; <code>==</code> is comparison</td></tr>
+      <tr><td>Writing <code>elif</code> as <code>else if</code></td><td>Python uses <code>elif</code></td></tr>
+      <tr><td>Overlapping conditions in <code>elif</code></td><td>Order matters — put the most specific first</td></tr>
+      <tr><td>Empty block</td><td>Use <code>pass</code> if a block must be empty</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Example of <code>pass</code></h4>
+  <pre><code><span class="keyword">if</span> x > <span class="number">0</span>:
+    <span class="keyword">pass</span>   <span class="comment"># to be implemented later</span>
+<span class="keyword">else</span>:
+    <span class="builtin">print</span>(<span class="string">"Non-positive"</span>)</code></pre>
+
+  <!-- ====== 8. SUMMARY ====== -->
+  <h2 id="summary">8. Summary Table</h2>
+  <table>
+    <thead>
+      <tr><th>Concept</th><th>Syntax</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>if</code></td><td><code>if cond:</code></td><td><code>if x &gt; 0: print("+")</code></td></tr>
+      <tr><td><code>if-else</code></td><td><code>if cond: ... else: ...</code></td><td><code>if x%2==0: ... else: ...</code></td></tr>
+      <tr><td><code>if-elif-else</code></td><td><code>if c1: ... elif c2: ... else: ...</code></td><td>Grade calculator</td></tr>
+      <tr><td>Nested <code>if</code></td><td><code>if c1: if c2: ...</code></td><td>Largest of 3 numbers</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ====== 9. PRACTICE ====== -->
+  <h2 id="practice">9. Practice Exercises</h2>
+  <ol>
+    <li>Write a program to check whether a number is divisible by both 3 and 5.</li>
+    <li>Write a program to input a character and check whether it is uppercase, lowercase, a digit, or a special character.</li>
+    <li>Write a program to find the smallest of four numbers using nested <code>if</code>.</li>
+    <li>Write a program that takes a student's marks in 5 subjects and prints the grade based on average.</li>
+    <li>Write a program to check whether a triangle is equilateral, isosceles, or scalene based on its three sides.</li>
+    <li>Write a program to determine the roots of a quadratic equation <code>ax² + bx + c = 0</code> (real or complex).</li>
+    <li>Write a program to simulate a simple ATM menu using <code>if-elif-else</code>.</li>
+  </ol>
+
+  <!-- ====== 10. TAKEAWAYS ====== -->
+  <h2 id="takeaways">10. Key Takeaways</h2>
+  <div class="note" style="background: #ecfdf5; border-left-color: #10b981;">
+    <ul style="margin: 0; padding-left: 1.2rem;">
+      <li>Decision-making statements control the <strong>flow of execution</strong>.</li>
+      <li>Python uses <strong>indentation</strong> to define blocks.</li>
+      <li><code>if</code> → single path; <code>if-else</code> → two paths; <code>if-elif-else</code> → multiple paths.</li>
+      <li><strong>Nested <code>if</code></strong> handles hierarchical conditions.</li>
+      <li>Conditions are evaluated <strong>top to bottom</strong>, and only the <strong>first True</strong> branch executes.</li>
+      <li>Always use <code>==</code> for comparison, and <code>:</code> after each condition.</li>
+    </ul>
+  </div>
+
+  <hr>
+  <p style="text-align: center; color: #64748b; font-size: 0.9rem;">
+    Module III — Flow Control · Topic (a): Decision Making · Detailed Teaching Notes
+  </p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Control Statements in Python – Teaching Note | IG Math Space</title>
+<style>
+  /* ── TOKENS ─────────────────────────────────────── */
+  :root{
+    --navy:     #1a3557;
+    --blue:     #2b6cb0;
+    --sky:      #ebf4ff;
+    --amber:    #e07b00;
+    --amber-lt: #fff8e1;
+    --green-bg: #e6f4ea;
+    --green-tx: #1a4731;
+    --code-bg:  #f4f6f8;
+    --code-bd:  #c0cfe0;
+    --text:     #2d3748;
+    --muted:    #64748b;
+    --white:    #ffffff;
+    --radius:   10px;
+    --shadow:   0 4px 24px rgba(26,53,87,.12);
+  }
+
+  /* ── RESET ──────────────────────────────────────── */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:#f0f4f8;
+    color:var(--text);
+    line-height:1.8;
+    font-size:17pt;
+  }
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ── NAV ─────────────────────────────────────────── */
+  header{
+    background:var(--navy);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+  .brand{
+    display:flex;align-items:center;gap:14px;
+    padding:16px 32px 0;
+  }
+  .brand-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:900;color:var(--navy);
+    box-shadow:0 0 0 3px rgba(255,208,128,.35);
+  }
+  .brand-text h1{font-size:1.15rem;color:var(--white);font-weight:700;letter-spacing:.5px}
+  .brand-text p{font-size:.92rem;color:#a8c8f0;margin-top:-2px}
+  nav{
+    display:flex;flex-wrap:wrap;gap:4px;
+    padding:0 24px;margin-top:12px;
+  }
+  nav a{
+    font-size:.88rem;font-weight:600;letter-spacing:.6px;
+    color:#a8c8f0;padding:10px 16px;text-transform:uppercase;
+    border-bottom:3px solid transparent;transition:all .2s;
+  }
+  nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--amber);text-decoration:none}
+
+  /* ── HERO ────────────────────────────────────────── */
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    padding:64px 32px 56px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'break continue pass';
+    position:absolute;inset:0;
+    font-size:6rem;font-weight:900;color:rgba(255,255,255,.04);
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:30px;pointer-events:none;
+    text-transform:uppercase;
+  }
+  .hero-eyebrow{
+    display:inline-block;
+    background:rgba(224,123,0,.18);
+    border:1px solid rgba(224,123,0,.5);
+    color:#ffd080;
+    font-size:.88rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 18px;border-radius:99px;margin-bottom:18px;
+  }
+  .hero h2{
+    font-size:clamp(2rem,5vw,3.2rem);
+    font-weight:800;color:var(--white);
+    line-height:1.2;margin-bottom:12px;
+  }
+  .hero h2 span{color:#ffd080}
+  .hero p{color:#c0d8f4;font-size:1.15rem;max-width:680px;margin:0 auto 28px}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    font-size:.95rem;color:#a8c8f0;
+  }
+  .hero-meta span{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    padding:6px 16px;border-radius:99px;
+  }
+  .hero-meta span b{color:var(--white)}
+
+  /* ── LAYOUT ──────────────────────────────────────── */
+  .page{max-width:1050px;margin:0 auto;padding:44px 24px 80px}
+
+  /* ── SECTION HEADING ─────────────────────────────── */
+  .sec-head{
+    background:var(--navy);
+    color:var(--white);
+    padding:14px 24px;border-radius:var(--radius) var(--radius) 0 0;
+    font-size:1.2rem;font-weight:700;letter-spacing:.4px;
+    display:flex;align-items:center;gap:12px;
+    margin-top:40px;
+  }
+  .sec-head .num{
+    background:var(--amber);color:var(--navy);
+    font-size:.92rem;font-weight:800;
+    padding:3px 12px;border-radius:99px;
+  }
+  .sec-body{
+    background:var(--white);
+    border:1px solid var(--code-bd);
+    border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+    padding:26px 32px;
+    box-shadow:var(--shadow);
+  }
+
+  /* ── TYPOGRAPHY ──────────────────────────────────── */
+  h3{font-size:1.25rem;font-weight:700;color:var(--navy);margin:24px 0 10px;border-left:4px solid var(--amber);padding-left:12px}
+  h4{font-size:1.1rem;font-weight:600;color:var(--blue);margin:20px 0 8px}
+  p{margin-bottom:12px;font-size:1.05rem}
+
+  ul.dot{list-style:none;padding-left:0}
+  ul.dot li{padding:6px 0 6px 26px;font-size:1.05rem;position:relative}
+  ul.dot li::before{content:"◆";color:var(--amber);font-size:.7rem;position:absolute;left:4px;top:12px}
+
+  ol{padding-left:26px;font-size:1.05rem}
+  ol li{padding:4px 0}
+
+  /* ── TABLE ───────────────────────────────────────── */
+  .tbl-wrap{overflow-x:auto;margin:14px 0}
+  table{width:100%;border-collapse:collapse;font-size:1rem}
+  thead tr{background:var(--navy);color:var(--white)}
+  thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:1.02rem}
+  tbody tr:nth-child(even){background:var(--sky)}
+  tbody tr:hover{background:#dceeff;transition:background .15s}
+  tbody td{padding:11px 16px;border-bottom:1px solid var(--code-bd);vertical-align:top}
+  td strong{color:var(--navy)}
+
+  /* ── CODE BLOCK ──────────────────────────────────── */
+  pre{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    border-left:5px solid var(--blue);
+    border-radius:var(--radius);
+    padding:16px 20px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:1rem;
+    line-height:1.7;
+    overflow-x:auto;
+    margin:12px 0 12px;
+    color:#1a1a2e;
+  }
+  code{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    padding:2px 7px;border-radius:4px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.92em;color:#1a1a2e;
+  }
+
+  /* ── OUTPUT BLOCK ────────────────────────────────── */
+  .output{
+    background:#0f1a2b;
+    color:#e2e8f0;
+    border-radius:var(--radius);
+    padding:14px 20px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.98rem;
+    line-height:1.7;
+    margin:0 0 20px 0;
+    border-left:5px solid #10b981;
+    position:relative;
+    white-space:pre-wrap;
+    overflow-x:auto;
+  }
+  .output::before{
+    content:"▶ OUTPUT";
+    display:block;
+    font-family:'Segoe UI',sans-serif;
+    font-size:.8rem;
+    font-weight:800;
+    letter-spacing:1.5px;
+    color:#10b981;
+    margin-bottom:8px;
+  }
+
+  /* ── CALLOUTS ────────────────────────────────────── */
+  .note,.tip{border-radius:var(--radius);padding:14px 20px;font-size:1.02rem;margin:14px 0}
+  .note{background:var(--amber-lt);border-left:5px solid var(--amber);color:#5a4000}
+  .note b,.note-icon{color:var(--amber)}
+  .tip{background:var(--green-bg);border-left:5px solid #2e7d52;color:var(--green-tx)}
+  .tip b{color:#2e7d52}
+
+  /* ── REVIEW Q's ──────────────────────────────────── */
+  .q-list{counter-reset:q}
+  .q-list li{
+    counter-increment:q;list-style:none;
+    padding:14px 16px 14px 58px;position:relative;
+    border-bottom:1px dashed var(--code-bd);font-size:1.03rem;
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:counter(q);
+    position:absolute;left:14px;top:13px;
+    background:var(--navy);color:var(--white);
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.9rem;font-weight:700;
+  }
+
+  /* ── ACTIVITY BOX ────────────────────────────────── */
+  .activity{
+    background:linear-gradient(135deg,var(--sky),#d6eaff);
+    border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:22px 26px;margin:16px 0;
+  }
+  .activity h4{margin-top:0;border-left:4px solid var(--blue);padding-left:10px;font-size:1.08rem}
+
+  /* ── SUMMARY CARD ────────────────────────────────── */
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:16px}
+  .sum-card{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:20px 22px;
+    border-top:4px solid var(--amber);
+    box-shadow:0 2px 8px rgba(26,53,87,.07);
+    font-size:1rem;
+  }
+  .sum-card .icon{font-size:1.7rem;margin-bottom:8px}
+  .sum-card strong{display:block;color:var(--navy);margin-bottom:6px;font-size:1.05rem}
+
+  /* ── FLOWCHART ───────────────────────────────────── */
+  .flow-wrap{
+    background:#fafbfc;
+    border:1px solid var(--code-bd);
+    border-radius:var(--radius);
+    padding:22px 16px;
+    margin:16px 0 22px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:auto;
+  }
+  .flow-wrap svg{max-width:100%;height:auto;display:block;min-width:440px}
+  .flow-label{
+    text-align:center;
+    font-size:.95rem;
+    color:var(--muted);
+    margin-top:-10px;
+    margin-bottom:18px;
+    font-style:italic;
+  }
+
+  /* ── PAGE NAV ────────────────────────────────────── */
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:44px;
+    flex-wrap:wrap;
+  }
+  .pagenav a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:var(--white);
+    padding:14px 26px;
+    border-radius:99px;
+    font-size:1rem;
+    font-weight:600;
+    text-decoration:none;
+    transition:all .2s;
+    box-shadow:0 3px 10px rgba(26,53,87,.25);
+  }
+  .pagenav a:hover{
+    background:var(--blue);
+    text-decoration:none;
+    transform:translateY(-2px);
+  }
+  .pagenav a.next{background:var(--amber);color:var(--navy)}
+  .pagenav a.next:hover{background:#ffb347}
+
+  /* ── SIGN-OFF ─────────────────────────────────────── */
+  .signoff{
+    background:var(--navy);color:var(--white);
+    border-radius:var(--radius);padding:28px 36px;
+    margin-top:44px;display:flex;align-items:center;gap:22px;
+    box-shadow:var(--shadow);
+  }
+  .signoff-icon{
+    width:70px;height:70px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;font-weight:900;color:var(--navy);
+  }
+  .signoff h3{font-size:1.3rem;color:#ffd080;border:none;padding:0;margin:0 0 6px}
+  .signoff p{color:#a8c8f0;font-size:1rem;margin:0}
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  footer{
+    background:var(--navy);color:#7090b0;
+    text-align:center;font-size:.92rem;padding:20px;
+    border-top:2px solid var(--amber);
+  }
+  footer span{color:#a8c8f0}
+
+  /* ── TOC ─────────────────────────────────────────── */
+  .toc{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:24px 28px;
+    box-shadow:var(--shadow);margin-bottom:12px;
+  }
+  .toc h3{margin-top:0;border-left:4px solid var(--amber);padding-left:12px;margin-bottom:14px;font-size:1.2rem}
+  .toc ol{padding-left:24px;font-size:1.03rem}
+  .toc ol li{padding:5px 0}
+  .toc ol li a{color:var(--blue)}
+  .toc ol li a:hover{color:var(--amber)}
+
+  /* ── RESPONSIVE ──────────────────────────────────── */
+  @media(max-width:700px){
+    body{font-size:15pt}
+    .brand{padding:12px 16px 0}
+    nav{padding:0 12px}
+    nav a{font-size:.78rem;padding:7px 11px}
+    .hero{padding:40px 16px 36px}
+    .page{padding:24px 12px 60px}
+    .sec-body{padding:18px}
+    .signoff{flex-direction:column;text-align:center}
+    .flow-wrap{padding:10px}
+    .flow-wrap svg{min-width:340px}
+    pre{font-size:.92rem}
+    .output{font-size:.9rem}
+  }
+
+  /* ── SCROLL REVEAL ───────────────────────────────── */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════ -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">IG</div>
+    <div class="brand-text">
+      <h1>IG Math Space</h1>
+      <p>Mathematics Teaching and Research</p>
+    </div>
+  </div>
+  <nav>
+    <a href="https://igmathspace.github.io/index.html">🏠 Home Space</a>
+    <a href="https://igmathspace.github.io/lessons.html" class="active">📚 Classroom Space</a>
+    <a href="https://igmathspace.github.io/research.html">🔬 Research &amp; FDP</a>
+    <a href="https://igmathspace.github.io/students.html">🎓 Student Space</a>
+    <a href="https://igmathspace.github.io/IGBOOKSPACE/">📖 Book Space</a>
+    <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ Official Space</a>
+  </nav>
+</header>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">📚 Classroom Space · Teaching Note</div>
+  <h2>Control <span>Statements</span></h2>
+  <p>Module III — Flow Control (d) · A comprehensive classroom teaching note on <code>break</code>, <code>continue</code> and <code>pass</code> with flowcharts, comparison tables and example programs.</p>
+  <div class="hero-meta">
+    <span>👨‍🏫 <b>Gafoor I</b></span>
+    <span>🏛️ <b>NAM College Kallikkandy</b></span>
+    <span>📐 <b>Department of Mathematics</b></span>
+    <span>📘 <b>Taming Python by Programming</b></span>
+  </div>
+</section>
+
+<!-- ═══ PAGE BODY ═══════════════════════════════════════ -->
+<main class="page">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <h3>📋 Contents</h3>
+    <ol>
+      <li><a href="#obj">Learning Objectives</a></li>
+      <li><a href="#intro">Introduction to Control Statements</a></li>
+      <li><a href="#break">The <code>break</code> Statement</a></li>
+      <li><a href="#continue">The <code>continue</code> Statement</a></li>
+      <li><a href="#pass">The <code>pass</code> Statement</a></li>
+      <li><a href="#compare">Comparison: <code>break</code> vs <code>continue</code> vs <code>pass</code></a></li>
+      <li><a href="#combined">Combined Examples</a></li>
+      <li><a href="#mistakes">Common Mistakes</a></li>
+      <li><a href="#activities">Classroom Activities</a></li>
+      <li><a href="#review">Review Questions</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ol>
+  </div>
+
+  <!-- ── 1. OBJECTIVES ──────────────────────────────── -->
+  <div id="obj" class="reveal">
+    <div class="sec-head"><span class="num">01</span> Learning Objectives</div>
+    <div class="sec-body">
+      <p>By the end of this class session, students will be able to:</p>
+      <ul class="dot">
+        <li>Understand the purpose of control statements in loops.</li>
+        <li>Use <code>break</code> to exit a loop immediately.</li>
+        <li>Use <code>continue</code> to skip the current iteration and move to the next.</li>
+        <li>Use <code>pass</code> as a placeholder in an otherwise-empty block.</li>
+        <li>Differentiate clearly between <code>break</code>, <code>continue</code> and <code>pass</code>.</li>
+        <li>Apply the correct control statement in search, filtering and menu-driven programs.</li>
+        <li>Recognize the effect of <code>break</code> inside nested loops and the loop <code>else</code> clause.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 2. INTRODUCTION ────────────────────────────── -->
+  <div id="intro" class="reveal">
+    <div class="sec-head"><span class="num">02</span> Introduction to Control Statements</div>
+    <div class="sec-body">
+      <p>By default, a loop runs from start to finish, executing every iteration. But sometimes we need to <strong>alter this normal flow</strong> — stop early, skip a step, or leave a placeholder. Python provides three control statements for this purpose:</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Statement</th><th>Purpose</th><th>Effect on Loop</th></tr></thead>
+          <tbody>
+            <tr><td><code>break</code></td><td>Exit the loop immediately</td><td>Loop <strong>stops</strong></td></tr>
+            <tr><td><code>continue</code></td><td>Skip the rest of the current iteration</td><td>Loop <strong>continues</strong> with next value</td></tr>
+            <tr><td><code>pass</code></td><td>Do nothing (placeholder)</td><td>Loop <strong>continues normally</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Why do we need control statements?</h3>
+      <ul class="dot">
+        <li><strong>Searching:</strong> Stop as soon as the target is found — no need to keep looping.</li>
+        <li><strong>Filtering:</strong> Skip values that don't meet a condition.</li>
+        <li><strong>Early termination:</strong> Exit a loop when an error or invalid input is detected.</li>
+        <li><strong>Placeholders:</strong> Mark code that will be filled in later, without causing an error.</li>
+      </ul>
+
+      <div class="note">💡 <strong>Note:</strong> All three statements work inside both <code>for</code> and <code>while</code> loops.</div>
+    </div>
+  </div>
+
+  <!-- ── 3. BREAK ──────────────────────────────────── -->
+  <div id="break" class="reveal">
+    <div class="sec-head"><span class="num">03</span> The <code>break</code> Statement</div>
+    <div class="sec-body">
+
+      <h3>3.1 Definition</h3>
+      <p>The <code>break</code> statement <strong>immediately terminates the loop</strong> in which it appears. Control jumps to the first statement after the loop.</p>
+
+      <h3>3.2 Syntax</h3>
+<pre>for variable in sequence:
+    if condition:
+        break
+    statement(s)</pre>
+
+      <h3>3.3 Key Points</h3>
+      <ul class="dot">
+        <li>Exits the <strong>innermost</strong> loop only (in a nested loop).</li>
+        <li>Works with both <code>for</code> and <code>while</code>.</li>
+        <li>Any statements after <code>break</code> in the same block are skipped.</li>
+        <li>If the loop has an <code>else</code> clause, the <code>else</code> is <strong>skipped</strong> when <code>break</code> executes.</li>
+      </ul>
+
+      <h4>Flowchart — <code>break</code></h4>
+      <div class="flow-wrap">
+        <svg viewBox="0 0 440 400" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" font-size="13">
+          <!-- Process -->
+          <rect x="150" y="15" width="140" height="36" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="220" y="39" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Process Item</text>
+          <line x1="220" y1="51" x2="220" y2="80" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowB)"/>
+
+          <!-- Decision -->
+          <polygon points="220,83 340,133 220,183 100,133" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="220" y="128" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Target</text>
+          <text x="220" y="146" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Found?</text>
+
+          <!-- Yes -> exit -->
+          <line x1="340" y1="133" x2="390" y2="133" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowB)"/>
+          <text x="362" y="124" fill="#1a4731" font-weight="700" font-size="12">Yes</text>
+
+          <!-- Exit box -->
+          <rect x="350" y="95" width="80" height="76" rx="8" fill="#fee2e2" stroke="#e53e3e" stroke-width="1.8"/>
+          <text x="390" y="122" text-anchor="middle" fill="#742a2a" font-weight="700" font-size="12">Exit</text>
+          <text x="390" y="140" text-anchor="middle" fill="#742a2a" font-weight="700" font-size="12">Loop</text>
+          <text x="390" y="158" text-anchor="middle" fill="#742a2a" font-weight="700" font-size="12">Immediately</text>
+
+          <!-- No -> continue -->
+          <line x1="220" y1="183" x2="220" y2="215" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowB)"/>
+          <text x="230" y="203" fill="#1a4731" font-weight="700" font-size="12">No</text>
+
+          <rect x="145" y="218" width="150" height="40" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="220" y="243" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Continue</text>
+
+          <!-- loop back -->
+          <path d="M 145 238 L 55 238 L 55 33 L 150 33" fill="none" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowB)"/>
+          <text x="47" y="150" fill="#1a4731" font-weight="700" font-size="10" transform="rotate(-90 47 150)">Loop back</text>
+
+          <!-- Note -->
+          <text x="220" y="310" text-anchor="middle" fill="#742a2a" font-weight="700" font-size="14">break → exits loop immediately</text>
+          <text x="220" y="338" text-anchor="middle" fill="#4a5568" font-size="12">Control jumps to the first statement after the loop</text>
+          <text x="220" y="362" text-anchor="middle" fill="#4a5568" font-size="12">Executes inside <code>for</code> or <code>while</code></text>
+
+          <defs>
+            <marker id="arrowB" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#4a5568"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+      <p class="flow-label">Fig 1. Flowchart showing <code>break</code> — exit the loop as soon as the target is found.</p>
+
+      <h3>3.4 Example Programs — <code>break</code></h3>
+
+      <h4>Example 1: Break out of a <code>for</code> loop</h4>
+<pre>for i in range(1, 11):
+    if i == 5:
+        break
+    print(i)
+print("Loop ended.")</pre>
+      <div class="output">1
+2
+3
+4
+Loop ended.</div>
+      <p><strong>Explanation:</strong> When <code>i</code> reaches 5, <code>break</code> exits the loop. Values 5 to 10 are not printed.</p>
+
+      <h4>Example 2: Search for an element in a list</h4>
+<pre>numbers = [10, 20, 30, 40, 50]
+target = int(input("Enter number to search: "))
+
+for num in numbers:
+    if num == target:
+        print(target, "found in the list!")
+        break
+else:
+    print(target, "not found.")</pre>
+      <div class="output">Enter number to search: 30
+30 found in the list!
+
+Enter number to search: 99
+99 not found.</div>
+
+      <h4>Example 3: <code>break</code> in a <code>while</code> loop</h4>
+<pre>n = 1
+while True:
+    print(n)
+    n += 1
+    if n &gt; 5:
+        break</pre>
+      <div class="output">1
+2
+3
+4
+5</div>
+
+      <h4>Example 4: Menu-driven program using <code>break</code></h4>
+<pre>while True:
+    print("\n--- Menu ---")
+    print("1. Say Hello")
+    print("2. Say Bye")
+    print("3. Exit")
+    choice = input("Enter choice: ")
+
+    if choice == "1":
+        print("Hello!")
+    elif choice == "2":
+        print("Bye!")
+    elif choice == "3":
+        print("Exiting...")
+        break
+    else:
+        print("Invalid choice.")</pre>
+      <div class="output">--- Menu ---
+1. Say Hello
+2. Say Bye
+3. Exit
+Enter choice: 1
+Hello!
+
+--- Menu ---
+1. Say Hello
+2. Say Bye
+3. Exit
+Enter choice: 3
+Exiting...</div>
+
+      <h4>Example 5: <code>break</code> in a nested loop (exits only inner loop)</h4>
+<pre>for i in range(1, 4):
+    for j in range(1, 4):
+        if j == 2:
+            break
+        print("i =", i, " j =", j)</pre>
+      <div class="output">i = 1  j = 1
+i = 2  j = 1
+i = 3  j = 1</div>
+      <p><strong>Explanation:</strong> The <code>break</code> exits the <strong>inner</strong> loop only. The outer loop continues normally.</p>
+    </div>
+  </div>
+
+  <!-- ── 4. CONTINUE ───────────────────────────────── -->
+  <div id="continue" class="reveal">
+    <div class="sec-head"><span class="num">04</span> The <code>continue</code> Statement</div>
+    <div class="sec-body">
+
+      <h3>4.1 Definition</h3>
+      <p>The <code>continue</code> statement <strong>skips the rest of the current iteration</strong> and jumps to the next iteration of the loop. The loop does <strong>not</strong> terminate.</p>
+
+      <h3>4.2 Syntax</h3>
+<pre>for variable in sequence:
+    if condition:
+        continue
+    statement(s)</pre>
+
+      <h3>4.3 Key Points</h3>
+      <ul class="dot">
+        <li>Statements after <code>continue</code> in the same block are <strong>skipped</strong> for the current iteration.</li>
+        <li>Works with both <code>for</code> and <code>while</code>.</li>
+        <li>In a <code>while</code> loop, the condition must eventually become <code>False</code>, otherwise you get an infinite loop.</li>
+        <li>The loop <code>else</code> clause <strong>does execute</strong> if the loop finishes normally (no <code>break</code>).</li>
+      </ul>
+
+      <h4>Flowchart — <code>continue</code></h4>
+      <div class="flow-wrap">
+        <svg viewBox="0 0 440 400" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" font-size="13">
+          <!-- Process -->
+          <rect x="150" y="15" width="140" height="36" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="220" y="39" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Process Item</text>
+          <line x1="220" y1="51" x2="220" y2="80" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowC)"/>
+
+          <!-- Decision -->
+          <polygon points="220,83 340,133 220,183 100,133" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="220" y="128" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Skip</text>
+          <text x="220" y="146" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Item?</text>
+
+          <!-- Yes -> skip -->
+          <line x1="340" y1="133" x2="390" y2="133" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowC)"/>
+          <text x="362" y="124" fill="#1a4731" font-weight="700" font-size="12">Yes</text>
+
+          <rect x="345" y="110" width="90" height="46" rx="8" fill="#fee2e2" stroke="#e53e3e" stroke-width="1.8"/>
+          <text x="390" y="130" text-anchor="middle" fill="#742a2a" font-weight="700" font-size="12">Skip</text>
+          <text x="390" y="148" text-anchor="middle" fill="#742a2a" font-weight="700" font-size="12">Rest of Body</text>
+
+          <!-- Arrow from skip back to loop top -->
+          <path d="M 390 156 L 390 200 L 55 200 L 55 33 L 150 33" fill="none" stroke="#4a5568" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arrowC)"/>
+
+          <!-- No -> continue body -->
+          <line x1="220" y1="183" x2="220" y2="215" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowC)"/>
+          <text x="230" y="203" fill="#1a4731" font-weight="700" font-size="12">No</text>
+
+          <rect x="145" y="218" width="150" height="40" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="220" y="243" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Continue</text>
+
+          <!-- loop back -->
+          <path d="M 145 238 L 55 238 L 55 33 L 150 33" fill="none" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowC)"/>
+          <text x="47" y="150" fill="#1a4731" font-weight="700" font-size="10" transform="rotate(-90 47 150)">Next iteration</text>
+
+          <!-- Note -->
+          <text x="220" y="310" text-anchor="middle" fill="#742a2a" font-weight="700" font-size="14">continue → skips current iteration</text>
+          <text x="220" y="338" text-anchor="middle" fill="#4a5568" font-size="12">Loop does NOT terminate; jumps to next value</text>
+          <text x="220" y="362" text-anchor="middle" fill="#4a5568" font-size="12">Useful for filtering and skipping unwanted values</text>
+
+          <defs>
+            <marker id="arrowC" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#4a5568"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+      <p class="flow-label">Fig 2. Flowchart showing <code>continue</code> — skip the rest of the current iteration and move to the next.</p>
+
+      <h3>4.4 Example Programs — <code>continue</code></h3>
+
+      <h4>Example 6: Print only odd numbers (skip even)</h4>
+<pre>for i in range(1, 11):
+    if i % 2 == 0:
+        continue
+    print(i)</pre>
+      <div class="output">1
+3
+5
+7
+9</div>
+
+      <h4>Example 7: Sum only positive numbers in a list</h4>
+<pre>numbers = [10, -5, 20, -8, 30, -2, 40]
+total = 0
+for num in numbers:
+    if num &lt; 0:
+        continue
+    total += num
+print("Sum of positive numbers:", total)</pre>
+      <div class="output">Sum of positive numbers: 100</div>
+
+      <h4>Example 8: <code>continue</code> in a <code>while</code> loop</h4>
+<pre>n = 0
+while n &lt; 10:
+    n += 1
+    if n == 5:
+        continue
+    print(n)</pre>
+      <div class="output">1
+2
+3
+4
+6
+7
+8
+9
+10</div>
+
+      <h4>Example 9: Skip vowels in a string</h4>
+<pre>word = "programming"
+for ch in word:
+    if ch in "aeiou":
+        continue
+    print(ch, end=" ")</pre>
+      <div class="output">p r g r m m n g</div>
+
+      <h4>Example 10: Print only multiples of 3 in a range</h4>
+<pre>for i in range(1, 21):
+    if i % 3 != 0:
+        continue
+    print(i, end=" ")</pre>
+      <div class="output">3 6 9 12 15 18</div>
+    </div>
+  </div>
+
+  <!-- ── 5. PASS ───────────────────────────────────── -->
+  <div id="pass" class="reveal">
+    <div class="sec-head"><span class="num">05</span> The <code>pass</code> Statement</div>
+    <div class="sec-body">
+
+      <h3>5.1 Definition</h3>
+      <p>The <code>pass</code> statement is a <strong>null statement</strong> — it does <strong>nothing</strong> at runtime. It is used as a placeholder where Python syntax requires a statement but no action is needed.</p>
+
+      <h3>5.2 Syntax</h3>
+<pre>if condition:
+    pass   # to be implemented later</pre>
+
+      <h3>5.3 Key Points</h3>
+      <ul class="dot">
+        <li>Does nothing — it is a placeholder.</li>
+        <li>Prevents a syntax error in an empty block.</li>
+        <li>Useful during development when you plan to fill in code later.</li>
+        <li>Can be used inside <code>for</code>, <code>while</code>, <code>if</code>, functions and classes.</li>
+      </ul>
+
+      <h4>Flowchart — <code>pass</code></h4>
+      <div class="flow-wrap">
+        <svg viewBox="0 0 440 340" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif" font-size="13">
+          <!-- Process -->
+          <rect x="150" y="15" width="140" height="36" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="220" y="39" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Process Item</text>
+          <line x1="220" y1="51" x2="220" y2="80" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowP)"/>
+
+          <!-- Decision -->
+          <polygon points="220,83 340,133 220,183 100,133" fill="#fef3c7" stroke="#d69e2e" stroke-width="1.5"/>
+          <text x="220" y="128" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Placeholder</text>
+          <text x="220" y="146" text-anchor="middle" fill="#744210" font-weight="600" font-size="12">Needed?</text>
+
+          <!-- Yes -> pass -->
+          <line x1="340" y1="133" x2="390" y2="133" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowP)"/>
+          <text x="362" y="124" fill="#1a4731" font-weight="700" font-size="12">Yes</text>
+
+          <rect x="340" y="108" width="95" height="50" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.8"/>
+          <text x="387" y="130" text-anchor="middle" fill="#312e81" font-weight="700" font-size="12">pass</text>
+          <text x="387" y="148" text-anchor="middle" fill="#312e81" font-weight="700" font-size="12">(do nothing)</text>
+
+          <!-- No -> continue -->
+          <line x1="220" y1="183" x2="220" y2="215" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowP)"/>
+          <text x="230" y="203" fill="#1a4731" font-weight="700" font-size="12">No</text>
+
+          <rect x="145" y="218" width="150" height="40" rx="8" fill="#d1fae5" stroke="#38a169" stroke-width="1.5"/>
+          <text x="220" y="243" text-anchor="middle" fill="#22543d" font-weight="600" font-size="13">Continue</text>
+
+          <!-- loop back -->
+          <path d="M 145 238 L 55 238 L 55 33 L 150 33" fill="none" stroke="#4a5568" stroke-width="1.8" marker-end="url(#arrowP)"/>
+          <text x="47" y="150" fill="#1a4731" font-weight="700" font-size="10" transform="rotate(-90 47 150)">Loop back</text>
+
+          <!-- Note -->
+          <text x="220" y="295" text-anchor="middle" fill="#312e81" font-weight="700" font-size="14">pass → do nothing (placeholder)</text>
+          <text x="220" y="320" text-anchor="middle" fill="#4a5568" font-size="12">Loop continues normally; no action is taken</text>
+
+          <defs>
+            <marker id="arrowP" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="#4a5568"/>
+            </marker>
+          </defs>
+        </svg>
+      </div>
+      <p class="flow-label">Fig 3. Flowchart showing <code>pass</code> — a no-operation placeholder that lets the loop continue normally.</p>
+
+      <h3>5.4 Example Programs — <code>pass</code></h3>
+
+      <h4>Example 11: <code>pass</code> as a placeholder in a loop</h4>
+<pre>for i in range(1, 6):
+    if i == 3:
+        pass    # TODO: implement special case for 3
+    else:
+        print(i)</pre>
+      <div class="output">1
+2
+4
+5</div>
+
+      <h4>Example 12: <code>pass</code> in an empty function</h4>
+<pre>def my_function():
+    pass   # to be implemented later
+
+my_function()
+print("Function called successfully.")</pre>
+      <div class="output">Function called successfully.</div>
+
+      <h4>Example 13: <code>pass</code> in an empty class</h4>
+<pre>class Student:
+    pass   # class body to be defined later
+
+s = Student()
+print("Object created:", s)</pre>
+      <div class="output">Object created: &lt;__main__.Student object at 0x...&gt;</div>
+
+      <h4>Example 14: <code>pass</code> inside <code>if</code> block</h4>
+<pre>x = 10
+if x &gt; 0:
+    pass   # positive number — nothing to do
+else:
+    print("Non-positive")
+
+print("Program finished.")</pre>
+      <div class="output">Program finished.</div>
+    </div>
+  </div>
+
+  <!-- ── 6. COMPARISON ─────────────────────────────── -->
+  <div id="compare" class="reveal">
+    <div class="sec-head"><span class="num">06</span> Comparison: <code>break</code> vs <code>continue</code> vs <code>pass</code></div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Feature</th><th><code>break</code></th><th><code>continue</code></th><th><code>pass</code></th></tr></thead>
+          <tbody>
+            <tr><td><strong>Effect</strong></td><td>Exit the loop entirely</td><td>Skip rest of current iteration</td><td>Do nothing</td></tr>
+            <tr><td><strong>Loop continues?</strong></td><td>❌ No</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+            <tr><td><strong>Skips remaining statements?</strong></td><td>Yes (rest of loop)</td><td>Yes (current iteration)</td><td>No</td></tr>
+            <tr><td><strong>Loop <code>else</code> executes?</strong></td><td>No</td><td>Yes</td><td>Yes</td></tr>
+            <tr><td><strong>Common use</strong></td><td>Search, early exit</td><td>Filtering, skipping</td><td>Placeholder, empty block</td></tr>
+            <tr><td><strong>Typical code</strong></td><td><code>if num == target: break</code></td><td><code>if num &lt; 0: continue</code></td><td><code>def f(): pass</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">💡 <strong>Note:</strong> <code>break</code> and <code>continue</code> change the flow of the loop; <code>pass</code> is only a syntactic placeholder and has <strong>no effect</strong> at runtime.</div>
+    </div>
+  </div>
+
+  <!-- ── 7. COMBINED EXAMPLES ──────────────────────── -->
+  <div id="combined" class="reveal">
+    <div class="sec-head"><span class="num">07</span> Combined Examples</div>
+    <div class="sec-body">
+
+      <h4>Example 15: <code>break</code> and <code>continue</code> together</h4>
+<pre>for i in range(1, 11):
+    if i == 8:
+        break          # stop the loop at 8
+    if i % 2 == 0:
+        continue       # skip even numbers
+    print(i)           # prints odd numbers before 8</pre>
+      <div class="output">1
+3
+5
+7</div>
+      <p><strong>Explanation:</strong> Even numbers are skipped (<code>continue</code>); when <code>i</code> reaches 8, <code>break</code> ends the loop.</p>
+
+      <h4>Example 16: <code>break</code> with loop <code>else</code></h4>
+<pre>numbers = [10, 20, 30, 40, 50]
+target = int(input("Enter target: "))
+
+for num in numbers:
+    if num == target:
+        print("Found", target)
+        break
+else:
+    print(target, "not found.")</pre>
+      <div class="output">Enter target: 30
+Found 30
+
+Enter target: 99
+99 not found.</div>
+      <p><strong>Explanation:</strong> If <code>break</code> executes, the <code>else</code> block is <strong>skipped</strong>. If the loop finishes without <code>break</code>, <code>else</code> runs.</p>
+
+      <h4>Example 17: Password attempt with <code>continue</code></h4>
+<pre>correct_password = "python123"
+
+for attempt in range(1, 4):
+    password = input(f"Attempt {attempt} — Enter password: ")
+    if password != correct_password:
+        print("Wrong password. Try again.")
+        continue
+    print("Login successful!")
+    break
+else:
+    print("Account locked. Too many failed attempts.")</pre>
+      <div class="output">Attempt 1 — Enter password: hello
+Wrong password. Try again.
+Attempt 2 — Enter password: python123
+Login successful!</div>
+
+      <h4>Example 18: Skip multiples of 3 and stop at 15</h4>
+<pre>for i in range(1, 21):
+    if i == 15:
+        break
+    if i % 3 == 0:
+        continue
+    print(i, end=" ")</pre>
+      <div class="output">1 2 4 5 7 8 10 11 13 14</div>
+
+      <h4>Example 19: <code>pass</code> placeholder with <code>continue</code></h4>
+<pre>for i in range(1, 8):
+    if i == 4:
+        pass        # skip — no action for now
+        continue
+    if i == 6:
+        break
+    print(i)</pre>
+      <div class="output">1
+2
+3
+5</div>
+      <p><strong>Explanation:</strong> At <code>i = 4</code>, <code>pass</code> does nothing and <code>continue</code> skips the print. At <code>i = 6</code>, <code>break</code> exits the loop.</p>
+    </div>
+  </div>
+
+  <!-- ── 8. COMMON MISTAKES ────────────────────────── -->
+  <div id="mistakes" class="reveal">
+    <div class="sec-head"><span class="num">08</span> Common Mistakes to Avoid</div>
+    <div class="sec-body">
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Mistake</th><th>Correction</th></tr></thead>
+          <tbody>
+            <tr><td>Expecting <code>break</code> to exit both loops in a nested loop</td><td><code>break</code> exits only the innermost loop</td></tr>
+            <tr><td>Using <code>continue</code> when you meant <code>break</code></td><td>Ask: do you want to exit or skip?</td></tr>
+            <tr><td>Placing <code>continue</code> after the loop variable update in a <code>while</code></td><td>Place the update <strong>before</strong> the <code>continue</code>, otherwise infinite loop</td></tr>
+            <tr><td>Using <code>pass</code> expecting it to skip a line</td><td><code>pass</code> does nothing — use <code>continue</code> to skip</td></tr>
+            <tr><td>Empty block without <code>pass</code></td><td>Use <code>pass</code> to satisfy the syntax</td></tr>
+            <tr><td>Assuming loop <code>else</code> runs after a <code>break</code></td><td>Loop <code>else</code> is skipped when <code>break</code> executes</td></tr>
+            <tr><td>Forgetting the colon after <code>if</code>/<code>while</code>/<code>for</code></td><td>Always end with <code>:</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">💡 <strong>Note on <code>while</code> + <code>continue</code>:</strong> In a <code>while</code> loop, always update the loop variable <strong>before</strong> the <code>continue</code> statement. Otherwise, the condition never changes and you get an infinite loop.</div>
+    </div>
+  </div>
+
+  <!-- ── 9. ACTIVITIES ─────────────────────────────── -->
+  <div id="activities" class="reveal">
+    <div class="sec-head"><span class="num">09</span> Classroom Activities</div>
+    <div class="sec-body">
+
+      <div class="activity">
+        <h4>🔍 Activity 1 — Predict the Output</h4>
+        <p>What will the following code print? Work it out on paper first, then verify.</p>
+<pre>for i in range(1, 8):
+    if i == 3:
+        continue
+    if i == 6:
+        break
+    print(i, end=" ")</pre>
+      </div>
+
+      <div class="activity">
+        <h4>🐛 Activity 2 — Debug the Code</h4>
+        <p>What is wrong with the code below? Fix it.</p>
+<pre>n = 0
+while n &lt; 5:
+    if n == 2:
+        continue
+    print(n)
+    n += 1</pre>
+        <p><em>Hint: What happens to <code>n</code> when it reaches 2?</em></p>
+      </div>
+
+      <div class="activity">
+        <h4>✏️ Activity 3 — Write the Program</h4>
+        <p>Write a Python program using a loop that:</p>
+        <ul class="dot">
+          <li>Asks the user to enter numbers repeatedly.</li>
+          <li>Stops when the user enters <strong>0</strong>.</li>
+          <li>Skips negative numbers using <code>continue</code>.</li>
+          <li>Prints the sum of positive numbers entered.</li>
+        </ul>
+      </div>
+
+      <div class="activity">
+        <h4>🧩 Activity 4 — Menu with Exit</h4>
+        <p>Write a menu-driven program using <code>while True</code> and <code>break</code> with options:</p>
+        <ul class="dot">
+          <li>1. Print "Hello"</li>
+          <li>2. Print "World"</li>
+          <li>3. Exit</li>
+        </ul>
+      </div>
+
+      <div class="activity">
+        <h4>🧪 Activity 5 — Search with <code>for-else</code></h4>
+        <p>Given <code>names = ["Alice", "Bob", "Charlie", "David"]</code>, write a program that asks the user for a name and prints whether it is found. Use the loop <code>else</code> clause with <code>break</code>.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 10. REVIEW QUESTIONS ──────────────────────── -->
+  <div id="review" class="reveal">
+    <div class="sec-head"><span class="num">10</span> Review Questions</div>
+    <div class="sec-body">
+      <ol class="q-list">
+        <li>What is the purpose of control statements in loops?</li>
+        <li>Differentiate between <code>break</code> and <code>continue</code> with examples.</li>
+        <li>What is the difference between <code>continue</code> and <code>pass</code>?</li>
+        <li>When does the <code>else</code> clause of a loop execute?</li>
+        <li>How does <code>break</code> behave inside a nested loop?</li>
+        <li>Why can <code>continue</code> cause an infinite loop in a <code>while</code> loop? How can you avoid it?</li>
+        <li>Write a Python program to find the first even number in a list using <code>break</code>.</li>
+        <li>Write a Python program to print only the odd numbers from 1 to 20 using <code>continue</code>.</li>
+        <li>Write a Python program that uses <code>pass</code> as a placeholder for a function that is not yet implemented.</li>
+        <li>Explain the output of:
+          <pre style="margin-top:6px">for i in range(1, 6):
+    if i == 3:
+        continue
+    if i == 5:
+        break
+    print(i)</pre>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ── 11. SUMMARY ───────────────────────────────── -->
+  <div id="summary" class="reveal">
+    <div class="sec-head"><span class="num">11</span> Summary</div>
+    <div class="sec-body">
+      <div class="summary-grid">
+        <div class="sum-card"><div class="icon">⏹️</div><strong><code>break</code></strong>Exits the loop immediately. Use for search and early termination. Exits only the innermost loop in nested loops.</div>
+        <div class="sum-card"><div class="icon">⏭️</div><strong><code>continue</code></strong>Skips the rest of the current iteration and jumps to the next. Use for filtering and skipping values.</div>
+        <div class="sum-card"><div class="icon">⏸️</div><strong><code>pass</code></strong>Does nothing — a syntactic placeholder. Use to fill empty blocks without causing errors.</div>
+        <div class="sum-card"><div class="icon">🔚</div><strong>Loop <code>else</code></strong>Executes only if the loop finishes normally (no <code>break</code>). Useful for search failure cases.</div>
+        <div class="sum-card"><div class="icon">🧭</div><strong>Choose the Right Statement</strong><code>break</code> → exit; <code>continue</code> → skip; <code>pass</code> → placeholder.</div>
+        <div class="sum-card"><div class="icon">⚠️</div><strong>Watch Out</strong>In <code>while</code> loops, update the loop variable <em>before</em> <code>continue</code> to avoid an infinite loop.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE NAVIGATION ───────────────────────────── -->
+  <div class="pagenav reveal">
+    <a href="nested-loops.html">← Previous: Nested Loops</a>
+    <a class="next" href="https://igmathspace.github.io/lessons.html">Back to Lessons →</a>
+  </div>
+
+  <!-- ── SIGN-OFF ───────────────────────────────────── -->
+  <div class="signoff reveal">
+    <div class="signoff-icon">G</div>
+    <div>
+      <h3>Gafoor I</h3>
+      <p>Assistant Professor &nbsp;|&nbsp; Department of Mathematics &nbsp;|&nbsp; NAM College Kallikkandy</p>
+      <p style="margin-top:4px;font-size:.92rem;color:#7090b0;">Teaching Note · Module III (d) · Control Statements in Python · Academic Year 2025–26</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <span>IG Math Space</span> — Mathematics Teaching Website &nbsp;|&nbsp; igmathspace.github.io
+</footer>
+
+<!-- ── SCROLL REVEAL SCRIPT ──────────────────────────── -->
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
