@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAM College Kallikkandy – AEC 2 Student Lists</title>
+    <style>
+        /* ===== TOKENS ===== */
+        :root {
+            --navy: #1a3557;
+            --blue: #2b6cb0;
+            --sky: #ebf4ff;
+            --amber: #e07b00;
+            --amber-lt: #fff8e1;
+            --green-bg: #e6f4ea;
+            --green-tx: #1a4731;
+            --code-bg: #f4f6f8;
+            --code-bd: #c0cfe0;
+            --text: #2d3748;
+            --muted: #64748b;
+            --white: #ffffff;
+            --radius: 10px;
+            --shadow: 0 4px 24px rgba(26, 53, 87, .12);
+        }
+
+        /* ===== RESET ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #f0f4f8;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 15pt;
+        }
+        a { color: var(--blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--navy);
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .3);
+        }
+        .brand {
+            display: flex; align-items: center; gap: 14px;
+            padding: 16px 32px 0;
+        }
+        .brand-icon {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--amber), #ffd080);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; font-weight: 900; color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(255, 208, 128, .35);
+        }
+        .brand-text h1 { font-size: 1.15rem; color: var(--white); font-weight: 700; letter-spacing: .5px; }
+        .brand-text p { font-size: .92rem; color: #a8c8f0; margin-top: -2px; }
+        nav {
+            display: flex; flex-wrap: wrap; gap: 4px;
+            padding: 0 24px; margin-top: 12px;
+        }
+        nav a {
+            font-size: .82rem; font-weight: 600; letter-spacing: .6px;
+            color: #a8c8f0; padding: 10px 16px; text-transform: uppercase;
+            border-bottom: 3px solid transparent; transition: all .2s;
+        }
+        nav a:hover, nav a.active { color: var(--white); border-bottom-color: var(--amber); text-decoration: none; }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            padding: 40px 32px 36px; text-align: center; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: 'AEC 2';
+            position: absolute; inset: 0;
+            font-size: 7rem; font-weight: 900; color: rgba(255, 255, 255, .04);
+            display: flex; align-items: center; justify-content: center;
+            letter-spacing: 40px; pointer-events: none; text-transform: uppercase;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            background: rgba(224, 123, 0, .18);
+            border: 1px solid rgba(224, 123, 0, .5);
+            color: #ffd080;
+            font-size: .82rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+            padding: 5px 16px; border-radius: 99px; margin-bottom: 14px;
+        }
+        .hero h2 {
+            font-size: clamp(1.6rem, 4vw, 2.6rem);
+            font-weight: 800; color: var(--white);
+            line-height: 1.2; margin-bottom: 10px;
+        }
+        .hero h2 span { color: #ffd080; }
+        .hero p { color: #c0d8f4; font-size: 1.05rem; max-width: 680px; margin: 0 auto 20px; }
+        .hero-meta {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            font-size: .92rem; color: #a8c8f0;
+        }
+        .hero-meta span {
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .15);
+            padding: 5px 14px; border-radius: 99px;
+        }
+        .hero-meta span b { color: var(--white); }
+
+        /* ===== LAYOUT ===== */
+        .page { max-width: 1050px; margin: 0 auto; padding: 30px 24px 60px; }
+
+        /* ===== SECTION HEADING ===== */
+        .sec-head {
+            background: var(--navy);
+            color: var(--white);
+            padding: 12px 24px; border-radius: var(--radius) var(--radius) 0 0;
+            font-size: 1.1rem; font-weight: 700; letter-spacing: .4px;
+            display: flex; align-items: center; gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 36px;
+        }
+        .sec-head .num {
+            background: var(--amber); color: var(--navy);
+            font-size: .85rem; font-weight: 800;
+            padding: 3px 12px; border-radius: 99px;
+            white-space: nowrap;
+        }
+        .sec-body {
+            background: var(--white);
+            border: 1px solid var(--code-bd);
+            border-top: none;
+            border-radius: 0 0 var(--radius) var(--radius);
+            padding: 22px 28px;
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== FACULTY / CLASSROOM ===== */
+        .faculty-line, .classroom-line {
+            font-size: 1.02rem;
+            color: #2e3e4e;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .faculty-line span:first-child, .classroom-line span:first-child {
+            font-weight: 600;
+            min-width: 160px;
+        }
+        .blank-line {
+            display: inline-block;
+            border-bottom: 2px solid #9aa9b7;
+            min-width: 280px;
+            margin-left: 6px;
+            height: 1.2em;
+        }
+
+        /* ===== TABLE ===== */
+        .tbl-wrap { overflow-x: auto; margin-top: 16px; border-radius: 8px; border: 1px solid #cbd5e1; }
+        table { width: 100%; border-collapse: collapse; font-size: .96rem; background: white; }
+        thead tr { background: var(--navy); color: var(--white); }
+        thead th {
+            padding: 10px 14px; text-align: left; font-weight: 600;
+            font-size: .98rem; border-right: 1px solid #2d4f6e;
+            white-space: nowrap;
+        }
+        thead th:last-child { border-right: none; }
+        tbody td {
+            padding: 8px 14px; border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        tr.prog-row td {
+            background: #d9e6f2; font-weight: 700; color: #0b2a41;
+            font-size: 1.02rem; border-bottom: 2px solid #8ba6c1;
+            padding: 10px 14px;
+        }
+        tr.total-row td {
+            background: #f1f7fc; font-weight: 700; color: #1b3e5a;
+            border-top: 2px solid #a0b8ce; border-bottom: 2px solid #a0b8ce;
+            font-size: .98rem;
+        }
+        .roll-col { width: 120px; color: #7a8b9b; font-style: italic; }
+        .sl-col { width: 60px; text-align: center; }
+        .name-col { min-width: 180px; }
+
+        /* ===== BUTTONS ===== */
+        .btn-pdf {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--navy); color: var(--white);
+            border: none; border-radius: 99px;
+            padding: 10px 22px; font-size: .92rem; font-weight: 600;
+            cursor: pointer; transition: all .2s;
+            box-shadow: 0 3px 10px rgba(26, 53, 87, .25);
+            margin: 4px 0 4px 8px;
+        }
+        .btn-pdf:hover { background: var(--blue); transform: translateY(-2px); }
+        .btn-pdf:active { transform: translateY(0); }
+
+        .btn-bar {
+            display: flex; align-items: center; flex-wrap: wrap;
+            justify-content: flex-end; margin: 10px 0 4px 0; gap: 10px;
+        }
+
+        /* ===== CONTENT PAGE ===== */
+        .toc-list { list-style: none; padding-left: 0; font-size: 1.05rem; margin-top: 20px; }
+        .toc-list li {
+            padding: 12px 0 12px 10px; border-bottom: 1px solid #d0ddee;
+            display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+        .toc-list li a { text-decoration: none; color: #1b4c6e; font-weight: 500; }
+        .toc-list li a:hover { color: #0a1e2e; text-decoration: underline; }
+        .toc-badge {
+            display: inline-block; background: var(--navy); color: white;
+            font-size: .82rem; font-weight: 600; border-radius: 30px;
+            padding: 3px 14px; margin-right: 6px; white-space: nowrap;
+        }
+        .grand-total {
+            margin-top: 20px; font-size: 1.1rem; font-weight: 700;
+            text-align: right; padding: 10px 20px;
+            background: #e6eff8; border-radius: 8px;
+        }
+
+        /* ===== FOOTER ===== */
+        .page-footer {
+            margin-top: 28px;
+            font-size: .9rem;
+            color: #4f6b82;
+            text-align: center;
+            border-top: 2px dashed #b8c9da;
+            padding-top: 14px;
+            font-weight: 500;
+        }
+        .page-footer strong { color: var(--navy); }
+
+        footer.main-footer {
+            background: var(--navy); color: #7090b0;
+            text-align: center; font-size: .88rem; padding: 18px;
+            border-top: 2px solid var(--amber);
+            margin-top: 20px;
+        }
+        footer.main-footer span { color: #a8c8f0; }
+
+        /* ===== PRINT / PDF ===== */
+        @media print {
+            body { background: white; padding: 0; font-size: 11pt; }
+            header, nav, .hero, .btn-bar, .btn-pdf, footer.main-footer { display: none !important; }
+            .page { max-width: 100%; padding: 10px; }
+            .sec-head { break-inside: avoid; }
+            .sec-body { box-shadow: none; border: 1px solid #ccc; }
+            .tbl-wrap { border: 1px solid #999; }
+            thead tr { background: #1a3557 !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            tr.prog-row td { background: #d9e6f2 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            tr.total-row td { background: #f1f7fc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .page-footer { break-inside: avoid; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            body { font-size: 13pt; }
+            .brand { padding: 12px 16px 0; }
+            nav { padding: 0 12px; }
+            nav a { font-size: .72rem; padding: 7px 10px; }
+            .hero { padding: 28px 16px 24px; }
+            .page { padding: 18px 12px 40px; }
+            .sec-body { padding: 16px; }
+            .faculty-line, .classroom-line { flex-direction: column; align-items: flex-start; }
+            .blank-line { min-width: 180px; }
+            thead th, tbody td { font-size: .82rem; padding: 6px 8px; }
+            .btn-pdf { font-size: .8rem; padding: 8px 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+    <div class="brand">
+        <div class="brand-icon">N</div>
+        <div class="brand-text">
+            <h1>NAM College Kallikkandy</h1>
+            <p>Department of Mathematics</p>
+        </div>
+    </div>
+    <nav>
+        <a href="#content" class="active">📋 Content</a>
+        <a href="#page2">🇮🇳 Sahityik Hindi</a>
+        <a href="#page3">📖 Sahithyavum Rachanayum</a>
+        <a href="#page4">🗣️ Communicative Urdu</a>
+        <a href="#page5">🕌 Communicative Arabic</a>
+        <a href="#page6">📚 NASARI MUTHALA</a>
+        <a href="#page7">📝 RACHANAYUM SAHITYA PADANAVUM</a>
+        <a href="#page8">✍️ KAHANI AUR RACHANA</a>
+        <a href="#page9">🌙 Arabic for Interaction</a>
+        <a href="#page10">🕋 Arabic for Daily Life</a>
+        <a href="#page11">📜 Saral Hindi / Nasari Shanakhath / Bhasha Sahithya Parichayam</a>
+    </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero-eyebrow">📚 AEC 2 · Student Paper Registration Details</div>
+    <h2>List of Students <span>AEC 2</span></h2>
+    <p>Course-wise student registration details for AEC 2 — Academic Year 2025–26. Each course has its own page with a printable PDF option.</p>
+    <div class="hero-meta">
+        <span>🏛️ <b>NAM College Kallikkandy</b></span>
+        <span>📐 Department of Mathematics</span>
+        <span>👨‍🏫 <b>Prepared by @Gafoor I</b></span>
+    </div>
+</section>
+
+<!-- ===== MAIN PAGE ===== -->
+<main class="page">
+
+    <!-- ==================== PAGE 1: CONTENT ==================== -->
+    <div id="content" class="reveal">
+        <div class="sec-head"><span class="num">CONTENT</span> List of Students – AEC 2</div>
+        <div class="sec-body">
+            <p style="font-size:1.05rem; margin-bottom:18px;">Click on any course below to jump to its student list. Each course page can be saved as a PDF using the <strong>📄 Save as PDF</strong> button.</p>
+            <ul class="toc-list">
+                <li><span class="toc-badge">1</span> <a href="#page2">AEC-2 : KU1AECHIN102 – Sahityik Hindi</a></li>
+                <li><span class="toc-badge">2</span> <a href="#page3">AEC-2 : KU1AECMAL103 – Sahithyavum Rachanayum</a></li>
+                <li><span class="toc-badge">3</span> <a href="#page4">AEC-2 : KU1AECURD103 – Communicative Urdu</a></li>
+                <li><span class="toc-badge">4</span> <a href="#page5">AEC-2 : KU1AECARB103 – Communicative Arabic</a></li>
+                <li><span class="toc-badge">5</span> <a href="#page6">AEC-2 : KU1AECURD102 – NASARI MUTHALA</a></li>
+                <li><span class="toc-badge">6</span> <a href="#page7">AEC-2 : KU1AECMAL101 – RACHANAYUM SAHITYA PADANAVUM</a></li>
+                <li><span class="toc-badge">7</span> <a href="#page8">AEC-2 : KU1AECHIN101 – KAHANI AUR RACHANA</a></li>
+                <li><span class="toc-badge">8</span> <a href="#page9">AEC-2 : KU1AECARAB102 – Arabic for Interaction</a></li>
+                <li><span class="toc-badge">9</span> <a href="#page10">AEC-2 : KU1AECARB101 – Arabic for Daily Life</a></li>
+                <li><span class="toc-badge">10</span> <a href="#page11">AEC-2 : KU1AECHIN103 / KU1AECURD101 / KU1AECMAL102 – Saral Hindi / Nasari Shanakhath / Bhasha Sahithya Parichayam</a></li>
+            </ul>
+            <div class="grand-total">Grand Total (all programmes): 278</div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 2: KU1AECHIN102 – Sahityik Hindi ==================== -->
+    <div id="page2" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECHIN102 – Sahityik Hindi</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page2')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead>
+                        <tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-BCOM HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>FAIHA THANAZ</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>FATHIMATH ZAHRA M</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>AMANA FATHIMA A P M</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>FADIYA SADIQUE. P.P</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>MUHAMMAD SINAN N</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>SAFA FATHIMA</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>NIHMA K M</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>MINHA FATHIMA MUNEER</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>NIYA FATHIMA K K</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>NAFLA SHERIN T K</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>MUHAMMED ZANHAL SHERJAN</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 11</td></tr>
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 11</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 3: KU1AECMAL103 – Sahithyavum Rachanayum ==================== -->
+    <div id="page3" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECMAL103 – Sahithyavum Rachanayum</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page3')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-BCOM HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>AHANA P</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>SIVANYA SAJI P</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>LUBNA NASEER M P</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>ANBIN RAJ P</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>FATHIMA JUMANA.P.K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>GOKUL SATHEESHAN K</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>MUHAMMED RISHAN P P</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>SHADHA FATHIMA</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>MINHA KHADEEJA</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>ASWATHI HARIDAS T K</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>HAMNA FATHIMA K T K</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>MINHA FATHIMA</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>FIDA FATHIMA</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>NAJA FATHIMA</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>NAFA FATHIMA</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 15</td></tr>
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 15</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 4: KU1AECURD103 – Communicative Urdu ==================== -->
+    <div id="page4" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECURD103 – Communicative Urdu</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page4')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-BCOM HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>SHIBIL SIDDEEQUE</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>HANIYA T</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>MUHAMMED RIDHHAN RAFEEK</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>FATHIMA T K</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>RIFNA K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>MUHAMMAD FISAN K C</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>MUHAMMED FADI BIN HASKAR ALI</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>MIDLAJ</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>MUHAMMED IHSAN C V</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>MUHAMMED NAHYAN</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>SAHAL RAHMAN KT</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 11</td></tr>
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 11</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 5: KU1AECARB103 – Communicative Arabic ==================== -->
+    <div id="page5" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECARB103 – Communicative Arabic</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page5')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-BCOM HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>MUHAMMED IRFAN</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>NISHANA P V</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>FATHIMAHTU ZAHRA K</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>NAHALA FATHIMA. E</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>JAWADA FARHATH C K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>MUHAMMED RIYAN N</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>FATHIMA RINA N</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>SENHA FATHIMA</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>SAHALA FATHIMA</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>FINA FATHIMA A K</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>SAHALA V V</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>FATHIMA RIZA P P</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>FATHIMA K</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>NAILA FATHIMA</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>FATHIMA V</td></tr>
+                        <tr><td class="sl-col">16</td><td class="roll-col"></td><td>FATHIMA K</td></tr>
+                        <tr><td class="sl-col">17</td><td class="roll-col"></td><td>SUMANA FATHIMA</td></tr>
+                        <tr><td class="sl-col">18</td><td class="roll-col"></td><td>SANA FATHIMA T T</td></tr>
+                        <tr><td class="sl-col">19</td><td class="roll-col"></td><td>MINHAJ KUNHAMMED</td></tr>
+                        <tr><td class="sl-col">20</td><td class="roll-col"></td><td>MUHSINA K T</td></tr>
+                        <tr><td class="sl-col">21</td><td class="roll-col"></td><td>MUHAMMAD K P</td></tr>
+                        <tr><td class="sl-col">22</td><td class="roll-col"></td><td>NEJIYA SHIRIN T</td></tr>
+                        <tr><td class="sl-col">23</td><td class="roll-col"></td><td>RANNA FATHIMA</td></tr>
+                        <tr><td class="sl-col">24</td><td class="roll-col"></td><td>MUHAMMED SIYAN</td></tr>
+                        <tr><td class="sl-col">25</td><td class="roll-col"></td><td>FATHIMA SAFA B</td></tr>
+                        <tr><td class="sl-col">26</td><td class="roll-col"></td><td>FATHIMATH SHAHMA M K</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 26</td></tr>
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 26</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 6: KU1AECURD102 – NASARI MUTHALA ==================== -->
+    <div id="page6" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECURD102 – NASARI MUTHALA</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page6')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-B.Sc PSYCHOLOGY HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>SAHLA FATHIMA N</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 1</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-MATHEMATICS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>SHIFANA SHERIN P</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>SANA FATHIMA T</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>SHIFA FATHIMA</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 3</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-COMPUTER SCIENCE HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>AYISHA FARHA K</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>IHSAN ZAMAN BIN SHANID</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>RANA SHARAIN K</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 3</td></tr>
+
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 7</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 7: KU1AECMAL101 – RACHANAYUM SAHITYA PADANAVUM ==================== -->
+    <div id="page7" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECMAL101 – RACHANAYUM SAHITYA PADANAVUM</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page7')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-B.Sc PSYCHOLOGY HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>ARSHA C</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>VEDALAKSHMI K M</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>FEBA HASIF</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>RIFA FASAL U P</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>JALVA JABEEN</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>FATHIMATHUL HASNA .M.K</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 6</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-MATHEMATICS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>ZANHA NASEER.T.C</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>FATHIMA NASRIN</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>HAMDA FATHIMA</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>THENHA FATHIMA.K</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>HIBA PARVIN V K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>AYSHA. D V</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>ABHINAND P</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 7</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-COMPUTER SCIENCE HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>DEVAPRIYA M</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>AMINA NASEER M</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>MUHAMMED SAJAL. V</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>MUHAMMED SHASIL YASIR ABDULLA</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>RASHA FATHIMA</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>RIYA FATHIMA T K</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>NASBEENA K</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 7</td></tr>
+
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 20</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 8: KU1AECHIN101 – KAHANI AUR RACHANA ==================== -->
+    <div id="page8" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECHIN101 – KAHANI AUR RACHANA</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page8')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-MATHEMATICS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>SANA FATHIMA</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>SWAPNIL A P</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>SANIYA V K</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>ABHINAND V</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>SAMA FATHIMA</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 5</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-POLYMER CHEMISTRY</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>FATHIMATHUL THANSEEHA NOUSHAD</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>FATHIMATH NOURAH NIHAD</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>ASHIKA P</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>THREYA GIREESH</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 4</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-COMPUTER SCIENCE HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>MUHAMMED MIRSAB K</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>SHANIS ABDULLA T N</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>JISHNURAJ E</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>SHIVANYA K K</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>FATHIMA NOUSHAL K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>IRFAN DAVOOD E</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>FARHANA T</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 7</td></tr>
+
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 16</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 9: KU1AECARAB102 – Arabic for Interaction ==================== -->
+    <div id="page9" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECARAB102 – Arabic for Interaction</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page9')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-B.Sc PSYCHOLOGY HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>FATHIMA AZA ASHRAF A</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>NAJA FATHIMA</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>RANA FATHIMA</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>AYSHA FIDHA RAHOOF</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>FATHIMATHUL MINHA K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>AMINA V P</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>FATHIMATHUL ZUHA P K</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>MINHA MAHAROOF</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>ZIYA FATHIMA P</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>AMINA AMNA K</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>RINSHA P K</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>RUSHDA C H</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>NAJA FATHIMA K</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>NIYA MARIYAM</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>NAJIYA M K</td></tr>
+                        <tr><td class="sl-col">16</td><td class="roll-col"></td><td>RIYA FATHIMA K V</td></tr>
+                        <tr><td class="sl-col">17</td><td class="roll-col"></td><td>MINHA FATHIMA</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 17</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-MATHEMATICS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>FARHANA P P</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>NAWFA A</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>MARJANA NISA M</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>MUHAMMAD SAHAL</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>SHEFIN C K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>SHAFNA.U.V</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>FATHIMATH SHAMNA P</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>FATHIMA SHADHA</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>RAJA MEHBIN K</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>HAIFA ZAHRA P</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>JUMANA P P</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>SUMMAIYA MARIYAM</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>MUHSIN EESA</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>FATHIMA MINHA M C</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 14</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-POLYMER CHEMISTRY</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>SHAHANA SHERIN</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>AMNA FATHIMA</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>SHIFANA P T K</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>FATHIMA R</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>RENA FATHIMA</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>AYSHA V P</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>AYSHA RASHID</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>FIDA FATHIMA T</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>FATHIMA C H</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>FATHIMA M</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>NAISA BEEVI  K T</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>RIYA RAFEEQUE</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>FATHIMATH RISHA</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>FATHIMATHU NAJIYA T P</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>NAFIYA PP</td></tr>
+                        <tr><td class="sl-col">16</td><td class="roll-col"></td><td>AFRA FATHIMA T.K</td></tr>
+                        <tr><td class="sl-col">17</td><td class="roll-col"></td><td>FATHIMA NAUFA</td></tr>
+                        <tr><td class="sl-col">18</td><td class="roll-col"></td><td>NADHA NAZMIN K T K</td></tr>
+                        <tr><td class="sl-col">19</td><td class="roll-col"></td><td>AFAAF S</td></tr>
+                        <tr><td class="sl-col">20</td><td class="roll-col"></td><td>SANA FATHIMA C</td></tr>
+                        <tr><td class="sl-col">21</td><td class="roll-col"></td><td>FATHIMATHU ZAHRA</td></tr>
+                        <tr><td class="sl-col">22</td><td class="roll-col"></td><td>FATHIMA P M</td></tr>
+                        <tr><td class="sl-col">23</td><td class="roll-col"></td><td>MUHAMMED NIHAD K</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 23</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-COMPUTER SCIENCE HONOURS</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>MUHAMMED AJLAN</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>MINHA FATHIMA M</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>SAHAD PP</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>FATHIMA ZAHALA</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>AMNA FATHIMA</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>ADIL MUHAMMED V</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>HANIYYA FATHIMA</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>MUJTHABA MUHAMMAD</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>HANNA FATHIMA V K</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>FATHIMATHUL ANHA</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>RINAD C H</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>MOHAMMED SHAYAN MV</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>SHADA FATHIMA</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>HAIRATH</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>RIZA FATHIMA M</td></tr>
+                        <tr><td class="sl-col">16</td><td class="roll-col"></td><td>MUHAMMED RIYAN .T</td></tr>
+                        <tr><td class="sl-col">17</td><td class="roll-col"></td><td>SANIYA FATHIMA K K</td></tr>
+                        <tr><td class="sl-col">18</td><td class="roll-col"></td><td>MUHAMMED NAEEM H M</td></tr>
+                        <tr><td class="sl-col">19</td><td class="roll-col"></td><td>AMNA FATHIMA</td></tr>
+                        <tr><td class="sl-col">20</td><td class="roll-col"></td><td>MOHAMMED NIHAL P.V</td></tr>
+                        <tr><td class="sl-col">21</td><td class="roll-col"></td><td>KHADEEJA SIYA N V</td></tr>
+                        <tr><td class="sl-col">22</td><td class="roll-col"></td><td>MUHAMMED HAANI T V</td></tr>
+                        <tr><td class="sl-col">23</td><td class="roll-col"></td><td>MUHAMMED NAZAL</td></tr>
+                        <tr><td class="sl-col">24</td><td class="roll-col"></td><td>MOHAMMED</td></tr>
+                        <tr><td class="sl-col">25</td><td class="roll-col"></td><td>MUHAMMAD AFLAH</td></tr>
+                        <tr><td class="sl-col">26</td><td class="roll-col"></td><td>MUHAMMED SANAFIR NAJ</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 26</td></tr>
+
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 80</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 10: KU1AECARB101 – Arabic for Daily Life ==================== -->
+    <div id="page10" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECARB101 – Arabic for Daily Life</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page10')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <tr class="prog-row"><td colspan="3">First Semester-HISTORY</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>FATHIMATHUL FAHMA</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>FIDHA FATHIMA K</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>HIBA FATHIMA C.M</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>ZENHA ASHRAF M K</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>FATHIMA ZAHRA</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>RANA FATHIMA K</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>FATHIMATHUL HUSNA</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>SAFNA SHERIN</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>NAJA FATHIMA K</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>LUBNA P</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>FATHIMATHU NASIHA</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>MUHAMMED T</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>MUHAMMED AFLAH</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>MISBAH M</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>FARHA FATHIMA E T K</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 15</td></tr>
+
+                        <tr class="prog-row"><td colspan="3">First Semester-ENGLISH</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>HASBIYA FATHIMA</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>HAMDA FATHIMA</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>FATHIMA HADIYA</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>MINHA FATHIMA</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>NAJA FATHIMA P</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>MARIYAM K</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>SHAHMA SALIH C H</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>MUHAMMAD ABDUL VAHID</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>RIZA RAFI K</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>AYSHA FIDA K</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>MOHAMMED HASHIR</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 11</td></tr>
+
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 26</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+    <!-- ==================== PAGE 11: Saral Hindi / Nasari Shanakhath / Bhasha Sahithya Parichayam ==================== -->
+    <div id="page11" class="reveal">
+        <div class="sec-head"><span class="num">AEC 2</span> KU1AECHIN103 / KU1AECURD101 / KU1AECMAL102 – Saral Hindi / Nasari Shanakhath / Bhasha Sahithya Parichayam</div>
+        <div class="sec-body">
+            <div class="faculty-line"><span>Faculty handling :</span> <span class="blank-line"></span></div>
+            <div class="classroom-line"><span>Class room :</span> <span class="blank-line"></span></div>
+
+            <div class="btn-bar">
+                <button class="btn-pdf" onclick="savePDF('page11')">📄 Save as PDF</button>
+            </div>
+
+            <div class="tbl-wrap">
+                <table>
+                    <thead><tr><th class="sl-col">Sl No</th><th class="roll-col">Roll No</th><th class="name-col">Name of the Student</th></tr></thead>
+                    <tbody>
+                        <!-- Saral Hindi -->
+                        <tr class="prog-row"><td colspan="3">First Semester-HISTORY (Saral Hindi – KU1AECHIN103)</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>FIDA FATHIMA N</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>SADIM MAHMOOD</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>FATHIMATHU SANA</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 3</td></tr>
+
+                        <!-- Nasari Shanakhath -->
+                        <tr class="prog-row"><td colspan="3">First Semester-HISTORY (Nasari Shanakhath – KU1AECURD101)</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>MINHA FATHIMA</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>FATHIMA K</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>MUHAMMED SIDEEK E V</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>RUFAIDA K K</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>FATHIMA K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>NAJA FATHIMA R</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>MUHAMMAD SWAFVAN K K</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>MUHAMMED NASLAN K K</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>MUHAMMAD AJLAN</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>FATHIMATH SAFA PARVI</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>MUHAMMED AMEEN P P</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>MUHAMMED NAJAD P</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>MUHAMMED RAYAN P</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>MUHAMMAD SINAN</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>MUHAMMED  SINAN A</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 15</td></tr>
+
+                        <!-- Bhasha Sahithya Parichayam -->
+                        <tr class="prog-row"><td colspan="3">First Semester-HISTORY (Bhasha Sahithya Parichayam – KU1AECMAL102)</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>SAJA FATHIMA G</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>AYSHA MISBA N P</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>ANUNANDA C</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>RINSHA FATHIMA</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>SIVAGAADHA R MANOJ</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>PARVATHI R P</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>FATHIMATHUL FIDHA K</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>NIRANJANA RAJAN</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>ANUMOL K</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>SANA FATHIMA</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>NISA NESUVA T K</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>FATHIMATHUL NIYA K</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>FATHIMATH SHAHANA SHERIN</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>NIHADEEP K P</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>NANMA SURESH</td></tr>
+                        <tr><td class="sl-col">16</td><td class="roll-col"></td><td>SANMAYA K T</td></tr>
+                        <tr><td class="sl-col">17</td><td class="roll-col"></td><td>FATHIMATHUL SAHADIYA N K</td></tr>
+                        <tr><td class="sl-col">18</td><td class="roll-col"></td><td>SHIVADA V K</td></tr>
+                        <tr><td class="sl-col">19</td><td class="roll-col"></td><td>NAHA FATHIMA C K</td></tr>
+                        <tr><td class="sl-col">20</td><td class="roll-col"></td><td>MUHAMMED P</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 20</td></tr>
+
+                        <!-- ENGLISH – Saral Hindi -->
+                        <tr class="prog-row"><td colspan="3">First Semester-ENGLISH (Saral Hindi – KU1AECHIN103)</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>RIDHA FATHIMA P</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>PARTHIP M C</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>SAFEEDA ABDUL AZEEZ K</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>AASIL SHAJITH. C.H</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 4</td></tr>
+
+                        <!-- ENGLISH – Bhasha Sahithya Parichayam -->
+                        <tr class="prog-row"><td colspan="3">First Semester-ENGLISH (Bhasha Sahithya Parichayam – KU1AECMAL102)</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>FATHIMATHU NAJIYA.N K</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>THANHA FATHIMA T K</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>AYMAN ABDUL NAZAR</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>FIZA PRAKASHAN</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>SREENANDH P K</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>NIVEDITHA K  P</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>RAFEEHA RAFEEQ</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>MUHAMMED RISHAN</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 8</td></tr>
+
+                        <!-- ENGLISH – Nasari Shanakhath -->
+                        <tr class="prog-row"><td colspan="3">First Semester-ENGLISH (Nasari Shanakhath – KU1AECURD101)</td></tr>
+                        <tr><td class="sl-col">1</td><td class="roll-col"></td><td>NASNIN FATHIMA P K</td></tr>
+                        <tr><td class="sl-col">2</td><td class="roll-col"></td><td>MIRZANA CK</td></tr>
+                        <tr><td class="sl-col">3</td><td class="roll-col"></td><td>FATHIMA</td></tr>
+                        <tr><td class="sl-col">4</td><td class="roll-col"></td><td>SAFNA C</td></tr>
+                        <tr><td class="sl-col">5</td><td class="roll-col"></td><td>NISVA JASMIN P P</td></tr>
+                        <tr><td class="sl-col">6</td><td class="roll-col"></td><td>MINHA FATHIMA K P</td></tr>
+                        <tr><td class="sl-col">7</td><td class="roll-col"></td><td>FATHIMA V P</td></tr>
+                        <tr><td class="sl-col">8</td><td class="roll-col"></td><td>P P MUFEEDHA</td></tr>
+                        <tr><td class="sl-col">9</td><td class="roll-col"></td><td>AMNA ASHRAF</td></tr>
+                        <tr><td class="sl-col">10</td><td class="roll-col"></td><td>NIDHA FATHIMA V</td></tr>
+                        <tr><td class="sl-col">11</td><td class="roll-col"></td><td>SANA FATHIMA V K</td></tr>
+                        <tr><td class="sl-col">12</td><td class="roll-col"></td><td>FATHIMATHUL SHANIYA P V</td></tr>
+                        <tr><td class="sl-col">13</td><td class="roll-col"></td><td>SHAHMA HALEEMA</td></tr>
+                        <tr><td class="sl-col">14</td><td class="roll-col"></td><td>ARWA LIYANA</td></tr>
+                        <tr><td class="sl-col">15</td><td class="roll-col"></td><td>SHIBA SHIRIN</td></tr>
+                        <tr><td class="sl-col">16</td><td class="roll-col"></td><td>MUHAMMED NAJAD P K</td></tr>
+                        <tr class="total-row"><td colspan="3">Total : 16</td></tr>
+
+                        <tr class="total-row" style="background:#d2e2f2; font-size:1.05rem;"><td colspan="3">Total count on this page : 66</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-footer">Prepared by <strong>@Gafoor I</strong>, Department of Mathematics</div>
+        </div>
+    </div>
+
+</main>
+
+<!-- ===== MAIN FOOTER ===== -->
+<footer class="main-footer">
+    <span>NAM College Kallikkandy</span> — AEC 2 Student Lists &nbsp;|&nbsp; Prepared by @Gafoor I, Department of Mathematics
+</footer>
+
+<!-- ===== PDF SAVE FUNCTION ===== -->
+<script>
+    function savePDF(pageId) {
+        var pageElement = document.getElementById(pageId);
+        if (!pageElement) return;
+
+        var printWindow = window.open('', '_blank');
+        if (!printWindow) {
+            alert('Please allow pop-ups to save as PDF.');
+            return;
+        }
+
+        var pageContent = pageElement.innerHTML;
+        var secHead = pageElement.querySelector('.sec-head');
+        var courseName = secHead ? secHead.textContent.trim() : 'Student List';
+        courseName = courseName.replace(/AEC 2/, '').trim();
+
+        var printDoc = printWindow.document;
+        printDoc.open();
+        printDoc.write('<!DOCTYPE html>');
+        printDoc.write('<html lang="en">');
+        printDoc.write('<head>');
+        printDoc.write('<meta charset="UTF-8">');
+        printDoc.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
+        printDoc.write('<title>' + courseName + ' – NAM College Kallikkandy</title>');
+        printDoc.write('<style>');
+        printDoc.write(`
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body {
+                font-family: 'Segoe UI', system-ui, sans-serif;
+                background: white;
+                color: #2d3748;
+                line-height: 1.6;
+                font-size: 11pt;
+                padding: 15px;
+            }
+            .page-wrapper { max-width: 100%; margin: 0 auto; }
+            .sec-head {
+                background: #1a3557;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px 8px 0 0;
+                font-size: 1.05rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+            .sec-head .num {
+                background: #e07b00;
+                color: #1a3557;
+                font-size: .82rem;
+                font-weight: 800;
+                padding: 3px 12px;
+                border-radius: 99px;
+                white-space: nowrap;
+            }
+            .sec-body {
+                background: white;
+                border: 1px solid #c0cfe0;
+                border-top: none;
+                border-radius: 0 0 8px 8px;
+                padding: 18px 22px;
+            }
+            .faculty-line, .classroom-line {
+                font-size: 1rem;
+                color: #2e3e4e;
+                margin: 4px 0;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .faculty-line span:first-child, .classroom-line span:first-child {
+                font-weight: 600;
+                min-width: 150px;
+            }
+            .blank-line {
+                display: inline-block;
+                border-bottom: 2px solid #9aa9b7;
+                min-width: 260px;
+                margin-left: 6px;
+                height: 1.2em;
+            }
+            .tbl-wrap {
+                overflow-x: auto;
+                margin-top: 14px;
+                border-radius: 6px;
+                border: 1px solid #cbd5e1;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: .92rem;
+                background: white;
+            }
+            thead tr {
+                background: #1a3557;
+                color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            thead th {
+                padding: 8px 12px;
+                text-align: left;
+                font-weight: 600;
+                font-size: .95rem;
+                border-right: 1px solid #2d4f6e;
+                white-space: nowrap;
+            }
+            thead th:last-child { border-right: none; }
+            tbody td {
+                padding: 7px 12px;
+                border-bottom: 1px solid #e2e8f0;
+                vertical-align: top;
+            }
+            tr.prog-row td {
+                background: #d9e6f2;
+                font-weight: 700;
+                color: #0b2a41;
+                font-size: .98rem;
+                border-bottom: 2px solid #8ba6c1;
+                padding: 8px 12px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            tr.total-row td {
+                background: #f1f7fc;
+                font-weight: 700;
+                color: #1b3e5a;
+                border-top: 2px solid #a0b8ce;
+                border-bottom: 2px solid #a0b8ce;
+                font-size: .92rem;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .roll-col { width: 110px; color: #7a8b9b; font-style: italic; }
+            .sl-col { width: 55px; text-align: center; }
+            .name-col { min-width: 160px; }
+            .page-footer {
+                margin-top: 24px;
+                font-size: .88rem;
+                color: #4f6b82;
+                text-align: center;
+                border-top: 2px dashed #b8c9da;
+                padding-top: 12px;
+                font-weight: 500;
+            }
+            .page-footer strong { color: #1a3557; }
+            @media print {
+                body { padding: 8px; }
+                .sec-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                tr.prog-row td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                tr.total-row td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                thead tr { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            }
+        `);
+        printDoc.write('</style>');
+        printDoc.write('</head>');
+        printDoc.write('<body>');
+        printDoc.write('<div class="page-wrapper">');
+        printDoc.write(pageContent);
+        printDoc.write('</div>');
+        printDoc.write('</body>');
+        printDoc.write('</html>');
+        printDoc.close();
+
+        printWindow.onload = function() {
+            setTimeout(function() {
+                printWindow.focus();
+                printWindow.print();
+            }, 500);
+        };
+
+        setTimeout(function() {
+            if (printWindow && !printWindow.closed) {
+                printWindow.focus();
+                printWindow.print();
+            }
+        }, 1000);
+    }
+</script>
+
+<!-- ===== SCROLL REVEAL ===== -->
+<script>
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: .08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
