@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | NAM College FYUGP 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0a2a3a;
+        }
+        .login-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 2.5rem 2.5rem 2rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            border-top: 8px solid #2a8aaa;
+        }
+        .login-card .logo {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4px;
+        }
+        .login-card h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0a3a5a;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .login-card .sub {
+            text-align: center;
+            font-size: 0.88rem;
+            color: #1a6a8a;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .login-card .sub2 {
+            text-align: center;
+            font-size: 0.82rem;
+            color: #4a9aba;
+            margin-bottom: 24px;
+        }
+        .field {
+            margin-bottom: 18px;
+        }
+        .field label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0a3a5a;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+        .field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #c0dce8;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: #0a2a3a;
+            background: #f4fafc;
+            transition: 0.2s;
+            outline: none;
+        }
+        .field input:focus {
+            border-color: #2a8aaa;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(42, 138, 170, 0.12);
+        }
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: 0.25s;
+            margin-top: 6px;
+            box-shadow: 0 6px 18px rgba(10, 58, 90, 0.3);
+        }
+        .login-btn:hover {
+            background: linear-gradient(135deg, #1a7a9a, #4a9aba);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(10, 58, 90, 0.4);
+        }
+        .error-msg {
+            background: #fdecea;
+            color: #c0392b;
+            border: 1px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: none;
+            text-align: center;
+        }
+        .error-msg.show {
+            display: block;
+        }
+        .login-footer {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 0.78rem;
+            color: #5b6a7a;
+            border-top: 1px dashed #c0dce8;
+            padding-top: 14px;
+        }
+        .login-footer strong {
+            color: #0a3a5a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo">🏛️</div>
+        <h1>NAM College Kallikkandy</h1>
+        <div class="sub">FYUGP 2026</div>
+        <div class="sub2">First Semester Course Selection Details</div>
+
+        <div id="errorMsg" class="error-msg">❌ Invalid username or password. Please try again.</div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="field">
+                <label for="username">👤 Username</label>
+                <input type="text" id="username" placeholder="Enter any username" autocomplete="off" required>
+            </div>
+            <div class="field">
+                <label for="password">🔒 Password</label>
+                <input type="password" id="password" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="login-btn">🔓 Login</button>
+        </form>
+
+        <div class="login-footer">
+            Prepared by <strong>@Gafoor I</strong>, Department of Mathematics
+        </div>
+    </div>
+
+    <script>
+        // ===== UPDATED PASSWORD =====
+        const CORRECT_PASSWORD = "Admin@namcfyugp";
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (username.length > 0 && password === CORRECT_PASSWORD) {
+                sessionStorage.setItem('fyugp_logged_in', 'true');
+                sessionStorage.setItem('fyugp_user', username);
+                window.location.href = 'main.html';
+            } else {
+                errorMsg.classList.add('show');
+                errorMsg.textContent = '❌ Invalid password. Please try again.';
+                document.getElementById('password').value = '';
+                document.getElementById('password').focus();
+            }
+            return false;
+        }
+
+        document.getElementById('password').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginForm').requestSubmit();
+            }
+        });
+    </script>
+</body>
+</html>

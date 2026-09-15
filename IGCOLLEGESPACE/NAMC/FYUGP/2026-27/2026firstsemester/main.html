@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FYUGP 2026 – First Semester Course Selection | NAM College</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #e8f4f8;
+            color: #0a2a3a;
+            line-height: 1.6;
+        }
+        :root {
+            --blue-dark: #0a3a5a;
+            --blue-medium: #1a6a8a;
+            --blue-light: #4a9aba;
+            --blue-pale: #d4eaf2;
+            --blue-bg: #e8f4f8;
+            --accent: #2a8aaa;
+            --bg-card: #ffffff;
+        }
+        .header-bar {
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #0a3a5a;
+            padding: 0.6rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #4a9aba;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+        }
+        .nav-bar a, .nav-bar button {
+            background: #1a6a8a;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .nav-bar a:hover, .nav-bar button:hover {
+            background: #4a9aba;
+            transform: translateY(-2px);
+        }
+        .nav-bar .pdf-btn {
+            background: #1a5a7a;
+        }
+        .nav-bar .logout-btn {
+            background: #b03a3a;
+        }
+        .nav-bar .logout-btn:hover {
+            background: #d05050;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        /* ===== HEADING CARD ===== */
+        .page-header {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            border-left: 10px solid var(--blue-medium);
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--blue-dark);
+            letter-spacing: 0.5px;
+        }
+        .page-header .sub {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--blue-medium);
+            margin-top: 4px;
+        }
+        .page-header .sub2 {
+            font-size: 1.05rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 6px;
+            border-top: 1px dashed #b0d0dc;
+            display: inline-block;
+            padding-top: 8px;
+        }
+        .page-header .user-badge {
+            display: inline-block;
+            background: #d4eaf2;
+            color: #0a3a5a;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        /* ===== TABS ===== */
+        .tabs-container {
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.07);
+            border: 1px solid #c0dce8;
+            overflow: hidden;
+        }
+        .tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            background: #f0f8fc;
+            border-bottom: 2px solid #c0dce8;
+            padding: 8px 8px 0 8px;
+            gap: 4px;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            border-bottom: 4px solid transparent;
+            padding: 14px 22px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #4a6a7a;
+            cursor: pointer;
+            transition: 0.25s;
+            border-radius: 12px 12px 0 0;
+            font-family: inherit;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            background: #d4eaf2;
+            color: #0a3a5a;
+        }
+        .tab-btn.active {
+            background: white;
+            color: var(--blue-dark);
+            border-bottom-color: var(--accent);
+            box-shadow: 0 -3px 8px rgba(0,0,0,0.04);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px 28px 34px;
+            animation: fadeIn 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TAB PANEL HEADER ===== */
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+        .panel-head-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .panel-head .icon {
+            font-size: 2rem;
+            background: #d4eaf2;
+            width: 56px; height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            border: 2px solid #b0d0dc;
+        }
+        .panel-head h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--blue-dark);
+            margin: 0;
+        }
+        .panel-head .code {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 700;
+            background: #e8f4f8;
+            padding: 3px 14px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-top: 2px;
+        }
+
+        /* ===== SINGLE STUDENT LIST BUTTON (per tab) ===== */
+        .btn-tab-student-list {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #0a3a5a, #1a7a9a);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 26px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: 0.25s;
+            box-shadow: 0 4px 14px rgba(10, 58, 90, 0.25);
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-tab-student-list:hover {
+            background: linear-gradient(135deg, #1a7a9a, #4a9aba);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(10, 58, 90, 0.35);
+        }
+
+        /* ===== COURSE LIST ===== */
+        .course-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 14px;
+            margin-top: 8px;
+        }
+        .course-item {
+            background: #f4fafc;
+            border: 1px solid #c0dce8;
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            transition: 0.2s;
+            border-left: 5px solid var(--blue-light);
+        }
+        .course-item:hover {
+            background: #e8f4f8;
+            border-color: var(--accent);
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(42, 138, 170, 0.12);
+        }
+        .course-item .info {
+            flex: 1;
+            min-width: 0;
+        }
+        .course-item .info .name {
+            font-weight: 700;
+            color: var(--blue-dark);
+            font-size: 0.98rem;
+        }
+        .course-item .info .meta {
+            font-size: 0.8rem;
+            color: #5b6a7a;
+            font-weight: 600;
+        }
+        .course-item .count {
+            background: #d4eaf2;
+            color: var(--blue-dark);
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 5px 14px;
+            border-radius: 40px;
+            white-space: nowrap;
+        }
+
+        /* ===== INFO BOX ===== */
+        .info-box {
+            background: #e8f4f8;
+            border-left: 6px solid var(--blue-light);
+            border-radius: 14px;
+            padding: 16px 22px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #0a3a5a;
+        }
+        .info-box strong {
+            color: var(--blue-dark);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0a3a5a;
+            color: #b0d0dc;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 40px;
+            border-top: 6px solid var(--blue-light);
+        }
+        footer a { color: #4a9aba; text-decoration: none; }
+        footer strong { color: #ffffff; }
+
+        @media (max-width: 700px) {
+            .page-header h1 { font-size: 1.3rem; }
+            .page-header .sub { font-size: 1rem; }
+            .tab-btn { padding: 10px 14px; font-size: 0.8rem; }
+            .tab-content { padding: 20px 16px 24px; }
+            .panel-head { flex-direction: column; align-items: flex-start; }
+            .panel-head h2 { font-size: 1.15rem; }
+            .btn-tab-student-list { width: 100%; justify-content: center; }
+            .course-list { grid-template-columns: 1fr; }
+        }
+        @media print {
+            .nav-bar, .pdf-btn, .logout-btn { display: none !important; }
+            .tabs-container { box-shadow: none; border: 1px solid #ccc; }
+            .tab-content { display: block !important; page-break-after: always; }
+            footer { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-bar">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+
+<div class="nav-bar">
+    <a href="#">🏠 Home</a>
+    <a href="#">📘 Course Home</a>
+    <button class="pdf-btn" onclick="window.print()">📄 Save as PDF (A4)</button>
+    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+</div>
+
+<div class="main-container">
+
+    <!-- ===== PAGE HEADER ===== -->
+    <div class="page-header">
+        <h1>NAM College Kallikkandy</h1>
+        <div class="sub">FYUGP 2026</div>
+        <div class="sub2">First Semester Course Selection Details</div>
+        <div class="user-badge" id="userBadge">👤 Logged in as: User</div>
+    </div>
+
+    <!-- ===== TABS CONTAINER ===== -->
+    <div class="tabs-container">
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="major">📘 Major Courses</button>
+            <button class="tab-btn" data-tab="aec1">📗 AEC-1</button>
+            <button class="tab-btn" data-tab="aec2">📙 AEC-2</button>
+            <button class="tab-btn" data-tab="minor1">📕 Minor-1</button>
+            <button class="tab-btn" data-tab="minor2">📒 Minor-2</button>
+            <button class="tab-btn" data-tab="mdc1">📓 MDC-1</button>
+        </div>
+
+        <!-- ===== TAB: MAJOR COURSES ===== -->
+        <div id="tab-major" class="tab-content active">
+            <div class="panel-head">
+                <div class="panel-head-left">
+                    <div class="icon">📘</div>
+                    <div>
+                        <h2>Major Courses</h2>
+                        <span class="code">Course Category: MAJOR-1</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-tab-student-list">📋 Student List</a>
+            </div>
+            <div class="info-box">
+                <strong>📌 Major Courses</strong> — Core discipline courses for the First Semester FYUGP 2026.
+            </div>
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Management Theory and Practice</div>
+                        <div class="meta">KU1DSCCOM100 · BCOM HONOURS</div>
+                    </div>
+                    <span class="count">63</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Foundations of Psychology</div>
+                        <div class="meta">KU1DSCPSY100 · B.Sc PSYCHOLOGY HONOURS</div>
+                    </div>
+                    <span class="count">24</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Calculus 1</div>
+                        <div class="meta">KU1DSCMAT101 · MATHEMATICS</div>
+                    </div>
+                    <span class="count">29</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Fundamentals of Chemistry 1</div>
+                        <div class="meta">KU1DSCCHE101 · POLYMER CHEMISTRY</div>
+                    </div>
+                    <span class="count">27</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Fundamentals of Programming with C</div>
+                        <div class="meta">KU1DSCCSC101 · COMPUTER SCIENCE HONOURS</div>
+                    </div>
+                    <span class="count">43</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Understanding History</div>
+                        <div class="meta">KU1DSCHIS101 · HISTORY</div>
+                    </div>
+                    <span class="count">53</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Poetry in English</div>
+                        <div class="meta">KU1DSCENG101 · ENGLISH</div>
+                    </div>
+                    <span class="count">39</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: AEC-1 ===== -->
+        <div id="tab-aec1" class="tab-content">
+            <div class="panel-head">
+                <div class="panel-head-left">
+                    <div class="icon">📗</div>
+                    <div>
+                        <h2>AEC-1</h2>
+                        <span class="code">Ability Enhancement Course – 1</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-tab-student-list">📋 Student List</a>
+            </div>
+            <div class="info-box">
+                <strong>📌 AEC-1</strong> — Ability Enhancement Courses for the First Semester FYUGP 2026.
+            </div>
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Enriching English</div>
+                        <div class="meta">KU1AECENG102 · BCOM HONOURS</div>
+                    </div>
+                    <span class="count">63</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Enhancing English</div>
+                        <div class="meta">1KU1AEENG101 · PSYCHOLOGY, MATHS, POLYMER, CS</div>
+                    </div>
+                    <span class="count">123</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Engaging English</div>
+                        <div class="meta">KU1AECENG103 · HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">93</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: AEC-2 ===== -->
+        <div id="tab-aec2" class="tab-content">
+            <div class="panel-head">
+                <div class="panel-head-left">
+                    <div class="icon">📙</div>
+                    <div>
+                        <h2>AEC-2</h2>
+                        <span class="code">Ability Enhancement Course – 2</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-tab-student-list">📋 Student List</a>
+            </div>
+            <div class="info-box">
+                <strong>📌 AEC-2</strong> — Ability Enhancement Courses for the First Semester FYUGP 2026.
+            </div>
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Sahityik Hindi</div>
+                        <div class="meta">KU1AECHIN102 · BCOM HONOURS</div>
+                    </div>
+                    <span class="count">11</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Sahithyavum Rachanayum</div>
+                        <div class="meta">KU1AECMAL103 · BCOM HONOURS</div>
+                    </div>
+                    <span class="count">15</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Communicative Urdu</div>
+                        <div class="meta">KU1AECURD103 · BCOM HONOURS</div>
+                    </div>
+                    <span class="count">11</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Communicative Arabic</div>
+                        <div class="meta">KU1AECARB103 · BCOM HONOURS</div>
+                    </div>
+                    <span class="count">26</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">NASARI MUTHALA</div>
+                        <div class="meta">KU1AECURD102 · PSYCHOLOGY, MATHS, CS</div>
+                    </div>
+                    <span class="count">7</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">RACHANAYUM SAHITYA PADANAVUM</div>
+                        <div class="meta">KU1AECMAL101 · PSYCHOLOGY, MATHS, CS</div>
+                    </div>
+                    <span class="count">20</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">KAHANI AUR RACHANA</div>
+                        <div class="meta">KU1AECHIN101 · MATHS, POLYMER, CS</div>
+                    </div>
+                    <span class="count">16</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Arabic for Interaction</div>
+                        <div class="meta">KU1AECARAB102 · PSYCHOLOGY, MATHS, POLYMER, CS</div>
+                    </div>
+                    <span class="count">80</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Arabic for Daily Life</div>
+                        <div class="meta">KU1AECARB101 · HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">26</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Saral Hindi / Nasari Shanakhath / Bhasha Sahithya Parichayam</div>
+                        <div class="meta">KU1AECHIN103 / KU1AECURD101 / KU1AECMAL102 · HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">66</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: MINOR-1 ===== -->
+        <div id="tab-minor1" class="tab-content">
+            <div class="panel-head">
+                <div class="panel-head-left">
+                    <div class="icon">📕</div>
+                    <div>
+                        <h2>Minor Courses : Minor-1</h2>
+                        <span class="code">Minor – 1</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-tab-student-list">📋 Student List</a>
+            </div>
+            <div class="info-box">
+                <strong>📌 Minor-1</strong> — Minor courses for the First Semester FYUGP 2026.
+            </div>
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Functions, Calculus and Matrices</div>
+                        <div class="meta">KU1DSCMAT113 · PSYCHOLOGY, POLYMER, CS</div>
+                    </div>
+                    <span class="count">54</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Economics for Beginners</div>
+                        <div class="meta">KU1DSCECO102 · BCOM, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">35</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Fundamentals of Computers and Programming</div>
+                        <div class="meta">KU1DSCCSC101 · BCOM, PSYCHOLOGY, POLYMER, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">54</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Basics of Sociology</div>
+                        <div class="meta">KU1DSCSOC101 · PSYCHOLOGY, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">43</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Accounting for Beginners</div>
+                        <div class="meta">KU1DSCCOM101 · PSYCHOLOGY, CS, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">43</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Introductory Statistics</div>
+                        <div class="meta">KU1DSCSTA121 · MATHEMATICS</div>
+                    </div>
+                    <span class="count">29</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">General Chemistry 1</div>
+                        <div class="meta">KU1DSCCHE113 · PSYCHOLOGY, ENGLISH</div>
+                    </div>
+                    <span class="count">2</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Foundations of Psychology</div>
+                        <div class="meta">KU1DSCPSY100-1 · HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">17</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">History of Tourism – Concepts and Practices</div>
+                        <div class="meta">KU1DSCHIS105 · ENGLISH</div>
+                    </div>
+                    <span class="count">1</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: MINOR-2 ===== -->
+        <div id="tab-minor2" class="tab-content">
+            <div class="panel-head">
+                <div class="panel-head-left">
+                    <div class="icon">📒</div>
+                    <div>
+                        <h2>Minor Courses : Minor-2</h2>
+                        <span class="code">Minor – 2</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-tab-student-list">📋 Student List</a>
+            </div>
+            <div class="info-box">
+                <strong>📌 Minor-2</strong> — Minor courses for the First Semester FYUGP 2026.
+            </div>
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Essentials of Information Technology</div>
+                        <div class="meta">KU1DSCCSC107 · BCOM, PSYCHOLOGY, MATHS, POLYMER, ENGLISH</div>
+                    </div>
+                    <span class="count">59</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Statistical Methods</div>
+                        <div class="meta">KU1DSCSTA122 · PSYCHOLOGY, CS</div>
+                    </div>
+                    <span class="count">46</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Properties of Matter</div>
+                        <div class="meta">KU1DSCPHY111 · MATHS, POLYMER</div>
+                    </div>
+                    <span class="count">25</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Business Statistics</div>
+                        <div class="meta">KU1DSCCOM103 · PSYCHOLOGY, CS, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">23</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Environment and Society</div>
+                        <div class="meta">KU1DSCSOC102 · HISTORY</div>
+                    </div>
+                    <span class="count">32</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Reels Communication and Popular Culture</div>
+                        <div class="meta">KU1DSCJMC106 · HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">4</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">English for Daily Use</div>
+                        <div class="meta">KU1DSCFNG101 · BCOM, PSYCHOLOGY, MATHS, HISTORY</div>
+                    </div>
+                    <span class="count">10</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Social Behaviour</div>
+                        <div class="meta">KU1DSCPSY101 · BCOM, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">15</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Economics of Tourism and Development</div>
+                        <div class="meta">KU1DSCECO103 · BCOM, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">64</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TAB: MDC-1 ===== -->
+        <div id="tab-mdc1" class="tab-content">
+            <div class="panel-head">
+                <div class="panel-head-left">
+                    <div class="icon">📓</div>
+                    <div>
+                        <h2>MDC-1</h2>
+                        <span class="code">Multidisciplinary Course – 1</span>
+                    </div>
+                </div>
+                <a href="#" class="btn-tab-student-list">📋 Student List</a>
+            </div>
+            <div class="info-box">
+                <strong>📌 MDC-1</strong> — Multidisciplinary Courses for the First Semester FYUGP 2026.
+            </div>
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Essentials of Information Technology</div>
+                        <div class="meta">KU1DSCCSC107 · BCOM, PSYCHOLOGY, MATHS, POLYMER, ENGLISH</div>
+                    </div>
+                    <span class="count">59</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Statistical Methods</div>
+                        <div class="meta">KU1DSCSTA122 · PSYCHOLOGY, CS</div>
+                    </div>
+                    <span class="count">46</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Properties of Matter</div>
+                        <div class="meta">KU1DSCPHY111 · MATHS, POLYMER</div>
+                    </div>
+                    <span class="count">25</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Business Statistics</div>
+                        <div class="meta">KU1DSCCOM103 · PSYCHOLOGY, CS, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">23</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Environment and Society</div>
+                        <div class="meta">KU1DSCSOC102 · HISTORY</div>
+                    </div>
+                    <span class="count">32</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Reels Communication and Popular Culture</div>
+                        <div class="meta">KU1DSCJMC106 · HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">4</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">English for Daily Use</div>
+                        <div class="meta">KU1DSCFNG101 · BCOM, PSYCHOLOGY, MATHS, HISTORY</div>
+                    </div>
+                    <span class="count">10</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Social Behaviour</div>
+                        <div class="meta">KU1DSCPSY101 · BCOM, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">15</span>
+                </div>
+                <div class="course-item">
+                    <div class="info">
+                        <div class="name">Economics of Tourism and Development</div>
+                        <div class="meta">KU1DSCECO103 · BCOM, HISTORY, ENGLISH</div>
+                    </div>
+                    <span class="count">64</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+    <p><strong>@Gafoor I</strong>, Department of Mathematics, NAM College Kallikkandy</p>
+    <div style="margin-top: 8px;">
+        <a href="#">🏠 Home</a> | <a href="#">📘 Classroom Space</a> | <a href="#">📖 Syllabus</a>
+    </div>
+    <p style="margin-top: 12px; font-size: 0.75rem;">FYUGP 2026 | First Semester Course Selection Details</p>
+</footer>
+
+<script>
+    // ===== LOGIN CHECK =====
+    if (sessionStorage.getItem('fyugp_logged_in') !== 'true') {
+        window.location.href = 'login.html';
+    }
+    const username = sessionStorage.getItem('fyugp_user') || 'User';
+    document.getElementById('userBadge').textContent = '👤 Logged in as: ' + username;
+
+    // ===== TAB SWITCHING =====
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            this.classList.add('active');
+            const tabId = this.getAttribute('data-tab');
+            const content = document.getElementById('tab-' + tabId);
+            if (content) content.classList.add('active');
+        });
+    });
+
+    // ===== LOGOUT =====
+    function logout() {
+        sessionStorage.removeItem('fyugp_logged_in');
+        sessionStorage.removeItem('fyugp_user');
+        window.location.href = 'login.html';
+    }
+</script>
+
+</body>
+</html>
