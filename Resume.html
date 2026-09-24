@@ -52,8 +52,8 @@
             flex-shrink: 0;
         }
         .hero-photo img {
-            width: 140px;
-            height: 140px;
+            width: 175px;
+            height: 175px;
             border-radius: 12px;
             object-fit: cover;
             border: 3px solid #2d5a8c;
@@ -277,6 +277,88 @@
             text-decoration: underline;
             color: #1a3a5c;
         }
+        
+        /* Print/PDF Styles for A4 Optimization */
+        @media print {
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+                background: #ffffff;
+                height: 100%;
+            }
+            body {
+                background: #ffffff;
+            }
+            .cv-wrapper {
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                border-radius: 0;
+                box-shadow: none;
+                border: none;
+                page-break-after: auto;
+            }
+            .hero {
+                page-break-after: avoid;
+                background: #f8fbfe;
+                margin-bottom: 1rem;
+            }
+            .hero::before {
+                display: none;
+            }
+            .hero-photo img {
+                max-width: 175px;
+                height: auto;
+            }
+            .content-area {
+                padding: 0.8rem 1.5rem;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+            .section-title {
+                page-break-after: avoid;
+            }
+            .research-block, .fdp-block {
+                page-break-inside: avoid;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            ul li {
+                page-break-inside: avoid;
+            }
+            .nav-bar {
+                display: none !important;
+            }
+            #savePdfBtn {
+                display: none !important;
+            }
+            .footer {
+                background: #ffffff;
+                margin-top: 1rem;
+                page-break-inside: avoid;
+            }
+            a {
+                color: #2d5a8c;
+                text-decoration: none;
+            }
+            /* Remove background colors for cleaner print */
+            .hero-links a {
+                background: transparent;
+                border: 1px solid #2d5a8c;
+            }
+            .info-note {
+                background: #f0f4f9;
+                border-left: 3px solid #2d5a8c;
+            }
+        }
+        
         @media (max-width: 768px) {
             .hero-content {
                 flex-direction: column;
@@ -284,8 +366,8 @@
                 text-align: center;
             }
             .hero-photo img {
-                width: 120px;
-                height: 120px;
+                width: 160px;
+                height: 160px;
             }
             .hero-left h1 {
                 font-size: 1.8rem;
@@ -496,29 +578,21 @@
         });
     }
 
-    // PDF export
+    // Print to PDF - Uses browser's native print functionality
     document.getElementById("savePdfBtn").addEventListener("click", function() {
-        const element = document.getElementById("cvContent");
-        const navBar = document.querySelector(".nav-bar");
-        const pdfBtn = document.getElementById("savePdfBtn");
-        navBar.style.display = "none";
-        pdfBtn.style.display = "none";
-
-        const opt = {
-            margin:       0.4,
-            filename:     'Gafoor_I_CV.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
-            jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save().then(() => {
-            navBar.style.display = "flex";
-            pdfBtn.style.display = "inline-flex";
-        });
+        // Set document title for PDF
+        const originalTitle = document.title;
+        document.title = 'Gafoor_I_CV';
+        
+        // Trigger print dialog (user selects "Save as PDF")
+        window.print();
+        
+        // Restore original title
+        setTimeout(() => {
+            document.title = originalTitle;
+        }, 100);
     });
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
 </html>
