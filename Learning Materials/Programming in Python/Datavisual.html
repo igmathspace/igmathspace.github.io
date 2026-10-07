@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Data Visualization in Python – Teaching Note | IG Math Space</title>
+<style>
+  /* ── PISTA THEME TOKENS ─────────────────────────── */
+  :root{
+    --pista-dark:   #4a6b3a;
+    --pista-mid:    #6b8f4e;
+    --pista-light:  #e8f0e0;
+    --pista-bg:     #f2f7ec;
+    --pista-accent: #8fbc6a;
+    --pista-glow:   #c8e0b0;
+    --pista-cream:  #f9fcf5;
+    --code-bg:      #f4f6f0;
+    --code-bd:      #c0d0b0;
+    --text:         #2d3a28;
+    --muted:        #64705c;
+    --white:        #ffffff;
+    --radius:       10px;
+    --shadow:       0 4px 24px rgba(74,107,58,.12);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:var(--pista-bg);
+    color:var(--text);
+    line-height:1.8;
+    font-size:17pt;
+  }
+  a{color:var(--pista-mid);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ── NAV ─────────────────────────────────────────── */
+  header{
+    background:var(--pista-dark);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.25);
+  }
+  .brand{display:flex;align-items:center;gap:14px;padding:16px 32px 0}
+  .brand-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(135deg,var(--pista-accent),var(--pista-glow));
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:900;color:var(--pista-dark);
+    box-shadow:0 0 0 3px rgba(200,224,176,.35);
+  }
+  .brand-text h1{font-size:1.15rem;color:var(--white);font-weight:700;letter-spacing:.5px}
+  .brand-text p{font-size:.92rem;color:#b8d4a8;margin-top:-2px}
+  nav{display:flex;flex-wrap:wrap;gap:4px;padding:0 24px;margin-top:12px}
+  nav a{
+    font-size:.88rem;font-weight:600;letter-spacing:.6px;
+    color:#b8d4a8;padding:10px 16px;text-transform:uppercase;
+    border-bottom:3px solid transparent;transition:all .2s;
+  }
+  nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--pista-accent);text-decoration:none}
+
+  /* ── HERO ────────────────────────────────────────── */
+  .hero{
+    background:linear-gradient(135deg,var(--pista-dark) 0%,var(--pista-mid) 100%);
+    padding:64px 32px 56px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'plot imshow meshgrid';
+    position:absolute;inset:0;
+    font-size:6rem;font-weight:900;color:rgba(255,255,255,.04);
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:30px;pointer-events:none;text-transform:uppercase;
+  }
+  .hero-eyebrow{
+    display:inline-block;background:rgba(143,188,106,.18);
+    border:1px solid rgba(143,188,106,.5);color:var(--pista-glow);
+    font-size:.88rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 18px;border-radius:99px;margin-bottom:18px;
+  }
+  .hero h2{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.2;margin-bottom:12px}
+  .hero h2 span{color:var(--pista-glow)}
+  .hero p{color:#d0e8c0;font-size:1.15rem;max-width:680px;margin:0 auto 28px}
+  .hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;font-size:.95rem;color:#b8d4a8}
+  .hero-meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 16px;border-radius:99px}
+  .hero-meta span b{color:var(--white)}
+
+  .page{max-width:1050px;margin:0 auto;padding:44px 24px 80px}
+
+  .sec-head{
+    background:var(--pista-dark);color:var(--white);
+    padding:14px 24px;border-radius:var(--radius) var(--radius) 0 0;
+    font-size:1.2rem;font-weight:700;letter-spacing:.4px;
+    display:flex;align-items:center;gap:12px;margin-top:40px;
+  }
+  .sec-head .num{background:var(--pista-accent);color:var(--pista-dark);font-size:.92rem;font-weight:800;padding:3px 12px;border-radius:99px}
+  .sec-body{
+    background:var(--white);border:1px solid var(--code-bd);border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);padding:26px 32px;box-shadow:var(--shadow);
+  }
+
+  h3{font-size:1.25rem;font-weight:700;color:var(--pista-dark);margin:24px 0 10px;border-left:4px solid var(--pista-accent);padding-left:12px}
+  h4{font-size:1.1rem;font-weight:600;color:var(--pista-mid);margin:20px 0 8px}
+  p{margin-bottom:12px;font-size:1.05rem}
+  ul.dot{list-style:none;padding-left:0}
+  ul.dot li{padding:6px 0 6px 26px;font-size:1.05rem;position:relative}
+  ul.dot li::before{content:"◆";color:var(--pista-accent);font-size:.7rem;position:absolute;left:4px;top:12px}
+  ol{padding-left:26px;font-size:1.05rem}
+  ol li{padding:4px 0}
+
+  .tbl-wrap{overflow-x:auto;margin:14px 0}
+  table{width:100%;border-collapse:collapse;font-size:1rem}
+  thead tr{background:var(--pista-dark);color:var(--white)}
+  thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:1.02rem}
+  tbody tr:nth-child(even){background:var(--pista-light)}
+  tbody tr:hover{background:#dcead0;transition:background .15s}
+  tbody td{padding:11px 16px;border-bottom:1px solid var(--code-bd);vertical-align:top}
+  td strong{color:var(--pista-dark)}
+
+  pre{
+    background:var(--code-bg);border:1px solid var(--code-bd);
+    border-left:5px solid var(--pista-mid);border-radius:var(--radius);
+    padding:16px 20px;font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:1rem;line-height:1.7;overflow-x:auto;margin:12px 0 12px;color:#1a2e1a;
+  }
+  code{
+    background:var(--code-bg);border:1px solid var(--code-bd);
+    padding:2px 7px;border-radius:4px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.92em;color:#1a2e1a;
+  }
+
+  .output{
+    background:#1a2e1a;color:#e0f0d0;border-radius:var(--radius);
+    padding:14px 20px;font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.98rem;line-height:1.7;margin:0 0 20px 0;
+    border-left:5px solid var(--pista-accent);position:relative;
+    white-space:pre-wrap;overflow-x:auto;
+  }
+  .output::before{
+    content:"▶ OUTPUT";display:block;font-family:'Segoe UI',sans-serif;
+    font-size:.8rem;font-weight:800;letter-spacing:1.5px;color:var(--pista-accent);margin-bottom:8px;
+  }
+
+  .note,.tip{border-radius:var(--radius);padding:14px 20px;font-size:1.02rem;margin:14px 0}
+  .note{background:#f5f9f0;border-left:5px solid var(--pista-accent);color:#3a5a2a}
+  .note b,.note-icon{color:var(--pista-mid)}
+  .tip{background:#e8f0e0;border-left:5px solid var(--pista-mid);color:#2d4a1e}
+  .tip b{color:var(--pista-mid)}
+
+  .q-list{counter-reset:q}
+  .q-list li{
+    counter-increment:q;list-style:none;padding:14px 16px 14px 58px;position:relative;
+    border-bottom:1px dashed var(--code-bd);font-size:1.03rem;
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:counter(q);position:absolute;left:14px;top:13px;
+    background:var(--pista-dark);color:var(--white);
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;
+  }
+
+  .activity{
+    background:linear-gradient(135deg,var(--pista-light),#d8e8c8);
+    border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:22px 26px;margin:16px 0;
+  }
+  .activity h4{margin-top:0;border-left:4px solid var(--pista-mid);padding-left:10px;font-size:1.08rem}
+
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:16px}
+  .sum-card{
+    background:var(--white);border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:20px 22px;border-top:4px solid var(--pista-accent);
+    box-shadow:0 2px 8px rgba(74,107,58,.07);font-size:1rem;
+  }
+  .sum-card .icon{font-size:1.7rem;margin-bottom:8px}
+  .sum-card strong{display:block;color:var(--pista-dark);margin-bottom:6px;font-size:1.05rem}
+
+  .pagenav{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:12px;margin-top:44px;flex-wrap:wrap;
+  }
+  .pagenav a{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--pista-dark);color:var(--white);
+    padding:14px 26px;border-radius:99px;font-size:1rem;font-weight:600;
+    text-decoration:none;transition:all .2s;box-shadow:0 3px 10px rgba(74,107,58,.25);
+  }
+  .pagenav a:hover{background:var(--pista-mid);text-decoration:none;transform:translateY(-2px)}
+  .pagenav a.next{background:var(--pista-accent);color:var(--pista-dark)}
+  .pagenav a.next:hover{background:var(--pista-glow)}
+
+  .signoff{
+    background:var(--pista-dark);color:var(--white);
+    border-radius:var(--radius);padding:28px 36px;
+    margin-top:44px;display:flex;align-items:center;gap:22px;box-shadow:var(--shadow);
+  }
+  .signoff-icon{
+    width:70px;height:70px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--pista-accent),var(--pista-glow));
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;font-weight:900;color:var(--pista-dark);
+  }
+  .signoff h3{font-size:1.3rem;color:var(--pista-glow);border:none;padding:0;margin:0 0 6px}
+  .signoff p{color:#b8d4a8;font-size:1rem;margin:0}
+
+  footer{
+    background:var(--pista-dark);color:#8aaa7a;
+    text-align:center;font-size:.92rem;padding:20px;
+    border-top:2px solid var(--pista-accent);
+  }
+  footer span{color:#b8d4a8}
+
+  .toc{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:24px 28px;box-shadow:var(--shadow);margin-bottom:12px;
+  }
+  .toc h3{margin-top:0;border-left:4px solid var(--pista-accent);padding-left:12px;margin-bottom:14px;font-size:1.2rem}
+  .toc ol{padding-left:24px;font-size:1.03rem}
+  .toc ol li{padding:5px 0}
+  .toc ol li a{color:var(--pista-mid)}
+  .toc ol li a:hover{color:var(--pista-accent)}
+
+  /* ── GRAPH CARD ─────────────────────────────────── */
+  .graph-card{
+    background:var(--pista-cream);
+    border:1px solid var(--code-bd);
+    border-radius:var(--radius);
+    padding:18px;
+    margin:14px 0 20px;
+    box-shadow:0 2px 8px rgba(74,107,58,.06);
+  }
+  .graph-card svg{
+    display:block;
+    width:100%;
+    height:auto;
+    background:#ffffff;
+    border-radius:6px;
+    border:1px solid #d8e0c8;
+  }
+  .graph-caption{
+    text-align:center;
+    font-size:.95rem;
+    color:var(--muted);
+    margin-top:10px;
+    font-style:italic;
+  }
+
+  @media(max-width:700px){
+    body{font-size:15pt}
+    .brand{padding:12px 16px 0}
+    nav{padding:0 12px}
+    nav a{font-size:.78rem;padding:7px 11px}
+    .hero{padding:40px 16px 36px}
+    .page{padding:24px 12px 60px}
+    .sec-body{padding:18px}
+    .signoff{flex-direction:column;text-align:center}
+    pre{font-size:.92rem}
+    .output{font-size:.9rem}
+  }
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════ -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">IG</div>
+    <div class="brand-text">
+      <h1>IG Math Space</h1>
+      <p>Mathematics Teaching and Research</p>
+    </div>
+  </div>
+  <nav>
+    <a href="https://igmathspace.github.io/index.html">🏠 Home Space</a>
+    <a href="https://igmathspace.github.io/lessons.html" class="active">📚 Classroom Space</a>
+    <a href="https://igmathspace.github.io/research.html">🔬 Research &amp; FDP</a>
+    <a href="https://igmathspace.github.io/students.html">🎓 Student Space</a>
+    <a href="https://igmathspace.github.io/IGBOOKSPACE/">📖 Book Space</a>
+    <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ Official Space</a>
+  </nav>
+</header>
+
+<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">📚 Classroom Space · Teaching Note</div>
+  <h2>Data <span>Visualization</span></h2>
+  <p>Module IV — Data Visualization · A comprehensive classroom teaching note on Matplotlib, plotting mathematical functions, famous curves, 2D color plots, meshgrids, and 3D plots with example programs and graphs.</p>
+  <div class="hero-meta">
+    <span>👨‍🏫 <b>Gafoor I</b></span>
+    <span>🏛️ <b>NAM College Kallikkandy</b></span>
+    <span>📐 <b>Department of Mathematics</b></span>
+    <span>📘 <b>Python for Education</b></span>
+  </div>
+</section>
+
+<!-- ═══ PAGE BODY ═══════════════════════════════════════ -->
+<main class="page">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <h3>📋 Contents</h3>
+    <ol>
+      <li><a href="#obj">Learning Objectives</a></li>
+      <li><a href="#matplotlib">The Matplotlib Module</a></li>
+      <li><a href="#mathfunc">Plotting Mathematical Functions</a></li>
+      <li><a href="#famous">Famous Curves</a></li>
+      <li><a href="#colors">2D Plot Using Colors</a></li>
+      <li><a href="#meshgrid">Meshgrids</a></li>
+      <li><a href="#3dplots">3D Plots</a></li>
+      <li><a href="#activities">Classroom Activities</a></li>
+      <li><a href="#review">Review Questions</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ol>
+  </div>
+
+  <!-- ── 1. OBJECTIVES ──────────────────────────────── -->
+  <div id="obj" class="reveal">
+    <div class="sec-head"><span class="num">01</span> Learning Objectives</div>
+    <div class="sec-body">
+      <p>By the end of this class session, students will be able to:</p>
+      <ul class="dot">
+        <li>Understand the purpose and use of the Matplotlib library for data visualization.</li>
+        <li>Create 2D plots using <code>plot()</code>, <code>polar()</code>, and <code>pie()</code>.</li>
+        <li>Plot mathematical functions and famous curves using parametric and polar equations.</li>
+        <li>Visualize 2D matrices using color maps with <code>imshow()</code>.</li>
+        <li>Create and use meshgrids for evaluating functions over 2D domains.</li>
+        <li>Generate 3D surface, line, and wireframe plots using <code>mplot3d</code>.</li>
+        <li>Apply visualization techniques to mathematical and scientific problems.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── 2. MATPLOTLIB ────────────────────────────── -->
+  <div id="matplotlib" class="reveal">
+    <div class="sec-head"><span class="num">02</span> The Matplotlib Module</div>
+    <div class="sec-body">
+
+      <h3>2.1 Introduction</h3>
+      <p><strong>Matplotlib</strong> is a Python package that produces publication-quality figures in a variety of hardcopy formats. It provides functions for matrix manipulation, generating plots, histograms, bar charts, error-charts, scatter-plots, and full control over line styles, font properties, and axes properties.</p>
+
+      <h3>2.2 Importing Matplotlib</h3>
+<pre>from pylab import *</pre>
+      <p>Importing <code>pylab</code> makes plotting functions from <code>pyplot</code> and matrix manipulation functions from <code>mlab</code> available as local functions. It also imports NumPy automatically.</p>
+
+      <div class="note">💡 <strong>Note:</strong> Data points supplied to plotting functions can be Python lists or NumPy arrays.</div>
+
+      <h3>2.3 Basic Plotting</h3>
+
+      <h4>Example 1: Simple Plot</h4>
+<pre>from pylab import *
+data = [1, 2, 5]
+plot(data)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="200" fill="#fff"/>
+          <line x1="50" y1="170" x2="370" y2="170" stroke="#555" stroke-width="1.5"/>
+          <line x1="50" y1="20" x2="50" y2="170" stroke="#555" stroke-width="1.5"/>
+          <text x="360" y="188" font-size="11" fill="#555">x</text>
+          <text x="30" y="30" font-size="11" fill="#555">y</text>
+          <!-- x-ticks -->
+          <text x="50" y="188" font-size="10" fill="#777">0</text>
+          <text x="160" y="188" font-size="10" fill="#777">1</text>
+          <text x="265" y="188" font-size="10" fill="#777">2</text>
+          <!-- y-ticks -->
+          <text x="30" y="172" font-size="10" fill="#777">1</text>
+          <text x="30" y="120" font-size="10" fill="#777">3</text>
+          <text x="30" y="65" font-size="10" fill="#777">5</text>
+          <!-- plot line -->
+          <polyline points="50,170 160,120 265,65" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+          <circle cx="50" cy="170" r="4" fill="#2b6cb0"/>
+          <circle cx="160" cy="120" r="4" fill="#2b6cb0"/>
+          <circle cx="265" cy="65" r="4" fill="#2b6cb0"/>
+        </svg>
+        <p class="graph-caption">Fig 1. Simple plot of data = [1, 2, 5]</p>
+      </div>
+
+      <h4>Example 2: Specifying Both Axes</h4>
+<pre>from pylab import *
+x = [1, 2, 5]
+y = [4, 5, 6]
+plot(x, y)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="200" fill="#fff"/>
+          <line x1="50" y1="170" x2="370" y2="170" stroke="#555" stroke-width="1.5"/>
+          <line x1="50" y1="20" x2="50" y2="170" stroke="#555" stroke-width="1.5"/>
+          <text x="360" y="188" font-size="11" fill="#555">x</text>
+          <text x="30" y="30" font-size="11" fill="#555">y</text>
+          <text x="50" y="188" font-size="10" fill="#777">0</text>
+          <text x="160" y="188" font-size="10" fill="#777">1</text>
+          <text x="265" y="188" font-size="10" fill="#777">2</text>
+          <text x="345" y="188" font-size="10" fill="#777">5</text>
+          <text x="30" y="172" font-size="10" fill="#777">4</text>
+          <text x="30" y="120" font-size="10" fill="#777">5</text>
+          <text x="30" y="65" font-size="10" fill="#777">6</text>
+          <polyline points="160,172 265,120 345,65" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+          <circle cx="160" cy="172" r="4" fill="#2b6cb0"/>
+          <circle cx="265" cy="120" r="4" fill="#2b6cb0"/>
+          <circle cx="345" cy="65" r="4" fill="#2b6cb0"/>
+        </svg>
+        <p class="graph-caption">Fig 2. Plot of x = [1,2,5] and y = [4,5,6]</p>
+      </div>
+
+      <h4>Example 3: Customizing Plot Style</h4>
+<pre>from pylab import *
+x = [1, 2, 5]
+y = [4, 5, 6]
+plot(x, y, 'ro')        # red circles
+xlabel('x-axis')
+ylabel('y-axis')
+axis([0, 6, 1, 7])      # [xmin, xmax, ymin, ymax]
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="200" fill="#fff"/>
+          <line x1="60" y1="170" x2="370" y2="170" stroke="#555" stroke-width="1.5"/>
+          <line x1="60" y1="20" x2="60" y2="170" stroke="#555" stroke-width="1.5"/>
+          <text x="355" y="188" font-size="11" fill="#555">x-axis</text>
+          <text x="25" y="35" font-size="11" fill="#555">y-axis</text>
+          <text x="60" y="188" font-size="10" fill="#777">0</text>
+          <text x="170" y="188" font-size="10" fill="#777">2</text>
+          <text x="280" y="188" font-size="10" fill="#777">4</text>
+          <text x="355" y="188" font-size="10" fill="#777">6</text>
+          <text x="40" y="172" font-size="10" fill="#777">1</text>
+          <text x="40" y="120" font-size="10" fill="#777">4</text>
+          <text x="40" y="65" font-size="10" fill="#777">7</text>
+          <circle cx="170" cy="135" r="5" fill="red"/>
+          <circle cx="225" cy="110" r="5" fill="red"/>
+          <circle cx="340" cy="80" r="5" fill="red"/>
+        </svg>
+        <p class="graph-caption">Fig 3. Red circles with axis labels and custom range</p>
+      </div>
+
+      <h4>Example 4: Multiple Plots in Same Window</h4>
+<pre>from pylab import *
+t = arange(0.0, 5.0, 0.2)
+plot(t, t**2, 'x')      # t² with x markers
+plot(t, t**3, 'ro')     # t³ with red circles
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="200" fill="#fff"/>
+          <line x1="50" y1="170" x2="370" y2="170" stroke="#555" stroke-width="1.5"/>
+          <line x1="50" y1="20" x2="50" y2="170" stroke="#555" stroke-width="1.5"/>
+          <!-- t^2 curve (blue x) -->
+          <polyline points="50,170 80,168 110,162 140,150 170,132 200,108 230,80 260,48 290,20" fill="none" stroke="#2b6cb0" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="290" y="18" font-size="10" fill="#2b6cb0">t²</text>
+          <!-- t^3 curve (red circles) -->
+          <polyline points="50,170 80,168 110,163 140,155 170,143 200,125 230,100 260,68 290,30" fill="none" stroke="#e53e3e" stroke-width="1.5"/>
+          <text x="290" y="45" font-size="10" fill="#e53e3e">t³</text>
+        </svg>
+        <p class="graph-caption">Fig 4. Multiple plots: t² and t³</p>
+      </div>
+
+      <h3>2.4 Multiple Plots (Subplots)</h3>
+      <h4>Example 5: Subplot</h4>
+<pre>from pylab import *
+subplot(2, 1, 1)
+plot([1, 2, 3, 4])
+subplot(2, 1, 2)
+plot([4, 2, 3, 1])
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="250" fill="#fff"/>
+          <!-- Top subplot -->
+          <line x1="50" y1="110" x2="370" y2="110" stroke="#555" stroke-width="1.2"/>
+          <line x1="50" y1="20" x2="50" y2="110" stroke="#555" stroke-width="1.2"/>
+          <text x="200" y="14" font-size="11" fill="#555" text-anchor="middle">Subplot 1</text>
+          <polyline points="60,100 140,70 220,50 300,30" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+          <!-- Bottom subplot -->
+          <line x1="50" y1="230" x2="370" y2="230" stroke="#555" stroke-width="1.2"/>
+          <line x1="50" y1="140" x2="50" y2="230" stroke="#555" stroke-width="1.2"/>
+          <text x="200" y="134" font-size="11" fill="#555" text-anchor="middle">Subplot 2</text>
+          <polyline points="60,150 140,200 220,170 300,210" fill="none" stroke="#e53e3e" stroke-width="2"/>
+        </svg>
+        <p class="graph-caption">Fig 5. Two subplots in one window</p>
+      </div>
+
+      <h3>2.5 Polar Plots</h3>
+      <h4>Example 7: Circle Using Polar Plot</h4>
+<pre>from pylab import *
+th = linspace(0, 2*pi, 100)
+r = 5 * ones(100)
+polar(th, r)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <!-- polar grid -->
+          <circle cx="150" cy="150" r="100" fill="none" stroke="#ddd" stroke-width="1"/>
+          <circle cx="150" cy="150" r="66" fill="none" stroke="#ddd" stroke-width="1"/>
+          <circle cx="150" cy="150" r="33" fill="none" stroke="#ddd" stroke-width="1"/>
+          <line x1="50" y1="150" x2="250" y2="150" stroke="#ddd" stroke-width="1"/>
+          <line x1="150" y1="50" x2="150" y2="250" stroke="#ddd" stroke-width="1"/>
+          <line x1="79" y1="79" x2="221" y2="221" stroke="#ddd" stroke-width="1"/>
+          <line x1="221" y1="79" x2="79" y2="221" stroke="#ddd" stroke-width="1"/>
+          <!-- circle radius 5 -->
+          <circle cx="150" cy="150" r="83" fill="none" stroke="#2b6cb0" stroke-width="2.5"/>
+          <!-- labels -->
+          <text x="260" y="155" font-size="10" fill="#555">0°</text>
+          <text x="150" y="45" font-size="10" fill="#555" text-anchor="middle">90°</text>
+          <text x="35" y="155" font-size="10" fill="#555">180°</text>
+          <text x="150" y="270" font-size="10" fill="#555" text-anchor="middle">270°</text>
+          <text x="200" y="90" font-size="10" fill="#2b6cb0">r = 5</text>
+        </svg>
+        <p class="graph-caption">Fig 6. Circle using polar plot with radius 5</p>
+      </div>
+
+      <h3>2.6 Pie Charts</h3>
+      <h4>Example 8: Pie Chart</h4>
+<pre>from pylab import *
+labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+fracs = [25, 25, 30, 20]
+pie(fracs, labels=labels)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="220" fill="#fff"/>
+          <!-- pie slices: 25%, 25%, 30%, 20% -->
+          <!-- 25% = 90deg from 0 -->
+          <path d="M 150 100 L 150 20 A 80 80 0 0 1 230 100 Z" fill="#2b6cb0"/>
+          <!-- 25% from 90 to 180 -->
+          <path d="M 150 100 L 230 100 A 80 80 0 0 1 150 180 Z" fill="#e53e3e"/>
+          <!-- 30% from 180 to 288 -->
+          <path d="M 150 100 L 150 180 A 80 80 0 0 1 73 60 Z" fill="#38a169"/>
+          <!-- 20% from 288 to 360 -->
+          <path d="M 150 100 L 73 60 A 80 80 0 0 1 150 20 Z" fill="#d69e2e"/>
+          <!-- labels -->
+          <rect x="235" y="30" width="10" height="10" fill="#2b6cb0"/><text x="250" y="39" font-size="11" fill="#333">Frogs</text>
+          <rect x="235" y="50" width="10" height="10" fill="#e53e3e"/><text x="250" y="59" font-size="11" fill="#333">Hogs</text>
+          <rect x="235" y="70" width="10" height="10" fill="#38a169"/><text x="250" y="79" font-size="11" fill="#333">Dogs</text>
+          <rect x="235" y="90" width="10" height="10" fill="#d69e2e"/><text x="250" y="99" font-size="11" fill="#333">Logs</text>
+        </svg>
+        <p class="graph-caption">Fig 7. Pie chart of [25, 25, 30, 20]</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 3. MATHEMATICAL FUNCTIONS ─────────────────── -->
+  <div id="mathfunc" class="reveal">
+    <div class="sec-head"><span class="num">03</span> Plotting Mathematical Functions</div>
+    <div class="sec-body">
+
+      <h3>3.1 Generating Input Data</h3>
+      <ul class="dot">
+        <li><code>arange(start, stop, step)</code> – third argument is stepsize</li>
+        <li><code>linspace(start, stop, num_points)</code> – total number of points specified</li>
+        <li><code>logspace(start, stop, num_points)</code> – logarithmic spacing</li>
+      </ul>
+      <div class="note">💡 <strong>Important:</strong> To create a dataset from 0 to 1 (inclusive) with stepsize 0.1, use <code>linspace(0, 1, 11)</code> not <code>linspace(0, 1, 10)</code>.</div>
+
+      <h3>3.2 Sine Function and Friends</h3>
+      <h4>Example 9: Sine and Sin(x²)</h4>
+<pre>from pylab import *
+x = linspace(-pi, pi, 200)
+y = sin(x)
+y1 = sin(x*x)
+plot(x, y)
+plot(x, y1, 'r')
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="200" fill="#fff"/>
+          <!-- axes -->
+          <line x1="30" y1="100" x2="380" y2="100" stroke="#555" stroke-width="1.2"/>
+          <line x1="205" y1="20" x2="205" y2="180" stroke="#555" stroke-width="1.2"/>
+          <text x="372" y="115" font-size="10" fill="#555">x</text>
+          <text x="210" y="25" font-size="10" fill="#555">y</text>
+          <text x="35" y="115" font-size="9" fill="#777">-π</text>
+          <text x="200" y="115" font-size="9" fill="#777">0</text>
+          <text x="370" y="115" font-size="9" fill="#777">π</text>
+          <!-- sin(x) blue -->
+          <path d="M 30 100 Q 60 30 90 30 Q 120 30 150 100 Q 180 170 210 170 Q 240 170 270 100 Q 300 30 330 30 Q 360 30 380 70"
+                fill="none" stroke="#2b6cb0" stroke-width="2"/>
+          <!-- sin(x^2) red -->
+          <path d="M 30 120 Q 50 40 70 80 Q 90 140 110 60 Q 130 30 150 110 Q 170 150 190 70 Q 210 40 230 120 Q 250 150 270 70 Q 290 40 310 110 Q 330 150 350 70 Q 370 50 380 90"
+                fill="none" stroke="#e53e3e" stroke-width="2"/>
+          <text x="320" y="35" font-size="11" fill="#2b6cb0">sin(x)</text>
+          <text x="320" y="150" font-size="11" fill="#e53e3e">sin(x²)</text>
+        </svg>
+        <p class="graph-caption">Fig 8. sin(x) is odd, sin(x²) is even</p>
+      </div>
+
+      <h3>3.3 Trouble with Circle</h3>
+      <h4>Example 10: Circle in Cartesian Coordinates</h4>
+<pre>from pylab import *
+a = 10.0
+x = linspace(-a, a, 200)
+yupper = sqrt(a**2 - x**2)
+ylower = -sqrt(a**2 - x**2)
+plot(x, yupper)
+plot(x, ylower)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <line x1="20" y1="150" x2="280" y2="150" stroke="#555" stroke-width="1.2"/>
+          <line x1="150" y1="20" x2="150" y2="280" stroke="#555" stroke-width="1.2"/>
+          <!-- circle split -->
+          <path d="M 50 150 A 100 100 0 0 1 250 150" fill="none" stroke="#2b6cb0" stroke-width="2.5"/>
+          <path d="M 50 150 A 100 100 0 0 0 250 150" fill="none" stroke="#e53e3e" stroke-width="2.5"/>
+          <text x="260" y="145" font-size="11" fill="#2b6cb0">upper</text>
+          <text x="260" y="175" font-size="11" fill="#e53e3e">lower</text>
+        </svg>
+        <p class="graph-caption">Fig 9. Circle split into upper and lower halves</p>
+      </div>
+
+      <h3>3.4 Parametric Plots</h3>
+      <h4>Example 11: Circle Using Parametric Equations</h4>
+<pre>from pylab import *
+a = 10.0
+th = linspace(0, 2*pi, 200)
+x = a * cos(th)
+y = a * sin(th)
+plot(x, y)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <line x1="20" y1="150" x2="280" y2="150" stroke="#555" stroke-width="1.2"/>
+          <line x1="150" y1="20" x2="150" y2="280" stroke="#555" stroke-width="1.2"/>
+          <circle cx="150" cy="150" r="100" fill="none" stroke="#2b6cb0" stroke-width="2.5"/>
+          <text x="180" y="80" font-size="12" fill="#2b6cb0">a=10</text>
+        </svg>
+        <p class="graph-caption">Fig 10. Complete circle using parametric equations</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 4. FAMOUS CURVES ──────────────────────────── -->
+  <div id="famous" class="reveal">
+    <div class="sec-head"><span class="num">04</span> Famous Curves</div>
+    <div class="sec-body">
+
+      <h3>4.1 Astroid</h3>
+      <p><strong>Cartesian equation:</strong> <code>x^(2/3) + y^(2/3) = a^(2/3)</code></p>
+      <p><strong>Parametric equations:</strong> <code>x = a·cos³(t)</code>, <code>y = a·sin³(t)</code></p>
+
+      <h4>Example 14: Astroid (Parametric)</h4>
+<pre>from pylab import *
+a = 2
+t = linspace(-2*a, 2*a, 101)
+x = a * cos(t)**3
+y = a * sin(t)**3
+plot(x, y)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <line x1="20" y1="150" x2="280" y2="150" stroke="#555" stroke-width="1.2"/>
+          <line x1="150" y1="20" x2="150" y2="280" stroke="#555" stroke-width="1.2"/>
+          <!-- astroid shape (4-cusped hypocycloid) -->
+          <path d="M 150 30 
+                   Q 170 90 230 150 
+                   Q 170 210 150 270 
+                   Q 130 210 70 150 
+                   Q 130 90 150 30 Z"
+                fill="none" stroke="#2b6cb0" stroke-width="2.5"/>
+          <text x="180" y="60" font-size="11" fill="#2b6cb0">Astroid</text>
+        </svg>
+        <p class="graph-caption">Fig 11. Astroid curve with four cusps</p>
+      </div>
+
+      <h3>4.2 Ellipse</h3>
+      <h4>Example 15: Ellipse</h4>
+<pre>from pylab import *
+a = 2
+b = 3
+t = linspace(0, 2*pi, 100)
+x = a * sin(t)
+y = b * cos(t)
+plot(x, y)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <line x1="20" y1="150" x2="280" y2="150" stroke="#555" stroke-width="1.2"/>
+          <line x1="150" y1="20" x2="150" y2="280" stroke="#555" stroke-width="1.2"/>
+          <ellipse cx="150" cy="150" rx="60" ry="90" fill="none" stroke="#2b6cb0" stroke-width="2.5"/>
+          <text x="215" y="80" font-size="11" fill="#2b6cb0">a=2, b=3</text>
+        </svg>
+        <p class="graph-caption">Fig 12. Ellipse with a=2, b=3</p>
+      </div>
+
+      <h3>4.3 Spirals of Archimedes and Fermat</h3>
+      <h4>Example 17: Archimedes Spiral</h4>
+<pre>from pylab import *
+a = 2
+th = linspace(0, 10*pi, 200)
+r = a * th
+polar(th, r)
+axis([0, 2*pi, 0, 70])
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <!-- spiral path -->
+          <path d="M 150 150 
+                   Q 160 140 170 145 
+                   Q 190 155 185 175 
+                   Q 175 200 145 195 
+                   Q 110 185 115 145 
+                   Q 125 95 175 100 
+                   Q 230 110 225 170 
+                   Q 215 235 145 230 
+                   Q 65 220 70 145 
+                   Q 80 60 170 65"
+                fill="none" stroke="#2b6cb0" stroke-width="2"/>
+          <text x="220" y="40" font-size="11" fill="#2b6cb0">r = aθ</text>
+        </svg>
+        <p class="graph-caption">Fig 13. Archimedes spiral (r = aθ)</p>
+      </div>
+
+      <h4>Example 18: Fermat's Spiral</h4>
+<pre>from pylab import *
+a = 2
+th = linspace(0, 10*pi, 200)
+r = sqrt(a**2 * th)
+polar(th, r)
+polar(th, -r)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <path d="M 150 150 
+                   Q 155 145 160 150 
+                   Q 170 160 165 175 
+                   Q 155 195 135 190 
+                   Q 110 180 115 150 
+                   Q 120 115 155 120 
+                   Q 195 125 190 165 
+                   Q 180 210 135 205 
+                   Q 80 195 85 145 
+                   Q 90 85 160 90"
+                fill="none" stroke="#2b6cb0" stroke-width="2"/>
+          <path d="M 150 150 
+                   Q 145 155 140 150 
+                   Q 130 140 135 125 
+                   Q 145 105 165 110 
+                   Q 190 120 185 150 
+                   Q 180 185 145 180 
+                   Q 105 175 110 135 
+                   Q 120 90 165 95 
+                   Q 220 105 215 155 
+                   Q 210 215 140 210"
+                fill="none" stroke="#e53e3e" stroke-width="2"/>
+          <text x="220" y="40" font-size="11" fill="#2b6cb0">r = √(a²θ)</text>
+        </svg>
+        <p class="graph-caption">Fig 14. Fermat's spiral (r² = a²θ)</p>
+      </div>
+
+      <h3>4.4 Polar Rose</h3>
+      <h4>Example 19: Polar Rose</h4>
+<pre>from pylab import *
+k = 4
+th = linspace(0, 10*pi, 1000)
+r = cos(k*th)
+polar(th, r)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <!-- 8-petal rose (k=4 → 2k=8 petals) -->
+          <g transform="translate(150,150)">
+            <path d="M 0 0 Q 20 -40 0 -80 Q -20 -40 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+            <path d="M 0 0 Q 40 -20 80 0 Q 40 20 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+            <path d="M 0 0 Q 20 40 0 80 Q -20 40 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+            <path d="M 0 0 Q -40 20 -80 0 Q -40 -20 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+            <path d="M 0 0 Q 35 -35 55 -55 Q 15 -15 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+            <path d="M 0 0 Q 35 35 55 55 Q 15 15 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+            <path d="M 0 0 Q -35 35 -55 55 Q -15 15 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+            <path d="M 0 0 Q -35 -35 -55 -55 Q -15 -15 0 0" fill="none" stroke="#2b6cb0" stroke-width="2"/>
+          </g>
+          <text x="200" y="40" font-size="11" fill="#2b6cb0">r = cos(4θ)</text>
+        </svg>
+        <p class="graph-caption">Fig 15. Polar rose with k=4 (8 petals)</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 5. 2D PLOT USING COLORS ───────────────────── -->
+  <div id="colors" class="reveal">
+    <div class="sec-head"><span class="num">05</span> 2D Plot Using Colors</div>
+    <div class="sec-body">
+      <h4>Example 22: Sum of Sines</h4>
+<pre>from pylab import *
+x = arange(-3*pi, 3*pi, 0.1)
+y = arange(-3*pi, 3*pi, 0.1)
+xx, yy = meshgrid(x, y)
+z = sin(xx) + sin(yy)
+imshow(z)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heat" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#000080"/>
+              <stop offset="25%" stop-color="#0080ff"/>
+              <stop offset="50%" stop-color="#00ff80"/>
+              <stop offset="75%" stop-color="#ffff00"/>
+              <stop offset="100%" stop-color="#ff0000"/>
+            </linearGradient>
+          </defs>
+          <rect width="300" height="300" fill="url(#heat)"/>
+          <!-- overlay wave pattern -->
+          <path d="M 0 150 Q 50 100 100 150 Q 150 200 200 150 Q 250 100 300 150"
+                fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+          <path d="M 0 100 Q 50 50 100 100 Q 150 150 200 100 Q 250 50 300 100"
+                fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <path d="M 0 200 Q 50 150 100 200 Q 150 250 200 200 Q 250 150 300 200"
+                fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <text x="10" y="290" font-size="10" fill="#fff">sin(x)+sin(y) heatmap</text>
+        </svg>
+        <p class="graph-caption">Fig 16. Heatmap of z = sin(x) + sin(y) using imshow()</p>
+      </div>
+
+      <h3>5.1 Fractals — Julia Set</h3>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="fractal" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffcc00"/>
+              <stop offset="30%" stop-color="#cc6600"/>
+              <stop offset="60%" stop-color="#663300"/>
+              <stop offset="100%" stop-color="#1a0a00"/>
+            </radialGradient>
+          </defs>
+          <rect width="300" height="300" fill="url(#fractal)"/>
+          <!-- Julia set pattern -->
+          <g fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5">
+            <circle cx="150" cy="150" r="40"/>
+            <circle cx="150" cy="150" r="70"/>
+            <circle cx="150" cy="150" r="100"/>
+            <circle cx="150" cy="150" r="125"/>
+          </g>
+          <g fill="rgba(255,200,50,0.6)">
+            <circle cx="120" cy="120" r="8"/>
+            <circle cx="180" cy="120" r="6"/>
+            <circle cx="120" cy="180" r="6"/>
+            <circle cx="180" cy="180" r="8"/>
+          </g>
+          <text x="10" y="290" font-size="10" fill="#fff">Julia Set (c = 0.02 − 0.8j)</text>
+        </svg>
+        <p class="graph-caption">Fig 17. Julia set fractal generated with imshow()</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 6. MESHGRIDS ──────────────────────────────── -->
+  <div id="meshgrid" class="reveal">
+    <div class="sec-head"><span class="num">06</span> Meshgrids</div>
+    <div class="sec-body">
+      <h4>Example 24: Creating Meshgrid</h4>
+<pre>from numpy import *
+x = arange(0, 3, 1)
+y = arange(0, 3, 1)
+gx, gy = meshgrid(x, y)
+print gx
+print gy</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+          <rect width="250" height="250" fill="#fff"/>
+          <!-- 3x3 grid -->
+          <g stroke="#2b6cb0" stroke-width="1" fill="none">
+            <line x1="50" y1="50" x2="200" y2="50"/>
+            <line x1="50" y1="110" x2="200" y2="110"/>
+            <line x1="50" y1="170" x2="200" y2="170"/>
+            <line x1="50" y1="50" x2="50" y2="170"/>
+            <line x1="110" y1="50" x2="110" y2="170"/>
+            <line x1="170" y1="50" x2="170" y2="170"/>
+          </g>
+          <!-- grid points -->
+          <g fill="#e53e3e">
+            <circle cx="50" cy="50" r="4"/><circle cx="110" cy="50" r="4"/><circle cx="170" cy="50" r="4"/>
+            <circle cx="50" cy="110" r="4"/><circle cx="110" cy="110" r="4"/><circle cx="170" cy="110" r="4"/>
+            <circle cx="50" cy="170" r="4"/><circle cx="110" cy="170" r="4"/><circle cx="170" cy="170" r="4"/>
+          </g>
+          <text x="40" y="195" font-size="10" fill="#555">0</text>
+          <text x="100" y="195" font-size="10" fill="#555">1</text>
+          <text x="160" y="195" font-size="10" fill="#555">2</text>
+          <text x="25" y="175" font-size="10" fill="#555">0</text>
+          <text x="25" y="115" font-size="10" fill="#555">1</text>
+          <text x="25" y="55" font-size="10" fill="#555">2</text>
+          <text x="60" y="230" font-size="10" fill="#555">3×3 meshgrid</text>
+        </svg>
+        <p class="graph-caption">Fig 18. Meshgrid with 3×3 points</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 7. 3D PLOTS ───────────────────────────────── -->
+  <div id="3dplots" class="reveal">
+    <div class="sec-head"><span class="num">07</span> 3D Plots</div>
+    <div class="sec-body">
+      <h4>Example 26: Surface Plot</h4>
+<pre>from pylab import *
+from mpl_toolkits.mplot3d import Axes3D
+
+ax = Axes3D(figure())
+x = arange(-3*pi, 3*pi, 0.1)
+y = arange(-3*pi, 3*pi, 0.1)
+xx, yy = meshgrid(x, y)
+z = sin(xx) + sin(yy)
+
+ax.plot_surface(xx, yy, z, cmap=cm.jet, cstride=1)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <!-- 3D surface representation (wireframe) -->
+          <g stroke="#2b6cb0" fill="none" stroke-width="1" opacity="0.7">
+            <path d="M 40 220 Q 80 180 120 200 Q 160 220 200 180 Q 240 140 280 160"/>
+            <path d="M 40 190 Q 80 150 120 170 Q 160 190 200 150 Q 240 110 280 130"/>
+            <path d="M 40 160 Q 80 120 120 140 Q 160 160 200 120 Q 240 80 280 100"/>
+            <path d="M 40 130 Q 80 90 120 110 Q 160 130 200 90 Q 240 50 280 70"/>
+            <path d="M 40 100 Q 80 60 120 80 Q 160 100 200 60 Q 240 20 280 40"/>
+          </g>
+          <g stroke="#2b6cb0" fill="none" stroke-width="0.8" opacity="0.5">
+            <path d="M 60 230 Q 80 180 100 230"/>
+            <path d="M 120 230 Q 140 180 160 230"/>
+            <path d="M 180 230 Q 200 180 220 230"/>
+            <path d="M 240 230 Q 260 180 280 230"/>
+          </g>
+          <text x="10" y="290" font-size="10" fill="#555">z = sin(x) + sin(y)</text>
+        </svg>
+        <p class="graph-caption">Fig 19. 3D surface plot of z = sin(x) + sin(y)</p>
+      </div>
+
+      <h4>Example 28: Sphere Wireframe</h4>
+<pre>from pylab import *
+from mpl_toolkits.mplot3d import Axes3D
+
+ax = Axes3D(figure())
+phi = linspace(0, 2*pi, 100)
+theta = linspace(0, pi, 100)
+
+x = 10 * outer(cos(phi), sin(theta))
+y = 10 * outer(sin(phi), sin(theta))
+z = 10 * outer(ones(size(phi)), cos(theta))
+
+ax.plot_wireframe(x, y, z, rstride=2, cstride=2)
+show()</pre>
+      <div class="graph-card">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="300" fill="#fff"/>
+          <g fill="none" stroke="#2b6cb0" stroke-width="1">
+            <!-- sphere as ellipse wireframe -->
+            <ellipse cx="150" cy="150" rx="100" ry="100"/>
+            <ellipse cx="150" cy="150" rx="100" ry="60"/>
+            <ellipse cx="150" cy="150" rx="60" ry="100"/>
+            <ellipse cx="150" cy="150" rx="100" ry="20"/>
+            <ellipse cx="150" cy="150" rx="20" ry="100"/>
+            <ellipse cx="150" cy="150" rx="100" ry="80"/>
+            <ellipse cx="150" cy="150" rx="80" ry="100"/>
+          </g>
+          <text x="10" y="290" font-size="10" fill="#555">Sphere wireframe (r = 10)</text>
+        </svg>
+        <p class="graph-caption">Fig 20. 3D wireframe sphere</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 8. ACTIVITIES ─────────────────────────────── -->
+  <div id="activities" class="reveal">
+    <div class="sec-head"><span class="num">08</span> Classroom Activities</div>
+    <div class="sec-body">
+
+      <div class="activity">
+        <h4>📈 Activity 1 — Plot a Sine Wave</h4>
+        <p>Write a Python program to plot a sine wave using markers <code>+</code>, <code>o</code>, and <code>x</code> using three different colors.</p>
+      </div>
+
+      <div class="activity">
+        <h4>📉 Activity 2 — Plot Tan θ</h4>
+        <p>Plot <code>tan θ</code> from <code>-2π</code> to <code>2π</code>. Watch for singular points. What happens near the asymptotes?</p>
+      </div>
+
+      <div class="activity">
+        <h4>🔵 Activity 3 — Polar Circle</h4>
+        <p>Plot a circle using the <code>polar()</code> function. Compare it with the Cartesian and parametric versions.</p>
+      </div>
+
+      <div class="activity">
+        <h4>🌹 Activity 4 — Famous Curves</h4>
+        <p>Plot the following famous curves:</p>
+        <ul class="dot">
+          <li>Lemniscate of Bernoulli: <code>r² = a²cos(2θ)</code></li>
+          <li>Frequency curve: <code>y = √(2π)e^(-x²/2)</code></li>
+          <li>Catenary: <code>a·cosh(x/a)</code></li>
+          <li>Rhodonea curves: <code>sin(aθ)</code> for a = 2, 3, and 4</li>
+        </ul>
+      </div>
+
+      <div class="activity">
+        <h4>🌊 Activity 5 — Fourier Series</h4>
+        <p>Generate a triangular wave using Fourier series. How does increasing the number of terms affect the shape?</p>
+      </div>
+
+      <div class="activity">
+        <h4>📊 Activity 6 — Polynomial Plot</h4>
+        <p>Plot <code>y = 5x² + 3x + 2</code> (for x from 0 to 5, 20 points) using pylab, with axes and title. Use red colored circles to mark the points.</p>
+      </div>
+
+      <div class="activity">
+        <h4>📁 Activity 7 — Read and Plot from File</h4>
+        <p>Write a Python program to read x and y coordinates from a file in a two-column format and plot them.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 9. REVIEW QUESTIONS ──────────────────────── -->
+  <div id="review" class="reveal">
+    <div class="sec-head"><span class="num">09</span> Review Questions</div>
+    <div class="sec-body">
+      <ol class="q-list">
+        <li>What is Matplotlib? How do you import it for plotting?</li>
+        <li>Explain the difference between <code>plot()</code> and <code>polar()</code> with examples.</li>
+        <li>How do you create multiple plots in the same window using <code>subplot()</code>?</li>
+        <li>What is the format string in <code>plot(x, y, 'ro')</code>? What does each character mean?</li>
+        <li>Why is a circle difficult to plot in Cartesian coordinates? How do parametric equations solve this?</li>
+        <li>Write the parametric equations for the Astroid and Ellipse.</li>
+        <li>What is a meshgrid? How is it useful for 2D and 3D plotting?</li>
+        <li>Explain how <code>imshow()</code> is used to visualize a 2D matrix with colors.</li>
+        <li>What are fractals? Write the equation used for the Julia set.</li>
+        <li>Write a Python program to plot a surface using <code>plot_surface()</code>.</li>
+        <li>How do you create a 3D wireframe plot? Give an example.</li>
+        <li>What is Mayavi? How does it differ from Matplotlib for 3D visualization?</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ── 10. SUMMARY ───────────────────────────────── -->
+  <div id="summary" class="reveal">
+    <div class="sec-head"><span class="num">10</span> Summary</div>
+    <div class="sec-body">
+      <div class="summary-grid">
+        <div class="sum-card"><div class="icon">📊</div><strong>Matplotlib</strong>Python's primary plotting library. Use <code>pylab</code> for easy access to plotting functions.</div>
+        <div class="sum-card"><div class="icon">📈</div><strong>2D Plots</strong>Use <code>plot()</code>, <code>polar()</code>, and <code>pie()</code> for basic visualizations. Customize with format strings.</div>
+        <div class="sum-card"><div class="icon">🌹</div><strong>Famous Curves</strong>Astroid, Ellipse, Spirals, Polar Rose — use parametric and polar equations for complete plots.</div>
+        <div class="sum-card"><div class="icon">🎨</div><strong>Color Plots</strong>Use <code>imshow()</code> to map matrix values to colors. Perfect for heatmaps and fractals.</div>
+        <div class="sum-card"><div class="icon">🕸️</div><strong>Meshgrids</strong>Create coordinate matrices with <code>meshgrid()</code> for evaluating functions over 2D domains.</div>
+        <div class="sum-card"><div class="icon">🧊</div><strong>3D Plots</strong>Use <code>Axes3D</code> with <code>plot_surface()</code>, <code>plot()</code>, and <code>plot_wireframe()</code> for 3D visualization.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PAGE NAVIGATION ───────────────────────────── -->
+  <div class="pagenav reveal">
+    <a href="nested-loops.html">← Previous: Control Statements</a>
+    <a class="next" href="https://igmathspace.github.io/lessons.html">Back to Lessons →</a>
+  </div>
+
+  <!-- ── SIGN-OFF ───────────────────────────────────── -->
+  <div class="signoff reveal">
+    <div class="signoff-icon">G</div>
+    <div>
+      <h3>Gafoor I</h3>
+      <p>Assistant Professor &nbsp;|&nbsp; Department of Mathematics &nbsp;|&nbsp; NAM College Kallikkandy</p>
+      <p style="margin-top:4px;font-size:.92rem;color:#8aaa7a;">Teaching Note · Module IV · Data Visualization in Python · Academic Year 2025–26</p>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <span>IG Math Space</span> — Mathematics Teaching Website &nbsp;|&nbsp; igmathspace.github.io
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
