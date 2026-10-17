@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Assignment | KU5DSEMAT303 | NAM College Kallikkandy</title>
+<style>
+  :root{
+    --navy:     #1a3557;
+    --blue:     #2b6cb0;
+    --sky:      #ebf4ff;
+    --amber:    #e07b00;
+    --amber-lt: #fff8e1;
+    --green-bg: #e6f4ea;
+    --green-tx: #1a4731;
+    --code-bg:  #f4f6f8;
+    --code-bd:  #c0cfe0;
+    --text:     #2d3748;
+    --muted:    #64748b;
+    --white:    #ffffff;
+    --radius:   10px;
+    --shadow:   0 4px 24px rgba(26,53,87,.12);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:#f0f4f8;
+    color:var(--text);
+    line-height:1.75;
+    font-size:14pt;
+  }
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  header{
+    background:var(--navy);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.3);
+  }
+  .brand{
+    display:flex;align-items:center;gap:12px;
+    padding:14px 32px 0;
+  }
+  .brand-icon{
+    width:44px;height:44px;border-radius:50%;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;font-weight:900;color:var(--navy);
+    box-shadow:0 0 0 3px rgba(255,208,128,.35);
+  }
+  .brand-text h1{font-size:.92rem;color:var(--white);font-weight:700;letter-spacing:.5px}
+  .brand-text p{font-size:.72rem;color:#a8c8f0;margin-top:-2px}
+  nav{
+    display:flex;flex-wrap:wrap;gap:2px;
+    padding:0 24px;margin-top:10px;
+  }
+  nav a{
+    font-size:.75rem;font-weight:600;letter-spacing:.6px;
+    color:#a8c8f0;padding:8px 14px;text-transform:uppercase;
+    border-bottom:3px solid transparent;transition:all .2s;
+  }
+  nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--amber);text-decoration:none}
+
+  .hero{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);
+    padding:56px 32px 48px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'ASSIGNMENT';
+    position:absolute;inset:0;
+    font-size:5rem;font-weight:900;color:rgba(255,255,255,.04);
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:30px;pointer-events:none;
+    text-transform:uppercase;
+  }
+  .hero-eyebrow{
+    display:inline-block;
+    background:rgba(224,123,0,.18);
+    border:1px solid rgba(224,123,0,.5);
+    color:#ffd080;
+    font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:5px 16px;border-radius:99px;margin-bottom:18px;
+  }
+  .hero h2{
+    font-size:clamp(1.6rem,4vw,2.5rem);
+    font-weight:800;color:var(--white);
+    line-height:1.2;margin-bottom:12px;
+  }
+  .hero h2 span{color:#ffd080}
+  .hero p{color:#c0d8f4;font-size:1.05rem;max-width:640px;margin:0 auto 28px}
+  .hero-meta{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    font-size:.82rem;color:#a8c8f0;
+  }
+  .hero-meta span{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    padding:5px 14px;border-radius:99px;
+  }
+  .hero-meta span b{color:var(--white)}
+
+  .page{max-width:960px;margin:0 auto;padding:40px 20px 80px}
+
+  .sec-head{
+    background:var(--navy);
+    color:var(--white);
+    padding:12px 22px;border-radius:var(--radius) var(--radius) 0 0;
+    font-size:1rem;font-weight:700;letter-spacing:.4px;
+    display:flex;align-items:center;gap:10px;
+    margin-top:36px;
+  }
+  .sec-head .num{
+    background:var(--amber);color:var(--navy);
+    font-size:.78rem;font-weight:800;
+    padding:2px 9px;border-radius:99px;
+  }
+  .sec-body{
+    background:var(--white);
+    border:1px solid var(--code-bd);
+    border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);
+    padding:24px 28px;
+    box-shadow:var(--shadow);
+  }
+
+  h3{font-size:1.05rem;font-weight:700;color:var(--navy);margin:20px 0 8px;border-left:3px solid var(--amber);padding-left:10px}
+  h4{font-size:.95rem;font-weight:600;color:var(--blue);margin:16px 0 6px}
+  p{margin-bottom:10px;font-size:.94rem}
+
+  ul.dot{list-style:none;padding-left:0}
+  ul.dot li{padding:4px 0 4px 22px;font-size:.93rem;position:relative}
+  ul.dot li::before{content:"◆";color:var(--amber);font-size:.55rem;position:absolute;left:4px;top:9px}
+
+  .tbl-wrap{overflow-x:auto;margin:12px 0}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  thead tr{background:var(--navy);color:var(--white)}
+  thead th{padding:10px 14px;text-align:left;font-weight:600}
+  tbody tr:nth-child(even){background:var(--sky)}
+  tbody tr:hover{background:#dceeff;transition:background .15s}
+  tbody td{padding:9px 14px;border-bottom:1px solid var(--code-bd);vertical-align:top}
+  td strong{color:var(--navy)}
+
+  pre{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    border-left:4px solid var(--blue);
+    border-radius:var(--radius);
+    padding:14px 18px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.84rem;
+    line-height:1.65;
+    overflow-x:auto;
+    margin:10px 0 10px;
+    color:#1a1a2e;
+  }
+  code{
+    background:var(--code-bg);
+    border:1px solid var(--code-bd);
+    padding:1px 5px;border-radius:4px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.84em;color:#1a1a2e;
+  }
+
+  .note,.tip{border-radius:var(--radius);padding:12px 16px;font-size:.89rem;margin:12px 0}
+  .note{background:var(--amber-lt);border-left:4px solid var(--amber);color:#5a4000}
+  .note b{color:var(--amber)}
+  .tip{background:var(--green-bg);border-left:4px solid #2e7d52;color:var(--green-tx)}
+  .tip b{color:#2e7d52}
+
+  .q-list{counter-reset:q}
+  .q-list li{
+    counter-increment:q;list-style:none;
+    padding:14px 14px 14px 56px;position:relative;
+    border-bottom:1px dashed var(--code-bd);font-size:.95rem;
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:counter(q);
+    position:absolute;left:14px;top:13px;
+    background:var(--navy);color:var(--white);
+    width:26px;height:26px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:.78rem;font-weight:700;
+  }
+
+  .activity{
+    background:linear-gradient(135deg,var(--sky),#d6eaff);
+    border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:18px 22px;margin:14px 0;
+  }
+  .activity h4{margin-top:0;border-left:3px solid var(--blue);padding-left:8px}
+
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:14px}
+  .sum-card{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:16px 18px;
+    border-top:3px solid var(--amber);
+    box-shadow:0 2px 8px rgba(26,53,87,.07);
+    font-size:.89rem;
+  }
+  .sum-card .icon{font-size:1.4rem;margin-bottom:6px}
+  .sum-card strong{display:block;color:var(--navy);margin-bottom:4px;font-size:.91rem}
+
+  .pagenav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:40px;
+    flex-wrap:wrap;
+  }
+  .pagenav a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:var(--white);
+    padding:10px 20px;
+    border-radius:99px;
+    font-size:.88rem;
+    font-weight:600;
+    text-decoration:none;
+    transition:all .2s;
+    box-shadow:0 3px 10px rgba(26,53,87,.25);
+  }
+  .pagenav a:hover{
+    background:var(--blue);
+    text-decoration:none;
+    transform:translateY(-2px);
+  }
+  .pagenav a.next{background:var(--amber);color:var(--navy)}
+  .pagenav a.next:hover{background:#ffb347}
+
+  .submit-btn{
+    display:inline-block;
+    background:linear-gradient(135deg,#2e7d52,#38a169);
+    color:#fff;
+    font-size:1.05rem;
+    font-weight:700;
+    letter-spacing:.5px;
+    padding:14px 48px;
+    border-radius:99px;
+    text-decoration:none;
+    box-shadow:0 4px 16px rgba(46,125,82,.35);
+    transition:all .25s ease;
+    border:none;
+    cursor:pointer;
+  }
+  .submit-btn:hover{
+    background:linear-gradient(135deg,#1a4731,#2e7d52);
+    box-shadow:0 6px 22px rgba(46,125,82,.45);
+    transform:translateY(-2px);
+    text-decoration:none;
+    color:#fff;
+  }
+
+  .signoff{
+    background:var(--navy);color:var(--white);
+    border-radius:var(--radius);padding:24px 32px;
+    margin-top:40px;display:flex;align-items:center;gap:20px;
+    box-shadow:var(--shadow);
+  }
+  .signoff-icon{
+    width:60px;height:60px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--amber),#ffd080);
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;font-weight:900;color:var(--navy);
+  }
+  .signoff h3{font-size:1.1rem;color:#ffd080;border:none;padding:0;margin:0 0 4px}
+  .signoff p{color:#a8c8f0;font-size:.85rem;margin:0}
+
+  footer{
+    background:var(--navy);color:#7090b0;
+    text-align:center;font-size:.78rem;padding:18px;
+    border-top:2px solid var(--amber);
+  }
+  footer span{color:#a8c8f0}
+
+  @media(max-width:640px){
+    .brand{padding:12px 16px 0}
+    nav{padding:0 12px}
+    nav a{font-size:.68rem;padding:6px 10px}
+    .hero{padding:40px 16px 36px}
+    .page{padding:24px 12px 60px}
+    .sec-body{padding:16px}
+    .signoff{flex-direction:column;text-align:center}
+  }
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+  .reveal.visible{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">IG</div>
+    <div class="brand-text">
+      <h1>IG Math Space</h1>
+      <p>Mathematics Teaching and Research</p>
+    </div>
+  </div>
+  <nav>
+    <a href="https://igmathspace.github.io/index.html">🏠 Home Space</a>
+    <a href="https://igmathspace.github.io/lessons.html" class="active">📚 Classroom Space</a>
+    <a href="https://igmathspace.github.io/research.html">🔬 Research &amp; FDP</a>
+    <a href="https://igmathspace.github.io/students.html">🎓 Student Space</a>
+    <a href="https://igmathspace.github.io/IGBOOKSPACE/">📖 Book Space</a>
+    <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ Official Space</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-eyebrow">📝 Assignment · Python Programming</div>
+  <h2>Programming in <span>Python</span></h2>
+  <p>KU5DSEMAT303 · Fifth Semester B.Sc Mathematics · Simple Code-Generating Questions</p>
+  <div class="hero-meta">
+    <span>👨‍🏫 <b>Gafoor I</b></span>
+    <span>🏛️ <b>NAM College Kallikkandy</b></span>
+    <span>📐 Department of Mathematics</span>
+    <span>📅 <b>Submission: 25/10/2026</b></span>
+  </div>
+</section>
+
+<main class="page">
+
+  <div class="reveal">
+    <div class="sec-head"><span class="num">📌</span> Assignment Details</div>
+    <div class="sec-body">
+      <p><strong>Institution:</strong> NAM College Kallikkandy</p>
+      <p><strong>Department:</strong> Department of Mathematics</p>
+      <p><strong>Programme:</strong> Fifth Semester B.Sc Mathematics</p>
+      <p><strong>Course Code:</strong> KU5DSEMAT303 — Programming in Python</p>
+      <p><strong>Submission Date:</strong> <span style="color:var(--amber);font-weight:700;">25/10/2026</span></p>
+      <div class="note" style="margin-top:14px;">
+        <b>📋 Instructions:</b> Answer all questions. Write clean, well-indented Python code for each question. Each question carries equal marks. Submit your work via the Google Form link provided at the bottom of this page.
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="sec-head"><span class="num">01</span> Questions</div>
+    <div class="sec-body">
+      <ol class="q-list">
+        <li>Write a Python program to input two numbers from the user and display their sum, difference, product, and quotient.</li>
+        <li>Write a Python program to input the radius of a circle and compute its area and circumference. (Use the <code>math</code> module and <code>import</code> function.)</li>
+        <li>Write a Python program to input a list of 5 numbers and print the largest, smallest, and average of the numbers.</li>
+        <li>Write a Python program to create a tuple of student names and print each name using a <code>for</code> loop.</li>
+        <li>Write a Python program to input a string and count the number of vowels and consonants in it.</li>
+        <li>Write a Python program using <code>if-elif-else</code> to input a student's mark and print the grade (A: ≥90, B: 75–89, C: 50–74, Fail: &lt;50).</li>
+        <li>Write a Python program using a <code>while</code> loop to print the first 10 natural numbers and their squares.</li>
+        <li>Write a Python program to define a function <code>factorial(n)</code> that returns the factorial of a number, and call it for user input.</li>
+        <li>Write a Python program to create a dictionary of 3 students (name: mark) and print the name of the student with the highest mark.</li>
+        <li>Write a Python program using <code>matplotlib</code> to plot the curve <em>y = x²</em> for <em>x</em> values from −5 to 5, with a title and axis labels.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="sec-head"><span class="num">02</span> Submission Guidelines</div>
+    <div class="sec-body">
+      <div class="tip">
+        <b>✅ Before you submit:</b>
+        <ul class="dot" style="margin-top:8px;">
+          <li>Ensure all 10 questions are answered.</li>
+          <li>Include output screenshots where applicable.</li>
+          <li>Use proper indentation and comments in your code.</li>
+          <li>Submit before <strong>25/10/2026</strong>.</li>
+        </ul>
+      </div>
+      <div class="activity" style="margin-top:18px;">
+        <h4>📤 How to Submit</h4>
+        <p>Click the button below to open the Google Form. Fill in your details and upload your assignment file (single PDF or .py files zipped).</p>
+        <div style="text-align:center;margin-top:20px;">
+          <a class="submit-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdrcEJxZIZGgJ_wrgTb9GQwHphbks-hR5LaAdwpzBPnaOgK7A/viewform?usp=header" target="_blank" rel="noopener">
+            📤 Submit Assignment
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagenav reveal">
+    <a href="https://igmathspace.github.io/lessons.html">← Back to Lessons</a>
+    <a class="next" href="https://docs.google.com/forms/d/e/1FAIpQLSdrcEJxZIZGgJ_wrgTb9GQwHphbks-hR5LaAdwpzBPnaOgK7A/viewform?usp=header" target="_blank">Submit Now →</a>
+  </div>
+
+  <div class="signoff reveal">
+    <div class="signoff-icon">G</div>
+    <div>
+      <h3>Gafoor I</h3>
+      <p>Assistant Professor &nbsp;|&nbsp; Department of Mathematics &nbsp;|&nbsp; NAM College Kallikkandy</p>
+      <p style="margin-top:4px;font-size:.8rem;color:#7090b0;">Assignment · KU5DSEMAT303: Programming in Python · Academic Year 2025–26</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>IG Math Space</span> — Mathematics Teaching Website &nbsp;|&nbsp; igmathspace.github.io
+  <br>
+  Prepared by Gafoor I, Department of Mathematics, NAMC
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible') })
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

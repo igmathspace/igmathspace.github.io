@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 1 – Differential Equations</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5f0eb;
+            color: #2c3e50;
+            line-height: 1.7;
+            padding: 30px 20px;
+        }
+        .assignment-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e0d6cc;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .header .college {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #1a2a3a;
+        }
+        .header .dept {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2a3a4a;
+        }
+        .header .title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1a3a4a;
+            margin-top: 2px;
+        }
+        .header .course {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #3a4a5a;
+        }
+        .due-date {
+            text-align: right;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1a2a3a;
+            margin-top: 4px;
+        }
+        hr {
+            border: none;
+            border-top: 2px solid #2c3e50;
+            margin: 8px 0 20px 0;
+        }
+        .instructions {
+            background: #f0ebe6;
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #2c3e50;
+        }
+        .instructions strong { color: #1a2a3a; }
+        .question {
+            background: #faf8f6;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            border-radius: 12px;
+            border-left: 4px solid #5a7a8a;
+        }
+        .question:hover { background: #f5f0eb; }
+        .question .q-label {
+            font-weight: 700;
+            color: #1a3a4a;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+        .question .q-text {
+            font-size: 1.05rem;
+            padding-left: 4px;
+        }
+        .question .q-text mjx-container {
+            margin: 6px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 18px;
+            border-top: 2px solid #e0d6cc;
+            font-size: 0.9rem;
+            color: #5a6a7a;
+        }
+        .footer span { font-weight: 600; color: #2c3e50; }
+        @media (max-width: 600px) {
+            .assignment-container { padding: 20px 16px; }
+            .question { padding: 12px 14px; }
+            .header .college { font-size: 1.1rem; }
+        }
+        @media print {
+            body { background: white; padding: 10px; }
+            .assignment-container { box-shadow: none; border: 1px solid #ccc; padding: 25px; }
+            .question:hover { background: #faf8f6; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="assignment-container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="college">NAM COLLEGE KALLIKKANDY</div>
+        <div class="dept">DEPARTMENT OF MATHEMATICS</div>
+        <div class="title">ASSIGNMENT - 1</div>
+        <div class="course">KU3DSCMAT211 : Differential Equation, Laplace Transform, Linear Programming and Numerical Methods</div>
+    </div>
+
+    <div class="due-date">Submission Due date : 02/09/2026</div>
+
+    <hr>
+
+    <!-- ===== INSTRUCTIONS ===== -->
+    <div class="instructions">
+        <strong>📋 Instructions:</strong> Answer <strong>all</strong> questions. Show all steps clearly.
+    </div>
+
+    <!-- ===== QUESTIONS ===== -->
+
+    <!-- Q1: B1 from Section 1 -->
+    <div class="question">
+        <div class="q-label">Question 1</div>
+        <div class="q-text">
+            Verify that \( y = ce^{-4x} + 0.35 \) is a solution of the ODE \( y' + 4y = 1.4 \) and determine \( c \) so that the resulting particular solution satisfies the initial condition \( y(0) = 2 \).
+        </div>
+    </div>
+
+    <!-- Q2: B2 from Section 1 -->
+    <div class="question">
+        <div class="q-label">Question 2</div>
+        <div class="q-text">
+            Solve the differential equation:
+            \[
+            \frac{dy}{dx} = (x + 1)e^{-x}y^2
+            \]
+        </div>
+    </div>
+
+    <!-- Q3: B4 from Section 1 -->
+    <div class="question">
+        <div class="q-label">Question 3</div>
+        <div class="q-text">
+            Solve:
+            \[
+            y' \sin 2\pi x = \pi y \cos 2\pi x
+            \]
+        </div>
+    </div>
+
+    <!-- Q4: B5 from Section 1 -->
+    <div class="question">
+        <div class="q-label">Question 4</div>
+        <div class="q-text">
+            Solve \( 2xyy' = y^2 - x^2 \) by reducing it to separable form.
+        </div>
+    </div>
+
+    <!-- Q5: B7 from Section 1 -->
+    <div class="question">
+        <div class="q-label">Question 5</div>
+        <div class="q-text">
+            Solve:
+            \[
+            xy' = x + y
+            \]
+        </div>
+    </div>
+
+    <!-- Q6: C1 from Section 1 (both parts) -->
+    <div class="question">
+        <div class="q-label">Question 6</div>
+        <div class="q-text">
+            Solve:<br>
+            (a) \( y^3 y' + x^3 = 0 \)<br>
+            (b) \( y' = e^{2x - 1}y^2 \)
+        </div>
+    </div>
+
+    <!-- Q7: C2 from Section 1 -->
+    <div class="question">
+        <div class="q-label">Question 7</div>
+        <div class="q-text">
+            Solve the differential equation:
+            \[
+            xy' = y + 2x^3 \sin^2\left(\frac{y}{x}\right)
+            \]
+        </div>
+    </div>
+
+    <!-- Q8: B1 from Section 2 -->
+    <div class="question">
+        <div class="q-label">Question 8</div>
+        <div class="q-text">
+            Solve:
+            \[
+            \cos(x + y)\,dx + \bigl(3y^2 + 2y + \cos(x + y)\bigr)\,dy = 0
+            \]
+        </div>
+    </div>
+
+    <!-- Q9: B5 from Section 2 -->
+    <div class="question">
+        <div class="q-label">Question 9</div>
+        <div class="q-text">
+            Solve:
+            \[
+            y' = Ay - By^2
+            \]
+        </div>
+    </div>
+
+    <!-- Q10: C5 from Section 2 (integrating factor) -->
+    <div class="question">
+        <div class="q-label">Question 10</div>
+        <div class="q-text">
+            Find an integrating factor and solve the initial value problem:
+            \[
+            (e^{x + y} + ye^y)\,dx + (xe^y - 1)\,dy = 0, \qquad y(0) = -1
+            \]
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+        <span>📅 Submission Date:</span> 02/09/2026
+        <br>
+        <span style="font-size: 0.85rem; color: #6a7a8a;">Submit to: Gafoor I | Dept. of Mathematics | NAM College Kallikkandy</span>
+    </div>
+
+</div>
+
+</body>
+</html>

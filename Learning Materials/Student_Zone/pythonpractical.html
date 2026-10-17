@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Practical QP Generator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#eef1f9;color:#1a1a2e;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
+.card{background:#fff;border:1.5px solid #1b2a6b;border-radius:12px;overflow:hidden;box-shadow:0 4px 18px rgba(27,42,107,.12);width:100%;max-width:520px}
+.card-header{background:#1b2a6b;padding:1.25rem 1.75rem;display:flex;align-items:center;gap:12px}
+.logo-icon{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:22px}
+.card-header h2{font-size:16px;font-weight:600;color:#fff;margin-bottom:2px}
+.card-header p{font-size:12px;color:rgba(255,255,255,.7)}
+.card-body{padding:1.5rem 1.75rem}
+.field{margin-bottom:1rem}
+label{display:block;font-size:13px;color:#1b2a6b;margin-bottom:5px;font-weight:600}
+input,select{width:100%;padding:9px 13px;font-size:14px;border:1.5px solid #b0b8d8;border-radius:8px;background:#f4f6fb;color:#1a1a2e;outline:none}
+input:focus,select:focus{border-color:#1b2a6b;box-shadow:0 0 0 3px rgba(27,42,107,.10)}
+hr{border:none;border-top:1.5px solid #dde3f5;margin:1.25rem 0}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:.5rem}
+.mod-badge{font-size:11px;background:#e8ecf8;color:#1b2a6b;border-radius:4px;padding:3px 9px;font-weight:600;border:1px solid #c0c9e8}
+.btn{width:100%;padding:11px;background:#1b2a6b;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:.5rem}
+.btn:hover{background:#253d99}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.success{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:10px 14px;font-size:13px;color:#2e7d32;display:none;margin-top:.75rem}
+.info{font-size:12px;color:#6b7599;margin-top:1rem}
+.footer{margin-top:1.5rem;padding-top:1rem;border-top:1.5px solid #dde3f5;text-align:center;font-size:11.5px;color:#4a5280;font-style:italic}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">
+    <div class="logo-icon">🐍</div>
+    <div>
+      <h2>Question Paper Generator</h2>
+      <p>Python Practical &nbsp;·&nbsp; KU5DSEMAT303 &nbsp;·&nbsp; 16-Question Bank</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="field">
+      <label for="reg">Register number</label>
+      <select id="reg"></select>
+    </div>
+    <div class="field">
+      <label for="sname">Student name</label>
+      <input id="sname" type="text" placeholder="Filled automatically on selecting register number" autocomplete="off">
+    </div>
+
+    <hr>
+    <div style="font-size:12px;color:#1b2a6b;margin-bottom:9px;font-weight:600">Questions drawn per part</div>
+    <div class="badges">
+      <span class="mod-badge">Part A · 2 of 6</span>
+      <span class="mod-badge">Part B · 2 of 5</span>
+      <span class="mod-badge">Part C · 2 of 5</span>
+    </div>
+
+    <button class="btn" id="genBtn" onclick="generatePDF()">Generate Question Paper</button>
+    <div class="success" id="ok">✅ PDF generated and downloaded!</div>
+    <div class="info">6 questions · 2 random from each part · every paper is different</div>
+    <div class="footer">Prepared by Gafoor I, Department of Mathematics, NAMC</div>
+  </div>
+</div>
+
+<script>
+const STUDENTS = [
+  ["NM24MATR001","AYSHATHUL HIDHAYA.C. V"],
+  ["NM24MATR002","FARHANA UNNIYATHAM KANDIYIL"],
+  ["NM24MATR003","FASIHA FEBIN T"],
+  ["NM24MATR004","FATHIMATH MENHA RASHEED D"],
+  ["NM24MATR005","FIDHA FATHIMA T K"],
+  ["NM24MATR006","HIDHA FATHIMA N"],
+  ["NM24MATR007","IRFANA. P. P"],
+  ["NM24MATR008","K MUSHEERA"],
+  ["NM24MATR009","NIDA FATHIMA"],
+  ["NM24MATR011","SAHLA FATHIMA K P"],
+  ["NM24MATR012","SHAHABA SHARIN K"],
+  ["NM24MATR013","SHAHANA LIRA P P"],
+  ["NM24MATR014","VARDA V K"],
+  ["NM24MATR016","AMRUTHA A"],
+  ["NM24MATR017","NAHLA K"],
+  ["NM24MATR018","AJEET SONKAR"],
+  ["NM24MATR019","ANAMIKA. T"],
+  ["NM24MATR020","MISBA SHERIN K"],
+  ["NM24MATR021","ADWAITH BABU.P. P"],
+  ["NM24MATR023","MUHAMMED RAMEES T"]
+];
+
+const BANK = {
+  A: [
+    { id:"A1", text:"Write a Python program to read n numbers from the user and calculate their sum and average." },
+    { id:"A2", text:"Write a Python program to read a number and print its multiplication table." },
+    { id:"A3", text:"Write a Python program to find the sum of digits of a given number." },
+    { id:"A4", text:"Write a Python program to read a number and list all its factors." },
+    { id:"A5", text:"Write a Python program to generate the following inverted number triangle pattern:",
+      pattern:["1 2 3 4 5","1 2 3 4","1 2 3","1 2","1"] },
+    { id:"A6", text:"Write a Python program to generate the following right triangle number pattern:",
+      pattern:["1","1 2","1 2 3","1 2 3 4","1 2 3 4 5"] }
+  ],
+  B: [
+    { id:"B1", text:"Write a Python program to find the sum of numbers up to n and the factorial of n." },
+    { id:"B2", text:"Write a Python program to create a simple calculator that performs addition, subtraction, multiplication, and division based on the user's choice (include division-by-zero handling)." },
+    { id:"B3", text:"Write a Python program to check whether a given number is prime or not." },
+    { id:"B4", text:"Write a Python program to find the first n Fibonacci numbers." },
+    { id:"B5", text:"Write a Python program to generate a diamond star pattern." }
+  ],
+  C: [
+    { id:"C1", text:"Write a Python program to find the root of an equation entered by the user using the Newton-Raphson method." },
+    { id:"C2", text:"Write a Python program to find the root of an equation entered by the user using the Bisection method." },
+    { id:"C3", text:"Write a Python program to evaluate a definite integral of a function entered by the user using the Trapezoidal rule." },
+    { id:"C4", text:"Write a Python program to evaluate a definite integral of a function entered by the user using Simpson's 1/3 rule." },
+    { id:"C5", text:"Write a Python program to evaluate a definite integral of a function entered by the user using Simpson's 3/8 rule." }
+  ]
+};
+
+// ---- Register number dropdown (blank first) ----
+const regSel = document.getElementById('reg');
+const nameBox = document.getElementById('sname');
+regSel.innerHTML = '<option value="">-- Select register number --</option>' +
+  STUDENTS.map(s => `<option value="${s[0]}">${s[0]}</option>`).join('');
+regSel.addEventListener('change', () => {
+  const m = STUDENTS.find(s => s[0] === regSel.value);
+  nameBox.value = m ? m[1] : '';
+});
+
+// ---- Unbiased random pick (Fisher-Yates) ----
+function pickRandom(arr, n) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, n);
+}
+
+function generatePDF() {
+  const reg = regSel.value;
+  const name = nameBox.value.trim();
+  if (!reg) { alert('Please select a register number.'); return; }
+  if (!name) { alert('Please enter the student name.'); return; }
+
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true; btn.textContent = 'Generating…';
+
+  setTimeout(() => {
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ unit:'mm', format:'a4' });
+      const W = 210, H = 297, M = 20, usable = W - 2*M;
+      let y = 20;
+
+      function footer() {
+        doc.setDrawColor(0); doc.setLineWidth(0.3);
+        doc.line(M, H-14, W-M, H-14);
+        doc.setFont('helvetica','italic'); doc.setFontSize(8.5); doc.setTextColor(60);
+        doc.text('Prepared by Gafoor I, Department of Mathematics, NAMC', W/2, H-9, {align:'center'});
+        doc.setTextColor(0);
+      }
+      function check(need) {
+        if (y + need > H - 20) { footer(); doc.addPage(); y = 20; }
+      }
+      function center(txt, size, bold) {
+        doc.setFont('helvetica', bold ? 'bold' : 'normal');
+        doc.setFontSize(size);
+        doc.text(txt, W/2, y, {align:'center'});
+      }
+
+      // ---- Heading ----
+      doc.setTextColor(0);
+      center('NAM COLLEGE KALLIKKANDY', 14, true);           y += 7;
+      center('DEPARTMENT OF MATHEMATICS', 12, true);         y += 7;
+      center('FIFTH SEMESTER FYUGP PRACTICAL EXAMINATION OCTOBER 2026', 11, true); y += 7;
+      center('KU5DSEMAT303: PROGRAMMING IN PYTHON', 11, true); y += 9;
+
+      // Register / name (left) and time (right)
+      doc.setFontSize(10);
+      doc.setFont('helvetica','bold');   doc.text('REGISTER NO : ', M, y);
+      const rw = doc.getTextWidth('REGISTER NO : ');
+      doc.setFont('helvetica','normal'); doc.text(reg, M + rw, y);
+      doc.setFont('helvetica','bold');   doc.text('TIME: 60 minutes', W - M, y, {align:'right'});
+      y += 6;
+      doc.setFont('helvetica','bold');   doc.text('NAME : ', M, y);
+      const nw = doc.getTextWidth('NAME : ');
+      doc.setFont('helvetica','normal'); doc.text(name, M + nw, y);
+
+      // double horizontal line
+      y += 4;
+      doc.setDrawColor(0); doc.setLineWidth(0.4);
+      doc.line(M, y, W-M, y); y += 1.2;
+      doc.line(M, y, W-M, y); y += 10;
+
+      // ---- Questions ----
+      let qn = 1;
+      ['A','B','C'].forEach(part => {
+        check(40);
+        center('PART ' + part, 12, true); y += 5.5;
+        doc.setFont('helvetica','italic'); doc.setFontSize(10);
+        doc.text('( Try to code one )', W/2, y, {align:'center'});
+        y += 9;
+
+        pickRandom(BANK[part], 2).forEach(q => {
+          const numW = 8;
+          doc.setFont('helvetica','normal'); doc.setFontSize(11);
+          const lines = doc.splitTextToSize(q.text, usable - numW);
+          const patH = q.pattern ? q.pattern.length * 5 + 4 : 0;
+          check(lines.length * 5.5 + patH + 8);
+
+          doc.setFont('helvetica','bold');
+          doc.text(qn + '.', M, y);
+          doc.setFont('helvetica','normal');
+          doc.text(lines, M + numW, y);
+          y += lines.length * 5.5;
+
+          if (q.pattern) {
+            y += 1;
+            doc.setFont('courier','normal'); doc.setFontSize(11);
+            q.pattern.forEach(row => { doc.text(row, M + numW + 8, y); y += 5; });
+            y += 2;
+          }
+          y += 6;
+          qn++;
+        });
+        y += 4;
+      });
+
+      footer();
+      doc.save('QP_' + reg + '_Python_Practical.pdf');
+
+      const ok = document.getElementById('ok');
+      ok.style.display = 'block';
+      setTimeout(() => ok.style.display = 'none', 4000);
+    } catch (e) {
+      console.error(e);
+      alert('PDF generation failed: ' + e.message);
+    }
+    btn.disabled = false; btn.textContent = 'Generate Question Paper';
+  }, 100);
+}
+</script>
+</body>
+</html>
