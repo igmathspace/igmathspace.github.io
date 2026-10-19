@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Online Evaluation Test – KU3DSCMAT211</title>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},svg:{fontCache:'global'}};</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{--board:#1f3b34;--chalk:#f5f7f2;--paper:#fffefb;--gold:#c9a227;--ink:#1b2a27;--line:#d9ddd2}
+*{box-sizing:border-box}
+body{margin:0;font-family:'STIX Two Text',Georgia,'Times New Roman',serif;color:var(--ink);background:var(--chalk);font-size:19px;line-height:1.55;min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--board);color:var(--chalk);text-align:center;padding:28px 16px 18px;border-bottom:6px double var(--gold)}
+header h1{margin:0;font-size:1.55rem;letter-spacing:.04em;font-weight:600}
+header h2,header h3{margin:4px 0 0;font-weight:400;font-size:1.1rem}
+header h3{font-style:italic;font-size:1rem;opacity:.92}
+.note{text-align:center;font-style:italic;margin:16px 0 0}
+main{flex:1;width:100%;max-width:860px;margin:0 auto;padding:20px 16px 40px}
+section{display:none}section.on{display:block}
+.card{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--board);border-radius:6px;padding:20px 24px;margin:18px 0}
+button{font:inherit;font-weight:600;background:var(--board);color:var(--chalk);border:2px solid var(--gold);border-radius:6px;padding:10px 34px;cursor:pointer}
+button:hover{background:#2b5247}button:disabled{opacity:.5;cursor:not-allowed}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.center{text-align:center;margin-top:34px}
+.opts label{display:block;border:1px solid var(--line);border-radius:6px;padding:12px 16px;margin:10px 0;cursor:pointer;background:#fff}
+.opts label:hover,.q label:hover{background:#eef3ec}
+.opts input:checked+span{font-weight:600}
+select,input[type=text]{font:inherit;width:100%;padding:10px;border:1px solid #aab3a6;border-radius:6px;background:#fff;margin:6px 0 14px}
+input[readonly]{background:#eef3ec}
+h4{margin:0 0 4px;font-size:1.05rem;font-weight:600;color:var(--board)}
+.q p{margin:4px 0 10px;font-size:1.08rem}
+.q label{display:flex;gap:10px;padding:7px 10px;border-radius:5px;cursor:pointer}
+.q.miss{border-left-color:#b3402b;background:#fdf3f0}
+.msg{color:#b3402b;font-weight:600;min-height:1.4em}
+footer{background:var(--board);color:var(--chalk);text-align:center;padding:14px;font-size:.95rem;border-top:4px double var(--gold)}
+mjx-container{font-size:105%!important}
+</style></head><body>
+<header>
+<h1>NAM COLLEGE KALLIKKANDY</h1><h2>DEPARTMENT OF MATHEMATICS</h2><h2>ONLINE EVALUATION TEST</h2>
+<h3>KU3DSCMAT211 – Differential Equations, Laplace Transforms, Linear Programming and Numerical Methods</h3>
+</header>
+<main>
+<p class="note">(Attend all questions)</p>
+
+<section id="s1" class="on"><div class="center"><button id="start">Start</button></div></section>
+
+<section id="s2">
+<div class="card"><h4>Select the Programme</h4>
+<div class="opts">
+<label><input type="radio" name="prog" value="cs"> <span>B.Sc Computer Science</span></label>
+<label><input type="radio" name="prog" value="pc"> <span>B.Sc Polymer Chemistry</span></label>
+</div></div>
+<div class="card" id="idbox" style="display:none">
+<label for="roll"><b>Roll Number</b></label><select id="roll"></select>
+<label for="nm"><b>Name</b></label><input type="text" id="nm" readonly>
+<div class="msg" id="m2"></div>
+<div class="center" style="margin:6px 0 0"><button id="begin" disabled>Begin Test</button></div>
+</div>
+</section>
+
+<section id="s3"><form id="paper" onsubmit="return false"></form>
+<div class="msg center" id="m3" style="margin:0"></div>
+<div class="center"><button id="submit">Submit Answers</button></div></section>
+
+<section id="s4"><div class="card center"><h4 style="font-size:1.4rem">Test submitted</h4>
+<p id="done"></p></div></section>
+</main>
+<footer>Prepared by Gafoor I, Department of Mathematics, NAMC</footer>
+
+<script>
+const API="https://script.google.com/macros/s/AKfycbz0MtcdZYDSgvBYnJSpn9sammhcn981xHYrvbI6Sv1oKWRrNweqcdUBlsXQy34jwwo0KA/exec";
+const $=id=>document.getElementById(id);
+const P=t=>t.trim().split("\n").map(l=>l.split("|"));
+const ROLLS={
+cs:P(`CU2501|A.B.SAMAHA MARIYAM
+CU2502|AYISHA SANHA P T K
+CU2503|FATHIMA ASNA K
+CU2504|FATHIMA B
+CU2505|FATHIMA HAJARA
+CU2506|FATHIMA SAFA SABIR
+CU2507|FATHIMATHU RIFA K P
+CU2508|M P AQEELA LAMHA
+CU2509|MEHJA FATHIMA
+CU2510|NADIYA K
+CU2512|RANA FATHIMA
+CU2513|REEMA SAMEER. P
+CU2514|SAJA SHERIN N K
+CU2515|SANA THESNI
+CU2516|SHAZA FATHIMA A B
+CU2517|SHEHANA FATHIMA
+CU2518|THANHA FATHIMA
+CU2519|WAFA FAHAD
+CU2522|MUHAMMED P
+CU2524|DEVIKA VINOD
+CU2525|K P TEENA
+CU2526|LAYANA S SASI
+CU2527|NAVYA E K
+CU2528|RANA RAFEEQUE MM
+CU2529|RIDHA PARVEEN
+CU2531|SHAMIL MOHAMMED T K
+CU2536|FATHIMA NASRIN P
+CU2537|MARIYAM SAFWA
+CU2538|RANIYA FATHIMA
+CU2539|SAJA FATHIMA
+CU2543|MUHAMMAD NIMSHAD
+CU2544|MUHAMMAD
+CU2545|FATHIMA THANEEM
+CU2546|SHABNAM
+CU2547|MUHAMMED AMEEN N`),
+pc:P(`PU2503|FATHIMA SAHLA
+PU2505|HAMNA HANAN P.K
+PU2508|JUMANA FATHIMA EK
+PU2509|MUHAMMED FARDAN.A
+PU2510|MUHAMMED ZAIN SAMAD
+PU2511|NAHDA FATHIMA.MK
+PU2513|RANA FATHIMA K P
+PU2514|RIYA FATHIMA.M
+PU2515|MUHAMMAD LABEEB
+PU2516|MUHAMMED FAHAD
+PU2517|MUHAMMED NIYAS K K
+PU2518|RIZIN YOUSUF
+PU2525|RIYA FATHIMA`)};
+
+/* Question bank: line n = question n  (question|A|B|C|D).  Modules: I 1-40, II 41-80, III 81-94, IV 95-100 */
+const QB=P(String.raw`A first-order ODE involves derivatives of at most:|First order|Second order|Third order|Zero order
+A separable ODE can be written in the form:|\(y'=f(x)g(y)\)|\(y'=f(x)+g(y)\)|\(y'=f(x)/g(y)\) only|\(y'=f(x,y)\) implicitly
+The general solution of a first-order ODE contains:|No arbitrary constant|One arbitrary constant|Two arbitrary constants|Infinite constants
+In an exact ODE \(M\,dx+N\,dy=0\), the condition is:|\(\partial M/\partial y=\partial N/\partial x\)|\(\partial M/\partial x=\partial N/\partial y\)|\(\partial M/\partial y=-\partial N/\partial x\)|\(M=N\)
+An integrating factor converts a non-exact ODE into:|A linear ODE|An exact ODE|A separable ODE|A homogeneous ODE
+The standard form of a linear first-order ODE is:|\(y'+P(x)y=Q(x)\)|\(y'=P(x)Q(x)\)|\(y'+P(y)x=Q(y)\)|\(y'=P(x)+Q(x)\)
+For \(y'+P(x)y=Q(x)\), the integrating factor is:|\(e^{\int P\,dx}\)|\(e^{\int Q\,dx}\)|\(\int P\,dx\)|\(e^{P+Q}\)
+Modeling with ODEs is used to describe:|Only algebraic relations|Rates of change of quantities|Static geometry|Matrices
+The ODE \(y'=3y\) is:|Not separable|Separable|Exact only|Second order
+The solution of \(y'=0\) is:|\(y=x+c\)|\(y=c\)|\(y=e^{x}\)|\(y=0\) only
+In \(M\,dx+N\,dy=0\), if \(\partial M/\partial y\neq\partial N/\partial x\), the equation is:|Exact|Non-exact|Linear always|Separable always
+The ODE \(dy/dx=x/y\) is:|Linear|Separable|Exact|Second order
+An integrating factor for a linear ODE \(y'+P(x)y=Q(x)\) is:|\(P(x)\)|\(Q(x)\)|\(e^{\int P(x)dx}\)|\(e^{\int Q(x)dx}\)
+The order of the ODE \(y''+y=0\) is:|0|1|2|3
+A solution containing one arbitrary constant is called:|Particular solution|General solution|Singular solution|Trivial solution
+The ODE \(y'+2y=0\) has integrating factor:|\(e^{2x}\)|\(e^{-2x}\)|\(2x\)|\(x^2\)
+Separable ODEs are solved by:|Integration after separation of variables|Laplace transform only|Matrix method|Graphical method
+The ODE \((2x)dx+(2y)dy=0\) is:|Non-exact|Exact|Linear|Second order
+For an exact ODE, the solution is found by:|Separation only|Finding a potential function|Laplace transform|Simplex method
+The integrating factor of \(y'+y=e^{x}\) is:|\(e^{x}\)|\(e^{-x}\)|\(x\)|\(e^{2x}\)
+The ODE \(y'=x+y\) is:|Separable|Linear|Exact|Second order
+The ODE \(y'=x/y^{2}\) is:|Separable|Linear|Exact|Second order
+A first-order linear ODE has the form:|\(y'+P(x)y=Q(x)\)|\(y''+P(x)y=Q(x)\)|\(y'=P(x)y^{2}\)|\(y'=P(x)/y\)
+The integrating factor of \(y'+3y=0\) is:|\(e^{3x}\)|\(e^{-3x}\)|\(3x\)|\(x^3\)
+The ODE \(y\,dx+x\,dy=0\) is:|Exact|Non-exact|Linear only|Second order
+The ODE \(y'=5y\) is solved by:|\(y=ce^{5x}\)|\(y=ce^{-5x}\)|\(y=5x+c\)|\(y=c/x\)
+For \(y'+P(x)y=Q(x)\), the solution is:|\(y\cdot IF=\int Q\cdot IF\,dx+c\)|\(y=\int Q\,dx\)|\(y=P\cdot Q+c\)|\(y=IF+c\)
+The ODE \(y'=e^{x}\) is:|Separable|Linear|Exact|Nonlinear
+The ODE \(y'=2x\) is solved by:|\(y=x^2+c\)|\(y=2x+c\)|\(y=2+c\)|\(y=x+c\)
+In the ODE \(y'+y=0\), the integrating factor is:|\(e^{x}\)|\(e^{-x}\)|\(x\)|\(1\)
+The ODE \((3x^2)dx+(2y)dy=0\) is:|Exact|Non-exact|Linear|Second order
+The solution of \(dy/dx=y\) is:|\(y=ce^{x}\)|\(y=ce^{-x}\)|\(y=cx\)|\(y=c+x\)
+The ODE \(y'=x^2\) is solved by:|\(y=x^3/3+c\)|\(y=x^2/2+c\)|\(y=2x+c\)|\(y=x^3+c\)
+The integrating factor of \(y'+(1/x)y=x\) is:|\(x\)|\(1/x\)|\(e^{x}\)|\(x^2\)
+A nonlinear first-order ODE is one where:|The dependent variable or its derivative appears nonlinearly|Only \(x\) appears|Only constants appear|No derivative appears
+The ODE \(y'=y^2\) is:|Linear|Separable|Exact|Second order
+The ODE \(y'=\cos x\) is solved by:|\(y=\sin x+c\)|\(y=\cos x+c\)|\(y=-\sin x+c\)|\(y=\tan x+c\)
+The condition for exactness of \(M\,dx+N\,dy=0\) is:|\(M_y=N_x\)|\(M_x=N_y\)|\(M=N\)|\(M_y=-N_x\)
+The ODE \(y'+4y=0\) has solution:|\(y=ce^{-4x}\)|\(y=ce^{4x}\)|\(y=4x+c\)|\(y=c/x^4\)
+An ODE is linear if:|It is of first degree in the dependent variable and its derivatives|It has degree 2|It contains \(y^2\)|It contains \(\sin y\)
+The Laplace transform of \(f(t)\) is defined as:|\(\int_0^\infty e^{-st}f(t)\,dt\)|\(\int_0^\infty e^{st}f(t)\,dt\)|\(\int_{-\infty}^\infty f(t)\,dt\)|\(\int_0^\infty f(t)\,dt\)
+The Laplace transform is a:|Linear operator|Non-linear operator|Differential operator|Integral equation only
+\(L\{1\}\) equals:|\(1\)|\(1/s\)|\(s\)|\(s^2\)
+\(L\{t\}\) equals:|\(1/s\)|\(1/s^2\)|\(s^2\)|\(1/(s+1)\)
+\(L\{e^{at}\}\) equals:|\(1/(s-a)\)|\(1/(s+a)\)|\(s/(s-a)\)|\(e^{as}\)
+The first shifting theorem states \(L\{e^{at}f(t)\}\) equals:|\(F(s-a)\)|\(F(s+a)\)|\(F(s)+a\)|\(aF(s)\)
+\(L\{\sin at\}\) equals:|\(a/(s^2+a^2)\)|\(s/(s^2+a^2)\)|\(1/(s^2+a^2)\)|\(a/(s^2-a^2)\)
+\(L\{\cos at\}\) equals:|\(a/(s^2+a^2)\)|\(s/(s^2+a^2)\)|\(s/(s^2-a^2)\)|\(1/(s+a)\)
+The transform of the derivative \(L\{f'(t)\}\) equals:|\(sF(s)-f(0)\)|\(sF(s)+f(0)\)|\(F(s)/s\)|\(s^2F(s)\)
+The transform of the integral \(L\{\int_0^t f(u)\,du\}\) equals:|\(F(s)/s\)|\(sF(s)\)|\(F(s)+s\)|\(F(s)/s^2\)
+Laplace transforms are used to solve:|Only algebraic equations|Linear ODEs with initial values|LPP only|Numerical integration only
+\(L\{t^2\}\) equals:|\(2/s^3\)|\(1/s^3\)|\(2/s^2\)|\(s^3/2\)
+The linearity property states \(L\{af+bg\}\) equals:|\(aF+bG\)|\(F\cdot G\)|\(aF\cdot bG\)|\(F+G\)
+\(L\{e^{2t}\}\) equals:|\(1/(s-2)\)|\(1/(s+2)\)|\(2/s\)|\(s/(s-2)\)
+The first shifting theorem is also called:|s-shifting|t-shifting|Integration rule|Convolution rule
+\(L\{\sin 2t\}\) equals:|\(2/(s^2+4)\)|\(s/(s^2+4)\)|\(2/(s^2-4)\)|\(1/(s^2+4)\)
+If \(L\{f(t)\}=F(s)\), then \(L\{e^{-3t}f(t)\}\) equals:|\(F(s+3)\)|\(F(s-3)\)|\(F(s)+3\)|\(3F(s)\)
+The Laplace transform of a constant \(k\) is:|\(k\)|\(k/s\)|\(ks\)|\(k/s^2\)
+\(L\{\cos 3t\}\) equals:|\(s/(s^2+9)\)|\(3/(s^2+9)\)|\(s/(s^2-9)\)|\(1/(s+9)\)
+The inverse Laplace transform of \(1/s\) is:|\(1\)|\(t\)|\(e^{t}\)|\(\delta(t)\)
+\(L\{t^3\}\) equals:|\(6/s^4\)|\(3/s^4\)|\(6/s^3\)|\(1/s^4\)
+\(L\{e^{-t}\}\) equals:|\(1/(s+1)\)|\(1/(s-1)\)|\(s/(s+1)\)|\(1/s\)
+If \(L\{f(t)\}=F(s)\), then \(L\{e^{5t}f(t)\}\) equals:|\(F(s-5)\)|\(F(s+5)\)|\(F(s)+5\)|\(5F(s)\)
+\(L\{\sin 3t\}\) equals:|\(3/(s^2+9)\)|\(s/(s^2+9)\)|\(3/(s^2-9)\)|\(1/(s^2+9)\)
+The Laplace transform of \(e^{at}\sin bt\) is obtained using:|First shifting theorem|Integration by parts|Partial fractions|Graphical method
+\(L\{\cos 2t\}\) equals:|\(s/(s^2+4)\)|\(2/(s^2+4)\)|\(s/(s^2-4)\)|\(1/(s+4)\)
+The inverse Laplace transform of \(1/s^2\) is:|\(t\)|\(1\)|\(e^{t}\)|\(t^2\)
+\(L\{e^{3t}\}\) equals:|\(1/(s-3)\)|\(1/(s+3)\)|\(3/s\)|\(s/(s-3)\)
+\(L\{t\,e^{at}\}\) equals:|\(1/(s-a)^2\)|\(1/(s+a)^2\)|\(s/(s-a)^2\)|\(a/(s-a)^2\)
+The Laplace transform of \(f(t)=t\) is:|\(1/s^2\)|\(1/s\)|\(s\)|\(s^2\)
+If \(L\{f(t)\}=F(s)\), then \(L\{f''(t)\}\) equals:|\(s^2F(s)-sf(0)-f'(0)\)|\(s^2F(s)\)|\(sF(s)-f(0)\)|\(F(s)/s^2\)
+\(L\{\sin t\}\) equals:|\(1/(s^2+1)\)|\(s/(s^2+1)\)|\(1/(s^2-1)\)|\(s/(s^2-1)\)
+\(L\{\cos t\}\) equals:|\(s/(s^2+1)\)|\(1/(s^2+1)\)|\(s/(s^2-1)\)|\(1/(s-1)\)
+\(L\{e^{-2t}\}\) equals:|\(1/(s+2)\)|\(1/(s-2)\)|\(2/s\)|\(s/(s+2)\)
+The inverse Laplace transform of \(1/(s-a)\) is:|\(e^{at}\)|\(e^{-at}\)|\(\sin at\)|\(\cos at\)
+\(L\{\sinh at\}\) equals:|\(a/(s^2-a^2)\)|\(s/(s^2-a^2)\)|\(a/(s^2+a^2)\)|\(s/(s^2+a^2)\)
+\(L\{\cosh at\}\) equals:|\(s/(s^2-a^2)\)|\(a/(s^2-a^2)\)|\(s/(s^2+a^2)\)|\(a/(s^2+a^2)\)
+If \(L\{f(t)\}=F(s)\), then \(L\{e^{-at}f(t)\}\) equals:|\(F(s+a)\)|\(F(s-a)\)|\(F(s)+a\)|\(aF(s)\)
+The Laplace transform of \(t^2\) is:|\(2/s^3\)|\(1/s^3\)|\(2/s^2\)|\(s^3/2\)
+The Laplace transform of \(e^{at}\cos bt\) is obtained using:|First shifting theorem|Integration by parts|Partial fractions|Graphical method
+A Linear Programming Problem involves optimizing:|A nonlinear function|A linear objective function|A quadratic function|An exponential function
+The constraints in an LPP are:|Linear inequalities/equalities|Nonlinear equations|Differential equations|Integral equations
+The graphical method of solving LPP is suitable when there are:|Two decision variables|Three variables|Many variables|No variables
+The canonical form of an LPP uses:|Only equations|Only inequalities|Mixed forms|No constraints
+The standard form of an LPP uses:|Only equations with non-negative variables|Only inequalities|Nonlinear constraints|No objective function
+The simplex method is used to solve:|Differential equations|LPPs|Laplace transforms|Numerical integration
+In an LPP, the function to be optimized is called the:|Constraint|Objective function|Slack variable|Feasible region
+The region satisfying all constraints of an LPP is called:|Objective region|Feasible region|Slack region|Simplex region
+The optimal solution of an LPP (if it exists) occurs at:|Interior of the feasible region|A vertex of the feasible region|Outside the region|Any random point
+A slack variable is added to convert:|An equality to inequality|A \(\le\) constraint to an equation|A \(\ge\) constraint to an equation|Objective to constraint
+A surplus variable is used for:|\(\le\) constraints|\(\ge\) constraints|Equal constraints|Objective function
+The simplex method is an:|Graphical method|Iterative algebraic method|Numerical integration method|Transform method
+The non-negativity restriction in LPP means:|Variables \(\le 0\)|Variables \(\ge 0\)|Variables \(=0\)|Variables \(\neq 0\)
+If the feasible region is empty, the LPP has:|Unique solution|Infinite solutions|No feasible solution|Two solutions
+The Newton–Raphson formula is:|\(x_{n+1}=x_n-\dfrac{f(x_n)}{f'(x_n)}\)|\(x_{n+1}=x_n+f(x_n)\)|\(x_{n+1}=\dfrac{a+b}{2}\)|\(x_{n+1}=x_n^2\)
+The trapezoidal rule formula is:|\(\dfrac{h}{2}[y_0+2(y_1+\cdots+y_{n-1})+y_n]\)|\(h[y_0+y_n]\)|\(\dfrac{h}{3}[y_0+y_n]\)|\(h(y_0+y_1)\)
+Simpson's 1/3 rule formula is:|\(\dfrac{h}{3}[y_0+4(\text{odd sum})+2(\text{even sum})+y_n]\)|\(\dfrac{h}{2}[y_0+y_n]\)|\(h[y_0+y_n]\)|\(\dfrac{h}{3}[y_0+y_n]\)
+The bisection method formula for the next approximation is:|\(x_2=\dfrac{a+b}{2}\)|\(x_2=a-f(a)\)|\(x_2=b+f(b)\)|\(x_2=f(a)\cdot f(b)\)
+The false position (regula falsi) formula is:|\(x=a-\dfrac{f(a)(b-a)}{f(b)-f(a)}\)|\(x=\dfrac{a+b}{2}\)|\(x=a+f(a)\)|\(x=\dfrac{f(a)}{f(b)}\)
+Simpson's 1/3 rule requires the number of intervals to be:|Odd|Even|Any number|Prime`);
+
+const show=id=>{["s1","s2","s3","s4"].forEach(s=>$(s).classList.toggle("on",s==id));window.scrollTo(0,0)};
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const range=(a,b)=>Array.from({length:b-a+1},(_,i)=>a+i);
+const post=async o=>(await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)})).json();
+const typeset=()=>window.MathJax&&MathJax.typesetPromise?MathJax.typesetPromise():setTimeout(typeset,400);
+let taken=[],list=[],paper=[],busy=false;
+const done=()=>localStorage.getItem("ku3dscmat211_done")||"";
+
+$("start").onclick=async()=>{
+  show("s2");
+  try{taken=(await (await fetch(API)).json()).taken}catch(e){$("m2").textContent="Could not reach the server. Check your internet and refresh."}
+};
+document.querySelectorAll("[name=prog]").forEach(r=>r.onchange=()=>{
+  list=ROLLS[r.value];$("idbox").style.display="block";
+  $("roll").innerHTML='<option value="">— Select Roll Number —</option>'+list.map(([n])=>`<option value="${n}"${taken.includes(n)?" disabled":""}>${n}${taken.includes(n)?" (already attempted)":""}</option>`).join("");
+  $("nm").value="";$("begin").disabled=true;
+});
+$("roll").onchange=()=>{const x=list.find(([n])=>n==$("roll").value);$("nm").value=x?x[1]:"";$("begin").disabled=!x};
+
+$("begin").onclick=async()=>{
+  if(busy)return;const roll=$("roll").value,name=$("nm").value;
+  if(done()==roll){$("m2").textContent="This roll number has already attempted the test.";return}
+  if(!confirm(`Roll No: ${roll}\nName: ${name}\n\nYou can attempt the test only once. Begin now?`))return;
+  busy=true;$("begin").disabled=true;$("m2").textContent="Please wait…";
+  try{
+    const r=await post({action:"start",roll,name});
+    if(!r.ok){$("m2").textContent=r.msg;busy=false;return}
+  }catch(e){$("m2").textContent="Network error. Try again.";busy=false;$("begin").disabled=false;return}
+  busy=false;build(roll,name);
+};
+
+function build(roll,name){
+  paper=[...shuf(range(1,40)).slice(0,4),...shuf(range(41,80)).slice(0,4),...shuf(range(81,94)).slice(0,3),...shuf(range(95,100)).slice(0,1)];
+  $("paper").innerHTML=`<div class="card"><b>Roll No:</b> ${roll} &nbsp;&nbsp; <b>Name:</b> ${name}</div>`+paper.map((id,i)=>{
+    const q=QB[id-1];
+    return `<div class="card q" id="q${i}"><h4>Question ${i+1}</h4><p>${q[0]}</p>`+
+      shuf([0,1,2,3]).map((o,k)=>`<label><input type="radio" name="a${i}" value="${"ABCD"[o]}"><span>(${"abcd"[k]}) ${q[o+1]}</span></label>`).join("")+`</div>`;
+  }).join("");
+  $("submit").onclick=()=>submit(roll,name);
+  window.onbeforeunload=e=>{e.preventDefault();e.returnValue=""};
+  show("s3");typeset();
+}
+
+async function submit(roll,name){
+  const ans=paper.map((id,i)=>{const c=document.querySelector(`[name=a${i}]:checked`);return [id,c?c.value:""]});
+  document.querySelectorAll(".q").forEach((d,i)=>d.classList.toggle("miss",!ans[i][1]));
+  const miss=ans.findIndex(a=>!a[1]);
+  if(miss>=0){$("m3").textContent="Please answer all questions.";$("q"+miss).scrollIntoView({behavior:"smooth",block:"center"});return}
+  if(!confirm("Submit your answers? You cannot change them later."))return;
+  $("submit").disabled=true;$("m3").textContent="Submitting…";
+  try{
+    const r=await post({action:"submit",roll,name,ans});
+    if(!r.ok)throw new Error(r.msg);
+    localStorage.setItem("ku3dscmat211_done",roll);window.onbeforeunload=null;
+    $("done").innerHTML=`Thank you, ${name}. Your answers have been recorded.<br><b>Score: ${r.total} / 12</b>`;show("s4");
+  }catch(e){$("m3").textContent="Submission failed: "+e.message+" Press Submit again.";$("submit").disabled=false}
+}
+</script></body></html>
