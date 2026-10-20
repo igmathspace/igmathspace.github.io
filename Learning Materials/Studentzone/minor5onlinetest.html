@@ -32,6 +32,8 @@ h4{margin:0 0 4px;font-size:1.05rem;font-weight:600;color:var(--board)}
 .q.miss{border-left-color:#b3402b;background:#fdf3f0}
 .msg{color:#b3402b;font-weight:600;min-height:1.4em}
 footer{background:var(--board);color:var(--chalk);text-align:center;padding:14px;font-size:.95rem;border-top:4px double var(--gold)}
+#timer{display:none;position:sticky;top:0;z-index:5;text-align:center;font-weight:600;background:var(--paper);border:2px solid var(--board);border-radius:6px;padding:8px;margin:8px 0}
+#timer.warn{background:#fdf3f0;border-color:#b3402b;color:#b3402b}
 mjx-container{font-size:105%!important}
 </style></head><body>
 <header>
@@ -57,7 +59,7 @@ mjx-container{font-size:105%!important}
 </div>
 </section>
 
-<section id="s3"><form id="paper" onsubmit="return false"></form>
+<section id="s3"><div id="timer"></div><form id="paper" onsubmit="return false"></form>
 <div class="msg center" id="m3" style="margin:0"></div>
 <div class="center"><button id="submit">Submit Answers</button></div></section>
 
@@ -227,7 +229,7 @@ const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math
 const range=(a,b)=>Array.from({length:b-a+1},(_,i)=>a+i);
 const post=async o=>(await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)})).json();
 const typeset=()=>window.MathJax&&MathJax.typesetPromise?MathJax.typesetPromise():setTimeout(typeset,400);
-let taken=[],list=[],paper=[],busy=false;
+let taken=[],list=[],paper=[],busy=false,sending=false,tmr=null;
 const done=()=>localStorage.getItem("ku3dscmat211_done")||"";
 
 $("start").onclick=async()=>{
@@ -262,21 +264,39 @@ function build(roll,name){
   }).join("");
   $("submit").onclick=()=>submit(roll,name);
   window.onbeforeunload=e=>{e.preventDefault();e.returnValue=""};
-  show("s3");typeset();
+  show("s3");typeset();startTimer(roll,name);
 }
 
-async function submit(roll,name){
+/* Timer: 30 min limit. Warning at 25:00, answers locked at 30:00, auto-submit at 30:05 */
+function startTimer(roll,name){
+  const t0=Date.now(),box=$("timer");let locked=false;box.style.display="block";
+  const tick=()=>{
+    const s=Math.floor((Date.now()-t0)/1000),left=Math.max(0,1800-s);
+    const mm=String(Math.floor(left/60)).padStart(2,"0"),ss=String(left%60).padStart(2,"0");
+    if(s<1500)box.textContent="Time left: "+mm+":"+ss;
+    else if(s<1800){box.className="warn";box.textContent="Warning: only 5 minutes remaining! Time left: "+mm+":"+ss}
+    else{
+      box.className="warn";box.textContent="Time is over. Answers will be submitted automatically in "+Math.max(0,1805-s)+" s";
+      if(!locked){locked=true;document.querySelectorAll("#paper input").forEach(i=>i.disabled=true);$("submit").disabled=true}
+    }
+    if(s>=1805){clearInterval(tmr);submit(roll,name,true)}
+  };
+  tick();tmr=setInterval(tick,500);
+}
+
+async function submit(roll,name,force){
+  if(sending)return;
   const ans=paper.map((id,i)=>{const c=document.querySelector(`[name=a${i}]:checked`);return [id,c?c.value:""]});
   document.querySelectorAll(".q").forEach((d,i)=>d.classList.toggle("miss",!ans[i][1]));
   const miss=ans.findIndex(a=>!a[1]);
-  if(miss>=0){$("m3").textContent="Please answer all questions.";$("q"+miss).scrollIntoView({behavior:"smooth",block:"center"});return}
-  if(!confirm("Submit your answers? You cannot change them later."))return;
-  $("submit").disabled=true;$("m3").textContent="Submitting…";
+  if(miss>=0&&!force){$("m3").textContent="Please answer all questions.";$("q"+miss).scrollIntoView({behavior:"smooth",block:"center"});return}
+  if(!force&&!confirm("Submit your answers? You cannot change them later."))return;
+  sending=true;$("submit").disabled=true;$("m3").textContent="Submitting…";
   try{
     const r=await post({action:"submit",roll,name,ans});
     if(!r.ok)throw new Error(r.msg);
-    localStorage.setItem("ku3dscmat211_done",roll);window.onbeforeunload=null;
+    clearInterval(tmr);localStorage.setItem("ku3dscmat211_done",roll);window.onbeforeunload=null;
     $("done").innerHTML=`Thank you, ${name}. Your answers have been recorded.<br><b>Score: ${r.total} / 12</b>`;show("s4");
-  }catch(e){$("m3").textContent="Submission failed: "+e.message+" Press Submit again.";$("submit").disabled=false}
+  }catch(e){sending=false;$("m3").textContent="Submission failed: "+e.message+(force?" Retrying…":" Press Submit again.");$("submit").disabled=false;if(force)setTimeout(()=>submit(roll,name,true),3000)}
 }
 </script></body></html>
