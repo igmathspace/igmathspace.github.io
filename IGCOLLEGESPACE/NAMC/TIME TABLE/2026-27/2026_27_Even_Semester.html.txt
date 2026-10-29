@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026-27 Even Semester · Time Table Management · NAM College</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #333;
+        }
+
+        /* Header — same theme as home page */
+        .header {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .header h1 { margin: 0; font-size: 32px; letter-spacing: 1px; }
+        .header p {
+            margin: 10px 0 0;
+            color: #ffd54f;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* Back link bar */
+        .home-nav {
+            background: #283593;
+            padding: 12px 20px;
+        }
+        .home-nav a {
+            color: #ffd54f;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .home-nav a:hover { text-decoration: underline; }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: #1a237e;
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        /* Three-card grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            display: block;
+            background: white;
+            border-radius: 12px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #ff6f00;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card .icon { font-size: 44px; margin-bottom: 14px; }
+
+        .card h3 {
+            margin: 0 0 16px;
+            color: #1a237e;
+            font-size: 22px;
+        }
+
+        .card .open-tag {
+            display: inline-block;
+            background: #1a237e;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a237e;
+            color: #9fa8da;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            margin-top: 50px;
+        }
+        .footer p { margin: 4px 0; }
+        .footer strong { color: #ffd54f; }
+
+        @media (max-width: 500px) {
+            .header h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>NAM COLLEGE KALLIKKANDY</h1>
+        <p>TIME TABLE MANAGEMENT _ 2026-27 Even Semester</p>
+    </div>
+
+    <!-- Back link -->
+    <div class="home-nav">
+        <a href="index.html">← Back to 2026-27 Semesters</a>
+    </div>
+
+    <div class="container">
+        <div class="section-title">Select an Option</div>
+
+        <div class="card-grid">
+
+            <!-- Card 1: Data Collection (Google Form / Apps Script) -->
+            <a class="card" href="https://script.google.com/macros/s/AKfycbwtOWcZdPg0EPWdyGp1MA9B8MAE2tqBsVQ9mgsEsNvXnkwsqmQGqs2CPsXNmw-r_ABx/exec" target="_blank">
+                <div class="icon">📝</div>
+                <h3>Data Collection</h3>
+                <span class="open-tag">Open →</span>
+            </a>
+
+            <!-- Card 2: Time table format (to be created later) -->
+            <a class="card" href="2026_27_evenTTformat.html">
+                <div class="icon">📋</div>
+                <h3>Time table format</h3>
+                <span class="open-tag">Open →</span>
+            </a>
+
+            <!-- Card 3: Final time table (to be created later) -->
+            <a class="card" href="2026_27_evenTTfinal.html">
+                <div class="icon">📅</div>
+                <h3>Final time table</h3>
+                <span class="open-tag">Open →</span>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Gafoor I</strong>, Department of Mathematics</p>
+        <p>NAM College Kallikkandy · igmathspace.github.io</p>
+    </div>
+
+</body>
+</html>
