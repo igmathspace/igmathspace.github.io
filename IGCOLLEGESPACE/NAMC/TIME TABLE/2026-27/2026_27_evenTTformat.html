@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Table Draft · Even Semester 2026-27 · NAM College</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #333;
+        }
+
+        /* Header: same as home page */
+        .header {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .header h1 { margin: 0; font-size: 32px; letter-spacing: 1px; }
+        .header p {
+            margin: 10px 0 0;
+            color: #ffd54f;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        /* Back link bar */
+        .home-nav { background: #283593; padding: 12px 20px; }
+        .home-nav a { color: #ffd54f; text-decoration: none; font-size: 16px; }
+        .home-nav a:hover { text-decoration: underline; }
+
+        .wrap {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 16px;
+        }
+
+        .table-box {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1000px;
+            table-layout: fixed;
+            font-size: 12.5px;
+            border-collapse: separate;
+            border-spacing: 4px;
+            background: #e3e8f0;
+            padding: 6px;
+            border-radius: 10px;
+        }
+
+        /* ===== 3D TABLE LOOK ===== */
+        th {
+            background: linear-gradient(180deg, #3949ab 0%, #1a237e 100%);
+            color: white;
+            padding: 10px 6px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            box-shadow:
+                0 4px 0 #0d1257,
+                0 6px 10px rgba(0,0,0,0.25);
+        }
+
+        td {
+            padding: 7px 5px;
+            text-align: center;
+            vertical-align: middle;
+            min-width: 0;
+            border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 6px;
+            background-color: #ffffff;
+            background-image: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 45%, rgba(0,0,0,0.08) 100%);
+            box-shadow:
+                0 3px 0 rgba(0,0,0,0.18),
+                0 5px 8px rgba(0,0,0,0.18),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.25);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        td:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 5px 0 rgba(0,0,0,0.18),
+                0 9px 14px rgba(0,0,0,0.25),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+        }
+
+        td.empty {
+            background-color: #f7f9fc;
+            background-image: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.08);
+        }
+
+        tr.day-start td { border-top: 3px solid #1a237e; }
+
+        .day-cell {
+            background: linear-gradient(180deg, #3949ab 0%, #1a237e 100%);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 0 #0d1257, 0 6px 10px rgba(0,0,0,0.25);
+        }
+        .sem-cell {
+            background: linear-gradient(180deg, #ffffff 0%, #dde3f3 100%);
+            color: #1a237e;
+            font-weight: bold;
+            box-shadow: 0 3px 0 #9fa8da, 0 5px 8px rgba(0,0,0,0.15);
+        }
+        .stream-cell {
+            background: linear-gradient(180deg, #ffffff 0%, #eef1f8 100%);
+            font-weight: 600;
+            text-align: left;
+            white-space: normal;
+            color: #37474f;
+            box-shadow: 0 3px 0 #c5cae9, 0 5px 8px rgba(0,0,0,0.12);
+        }
+
+        /* Course cells: word wrap so long labels break onto two lines */
+        td.course {
+            font-weight: 600;
+            white-space: normal;
+            overflow-wrap: break-word;
+            word-break: normal;
+            line-height: 1.3;
+        }
+
+        /* Legend: shown last */
+        .legend-box {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #ff6f00;
+            padding: 24px;
+            margin-top: 30px;
+        }
+        .legend-box h2 {
+            margin: 0 0 16px;
+            color: #1a237e;
+            font-size: 20px;
+        }
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px 24px;
+            align-items: start;
+        }
+        .legend-group { display: flex; flex-direction: column; gap: 10px; }
+        .legend-group h3 {
+            margin: 0 0 4px;
+            font-size: 15px;
+            color: #ff6f00;
+            border-bottom: 2px solid #ffe0b2;
+            padding-bottom: 6px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .swatch {
+            width: 22px;
+            height: 22px;
+            border-radius: 5px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0,0,0,0.15);
+        }
+        .legend-item strong { color: #1a237e; }
+
+        /* Footer: same as home page */
+        .footer {
+            background: #1a237e;
+            color: #9fa8da;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        .footer p { margin: 4px 0; }
+        .footer strong { color: #ffd54f; }
+
+        @media (max-width: 500px) {
+            .header h1 { font-size: 24px; }
+        }
+
+        @media print {
+            @page { size: A4 landscape; margin: 8mm; }
+            .home-nav { display: none; }
+            body { background: white; }
+            .table-box, .legend-box { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>NAM COLLEGE KALLIKKANDY</h1>
+        <p>TIME TABLE DRAFT FOR EVEN SEMESTER (2026 NOVEMBER – 2027 MARCH)</p>
+    </div>
+
+    <!-- Back link -->
+    <div class="home-nav">
+        <a href="2026_27_Even_Semester.html">← Back to 2026-27 Even Semester</a>
+    </div>
+
+    <div class="wrap">
+
+        <!-- Timetable -->
+        <div class="table-box">
+            <table>
+                <colgroup>
+                    <col style="width:11.111%"><col style="width:11.111%"><col style="width:11.111%">
+                    <col style="width:11.111%"><col style="width:11.111%"><col style="width:11.111%">
+                    <col style="width:11.111%"><col style="width:11.111%"><col style="width:11.111%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Days</th>
+                        <th>Sem</th>
+                        <th>Stream</th>
+                        <th>I</th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                    </tr>
+                </thead>
+                <tbody id="tt-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Legend (last) -->
+        <div class="legend-box">
+            <h2>Legends</h2>
+            <div class="legend-grid" id="legend-grid"></div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Prepared by <strong>Gafoor I</strong>, Department of Mathematics &amp; Time Table Coordinator, NAMC</p>
+        <p>NAM College Kallikkandy · igmathspace.github.io</p>
+    </div>
+
+<script>
+    /* ===== COLOURS: one colour per course, same colour everywhere ===== */
+    const COLORS = {
+        IIMAJ:  { bg: '#1565c0', fg: '#ffffff' },  // blue
+        AEC1:   { bg: '#2e7d32', fg: '#ffffff' },  // green
+        AEC2:   { bg: '#00838f', fg: '#ffffff' },  // teal
+        MINOR3: { bg: '#8e24aa', fg: '#ffffff' },  // purple
+        MINOR4: { bg: '#4a148c', fg: '#ffffff' },  // deep purple
+        MDC:    { bg: '#ef6c00', fg: '#ffffff' },  // orange
+        MAJ1:   { bg: '#c62828', fg: '#ffffff' },  // red
+        MAJ2:   { bg: '#5d4037', fg: '#ffffff' },  // brown
+        MAJ3:   { bg: '#fdd835', fg: '#222222' },  // yellow
+        VAC2:   { bg: '#9ccc65', fg: '#222222' },  // light green
+        VAC3:   { bg: '#827717', fg: '#ffffff' },  // olive
+        SEC1:   { bg: '#607d8b', fg: '#ffffff' },  // blue grey
+        SEC2:   { bg: '#00bcd4', fg: '#003740' },  // cyan
+        SEC3:   { bg: '#6200ea', fg: '#ffffff' },  // violet
+        DSC:    { bg: '#1a237e', fg: '#ffffff' }   // navy (theme)
+    };
+
+    /* Works out which course a cell belongs to, so AEC-1 (2 BATCH) and AEC 1 share a colour */
+    function courseKey(text) {
+        const s = text.toUpperCase().trim();
+        if (s.startsWith('IIMAJ'))                return 'IIMAJ';
+        if (/^AEC\s*-?\s*1/.test(s))              return 'AEC1';
+        if (/^AEC\s*-?\s*2/.test(s))              return 'AEC2';
+        if (/^MINOR\s*-?\s*3/.test(s))            return 'MINOR3';
+        if (/^MINOR\s*-?\s*4/.test(s))            return 'MINOR4';
+        if (/^MDC/.test(s))                       return 'MDC';
+        let m = s.match(/^MAJ\s*-?\s*(\d)/);
+        if (m) return 'MAJ' + m[1];
+        m = s.match(/^VAC\s*-?\s*(\d)/);
+        if (m) return 'VAC' + m[1];
+        m = s.match(/^SEC\s*-?\s*(\d)/);
+        if (m) return 'SEC' + m[1];
+        if (s.startsWith('DSC'))                  return 'DSC';
+        return null;
+    }
+
+    /* ===== TIMETABLE DATA (read from the draft image) =====
+       Each row has 6 entries for columns I, II, III, IV, V, VI.
+       A plain string = one cell.  { t: text, r: rows } = merged cell.
+       null = this cell is already covered by a merged cell above.   */
+    const D = (t, r) => ({ t, r });
+
+    const days = [
+        { name: "MON", rows: [
+            { sem: D("I", 4), stream: "Literature", cells: ["IIMAJ", D("MINOR 3", 4), "AEC-1", D("AEC-2", 2), D("MINOR 4", 4), D("MINOR - 4 (PR)", 4)] },
+            { stream: "Arts", cells: ["AEC-1", null, "IIMAJ", null, null, null] },
+            { stream: "Science", cells: ["IIMAJ", null, "AEC-1 (2 BATCH)", "IIMAJ", null, null] },
+            { stream: "Commerce", cells: ["AEC 2", null, "IIMAJ", "AEC 1", null, null] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-2", "VAC - 2", "SEC 1", "MAJ-1", "MAJ-3", ""] },
+            { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", ""] }
+        ]},
+        { name: "TUE", rows: [
+            { sem: D("I", 4), stream: "Literature", cells: ["AEC1", D("AEC2", 2), D("MINOR 4", 4), D("MDC", 4), D("MINOR 3", 4), D("MINOR - 3 (PR)", 4)] },
+            { stream: "Arts", cells: ["AEC1", null, null, null, null, null] },
+            { stream: "Science", cells: ["AEC2", "AEC-1 (2 BATCH)", null, null, null, null] },
+            { stream: "Commerce", cells: ["IIMAJ", "AEC 1", null, null, null, null] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC - 3", "MAJ-3", "MAJ-2", "VAC - 2", ""] },
+            { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "SEC-3", "DSC/DSE", "DSC/DSE", ""] }
+        ]},
+        { name: "WED", rows: [
+            { sem: D("I", 4), stream: "Literature", cells: ["IIMAJ", D("MINOR 4", 4), D("AEC 2", 2), D("MINOR 3", 4), D("AEC 2", 2), ""] },
+            { stream: "Arts", cells: ["IIMAJ", null, null, null, null, ""] },
+            { stream: "Science", cells: ["AEC-1 (2 BATCH)", null, "IIMAJ/ Vacant", null, "IIMAJ", ""] },
+            { stream: "Commerce", cells: ["IIMAJ", null, "AEC 1", null, "AEC 1", ""] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["SEC 1", "MAJ-1", "Maj-3", "VAC -2", "MAJ-2", ""] },
+            { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "SEC-3", "DSC/DSE", ""] }
+        ]},
+        { name: "THU", rows: [
+            { sem: D("I", 4), stream: "Literature", cells: [D("MINOR 4", 4), "IIMAJ", "AEC 1", D("MDC", 4), "", ""] },
+            { stream: "Arts", cells: [null, "IIMAJ", "AEC 1", null, "", ""] },
+            { stream: "Science", cells: [null, "IIMAJ", "AEC2", null, "AEC 2", ""] },
+            { stream: "Commerce", cells: [null, "IIMAJ", "IIMAJ", null, "", ""] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-2", "SEC -1", "VAC- 3", "MAJ-1", "Maj-3", ""] },
+            { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "SEC-3", "SEC -3"] }
+        ]},
+        { name: "FRI", rows: [
+            { sem: D("I", 4), stream: "Literature", cells: [D("MDC", 4), "IIMAJ", "IIMAJ", "AEC 1", D("MINOR 3", 4), ""] },
+            { stream: "Arts", cells: [null, "IIMAJ", "IIMAJ", "AEC 1", null, ""] },
+            { stream: "Science", cells: [null, "IIMAJ", "AEC-1 (2 BATCH)", "AEC 2", null, ""] },
+            { stream: "Commerce", cells: [null, "AEC 2", "AEC 2", "IIMAJ", null, ""] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC - 3", "MAJ-2", "MAJ-3", "", ""] },
+            { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", ""] }
+        ]}
+    ];
+
+    /* ===== BUILD THE TABLE ===== */
+    function buildTable() {
+        let html = '';
+        days.forEach(day => {
+            day.rows.forEach((row, i) => {
+                let cls = '';
+                if (i === 0) cls = ' class="day-start"';
+                html += `<tr${cls}>`;
+                if (i === 0) html += `<td class="day-cell" rowspan="6">${day.name}</td>`;
+                if (row.sem) html += `<td class="sem-cell" rowspan="${row.sem.r}">${row.sem.t}</td>`;
+                html += `<td class="stream-cell">${row.stream}</td>`;
+
+                row.cells.forEach(c => {
+                    if (c === null) return;                       // covered by merged cell above
+                    const obj  = typeof c === 'string' ? { t: c, r: 1 } : c;
+                    const span = obj.r > 1 ? ` rowspan="${obj.r}"` : '';
+                    if (!obj.t) {
+                        html += `<td${span} class="empty"></td>`;
+                        return;
+                    }
+                    const key = courseKey(obj.t);
+                    const col = key ? COLORS[key] : { bg: '#eceff1', fg: '#333333' };
+                    html += `<td${span} class="course" style="background:${col.bg};color:${col.fg}">${obj.t}</td>`;
+                });
+                html += '</tr>';
+            });
+        });
+        document.getElementById('tt-body').innerHTML = html;
+    }
+
+    /* ===== LEGEND (shown last) ===== */
+    const LEGEND = [
+        {
+                "title": "First Semester Course",
+                "items": [
+                        {
+                                "label": "IIMAJ",
+                                "desc": "2nd Semester Major"
+                        },
+                        {
+                                "label": "AEC-1",
+                                "desc": "II Sem English AEC (AEC third paper)"
+                        },
+                        {
+                                "label": "AEC-2",
+                                "desc": "II Sem Language AEC (AEC fourth paper)"
+                        },
+                        {
+                                "label": "MINOR 3",
+                                "desc": "Third Minor Course (II Semester)"
+                        },
+                        {
+                                "label": "MINOR 4",
+                                "desc": "Fourth Minor Course (II Semester)"
+                        },
+                        {
+                                "label": "MDC",
+                                "desc": "II Semester Multidisciplinary Course(MDC-2)"
+                        }
+                ]
+        },
+        {
+                "title": "Fourth Semester Course",
+                "items": [
+                        {
+                                "label": "VAC-2",
+                                "desc": "Second Value Added Course (Fourth Semester)"
+                        },
+                        {
+                                "label": "VAC-3",
+                                "desc": "Third Value Added Course (Fourth Semester)"
+                        },
+                        {
+                                "label": "SEC-1",
+                                "desc": "First Skill Enhancement Course (Fourth Semester)"
+                        },
+                        {
+                                "label": "MAJ-1",
+                                "desc": "Fourth Semester Major Course"
+                        },
+                        {
+                                "label": "MAJ-2",
+                                "desc": "Fourth Semester Major Course"
+                        },
+                        {
+                                "label": "MAJ-3",
+                                "desc": "Fourth Semester Major Course"
+                        }
+                ]
+        },
+        {
+                "title": "Sixth Semester Courses",
+                "items": [
+                        {
+                                "label": "SEC-3",
+                                "desc": "Third Skill Enhancement Course (Sixth Semester)"
+                        },
+                        {
+                                "label": "DSC/DSE",
+                                "desc": "Major Course (Sixth Semester)"
+                        }
+                ]
+        }
+];
+
+    function buildLegend() {
+        document.getElementById('legend-grid').innerHTML = LEGEND.map(g => {
+            const items = g.items.map(item => {
+                const key = courseKey(item.label);
+                const col = key ? COLORS[key] : { bg: '#eceff1' };
+                return `<div class="legend-item">
+                            <span class="swatch" style="background:${col.bg}"></span>
+                            <span><strong>${item.label}</strong> – ${item.desc}</span>
+                        </div>`;
+            }).join('');
+            return `<div class="legend-group"><h3>${g.title}</h3>${items}</div>`;
+        }).join('');
+    }
+
+    buildTable();
+    buildLegend();
+</script>
+
+</body>
+</html>
