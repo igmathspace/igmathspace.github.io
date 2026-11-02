@@ -120,7 +120,9 @@
             text-align: center;
             vertical-align: middle;
             min-width: 0;
-            border: 1px solid rgba(0,0,0,0.12);
+            border-style: solid;
+            border-width: 2px;
+            border-color: rgba(255,255,255,0.65) rgba(0,0,0,0.30) rgba(0,0,0,0.30) rgba(255,255,255,0.65);
             border-radius: 6px;
             background-color: #ffffff;
             background-image: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 45%, rgba(0,0,0,0.08) 100%);
@@ -143,10 +145,11 @@
         td.empty {
             background-color: #f7f9fc;
             background-image: none;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.08);
+            border-color: rgba(0,0,0,0.18) rgba(255,255,255,0.9) rgba(255,255,255,0.9) rgba(0,0,0,0.18);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.10);
         }
 
-        tr.day-start td { border-top: 3px solid #1a237e; }
+        
 
         .day-cell {
             background: linear-gradient(180deg, #3949ab 0%, #1a237e 100%);
@@ -258,7 +261,7 @@
     <!-- Back link -->
     <div class="home-nav">
         <a href="2026_27_Even_Semester.html">← Back to 2026-27 Even Semester</a>
-        <a class="dl-btn" href="https://docs.google.com/document/d/1RsQhuIz-Kybn9go4DwRkJotv2ItloB0O/edit?usp=sharing&ouid=117388370835023381934&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download an editable format</a>
+        <a class="dl-btn" href="https://docs.google.com/document/d/1iUkdiAFHjE9uwrptXI0N_SaUj1OjfMcV/edit?usp=sharing&ouid=117388370835023381934&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download an editable format</a>
     </div>
 
     <div class="wrap">
@@ -308,7 +311,7 @@
         IIMAJ:  { bg: '#1565c0', fg: '#ffffff' },  // blue
         AEC1:   { bg: '#2e7d32', fg: '#ffffff' },  // green
         AEC2:   { bg: '#00838f', fg: '#ffffff' },  // teal
-        MINOR3: { bg: '#8e24aa', fg: '#ffffff' },  // purple
+        MINOR3: { bg: '#ab47bc', fg: '#ffffff' },  // light purple
         MINOR4: { bg: '#4a148c', fg: '#ffffff' },  // deep purple
         MDC:    { bg: '#ef6c00', fg: '#ffffff' },  // orange
         MAJ1:   { bg: '#c62828', fg: '#ffffff' },  // red
@@ -318,7 +321,7 @@
         VAC3:   { bg: '#827717', fg: '#ffffff' },  // olive
         SEC1:   { bg: '#607d8b', fg: '#ffffff' },  // blue grey
         SEC2:   { bg: '#00bcd4', fg: '#003740' },  // cyan
-        SEC3:   { bg: '#6200ea', fg: '#ffffff' },  // violet
+        SEC3:   { bg: '#e91e63', fg: '#ffffff' },  // pink
         DSC:    { bg: '#1a237e', fg: '#ffffff' }   // navy (theme)
     };
 
@@ -357,10 +360,10 @@
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", ""] }
         ]},
         { name: "TUE", rows: [
-            { sem: D("I", 4), stream: "Literature", cells: ["AEC1", D("AEC2", 2), D("MINOR 4", 4), D("MDC", 4), D("MINOR 3", 4), D("MINOR - 3 (PR)", 4)] },
-            { stream: "Arts", cells: ["AEC1", null, null, null, null, null] },
+            { sem: D("I", 4), stream: "Literature", cells: ["AEC1", "IIMAJ", D("MINOR 4", 4), D("MDC", 4), D("MINOR 3", 4), D("MINOR - 3 (PR)", 4)] },
+            { stream: "Arts", cells: ["AEC1", "IIMAJ", null, null, null, null] },
             { stream: "Science", cells: ["AEC2", "AEC-1 (2 BATCH)", null, null, null, null] },
-            { stream: "Commerce", cells: ["IIMAJ", "AEC 1", null, null, null, null] },
+            { stream: "Commerce", cells: ["IIMAJ", "AEC 2", null, null, null, null] },
             { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC - 3", "MAJ-3", "MAJ-2", "VAC - 2", ""] },
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "SEC-3", "DSC/DSE", "DSC/DSE", ""] }
         ]},
@@ -375,16 +378,16 @@
         { name: "THU", rows: [
             { sem: D("I", 4), stream: "Literature", cells: [D("MINOR 4", 4), "IIMAJ", "AEC 1", D("MDC", 4), "", ""] },
             { stream: "Arts", cells: [null, "IIMAJ", "AEC 1", null, "", ""] },
-            { stream: "Science", cells: [null, "IIMAJ", "AEC2", null, "AEC 2", ""] },
+            { stream: "Science", cells: [null, "AEC-1 (2 BATCH)", "AEC2", null, "AEC 2", ""] },
             { stream: "Commerce", cells: [null, "IIMAJ", "IIMAJ", null, "", ""] },
             { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-2", "SEC -1", "VAC- 3", "MAJ-1", "Maj-3", ""] },
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "SEC-3", "SEC -3"] }
         ]},
         { name: "FRI", rows: [
-            { sem: D("I", 4), stream: "Literature", cells: [D("MDC", 4), "IIMAJ", "IIMAJ", "AEC 1", D("MINOR 3", 4), ""] },
-            { stream: "Arts", cells: [null, "IIMAJ", "IIMAJ", "AEC 1", null, ""] },
-            { stream: "Science", cells: [null, "IIMAJ", "AEC-1 (2 BATCH)", "AEC 2", null, ""] },
-            { stream: "Commerce", cells: [null, "AEC 2", "AEC 2", "IIMAJ", null, ""] },
+            { sem: D("I", 4), stream: "Literature", cells: [D("MDC", 4), "IIMAJ", D("AEC 2", 2), "AEC 1", D("MINOR 3", 4), ""] },
+            { stream: "Arts", cells: [null, "IIMAJ", null, "AEC 1", null, ""] },
+            { stream: "Science", cells: [null, "IIMAJ", "IIMAJ", "AEC 2", null, ""] },
+            { stream: "Commerce", cells: [null, "AEC 2", "AEC1", "IIMAJ", null, ""] },
             { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC - 3", "MAJ-2", "MAJ-3", "", ""] },
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", ""] }
         ]}
@@ -422,77 +425,77 @@
 
     /* ===== LEGEND (shown last) ===== */
     const LEGEND = [
-        {
-                "title": "First Semester Course",
-                "items": [
-                        {
-                                "label": "IIMAJ",
-                                "desc": "2nd Semester Major"
-                        },
-                        {
-                                "label": "AEC-1",
-                                "desc": "II Sem English AEC (AEC third paper)"
-                        },
-                        {
-                                "label": "AEC-2",
-                                "desc": "II Sem Language AEC (AEC fourth paper)"
-                        },
-                        {
-                                "label": "MINOR 3",
-                                "desc": "Third Minor Course (II Semester)"
-                        },
-                        {
-                                "label": "MINOR 4",
-                                "desc": "Fourth Minor Course (II Semester)"
-                        },
-                        {
-                                "label": "MDC",
-                                "desc": "II Semester Multidisciplinary Course(MDC-2)"
-                        }
-                ]
-        },
-        {
-                "title": "Fourth Semester Course",
-                "items": [
-                        {
-                                "label": "VAC-2",
-                                "desc": "Second Value Added Course (Fourth Semester)"
-                        },
-                        {
-                                "label": "VAC-3",
-                                "desc": "Third Value Added Course (Fourth Semester)"
-                        },
-                        {
-                                "label": "SEC-1",
-                                "desc": "First Skill Enhancement Course (Fourth Semester)"
-                        },
-                        {
-                                "label": "MAJ-1",
-                                "desc": "Fourth Semester Major Course"
-                        },
-                        {
-                                "label": "MAJ-2",
-                                "desc": "Fourth Semester Major Course"
-                        },
-                        {
-                                "label": "MAJ-3",
-                                "desc": "Fourth Semester Major Course"
-                        }
-                ]
-        },
-        {
-                "title": "Sixth Semester Courses",
-                "items": [
-                        {
-                                "label": "SEC-3",
-                                "desc": "Third Skill Enhancement Course (Sixth Semester)"
-                        },
-                        {
-                                "label": "DSC/DSE",
-                                "desc": "Major Course (Sixth Semester)"
-                        }
-                ]
-        }
+    {
+        "title": "First Semester Course",
+        "items": [
+            {
+                "label": "IIMAJ",
+                "desc": "Second Semester Major (MAJOR-2)"
+            },
+            {
+                "label": "AEC-1",
+                "desc": "II Sem English AEC (AEC third paper)"
+            },
+            {
+                "label": "AEC-2",
+                "desc": "II Sem Language AEC (AEC fourth paper)"
+            },
+            {
+                "label": "MINOR 3",
+                "desc": "Third Minor Course (II Semester)"
+            },
+            {
+                "label": "MINOR 4",
+                "desc": "Fourth Minor Course (II Semester)"
+            },
+            {
+                "label": "MDC",
+                "desc": "II Semester Multidisciplinary Course(MDC-2)"
+            }
+        ]
+    },
+    {
+        "title": "Fourth Semester Course",
+        "items": [
+            {
+                "label": "VAC-2",
+                "desc": "Second Value Added Course (Fourth Semester)"
+            },
+            {
+                "label": "VAC-3",
+                "desc": "Third Value Added Course (Fourth Semester)"
+            },
+            {
+                "label": "SEC-1",
+                "desc": "First Skill Enhancement Course (Fourth Semester)"
+            },
+            {
+                "label": "MAJ-1",
+                "desc": "Fourth Semester Major Course (MAJOR-5)"
+            },
+            {
+                "label": "MAJ-2",
+                "desc": "Fourth Semester Major Course (MAJOR-6)"
+            },
+            {
+                "label": "MAJ-3",
+                "desc": "Fourth Semester Major Course (MAJOR-7)"
+            }
+        ]
+    },
+    {
+        "title": "Sixth Semester Courses",
+        "items": [
+            {
+                "label": "SEC-3",
+                "desc": "Third Skill Enhancement Course (Sixth Semester)"
+            },
+            {
+                "label": "DSC/DSE",
+                "desc": "Major Course (Sixth Semester) (MAJOR-11 to 13 and DSE 3 to 4)"
+            }
+        ]
+    }
 ];
 
     function buildLegend() {
