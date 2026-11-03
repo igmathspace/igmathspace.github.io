@@ -142,6 +142,23 @@
                 inset 0 1px 0 rgba(255,255,255,0.6);
         }
 
+
+        /* thick 3D line separating the days */
+        tr.day-sep td,
+        tr.day-sep td:hover {
+            height: 12px;
+            padding: 0;
+            border: none;
+            border-radius: 8px;
+            transform: none;
+            background-color: #ff6f00;
+            background-image: linear-gradient(180deg, #ffd180 0%, #ff9800 35%, #e65100 100%);
+            box-shadow:
+                0 4px 0 #8f3200,
+                0 7px 10px rgba(0,0,0,0.35),
+                inset 0 2px 0 rgba(255,255,255,0.6);
+        }
+
         td.empty {
             background-color: #f7f9fc;
             background-image: none;
@@ -352,43 +369,43 @@
 
     const days = [
         { name: "MON", rows: [
-            { sem: D("I", 4), stream: "Literature", cells: ["IIMAJ", D("MINOR 3", 4), "AEC-1", D("AEC-2", 2), D("MINOR 4", 4), D("MINOR - 4 (PR)", 4)] },
+            { sem: D("I", 4), stream: "Literature", cells: ["IIMAJ", D("MINOR 3", 4), "AEC-1", D("AEC-2", 2), D("MINOR 4", 4), D("MINOR 4 (PR)", 4)] },
             { stream: "Arts", cells: ["AEC-1", null, "IIMAJ", null, null, null] },
             { stream: "Science", cells: ["IIMAJ", null, "AEC-1 (2 BATCH)", "IIMAJ", null, null] },
-            { stream: "Commerce", cells: ["AEC 2", null, "IIMAJ", "AEC 1", null, null] },
-            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-2", "VAC - 2", "SEC 1", "MAJ-1", "MAJ-3", ""] },
+            { stream: "Commerce", cells: ["AEC-2", null, "IIMAJ", "AEC-1", null, null] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-2", "VAC-2", "SEC-1", "MAJ-1", "MAJ-3", ""] },
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", ""] }
         ]},
         { name: "TUE", rows: [
-            { sem: D("I", 4), stream: "Literature", cells: ["AEC1", "IIMAJ", D("MINOR 4", 4), D("MDC", 4), D("MINOR 3", 4), D("MINOR - 3 (PR)", 4)] },
-            { stream: "Arts", cells: ["AEC1", "IIMAJ", null, null, null, null] },
-            { stream: "Science", cells: ["AEC2", "AEC-1 (2 BATCH)", null, null, null, null] },
-            { stream: "Commerce", cells: ["IIMAJ", "AEC 2", null, null, null, null] },
-            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC - 3", "MAJ-3", "MAJ-2", "VAC - 2", ""] },
+            { sem: D("I", 4), stream: "Literature", cells: [D("AEC-2", 2), "IIMAJ", D("MINOR 4", 4), D("MDC", 4), D("MINOR 3", 4), D("MINOR 3 (PR)", 4)] },
+            { stream: "Arts", cells: [null, "IIMAJ", null, null, null, null] },
+            { stream: "Science", cells: ["IIMAJ", "AEC-1 (2 BATCH)", null, null, null, null] },
+            { stream: "Commerce", cells: ["IIMAJ", "AEC-2", null, null, null, null] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC-3", "MAJ-3", "MAJ-2", "VAC-2", ""] },
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "SEC-3", "DSC/DSE", "DSC/DSE", ""] }
         ]},
         { name: "WED", rows: [
-            { sem: D("I", 4), stream: "Literature", cells: ["IIMAJ", D("MINOR 4", 4), D("AEC 2", 2), D("MINOR 3", 4), D("AEC 2", 2), ""] },
-            { stream: "Arts", cells: ["IIMAJ", null, null, null, null, ""] },
-            { stream: "Science", cells: ["AEC-1 (2 BATCH)", null, "IIMAJ/ Vacant", null, "IIMAJ", ""] },
-            { stream: "Commerce", cells: ["IIMAJ", null, "AEC 1", null, "AEC 1", ""] },
-            { sem: D("IV", 1), stream: "All stream", cells: ["SEC 1", "MAJ-1", "Maj-3", "VAC -2", "MAJ-2", ""] },
+            { sem: D("I", 4), stream: "Literature", cells: ["IIMAJ", D("MINOR 4", 4), "AEC-1", D("MINOR 3", 4), D("AEC-2", 2), ""] },
+            { stream: "Arts", cells: ["IIMAJ", null, "AEC-1", null, null, ""] },
+            { stream: "Science", cells: ["AEC-1 (2 BATCH)", null, "AEC-2", null, "", ""] },
+            { stream: "Commerce", cells: ["IIMAJ", null, "AEC-1", null, "AEC-1", "AEC-2"] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["SEC-1", "MAJ-1", "MAJ-3", "VAC-2", "MAJ-2", ""] },
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "SEC-3", "DSC/DSE", ""] }
         ]},
         { name: "THU", rows: [
-            { sem: D("I", 4), stream: "Literature", cells: [D("MINOR 4", 4), "IIMAJ", "AEC 1", D("MDC", 4), "", ""] },
-            { stream: "Arts", cells: [null, "IIMAJ", "AEC 1", null, "", ""] },
-            { stream: "Science", cells: [null, "AEC-1 (2 BATCH)", "AEC2", null, "AEC 2", ""] },
+            { sem: D("I", 4), stream: "Literature", cells: [D("MINOR 3", 4), "IIMAJ", "AEC-1", D("MDC", 4), "", ""] },
+            { stream: "Arts", cells: [null, "IIMAJ", "AEC-1", null, "", ""] },
+            { stream: "Science", cells: [null, "AEC-1 (2 BATCH)", "AEC-2", null, "AEC-2", ""] },
             { stream: "Commerce", cells: [null, "IIMAJ", "IIMAJ", null, "", ""] },
-            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-2", "SEC -1", "VAC- 3", "MAJ-1", "Maj-3", ""] },
-            { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "SEC-3", "SEC -3"] }
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-2", "SEC-1", "VAC-3", "MAJ-1", "MAJ-3", "SEC-1"] },
+            { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "SEC-3", "SEC-3"] }
         ]},
         { name: "FRI", rows: [
-            { sem: D("I", 4), stream: "Literature", cells: [D("MDC", 4), "IIMAJ", D("AEC 2", 2), "AEC 1", D("MINOR 3", 4), ""] },
-            { stream: "Arts", cells: [null, "IIMAJ", null, "AEC 1", null, ""] },
-            { stream: "Science", cells: [null, "IIMAJ", "IIMAJ", "AEC 2", null, ""] },
-            { stream: "Commerce", cells: [null, "AEC 2", "AEC1", "IIMAJ", null, ""] },
-            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC - 3", "MAJ-2", "MAJ-3", "", ""] },
+            { sem: D("I", 4), stream: "Literature", cells: [D("MDC", 4), "IIMAJ", D("AEC-2", 2), "AEC-1", D("MINOR 4", 4), ""] },
+            { stream: "Arts", cells: [null, "IIMAJ", null, "AEC-1", null, ""] },
+            { stream: "Science", cells: [null, "IIMAJ", "IIMAJ", "AEC-2", null, ""] },
+            { stream: "Commerce", cells: [null, "AEC-2", "AEC-1", "IIMAJ", null, ""] },
+            { sem: D("IV", 1), stream: "All stream", cells: ["MAJ-1", "VAC-3", "MAJ-2", "MAJ-3", "", ""] },
             { sem: D("VI", 1), stream: "All stream", cells: ["DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", "DSC/DSE", ""] }
         ]}
     ];
@@ -396,7 +413,7 @@
     /* ===== BUILD THE TABLE ===== */
     function buildTable() {
         let html = '';
-        days.forEach(day => {
+        days.forEach((day, di) => {
             day.rows.forEach((row, i) => {
                 let cls = '';
                 if (i === 0) cls = ' class="day-start"';
@@ -419,6 +436,7 @@
                 });
                 html += '</tr>';
             });
+            if (di < days.length - 1) html += '<tr class="day-sep"><td colspan="9"></td></tr>';
         });
         document.getElementById('tt-body').innerHTML = html;
     }
