@@ -42,7 +42,6 @@
     box-shadow: 0 3px 8px rgba(255,111,0,0.3);
   }
   .pdf-btn:hover { background: #e65100; }
-  .pdf-btn:disabled { background: #bdbdbd; cursor: wait; box-shadow: none; }
 
   /* Search */
   .search { flex: 1; min-width: 220px; padding: 10px 12px; border: 1px solid #c5cae9; border-radius: 8px; font-size: 14px; }
@@ -67,27 +66,30 @@
   .footer p { margin: 4px 0; }
   .footer strong { color: #ffd54f; }
 
-  /* Plain A4 sheet used only for PDF export (never shown on screen) */
-  .pdf-sheet {
-    width: 186mm; background: #ffffff; color: #000000; font-family: Arial, sans-serif;
-    padding: 0; position: absolute; left: 0; top: 0; z-index: -1;
+  /* Print sheet: hidden on screen, used only by the print dialog */
+  #print-area { display: none; }
+
+  @media print {
+    @page { size: A4 portrait; margin: 12mm; }
+    body { background: #ffffff; }
+    /* hide the whole page, show only the print sheet */
+    body > *:not(#print-area) { display: none !important; }
+    #print-area { display: block !important; color: #000000; font-family: Arial, sans-serif; }
+    #print-area .ps-title { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2px; }
+    #print-area .ps-sub { text-align: center; font-size: 12px; margin-bottom: 8px; }
+    #print-area .ps-course { text-align: center; font-size: 13px; font-weight: bold; margin-bottom: 2px; }
+    #print-area .ps-count { text-align: center; font-size: 11px; margin-bottom: 10px; }
+    #print-area table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    #print-area th, #print-area td { border: 1px solid #000000; padding: 5px 6px; color: #000000; background: #ffffff; text-align: left; }
+    #print-area th { font-weight: bold; }
+    #print-area td.num, #print-area td.code { text-align: center; }
+    #print-area td.roll, #print-area td.reg { font-family: 'Courier New', monospace; }
+    #print-area tr.prog-sep td { background: #e6e6e6; font-weight: bold; }
+    #print-area tr { page-break-inside: avoid; }
+    #print-area thead { display: table-header-group; }
   }
-  .pdf-sheet .ps-title { text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 2px; }
-  .pdf-sheet .ps-sub { text-align: center; font-size: 12px; margin-bottom: 8px; }
-  .pdf-sheet .ps-course { text-align: center; font-size: 13px; font-weight: bold; margin-bottom: 2px; }
-  .pdf-sheet .ps-count { text-align: center; font-size: 11px; margin-bottom: 10px; }
-  .pdf-sheet table { width: 100%; border-collapse: collapse; font-size: 11px; }
-  .pdf-sheet th, .pdf-sheet td { border: 1px solid #000000; padding: 5px 6px; color: #000000; background: #ffffff; text-align: left; }
-  .pdf-sheet th { font-weight: bold; }
-  .pdf-sheet td.num, .pdf-sheet td.code { text-align: center; }
-  .pdf-sheet td.roll, .pdf-sheet td.reg { font-family: 'Courier New', monospace; }
-  .pdf-sheet tr.prog-sep td { background: #e6e6e6; font-weight: bold; }
 
   @media (max-width: 600px) { .header h1 { font-size: 22px; } }
-  @media print {
-    .tabs, .panel-actions, .search { display: none !important; }
-    .panel { display: block !important; box-shadow: none; page-break-after: always; }
-  }
 </style>
 </head>
 <body>
@@ -107,7 +109,9 @@
     <p>NAM College Kallikkandy · igmathspace.github.io</p>
   </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- Print sheet (filled only when printing) -->
+  <div id="print-area"></div>
+
 <script>
   /* Programme codes (from the first two letters of the roll number) */
   const PROGRAMMES = {"CU": "B.Sc Computer Science Honours", "PU": "B.Sc Polymer Chemistry Honours", "MU": "B.Sc Mathematics Honours", "BU": "B.Com", "HU": "BA History Honours", "EU": "BA English Honours"};
@@ -119,7 +123,7 @@
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  /* Builds the rows of a table (used on screen and in the PDF sheet) */
+  /* Builds the table rows (used on screen and in the print sheet) */
   function buildRows(students) {
     let rows = '';
     let lastProg = null;
@@ -160,7 +164,7 @@
         <div class="meta">Total students: <span class="count">${course.students.length}</span></div>
         <div class="panel-actions">
           <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(${idx}, this.value)">
-          <button class="pdf-btn" id="pdfbtn-${idx}" onclick="savePdf(${idx})">📄 Save as PDF (A4)</button>
+          <button class="pdf-btn" onclick="printTab(${idx})">🖨 Print / Save as PDF (A4)</button>
         </div>
         <div class="table-scroll">
           <table>
@@ -203,14 +207,12 @@
     if (currentSep) currentSep.style.display = sepHasMatch ? '' : 'none';
   }
 
-  /* Save one tab's table as an A4 PDF, in a plain black-and-white sheet */
-  function savePdf(idx) {
+  /* Fill the print sheet for one tab and open the print dialog.
+     In the dialog, choose "Save as PDF" as the destination to save a PDF. */
+  function printTab(idx) {
     const course = COURSES[idx];
-    const btn = document.getElementById('pdfbtn-' + idx);
-
-    const sheet = document.createElement('div');
-    sheet.className = 'pdf-sheet';
-    sheet.innerHTML = `
+    const area = document.getElementById('print-area');
+    area.innerHTML = `
       <div class="ps-title">NAM COLLEGE KALLIKKANDY</div>
       <div class="ps-sub">Fifth Semester · SEC Course Student List</div>
       <div class="ps-course">${esc(course.code)} · ${esc(course.title)}</div>
@@ -227,33 +229,8 @@
         </thead>
         <tbody>${buildRows(course.students)}</tbody>
       </table>`;
-    document.body.appendChild(sheet);
-
-    btn.disabled = true;
-    btn.textContent = 'Preparing PDF…';
-
-    html2pdf()
-      .set({
-        margin: [12, 12, 12, 12],
-        filename: course.code + '_Student_List.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, backgroundColor: '#ffffff', useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'] }
-      })
-      .from(sheet)
-      .save()
-      .then(() => {
-        sheet.remove();
-        btn.disabled = false;
-        btn.textContent = '📄 Save as PDF (A4)';
-      })
-      .catch(() => {
-        sheet.remove();
-        btn.disabled = false;
-        btn.textContent = '📄 Save as PDF (A4)';
-        alert('Could not create the PDF. Check your internet connection and try again.');
-      });
+    window.onafterprint = () => { area.innerHTML = ''; window.onafterprint = null; };
+    window.print();
   }
 
   buildTabs();
