@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 42 | Simplex Iterations: Entering &amp; Leaving Variables | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #eef7e8; color: #2a3e23; line-height: 1.6;
+        }
+        :root {
+            --pista-bg: #eef7e8;
+            --pista-panel: #f5fbf0;
+            --pista-dark: #3b7a3a;
+            --pista-deeper: #2e5f2d;
+            --pista-accent: #8fbc5f;
+            --pista-soft: #d8eccb;
+            --pista-line: #b5d4a1;
+            --text-dark: #2a3e23;
+            --text-soft: #4c6b41;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #3b7a3a, #6ba85b); padding: 0.5rem 0;
+            border-bottom: 3px solid #2e5f2d;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #6ba85b; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #4d8a4d; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #2e5f2d;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #3b7a3a, #2e5f2d); color: #f5fbf0; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #b5d4a1; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #8fbc5f, #6ba85b); color: #2a3e23; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #4d8a4d, #3b7a3a); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #6ba85b, #4d8a4d); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(59, 122, 58, 0.12);
+            border-left: 10px solid #3b7a3a;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #2e5f2d; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #8fbc5f; color: #ffffff; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #3b7a3a; margin-top: 6px;
+            border-bottom: 1px dashed #b5d4a1; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #2e5f2d; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #d8eccb; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #2e5f2d; font-weight: 500;
+            border: 1px solid #b5d4a1;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #3b7a3a; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(59, 122, 58, 0.10);
+            border: 1px solid #d8eccb;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #3b7a3a;
+            border-left: 5px solid #8fbc5f; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f5fbf0; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #8fbc5f;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #2e5f2d; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #eaf4e0; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #b5d4a1;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #2a3e23;
+        }
+        .example-box {
+            background: #f5fbf0; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #d8eccb;
+        }
+        .problem-item {
+            background: #f9fdf6; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #8fbc5f; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #2a3e23;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #eaf4e0; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #8fbc5f;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #8fbc5f; color: #ffffff; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #6ba85b; }
+        .co-badge {
+            background: #6ba85b; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #d8eccb;
+            border-radius: 30px; display: inline-block; color: #2e5f2d;
+            border: 1px solid #b5d4a1;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f5fbf0; border-left: 6px solid #6ba85b; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .table-wrap {
+            overflow-x: auto; margin: 1rem 0; background: #ffffff;
+            border: 1px solid #b5d4a1; border-radius: 12px;
+        }
+        .simplex-table {
+            width: 100%; border-collapse: collapse; font-size: 0.92rem;
+            font-family: 'Times New Roman', 'STIX', serif; text-align: center;
+        }
+        .simplex-table th, .simplex-table td {
+            border: 1px solid #b5d4a1; padding: 6px 8px;
+        }
+        .simplex-table thead th {
+            background: #d8eccb; color: #2e5f2d; font-family: 'Segoe UI', sans-serif;
+            font-weight: 700; font-size: 0.85rem;
+        }
+        .simplex-table tbody td { background: #f9fdf6; color: #2a3e23; }
+        .simplex-table .row-label {
+            background: #eaf4e0; font-family: 'Segoe UI', sans-serif;
+            font-weight: 600; color: #2e5f2d; font-size: 0.82rem;
+        }
+        .simplex-table .profit-row {
+            background: #f5fbf0; font-weight: 600; color: #2e5f2d;
+        }
+        .simplex-table .key-element {
+            background: #fdf6d8; color: #c0392b; font-weight: 700;
+        }
+        footer {
+            background: #4d8a4d; color: #f5fbf0; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #2e5f2d;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #d8eccb; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; color: #2a3e23; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #6ba85b; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #2a3e23;
+                box-shadow: none; border: 1px solid #b5d4a1;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #2e5f2d !important; }
+            .content-card p, .eq-line, .problem-text { color: #2a3e23 !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f5fbf0 !important; color: #2a3e23 !important; border-color: #b5d4a1 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #eaf4e0; color: #2a3e23; border: 1px solid #b5d4a1; }
+            .simplex-table th, .simplex-table td { border-color: #777 !important; }
+            .simplex-table thead th { background: #e8f0e2 !important; print-color-adjust: exact; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #2a3e23; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 42</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Simplex Iterations – Entering Variable, Leaving Variable (Ratio Test)</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.16 (Iterations)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Perform simplex iterations correctly</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Identify the <strong>entering variable</strong> using the \(c_j - Z_j\) row</li>
+            <li>Identify the <strong>leaving variable</strong> using the <strong>minimum ratio test</strong></li>
+            <li>Locate the <strong>key column, key row and key element</strong></li>
+            <li>Build the new simplex tableau by elementary row operations</li>
+            <li>Recognise when the solution is optimal, unbounded, or when degeneracy may occur</li>
+        </ul>
+
+        <!-- 2. RECAP -->
+        <div class="section-heading">📌 2. Recap — Tableau Layout</div>
+        <div class="theorem-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                At each stage of the simplex method we maintain a tableau of the form
+            </p>
+            <div class="table-wrap">
+                <table class="simplex-table">
+                    <thead>
+                        <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>...</th><th>\(s_1\)</th><th>...</th><th>Ratio</th></tr>
+                        <tr><th colspan="3"></th><th>\(c_1\)</th><th>\(c_2\)</th><th>...</th><th>0</th><th>...</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+                        <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td></td></tr>
+                        <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>...</td><td>...</td><td>...</td><td>...</td><td>...</td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. ENTERING VARIABLE -->
+        <div class="section-heading">📐 3. Selection of the Entering (Incoming) Variable</div>
+        <div class="theorem-box">
+            <div class="label">Rule — Maximisation</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Compute the row \(c_j - Z_j\). If all entries are \(\le 0\), the current BFS is optimal and we stop. Otherwise, mark the column with the <strong>largest positive</strong> \(c_j - Z_j\); the variable heading that column <strong>enters</strong> the solution. This column is called the <strong>key column</strong> (or pivot column).
+            </p>
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule — Minimisation</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                If all entries of \(c_j - Z_j\) are \(\ge 0\), the current BFS is optimal. Otherwise, mark the column with the <strong>most negative</strong> \(c_j - Z_j\); that variable enters.
+            </p>
+        </div>
+        <div class="proof-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <strong>Why?</strong> The value \(c_j - Z_j\) represents the net increase in the objective function per unit increase of the variable \(x_j\) in the current solution. A positive value means we can improve the objective by introducing that variable. Choosing the largest positive value gives the steepest per-unit improvement and so reduces the number of iterations.
+            </p>
+        </div>
+
+        <!-- 4. LEAVING VARIABLE -->
+        <div class="section-heading">📐 4. Selection of the Leaving (Outgoing) Variable — Minimum Ratio Test</div>
+        <div class="theorem-box">
+            <div class="label">Rule</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Once the entering variable is chosen (say \(x_k\)), compute for every row \(i\):
+            </p>
+            \[
+            \theta_i = \frac{b_i}{a_{ik}}, \quad a_{ik} > 0.
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Only rows with a strictly positive coefficient \(a_{ik}\) in the key column are considered. The row with the <strong>minimum non-negative ratio</strong> is the <strong>key row</strong> (pivot row). The basic variable in that row leaves the basis. The element at the intersection of key row and key column is the <strong>key element</strong> (pivot element).
+            </p>
+        </div>
+        <div class="proof-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <strong>Why?</strong> As \(x_k\) increases from 0, the basic variables change according to \(x_{Bi} = b_i - a_{ik}\, x_k\). To keep all basic variables \(\ge 0\), \(x_k\) cannot exceed \(b_i / a_{ik}\). The first constraint that becomes tight determines how far we can push \(x_k\); hence the minimum ratio.
+            </p>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong>
+            If all \(a_{ik} \le 0\) in the key column, no leaving variable exists — the solution is <strong>unbounded</strong>. If two or more rows tie for the minimum ratio, the solution becomes <strong>degenerate</strong>; either row may be chosen, and cycling is possible in pathological cases.
+        </div>
+
+        <!-- 5. THE PIVOT OPERATIONS -->
+        <div class="section-heading">🔄 5. Pivot Operations — Building the New Tableau</div>
+        <div class="theorem-box">
+            <div class="label">Row operations</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li><strong>Update basis:</strong> replace the leaving variable by the entering variable in the Basis column. Update \(c_B\) accordingly.</li>
+                <li><strong>Make the key element 1:</strong> divide every element of the key row by the key element.</li>
+                <li><strong>Make all other elements of the key column zero:</strong> for each other row, subtract (appropriate multiple of the new key row) from it.</li>
+                <li>Recompute the \(Z_j\) and \(c_j - Z_j\) rows for the new tableau.</li>
+                <li>Test optimality again. Repeat until all \(c_j - Z_j \le 0\) (max) or \(\ge 0\) (min).</li>
+            </ol>
+        </div>
+
+        <!-- 6. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 6. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the iteration details.</p>
+
+        <!-- Problem 1: B1 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Maximise \(Z = 3x_1 + 4x_2\), subject to \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\). Perform the first simplex iteration (i.e. obtain the new tableau). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1 (Standard form): Max \(Z = 3x_1 + 4x_2 + 0s_1 + 0s_2\), \(x_1 + x_2 + s_1 = 450\), \(2x_1 + x_2 + s_2 = 600\), all \(\ge 0\).</span></div>
+                <div class="eq-line"><span>Step 2 (Initial tableau):</span></div>
+
+                <div class="table-wrap">
+                    <table class="simplex-table">
+                        <thead>
+                            <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(s_1\)</th><th>\(s_2\)</th><th>Ratio</th></tr>
+                            <tr><th colspan="3"></th><th>3</th><th>4</th><th>0</th><th>0</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>\(s_1\)</td><td>450</td><td>1</td><td class="key-element">1</td><td>1</td><td>0</td><td>450</td></tr>
+                            <tr><td>0</td><td>\(s_2\)</td><td>600</td><td>2</td><td class="key-element">1</td><td>0</td><td>1</td><td>600</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+                            <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>3</td><td>4 ↑</td><td>0</td><td>0</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="eq-line"><span>Step 3 (Entering variable): \(c_j - Z_j\) has entries \(3, 4\) — largest positive is \(4\) under \(x_2\). So \(x_2\) enters. Key column = \(x_2\).</span></div>
+                <div class="eq-line"><span>Step 4 (Ratios): \(450/1 = 450\), \(600/1 = 600\). Minimum is \(450\), so \(s_1\) leaves. Key row = \(s_1\), key element = 1.</span></div>
+                <div class="eq-line"><span>Step 5 (Pivot): New \(x_2\)-row = old \(s_1\)-row (since key element is 1):</span></div>
+                <div class="eq-line"><span>New \(x_2\)-row: \(c_B = 4\), \(b = 450\), \(x_1 = 1\), \(x_2 = 1\), \(s_1 = 1\), \(s_2 = 0\).</span></div>
+                <div class="eq-line"><span>Step 6 (Zero the \(x_2\)-column in \(s_2\)-row):</span></div>
+                <div class="eq-line"><span>New \(s_2\)-row = old \(s_2\)-row − old \(s_1\)-row:</span></div>
+                <div class="eq-line"><span>\(b\): \(600 - 450 = 150\); \(x_1\): \(2 - 1 = 1\); \(x_2\): \(1 - 1 = 0\); \(s_1\): \(0 - 1 = -1\); \(s_2\): \(1 - 0 = 1\).</span></div>
+                <div class="eq-line"><span>Step 7 (New tableau after first iteration):</span></div>
+
+                <div class="table-wrap">
+                    <table class="simplex-table">
+                        <thead>
+                            <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(s_1\)</th><th>\(s_2\)</th></tr>
+                            <tr><th colspan="3"></th><th>3</th><th>4</th><th>0</th><th>0</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>4</td><td>\(x_2\)</td><td>450</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+                            <tr><td>0</td><td>\(s_2\)</td><td>150</td><td>1</td><td>0</td><td>−1</td><td>1</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>4</td><td>4</td><td>4</td><td>0</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>−1</td><td>0</td><td>−4</td><td>0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="eq-line"><span>Step 8 (Optimality test): All \(c_j - Z_j \le 0\), so this is optimal. \(x_1 = 0\), \(x_2 = 450\), \(s_1 = 0\), \(s_2 = 150\), \(Z_{\max} = 4 \times 450 = 1800\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ After 1 iteration the tableau is optimal. \(Z_{\max} = 1800\) at \(x_1 = 0, x_2 = 450\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: C2 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Maximise \(Z = 2x_1 + 5x_2\), subject to \(x_1 + 4x_2 \le 24,\; 3x_1 + x_2 \le 21,\; x_1 + x_2 \le 9,\; x_1, x_2 \ge 0\). Perform the first iteration. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1 (Standard form): Add \(s_1, s_2, s_3 \ge 0\) to the three constraints.</span></div>
+                <div class="eq-line"><span>Step 2 (Initial tableau):</span></div>
+
+                <div class="table-wrap">
+                    <table class="simplex-table">
+                        <thead>
+                            <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(s_1\)</th><th>\(s_2\)</th><th>\(s_3\)</th><th>Ratio</th></tr>
+                            <tr><th colspan="3"></th><th>2</th><th>5</th><th>0</th><th>0</th><th>0</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>\(s_1\)</td><td>24</td><td>1</td><td class="key-element">4</td><td>1</td><td>0</td><td>0</td><td>6</td></tr>
+                            <tr><td>0</td><td>\(s_2\)</td><td>21</td><td>3</td><td class="key-element">1</td><td>0</td><td>1</td><td>0</td><td>21</td></tr>
+                            <tr><td>0</td><td>\(s_3\)</td><td>9</td><td>1</td><td class="key-element">1</td><td>0</td><td>0</td><td>1</td><td>9</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+                            <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>2</td><td>5 ↑</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="eq-line"><span>Step 3 (Entering variable): Largest \(c_j - Z_j\) is 5 (column \(x_2\)). Key column = \(x_2\).</span></div>
+                <div class="eq-line"><span>Step 4 (Ratio test): \(24/4 = 6\), \(21/1 = 21\), \(9/1 = 9\). Minimum = 6, so \(s_1\) leaves. Key row = \(s_1\), key element = 4.</span></div>
+                <div class="eq-line"><span>Step 5 (Make key element 1): Divide \(s_1\)-row by 4:</span></div>
+                <div class="eq-line"><span>New \(x_2\)-row: \(b = 6\), \(x_1 = 1/4\), \(x_2 = 1\), \(s_1 = 1/4\), \(s_2 = 0\), \(s_3 = 0\).</span></div>
+                <div class="eq-line"><span>Step 6 (Zero the \(x_2\)-column in other rows):</span></div>
+                <div class="eq-line"><span>New \(s_2\)-row = old \(s_2\)-row − 1 × (new \(x_2\)-row):</span></div>
+                <div class="eq-line"><span>\(b = 21 - 6 = 15\); \(x_1 = 3 - 1/4 = 11/4\); \(x_2 = 0\); \(s_1 = 0 - 1/4 = -1/4\); \(s_2 = 1\); \(s_3 = 0\).</span></div>
+                <div class="eq-line"><span>New \(s_3\)-row = old \(s_3\)-row − 1 × (new \(x_2\)-row):</span></div>
+                <div class="eq-line"><span>\(b = 9 - 6 = 3\); \(x_1 = 1 - 1/4 = 3/4\); \(x_2 = 0\); \(s_1 = 0 - 1/4 = -1/4\); \(s_2 = 0\); \(s_3 = 1\).</span></div>
+                <div class="eq-line"><span>Step 7 (New tableau after iteration 1):</span></div>
+
+                <div class="table-wrap">
+                    <table class="simplex-table">
+                        <thead>
+                            <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(s_1\)</th><th>\(s_2\)</th><th>\(s_3\)</th></tr>
+                            <tr><th colspan="3"></th><th>2</th><th>5</th><th>0</th><th>0</th><th>0</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>5</td><td>\(x_2\)</td><td>6</td><td>1/4</td><td>1</td><td>1/4</td><td>0</td><td>0</td></tr>
+                            <tr><td>0</td><td>\(s_2\)</td><td>15</td><td>11/4</td><td>0</td><td>−1/4</td><td>1</td><td>0</td></tr>
+                            <tr><td>0</td><td>\(s_3\)</td><td>3</td><td>3/4</td><td>0</td><td>−1/4</td><td>0</td><td>1</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>5/4</td><td>5</td><td>5/4</td><td>0</td><td>0</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>3/4 ↑</td><td>0</td><td>−5/4</td><td>0</td><td>0</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="eq-line"><span>Step 8 (Optimality test): \(c_1 - Z_1 = 3/4 > 0\). Not optimal. \(x_1\) enters next. Current solution: \(x_1 = 0, x_2 = 6, s_1 = 0, s_2 = 15, s_3 = 3\), \(Z = 30\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ First iteration complete. Next, \(x_1\) must enter the basis.</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: unbounded case -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3 (Unbounded solution detection).</strong> Maximise \(Z = 2x_1 + x_2\), subject to \(x_1 - x_2 \le 10,\; 2x_1 \le 40,\; x_1, x_2 \ge 0\). Show that the solution is unbounded. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1 (Standard form): Add slacks \(s_1, s_2\): \(x_1 - x_2 + s_1 = 10\), \(2x_1 + s_2 = 40\).</span></div>
+                <div class="eq-line"><span>Step 2 (Initial tableau):</span></div>
+
+                <div class="table-wrap">
+                    <table class="simplex-table">
+                        <thead>
+                            <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(s_1\)</th><th>\(s_2\)</th><th>Ratio</th></tr>
+                            <tr><th colspan="3"></th><th>2</th><th>1</th><th>0</th><th>0</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>\(s_1\)</td><td>10</td><td>1</td><td>−1</td><td>1</td><td>0</td><td>10</td></tr>
+                            <tr><td>0</td><td>\(s_2\)</td><td>40</td><td>2</td><td>0</td><td>0</td><td>1</td><td>20</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>0</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+                            <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>2 ↑</td><td>1</td><td>0</td><td>0</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="eq-line"><span>Step 3 (First iteration): \(x_1\) enters. Ratios \(10/1=10\), \(40/2=20\), so \(s_1\) leaves. New tableau:</span></div>
+
+                <div class="table-wrap">
+                    <table class="simplex-table">
+                        <thead>
+                            <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(s_1\)</th><th>\(s_2\)</th><th>Ratio</th></tr>
+                            <tr><th colspan="3"></th><th>2</th><th>1</th><th>0</th><th>0</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2</td><td>\(x_1\)</td><td>10</td><td>1</td><td>−1</td><td>1</td><td>0</td><td>—</td></tr>
+                            <tr><td>0</td><td>\(s_2\)</td><td>20</td><td>0</td><td>2</td><td>−2</td><td>1</td><td>10</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>2</td><td>−2</td><td>2</td><td>0</td><td></td></tr>
+                            <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>0</td><td>3 ↑</td><td>−2</td><td>0</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="eq-line"><span>Step 4 (Next entering variable): \(c_2 - Z_2 = 3 > 0\), so \(x_2\) enters. Key column = \(x_2\).</span></div>
+                <div class="eq-line"><span>Step 5 (Ratio test): \(x_1\)-row coefficient in \(x_2\)-column is \(-1\) (negative) — discard. \(s_2\)-row coefficient is \(2\) — ratio \(20/2 = 10\).</span></div>
+                <div class="eq-line"><span>Step 6: Since there is a positive coefficient (2), the simplex proceeds. Perform pivot to get next tableau:</span></div>
+
+                <div class="table-wrap">
+                    <table class="simplex-table">
+                        <thead>
+                            <tr><th>\(c_B\)</th><th>Basis</th><th>\(b\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(s_1\)</th><th>\(s_2\)</th><th>Ratio</th></tr>
+                            <tr><th colspan="3"></th><th>2</th><th>1</th><th>0</th><th>0</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2</td><td>\(x_1\)</td><td>20</td><td>1</td><td>0</td><td>0</td><td>1/2</td><td>—</td></tr>
+                            <tr><td>1</td><td>\(x_2\)</td><td>10</td><td>0</td><td>1</td><td>−1</td><td>1/2</td><td>—</td></tr>
+                            <tr class="profit-row"><td colspan="3">\(Z_j\)</td><td>2</td><td>1</td><td>−1</td><td>3/2</td><td></td></tr>
+                            <tr class="profit-row"><td colspan="3">\(c_j - Z_j\)</td><td>0</td><td>0</td><td>1 ↑</td><td>−3/2</td><td></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="eq-line"><span>Step 7 (Entering variable): \(c_3 - Z_3 = 1 > 0\), so \(s_1\) enters. Key column = \(s_1\).</span></div>
+                <div class="eq-line"><span>Step 8 (Ratio test): \(s_1\)-column coefficients are \(0\) in \(x_1\)-row (discard) and \(-1\) in \(x_2\)-row (discard). Both are \(\le 0\). No valid ratio.</span></div>
+                <div class="eq-line"><span>Step 9: Since no positive coefficient exists in the key column, \(x_1\) and \(x_2\) can be made arbitrarily large without violating any constraint — the problem has an <strong>unbounded solution</strong>.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ The LP is unbounded — no finite maximum for \(Z\).</p>
+            </div>
+        </div>
+
+        <!-- 7. HOMEWORK -->
+        <div class="section-heading">🏠 7. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Explain the rule for selecting the entering variable in the simplex method. Why is the largest positive \(c_j - Z_j\) chosen for a maximisation problem? (6 marks)</li>
+                <li>Explain the minimum ratio test for selecting the leaving variable. What does a negative or zero ratio indicate? (6 marks)</li>
+                <li>For the LPP: Max \(Z = 3x_1 + 4x_2\), subject to \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\), perform the first iteration. (6 marks)</li>
+                <li>For the LPP: Max \(Z = 2x_1 + 5x_2\), subject to \(x_1 + 4x_2 \le 24,\; 3x_1 + x_2 \le 21,\; x_1 + x_2 \le 9,\; x_1, x_2 \ge 0\), perform the first iteration. (6 marks)</li>
+                <li>Show that the LPP max \(Z = 2x_1 + x_2\), subject to \(x_1 - x_2 \le 10,\; 2x_1 \le 40,\; x_1, x_2 \ge 0\) has an unbounded solution. (6 marks)</li>
+                <li>What is the meaning of a "degenerate" basic feasible solution? How does it arise in the simplex method? (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 8. Quick Summary</div>
+        <div class="theorem-box" style="background:#eaf4e0;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0; color: #2a3e23;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Entering:</strong> largest positive \(c_j - Z_j\) (max) or most negative (min).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Leaving:</strong> minimum ratio \(b_i / a_{ik}\) among rows with \(a_{ik} > 0\).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Key element:</strong> intersection of key row and key column; pivot around it.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Pivot:</strong> divide key row by key element; make other entries in key column zero.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Optimality:</strong> stop when \(c_j - Z_j \le 0\) (max) or \(\ge 0\) (min).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Unbounded:</strong> stop if the key column has no positive entries.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.16, pp. 166–174.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #4c6b41; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture42_SimplexIterations_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

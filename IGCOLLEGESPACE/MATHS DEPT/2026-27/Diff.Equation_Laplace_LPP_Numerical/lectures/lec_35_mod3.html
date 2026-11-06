@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 35 | Graphical Method: Extreme Points &amp; Optimal Solution (Maximisation) | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #1a2238;           /* dark navy */
+            color: #e8e4c9;                /* warm light yellow */
+            line-height: 1.6;
+        }
+        :root {
+            --deep-blue: #1a2238;
+            --mid-blue: #253257;
+            --panel-blue: #202c47;
+            --warm-yellow: #f2c94c;
+            --pale-yellow: #f7e9a0;
+            --gold: #e0b03a;
+            --soft-yellow-bg: #2a3553;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #1a2238, #2c3e66); padding: 0.5rem 0;
+            border-bottom: 3px solid var(--warm-yellow);
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #2c3e66; color: var(--warm-yellow); font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #253257; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--warm-yellow);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c3e66, #1a2238); color: var(--warm-yellow); text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid var(--warm-yellow); cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #f2c94c, #e0b03a); color: #1a2238; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #3a4a7a, #2a3553); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #b8860b, #8b6914); color: #fff8dc; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: var(--panel-blue); border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); border-left: 10px solid var(--warm-yellow);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--warm-yellow); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: var(--gold); color: #1a2238; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--pale-yellow); margin-top: 6px;
+            border-bottom: 1px dashed #4a5a8a; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: var(--warm-yellow); margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #2a3553; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: var(--pale-yellow); font-weight: 500;
+            border: 1px solid #3a4a7a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: var(--pale-yellow); display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: var(--panel-blue); border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.4); border: 1px solid #3a4a7a;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--warm-yellow);
+            border-left: 5px solid var(--warm-yellow); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #253257; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid var(--warm-yellow);
+        }
+        .theorem-box .label {
+            font-weight: 700; color: var(--warm-yellow); font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #1e2a45; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #3a4a7a;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #f0ecc8;
+        }
+        .example-box {
+            background: #253257; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #3a4a7a;
+        }
+        .problem-item {
+            background: #1e2a45; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid var(--gold); transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: var(--pale-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #2a3553; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid var(--warm-yellow);
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: var(--warm-yellow); color: #1a2238; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: var(--pale-yellow); }
+        .co-badge {
+            background: var(--gold); color: #1a2238; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #2a3553;
+            border-radius: 30px; display: inline-block; color: var(--pale-yellow);
+            border: 1px solid #3a4a7a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #3a2f1a; border-left: 6px solid var(--warm-yellow); padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: var(--pale-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #253257; border-left: 6px solid var(--gold); padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .figure-wrap {
+            margin: 1rem 0; padding: 0.8rem; background: #f7f3dc;
+            border: 1px solid var(--warm-yellow); border-radius: 16px; text-align: center;
+        }
+        .figure-wrap svg { max-width: 100%; height: auto; }
+        .figure-caption {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem; color: #4a3a0a; margin-top: 0.4rem;
+            font-style: italic;
+        }
+        footer {
+            background: #253257; color: var(--pale-yellow); text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--warm-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: var(--warm-yellow); }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; color: #1a2238; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #2c3e66; color: #f2c94c !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1a2238;
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #8b6914 !important; }
+            .content-card p, .eq-line, .problem-text { color: #1a2238 !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f9f6e5 !important; color: #1a2238 !important; border-color: #d4a017 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #fdf8e1; color: #1a2238; border: 1px solid #d4a017; }
+            .figure-wrap { break-inside: avoid; page-break-inside: avoid; background: #f7f3dc; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #f0ecc8; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 35</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Graphical Method – Extreme Points &amp; Optimal Solution (Maximisation)</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.9 (Maximisation)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Apply graphical method to maximise a linear objective</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Use the <strong>extreme point enumeration</strong> approach on a bounded feasible region</li>
+            <li>Use the <strong>iso-profit line</strong> approach to locate the optimum graphically</li>
+            <li>Identify <strong>multiple optimal solutions</strong> when the iso-profit line is parallel to a binding edge</li>
+            <li>Determine the optimal basic feasible solution from the corner points</li>
+        </ul>
+
+        <!-- 2. METHODS -->
+        <div class="section-heading">📐 2. Two Methods to Find the Optimum</div>
+        <div class="theorem-box">
+            <div class="label">Method 1: Extreme point enumeration</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                <li>Plot all constraints and find the feasible region.</li>
+                <li>List all its corner points (vertices).</li>
+                <li>Evaluate the objective function \(Z\) at each corner.</li>
+                <li>The corner with the <strong>largest</strong> \(Z\) (for maximisation) is optimal.</li>
+            </ol>
+        </div>
+        <div class="theorem-box">
+            <div class="label">Method 2: Iso-profit line</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                <li>Set \(Z = 0\) (or any convenient value) and plot the line \(c_1 x_1 + c_2 x_2 = Z\).</li>
+                <li>Move this line parallel to itself in the direction of increasing \(Z\) (for maximisation).</li>
+                <li>The last point of the feasible region touched by this moving line is the optimum.</li>
+                <li>If the moving line coincides with an edge, <strong>every point</strong> on that edge is optimal (multiple optima).</li>
+            </ol>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> In maximisation, move the iso-profit line <em>outward</em> (away from origin). In minimisation, move it <em>inward</em> (towards origin). Also, if the feasible region is unbounded, the "last touch" may not exist — then the LP may be unbounded.
+        </div>
+
+        <!-- 3. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 3. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution with figure.</p>
+
+        <!-- Problem 1: B1 (production, max Z=3x1+4x2) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Maximise \(Z = 3x_1 + 4x_2\), subject to \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step (extreme point enumeration):</strong>
+                <div class="eq-line"><span>Step 1: Line \(x_1 + x_2 = 450\) passes through \((450, 0)\) and \((0, 450)\).</span></div>
+                <div class="eq-line"><span>Step 2: Line \(2x_1 + x_2 = 600\) passes through \((300, 0)\) and \((0, 600)\).</span></div>
+                <div class="eq-line"><span>Step 3: Solving the two line equations simultaneously: subtract → \(x_1 = 150\); then \(x_2 = 300\). Corner point \(D(150, 300)\).</span></div>
+                <div class="eq-line"><span>Step 4: Corner points of feasible region: \(O(0,0)\), \(C(0, 450)\), \(D(150, 300)\), \(E(300, 0)\).</span></div>
+                <div class="eq-line"><span>Step 5: Evaluate \(Z = 3x_1 + 4x_2\):</span></div>
+                <div class="eq-line"><span>\(Z(O) = 0\), \(Z(C) = 1800\), \(Z(D) = 450 + 1200 = 1650\), \(Z(E) = 900\).</span></div>
+                <div class="eq-line"><span>Step 6: Maximum is \(Z = 1800\) at \(C(0, 450)\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Feasible region for Problem 1">
+                        <g stroke="#e3d8a8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="330"/>
+                            <line x1="60" y1="330" x2="460" y2="330"/>
+                            <line x1="60" y1="40"  x2="460" y2="40"/>
+                            <line x1="460" y1="40" x2="460" y2="330"/>
+                        </g>
+                        <line x1="60" y1="330" x2="465" y2="330" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="60" y1="330" x2="60" y2="35"  stroke="#1a2238" stroke-width="2"/>
+                        <polygon points="465,330 458,327 458,333" fill="#1a2238"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1a2238"/>
+                        <text x="468" y="334" font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₁</text>
+                        <text x="44" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₂</text>
+                        <text x="44" y="346" font-size="12" font-family="Times New Roman, serif" fill="#1a2238">O</text>
+
+                        <!-- Scale: 1 unit = 0.6 px on x; y: 1 unit = 0.55 px.  Simplify: 1 unit = 0.6 px for both. -->
+                        <!-- Origin (60,330). C(0,450)->(60,330-450*0.6)=(60,60).
+                             D(150,300)->(150,150). E(300,0)->(240,330).
+                             x1+x2=450: (450,0)->(330,330); (0,450)->(60,60).
+                             2x1+x2=600: (300,0)->(240,330); (0,600)->(60,-30) clipped to (60,40). -->
+                        <polygon points="60,330 60,60 150,150 240,330"
+                                 fill="#f2c94c" fill-opacity="0.28" stroke="#8b6914" stroke-width="2"/>
+
+                        <!-- x1+x2=450 line -->
+                        <line x1="60" y1="60"  x2="330" y2="330" stroke="#a0522d" stroke-width="2"/>
+                        <!-- 2x1+x2=600 line -->
+                        <line x1="60" y1="40"  x2="240" y2="330" stroke="#4a6eae" stroke-width="2"/>
+                        <!-- iso-profit at Z=0 (3x1+4x2=0): passing through origin, slope -3/4. Through (0,0) and (400, -300)? use (0,0)-(4,3)... just show arrow inside -->
+                        <!-- iso-profit line Z=1800 = 3x1+4x2: passes (600,0),(0,450); at C is tangent -->
+                        <line x1="330" y1="330" x2="60" y2="60" stroke="#8b1a1a" stroke-width="1.2" stroke-dasharray="6,4" opacity="0.55"/>
+                        <!-- Actually 3x1+4x2=1800 passes through C(0,450); slope -3/4. Extends through (600,0) which is (420,330) px -->
+                        <line x1="420" y1="330" x2="60" y2="60" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,3"/>
+
+                        <!-- Ticks -->
+                        <g stroke="#1a2238" stroke-width="1.5">
+                            <line x1="180" y1="326" x2="180" y2="334"/>
+                            <line x1="240" y1="326" x2="240" y2="334"/>
+                            <line x1="330" y1="326" x2="330" y2="334"/>
+                            <line x1="56" y1="60" x2="64" y2="60"/>
+                            <line x1="56" y1="150" x2="64" y2="150"/>
+                            <line x1="56" y1="240" x2="64" y2="240"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1a2238">
+                            <text x="172" y="346">200</text>
+                            <text x="232" y="346">300</text>
+                            <text x="322" y="346">450</text>
+                            <text x="44" y="64">450</text>
+                            <text x="44" y="154">300</text>
+                            <text x="44" y="244">150</text>
+                        </g>
+
+                        <!-- Corner points -->
+                        <circle cx="60"  cy="330" r="5" fill="#c0392b"/>
+                        <circle cx="60"  cy="60"  r="5" fill="#c0392b"/>
+                        <circle cx="150" cy="150" r="5" fill="#c0392b"/>
+                        <circle cx="240" cy="330" r="5" fill="#c0392b"/>
+                        <text x="40" y="322" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">O</text>
+                        <text x="32" y="58"  font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">C(0,450)</text>
+                        <text x="156" y="146" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">D(150,300)</text>
+                        <text x="220" y="322" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">E(300,0)</text>
+
+                        <!-- Line labels -->
+                        <text x="180" y="180" font-size="12" font-family="Times New Roman, serif" fill="#a0522d"
+                              transform="rotate(45 180 180)">x₁ + x₂ = 450</text>
+                        <text x="260" y="80"  font-size="12" font-family="Times New Roman, serif" fill="#4a6eae">2x₁ + x₂ = 600</text>
+                        <text x="220" y="200" font-size="11" font-family="Times New Roman, serif" fill="#c0392b"
+                              transform="rotate(-37 220 200)">Z = 3x₁ + 4x₂ (iso-profit)</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 35.1 — Feasible region of Problem 1; iso-profit line at \(Z=1800\) touches \(C(0,450)\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x_1 = 0,\; x_2 = 450,\; Z_{\max} = 1800\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: A4 — feasible region only -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Identify the feasible region \(x + y \le 3,\; x \ge 0,\; y \ge 0\). Hence find the optimal \(Z = 2x + y\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Line \(x + y = 3\) passes through \((3,0)\) and \((0,3)\).</span></div>
+                <div class="eq-line"><span>Step 2: First quadrant and below the line: corners \(O(0,0)\), \(A(3,0)\), \(B(0,3)\).</span></div>
+                <div class="eq-line"><span>Step 3: Evaluate \(Z = 2x + y\):</span></div>
+                <div class="eq-line"><span>\(Z(O) = 0\), \(Z(A) = 6\), \(Z(B) = 3\).</span></div>
+                <div class="eq-line"><span>Step 4: Maximum is \(Z = 6\) at \(A(3,0)\).</span></div>
+                <div class="eq-line"><span>Step 5: Iso-profit check: \(Z = 2x + y\). At \(Z = 6\), line \(2x + y = 6\) passes through \(A(3,0)\) and \((0,6)\); moving outward from origin, the last point of the region is \(A\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 380 320" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Feasible region for Problem 2">
+                        <g stroke="#e3d8a8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="260"/>
+                            <line x1="60" y1="260" x2="340" y2="260"/>
+                            <line x1="60" y1="40"  x2="340" y2="40"/>
+                            <line x1="340" y1="40" x2="340" y2="260"/>
+                        </g>
+                        <line x1="60" y1="260" x2="345" y2="260" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="60" y1="260" x2="60" y2="35"  stroke="#1a2238" stroke-width="2"/>
+                        <polygon points="345,260 338,257 338,263" fill="#1a2238"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1a2238"/>
+                        <text x="350" y="264" font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x</text>
+                        <text x="48" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1a2238">y</text>
+                        <text x="48" y="276" font-size="12" font-family="Times New Roman, serif" fill="#1a2238">O</text>
+
+                        <!-- Scale: 1 unit = 80 px. Origin (60,260). A(3,0)->(300,260); B(0,3)->(60,20). -->
+                        <polygon points="60,260 300,260 60,20" fill="#f2c94c" fill-opacity="0.30"
+                                 stroke="#8b6914" stroke-width="2"/>
+
+                        <line x1="300" y1="260" x2="60" y2="20" stroke="#a0522d" stroke-width="2.2"/>
+                        <text x="180" y="120" font-size="13" font-family="Times New Roman, serif" fill="#5a3010"
+                              transform="rotate(-40 180 120)">x + y = 3</text>
+
+                        <!-- iso-profit Z=6: 2x+y=6 -> (3,0) to (0,6)->(60,-220) too far, use (3,0)->(0,6) clipped -->
+                        <line x1="300" y1="260" x2="60" y2="-220" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="5,3"
+                              opacity="0.5"/>
+                        <!-- Clip it to reasonable: extend from A(3,0) to (1,4)->(140,60) -->
+                        <line x1="300" y1="260" x2="140" y2="60" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,3"/>
+                        <text x="180" y="60" font-size="11" font-family="Times New Roman, serif" fill="#c0392b">Z = 2x + y</text>
+
+                        <g stroke="#1a2238" stroke-width="1.5">
+                            <line x1="140" y1="256" x2="140" y2="264"/>
+                            <line x1="220" y1="256" x2="220" y2="264"/>
+                            <line x1="300" y1="256" x2="300" y2="264"/>
+                            <line x1="56"  y1="180" x2="64"  y2="180"/>
+                            <line x1="56"  y1="100" x2="64"  y2="100"/>
+                            <line x1="56"  y1="20"  x2="64"  y2="20"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1a2238">
+                            <text x="136" y="278">1</text>
+                            <text x="216" y="278">2</text>
+                            <text x="296" y="278">3</text>
+                            <text x="44"  y="184">1</text>
+                            <text x="44"  y="104">2</text>
+                            <text x="44"  y="24">3</text>
+                        </g>
+
+                        <circle cx="300" cy="260" r="5" fill="#c0392b"/>
+                        <circle cx="60"  cy="20"  r="5" fill="#c0392b"/>
+                        <circle cx="60"  cy="260" r="5" fill="#c0392b"/>
+                        <text x="304" y="278" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">A(3,0)</text>
+                        <text x="14"  y="24"  font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">B(0,3)</text>
+
+                        <text x="115" y="235" font-size="12" font-family="Segoe UI, sans-serif" fill="#4a3a0a"
+                              font-style="italic">Feasible region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 35.2 — Feasible region of Problem 2; iso-profit line \(2x+y=6\) touches \(A(3,0)\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x = 3,\; y = 0,\; Z_{\max} = 6\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: C2 max z = 2x1+3x2 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Find the maximum value of \(Z = 2x_1 + 3x_2\), subject to \(x_1 + x_2 \le 30,\; x_2 \ge 3,\; x_2 \le 12,\; x_1 - x_2 \ge 0,\; 0 \le x_1 \le 20\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Corner points of the feasible pentagon (from Lecture 34 Fig. 34.3): \(A(3,3)\), \(B(12,12)\), \(C(18,12)\), \(D(20,10)\), \(E(20,3)\).</span></div>
+                <div class="eq-line"><span>Step 2: Evaluate \(Z = 2x_1 + 3x_2\):</span></div>
+                <div class="eq-line"><span>\(Z(A) = 15\), \(Z(B) = 60\), \(Z(C) = 72\), \(Z(D) = 70\), \(Z(E) = 49\).</span></div>
+                <div class="eq-line"><span>Step 3: Maximum at \(C(18,12)\): \(Z = 72\).</span></div>
+                <div class="eq-line"><span>Step 4: Iso-profit check: The line \(2x_1 + 3x_2 = 72\) passes through \(C(18,12)\) and touches the pentagon only at this vertex — the iso-profit line is not parallel to any edge. Unique optimum.</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Feasible pentagon for Problem 3">
+                        <g stroke="#e3d8a8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="300"/>
+                            <line x1="60" y1="300" x2="390" y2="300"/>
+                            <line x1="60" y1="40"  x2="390" y2="40"/>
+                            <line x1="390" y1="40" x2="390" y2="300"/>
+                        </g>
+                        <line x1="60" y1="300" x2="395" y2="300" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="60" y1="300" x2="60" y2="35"  stroke="#1a2238" stroke-width="2"/>
+                        <polygon points="395,300 388,297 388,303" fill="#1a2238"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1a2238"/>
+                        <text x="398" y="304" font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₁</text>
+                        <text x="44" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₂</text>
+                        <text x="48" y="316" font-size="12" font-family="Times New Roman, serif" fill="#1a2238">O</text>
+
+                        <polygon points="90,270 180,180 240,180 260,200 260,270"
+                                 fill="#f2c94c" fill-opacity="0.30" stroke="#8b6914" stroke-width="2"/>
+
+                        <line x1="60" y1="0" x2="360" y2="300" stroke="#a0522d" stroke-width="1.4" stroke-dasharray="5,3"/>
+                        <line x1="60" y1="270" x2="390" y2="270" stroke="#4a6eae" stroke-width="1.4"/>
+                        <line x1="60" y1="180" x2="390" y2="180" stroke="#4a6eae" stroke-width="1.4"/>
+                        <line x1="60" y1="300" x2="360" y2="0" stroke="#8b1a1a" stroke-width="1.4" stroke-dasharray="5,3"/>
+                        <line x1="260" y1="40" x2="260" y2="300" stroke="#4a6eae" stroke-width="1.4"/>
+
+                        <!-- iso-profit 2x1+3x2 = 72 -->
+                        <line x1="380" y1="300" x2="240" y2="60" stroke="#c0392b" stroke-width="1.6" stroke-dasharray="5,3"/>
+                        <text x="300" y="60" font-size="11" font-family="Times New Roman, serif" fill="#c0392b">Z = 2x₁ + 3x₂</text>
+
+                        <g stroke="#1a2238" stroke-width="1.5">
+                            <line x1="160" y1="296" x2="160" y2="304"/>
+                            <line x1="260" y1="296" x2="260" y2="304"/>
+                            <line x1="360" y1="296" x2="360" y2="304"/>
+                            <line x1="56" y1="270" x2="64" y2="270"/>
+                            <line x1="56" y1="180" x2="64" y2="180"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1a2238">
+                            <text x="152" y="316">10</text>
+                            <text x="252" y="316">20</text>
+                            <text x="352" y="316">30</text>
+                            <text x="40" y="274">3</text>
+                            <text x="40" y="184">12</text>
+                        </g>
+
+                        <circle cx="90"  cy="270" r="5" fill="#c0392b"/>
+                        <circle cx="180" cy="180" r="5" fill="#c0392b"/>
+                        <circle cx="240" cy="180" r="5" fill="#c0392b"/>
+                        <circle cx="260" cy="200" r="5" fill="#c0392b"/>
+                        <circle cx="260" cy="270" r="5" fill="#c0392b"/>
+
+                        <text x="60"  y="264" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">A(3,3)</text>
+                        <text x="152" y="172" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">B(12,12)</text>
+                        <text x="224" y="172" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">C(18,12)</text>
+                        <text x="264" y="196" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">D(20,10)</text>
+                        <text x="264" y="284" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">E(20,3)</text>
+
+                        <text x="230" y="90"  font-size="11" font-family="Times New Roman, serif" fill="#8b1a1a">x₁ = x₂</text>
+                        <text x="300" y="176" font-size="11" font-family="Times New Roman, serif" fill="#4a6eae">x₂ = 12</text>
+                        <text x="300" y="266" font-size="11" font-family="Times New Roman, serif" fill="#4a6eae">x₂ = 3</text>
+                        <text x="264" y="60"  font-size="11" font-family="Times New Roman, serif" fill="#4a6eae">x₁ = 20</text>
+                        <text x="270" y="240" font-size="11" font-family="Times New Roman, serif" fill="#a0522d">x₁+x₂ = 30</text>
+
+                        <text x="140" y="240" font-size="12" font-family="Segoe UI, sans-serif" fill="#4a3a0a" font-style="italic">Feasible region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 35.3 — Feasible pentagon of Problem 3; optimum at \(C(18,12)\), \(Z_{\max}=72\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x_1 = 18,\; x_2 = 12,\; Z_{\max} = 72\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: B3 — min z = 5x-2y -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4.</strong> Find the maximum of \(z = 5x - 2y\), subject to \(2x + 3y \ge 1,\; x, y \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: The feasible region \(2x + 3y \ge 1,\; x,y \ge 0\) is unbounded (see Fig. 34.2).</span></div>
+                <div class="eq-line"><span>Step 2: Corner points: \(A(1/2, 0)\) and \(B(0, 1/3)\).</span></div>
+                <div class="eq-line"><span>Step 3: Evaluate \(z\): \(z(A) = 5/2 = 2.5\), \(z(B) = -2/3 \approx -0.667\).</span></div>
+                <div class="eq-line"><span>Step 4: The objective \(z = 5x - 2y\) can be made arbitrarily large by taking \(x\) large with \(y\) fixed. So the maximum does <strong>not</strong> exist — the LP is <strong>unbounded</strong>.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ The problem has an <strong>unbounded solution</strong> (no finite maximum).</p>
+            </div>
+        </div>
+
+        <!-- 4. HOMEWORK -->
+        <div class="section-heading">🏠 4. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Explain the two approaches (extreme-point enumeration and iso-profit line) for solving a 2-variable maximisation LPP graphically. (6 marks)</li>
+                <li>Maximise \(Z = 3x_1 + 4x_2\) subject to \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1,x_2 \ge 0\). (6 marks)</li>
+                <li>Maximise \(Z = 2x + y\) subject to \(x + y \le 3,\; x, y \ge 0\). Sketch the feasible region and the iso-profit line at the optimum. (6 marks)</li>
+                <li>Maximise \(Z = 2x_1 + 3x_2\) subject to \(x_1 + x_2 \le 30,\; 3 \le x_2 \le 12,\; x_1 - x_2 \ge 0,\; 0 \le x_1 \le 20\). (6 marks)</li>
+                <li>Give an example of an unbounded maximisation LPP. Show graphically why the maximum does not exist. (6 marks)</li>
+                <li>When does a linear programming problem have multiple optimal solutions? Illustrate with a simple graph. (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 5. Quick Summary</div>
+        <div class="theorem-box" style="background:#2a3553;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0; color: #f0ecc8;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Extreme point enumeration:</strong> evaluate \(Z\) at every corner; pick largest.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Iso-profit method:</strong> slide the line \(c_1x_1+c_2x_2=Z\) outward; last touch = optimum.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Parallel edge:</strong> if iso-profit line coincides with an edge, <em>multiple optima</em> along that edge.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Unbounded region:</strong> maximum may not exist → LP unbounded.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.9, pp. 114–134.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #c9c48a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture35_GraphicalMethod_Maximisation_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

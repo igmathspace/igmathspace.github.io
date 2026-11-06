@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 38 | Standard Form of LPP | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #eef7e8;              /* pista cream */
+            color: #2a3e23;                   /* dark olive */
+            line-height: 1.6;
+        }
+        :root {
+            --pista-bg: #eef7e8;
+            --pista-panel: #f5fbf0;
+            --pista-dark: #3b7a3a;
+            --pista-deeper: #2e5f2d;
+            --pista-accent: #8fbc5f;          /* yellow-green */
+            --pista-soft: #d8eccb;
+            --pista-line: #b5d4a1;
+            --text-dark: #2a3e23;
+            --text-soft: #4c6b41;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #3b7a3a, #6ba85b); padding: 0.5rem 0;
+            border-bottom: 3px solid #2e5f2d;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #6ba85b; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #4d8a4d; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #2e5f2d;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #3b7a3a, #2e5f2d); color: #f5fbf0; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #b5d4a1; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #8fbc5f, #6ba85b); color: #2a3e23; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #4d8a4d, #3b7a3a); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #6ba85b, #4d8a4d); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(59, 122, 58, 0.12);
+            border-left: 10px solid #3b7a3a;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #2e5f2d; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #8fbc5f; color: #ffffff; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #3b7a3a; margin-top: 6px;
+            border-bottom: 1px dashed #b5d4a1; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #2e5f2d; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #d8eccb; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #2e5f2d; font-weight: 500;
+            border: 1px solid #b5d4a1;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #3b7a3a; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(59, 122, 58, 0.10);
+            border: 1px solid #d8eccb;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #3b7a3a;
+            border-left: 5px solid #8fbc5f; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f5fbf0; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #8fbc5f;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #2e5f2d; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #eaf4e0; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #b5d4a1;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #2a3e23;
+        }
+        .example-box {
+            background: #f5fbf0; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #d8eccb;
+        }
+        .problem-item {
+            background: #f9fdf6; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #8fbc5f; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #2a3e23;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #eaf4e0; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #8fbc5f;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #8fbc5f; color: #ffffff; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #6ba85b; }
+        .co-badge {
+            background: #6ba85b; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #d8eccb;
+            border-radius: 30px; display: inline-block; color: #2e5f2d;
+            border: 1px solid #b5d4a1;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f5fbf0; border-left: 6px solid #6ba85b; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        footer {
+            background: #4d8a4d; color: #f5fbf0; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #2e5f2d;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #d8eccb; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; color: #2a3e23; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #6ba85b; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #2a3e23;
+                box-shadow: none; border: 1px solid #b5d4a1;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #2e5f2d !important; }
+            .content-card p, .eq-line, .problem-text { color: #2a3e23 !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f5fbf0 !important; color: #2a3e23 !important; border-color: #b5d4a1 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #eaf4e0; color: #2a3e23; border: 1px solid #b5d4a1; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #2a3e23; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 38</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Standard Form of LPP – Slack, Surplus, Artificial Variables</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.12-2 (Standard Form)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Understand the standard form and how to reach it</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Define the <strong>standard form</strong> of an LPP and list its four characteristics</li>
+            <li>Introduce <strong>slack variables</strong> in \((\le)\) constraints and <strong>surplus variables</strong> in \((\ge)\) constraints</li>
+            <li>Introduce <strong>artificial variables</strong> to handle \((\ge)\) and \((=)\) constraints</li>
+            <li>Convert any LPP to standard form using elementary transformations</li>
+        </ul>
+
+        <!-- 2. DEFINITION -->
+        <div class="section-heading">📌 2. Definition of Standard Form</div>
+        <div class="theorem-box">
+            <div class="label">Definition</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                The general LPP can always be put in the following form, called the <strong>standard form</strong>:
+            </p>
+            \[
+            \begin{aligned}
+            \text{Maximise (or minimise) } Z &= \sum_{j=1}^{n} c_j x_j\\
+            \text{subject to } \sum_{j=1}^{n} a_{ij} x_j &= b_i, \quad i = 1, 2, \dots, m,\\
+            x_j &\ge 0, \quad j = 1, 2, \dots, n,\\
+            b_i &\ge 0, \quad i = 1, 2, \dots, m.
+            \end{aligned}
+            \]
+        </div>
+
+        <!-- 3. FOUR CHARACTERISTICS -->
+        <div class="section-heading">📐 3. Four Characteristics of Standard Form</div>
+        <div class="theorem-box">
+            <div class="label">The four conditions</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                <li>All variables are <strong>non-negative</strong>.</li>
+                <li>The right-hand side of each constraint is <strong>non-negative</strong> (\(b_i \ge 0\)).</li>
+                <li>All constraints are expressed as <strong>equations</strong> (with the \(=\) sign).</li>
+                <li>The objective function may be of <strong>maximisation or minimisation</strong> type.</li>
+            </ol>
+        </div>
+
+        <!-- 4. SLACK, SURPLUS, ARTIFICIAL -->
+        <div class="section-heading">🔄 4. Slack, Surplus and Artificial Variables</div>
+
+        <div class="theorem-box">
+            <div class="label">Slack variable (for \(\le\) constraints)</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A non-negative variable added to the left-hand side of a \((\le)\) constraint to convert it into an equation:
+            </p>
+            \[
+            a_1 x_1 + a_2 x_2 \le b \;\Longrightarrow\; a_1 x_1 + a_2 x_2 + s_1 = b, \quad s_1 \ge 0.
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                \(s_1\) represents the <em>unused</em> (idle) amount of the resource. Its contribution to the objective is <strong>zero</strong> (zero profit or zero cost).
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Surplus variable (for \(\ge\) constraints)</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A non-negative variable subtracted from the left-hand side of a \((\ge)\) constraint to convert it into an equation:
+            </p>
+            \[
+            p_1 x_1 + p_2 x_2 \ge q \;\Longrightarrow\; p_1 x_1 + p_2 x_2 - s_2 = q, \quad s_2 \ge 0.
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                \(s_2\) represents the <em>surplus</em> of the left side over the right side (i.e. a negative slack). Its contribution to the objective is also <strong>zero</strong>.
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Artificial variable (for \(\ge\) and \(=\) constraints)</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A fictitious non-negative variable added to \((\ge)\) and \((=)\) constraints to provide an <em>initial basic feasible solution</em>:
+            </p>
+            \[
+            p_1 x_1 + p_2 x_2 - s_2 + A_1 = q, \quad A_1 \ge 0.
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Artificial variables have no physical meaning. They are penalised heavily in the objective
+                (\(-M\) per unit for maximisation, \(+M\) per unit for minimisation) so that the simplex
+                drives them to zero.
+            </p>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> Slack and surplus variables are <em>real</em> admissible variables — they are treated in the model just like the decision variables. Artificial variables are <em>fictitious</em> — they are added merely to bootstrap the simplex and must eventually leave the basis.
+        </div>
+
+        <!-- 5. ELEMENTARY TRANSFORMATIONS -->
+        <div class="section-heading">📊 5. Elementary Transformations to Standard Form</div>
+        <div class="theorem-box">
+            <div class="label">Rule 1 — Unrestricted variables</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">If \(x_j\) is unrestricted, put \(x_j = x_j' - x_j''\) with \(x_j', x_j'' \ge 0\).</p>
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule 2 — Negative RHS</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">If \(b_i &lt; 0\), multiply both sides by \(-1\) (this reverses the direction of the inequality).</p>
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule 3 — Inequality → equality</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Add a slack to \((\le)\); subtract a surplus from \((\ge)\). Equality constraints require neither.
+            </p>
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule 4 — Artificial variables</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Add a non-negative artificial variable to every \((\ge)\) and \((=)\) constraint that has no
+                natural unit column (i.e. no slack with +1 coefficient).
+            </p>
+        </div>
+
+        <!-- 6. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 6. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step conversion.</p>
+
+        <!-- Problem 1: A1 objective function definition -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Define the objective function of a linear programming problem. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>The <strong>objective function</strong> of a linear programming problem is the mathematical expression in the decision variables \(x_1, x_2, \ldots, x_n\) that measures the effectiveness of the decision — typically profit, revenue, cost, or loss.</span></div>
+                <div class="eq-line"><span>It is a <strong>linear</strong> function of the form \(Z = c_1 x_1 + c_2 x_2 + \cdots + c_n x_n\), where the constants \(c_j\) are called the <em>objective function coefficients</em>.</span></div>
+                <div class="eq-line"><span>The objective function is <strong>maximised</strong> (for profit/revenue) or <strong>minimised</strong> (for cost/loss) subject to the constraints of the problem.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ It defines "what is to be optimised".</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: A2 slack variable definition -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Define a slack variable with an example. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>A <strong>slack variable</strong> is a non-negative variable added to the left-hand side of a \((\le)\) constraint to convert it into an equation.</span></div>
+                <div class="eq-line"><span>Example: The constraint \(2x_1 + 3x_2 \le 10\) becomes</span></div>
+                <div class="eq-line"><span>\(2x_1 + 3x_2 + s_1 = 10, \quad s_1 \ge 0,\)</span></div>
+                <div class="eq-line"><span>where \(s_1\) is the slack variable, representing the amount of the resource that remains unused.</span></div>
+                <div class="eq-line"><span>Slack variables contribute <strong>zero</strong> to the objective function.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Slack = "unused" capacity.</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: A3 surplus variable definition -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Define a surplus variable with an example. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>A <strong>surplus variable</strong> is a non-negative variable subtracted from the left-hand side of a \((\ge)\) constraint to convert it into an equation.</span></div>
+                <div class="eq-line"><span>Example: \(2x_1 + 3x_2 \ge 10\) becomes</span></div>
+                <div class="eq-line"><span>\(2x_1 + 3x_2 - s_2 = 10, \quad s_2 \ge 0,\)</span></div>
+                <div class="eq-line"><span>where \(s_2\) is the surplus variable, representing the amount by which the LHS exceeds the RHS.</span></div>
+                <div class="eq-line"><span>It is also called the "negative slack". Its contribution to the objective is <strong>zero</strong>.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Surplus = "excess over minimum required".</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: A4 standard form -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4.</strong> Express the following LPP in standard form: Maximise \(Z = 7x_1 + 5x_2\), subject to \(2x_1 + 3x_2 \le 20,\; 3x_1 + x_2 \ge 10,\; x_1, x_2 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Objective is already maximisation.</span></div>
+                <div class="eq-line"><span>Step 2: Constraint 1 is \((\le)\); add a slack variable \(s_1 \ge 0\): \(2x_1 + 3x_2 + s_1 = 20\).</span></div>
+                <div class="eq-line"><span>Step 3: Constraint 2 is \((\ge)\); subtract a surplus \(s_2 \ge 0\): \(3x_1 + x_2 - s_2 = 10\).</span></div>
+                <div class="eq-line"><span>Step 4: To start the simplex, we need an artificial variable \(A_1 \ge 0\) in the second constraint: \(3x_1 + x_2 - s_2 + A_1 = 10\).</span></div>
+                <div class="eq-line"><span>Step 5: In the objective, the artificial variable gets a large penalty \(-M\) per unit (since we are maximising).</span></div>
+                <div class="eq-line"><span>Final standard form:</span></div>
+                <div class="eq-line"><span>\(\begin{aligned}\text{Maximise } Z = &\; 7x_1 + 5x_2 + 0s_1 + 0s_2 - M A_1\\\text{s.t. } & 2x_1 + 3x_2 + s_1 = 20,\\ & 3x_1 + x_2 - s_2 + A_1 = 10,\\ & x_1, x_2, s_1, s_2, A_1 \ge 0.\end{aligned}\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ 2 variables → 5 admissible variables (2 decision + 1 slack + 1 surplus + 1 artificial).</p>
+            </div>
+        </div>
+
+        <!-- Problem 5: B2 standard form -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 5.</strong> Express the following in standard form: Maximise \(Z = 3x_1 + 2x_2 + 5x_3\), subject to \(2x_1 + 3x_2 - 2x_3 \le 40,\; 4x_1 - 2x_2 + x_3 \le 24,\; x_1 - 5x_2 - 6x_3 \ge 2,\; x_1 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Objective is maximisation.</span></div>
+                <div class="eq-line"><span>Step 2: \(x_1 \ge 0\) but \(x_2, x_3\) are unrestricted. Put \(x_2 = x_2' - x_2''\), \(x_3 = x_3' - x_3''\) with \(x_2', x_2'', x_3', x_3'' \ge 0\).</span></div>
+                <div class="eq-line"><span>Step 3: Substitute \(x_2 = x_2' - x_2''\) and \(x_3 = x_3' - x_3''\) in all expressions:</span></div>
+                <div class="eq-line"><span>Objective: \(Z = 3x_1 + 2x_2' - 2x_2'' + 5x_3' - 5x_3''\).</span></div>
+                <div class="eq-line"><span>Constraint 1: \(2x_1 + 3x_2' - 3x_2'' - 2x_3' + 2x_3'' \le 40\).</span></div>
+                <div class="eq-line"><span>Constraint 2: \(4x_1 - 2x_2' + 2x_2'' + x_3' - x_3'' \le 24\).</span></div>
+                <div class="eq-line"><span>Constraint 3: \(x_1 - 5x_2' + 5x_2'' - 6x_3' + 6x_3'' \ge 2\).</span></div>
+                <div class="eq-line"><span>Step 4: Add slack to \((\le)\) constraints and surplus + artificial to the \((\ge)\) constraint:</span></div>
+                <div class="eq-line"><span>Constraint 1 + \(s_1 = 40\); Constraint 2 + \(s_2 = 24\); Constraint 3 − \(s_3\) + \(A_1 = 2\).</span></div>
+                <div class="eq-line"><span>Final standard form:</span></div>
+                <div class="eq-line"><span>\(\begin{aligned}\text{Maximise } Z = &\; 3x_1 + 2x_2' - 2x_2'' + 5x_3' - 5x_3'' + 0s_1 + 0s_2 + 0s_3 - M A_1\\\text{s.t. } & 2x_1 + 3x_2' - 3x_2'' - 2x_3' + 2x_3'' + s_1 = 40,\\ & 4x_1 - 2x_2' + 2x_2'' + x_3' - x_3'' + s_2 = 24,\\ & x_1 - 5x_2' + 5x_2'' - 6x_3' + 6x_3'' - s_3 + A_1 = 2,\\ & \text{all variables} \ge 0.\end{aligned}\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ 3 original variables → 8 admissible variables (1 + 2 + 2 decision + 2 slack + 1 surplus + 1 artificial).</p>
+            </div>
+        </div>
+
+        <!-- Problem 6: B4 initial basic feasible solution -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 6.</strong> Find the initial basic feasible solution of the LPP: Maximise \(Z = 3x_1 + 4x_2\), subject to \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="6">📖 Answer</button>
+            </div>
+            <div id="sol6" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Introduce slack variables \(s_1, s_2 \ge 0\) for the two \((\le)\) constraints.</span></div>
+                <div class="eq-line"><span>Standard form:</span></div>
+                <div class="eq-line"><span>Maximise \(Z = 3x_1 + 4x_2 + 0s_1 + 0s_2\)</span></div>
+                <div class="eq-line"><span>s.t. \(x_1 + x_2 + s_1 = 450\),</span></div>
+                <div class="eq-line"><span>\(2x_1 + x_2 + s_2 = 600\),</span></div>
+                <div class="eq-line"><span>\(x_1, x_2, s_1, s_2 \ge 0\).</span></div>
+                <div class="eq-line"><span>Step 2: Set the decision variables to zero: \(x_1 = 0, x_2 = 0\).</span></div>
+                <div class="eq-line"><span>Step 3: Then \(s_1 = 450\) (slack of M₁) and \(s_2 = 600\) (slack of M₂).</span></div>
+                <div class="eq-line"><span>Step 4: This is the <strong>initial basic feasible solution</strong>: \(x_1 = 0, x_2 = 0, s_1 = 450, s_2 = 600\), with \(Z = 0\).</span></div>
+                <div class="eq-line"><span>Step 5: The basic variables are \(s_1\) and \(s_2\); the non-basic variables are \(x_1\) and \(x_2\). Physically, neither product is produced; all capacity is idle; profit is zero.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ I.B.F.S.: \((x_1, x_2, s_1, s_2) = (0, 0, 450, 600)\), \(Z = 0\).</p>
+            </div>
+        </div>
+
+        <!-- 7. HOMEWORK -->
+        <div class="section-heading">🏠 7. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Define the standard form of an LPP. State its four characteristics. (3 marks)</li>
+                <li>What is the difference between a slack variable and a surplus variable? Give an example of each. (6 marks)</li>
+                <li>What is an artificial variable? Why is it needed? (6 marks)</li>
+                <li>Express in standard form: Maximise \(Z = 7x_1 + 5x_2\), subject to \(2x_1 + 3x_2 \le 20,\; 3x_1 + x_2 \ge 10,\; x_1, x_2 \ge 0\). (6 marks)</li>
+                <li>Express in standard form: Maximise \(Z = 3x_1 + 2x_2 + 5x_3\), subject to \(2x_1 + 3x_2 - 2x_3 \le 40,\; 4x_1 - 2x_2 + x_3 \le 24,\; x_1 - 5x_2 - 6x_3 \ge 2,\; x_1 \ge 0\) (with \(x_2, x_3\) unrestricted). (6 marks)</li>
+                <li>Find the initial basic feasible solution of: Maximise \(Z = 3x_1 + 4x_2\), subject to \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\). (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 8. Quick Summary</div>
+        <div class="theorem-box" style="background:#eaf4e0;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0; color: #2a3e23;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Standard form:</strong> all constraints are equations; all variables non-negative; RHS non-negative; objective may be max or min.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Slack variable:</strong> + on \((\le)\), represents unused capacity, contributes 0 to objective.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Surplus variable:</strong> − on \((\ge)\), represents excess over minimum required, contributes 0 to objective.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Artificial variable:</strong> + on \((\ge)\) and \((=)\), fictitious, penalised with \(-M\) (max) or \(+M\) (min); drives to zero in final solution.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Reformulated LPP:</strong> the standard-form problem after introducing slack/surplus/artificial variables — ready for the simplex tableau.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.12-2, pp. 149–153.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #4c6b41; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture38_StandardFormOfLPP_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

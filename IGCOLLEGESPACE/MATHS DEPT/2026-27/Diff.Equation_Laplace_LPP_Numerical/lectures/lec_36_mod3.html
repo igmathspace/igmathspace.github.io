@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 36 | Graphical Method: Minimisation &amp; Special Cases | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #1a2238;           /* dark navy */
+            color: #e8e4c9;                /* warm light yellow */
+            line-height: 1.6;
+        }
+        :root {
+            --deep-blue: #1a2238;
+            --mid-blue: #253257;
+            --panel-blue: #202c47;
+            --warm-yellow: #f2c94c;
+            --pale-yellow: #f7e9a0;
+            --gold: #e0b03a;
+            --soft-yellow-bg: #2a3553;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #1a2238, #2c3e66); padding: 0.5rem 0;
+            border-bottom: 3px solid var(--warm-yellow);
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #2c3e66; color: var(--warm-yellow); font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #253257; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--warm-yellow);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c3e66, #1a2238); color: var(--warm-yellow); text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid var(--warm-yellow); cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #f2c94c, #e0b03a); color: #1a2238; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #3a4a7a, #2a3553); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #b8860b, #8b6914); color: #fff8dc; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: var(--panel-blue); border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); border-left: 10px solid var(--warm-yellow);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--warm-yellow); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: var(--gold); color: #1a2238; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--pale-yellow); margin-top: 6px;
+            border-bottom: 1px dashed #4a5a8a; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: var(--warm-yellow); margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #2a3553; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: var(--pale-yellow); font-weight: 500;
+            border: 1px solid #3a4a7a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: var(--pale-yellow); display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: var(--panel-blue); border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.4); border: 1px solid #3a4a7a;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--warm-yellow);
+            border-left: 5px solid var(--warm-yellow); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #253257; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid var(--warm-yellow);
+        }
+        .theorem-box .label {
+            font-weight: 700; color: var(--warm-yellow); font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #1e2a45; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #3a4a7a;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #f0ecc8;
+        }
+        .example-box {
+            background: #253257; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #3a4a7a;
+        }
+        .problem-item {
+            background: #1e2a45; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid var(--gold); transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: var(--pale-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #2a3553; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid var(--warm-yellow);
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: var(--warm-yellow); color: #1a2238; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: var(--pale-yellow); }
+        .co-badge {
+            background: var(--gold); color: #1a2238; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #2a3553;
+            border-radius: 30px; display: inline-block; color: var(--pale-yellow);
+            border: 1px solid #3a4a7a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #3a2f1a; border-left: 6px solid var(--warm-yellow); padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: var(--pale-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #253257; border-left: 6px solid var(--gold); padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .figure-wrap {
+            margin: 1rem 0; padding: 0.8rem; background: #f7f3dc;
+            border: 1px solid var(--warm-yellow); border-radius: 16px; text-align: center;
+        }
+        .figure-wrap svg { max-width: 100%; height: auto; }
+        .figure-caption {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem; color: #4a3a0a; margin-top: 0.4rem;
+            font-style: italic;
+        }
+        footer {
+            background: #253257; color: var(--pale-yellow); text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--warm-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: var(--warm-yellow); }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; color: #1a2238; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #2c3e66; color: #f2c94c !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1a2238;
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #8b6914 !important; }
+            .content-card p, .eq-line, .problem-text { color: #1a2238 !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f9f6e5 !important; color: #1a2238 !important; border-color: #d4a017 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #fdf8e1; color: #1a2238; border: 1px solid #d4a017; }
+            .figure-wrap { break-inside: avoid; page-break-inside: avoid; background: #f7f3dc; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #f0ecc8; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 36</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Graphical Method – Minimisation &amp; Special Cases (Unbounded, Infeasible, Alternate Optima)</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.9 &amp; §2.10</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Apply graphical method to minimise, and recognise special cases</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Apply the <strong>iso-cost line</strong> (or corner-point) method for minimisation LPPs</li>
+            <li>Recognise and describe the three special cases: <strong>unbounded solution</strong>, <strong>infeasible solution</strong> and <strong>multiple (alternate) optimal solutions</strong></li>
+            <li>Draw conclusions about the LPP from the geometry of the feasible region</li>
+            <li>Verify uniqueness, boundedness and feasibility from the graphical picture</li>
+        </ul>
+
+        <!-- 2. MINIMISATION METHOD -->
+        <div class="section-heading">📐 2. Minimisation by Graphical Method</div>
+        <div class="theorem-box">
+            <div class="label">Procedure</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                <li>Formulate the LPP and plot the constraints.</li>
+                <li>Identify the feasible region (usually \(a_1 x_1 + a_2 x_2 \ge b\) and \(x_j \ge 0\), so the region extends outward from the line).</li>
+                <li>List the corner points.</li>
+                <li>Evaluate \(Z\) at every corner (extreme-point enumeration) and pick the smallest.</li>
+                <li>Alternatively, use the iso-cost line: set \(Z = 0\) and slide the line towards the origin; the last point of the feasible region touched gives the minimum.</li>
+            </ol>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> For a minimisation LPP with \(\ge\)-type constraints the feasible region is often <strong>unbounded</strong>. The minimum is still finite provided the iso-cost line "last touch" exists. If the iso-cost line can be pushed arbitrarily towards the origin without meeting the region, the problem is infeasible; if it can be pushed to \(-\infty\), the problem has no finite minimum (unbounded below).
+        </div>
+
+        <!-- 3. SPECIAL CASES -->
+        <div class="section-heading">📊 3. Special Cases</div>
+        <div class="theorem-box">
+            <div class="label">Case A — Multiple (alternate) optimal solutions</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                When the iso-profit/iso-cost line is parallel to one of the binding constraints, <em>every</em> point on that edge of the feasible region is optimal. Two conditions:
+            </p>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li>The objective function is parallel to a constraint forming the boundary of the feasible region.</li>
+                <li>That constraint is <em>active</em> at the optimum (both sides equal).</li>
+            </ol>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Case B — Unbounded solution</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                The feasible region is <strong>not bounded</strong> in some direction, and the objective can be made arbitrarily large (maximisation) or arbitrarily small (minimisation) within the region. The problem has <strong>no finite optimum</strong>.
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Case C — Infeasible solution</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                The constraints are <strong>inconsistent</strong> — there is <em>no</em> point \((x_1, x_2)\) satisfying all of them. Infeasibility depends <em>only</em> on the constraints, not on the objective function.
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Case D — Single (unique) solution</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                When the constraints reduce the feasible region to a <strong>single point</strong> — e.g. the intersection of two equality constraints with matching feasibility — the LPP has a unique solution (the point itself).
+            </p>
+        </div>
+
+        <!-- 4. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 4. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution with figure.</p>
+
+        <!-- Problem 1: B3 min z = 5x-2y -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1 (Minimisation).</strong> Find the minimum value of \(z = 5x - 2y\), subject to \(2x + 3y \ge 1,\; x, y \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Plot \(2x + 3y = 1\). Intercepts: \((1/2, 0)\) and \((0, 1/3)\).</span></div>
+                <div class="eq-line"><span>Step 2: Since the constraint is \(\ge\), the feasible region lies <em>above</em> the line in the first quadrant — an unbounded region.</span></div>
+                <div class="eq-line"><span>Step 3: Only two corner points: \(A(1/2, 0)\) and \(B(0, 1/3)\).</span></div>
+                <div class="eq-line"><span>Step 4: Evaluate \(z = 5x - 2y\): \(z(A) = 5/2 = 2.5\), \(z(B) = -2/3 \approx -0.667\).</span></div>
+                <div class="eq-line"><span>Step 5: Since \(z\) is <em>linear</em> and the region is unbounded above, the minimum occurs at a corner. Checking the boundary \(y = (1-2x)/3\): \(z = 5x - 2(1-2x)/3 = (19x - 2)/3\), which <em>increases</em> with \(x \ge 0\), so the minimum is at \(B\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Unbounded feasible region of Problem 1">
+                        <g stroke="#e3d8a8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="270"/>
+                            <line x1="60" y1="270" x2="360" y2="270"/>
+                            <line x1="60" y1="40"  x2="360" y2="40"/>
+                            <line x1="360" y1="40" x2="360" y2="270"/>
+                        </g>
+                        <polygon points="110,270 60,236.7 60,40 360,40 360,270"
+                                 fill="#f2c94c" fill-opacity="0.28" stroke="none"/>
+                        <line x1="60" y1="270" x2="110" y2="270" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="60" y1="270" x2="60"  y2="236.7" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="110" y1="270" x2="60" y2="236.7" stroke="#a0522d" stroke-width="2.5"/>
+                        <line x1="110" y1="270" x2="135" y2="287" stroke="#a0522d" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <line x1="60" y1="236.7" x2="35" y2="220" stroke="#a0522d" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <line x1="60" y1="270" x2="365" y2="270" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="60" y1="270" x2="60"  y2="35"  stroke="#1a2238" stroke-width="2"/>
+                        <polygon points="365,270 358,267 358,273" fill="#1a2238"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1a2238"/>
+                        <text x="370" y="274" font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x</text>
+                        <text x="48" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1a2238">y</text>
+                        <text x="48" y="286" font-size="12" font-family="Times New Roman, serif" fill="#1a2238">O</text>
+                        <polygon points="360,40 352,46 352,34" fill="#8b1a1a"/>
+                        <polygon points="360,270 352,264 352,276" fill="#8b1a1a"/>
+                        <g stroke="#1a2238" stroke-width="1.5">
+                            <line x1="110" y1="266" x2="110" y2="274"/>
+                            <line x1="160" y1="266" x2="160" y2="274"/>
+                            <line x1="260" y1="266" x2="260" y2="274"/>
+                            <line x1="56"  y1="236.7" x2="64" y2="236.7"/>
+                            <line x1="56"  y1="170"   x2="64" y2="170"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1a2238">
+                            <text x="105" y="288">1/2</text>
+                            <text x="155" y="288">1</text>
+                            <text x="255" y="288">2</text>
+                            <text x="42"  y="240">1/3</text>
+                            <text x="42"  y="174">1</text>
+                        </g>
+                        <circle cx="110" cy="270" r="5" fill="#c0392b"/>
+                        <circle cx="60"  cy="236.7" r="5" fill="#c0392b"/>
+                        <text x="116" y="288" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">A(1/2, 0)</text>
+                        <text x="6"  y="234" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">B(0, 1/3)</text>
+                        <text x="170" y="230" font-size="13" font-family="Times New Roman, serif" fill="#5a3010"
+                              transform="rotate(-31 170 230)">2x + 3y = 1</text>
+                        <text x="230" y="90" font-size="12" font-family="Segoe UI, sans-serif" fill="#4a3a0a"
+                              font-style="italic">Unbounded</text>
+                        <text x="230" y="106" font-size="12" font-family="Segoe UI, sans-serif" fill="#4a3a0a"
+                              font-style="italic">feasible</text>
+                        <text x="230" y="122" font-size="12" font-family="Segoe UI, sans-serif" fill="#4a3a0a"
+                              font-style="italic">region</text>
+                        <!-- iso-cost line z = -2/3, i.e. 5x-2y = -2/3, passing near B -->
+                        <line x1="60" y1="256" x2="180" y2="40" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="5,3"/>
+                        <text x="180" y="40" font-size="11" font-family="Times New Roman, serif" fill="#c0392b">Z = 5x − 2y</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 36.1 — Unbounded feasible region; iso-cost line touches \(B(0, \tfrac{1}{3})\) giving \(z_{\min} = -2/3\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x = 0,\; y = 1/3,\; z_{\min} = -2/3\). The region is unbounded but the minimum is finite.</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: C4 min with three <=, min z = -x1+2x2 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2 (Bounded minimisation).</strong> Find the minimum value of \(z = -x_1 + 2x_2\), subject to \(-x_1 + 3x_2 \le 10,\; x_1 + x_2 \le 6,\; x_1 - x_2 \le 2,\; x_1, x_2 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Plot the three lines: \(-x_1 + 3x_2 = 10\), \(x_1 + x_2 = 6\), \(x_1 - x_2 = 2\). All \(\le\)-type, so feasible region is towards origin.</span></div>
+                <div class="eq-line"><span>Step 2: Corner points of feasible region: \(O(0,0)\), \(A(0, 10/3)\), \(B(2,4)\) (intersection of lines 1 & 2), \(C(4,2)\) (lines 2 & 3), \(D(2,0)\).</span></div>
+                <div class="eq-line"><span>Step 3: Evaluate \(z = -x_1 + 2x_2\):</span></div>
+                <div class="eq-line"><span>\(z(O) = 0\), \(z(A) = 20/3\), \(z(B) = 6\), \(z(C) = 0\), \(z(D) = -2\).</span></div>
+                <div class="eq-line"><span>Step 4: Minimum is \(z = -2\) at \(D(2,0)\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Feasible pentagon for Problem 2">
+                        <g stroke="#e3d8a8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="290"/>
+                            <line x1="60" y1="290" x2="370" y2="290"/>
+                            <line x1="60" y1="40"  x2="370" y2="40"/>
+                            <line x1="370" y1="40" x2="370" y2="290"/>
+                        </g>
+                        <line x1="60" y1="290" x2="375" y2="290" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="60" y1="290" x2="60" y2="35"  stroke="#1a2238" stroke-width="2"/>
+                        <polygon points="375,290 368,287 368,293" fill="#1a2238"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1a2238"/>
+                        <text x="378" y="294" font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₁</text>
+                        <text x="44" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₂</text>
+                        <text x="48" y="306" font-size="12" font-family="Times New Roman, serif" fill="#1a2238">O</text>
+
+                        <polygon points="60,290 60,156.7 140,130 220,210 140,290"
+                                 fill="#f2c94c" fill-opacity="0.28" stroke="#8b6914" stroke-width="2"/>
+
+                        <line x1="60" y1="156.7" x2="260" y2="90" stroke="#a0522d" stroke-width="1.6"/>
+                        <line x1="60" y1="50" x2="300" y2="290" stroke="#4a6eae" stroke-width="1.6"/>
+                        <line x1="140" y1="290" x2="340" y2="90" stroke="#8b1a1a" stroke-width="1.6"/>
+
+                        <!-- iso-cost z = -2, i.e. -x1 + 2x2 = -2 => x1 = 2x2 + 2 -->
+                        <line x1="140" y1="290" x2="340" y2="30" stroke="#c0392b" stroke-width="1.4" stroke-dasharray="5,3"/>
+                        <text x="300" y="60" font-size="11" font-family="Times New Roman, serif" fill="#c0392b">Z = −x₁ + 2x₂</text>
+
+                        <g stroke="#1a2238" stroke-width="1.5">
+                            <line x1="140" y1="286" x2="140" y2="294"/>
+                            <line x1="220" y1="286" x2="220" y2="294"/>
+                            <line x1="300" y1="286" x2="300" y2="294"/>
+                            <line x1="56" y1="210" x2="64" y2="210"/>
+                            <line x1="56" y1="130" x2="64" y2="130"/>
+                            <line x1="56" y1="50"  x2="64" y2="50"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1a2238">
+                            <text x="136" y="306">2</text>
+                            <text x="216" y="306">4</text>
+                            <text x="296" y="306">6</text>
+                            <text x="44" y="214">2</text>
+                            <text x="44" y="134">4</text>
+                            <text x="44" y="54">6</text>
+                        </g>
+
+                        <circle cx="60"  cy="290" r="5" fill="#c0392b"/>
+                        <circle cx="60"  cy="156.7" r="5" fill="#c0392b"/>
+                        <circle cx="140" cy="130" r="5" fill="#c0392b"/>
+                        <circle cx="220" cy="210" r="5" fill="#c0392b"/>
+                        <circle cx="140" cy="290" r="5" fill="#c0392b"/>
+                        <text x="40"  y="152" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">A(0, 10/3)</text>
+                        <text x="144" y="126" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">B(2,4)</text>
+                        <text x="224" y="206" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">C(4,2)</text>
+                        <text x="144" y="308" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a" font-weight="bold">D(2,0)</text>
+
+                        <text x="200" y="80"  font-size="11" font-family="Times New Roman, serif" fill="#a0522d">−x₁+3x₂ = 10</text>
+                        <text x="240" y="60"  font-size="11" font-family="Times New Roman, serif" fill="#4a6eae">x₁+x₂ = 6</text>
+                        <text x="270" y="140" font-size="11" font-family="Times New Roman, serif" fill="#8b1a1a">x₁−x₂ = 2</text>
+
+                        <text x="100" y="230" font-size="12" font-family="Segoe UI, sans-serif" fill="#4a3a0a" font-style="italic">Feasible region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 36.2 — Feasible pentagon of Problem 2; minimum at \(D(2,0)\) with \(z = -2\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x_1 = 2,\; x_2 = 0,\; z_{\min} = -2\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: C2 max z = 2x1+3x2 -> multiple optima example -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3 (Alternate optima).</strong> Maximise \(Z = 2x_1 + 3x_2\), subject to \(x_1 + x_2 \le 30,\; x_2 \ge 3,\; x_2 \le 12,\; x_1 - x_2 \ge 0,\; 0 \le x_1 \le 20\). What is the optimal \(Z\)? <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Feasible pentagon corners: \(A(3,3)\), \(B(12,12)\), \(C(18,12)\), \(D(20,10)\), \(E(20,3)\) (see Fig. 35.3 of Lecture 35).</span></div>
+                <div class="eq-line"><span>Step 2: Evaluate \(Z = 2x_1 + 3x_2\) at each corner:</span></div>
+                <div class="eq-line"><span>\(Z(A) = 15\), \(Z(B) = 60\), \(Z(C) = 72\), \(Z(D) = 70\), \(Z(E) = 49\).</span></div>
+                <div class="eq-line"><span>Step 3: The unique maximum is \(Z = 72\) at \(C(18,12)\) — the iso-profit line \(2x_1 + 3x_2 = 72\) is <em>not</em> parallel to any edge of the pentagon, so the optimum is unique.</span></div>
+                <div class="eq-line"><span>Step 4: If the objective had instead been \(Z = x_1 + x_2\) (parallel to \(x_1 + x_2 = 30\)), then both \(B\) and \(C\) would give \(Z = 24\) and the whole edge \(BC\) would be optimal.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x_1 = 18,\; x_2 = 12,\; Z_{\max} = 72\), unique optimum. (If \(Z = x_1 + x_2\), multiple optima would occur on edge \(BC\).)</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: Infeasible example (P.U.B.E. Mech Nov 1982 style) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4 (Infeasible solution).</strong> Maximise \(Z = 3x_1 + 4x_2\), subject to \(x_1 - x_2 \ge 0,\; 2.5x_1 - x_2 \le -3,\; x_1, x_2 \ge 0\). Show that the solution does not exist. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: \(x_1 - x_2 \ge 0\) ⇔ \(x_1 \ge x_2\) — the region <em>below</em> the line \(x_2 = x_1\).</span></div>
+                <div class="eq-line"><span>Step 2: \(2.5x_1 - x_2 \le -3\) ⇔ \(x_2 \ge 2.5x_1 + 3\) — the region <em>above</em> the line \(x_2 = 2.5x_1 + 3\) (whose \(x_2\)-intercept is \(3\)).</span></div>
+                <div class="eq-line"><span>Step 3: But for any \(x_1 \ge 0\), the second constraint forces \(x_2 \ge 3\), while the first forces \(x_2 \le x_1\), hence \(x_1 \ge x_2 \ge 3\). So \(x_1 \ge 3\).</span></div>
+                <div class="eq-line"><span>Step 4: Yet the second constraint also requires \(x_2 \ge 2.5x_1 + 3 \ge 2.5(3) + 3 = 10.5\). Combined with the first, \(x_1 \ge x_2 \ge 10.5\). But then we would need \(x_2 \ge 2.5(10.5) + 3 = 29.25\), and so on. The two constraints are inconsistent — one wants \(x_2 \le x_1\), the other \(x_2\) much larger than \(x_1\).</span></div>
+                <div class="eq-line"><span>Step 5: The feasible region in the first quadrant is <strong>empty</strong>. Hence the LPP has no feasible solution.</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 380 320" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Infeasible LPP of Problem 4">
+                        <g stroke="#e3d8a8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="260"/>
+                            <line x1="60" y1="260" x2="340" y2="260"/>
+                            <line x1="60" y1="40"  x2="340" y2="40"/>
+                            <line x1="340" y1="40" x2="340" y2="260"/>
+                        </g>
+                        <line x1="60" y1="260" x2="345" y2="260" stroke="#1a2238" stroke-width="2"/>
+                        <line x1="60" y1="260" x2="60" y2="35"  stroke="#1a2238" stroke-width="2"/>
+                        <polygon points="345,260 338,257 338,263" fill="#1a2238"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1a2238"/>
+                        <text x="350" y="264" font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₁</text>
+                        <text x="48" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1a2238">x₂</text>
+                        <text x="48" y="276" font-size="12" font-family="Times New Roman, serif" fill="#1a2238">O</text>
+
+                        <!-- Shaded half-plane for x2 <= x1 (below line) -->
+                        <polygon points="60,260 320,260 60,10" fill="#4a6eae" fill-opacity="0.18" stroke="none"/>
+                        <!-- Shaded half-plane for x2 >= 2.5 x1 + 3 (above steep line) -->
+                        <polygon points="60,10 60,260 320,260 320,40" fill="#c0392b" fill-opacity="0.14" stroke="none"/>
+
+                        <!-- Line x1 = x2 -->
+                        <line x1="60" y1="260" x2="300" y2="20" stroke="#4a6eae" stroke-width="2"/>
+                        <text x="200" y="100" font-size="12" font-family="Times New Roman, serif" fill="#2a3a8a"
+                              transform="rotate(-45 200 100)">x₁ = x₂</text>
+
+                        <!-- Line x2 = 2.5 x1 + 3: at x1=0, x2=3; at x1=~ (for x2 = 260) slope steeper. Use 1 unit=40px: x1=0 -> (60,260-3*40)=(60,140). Slope 2.5 (steeper). x1=2 -> x2=8 -> (140, -60) off. Use to (200, -320) off; draw partial: (60,140)->(160,-260)? Let's just draw a very steep line from (60,140) upward-right slightly. -->
+                        <line x1="60" y1="140" x2="360" y2="0" stroke="#a0522d" stroke-width="2"/>
+                        <text x="220" y="160" font-size="12" font-family="Times New Roman, serif" fill="#8b1a1a"
+                              transform="rotate(-58 220 160)">2.5x₁ − x₂ = −3</text>
+
+                        <!-- Empty feasible zone indicator (arrow between the two lines in first quadrant) -->
+                        <text x="120" y="220" font-size="12" font-family="Segoe UI, sans-serif" fill="#8b1a1a" font-style="italic">No common</text>
+                        <text x="120" y="236" font-size="12" font-family="Segoe UI, sans-serif" fill="#8b1a1a" font-style="italic">region in</text>
+                        <text x="120" y="252" font-size="12" font-family="Segoe UI, sans-serif" fill="#8b1a1a" font-style="italic">first quadrant</text>
+
+                        <!-- small feasible regions outside 1st quadrant -->
+                        <text x="100" y="60" font-size="10" font-family="Segoe UI, sans-serif" fill="#4a6eae">x₁ ≥ x₂ region</text>
+                        <text x="200" y="280" font-size="10" font-family="Segoe UI, sans-serif" fill="#8b1a1a">x₂ ≥ 2.5x₁ + 3 region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 36.3 — Infeasible LPP; the two half-planes do not overlap in the first quadrant</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ No feasible solution exists — the constraint set is inconsistent.</p>
+            </div>
+        </div>
+
+        <!-- Problem 5: Unbounded example -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 5 (Unbounded solution).</strong> Maximise \(Z = -x_1 + 2x_2\), subject to \(x_1 - x_2 \le -1,\; -0.5x_1 + x_2 \le 2,\; x_1, x_2 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Rewrite the first constraint: \(-x_1 + x_2 \ge 1\), i.e. \(x_2 \ge x_1 + 1\).</span></div>
+                <div class="eq-line"><span>Step 2: Second constraint: \(x_2 \le 0.5x_1 + 2\).</span></div>
+                <div class="eq-line"><span>Step 3: The feasible region is the strip between the lines \(x_2 = x_1 + 1\) and \(x_2 = 0.5x_1 + 2\), for \(x_1 \ge 0\). It extends indefinitely to the right (as \(x_1\) grows, both bounds grow, and the strip is unbounded).</span></div>
+                <div class="eq-line"><span>Step 4: Corners of the feasible region: \(A(0,1)\), \(B(0,2)\), \(C(2,3)\) (intersection of the two lines). \(Z(A) = 2\), \(Z(B) = 4\), \(Z(C) = -2+6 = 4\).</span></div>
+                <div class="eq-line"><span>Step 5: However, \(Z = -x_1 + 2x_2\). On the upper edge \(x_2 = 0.5x_1 + 2\): \(Z = -x_1 + 2(0.5x_1 + 2) = 4\) — constant! On the lower edge \(x_2 = x_1 + 1\): \(Z = -x_1 + 2(x_1 + 1) = x_1 + 2\), which <em>grows without bound</em> as \(x_1 \to \infty\).</span></div>
+                <div class="eq-line"><span>Step 6: Therefore \(Z\) can be made arbitrarily large. The LPP has an <strong>unbounded solution</strong> — no finite maximum.</span></div>
+                <div class="eq-line"><span>Step 7: Note: the feasible region is unbounded <em>and</em> the objective grows unboundedly along one edge. (Contrast with Problem 1, where the region was unbounded but the objective was bounded below by a corner.)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ The LPP has an unbounded solution (no finite maximum).</p>
+            </div>
+        </div>
+
+        <!-- 5. HOMEWORK -->
+        <div class="section-heading">🏠 5. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Explain the iso-cost line method for a minimisation LPP. How does it differ from the iso-profit line method for maximisation? (6 marks)</li>
+                <li>Minimise \(z = 5x - 2y\) subject to \(2x + 3y \ge 1,\; x, y \ge 0\). Sketch the feasible region and identify the optimum. (6 marks)</li>
+                <li>Minimise \(z = -x_1 + 2x_2\) subject to \(-x_1 + 3x_2 \le 10,\; x_1 + x_2 \le 6,\; x_1 - x_2 \le 2,\; x_1, x_2 \ge 0\). (6 marks)</li>
+                <li>Explain, with an example, when a linear programming problem has (i) multiple optimal solutions, (ii) an unbounded solution, (iii) no feasible solution. (6 marks)</li>
+                <li>Maximise \(Z = -x_1 + 2x_2\) subject to \(x_1 - x_2 \le -1,\; -0.5x_1 + x_2 \le 2,\; x_1, x_2 \ge 0\). Determine whether the problem has a finite optimum and justify your conclusion graphically. (6 marks)</li>
+                <li>Give a 2-variable LPP whose feasible region is a single point, and explain why the solution is unique. (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 6. Quick Summary</div>
+        <div class="theorem-box" style="background:#2a3553;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0; color: #f0ecc8;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Minimisation:</strong> slide the iso-cost line toward the origin; last touch of the feasible region = minimum.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Multiple optima:</strong> iso-profit/cost line parallel to an active edge of the feasible region.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Unbounded:</strong> feasible region unbounded and objective unbounded in some direction → no finite optimum.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Infeasible:</strong> constraints inconsistent → empty feasible region.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Single solution:</strong> feasible region reduces to one point.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.9 &amp; §2.10, pp. 114–134.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #c9c48a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture36_GraphicalMethod_MinimisationAndSpecialCases_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 40 | Basic Feasible Solution &amp; Fundamental Theorem of LPP | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #eef7e8; color: #2a3e23; line-height: 1.6;
+        }
+        :root {
+            --pista-bg: #eef7e8;
+            --pista-panel: #f5fbf0;
+            --pista-dark: #3b7a3a;
+            --pista-deeper: #2e5f2d;
+            --pista-accent: #8fbc5f;
+            --pista-soft: #d8eccb;
+            --pista-line: #b5d4a1;
+            --text-dark: #2a3e23;
+            --text-soft: #4c6b41;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #3b7a3a, #6ba85b); padding: 0.5rem 0;
+            border-bottom: 3px solid #2e5f2d;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #6ba85b; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #4d8a4d; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #2e5f2d;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #3b7a3a, #2e5f2d); color: #f5fbf0; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #b5d4a1; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #8fbc5f, #6ba85b); color: #2a3e23; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #4d8a4d, #3b7a3a); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #6ba85b, #4d8a4d); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(59, 122, 58, 0.12);
+            border-left: 10px solid #3b7a3a;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #2e5f2d; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #8fbc5f; color: #ffffff; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #3b7a3a; margin-top: 6px;
+            border-bottom: 1px dashed #b5d4a1; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #2e5f2d; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #d8eccb; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #2e5f2d; font-weight: 500;
+            border: 1px solid #b5d4a1;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #3b7a3a; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(59, 122, 58, 0.10);
+            border: 1px solid #d8eccb;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #3b7a3a;
+            border-left: 5px solid #8fbc5f; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f5fbf0; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #8fbc5f;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #2e5f2d; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #eaf4e0; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #b5d4a1;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #2a3e23;
+        }
+        .example-box {
+            background: #f5fbf0; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #d8eccb;
+        }
+        .problem-item {
+            background: #f9fdf6; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #8fbc5f; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #2a3e23;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #eaf4e0; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #8fbc5f;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #8fbc5f; color: #ffffff; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #6ba85b; }
+        .co-badge {
+            background: #6ba85b; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #d8eccb;
+            border-radius: 30px; display: inline-block; color: #2e5f2d;
+            border: 1px solid #b5d4a1;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f5fbf0; border-left: 6px solid #6ba85b; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        footer {
+            background: #4d8a4d; color: #f5fbf0; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #2e5f2d;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #d8eccb; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; color: #2a3e23; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #6ba85b; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #2a3e23;
+                box-shadow: none; border: 1px solid #b5d4a1;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #2e5f2d !important; }
+            .content-card p, .eq-line, .problem-text { color: #2a3e23 !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f5fbf0 !important; color: #2a3e23 !important; border-color: #b5d4a1 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #eaf4e0; color: #2a3e23; border: 1px solid #b5d4a1; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #2a3e23; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 40</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Basic Feasible Solution &amp; Fundamental Theorem of LPP</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.13–2.14</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Understand basic solutions and the fundamental theorem</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>State and explain the key definitions of the simplex method: solution, feasible solution, basic solution, BFS</li>
+            <li>Distinguish <strong>non-degenerate</strong> and <strong>degenerate</strong> basic feasible solutions</li>
+            <li>State the fundamental theorem of LPP — the optimum occurs at a <strong>basic feasible solution</strong></li>
+            <li>Compute all basic solutions of a given standard-form system and classify them</li>
+        </ul>
+
+        <!-- 2. DEFINITIONS -->
+        <div class="section-heading">📌 2. Key Definitions (§2.14)</div>
+        <div class="theorem-box">
+            <div class="label">Solution</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A set of variables \(x_1, x_2, \dots, x_{n+m}\) is called a <strong>solution</strong> to a linear programming problem if it satisfies the constraint equations (in standard form).
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Feasible solution</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A set of variables \(x_1, \dots, x_{n+m}\) is called a <strong>feasible solution</strong> if it satisfies the constraint equations <em>and</em> the non-negativity restrictions \(x_j \ge 0\).
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Basic solution</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A solution obtained by setting any \(n\) variables (out of \(m+n\) total variables) equal to zero and solving for the remaining \(m\) variables (provided the determinant of the coefficients of those \(m\) variables is non-zero).
+            </p>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">
+                The \(m\) variables are called <strong>basic variables</strong>; the \(n\) variables that are set to zero are called <strong>non-basic variables</strong>. The number of basic solutions is at most
+                \[
+                \binom{m+n}{m} = \frac{(m+n)!}{m!\,n!}.
+                \]
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Basic feasible solution (BFS)</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A basic solution that also satisfies the non-negativity restrictions — i.e., all variables are \(\ge 0\). Every basic feasible solution of a problem is an <em>extreme point</em> of the convex set of feasible solutions, and conversely every extreme point is a basic feasible solution.
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Non-degenerate BFS</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A BFS in which all the \(m\) basic variables are strictly positive (\(>0\)) and the \(n\) non-basic variables are zero.
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Degenerate BFS</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                A BFS in which one or more of the \(m\) basic variables is equal to zero.
+            </p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">Optimal basic feasible solution</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                The basic feasible solution that also optimises the objective function.
+            </p>
+        </div>
+
+        <!-- 3. FUNDAMENTAL THEOREM -->
+        <div class="section-heading">📐 3. Fundamental Theorem of Linear Programming</div>
+        <div class="theorem-box">
+            <div class="label">Statement</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                The optimum value of the objective function of a linear programming problem, if it exists, occurs at one of the <strong>extreme points</strong> (vertices) of the convex set of feasible solutions — equivalently, at one of the <strong>basic feasible solutions</strong> of the problem.
+            </p>
+        </div>
+        <div class="proof-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; font-weight: 600;">Why this matters for the simplex method:</p>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                The feasible region is a convex set with a finite number of extreme points. Since the objective is linear, any interior feasible solution is a <em>convex combination</em> of extreme points, so its value lies between the values attained at those extreme points. Hence the optimum, if it exists, must be attained at an extreme point — which, by the equivalence noted above, is a BFS.
+            </p>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">
+                The simplex method exploits this: it starts from one BFS and moves from one BFS to a better one, never visiting interior points, until no further improvement is possible.
+            </p>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> The fundamental theorem applies to LPPs whose optimum is finite. For an <em>unbounded</em> LPP, the optimum does not exist; for an <em>infeasible</em> LPP, there is no BFS at all.
+        </div>
+
+        <!-- 4. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 4. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution.</p>
+
+        <!-- Problem 1: Definitions (Section 6 A1–A3 again as consolidation) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Define the following: (i) basic solution, (ii) basic feasible solution, (iii) degenerate solution, (iv) non-degenerate solution, (v) optimal feasible solution. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>(i) <strong>Basic solution:</strong> a solution obtained by setting any \(n\) variables (out of \(m+n\)) equal to zero and solving for the remaining \(m\) variables, provided the coefficient matrix of those \(m\) variables is non-singular.</span></div>
+                <div class="eq-line"><span>(ii) <strong>Basic feasible solution:</strong> a basic solution in which all \(m+n\) variables are non-negative.</span></div>
+                <div class="eq-line"><span>(iii) <strong>Degenerate BFS:</strong> a BFS in which one or more of the \(m\) basic variables has the value zero.</span></div>
+                <div class="eq-line"><span>(iv) <strong>Non-degenerate BFS:</strong> a BFS in which all \(m\) basic variables are strictly positive.</span></div>
+                <div class="eq-line"><span>(v) <strong>Optimal BFS:</strong> the basic feasible solution that also optimises the objective function.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ These are the key definitions underpinning the simplex method.</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: all basic solutions of a small system -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Find all the basic solutions to the system: \(x_1 + 2x_2 + 3x_3 = 4,\; 2x_1 + 3x_2 + 5x_3 = 7\). Identify which are basic feasible, which are non-degenerate basic feasible, and which is the optimal basic feasible. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Here \(m + n = 3\), \(m = 2\), so \(n = 1\) non-basic variable at a time. Total basic solutions \(= \binom{3}{1} = 3\).</span></div>
+                <div class="eq-line"><span>Step 2: Set \(x_1 = 0\) (basic variables \(x_2, x_3\)):</span></div>
+                <div class="eq-line"><span>\(2x_2 + 3x_3 = 4\), \(3x_2 + 5x_3 = 7\).</span></div>
+                <div class="eq-line"><span>Multiply first by 3, second by 2, then subtract: \(6x_2 + 9x_3 - 6x_2 - 10x_3 = 12 - 14 \Rightarrow -x_3 = -2 \Rightarrow x_3 = 2\).</span></div>
+                <div class="eq-line"><span>Then \(2x_2 + 6 = 4 \Rightarrow x_2 = -1\). Basic solution: \((0, -1, 2)\). <strong>Infeasible</strong> (one negative variable).</span></div>
+                <div class="eq-line"><span>Step 3: Set \(x_2 = 0\) (basic variables \(x_1, x_3\)):</span></div>
+                <div class="eq-line"><span>\(x_1 + 3x_3 = 4\), \(2x_1 + 5x_3 = 7\).</span></div>
+                <div class="eq-line"><span>Multiply first by 2: \(2x_1 + 6x_3 = 8\); subtract second: \(x_3 = 1\). Then \(x_1 = 4 - 3 = 1\). Basic solution: \((1, 0, 1)\). <strong>Basic feasible and non-degenerate</strong>.</span></div>
+                <div class="eq-line"><span>Step 4: Set \(x_3 = 0\) (basic variables \(x_1, x_2\)):</span></div>
+                <div class="eq-line"><span>\(x_1 + 2x_2 = 4\), \(2x_1 + 3x_2 = 7\).</span></div>
+                <div class="eq-line"><span>Multiply first by 2 and subtract: \(x_2 = 1\); then \(x_1 = 4 - 2 = 2\). Basic solution: \((2, 1, 0)\). <strong>Basic feasible and non-degenerate</strong>.</span></div>
+                <div class="eq-line"><span>Step 5: Objective at the two BFS:</span></div>
+                <div class="eq-line"><span>\(Z = x_1 + 3x_2 + 3x_3\). At \((1,0,1)\): \(Z = 1 + 0 + 3 = 4\). At \((2,1,0)\): \(Z = 2 + 3 + 0 = 5\).</span></div>
+                <div class="eq-line"><span>Step 6: Optimal BFS is \((2, 1, 0)\) with \(Z_{\max} = 5\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ All basic solutions: \((0,-1,2)\) [infeasible], \((1,0,1)\) [non-degenerate BFS], \((2,1,0)\) [optimal BFS].</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: BFS enumeration using slacks -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Find all the basic feasible solutions of the equations \(2x_1 + 6x_2 + 2x_3 + x_4 = 3,\; 6x_1 + 4x_2 + 4x_3 + 6x_4 = 2\). Show that all basic feasible solutions are degenerate. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Here \(m = 2\), total variables \(= 4\), so \(n = 2\) non-basic at a time. Total basic solutions \(= \binom{4}{2} = 6\).</span></div>
+                <div class="eq-line"><span>Step 2: Set \(x_3 = x_4 = 0\) (basic \(x_1, x_2\)):</span></div>
+                <div class="eq-line"><span>\(2x_1 + 6x_2 = 3\), \(6x_1 + 4x_2 = 2\). Solving: \(x_1 = 0\), \(x_2 = 1/2\). BFS: \((0, 1/2, 0, 0)\) — degenerate (basic variable \(x_1 = 0\)).</span></div>
+                <div class="eq-line"><span>Step 3: Set \(x_2 = x_4 = 0\) (basic \(x_1, x_3\)):</span></div>
+                <div class="eq-line"><span>\(2x_1 + 2x_3 = 3\), \(6x_1 + 4x_3 = 2\). Solving: \(x_1 = -2\), \(x_3 = 7/2\). Infeasible.</span></div>
+                <div class="eq-line"><span>Step 4: Set \(x_2 = x_3 = 0\) (basic \(x_1, x_4\)):</span></div>
+                <div class="eq-line"><span>\(2x_1 + x_4 = 3\), \(6x_1 + 6x_4 = 2\). Solving: \(x_1 = 8/3\), \(x_4 = -7/3\). Infeasible.</span></div>
+                <div class="eq-line"><span>Step 5: Set \(x_1 = x_4 = 0\) (basic \(x_2, x_3\)):</span></div>
+                <div class="eq-line"><span>\(6x_2 + 2x_3 = 3\), \(4x_2 + 4x_3 = 2\). Solving: \(x_2 = 1/2\), \(x_3 = 0\). BFS: \((0, 1/2, 0, 0)\) — degenerate (basic variable \(x_3 = 0\)).</span></div>
+                <div class="eq-line"><span>Step 6: Set \(x_1 = x_3 = 0\) (basic \(x_2, x_4\)):</span></div>
+                <div class="eq-line"><span>\(6x_2 + x_4 = 3\), \(4x_2 + 6x_4 = 2\). Solving: \(x_2 = 1/2\), \(x_4 = 0\). BFS: \((0, 1/2, 0, 0)\) — degenerate (basic variable \(x_4 = 0\)).</span></div>
+                <div class="eq-line"><span>Step 7: Set \(x_1 = x_2 = 0\) (basic \(x_3, x_4\)):</span></div>
+                <div class="eq-line"><span>\(2x_3 + x_4 = 3\), \(4x_3 + 6x_4 = 2\). Solving: \(x_3 = 2\), \(x_4 = -1\). Infeasible.</span></div>
+                <div class="eq-line"><span>Step 8: Basic feasible solutions are \((0, 1/2, 0, 0)\) [appearing multiple times]. In every BFS at least one basic variable is zero → all BFS are <strong>degenerate</strong>.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Only basic feasible solution is \((0, 1/2, 0, 0)\); it is degenerate (more than one basis gives the same point).</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: fundamental theorem illustration -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4.</strong> Use the fundamental theorem of LPP to argue that the LPP \(\max Z = 3x_1 + 4x_2\) s.t. \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\) must have its optimum at one of its basic feasible solutions. Then list all BFS and find the optimum. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Standard form: \(x_1 + x_2 + s_1 = 450\), \(2x_1 + x_2 + s_2 = 600\), all \(\ge 0\). Here \(m = 2\), \(m + n = 4\), so \(n = 2\).</span></div>
+                <div class="eq-line"><span>Step 2: The fundamental theorem says the optimum (if finite) occurs at a BFS. Total basic solutions \(= \binom{4}{2} = 6\).</span></div>
+                <div class="eq-line"><span>Step 3: Set \(x_1 = x_2 = 0\) (basis \(s_1, s_2\)): \(s_1 = 450\), \(s_2 = 600\). BFS: \((0, 0, 450, 600)\), \(Z = 0\).</span></div>
+                <div class="eq-line"><span>Step 4: Set \(x_1 = s_1 = 0\) (basis \(x_2, s_2\)): \(x_2 = 450\), \(s_2 = 600 - 450 = 150\). BFS: \((0, 450, 0, 150)\), \(Z = 1800\).</span></div>
+                <div class="eq-line"><span>Step 5: Set \(x_1 = s_2 = 0\) (basis \(x_2, s_1\)): \(x_2 = 600\), \(s_1 = 450 - 600 = -150\). Infeasible.</span></div>
+                <div class="eq-line"><span>Step 6: Set \(x_2 = s_1 = 0\) (basis \(x_1, s_2\)): \(x_1 = 450\), \(s_2 = 600 - 900 = -300\). Infeasible.</span></div>
+                <div class="eq-line"><span>Step 7: Set \(x_2 = s_2 = 0\) (basis \(x_1, s_1\)): \(2x_1 = 600 \Rightarrow x_1 = 300\), \(s_1 = 450 - 300 = 150\). BFS: \((300, 0, 150, 0)\), \(Z = 900\).</span></div>
+                <div class="eq-line"><span>Step 8: Set \(s_1 = s_2 = 0\) (basis \(x_1, x_2\)): \(x_1 + x_2 = 450\), \(2x_1 + x_2 = 600\). Solving: \(x_1 = 150\), \(x_2 = 300\). BFS: \((150, 300, 0, 0)\), \(Z = 1650\).</span></div>
+                <div class="eq-line"><span>Step 9: Among the four BFS, \(Z\) values are \(0, 1800, 900, 1650\). The maximum is \(1800\) at \((0, 450, 0, 150)\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ By the fundamental theorem, checking the BFS suffices. Optimum: \(x_1 = 0\), \(x_2 = 450\), \(Z_{\max} = 1800\).</p>
+            </div>
+        </div>
+
+        <!-- 5. HOMEWORK -->
+        <div class="section-heading">🏠 5. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Define the following terms: solution, feasible solution, basic solution, basic feasible solution, degenerate BFS, non-degenerate BFS, optimal BFS. (6 marks)</li>
+                <li>State the fundamental theorem of LPP and explain its significance for the simplex method. (6 marks)</li>
+                <li>Find all basic solutions to \(x_1 + 2x_2 + 3x_3 = 4,\; 2x_1 + 3x_2 + 5x_3 = 7\). Classify each as feasible/infeasible and non-degenerate/degenerate, and find the optimal BFS. (6 marks)</li>
+                <li>Find all basic feasible solutions of \(2x_1 + 6x_2 + 2x_3 + x_4 = 3,\; 6x_1 + 4x_2 + 4x_3 + 6x_4 = 2\). Show that all BFS are degenerate. (6 marks)</li>
+                <li>For the LPP max \(Z = 3x_1 + 4x_2\) s.t. \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\), enumerate all BFS of the standard form and find the optimum. (6 marks)</li>
+                <li>Explain the geometric interpretation of a basic feasible solution (extreme point of the feasible region) and of a degenerate BFS (more than \(n\) active constraints at a vertex). (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 6. Quick Summary</div>
+        <div class="theorem-box" style="background:#eaf4e0;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0; color: #2a3e23;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Basic solution:</strong> set \(n\) variables to zero; solve for the remaining \(m\).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">BFS:</strong> basic solution with all variables \(\ge 0\); equal to an extreme point.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Degenerate BFS:</strong> some basic variable equals zero.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Fundamental theorem:</strong> the optimum of an LPP (if finite) occurs at a BFS.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #2e5f2d;">Number of basic solutions:</strong> \(\binom{m+n}{m}\) — finite; this is why the simplex only needs to check a handful of candidates.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.13–2.14, pp. 154–161.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #4c6b41; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture40_BasicFeasibleSolution_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

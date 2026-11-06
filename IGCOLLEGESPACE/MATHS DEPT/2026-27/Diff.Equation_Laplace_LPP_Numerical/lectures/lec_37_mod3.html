@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 37 | Canonical Form of LPP | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #1a2238;
+            color: #e8e4c9;
+            line-height: 1.6;
+        }
+        :root {
+            --deep-blue: #1a2238;
+            --mid-blue: #253257;
+            --panel-blue: #202c47;
+            --warm-yellow: #f2c94c;
+            --pale-yellow: #f7e9a0;
+            --gold: #e0b03a;
+            --soft-yellow-bg: #2a3553;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #1a2238, #2c3e66); padding: 0.5rem 0;
+            border-bottom: 3px solid var(--warm-yellow);
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #2c3e66; color: var(--warm-yellow); font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #253257; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--warm-yellow);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c3e66, #1a2238); color: var(--warm-yellow); text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid var(--warm-yellow); cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #f2c94c, #e0b03a); color: #1a2238; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #3a4a7a, #2a3553); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #b8860b, #8b6914); color: #fff8dc; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: var(--panel-blue); border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); border-left: 10px solid var(--warm-yellow);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--warm-yellow); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: var(--gold); color: #1a2238; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--pale-yellow); margin-top: 6px;
+            border-bottom: 1px dashed #4a5a8a; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: var(--warm-yellow); margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #2a3553; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: var(--pale-yellow); font-weight: 500;
+            border: 1px solid #3a4a7a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: var(--pale-yellow); display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: var(--panel-blue); border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.4); border: 1px solid #3a4a7a;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--warm-yellow);
+            border-left: 5px solid var(--warm-yellow); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #253257; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid var(--warm-yellow);
+        }
+        .theorem-box .label {
+            font-weight: 700; color: var(--warm-yellow); font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #1e2a45; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #3a4a7a;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #f0ecc8;
+        }
+        .example-box {
+            background: #253257; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #3a4a7a;
+        }
+        .problem-item {
+            background: #1e2a45; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid var(--gold); transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: var(--pale-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #2a3553; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid var(--warm-yellow);
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: var(--warm-yellow); color: #1a2238; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: var(--pale-yellow); }
+        .co-badge {
+            background: var(--gold); color: #1a2238; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #2a3553;
+            border-radius: 30px; display: inline-block; color: var(--pale-yellow);
+            border: 1px solid #3a4a7a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #3a2f1a; border-left: 6px solid var(--warm-yellow); padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: var(--pale-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #253257; border-left: 6px solid var(--gold); padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        footer {
+            background: #253257; color: var(--pale-yellow); text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--warm-yellow);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: var(--warm-yellow); }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; color: #1a2238; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #2c3e66; color: #f2c94c !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1a2238;
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #8b6914 !important; }
+            .content-card p, .eq-line, .problem-text { color: #1a2238 !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f9f6e5 !important; color: #1a2238 !important; border-color: #d4a017 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #fdf8e1; color: #1a2238; border: 1px solid #d4a017; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #f0ecc8; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 37</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Canonical Form of LPP – Characteristics &amp; Representation</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.12-1 (Canonical Form)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Understand canonical form and its transformations</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>State the definition of the <strong>canonical form</strong> of an LPP</li>
+            <li>List its three defining characteristics</li>
+            <li>Convert any LPP to canonical form using elementary transformations</li>
+            <li>Convert a minimisation problem to canonical (maximisation) form</li>
+        </ul>
+
+        <!-- 2. DEFINITION -->
+        <div class="section-heading">📌 2. Definition of Canonical Form</div>
+        <div class="theorem-box">
+            <div class="label">Definition</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                The general LPP can always be put in the following form, called the <strong>canonical form</strong>:
+            </p>
+            \[
+            \begin{aligned}
+            \text{Maximise } Z &= \sum_{j=1}^{n} c_j x_j\\
+            \text{subject to } & \sum_{j=1}^{n} a_{ij} x_j \le b_i, \quad i = 1, 2, \dots, m,\\
+            & x_j \ge 0, \quad j = 1, 2, \dots, n.
+            \end{aligned}
+            \]
+        </div>
+
+        <!-- 3. THREE CHARACTERISTICS -->
+        <div class="section-heading">📐 3. Three Characteristics of the Canonical Form</div>
+        <div class="theorem-box">
+            <div class="label">The three conditions</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                <li>The <strong>objective function</strong> is of the <strong>maximisation</strong> type.</li>
+                <li>All constraints are of the <strong>\((\le)\) type</strong>, except the non-negativity restrictions (which are always of the \((\ge)\) type).</li>
+                <li>All decision variables are <strong>non-negative</strong>.</li>
+            </ol>
+        </div>
+
+        <!-- 4. ELEMENTARY TRANSFORMATIONS -->
+        <div class="section-heading">🔄 4. Elementary Transformations to Canonical Form</div>
+        <div class="theorem-box">
+            <div class="label">Rule 1 — Convert minimisation to maximisation</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Minimisation of a function \(f\) is equivalent to maximisation of \(-f\):
+            </p>
+            \[
+            \text{Minimise } Z = c_1 x_1 + \cdots + c_n x_n \;\Longleftrightarrow\; \text{Maximise } G = -Z = -c_1 x_1 - \cdots - c_n x_n,
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                with \(Z = -G\) at the end.
+            </p>
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule 2 — Change \((\ge)\) to \((\le)\)</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Multiply both sides by \(-1\):
+            </p>
+            \[
+            a_1 x_1 + a_2 x_2 \ge b \;\Longleftrightarrow\; -a_1 x_1 - a_2 x_2 \le -b.
+            \]
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule 3 — Replace equations by two opposite inequalities</div>
+            \[
+            a_1 x_1 + a_2 x_2 = b \;\Longleftrightarrow\; \begin{cases} a_1 x_1 + a_2 x_2 \le b\\ a_1 x_1 + a_2 x_2 \ge b. \end{cases}
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                (The second can then be converted to \(\le\) via Rule 2.)
+            </p>
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule 4 — Absolute value constraints</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">For \(b \ge 0\):</p>
+            \[
+            |a_1 x_1 + a_2 x_2| \le b \;\Longleftrightarrow\; -b \le a_1 x_1 + a_2 x_2 \le b,
+            \]
+            \[
+            |p_1 x_1 + p_2 x_2| \ge q \;\Longleftrightarrow\; p_1 x_1 + p_2 x_2 \ge q \;\text{or}\; p_1 x_1 + p_2 x_2 \le -q.
+            \]
+        </div>
+        <div class="theorem-box">
+            <div class="label">Rule 5 — Unrestricted variables</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                If a variable is unrestricted in sign, express it as the difference of two non-negative variables:
+            </p>
+            \[
+            x = x' - x'', \quad x' \ge 0,\; x'' \ge 0.
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Value of \(x\) is positive, zero, or negative depending on whether \(x'\) is greater than, equal to, or less than \(x''\).
+            </p>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> A minimisation problem is also said to be in canonical form if all its variables are non-negative and all its constraints are of \((\ge)\) type. But for the standard canonical form used in the simplex method, we always use the maximisation form.
+        </div>
+
+        <!-- 5. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 5. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step conversion.</p>
+
+        <!-- Problem 1: B1 (Section 6) canonical form -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Express the following LPP in canonical form: Maximise \(Z = 3x_1 + 5x_2 - 2x_3\), subject to \(x_1 + 2x_2 - x_3 \ge -4,\; -5x_1 + 6x_2 + 7x_3 \ge 5,\; 2x_1 + x_2 + 3x_3 = 10,\; x_1, x_2 \ge 0,\; x_3\) unrestricted. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Objective is already maximisation — Rule 1 not needed.</span></div>
+                <div class="eq-line"><span>Step 2: Constraint 1: \(x_1 + 2x_2 - x_3 \ge -4\). By Rule 2, multiply by \(-1\): \(-x_1 - 2x_2 + x_3 \le 4\).</span></div>
+                <div class="eq-line"><span>Step 3: Constraint 2: \(-5x_1 + 6x_2 + 7x_3 \ge 5\). Multiply by \(-1\): \(5x_1 - 6x_2 - 7x_3 \le -5\).</span></div>
+                <div class="eq-line"><span>Step 4: Constraint 3: \(2x_1 + x_2 + 3x_3 = 10\). By Rule 3, replace by two inequalities:</span></div>
+                <div class="eq-line"><span>\(2x_1 + x_2 + 3x_3 \le 10\), and \(2x_1 + x_2 + 3x_3 \ge 10\).</span></div>
+                <div class="eq-line"><span>Step 5: Convert the \(\ge\) from step 4 to \(\le\): \(-2x_1 - x_2 - 3x_3 \le -10\).</span></div>
+                <div class="eq-line"><span>Step 6: \(x_3\) unrestricted. By Rule 5, let \(x_3 = x_3' - x_3''\) with \(x_3', x_3'' \ge 0\).</span></div>
+                <div class="eq-line"><span>Step 7: Substitute \(x_3 = x_3' - x_3''\) in all expressions.</span></div>
+                <div class="eq-line"><span>Final canonical form:</span></div>
+                <div class="eq-line"><span>\(\begin{aligned}\text{Maximise } Z = &\; 3x_1 + 5x_2 - 2x_3' + 2x_3''\\\text{s.t. } & -x_1 - 2x_2 + x_3' - x_3'' \le 4,\\ & 5x_1 - 6x_2 - 7x_3' + 7x_3'' \le -5,\\ & 2x_1 + x_2 + 3x_3' - 3x_3'' \le 10,\\ & -2x_1 - x_2 - 3x_3' + 3x_3'' \le -10,\\ & x_1, x_2, x_3', x_3'' \ge 0.\end{aligned}\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Three original constraints became four after eliminating the equality and the unrestricted variable.</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: conversion of min to canonical -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Convert to canonical form: Minimise \(Z = 5x_1 + 3x_2\), subject to \(2x_1 + x_2 \ge 6,\; x_1 + 3x_2 \ge 9,\; x_1, x_2 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Objective is minimisation. By Rule 1, minimise \(Z = 5x_1 + 3x_2\) is equivalent to maximise \(G = -Z = -5x_1 - 3x_2\).</span></div>
+                <div class="eq-line"><span>Step 2: Constraints: \(2x_1 + x_2 \ge 6\) and \(x_1 + 3x_2 \ge 9\). By Rule 2, multiply by \(-1\): \(-2x_1 - x_2 \le -6\) and \(-x_1 - 3x_2 \le -9\).</span></div>
+                <div class="eq-line"><span>Step 3: All variables non-negative — OK.</span></div>
+                <div class="eq-line"><span>Final canonical form:</span></div>
+                <div class="eq-line"><span>\(\begin{aligned}\text{Maximise } G = &\; -5x_1 - 3x_2\\\text{s.t. } & -2x_1 - x_2 \le -6,\\ & -x_1 - 3x_2 \le -9,\\ & x_1, x_2 \ge 0.\end{aligned}\)</span></div>
+                <div class="eq-line"><span>Note: \(Z_{\min} = -G_{\max}\) for the original problem.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Objective sign changed; constraints' direction flipped; all variables ≥ 0.</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: conversion example with mixed constraints -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Write in canonical form: Minimise \(Z = 4x_1 + 5x_2 + 6x_3\), subject to \(2x_1 + 3x_3 \ge 6,\; 2x_1 + 3x_2 + 2x_3 = 8,\; 5x_1 - 2x_2 + 5x_3 \le 10,\; x_1, x_2, x_3 \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Minimisation → maximisation. Let \(G = -Z = -4x_1 - 5x_2 - 6x_3\).</span></div>
+                <div class="eq-line"><span>Step 2: Constraint 1: \(2x_1 + 3x_3 \ge 6\) → multiply by \(-1\): \(-2x_1 - 3x_3 \le -6\).</span></div>
+                <div class="eq-line"><span>Step 3: Constraint 2: \(2x_1 + 3x_2 + 2x_3 = 8\) → split into two inequalities:</span></div>
+                <div class="eq-line"><span>\(2x_1 + 3x_2 + 2x_3 \le 8\), and \(2x_1 + 3x_2 + 2x_3 \ge 8\).</span></div>
+                <div class="eq-line"><span>Then flip the \(\ge\) to \(\le\): \(-2x_1 - 3x_2 - 2x_3 \le -8\).</span></div>
+                <div class="eq-line"><span>Step 4: Constraint 3 is already \(\le\): \(5x_1 - 2x_2 + 5x_3 \le 10\).</span></div>
+                <div class="eq-line"><span>Step 5: All variables non-negative — OK.</span></div>
+                <div class="eq-line"><span>Final canonical form:</span></div>
+                <div class="eq-line"><span>\(\begin{aligned}\text{Maximise } G = &\; -4x_1 - 5x_2 - 6x_3\\\text{s.t. } & -2x_1 - 3x_3 \le -6,\\ & 2x_1 + 3x_2 + 2x_3 \le 8,\\ & -2x_1 - 3x_2 - 2x_3 \le -8,\\ & 5x_1 - 2x_2 + 5x_3 \le 10,\\ & x_1, x_2, x_3 \ge 0.\end{aligned}\)</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ All constraints are now of \(\le\) type, all variables non-negative, objective is maximisation.</p>
+            </div>
+        </div>
+
+        <!-- 6. HOMEWORK -->
+        <div class="section-heading">🏠 6. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Define the canonical form of an LPP. State its three characteristics. (3 marks)</li>
+                <li>Explain how a minimisation problem is converted to canonical form. (3 marks)</li>
+                <li>Convert the LPP "Maximise \(Z = 3x_1 + 5x_2 - 2x_3\), subject to \(x_1 + 2x_2 - x_3 \ge -4,\; -5x_1 + 6x_2 + 7x_3 \ge 5,\; 2x_1 + x_2 + 3x_3 = 10,\; x_1, x_2 \ge 0,\; x_3\) unrestricted" to canonical form. (6 marks)</li>
+                <li>Convert the LPP "Minimise \(Z = 5x_1 + 3x_2\), subject to \(2x_1 + x_2 \ge 6,\; x_1 + 3x_2 \ge 9,\; x_1, x_2 \ge 0\)" to canonical form. (6 marks)</li>
+                <li>Write in canonical form: Minimise \(Z = 4x_1 + 5x_2 + 6x_3\), subject to \(2x_1 + 3x_3 \ge 6,\; 2x_1 + 3x_2 + 2x_3 = 8,\; 5x_1 - 2x_2 + 5x_3 \le 10,\; x_1, x_2, x_3 \ge 0\). (6 marks)</li>
+                <li>List the five elementary transformations used to bring an LPP to canonical form. (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 7. Quick Summary</div>
+        <div class="theorem-box" style="background:#2a3553;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0; color: #f0ecc8;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Canonical form:</strong> maximisation objective, all constraints \((\le)\), all variables non-negative.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Transformations:</strong> min → max (change sign), \(\ge\) → \(\le\) (multiply by \(-1\)), equations → two inequalities, absolute value → two inequalities, unrestricted variables → difference of non-negative variables.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #f2c94c;">Uses:</strong> canonical form is helpful in dealing with duality theory (§6.1).</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.12-1, pp. 148–152.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #c9c48a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture37_CanonicalFormOfLPP_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>
