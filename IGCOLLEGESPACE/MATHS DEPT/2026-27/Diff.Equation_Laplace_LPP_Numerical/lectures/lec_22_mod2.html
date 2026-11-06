@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Notice | Excluded from Syllabus | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #f3e8f2; color: #3a1a4a; line-height: 1.6;
+        }
+        :root {
+            --sky-blue: #4a6eae;
+            --pink-shade: #c25a8a;
+            --light-bg: #e8e0f2;
+            --card-bg: #ffffff;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #4a6eae, #c25a8a); padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #f5eef8; color: #000000; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-bar {
+            background: #3a4a7a; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--sky-blue);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #4a6eae, #3a4a7a); color: white; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #6a8ece, #4a5a8a); transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #6a5a8e, #4a3a6e); }
+        .nav-links .btn-secondary:hover { background: linear-gradient(135deg, #8a7aae, #6a5a8e); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #5a6eae, #3a4a7a); }
+        .nav-links .btn-pdf:hover { background: #6a8ece; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: white; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); border-left: 10px solid var(--sky-blue);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--sky-blue); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #c25a8a; color: white; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 600; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--pink-shade); margin-top: 6px;
+            border-bottom: 1px dashed #d8b8d8; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #6a2a6a; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #e8e0f2; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #6a3a8a; font-weight: 500;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #4a3a6e; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: white; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #d8c8e8;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--sky-blue);
+            border-left: 5px solid var(--sky-blue); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f0eaf8; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid var(--pink-shade);
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #6a2a6a; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #f5f0fc; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #e8e0f2;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+        }
+        .example-box {
+            background: #f5eef8; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #d8c8e8;
+        }
+        .problem-item {
+            background: #fef8fc; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid var(--pink-shade); transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #f0eaf8; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #d8b8d8;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #c25a8a; color: white; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #a24a7a; }
+        .co-badge {
+            background: #6a5a8e; color: white; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #e8e0f2;
+            border-radius: 30px; display: inline-block; color: #6a3a8a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fef0f8; border-left: 6px solid #c25a8a; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f0ff; border-left: 6px solid #4a6eae; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        footer {
+            background: #3a4a7a; color: #e8e0f2; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--pink-shade);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #ffbcda; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #f5eef8; color: black !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #f5f0fc; border: 1px solid #d8c8e8; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Notice</span>
+        </div>
+        <div class="module-name">📌 Syllabus Notice</div>
+        <div class="lecture-title">📖 Excluded from Syllabus</div>
+        <div class="textbook-ref">📚 Course: Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>📢 Important Announcement</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="section-heading">📢 Notice</div>
+        <div class="theorem-box" style="text-align: center; padding: 2.5rem 1.5rem;">
+            <p style="font-size: 1.6rem; font-weight: 700; color: #6a2a6a; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; line-height: 1.8;">
+                This is excluded from our Syllabus.
+            </p>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> KU3DSCMAT211 Syllabus – Exclusion List, Module II (Sections 6.1, 6.2).
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a8a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Notice_ExcludedFromSyllabus_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>
