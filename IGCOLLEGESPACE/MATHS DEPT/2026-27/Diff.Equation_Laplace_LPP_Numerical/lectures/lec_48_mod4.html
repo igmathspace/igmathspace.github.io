@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 48 | Bisection Method: Examples & Step-by-Step Computation | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #e6f0fa; color: #1a2b4c; line-height: 1.6;
+        }
+        :root {
+            --blue-bg: #e6f0fa;
+            --blue-panel: #ffffff;
+            --blue-dark: #1e4d7b;
+            --blue-deeper: #14365a;
+            --blue-accent: #4a90e2;
+            --blue-soft: #cce0f5;
+            --blue-line: #a8c8ec;
+            --text-dark: #1a2b4c;
+            --text-soft: #3b5a82;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #1e4d7b, #4a90e2); padding: 0.5rem 0;
+            border-bottom: 3px solid #14365a;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #4a90e2; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #2c6aa0; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #14365a;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #1e4d7b, #14365a); color: #e6f0fa; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #a8c8ec; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #4a90e2, #2c6aa0); color: #1a2b4c; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #2c6aa0, #1e4d7b); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #4a90e2, #2c6aa0); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(30, 77, 123, 0.12);
+            border-left: 10px solid #1e4d7b;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #14365a; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #4a90e2; color: #ffffff; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #1e4d7b; margin-top: 6px;
+            border-bottom: 1px dashed #a8c8ec; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #14365a; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #cce0f5; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #14365a; font-weight: 500;
+            border: 1px solid #a8c8ec;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #1e4d7b; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(30, 77, 123, 0.10);
+            border: 1px solid #cce0f5;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #1e4d7b;
+            border-left: 5px solid #4a90e2; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f5f9fe; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #4a90e2;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #14365a; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #eaf2fb; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #a8c8ec;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #1a2b4c;
+        }
+        .example-box {
+            background: #f5f9fe; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #cce0f5;
+        }
+        .problem-item {
+            background: #f9fcff; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #4a90e2; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #1a2b4c;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #eaf2fb; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #4a90e2;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #4a90e2; color: #ffffff; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #2c6aa0; }
+        .co-badge {
+            background: #2c6aa0; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #cce0f5;
+            border-radius: 30px; display: inline-block; color: #14365a;
+            border: 1px solid #a8c8ec;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f5f9fe; border-left: 6px solid #2c6aa0; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        /* TABLE FOR BISECTION */
+        .bisect-table {
+            width: 100%; border-collapse: collapse;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.82rem; margin: 1rem 0; text-align: center;
+            background: #ffffff;
+        }
+        .bisect-table th, .bisect-table td {
+            border: 1px solid #334455;
+            padding: 6px 8px;
+            vertical-align: middle;
+        }
+        .bisect-table thead th {
+            background: #e0eaf6;
+            color: #1a2b4c;
+            font-weight: 700;
+            border-bottom: 2px solid #334455;
+        }
+        .bisect-table tbody td {
+            background: #fbfdff;
+        }
+        .bisect-table .bold { font-weight: 700; color: #c0392b; }
+        footer {
+            background: #2c6aa0; color: #e6f0fa; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #14365a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #cce0f5; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+            .bisect-table { font-size: 0.7rem; }
+        }
+        @media print {
+            body { background: white; color: #1a2b4c; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #4a90e2; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1a2b4c;
+                box-shadow: none; border: 1px solid #a8c8ec;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #14365a !important; }
+            .content-card p, .eq-line, .problem-text { color: #1a2b4c !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f5f9fe !important; color: #1a2b4c !important; border-color: #a8c8ec !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #eaf2fb; color: #1a2b4c; border: 1px solid #a8c8ec; }
+            .bisect-table th, .bisect-table td { border-color: #000 !important; }
+            .bisect-table thead th { background: #e0eaf6 !important; print-color-adjust: exact; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #1a2b4c; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 48</span>
+        </div>
+        <div class="module-name">📌 Module IV | Numerical Methods</div>
+        <div class="lecture-title">📖 Topic: Bisection Method — Examples &amp; Step-by-Step Computation</div>
+        <div class="textbook-ref">📚 Textbook: Introductory Methods of Numerical Analysis – S.S. Sastry | §2.2 (Examples)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO4: Apply the bisection method to solve nonlinear equations</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO4)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Apply the bisection algorithm step-by-step to various equations</li>
+            <li>Record iterations in a standard tableau and track the bracketing interval</li>
+            <li>Determine the number of iterations required for a given accuracy</li>
+            <li>Recognise the effect of trigonometric functions (and set calculators to Radian mode)</li>
+        </ul>
+
+        <!-- 2. IMPORTANT CALCULATOR WARNING -->
+        <div class="caution-box" style="background: #fdecea; border-left-color: #d32f2f; color: #5a1010; font-size: 1.05rem; padding: 1.2rem;">
+            <strong>🚨 IMPORTANT WARNING: CALCULATOR MODE</strong><br>
+            For any equation involving trigonometric functions (such as \(\sin x\) or \(\cos x\)), you <strong>MUST</strong> ensure your scientific calculator is set to <strong>RADIAN MODE</strong>. Calculating functions in the wrong mode will result in completely incorrect values for \(f(x)\) and an incorrect interval.
+        </div>
+
+        <!-- 3. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 2. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution and the completed bisection tableau.</p>
+
+        <!-- Problem 1: Example 2.1 (Sastry) - x^3 - x - 1 = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Find a real root of \(x^3 - x - 1 = 0\) using the bisection method. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Let \(f(x) = x^3 - x - 1\). Then \(f(1) = -1 < 0\) and \(f(2) = 5 > 0\). Root lies in \((1, 2)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform bisection iterations:</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>1</td><td>1.5</td><td>2</td><td>−1</td><td>+0.875</td><td>+5</td><td class="bold">[1, 1.5]</td></tr>
+                        <tr><td>2</td><td>1</td><td>1.25</td><td>1.5</td><td>−1</td><td>−0.296875</td><td>+0.875</td><td class="bold">[1.25, 1.5]</td></tr>
+                        <tr><td>3</td><td>1.25</td><td>1.375</td><td>1.5</td><td>−0.296875</td><td>+0.224609</td><td>+0.875</td><td class="bold">[1.25, 1.375]</td></tr>
+                        <tr><td>4</td><td>1.25</td><td>1.3125</td><td>1.375</td><td>−0.296875</td><td>−0.051514</td><td>+0.224609</td><td class="bold">[1.3125, 1.375]</td></tr>
+                        <tr><td>5</td><td>1.3125</td><td>1.34375</td><td>1.375</td><td>−0.051514</td><td>+0.082611</td><td>+0.224609</td><td class="bold">[1.3125, 1.34375]</td></tr>
+                        <tr><td>6</td><td>1.3125</td><td>1.328125</td><td>1.34375</td><td>−0.051514</td><td>+0.014576</td><td>+0.082611</td><td class="bold">[1.3125, 1.328125]</td></tr>
+                        <tr><td>7</td><td>1.3125</td><td>1.320313</td><td>1.328125</td><td>−0.051514</td><td>−0.018711</td><td>+0.014576</td><td class="bold">[1.320313, 1.328125]</td></tr>
+                        <tr><td>8</td><td>1.320313</td><td>1.324219</td><td>1.328125</td><td>−0.018711</td><td>−0.002129</td><td>+0.014576</td><td class="bold">[1.324219, 1.328125]</td></tr>
+                        <tr><td>9</td><td>1.324219</td><td>1.326172</td><td>1.328125</td><td>−0.002129</td><td>+0.006205</td><td>+0.014576</td><td class="bold">[1.324219, 1.326172]</td></tr>
+                        <tr><td>10</td><td>1.324219</td><td>1.325195</td><td>1.326172</td><td>−0.002129</td><td>+0.002034</td><td>+0.006205</td><td class="bold">[1.324219, 1.325195]</td></tr>
+                        <tr><td>11</td><td>1.324219</td><td>1.324707</td><td>1.325195</td><td>−0.002129</td><td>−0.000048</td><td>+0.002034</td><td class="bold">[1.324707, 1.325195]</td></tr>
+                        <tr><td>12</td><td>1.324707</td><td>1.324951</td><td>1.325195</td><td>−0.000048</td><td>+0.000992</td><td>+0.002034</td><td class="bold">[1.324707, 1.324951]</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="eq-line"><span>Step 3: After 12 iterations, interval width = \(1.324951 - 1.324707 = 0.000244 < 0.001\), giving root correct to 3 decimal places.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x \approx 1.3247\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: Example 2.2 (Sastry) - x^3 - 2x - 5 = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Find a real root of \(x^3 - 2x - 5 = 0\) using the bisection method. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Let \(f(x) = x^3 - 2x - 5\). Then \(f(2) = -1 < 0\) and \(f(3) = 16 > 0\). Root lies in \((2, 3)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform bisection iterations:</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>2</td><td>2.5</td><td>3</td><td>−1</td><td>+5.625</td><td>+16</td><td class="bold">[2, 2.5]</td></tr>
+                        <tr><td>2</td><td>2</td><td>2.25</td><td>2.5</td><td>−1</td><td>+1.890625</td><td>+5.625</td><td class="bold">[2, 2.25]</td></tr>
+                        <tr><td>3</td><td>2</td><td>2.125</td><td>2.25</td><td>−1</td><td>+0.345703</td><td>+1.890625</td><td class="bold">[2, 2.125]</td></tr>
+                        <tr><td>4</td><td>2</td><td>2.0625</td><td>2.125</td><td>−1</td><td>−0.351013</td><td>+0.345703</td><td class="bold">[2.0625, 2.125]</td></tr>
+                        <tr><td>5</td><td>2.0625</td><td>2.09375</td><td>2.125</td><td>−0.351013</td><td>−0.000426</td><td>+0.345703</td><td class="bold">[2.09375, 2.125]</td></tr>
+                        <tr><td>6</td><td>2.09375</td><td>2.109375</td><td>2.125</td><td>−0.000426</td><td>+0.173386</td><td>+0.345703</td><td class="bold">[2.09375, 2.109375]</td></tr>
+                        <tr><td>7</td><td>2.09375</td><td>2.101563</td><td>2.109375</td><td>−0.000426</td><td>+0.086241</td><td>+0.173386</td><td class="bold">[2.09375, 2.101563]</td></tr>
+                        <tr><td>8</td><td>2.09375</td><td>2.097656</td><td>2.101563</td><td>−0.000426</td><td>+0.042844</td><td>+0.086241</td><td class="bold">[2.09375, 2.097656]</td></tr>
+                        <tr><td>9</td><td>2.09375</td><td>2.095703</td><td>2.097656</td><td>−0.000426</td><td>+0.021183</td><td>+0.042844</td><td class="bold">[2.09375, 2.095703]</td></tr>
+                        <tr><td>10</td><td>2.09375</td><td>2.094727</td><td>2.095703</td><td>−0.000426</td><td>+0.010372</td><td>+0.021183</td><td class="bold">[2.09375, 2.094727]</td></tr>
+                        <tr><td>11</td><td>2.09375</td><td>2.094238</td><td>2.094727</td><td>−0.000426</td><td>+0.004972</td><td>+0.010372</td><td class="bold">[2.09375, 2.094238]</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="eq-line"><span>Step 3: \(|x_{11} - x_{10}| = |2.094238 - 2.094727| = 0.000489\); relative error \(= \dfrac{0.000489}{2.094238}\times 100 \approx 0.023\%\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x \approx 2.094\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: Example 2.3 (Sastry) - x^3 + x^2 + x + 7 = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Find a real root of \(f(x) = x^3 + x^2 + x + 7 = 0\) correct to three decimal places. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Evaluate: \(f(-1) = 6, f(-2) = 1, f(-3) = -14\). Root lies in \((-3, -2)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform bisection iterations (tracking negative values):</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>−3</td><td>−2.5</td><td>−2</td><td>−14</td><td>−4.875</td><td>+1</td><td class="bold">[−2.5, −2]</td></tr>
+                        <tr><td>2</td><td>−2.5</td><td>−2.25</td><td>−2</td><td>−4.875</td><td>−1.578125</td><td>+1</td><td class="bold">[−2.25, −2]</td></tr>
+                        <tr><td>3</td><td>−2.25</td><td>−2.125</td><td>−2</td><td>−1.578125</td><td>−0.439453</td><td>+1</td><td class="bold">[−2.125, −2]</td></tr>
+                        <tr><td>4</td><td>−2.125</td><td>−2.0625</td><td>−2</td><td>−0.439453</td><td>+0.232666</td><td>+1</td><td class="bold">[−2.125, −2.0625]</td></tr>
+                        <tr><td>5</td><td>−2.125</td><td>−2.09375</td><td>−2.0625</td><td>−0.439453</td><td>−0.089294</td><td>+0.232666</td><td class="bold">[−2.09375, −2.0625]</td></tr>
+                        <tr><td>6</td><td>−2.09375</td><td>−2.078125</td><td>−2.0625</td><td>−0.089294</td><td>+0.075247</td><td>+0.232666</td><td class="bold">[−2.09375, −2.078125]</td></tr>
+                        <tr><td>7</td><td>−2.09375</td><td>−2.085938</td><td>−2.078125</td><td>−0.089294</td><td>−0.006051</td><td>+0.075247</td><td class="bold">[−2.085938, −2.078125]</td></tr>
+                        <tr><td>8</td><td>−2.085938</td><td>−2.082031</td><td>−2.078125</td><td>−0.006051</td><td>+0.034818</td><td>+0.075247</td><td class="bold">[−2.085938, −2.082031]</td></tr>
+                        <tr><td>9</td><td>−2.085938</td><td>−2.083984</td><td>−2.082031</td><td>−0.006051</td><td>+0.014438</td><td>+0.034818</td><td class="bold">[−2.085938, −2.083984]</td></tr>
+                        <tr><td>10</td><td>−2.085938</td><td>−2.084961</td><td>−2.083984</td><td>−0.006051</td><td>+0.004205</td><td>+0.014438</td><td class="bold">[−2.085938, −2.084961]</td></tr>
+                        <tr><td>11</td><td>−2.085938</td><td>−2.085449</td><td>−2.084961</td><td>−0.006051</td><td>−0.000921</td><td>+0.004205</td><td class="bold">[−2.085449, −2.084961]</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="eq-line"><span>Step 3: The difference between \(x_{10}\) and \(x_{11}\) is \(0.0005\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x \approx -2.105\), correct to three decimal places.</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: Example 2.4 (Sastry) - x = e^{-x} -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4.</strong> Find the positive root, between 0 and 1, of the equation \(x = e^{-x}\) to a tolerance of \(0.05\%\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Rewrite as \(f(x) = xe^x - 1 = 0\). \(f(0) = -1\), \(f(1) = e - 1 > 0\). Root lies in \((0, 1)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform bisection iterations:</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>0</td><td>0.5</td><td>1.0</td><td>−1</td><td>−0.175639</td><td>+1.71828</td><td class="bold">[0.5, 1.0]</td></tr>
+                        <tr><td>2</td><td>0.5</td><td>0.75</td><td>1.0</td><td>−0.175639</td><td>+0.587751</td><td>+1.71828</td><td class="bold">[0.5, 0.75]</td></tr>
+                        <tr><td>3</td><td>0.5</td><td>0.625</td><td>0.75</td><td>−0.175639</td><td>+0.170608</td><td>+0.587751</td><td class="bold">[0.5, 0.625]</td></tr>
+                        <tr><td>4</td><td>0.5</td><td>0.5625</td><td>0.625</td><td>−0.175639</td><td>−0.011737</td><td>+0.170608</td><td class="bold">[0.5625, 0.625]</td></tr>
+                        <tr><td>5</td><td>0.5625</td><td>0.59375</td><td>0.625</td><td>−0.011737</td><td>+0.076941</td><td>+0.170608</td><td class="bold">[0.5625, 0.59375]</td></tr>
+                        <tr><td>6</td><td>0.5625</td><td>0.578125</td><td>0.59375</td><td>−0.011737</td><td>+0.031918</td><td>+0.076941</td><td class="bold">[0.5625, 0.578125]</td></tr>
+                        <tr><td>7</td><td>0.5625</td><td>0.570313</td><td>0.578125</td><td>−0.011737</td><td>+0.009902</td><td>+0.031918</td><td class="bold">[0.5625, 0.570313]</td></tr>
+                        <tr><td>8</td><td>0.5625</td><td>0.566406</td><td>0.570313</td><td>−0.011737</td><td>−0.000943</td><td>+0.009902</td><td class="bold">[0.566406, 0.570313]</td></tr>
+                        <tr><td>9</td><td>0.566406</td><td>0.568359</td><td>0.570313</td><td>−0.000943</td><td>+0.004469</td><td>+0.009902</td><td class="bold">[0.566406, 0.568359]</td></tr>
+                        <tr><td>10</td><td>0.566406</td><td>0.567383</td><td>0.568359</td><td>−0.000943</td><td>+0.001761</td><td>+0.004469</td><td class="bold">[0.566406, 0.567383]</td></tr>
+                        <tr><td>11</td><td>0.566406</td><td>0.566895</td><td>0.567383</td><td>−0.000943</td><td>+0.000381</td><td>+0.001761</td><td class="bold">[0.566406, 0.566895]</td></tr>
+                        <tr><td>12</td><td>0.566406</td><td>0.566650</td><td>0.566895</td><td>−0.000943</td><td>−0.000281</td><td>+0.000381</td><td class="bold">[0.566650, 0.566895]</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="eq-line"><span>Step 3: \(\epsilon_{11} = \left|\dfrac{0.5671 - 0.5669}{0.5671}\right| \times 100 \approx 0.035\% < 0.05\%\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Root ≈ \(0.567\), correct to three decimal places.</p>
+            </div>
+        </div>
+
+        <!-- Problem 5: Example 2.5 (Sastry) - 4e^{-x} sin x - 1 = 0 (Radian Warning) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 5.</strong> Find a root, correct to three decimal places and lying between 0 and 0.5, of \(4e^{-x}\sin x - 1 = 0\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <div style="background:#fdecea; border-left:6px solid #d32f2f; padding:10px 15px; border-radius:10px; margin-bottom:1rem; color:#5a1010; font-family:'Segoe UI',sans-serif; font-weight:bold;">
+                    🚨 NOTE: Set your calculator to RADIAN mode before evaluating \(\sin x\).
+                </div>
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: \(f(x) = 4e^{-x}\sin x - 1\). \(f(0) = -1 < 0\) and \(f(0.5) = 0.163145 > 0\). Root lies in \((0, 0.5)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform bisection iterations:</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>0</td><td>0.25</td><td>0.5</td><td>−1</td><td>−0.22929</td><td>+0.163145</td><td class="bold">[0.25, 0.5]</td></tr>
+                        <tr><td>2</td><td>0.25</td><td>0.375</td><td>0.5</td><td>−0.22929</td><td>+0.01929</td><td>+0.163145</td><td class="bold">[0.25, 0.375]</td></tr>
+                        <tr><td>3</td><td>0.25</td><td>0.3125</td><td>0.375</td><td>−0.22929</td><td>−0.10696</td><td>+0.01929</td><td class="bold">[0.3125, 0.375]</td></tr>
+                        <tr><td>4</td><td>0.3125</td><td>0.34375</td><td>0.375</td><td>−0.10696</td><td>−0.04419</td><td>+0.01929</td><td class="bold">[0.34375, 0.375]</td></tr>
+                        <tr><td>5</td><td>0.34375</td><td>0.359375</td><td>0.375</td><td>−0.04419</td><td>−0.01260</td><td>+0.01929</td><td class="bold">[0.359375, 0.375]</td></tr>
+                        <tr><td>6</td><td>0.359375</td><td>0.367188</td><td>0.375</td><td>−0.01260</td><td>+0.00328</td><td>+0.01929</td><td class="bold">[0.359375, 0.367188]</td></tr>
+                        <tr><td>7</td><td>0.359375</td><td>0.363281</td><td>0.367188</td><td>−0.01260</td><td>−0.00467</td><td>+0.00328</td><td class="bold">[0.363281, 0.367188]</td></tr>
+                        <tr><td>8</td><td>0.363281</td><td>0.365234</td><td>0.367188</td><td>−0.00467</td><td>−0.00070</td><td>+0.00328</td><td class="bold">[0.365234, 0.367188]</td></tr>
+                        <tr><td>9</td><td>0.365234</td><td>0.366211</td><td>0.367188</td><td>−0.00070</td><td>+0.00129</td><td>+0.00328</td><td class="bold">[0.365234, 0.366211]</td></tr>
+                        <tr><td>10</td><td>0.365234</td><td>0.365723</td><td>0.366211</td><td>−0.00070</td><td>+0.00029</td><td>+0.00129</td><td class="bold">[0.365234, 0.365723]</td></tr>
+                        <tr><td>11</td><td>0.365234</td><td>0.365479</td><td>0.365723</td><td>−0.00070</td><td>−0.00021</td><td>+0.00029</td><td class="bold">[0.365479, 0.365723]</td></tr>
+                        <tr><td>12</td><td>0.365479</td><td>0.365601</td><td>0.365723</td><td>−0.00021</td><td>+0.00004</td><td>+0.00029</td><td class="bold">[0.365479, 0.365601]</td></tr>
+                    </tbody>
+                </table>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x \approx 0.371\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <!-- Problem 6: Question bank B9 (Sastry exercise 2.9) - x = 3e^{-x} -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 6.</strong> Find a real root of \(x = 3e^{-x}\) using the bisection method. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="6">📖 Answer</button>
+            </div>
+            <div id="sol6" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Rewrite as \(f(x) = xe^x - 3 = 0\). \(f(0) = -3 < 0\), \(f(1) = e - 3 \approx -0.281 < 0\), \(f(2) = 2e^2 - 3 \approx 11.78 > 0\). Root lies in \((1, 2)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform bisection iterations:</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>1</td><td>1.5</td><td>2.0</td><td>−0.28172</td><td>+3.72253</td><td>+11.77811</td><td class="bold">[1.0, 1.5]</td></tr>
+                        <tr><td>2</td><td>1.0</td><td>1.25</td><td>1.5</td><td>−0.28172</td><td>+1.89257</td><td>+3.72253</td><td class="bold">[1.0, 1.25]</td></tr>
+                        <tr><td>3</td><td>1.0</td><td>1.125</td><td>1.25</td><td>−0.28172</td><td>+0.65912</td><td>+1.89257</td><td class="bold">[1.0, 1.125]</td></tr>
+                        <tr><td>4</td><td>1.0</td><td>1.0625</td><td>1.125</td><td>−0.28172</td><td>+0.13962</td><td>+0.65912</td><td class="bold">[1.0, 1.0625]</td></tr>
+                        <tr><td>5</td><td>1.0</td><td>1.03125</td><td>1.0625</td><td>−0.28172</td><td>−0.08469</td><td>+0.13962</td><td class="bold">[1.03125, 1.0625]</td></tr>
+                        <tr><td>6</td><td>1.03125</td><td>1.046875</td><td>1.0625</td><td>−0.08469</td><td>+0.02350</td><td>+0.13962</td><td class="bold">[1.03125, 1.046875]</td></tr>
+                        <tr><td>7</td><td>1.03125</td><td>1.0390625</td><td>1.046875</td><td>−0.08469</td><td>−0.03151</td><td>+0.02350</td><td class="bold">[1.0390625, 1.046875]</td></tr>
+                        <tr><td>8</td><td>1.0390625</td><td>1.04296875</td><td>1.046875</td><td>−0.03151</td><td>−0.00423</td><td>+0.02350</td><td class="bold">[1.04296875, 1.046875]</td></tr>
+                        <tr><td>9</td><td>1.04296875</td><td>1.044921875</td><td>1.046875</td><td>−0.00423</td><td>+0.00957</td><td>+0.02350</td><td class="bold">[1.04296875, 1.044921875]</td></tr>
+                        <tr><td>10</td><td>1.04296875</td><td>1.0439453</td><td>1.044921875</td><td>−0.00423</td><td>+0.00265</td><td>+0.00957</td><td class="bold">[1.04296875, 1.0439453]</td></tr>
+                        <tr><td>11</td><td>1.04296875</td><td>1.0434570</td><td>1.0439453</td><td>−0.00423</td><td>−0.00079</td><td>+0.00265</td><td class="bold">[1.0434570, 1.0439453]</td></tr>
+                    </tbody>
+                </table>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x \approx 1.043\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <!-- Problem 7: Question bank C2 - x = e^{-x} (again but tolerance) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 7.</strong> Find the positive root, between 0 and 1, of \(x = e^{-x}\) to a tolerance of \(0.05\%\) using the bisection method. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="7">📖 Answer</button>
+            </div>
+            <div id="sol7" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Let \(f(x) = x - e^{-x} = 0\). \(f(0) = -1 < 0\), \(f(1) = 1 - e^{-1} \approx 0.632 > 0\). Root in \((0, 1)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform iterations:</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>0</td><td>0.5</td><td>1.0</td><td>−1</td><td>−0.10653</td><td>+0.63212</td><td class="bold">[0.5, 1.0]</td></tr>
+                        <tr><td>2</td><td>0.5</td><td>0.75</td><td>1.0</td><td>−0.10653</td><td>+0.27763</td><td>+0.63212</td><td class="bold">[0.5, 0.75]</td></tr>
+                        <tr><td>3</td><td>0.5</td><td>0.625</td><td>0.75</td><td>−0.10653</td><td>+0.08974</td><td>+0.27763</td><td class="bold">[0.5, 0.625]</td></tr>
+                        <tr><td>4</td><td>0.5</td><td>0.5625</td><td>0.625</td><td>−0.10653</td><td>−0.00728</td><td>+0.08974</td><td class="bold">[0.5625, 0.625]</td></tr>
+                        <tr><td>5</td><td>0.5625</td><td>0.59375</td><td>0.625</td><td>−0.00728</td><td>+0.04163</td><td>+0.08974</td><td class="bold">[0.5625, 0.59375]</td></tr>
+                        <tr><td>6</td><td>0.5625</td><td>0.578125</td><td>0.59375</td><td>−0.00728</td><td>+0.01722</td><td>+0.04163</td><td class="bold">[0.5625, 0.578125]</td></tr>
+                        <tr><td>7</td><td>0.5625</td><td>0.570313</td><td>0.578125</td><td>−0.00728</td><td>+0.00498</td><td>+0.01722</td><td class="bold">[0.5625, 0.570313]</td></tr>
+                        <tr><td>8</td><td>0.5625</td><td>0.566406</td><td>0.570313</td><td>−0.00728</td><td>−0.00114</td><td>+0.00498</td><td class="bold">[0.566406, 0.570313]</td></tr>
+                        <tr><td>9</td><td>0.566406</td><td>0.568359</td><td>0.570313</td><td>−0.00114</td><td>+0.00191</td><td>+0.00498</td><td class="bold">[0.566406, 0.568359]</td></tr>
+                        <tr><td>10</td><td>0.566406</td><td>0.567383</td><td>0.568359</td><td>−0.00114</td><td>+0.00038</td><td>+0.00191</td><td class="bold">[0.566406, 0.567383]</td></tr>
+                        <tr><td>11</td><td>0.566406</td><td>0.566895</td><td>0.567383</td><td>−0.00114</td><td>−0.00038</td><td>+0.00038</td><td class="bold">[0.566895, 0.567383]</td></tr>
+                        <tr><td>12</td><td>0.566895</td><td>0.567139</td><td>0.567383</td><td>−0.00038</td><td>0.00000</td><td>+0.00038</td><td class="bold">[0.566895, 0.567139]</td></tr>
+                    </tbody>
+                </table>
+
+                <div class="eq-line"><span>Step 3: At step 12, \(f(0.567139) \approx 0\) to four decimal places. Relative error \(\epsilon_{11} = 0.036\% < 0.05\%\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x \approx 0.567\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <!-- Problem 8: Question bank B7 (x^3 + x^2 + x + 7 = 0, another variant) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 8.</strong> Find a real root of \(x^3 - 4x - 9 = 0\) using the bisection method. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="8">📖 Answer</button>
+            </div>
+            <div id="sol8" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: \(f(x) = x^3 - 4x - 9\). \(f(2) = 8 - 8 - 9 = -9 < 0\), \(f(3) = 27 - 12 - 9 = 6 > 0\). Root in \((2, 3)\).</span></div>
+                <div class="eq-line"><span>Step 2: Perform iterations:</span></div>
+
+                <table class="bisect-table">
+                    <thead>
+                        <tr>
+                            <th>i</th><th>a</th><th>\(X_i=(a+b)/2\)</th><th>b</th>
+                            <th>\(f(a)\)</th><th>\(f(X_i)\)</th><th>\(f(b)\)</th>
+                            <th>Next interval</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>2</td><td>2.5</td><td>3</td><td>−9</td><td>−3.375</td><td>+6</td><td class="bold">[2.5, 3.0]</td></tr>
+                        <tr><td>2</td><td>2.5</td><td>2.75</td><td>3.0</td><td>−3.375</td><td>+0.79688</td><td>+6</td><td class="bold">[2.5, 2.75]</td></tr>
+                        <tr><td>3</td><td>2.5</td><td>2.625</td><td>2.75</td><td>−3.375</td><td>−1.41211</td><td>+0.79688</td><td class="bold">[2.625, 2.75]</td></tr>
+                        <tr><td>4</td><td>2.625</td><td>2.6875</td><td>2.75</td><td>−1.41211</td><td>−0.33911</td><td>+0.79688</td><td class="bold">[2.6875, 2.75]</td></tr>
+                        <tr><td>5</td><td>2.6875</td><td>2.71875</td><td>2.75</td><td>−0.33911</td><td>+0.22084</td><td>+0.79688</td><td class="bold">[2.6875, 2.71875]</td></tr>
+                        <tr><td>6</td><td>2.6875</td><td>2.703125</td><td>2.71875</td><td>−0.33911</td><td>−0.06114</td><td>+0.22084</td><td class="bold">[2.703125, 2.71875]</td></tr>
+                        <tr><td>7</td><td>2.703125</td><td>2.710938</td><td>2.71875</td><td>−0.06114</td><td>+0.07915</td><td>+0.22084</td><td class="bold">[2.703125, 2.710938]</td></tr>
+                        <tr><td>8</td><td>2.703125</td><td>2.707031</td><td>2.710938</td><td>−0.06114</td><td>+0.00999</td><td>+0.07915</td><td class="bold">[2.703125, 2.707031]</td></tr>
+                        <tr><td>9</td><td>2.703125</td><td>2.705078</td><td>2.707031</td><td>−0.06114</td><td>−0.02465</td><td>+0.00999</td><td class="bold">[2.705078, 2.707031]</td></tr>
+                        <tr><td>10</td><td>2.705078</td><td>2.706055</td><td>2.707031</td><td>−0.02465</td><td>−0.00768</td><td>+0.00999</td><td class="bold">[2.706055, 2.707031]</td></tr>
+                        <tr><td>11</td><td>2.706055</td><td>2.706543</td><td>2.707031</td><td>−0.00768</td><td>+0.00116</td><td>+0.00999</td><td class="bold">[2.706055, 2.706543]</td></tr>
+                        <tr><td>12</td><td>2.706055</td><td>2.706299</td><td>2.706543</td><td>−0.00768</td><td>−0.00326</td><td>+0.00116</td><td class="bold">[2.706299, 2.706543]</td></tr>
+                    </tbody>
+                </table>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x \approx 2.706\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <!-- HOMEWORK -->
+        <div class="section-heading">🏠 3. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Find the real root of \(x^3 + x^2 - 1 = 0\) correct to three decimal places using the bisection method. (6 marks)</li>
+                <li>Find a real root of \(5x\log_{10}x - 6 = 0\) correct to three decimal places using the bisection method. (6 marks)</li>
+                <li>Find a real root of \(x^2 + x - \cos x = 0\) correct to three decimal places using the bisection method. (Make sure your calculator is in <strong>RADIAN</strong> mode). (6 marks)</li>
+                <li>Estimate the number of bisection iterations required to solve \(x^3 - 2x - 5 = 0\) on \([2, 3]\) to an accuracy of \(\epsilon = 0.0005\). (6 marks)</li>
+            </ol>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Sastry, S.S. (2012). <em>Introductory Methods of Numerical Analysis</em> (5th ed.), §2.2, pp. 23–28.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #3b5a82; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture48_BisectionMethod_Examples_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

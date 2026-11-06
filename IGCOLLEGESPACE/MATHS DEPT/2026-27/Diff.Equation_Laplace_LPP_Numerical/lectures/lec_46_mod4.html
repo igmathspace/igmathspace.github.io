@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 46 | Introduction to Algebraic &amp; Transcendental Equations | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #e6f0fa; color: #1a2b4c; line-height: 1.6;
+        }
+        :root {
+            --blue-bg: #e6f0fa;
+            --blue-panel: #ffffff;
+            --blue-dark: #1e4d7b;
+            --blue-deeper: #14365a;
+            --blue-accent: #4a90e2;
+            --blue-soft: #cce0f5;
+            --blue-line: #a8c8ec;
+            --text-dark: #1a2b4c;
+            --text-soft: #3b5a82;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #1e4d7b, #4a90e2); padding: 0.5rem 0;
+            border-bottom: 3px solid #14365a;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #4a90e2; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #2c6aa0; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #14365a;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #1e4d7b, #14365a); color: #e6f0fa; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #a8c8ec; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #4a90e2, #2c6aa0); color: #1a2b4c; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #2c6aa0, #1e4d7b); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #4a90e2, #2c6aa0); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(30, 77, 123, 0.12);
+            border-left: 10px solid #1e4d7b;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #14365a; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #4a90e2; color: #ffffff; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #1e4d7b; margin-top: 6px;
+            border-bottom: 1px dashed #a8c8ec; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #14365a; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #cce0f5; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #14365a; font-weight: 500;
+            border: 1px solid #a8c8ec;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #1e4d7b; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(30, 77, 123, 0.10);
+            border: 1px solid #cce0f5;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #1e4d7b;
+            border-left: 5px solid #4a90e2; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f5f9fe; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #4a90e2;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #14365a; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #eaf2fb; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #a8c8ec;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #1a2b4c;
+        }
+        .example-box {
+            background: #f5f9fe; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #cce0f5;
+        }
+        .problem-item {
+            background: #f9fcff; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #4a90e2; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #1a2b4c;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #eaf2fb; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #4a90e2;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #4a90e2; color: #ffffff; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #2c6aa0; }
+        .co-badge {
+            background: #2c6aa0; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #cce0f5;
+            border-radius: 30px; display: inline-block; color: #14365a;
+            border: 1px solid #a8c8ec;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f5f9fe; border-left: 6px solid #2c6aa0; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        footer {
+            background: #2c6aa0; color: #e6f0fa; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #14365a;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #cce0f5; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; color: #1a2b4c; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #4a90e2; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1a2b4c;
+                box-shadow: none; border: 1px solid #a8c8ec;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #14365a !important; }
+            .content-card p, .eq-line, .problem-text { color: #1a2b4c !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f5f9fe !important; color: #1a2b4c !important; border-color: #a8c8ec !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #eaf2fb; color: #1a2b4c; border: 1px solid #a8c8ec; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #1a2b4c; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 46</span>
+        </div>
+        <div class="module-name">📌 Module IV | Numerical Methods</div>
+        <div class="lecture-title">📖 Topic: Introduction to Algebraic &amp; Transcendental Equations — Roots and Initial Approximations</div>
+        <div class="textbook-ref">📚 Textbook: Introductory Methods of Numerical Analysis – S.S. Sastry | §2.1</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO4: Understand numerical methods for algebraic/transcendental equations</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO4)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Distinguish between <strong>algebraic</strong> and <strong>transcendental</strong> equations</li>
+            <li>State the theory-of-equations facts that help locate roots of a polynomial</li>
+            <li>Use <strong>Descartes' Rule of Signs</strong> to bound the number of positive and negative real roots</li>
+            <li>Choose good <strong>initial approximations</strong> for iterative root-finding methods</li>
+        </ul>
+
+        <!-- 2. ALGEBRAIC vs TRANSCENDENTAL -->
+        <div class="section-heading">📌 2. Algebraic vs Transcendental Equations</div>
+        <div class="theorem-box">
+            <div class="label">Definition</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                An equation of the form \(f(x) = 0\) is called
+            </p>
+            <ul style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li><strong>algebraic</strong>, if \(f(x)\) is a polynomial
+                    \(f_n(x) = a_0x^n + a_1x^{n-1} + \dots + a_{n-1}x + a_n\);</li>
+                <li><strong>transcendental</strong>, if \(f(x)\) is a non-algebraic function, e.g.
+                    \(f(x) = \ln x^3 - 0.7\), \(\phi(x) = e^{-0.5x} - 5x\),
+                    \(\psi(x) = \sin^2 x - x^2 - 2\).</li>
+            </ul>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.5rem;">
+                The roots of \(f(x) = 0\) may be real or complex.
+            </p>
+        </div>
+        <div class="example-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; font-weight: 600;">Practical origin.</p>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Rocket studies give the nonlinear equation
+                \[
+                \frac{M_0}{M_0 - u_f t} = e^{(u + gt)/u_0}
+                \]
+                which must be solved for \(t\) — a transcendental equation.
+            </p>
+        </div>
+
+        <!-- 3. THEORY OF EQUATIONS -->
+        <div class="section-heading">📐 3. Useful Results from the Theory of Equations</div>
+        <div class="theorem-box">
+            <div class="label">Basic facts</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li>Every polynomial equation of degree \(n\) has exactly \(n\) roots (counting multiplicities).</li>
+                <li>If \(n\) is odd, the equation has at least one real root whose sign is opposite to that of the last term.</li>
+                <li>If \(n\) is even and the constant term is negative, the equation has at least one positive and at least one negative root.</li>
+                <li>If coefficients are (a) real, imaginary roots occur in conjugate pairs; (b) rational, irrational roots occur in pairs.</li>
+            </ol>
+        </div>
+
+        <!-- 4. DESCARTES' RULE OF SIGNS -->
+        <div class="section-heading">📊 4. Descartes' Rule of Signs</div>
+        <div class="theorem-box">
+            <div class="label">Statement</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Let \(f(x)\) be a polynomial with real coefficients.
+            </p>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li>\(f(x) = 0\) cannot have more positive real roots than the number of changes of sign in the coefficient sequence of \(f(x)\).</li>
+                <li>\(f(x) = 0\) cannot have more negative real roots than the number of changes of sign in the coefficient sequence of \(f(-x)\).</li>
+            </ol>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.5rem;">
+                Moreover, the number of positive real roots is congruent to the number of sign changes in \(f(x)\) modulo 2.
+            </p>
+        </div>
+
+        <!-- 5. INITIAL APPROXIMATIONS -->
+        <div class="section-heading">🔍 5. Finding Initial Approximations</div>
+        <div class="proof-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Iterative methods (bisection, false position, Newton–Raphson) require a starting point (or a bracket). The following strategies are standard.
+            </p>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li><strong>Sign-change (bracketing) test.</strong> By the Intermediate Value Theorem, if \(f(a)\) and \(f(b)\) have opposite signs and \(f\) is continuous on \([a, b]\), then a root exists in \((a, b)\).</li>
+                <li><strong>Geometric insight.</strong> Plot \(y = f(x)\) or split it as \(y = g(x)\) and \(y = h(x)\) so that roots correspond to intersection points.</li>
+                <li><strong>Rough tabulation.</strong> Evaluate \(f\) at integer values of \(x\) to locate a change of sign.</li>
+                <li><strong>Descartes' rule</strong> to bound the number of positive and negative roots.</li>
+            </ol>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> A sign change guarantees an <em>odd</em> number of roots in the interval, but the root is not necessarily unique. If the derivative \(f'(x)\) has constant sign on \([a, b]\), uniqueness is guaranteed.
+        </div>
+
+        <!-- 6. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 6. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution.</p>
+
+        <!-- Problem 1: A1 — define ODE? Use A1 from QB section 7 (define ODE of first section) - but topic is algebraic/transcendental. Use QB A4: verify y = c/x is solution of xy' = -y? -- that's ODE. Use QB Section 7 A1: "Find the order and degree of ..." no. Use appropriate QB items related to equations: B1 (Descartes' rule). Let's map to QB items from Section 7 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> State Descartes' Rule of Signs. Using the rule, show that \(x^3 + 5x + 3 = 0\) has only one real root. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1 (Statement): For a polynomial \(f(x)\) with real coefficients:
+                    the number of positive real roots is either equal to the number of sign changes in \(f(x)\), or less than it by an even number.
+                    The same holds for negative roots using \(f(-x)\).</span></div>
+                <div class="eq-line"><span>Step 2: Write \(f(x) = x^3 + 5x + 3\).</span></div>
+                <div class="eq-line"><span>Step 3: Coefficient sequence of \(f(x)\): \(+1, +5, +3\). There are <strong>no sign changes</strong>.</span></div>
+                <div class="eq-line"><span>Step 4: By Descartes' rule, \(f(x) = 0\) has <strong>no positive real roots</strong>.</span></div>
+                <div class="eq-line"><span>Step 5: Now compute \(f(-x) = -x^3 - 5x + 3\). Coefficient sequence: \(-1, -5, +3\). One sign change.</span></div>
+                <div class="eq-line"><span>Step 6: By Descartes' rule, \(f(x) = 0\) has exactly <strong>one negative real root</strong>.</span></div>
+                <div class="eq-line"><span>Step 7: \(f(x)\) is a cubic with real coefficients, so it has exactly three roots in \(\mathbb{C}\). Since no positive real roots and exactly one negative real root, the remaining two roots are a complex conjugate pair.</span></div>
+                <div class="eq-line"><span>Step 8: Conclusion: \(x^3 + 5x + 3 = 0\) has <strong>exactly one real root</strong> (and it is negative).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Only one real root, which is negative.</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: A1 (b) — B1 part b — find real root between 3 and 4: no this is bisection. Actually from QB Section 7 A1: write Descartes rule -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Using Descartes' rule of signs, determine the maximum possible number of positive and negative real roots of \(f(x) = x^4 - 4x^3 + 5x^2 - 2x + 1\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Write \(f(x) = x^4 - 4x^3 + 5x^2 - 2x + 1\).</span></div>
+                <div class="eq-line"><span>Step 2: Coefficient sequence: \(+1, -4, +5, -2, +1\).</span></div>
+                <div class="eq-line"><span>Step 3: Count sign changes: \(+\to-\) (1), \(-\to+\) (2), \(+\to-\) (3), \(-\to+\) (4). So <strong>4 sign changes</strong>.</span></div>
+                <div class="eq-line"><span>Step 4: By Descartes' rule, \(f(x)=0\) has either <strong>4, 2, or 0 positive real roots</strong>.</span></div>
+                <div class="eq-line"><span>Step 5: Now compute \(f(-x) = x^4 + 4x^3 + 5x^2 + 2x + 1\). Coefficient sequence: \(+1, +4, +5, +2, +1\).</span></div>
+                <div class="eq-line"><span>Step 6: No sign changes, so <strong>0 negative real roots</strong>.</span></div>
+                <div class="eq-line"><span>Step 7: Hence all four roots (counting multiplicity) are positive or in conjugate pairs (real-coefficient quartic). Since no negative real roots, the number of positive real roots is 4, 2, or 0 (even).</span></div>
+                <div class="eq-line"><span>Step 8: For example \(f(x) = (x-1)^4 = x^4 - 4x^3 + 6x^2 - 4x + 1\) (different coefficient of \(x^2\)); the given quartic is \((x^2-x+1)^2\), i.e., \(f(x) = (x^2 - x + 1)^2\). So actually there are <strong>0 real roots</strong> — they are complex. Descartes' rule allowed 4 or 2 or 0, consistent.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Max positive real roots: 4; max negative: 0. (Actual: 0 real, since \(f = (x^2-x+1)^2\).)</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: B5 — Newton-Raphson formula for approximate root -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Write Newton–Raphson's formula for finding an approximate root of the equation \(f(x) = 0\). What is the geometric interpretation of the formula? <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Let \(x_n\) be an approximate root of \(f(x)=0\).</span></div>
+                <div class="eq-line"><span>Step 2: The next approximation \(x_{n+1}\) is obtained by drawing the tangent at \((x_n, f(x_n))\) and finding its \(x\)-intercept.</span></div>
+                <div class="eq-line"><span>Step 3: The tangent equation is \(y - f(x_n) = f'(x_n)(x - x_n)\).</span></div>
+                <div class="eq-line"><span>Step 4: Setting \(y = 0\) gives \(x = x_n - \dfrac{f(x_n)}{f'(x_n)}\).</span></div>
+                <div class="eq-line"><span>Step 5: The Newton–Raphson iteration formula is therefore
+                    \(\boxed{x_{n+1} = x_n - \dfrac{f(x_n)}{f'(x_n)}}\).</span></div>
+                <div class="eq-line"><span>Step 6: Geometrically, \(x_{n+1}\) is where the tangent at \((x_n, f(x_n))\) crosses the \(x\)-axis.</span></div>
+                <div class="eq-line"><span>Step 7: The method has <strong>quadratic convergence</strong>, i.e., the number of correct decimal digits roughly doubles at each step — provided \(f'(x_n) \ne 0\) and the starting value \(x_0\) is close enough to the true root.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(x_{n+1} = x_n - f(x_n)/f'(x_n)\); geometric interpretation = tangent \(x\)-intercept.</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: A2 — Newton Raphson formula approximate root (same as problem 3 basically), use instead a question about bisection inequality for iterations (Section 7 A1 of numerical methods) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4.</strong> Write the bisection-method inequality for the number of iterations required to achieve an accuracy \(\epsilon\) when the initial interval is \([a, b]\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: In the bisection method the interval length is halved at each step.</span></div>
+                <div class="eq-line"><span>Step 2: After \(n\) steps the interval containing the root has length \(\dfrac{|b-a|}{2^n}\).</span></div>
+                <div class="eq-line"><span>Step 3: To achieve a desired absolute accuracy \(\epsilon\) we need
+                    \(\dfrac{|b-a|}{2^n} \le \epsilon\).</span></div>
+                <div class="eq-line"><span>Step 4: Taking logarithms:
+                    \(\ln\!\left(\dfrac{|b-a|}{\epsilon}\right) \ge n \ln 2\).</span></div>
+                <div class="eq-line"><span>Step 5: So \(\boxed{n \ge \dfrac{\log_e(|b-a|/\epsilon)}{\log_e 2}}\),
+                    i.e., \(n \ge \log_2\!\left(\dfrac{|b-a|}{\epsilon}\right)\).</span></div>
+                <div class="eq-line"><span>Step 6: Example: if \(|b-a| = 1\) and \(\epsilon = 0.001\), then \(n \ge \dfrac{\ln 1000}{\ln 2} \approx 9.97 \Rightarrow n \ge 10\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(n \ge \log_2(|b-a|/\epsilon)\).</p>
+            </div>
+        </div>
+
+        <!-- 7. HOMEWORK -->
+        <div class="section-heading">🏠 7. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Define algebraic and transcendental equations, giving two examples of each. (3 marks)</li>
+                <li>State the theory-of-equations facts that help in locating the real roots of a polynomial equation. (6 marks)</li>
+                <li>State Descartes' rule of signs and use it to determine the maximum number of positive and negative real roots of \(x^3 - 6x^2 + 11x - 6 = 0\). (6 marks)</li>
+                <li>Explain how a sign change in \(f(x)\) at endpoints \(a\) and \(b\) guarantees a root in \((a, b)\); state the theorem used. (6 marks)</li>
+                <li>For the equation \(x^3 - 2x - 5 = 0\), find the change of sign of \(f(x)\) at successive integers, and hence locate a bracket \([a, b]\) that contains a real root. (6 marks)</li>
+                <li>Write the Newton–Raphson iteration formula and state one sufficient condition for its convergence. (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 8. Quick Summary</div>
+        <div class="theorem-box" style="background:#eaf2fb;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0; color: #1a2b4c;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #14365a;">Algebraic equation:</strong> \(f(x)\) is a polynomial.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #14365a;">Transcendental equation:</strong> \(f(x)\) involves \(\ln x\), \(e^x\), \(\sin x\), etc.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #14365a;">Descartes' rule:</strong> number of positive roots ≤ sign changes in \(f(x)\); number of negative roots ≤ sign changes in \(f(-x)\).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #14365a;">Sign-change test:</strong> if \(f(a) f(b) < 0\) and \(f\) is continuous, then a root lies in \((a, b)\).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #14365a;">Iteration count (bisection):</strong> \(n \ge \log_2(|b-a|/\epsilon)\).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; color: #14365a;">Newton–Raphson:</strong> \(x_{n+1} = x_n - f(x_n)/f'(x_n)\); geometric meaning = tangent intercept.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Sastry, S.S. (2012). <em>Introductory Methods of Numerical Analysis</em> (5th ed.), §2.1, pp. 22–23.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #3b5a82; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture46_IntroductionToAlgebraicTranscendental_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>
