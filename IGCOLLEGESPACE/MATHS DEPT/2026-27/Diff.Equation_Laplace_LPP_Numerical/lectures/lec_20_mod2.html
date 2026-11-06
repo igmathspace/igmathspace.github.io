@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 6 | Higher Order Derivatives &amp; Applications | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #e6f7f0; color: #1a4a3a; line-height: 1.6;
+        }
+        :root { --sky-teal: #2c7a6e; --green-shade: #3a9e6e; --light-bg: #daf4e8; --card-bg: #ffffff; }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #2c6e5a, #4a9e7a); padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #eefbef; color: #000000; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-bar {
+            background: #1e5a4a; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--sky-teal);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c7a6e, #1e5a4a); color: white; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #3a9e7a, #2a7a5e); transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #3a8e6e, #2a6e52); }
+        .nav-links .btn-secondary:hover { background: linear-gradient(135deg, #4aae7e, #3a7e62); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #2a8a6e, #1e6a52); }
+        .nav-links .btn-pdf:hover { background: #3a9e7a; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: white; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); border-left: 10px solid var(--sky-teal);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--sky-teal); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #3a9e6e; color: white; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 600; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--green-shade); margin-top: 6px;
+            border-bottom: 1px dashed #b8dfcc; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #1a6e4a; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #e0f5ec; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #2c7a5e; font-weight: 500;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #2c6e5a; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: white; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #cce6dc;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--sky-teal);
+            border-left: 5px solid var(--sky-teal); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #eefaf4; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #3a9e6e;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #1a6e4a; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #f5f9fe; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #e3edfb;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+        }
+        .example-box {
+            background: #e6f5ee; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #cce6dc;
+        }
+        .problem-item {
+            background: #fefbf5; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #2c7a6e; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #e6f7f0; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #b8dfcc;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #3a9e6e; color: white; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #2a7e5e; }
+        .co-badge {
+            background: #3a8e6e; color: white; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #e0f5ec;
+            border-radius: 30px; display: inline-block; color: #2c7a5e;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fef7e0; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f4ff; border-left: 6px solid #4a6eae; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        footer {
+            background: #1e5a4a; color: #dfe6cf; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--sky-teal);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #ffbc9a; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #eefbef; color: black !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #f0faf5; border: 1px solid #cce0d4; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 6</span>
+        </div>
+        <div class="module-name">📌 Module II | Laplace Transforms</div>
+        <div class="lecture-title">📖 Topic: Higher Order Derivatives &amp; Applications</div>
+        <div class="textbook-ref">📚 Textbook: Advanced Engineering Mathematics – E. Kreyszig | Section 6.2</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO2: Understand Laplace Transform, transforms of derivatives</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO2)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>State the general formula for the transform of the \( n \)-th derivative \( f^{(n)}(t) \)</li>
+            <li>Derive the formula by induction from the first- and second-derivative results</li>
+            <li>Apply the formula to compute transforms by <strong>differentiation</strong> (e.g., \( \mathcal{L}\{t\cos 4t\} \), \( \mathcal{L}\{t e^{-at}\} \))</li>
+            <li>Use higher-order derivative theorems to obtain new transform pairs</li>
+        </ul>
+
+        <!-- 2. THEOREM 2 (GENERAL) -->
+        <div class="section-heading">📐 2. Theorem 2: Transform of the \( n \)-th Derivative</div>
+        <div class="theorem-box">
+            <div class="label">Laplace Transform of the Derivative \( f^{(n)} \) of Any Order</div>
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Let \( f, f', \dots, f^{(n-1)} \) be continuous for all \( t \ge 0 \) and satisfy the growth
+                restriction; let \( f^{(n)} \) be piecewise continuous on every finite interval of \( t \ge 0 \).
+                Then
+            </p>
+            \[
+            \boxed{\; \mathcal{L}\{f^{(n)}(t)\} = s^{n}F(s) - s^{n-1}f(0) - s^{n-2}f'(0) - \cdots - f^{(n-1)}(0) \; }
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                where \( F(s) = \mathcal{L}\{f(t)\} \).
+            </p>
+        </div>
+
+        <div class="proof-box">
+            <p style="font-weight: 500; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Proof (by induction).</p>
+            <div class="eq-line"><span>Step 1: For \( n = 1 \), the formula is \( \mathcal{L}\{f'\} = sF(s) - f(0) \), already proved.</span></div>
+            <div class="eq-line"><span>Step 2: For \( n = 2 \), \( \mathcal{L}\{f''\} = s\,\mathcal{L}\{f'\} - f'(0) = s^2F(s) - s f(0) - f'(0) \), already proved.</span></div>
+            <div class="eq-line"><span>Step 3: Assume the formula holds for \( n-1 \): \( \mathcal{L}\{f^{(n-1)}\} = s^{n-1}F - s^{n-2}f(0) - \cdots - f^{(n-2)}(0) \).</span></div>
+            <div class="eq-line"><span>Step 4: Apply the first-derivative formula to \( g = f^{(n-1)} \): \( \mathcal{L}\{f^{(n)}\} = s\,\mathcal{L}\{f^{(n-1)}\} - f^{(n-1)}(0) \).</span></div>
+            <div class="eq-line"><span>Step 5: Substituting Step 3 gives \( \mathcal{L}\{f^{(n)}\} = s^{n}F - s^{n-1}f(0) - \cdots - s f^{(n-2)}(0) - f^{(n-1)}(0) \).</span></div>
+            <div class="eq-line"><span>Step 6: This is exactly the stated formula. Hence by induction it holds for all \( n \). \( \blacksquare \)</span></div>
+        </div>
+
+        <!-- 3. DERIVATION FROM KNOWN TRANSFORMS -->
+        <div class="section-heading">📊 3. Obtaining Transforms by Differentiation</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            A powerful <em>application</em> of the derivative theorem is to obtain new transforms from known ones.
+            If \( f(0) = f'(0) = 0 \), then \( \mathcal{L}\{f''\} = s^2 \mathcal{L}\{f\} \). This lets us convert a
+            known transform pair into a new one.
+        </p>
+
+        <div class="example-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; font-weight: 600;">Worked illustration 1: \( \mathcal{L}\{t\sin\omega t\} \)</p>
+            <div class="eq-line"><span>Let \( f(t) = t\sin\omega t \). Then \( f(0) = 0 \).</span></div>
+            <div class="eq-line"><span>\( f'(t) = \sin\omega t + \omega t\cos\omega t \), so \( f'(0) = 0 \).</span></div>
+            <div class="eq-line"><span>\( f''(t) = 2\omega\cos\omega t - \omega^2 t\sin\omega t \).</span></div>
+            <div class="eq-line"><span>By Theorem 2: \( \mathcal{L}\{f''\} = s^2\mathcal{L}\{f\} - s f(0) - f'(0) = s^2\mathcal{L}\{f\} \).</span></div>
+            <div class="eq-line"><span>Also \( \mathcal{L}\{f''\} = 2\omega\dfrac{s}{s^2+\omega^2} - \omega^2\mathcal{L}\{f\} \).</span></div>
+            <div class="eq-line"><span>Equating: \( s^2\mathcal{L}\{f\} = 2\omega\dfrac{s}{s^2+\omega^2} - \omega^2\mathcal{L}\{f\} \).</span></div>
+            <div class="eq-line"><span>\( (s^2+\omega^2)\mathcal{L}\{f\} = \dfrac{2\omega s}{s^2+\omega^2} \).</span></div>
+            <div class="eq-line"><span>\( \therefore \mathcal{L}\{t\sin\omega t\} = \dfrac{2\omega s}{(s^2+\omega^2)^2} \).</span></div>
+        </div>
+
+        <div class="example-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; font-weight: 600;">Worked illustration 2: \( \mathcal{L}\{\cos\omega t\} \) and \( \mathcal{L}\{\sin\omega t\} \)</p>
+            <div class="eq-line"><span>Let \( f = \cos\omega t \). Then \( f(0)=1 \), \( f'' = -\omega^2\cos\omega t \).</span></div>
+            <div class="eq-line"><span>\( \mathcal{L}\{f''\} = s^2F - s = -\omega^2F \). So \( (s^2+\omega^2)F = s \), giving \( F = \dfrac{s}{s^2+\omega^2} \).</span></div>
+            <div class="eq-line"><span>For \( g = \sin\omega t \): \( g(0)=0 \), \( g' = \omega\cos\omega t \).</span></div>
+            <div class="eq-line"><span>\( \mathcal{L}\{g'\} = s\,\mathcal{L}\{g\} = \omega\dfrac{s}{s^2+\omega^2} \), so \( \mathcal{L}\{\sin\omega t\} = \dfrac{\omega}{s^2+\omega^2} \).</span></div>
+        </div>
+
+        <!-- 4. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 4. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution.</p>
+
+        <!-- Problem 1: t cos 4t -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Using the derivative theorem, find \( \mathcal{L}\{t\cos 4t\} \). <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Let \( f(t) = t\cos 4t \). Then \( f(0) = 0 \).</span></div>
+                <div class="eq-line"><span>Step 2: Differentiate: \( f'(t) = \cos 4t - 4t\sin 4t \). Thus \( f'(0) = 1 \).</span></div>
+                <div class="eq-line"><span>Step 3: Differentiate again: \( f''(t) = -4\sin 4t - 4\sin 4t - 16t\cos 4t = -8\sin 4t - 16t\cos 4t \).</span></div>
+                <div class="eq-line"><span>Step 4: By the second-derivative theorem: \( \mathcal{L}\{f''\} = s^2\mathcal{L}\{f\} - s f(0) - f'(0) = s^2\mathcal{L}\{f\} - 1 \).</span></div>
+                <div class="eq-line"><span>Step 5: Take transforms on the right side: \( \mathcal{L}\{-8\sin 4t - 16t\cos 4t\} = -8\cdot\dfrac{4}{s^2+16} - 16\mathcal{L}\{f\} \).</span></div>
+                <div class="eq-line"><span>Step 6: So \( -8\cdot\dfrac{4}{s^2+16} - 16F = s^2F - 1 \).</span></div>
+                <div class="eq-line"><span>Step 7: \( -\dfrac{32}{s^2+16} + 1 = s^2F + 16F = (s^2+16)F \).</span></div>
+                <div class="eq-line"><span>Step 8: Left side \( = \dfrac{s^2+16-32}{s^2+16} = \dfrac{s^2-16}{s^2+16} \).</span></div>
+                <div class="eq-line"><span>Step 9: Therefore \( F = \dfrac{s^2-16}{(s^2+16)^2} \).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( \mathcal{L}\{t\cos 4t\} = \dfrac{s^2-16}{(s^2+16)^2} \).</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: t e^{-at} -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Using the derivative theorem, find \( \mathcal{L}\{t e^{-at}\} \). <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Let \( f(t) = t e^{-at} \). Then \( f(0) = 0 \).</span></div>
+                <div class="eq-line"><span>Step 2: \( f'(t) = e^{-at} - at e^{-at} = (1 - at)e^{-at} \). Thus \( f'(0) = 1 \).</span></div>
+                <div class="eq-line"><span>Step 3: \( f''(t) = -a e^{-at} - a e^{-at} + a^2 t e^{-at} = -2a e^{-at} + a^2 t e^{-at} \).</span></div>
+                <div class="eq-line"><span>Step 4: By the second-derivative theorem: \( \mathcal{L}\{f''\} = s^2 F - s\cdot 0 - 1 = s^2 F - 1 \).</span></div>
+                <div class="eq-line"><span>Step 5: On the other hand: \( \mathcal{L}\{f''\} = -2a\cdot\dfrac{1}{s+a} + a^2 F \).</span></div>
+                <div class="eq-line"><span>Step 6: So \( s^2F - 1 = -\dfrac{2a}{s+a} + a^2F \).</span></div>
+                <div class="eq-line"><span>Step 7: \( (s^2 - a^2)F = 1 - \dfrac{2a}{s+a} = \dfrac{s+a-2a}{s+a} = \dfrac{s-a}{s+a} \).</span></div>
+                <div class="eq-line"><span>Step 8: \( (s^2 - a^2) = (s-a)(s+a) \), so \( F = \dfrac{1}{(s+a)^2} \).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \( \mathcal{L}\{t e^{-at}\} = \dfrac{1}{(s+a)^2} \).</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: General n-th derivative formula statement -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> If \( \mathcal{L}\{f(t)\} = F(s) \), write down the general formula for \( \mathcal{L}\{f^{(n)}(t)\} \) and verify it for \( n = 3 \). <span class="co-badge">CO2</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: The general formula is \( \mathcal{L}\{f^{(n)}\} = s^nF(s) - s^{n-1}f(0) - s^{n-2}f'(0) - \cdots - f^{(n-1)}(0) \).</span></div>
+                <div class="eq-line"><span>Step 2: Apply the first-derivative theorem to \( g = f'' \): \( \mathcal{L}\{f'''\} = s\,\mathcal{L}\{f''\} - f''(0) \).</span></div>
+                <div class="eq-line"><span>Step 3: Substitute \( \mathcal{L}\{f''\} = s^2F - s f(0) - f'(0) \).</span></div>
+                <div class="eq-line"><span>Step 4: \( \mathcal{L}\{f'''\} = s\big(s^2F - s f(0) - f'(0)\big) - f''(0) \).</span></div>
+                <div class="eq-line"><span>Step 5: Expand: \( \mathcal{L}\{f'''\} = s^3F - s^2 f(0) - s f'(0) - f''(0) \).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ This matches the general formula with \( n = 3 \).</p>
+            </div>
+        </div>
+
+        <!-- 5. HOMEWORK -->
+        <div class="section-heading">🏠 5. Homework (Minimum 5 Problems)</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>State and prove the general formula for \( \mathcal{L}\{f^{(n)}(t)\} \) by induction. (6 marks)</li>
+                <li>Using the derivative theorem, find \( \mathcal{L}\{t\cos 3t\} \). (6 marks)</li>
+                <li>Using the derivative theorem, find \( \mathcal{L}\{t e^{-2t}\} \). (6 marks)</li>
+                <li>Obtain \( \mathcal{L}\{t\sin 2t\} \) from the second-derivative theorem. (6 marks)</li>
+                <li>Let \( f(t) = \cos^2 2t \). Compute \( f(0) \), \( f'(0) \), \( f''(t) \), and use the second-derivative theorem to find \( \mathcal{L}\{\cos^2 2t\} \). (6 marks)</li>
+                <li>If \( \mathcal{L}\{f(t)\} = \dfrac{1}{s^2+\omega^2} \), use the \( n \)-th derivative formula (with \( n = 2 \)) to deduce \( \mathcal{L}\{f''(t)\} \) in terms of \( s \). (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 6. Quick Summary</div>
+        <div class="theorem-box" style="background:#e1edda;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">General formula:</strong> \( \mathcal{L}\{f^{(n)}\} = s^nF(s) - s^{n-1}f(0) - \cdots - f^{(n-1)}(0) \)</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Applications:</strong> obtain \( \mathcal{L}\{t\sin\omega t\} \), \( \mathcal{L}\{t\cos\omega t\} \), \( \mathcal{L}\{t e^{-at}\} \) from known transforms.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Key technique:</strong> choose \( f \) so that \( f(0) = f'(0) = 0 \) to simplify; then \( \mathcal{L}\{f''\} = s^2\mathcal{L}\{f\} \).</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Kreyszig, E. (2015). <em>Advanced Engineering Mathematics</em> (10th ed.), Section 6.2, pp. 213–214 (Theorem 2, Examples 1–2).
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture6_HigherOrderDerivatives_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>
