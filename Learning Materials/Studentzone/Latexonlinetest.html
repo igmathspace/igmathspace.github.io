@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Online Evaluation Test – LaTeX</title>
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--board:#b5331a;--chalk:#fff4dc;--paper:#fffdf5;--gold:#f5b700;--ink:#2b1810;--line:#ecd5a8}
+*{box-sizing:border-box}
+body{margin:0;font-family:'STIX Two Text',Georgia,'Times New Roman',serif;color:var(--ink);background:var(--chalk);font-size:19px;line-height:1.55;min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--board);color:var(--chalk);text-align:center;padding:28px 16px 18px;border-bottom:6px double var(--gold)}
+header h1{margin:0;font-size:1.55rem;letter-spacing:.04em;font-weight:600}
+header h2,header h3{margin:4px 0 0;font-weight:400;font-size:1.1rem}
+header h3{font-style:italic;font-size:1rem;opacity:.92}
+.note{text-align:center;font-style:italic;margin:16px 0 0}
+main{flex:1;width:100%;max-width:860px;margin:0 auto;padding:20px 16px 40px}
+section{display:none}section.on{display:block}
+.card{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--board);border-radius:6px;padding:20px 24px;margin:18px 0}
+button{font:inherit;font-weight:600;background:var(--board);color:var(--chalk);border:2px solid var(--gold);border-radius:6px;padding:10px 34px;cursor:pointer}
+button:hover{background:#8f2410}button:disabled{opacity:.5;cursor:not-allowed}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.center{text-align:center;margin-top:34px}
+.opts input:checked+span{font-weight:600}
+.q label:hover{background:#fdebc4}
+select,input[type=text]{font:inherit;width:100%;padding:10px;border:1px solid #d9b27a;border-radius:6px;background:#fff;margin:6px 0 14px}
+input[readonly]{background:#fdebc4}
+h4{margin:0 0 4px;font-size:1.05rem;font-weight:600;color:var(--board)}
+.q p{margin:4px 0 10px;font-size:1.08rem}
+.q label{display:flex;gap:10px;padding:7px 10px;border-radius:5px;cursor:pointer}
+.q.miss{border-left-color:#7a1a0a;background:#ffe3d6}
+.msg{color:#7a1a0a;font-weight:600;min-height:1.4em}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,Menlo,monospace;font-size:.88em;background:#fdebc4;border:1px solid var(--line);border-radius:4px;padding:0 5px;overflow-wrap:anywhere}
+footer{background:var(--board);color:var(--chalk);text-align:center;padding:14px;font-size:.95rem;border-top:4px double var(--gold)}
+footer a{color:inherit}
+#timer{display:none;position:sticky;top:0;z-index:5;text-align:center;font-weight:600;background:var(--paper);border:2px solid var(--board);border-radius:6px;padding:8px;margin:8px 0}
+#timer.warn{background:#ffe3d6;border-color:#7a1a0a;color:#7a1a0a}
+</style></head><body>
+<header>
+<h1>NAM COLLEGE KALLIKKANDY</h1><h2>DEPARTMENT OF MATHEMATICS</h2><h2>ONLINE EVALUATION TEST</h2>
+<h3>LaTeX – Getting Started, Document Formatting, Tables &amp; Figures and Math Mode</h3>
+</header>
+<main>
+<p class="note">(Attend all questions)</p>
+
+<section id="s1" class="on"><div class="center"><button id="start">Start</button></div></section>
+
+<section id="s2">
+<div class="card" id="idbox">
+<label for="roll"><b>Roll Number</b></label><select id="roll"></select>
+<label for="nm"><b>Name</b></label><input type="text" id="nm" readonly>
+<div class="msg" id="m2"></div>
+<div class="center" style="margin:6px 0 0"><button id="begin" disabled>Begin Test</button></div>
+</div>
+</section>
+
+<section id="s3"><div id="timer"></div><form id="paper" onsubmit="return false"></form>
+<div class="msg center" id="m3" style="margin:0"></div>
+<div class="center"><button id="submit">Submit Answers</button></div></section>
+
+<section id="s4"><div class="card center"><h4 style="font-size:1.4rem">Test submitted</h4>
+<p id="done"></p></div></section>
+</main>
+<footer>© Gafoor I (<a href="mailto:gafoorbabuitwo@gmail.com">gafoorbabuitwo@gmail.com</a>)</footer>
+
+<script>
+/* ===== SETTINGS ===== */
+const API="https://script.google.com/macros/s/AKfycby_Cds-L6yh_4s_E3WKl8HwImbeSw6pqOKMaAbyoR7vRpkNA85H2fzM8PMnz-xEqWu4/exec";   // Google Apps Script web app URL (Step 4 of the guide)
+const STORE_KEY="latex_mcq_done";          // browser flag: this device already attempted
+const LIMIT=1800;                          // time limit in seconds (1800 = 30 minutes)
+const PER_MODULE=3;                        // questions drawn from each of the 4 modules (4 x 3 = 12 marks)
+const MODULES=[[1,25],[26,50],[51,75],[76,100]];
+
+/* ===== STUDENT LIST: roll|name, one per line ===== */
+const P=t=>t.trim().split("\n").map(l=>l.split("|"));
+const ROLLS=P(`NM24MATR002|FARHANA UNNIYATHAM KANDIYIL
+NM24MATR003|FASIHA FEBIN T
+NM24MATR005|FIDHA FATHIMA T K
+NM24MATR011|SAHLA FATHIMA K P
+NM24MATR012|SHAHABA SHARIN K
+NM24MATR014|VARDA V K
+NM24MATR016|AMRUTHA A
+NM24MATR019|ANAMIKA. T
+NM24MATR021|ADWAITH BABU.P. P
+XXXXXXXXX01|Test
+NM24MATR023|MUHAMMED RAMEES T`);
+
+/* ===== QUESTION BANK =====
+   line n = question n.  Fields are separated by ¦  :  question ¦ A ¦ B ¦ C ¦ D
+   Text between § § is shown in code font.  The answer key is NOT here; it lives in the Apps Script. */
+const QB=String.raw`Which document class is used for a basic LaTeX article?¦§book§¦§article§¦§report§¦§memoir§
+What is the correct structure of a minimal LaTeX document?¦§\begin{document} ... \end{document}§¦§\documentclass{article} \begin{document} ... \end{document}§¦§\documentclass{article} \end{document} ... \begin{document}§¦§\usepackage{article} \begin{document} ... \end{document}§
+Which command creates a section in LaTeX?¦§\section{}§¦§\sect{}§¦§\heading{}§¦§\title{}§
+Which command is used to create a subsection?¦§\sub{}§¦§\subsection{}§¦§\section{}§¦§\subheading{}§
+Which command creates a paragraph heading?¦§\para{}§¦§\paragraph{}§¦§\subparagraph{}§¦§\p{}§
+How do you make text bold in LaTeX?¦§\bold{text}§¦§\textbf{text}§¦§\strong{text}§¦§\bf{text}§
+How do you italicize text in LaTeX?¦§\italic{text}§¦§\textit{text}§¦§\em{text}§¦§\it{text}§
+How do you underline text in LaTeX?¦§\underline{text}§¦§\under{text}§¦§\line{text}§¦§\ul{text}§
+Which command changes font size in LaTeX?¦§\fontsize{}{}§¦§\size{}§¦§\textsize{}§¦§\big{}§
+Which package is commonly used for colored text?¦§color§¦§xcolor§¦§colortext§¦Both A and B
+Which environment creates a bulleted list?¦§enumerate§¦§itemize§¦§description§¦§list§
+Which environment creates a numbered list?¦§itemize§¦§enumerate§¦§description§¦§ordered§
+Which environment is used for descriptive lists?¦§itemize§¦§enumerate§¦§description§¦§definition§
+Which symbol is used for comments in LaTeX?¦§//§¦§#§¦§%§¦§--§
+Which command is used to include a package?¦§\include{}§¦§\usepackage{}§¦§\package{}§¦§\require{}§
+What does the §\documentclass§ command do?¦Ends the document¦Defines the type of document¦Creates a class¦Starts the document
+Which of the following is NOT a valid LaTeX document class?¦§article§¦§book§¦§letter§¦§paragraph§
+In which year was LaTeX originally developed?¦1975¦1985¦1995¦2005
+Who developed LaTeX?¦Donald Knuth¦Leslie Lamport¦Matt Kline¦Tobias Oetiker
+Which command creates a line break in LaTeX?¦§\break§¦§\newline§¦§\linebreak§¦Both B and C
+Which command creates a new page?¦§\newpage§¦§\pagebreak§¦§\clearpage§¦All of the above
+What is the correct way to write a comment in LaTeX?¦§// comment§¦§# comment§¦§% comment§¦§<!-- comment -->§
+Which command is used to display a backslash in text?¦§\\§¦§\textbackslash§¦§\backslash§¦§\slash§
+Which command creates a horizontal line?¦§\hline§¦§\rule§¦§\line§¦§\hrule§
+What does the §\usepackage§ command do?¦Creates a new package¦Loads an external package¦Removes a package¦Defines a package
+Which command sets the title of a document?¦§\title{}§¦§\maketitle{}§¦§\heading{}§¦§\doctitle{}§
+Which command sets the author name?¦§\writer{}§¦§\author{}§¦§\name{}§¦§\creator{}§
+Which command sets the date?¦§\date{}§¦§\today{}§¦§\day{}§¦§\time{}§
+Which command displays the title, author, and date?¦§\showtitle§¦§\maketitle§¦§\printtitle§¦§\displaytitle§
+Which package is used to customize page margins?¦§margins§¦§geometry§¦§layout§¦§page§
+Which command is used to set margins with the geometry package?¦§\geometry{margin=1in}§¦§\margins{1in}§¦§\setmargin{1in}§¦§\pagegeometry{1in}§
+Which package is used for custom headers and footers?¦§header§¦§fancyhdr§¦§footer§¦§pagehdr§
+Which command is used to add a footnote?¦§\note{}§¦§\footnote{}§¦§\fn{}§¦§\foot{}§
+Which command is used for emphasis?¦§\emph{}§¦§\em{}§¦§\emphasis{}§¦§\strong{}§
+Which package is used for multicolumn layout?¦§columns§¦§multicol§¦§multicolumn§¦§layout§
+Which environment is used for multicolumn layout?¦§multicols§¦§columns§¦§multicol§¦§colenv§
+How do you define a custom command in LaTeX?¦§\newcommand{}§¦§\def{}§¦§\newcom{}§¦Both A and B
+What does the §\today§ command display?¦The current time¦The current date¦The document creation date¦The compile date
+Which command is used for a page break?¦§\newpage§¦§\pagebreak§¦§\clearpage§¦All of the above
+What is the default page numbering style in LaTeX?¦Roman numerals¦Arabic numerals¦Letters¦No numbering
+Which command changes the page numbering style?¦§\pagenumbering{}§¦§\pagestyle{}§¦§\pagenum{}§¦§\numbering{}§
+Which command sets the page style?¦§\pagestyle{}§¦§\pagenumbering{}§¦§\style{}§¦§\pageformat{}§
+What does §\thispagestyle{empty}§ do?¦Removes page number from current page¦Removes all content from current page¦Creates an empty page¦Sets page style to empty for all pages
+Which command is used to create a custom header?¦§\fancyhead{}§¦§\header{}§¦§\customhead{}§¦§\head{}§
+Which command is used to create a custom footer?¦§\fancyfoot{}§¦§\footer{}§¦§\customfoot{}§¦§\foot{}§
+What is the correct way to set the document class with options?¦§\documentclass[12pt]{article}§¦§\documentclass{article}[12pt]§¦§\documentclass{12pt,article}§¦§\documentclass(12pt){article}§
+Which package is required for colored text?¦§xcolor§¦§color§¦§textcolor§¦Both A and B
+Which command changes text color?¦§\textcolor{red}{text}§¦§\color{red}{text}§¦§\colortext{red}{text}§¦§\red{text}§
+What does the §\emph§ command do?¦Makes text bold¦Makes text italic (emphasis)¦Underlines text¦Changes font size
+Which command is used to add a footnote with a mark?¦§\footnotemark{}§¦§\footnotetext{}§¦§\footnote{}§¦§\foot{}§
+Which environment is used for basic tables?¦§table§¦§tabular§¦§tab§¦§grid§
+Which command creates a horizontal line in a table?¦§\hline§¦§\line§¦§\rowline§¦§\tabline§
+Which package is used for advanced table formatting?¦§booktabs§¦§tablefmt§¦§tabularx§¦Both A and C
+Which command merges rows in a table?¦§\multirow{}§¦§\mergerow{}§¦§\rowspan{}§¦§\multi{}§
+Which command merges columns in a table?¦§\multicolumn{}§¦§\mergecol{}§¦§\colspan{}§¦§\multicol{}§
+Which package is required for §\multirow§?¦§multirow§¦§multicol§¦§table§¦§tabular§
+Which package is used for inserting images?¦§graphicx§¦§graphics§¦§image§¦Both A and B
+Which command includes an image in LaTeX?¦§\includegraphics{}§¦§\includeimage{}§¦§\insertimage{}§¦§\graphic{}§
+Which environment is used for figures?¦§figure§¦§fig§¦§image§¦§picture§
+Which command adds a caption to a figure?¦§\caption{}§¦§\title{}§¦§\label{}§¦§\figcaption{}§
+Which command creates a label for referencing?¦§\label{}§¦§\ref{}§¦§\tag{}§¦§\mark{}§
+Which command references a label?¦§\ref{}§¦§\label{}§¦§\cite{}§¦§\link{}§
+Which package is used for wrapping text around images?¦§wrapfig§¦§textwrap§¦§wrapimage§¦§floatwrap§
+Which environment is used for wrapping text around figures?¦§wrapfigure§¦§wrapfig§¦§textwrap§¦§figurewrap§
+What does the §[h]§ option in a figure environment mean?¦Here (place approximately here)¦Horizontal¦Height¦Header
+What does the §[t]§ option in a figure environment mean?¦Top of page¦Table¦Text¦Title
+What does the §[b]§ option in a figure environment mean?¦Bottom of page¦Bold¦Border¦Background
+What does the §[p]§ option in a figure environment mean?¦Page of floats¦Picture¦Paragraph¦Position
+Which command is used to resize an image?¦§\includegraphics[width=5cm]{image}§¦§\resize{image}§¦§\scale{image}§¦§\size{image}§
+Which command is used to rotate an image?¦§\includegraphics[angle=45]{image}§¦§\rotate{image}§¦§\rot{image}§¦§\turn{image}§
+What is the correct way to create a table with 3 columns?¦§\begin{tabular}{ccc}§¦§\begin{tabular}{3c}§¦§\begin{tabular}{c c c}§¦Both A and C
+Which symbol separates columns in a tabular environment?¦§&§¦§|§¦§;§¦§,§
+Which command ends a row in a tabular environment?¦§\\§¦§\newline§¦§\rowend§¦§\endrow§
+Which package provides §\toprule§, §\midrule§, and §\bottomrule§?¦§booktabs§¦§tabular§¦§table§¦§rules§
+What does the §\centering§ command do in a figure environment?¦Centers the figure¦Centers the text¦Centers the caption¦All of the above
+Which delimiters are used for inline math?¦§$...$§¦§\(...\)§¦§\[...\]§¦Both A and B
+Which delimiters are used for display math?¦§$...$§¦§\(...\)§¦§\[...\]§¦Both A and B
+Which environment is used for numbered equations?¦§equation§¦§align§¦§displaymath§¦§math§
+Which package is required for the §align§ environment?¦§amsmath§¦§mathtools§¦§math§¦Both A and B
+Which command is used for Greek letter alpha?¦§\alpha§¦§\Alpha§¦§\ga§¦§\greek{a}§
+Which command is used for summation symbol?¦§\sum§¦§\sigma§¦§\total§¦§\add§
+Which command is used for integral symbol?¦§\int§¦§\integral§¦§\sum§¦§\integ§
+Which command is used for fractions?¦§\frac{}{}§¦§\fraction{}{}§¦§\div{}{}§¦§\over{}{}§
+Which environment aligns equations at the equals sign?¦§align§¦§equation§¦§eqnarray§¦Both A and C
+What does §align*§ do differently from §align§?¦No equation numbers¦No alignment¦No math mode¦No line breaks
+Which environment is used for matrices with brackets?¦§bmatrix§¦§pmatrix§¦§matrix§¦§vmatrix§
+Which environment is used for matrices with parentheses?¦§bmatrix§¦§pmatrix§¦§matrix§¦§vmatrix§
+Which package is required for matrix environments?¦§amsmath§¦§matrix§¦§mathtools§¦Both A and C
+Which package is used for theorems and proofs?¦§amsthm§¦§theorem§¦§proof§¦§maththm§
+Which environment is used for a theorem?¦§theorem§¦§thm§¦§proof§¦§lemma§
+Which environment is used for a proof?¦§proof§¦§theorem§¦§lemma§¦§demonstration§
+Which command is used for a square root?¦§\sqrt{}§¦§\root{}§¦§\sq{}§¦§\radical{}§
+Which command is used for a superscript?¦§^§¦§_§¦§~§¦§'§
+Which command is used for a subscript?¦§^§¦§_§¦§~§¦§'§
+Which command is used for infinity symbol?¦§\infty§¦§\inf§¦§\infinite§¦§\infinity§
+Which command is used for partial derivative?¦§\partial§¦§\derivative§¦§\diff§¦§\pd§
+Which command is used for nabla (gradient)?¦§\nabla§¦§\grad§¦§\del§¦§\gradient§
+Which command is used for limits?¦§\lim§¦§\limit§¦§\lims§¦§\l§
+Which command is used for a vector?¦§\vec{}§¦§\vector{}§¦§\arrow{}§¦§\v{}§
+Which command is used for a hat symbol in math mode?¦§\hat{}§¦§\cap{}§¦§\header{}§¦§\top{}§`.trim().split("\n").map(l=>l.split("¦"));
+if(QB.length!==100||QB.some(q=>q.length!==5))console.error("Question bank problem: expected 100 lines with 5 fields each");
+
+/* ===== HELPERS ===== */
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=t=>t.split("§").map((s,i)=>i%2?"<code>"+esc(s)+"</code>":esc(s)).join("");
+const show=id=>{["s1","s2","s3","s4"].forEach(s=>$(s).classList.toggle("on",s==id));window.scrollTo(0,0)};
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const range=(a,b)=>Array.from({length:b-a+1},(_,i)=>a+i);
+const post=async o=>(await fetch(API,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)})).json();
+/* options such as "Both A and B" or "All of the above" must keep their order */
+const fixedOrder=q=>q.slice(1).some(o=>/\b(both|all of the above)\b/i.test(o));
+let taken=[],paper=[],busy=false,sending=false,tmr=null;
+const done=()=>localStorage.getItem(STORE_KEY)||"";
+
+/* ===== SCREEN 1 -> 2 ===== */
+function fillRolls(){
+  $("roll").innerHTML='<option value="">— Select Roll Number —</option>'+ROLLS.map(([n])=>{
+    const t=taken.includes(n);
+    return `<option value="${n}"${t?" disabled":""}>${n}${t?" (already attempted)":""}</option>`}).join("");
+  $("nm").value="";$("begin").disabled=true;
+}
+$("start").onclick=async()=>{
+  show("s2");fillRolls();
+  try{taken=(await (await fetch(API)).json()).taken;fillRolls()}catch(e){$("m2").textContent="Could not reach the server. Check your internet and refresh."}
+};
+$("roll").onchange=()=>{const x=ROLLS.find(([n])=>n==$("roll").value);$("nm").value=x?x[1]:"";$("begin").disabled=!x};
+
+/* ===== SCREEN 2 -> 3 ===== */
+$("begin").onclick=async()=>{
+  if(busy)return;const roll=$("roll").value,name=$("nm").value;
+  if(done()==roll){$("m2").textContent="This roll number has already attempted the test.";return}
+  if(!confirm(`Roll No: ${roll}\nName: ${name}\n\nYou can attempt the test only once. Begin now?`))return;
+  busy=true;$("begin").disabled=true;$("m2").textContent="Please wait…";
+  try{
+    const r=await post({action:"start",roll,name});
+    if(!r.ok){$("m2").textContent=r.msg;busy=false;return}
+  }catch(e){$("m2").textContent="Network error. Try again.";busy=false;$("begin").disabled=false;return}
+  busy=false;build(roll,name);
+};
+
+function build(roll,name){
+  paper=MODULES.flatMap(([a,b])=>shuf(range(a,b)).slice(0,PER_MODULE));
+  $("paper").innerHTML=`<div class="card"><b>Roll No:</b> ${esc(roll)} &nbsp;&nbsp; <b>Name:</b> ${esc(name)}</div>`+paper.map((id,i)=>{
+    const q=QB[id-1];
+    const order=fixedOrder(q)?[0,1,2,3]:shuf([0,1,2,3]);
+    return `<div class="card q" id="q${i}"><h4>Question ${i+1}</h4><p>${fmt(q[0])}</p>`+
+      order.map((o,k)=>`<label><input type="radio" name="a${i}" value="${"ABCD"[o]}"><span>(${"abcd"[k]}) ${fmt(q[o+1])}</span></label>`).join("")+`</div>`;
+  }).join("");
+  $("submit").onclick=()=>submit(roll,name);
+  window.onbeforeunload=e=>{e.preventDefault();e.returnValue=""};
+  show("s3");startTimer(roll,name);
+}
+
+/* ===== TIMER: warning 5 min before the limit, answers locked at the limit, auto-submit 5 s later ===== */
+function startTimer(roll,name){
+  const t0=Date.now(),box=$("timer");let locked=false;box.style.display="block";
+  const tick=()=>{
+    const s=Math.floor((Date.now()-t0)/1000),left=Math.max(0,LIMIT-s);
+    const mm=String(Math.floor(left/60)).padStart(2,"0"),ss=String(left%60).padStart(2,"0");
+    if(s<LIMIT-300)box.textContent="Time left: "+mm+":"+ss;
+    else if(s<LIMIT){box.className="warn";box.textContent="Warning: only 5 minutes remaining! Time left: "+mm+":"+ss}
+    else{
+      box.className="warn";box.textContent="Time is over. Answers will be submitted automatically in "+Math.max(0,LIMIT+5-s)+" s";
+      if(!locked){locked=true;document.querySelectorAll("#paper input").forEach(i=>i.disabled=true);$("submit").disabled=true}
+    }
+    if(s>=LIMIT+5){clearInterval(tmr);submit(roll,name,true)}
+  };
+  tick();tmr=setInterval(tick,500);
+}
+
+/* ===== SUBMIT ===== */
+async function submit(roll,name,force){
+  if(sending)return;
+  const ans=paper.map((id,i)=>{const c=document.querySelector(`[name=a${i}]:checked`);return [id,c?c.value:""]});
+  document.querySelectorAll(".q").forEach((d,i)=>d.classList.toggle("miss",!ans[i][1]));
+  const miss=ans.findIndex(a=>!a[1]);
+  if(miss>=0&&!force){$("m3").textContent="Please answer all questions.";$("q"+miss).scrollIntoView({behavior:"smooth",block:"center"});return}
+  if(!force&&!confirm("Submit your answers? You cannot change them later."))return;
+  sending=true;$("submit").disabled=true;$("m3").textContent="Submitting…";
+  try{
+    const r=await post({action:"submit",roll,name,ans});
+    if(!r.ok)throw new Error(r.msg);
+    clearInterval(tmr);localStorage.setItem(STORE_KEY,roll);window.onbeforeunload=null;
+    $("done").innerHTML=`Thank you, ${esc(name)}. Your answers have been recorded.<br><b>Score: ${r.total} / ${paper.length}</b>`;show("s4");
+  }catch(e){sending=false;$("m3").textContent="Submission failed: "+e.message+(force?" Retrying…":" Press Submit again.");$("submit").disabled=false;if(force)setTimeout(()=>submit(roll,name,true),3000)}
+}
+</script></body></html>
