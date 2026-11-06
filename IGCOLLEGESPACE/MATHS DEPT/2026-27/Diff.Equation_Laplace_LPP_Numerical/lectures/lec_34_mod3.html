@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 34 | Graphical Solution Method | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #e6f7f0; color: #1a4a3a; line-height: 1.6;
+        }
+        :root { --sky-teal: #2c7a6e; --green-shade: #3a9e6e; --light-bg: #daf4e8; --card-bg: #ffffff; }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #2c6e5a, #4a9e7a); padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #eefbef; color: #000000; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-bar {
+            background: #1e5a4a; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--sky-teal);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c7a6e, #1e5a4a); color: white; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #3a9e7a, #2a7a5e); transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #3a8e6e, #2a6e52); }
+        .nav-links .btn-secondary:hover { background: linear-gradient(135deg, #4aae7e, #3a7e62); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #2a8a6e, #1e6a52); }
+        .nav-links .btn-pdf:hover { background: #3a9e7a; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: white; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); border-left: 10px solid var(--sky-teal);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--sky-teal); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #3a9e6e; color: white; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 600; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--green-shade); margin-top: 6px;
+            border-bottom: 1px dashed #b8dfcc; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #1a6e4a; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #e0f5ec; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #2c7a5e; font-weight: 500;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #2c6e5a; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: white; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #cce6dc;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--sky-teal);
+            border-left: 5px solid var(--sky-teal); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #eefaf4; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #3a9e6e;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #1a6e4a; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #f5f9fe; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #e3edfb;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+        }
+        .example-box {
+            background: #e6f5ee; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #cce6dc;
+        }
+        .problem-item {
+            background: #fefbf5; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #2c7a6e; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #e6f7f0; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #b8dfcc;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #3a9e6e; color: white; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #2a7e5e; }
+        .co-badge {
+            background: #3a8e6e; color: white; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #e0f5ec;
+            border-radius: 30px; display: inline-block; color: #2c7a5e;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fef7e0; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f4ff; border-left: 6px solid #4a6eae; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .figure-wrap {
+            margin: 1rem 0; padding: 0.8rem; background: #fafcff;
+            border: 1px solid #cce6dc; border-radius: 16px; text-align: center;
+        }
+        .figure-wrap svg { max-width: 100%; height: auto; }
+        .figure-caption {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem; color: #2c7a5e; margin-top: 0.4rem;
+            font-style: italic;
+        }
+        footer {
+            background: #1e5a4a; color: #dfe6cf; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--sky-teal);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #ffbc9a; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #eefbef; color: black !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #f0faf5; border: 1px solid #cce0d4; }
+            .figure-wrap { break-inside: avoid; page-break-inside: avoid; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 34</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Graphical Solution Method – Plotting Constraints, Feasible Region</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.9 Graphical Method</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Apply graphical method to solve 2-variable LPPs</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Plot each linear constraint on the \(x_1 x_2\)-plane</li>
+            <li>Identify the <strong>feasible region</strong> as the intersection of the half-planes</li>
+            <li>Recognise when the feasible region is a bounded polygon and when it is unbounded</li>
+            <li>Mark the corner (extreme) points of the feasible region</li>
+        </ul>
+
+        <!-- 2. STEPS OF THE GRAPHICAL METHOD -->
+        <div class="section-heading">📐 2. Steps of the Graphical Method</div>
+        <div class="theorem-box">
+            <div class="label">Procedure</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                <li>Write the LPP in mathematical form.</li>
+                <li>Draw the \(x_1\)- and \(x_2\)-axes. The non-negativity restrictions \(x_1, x_2 \ge 0\) eliminate all but the first quadrant.</li>
+                <li>Plot each constraint as an equation (a straight line), then use the inequality sign to determine on which side of the line the constraint is satisfied.</li>
+                <li>Identify the <strong>feasible region</strong> — the common part of all half-planes (the "solution space" or "convex polygon").</li>
+                <li>Find the corner points of the feasible region (vertices).</li>
+                <li>Use the <strong>iso-profit / iso-cost line</strong> approach (or the corner-point enumeration approach) to locate the optimum.</li>
+            </ol>
+        </div>
+
+        <!-- 3. READING THE INEQUALITY SIGN -->
+        <div class="section-heading">📊 3. Which Side of the Line?</div>
+        <div class="proof-box">
+            <ul style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li>For \(a_1 x_1 + a_2 x_2 \le b\): the feasible side is <em>towards the origin</em> (if \(b \ge 0\)).</li>
+                <li>For \(a_1 x_1 + a_2 x_2 \ge b\): the feasible side is <em>away from the origin</em> (if \(b \ge 0\)).</li>
+                <li>Best practice: test the point \((0,0)\) in the inequality — if it is satisfied, the feasible side contains the origin.</li>
+            </ul>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> Two common mistakes: (i) plotting the inequality rather than the
+            equality line, and (ii) forgetting to intersect all constraints — the feasible region is the
+            <em>common</em> region that satisfies <em>every</em> constraint simultaneously.
+        </div>
+
+        <!-- 4. WORKOUT PROBLEMS (each with SVG) -->
+        <div class="section-heading">📚 4. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution along with the graphical representation.</p>
+
+        <!-- Problem 1: A4 feasible region for x+y<=3 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Identify the feasible region \(x + y \le 3,\; x \ge 0,\; y \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: The constraint \(x + y \le 3\) is the region below the line \(x + y = 3\), which passes through \((3, 0)\) and \((0, 3)\).</span></div>
+                <div class="eq-line"><span>Step 2: The non-negativity restricts us to the first quadrant.</span></div>
+                <div class="eq-line"><span>Step 3: The intersection is the closed triangular region with vertices \(O(0,0)\), \(A(3,0)\), \(B(0,3)\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 380 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Feasible region for x+y ≤ 3, x,y ≥ 0">
+                        <g stroke="#e3efe8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="260"/>
+                            <line x1="60" y1="260" x2="340" y2="260"/>
+                            <line x1="60" y1="40"  x2="340" y2="40"/>
+                            <line x1="340" y1="40" x2="340" y2="260"/>
+                        </g>
+                        <line x1="60" y1="260" x2="345" y2="260" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="260" x2="60" y2="35"  stroke="#1e5a4a" stroke-width="2"/>
+                        <polygon points="345,260 338,257 338,263" fill="#1e5a4a"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1e5a4a"/>
+                        <text x="350" y="264" font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x</text>
+                        <text x="48" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">y</text>
+                        <text x="48" y="276" font-size="12" font-family="Times New Roman, serif" fill="#1e5a4a">O</text>
+                        <polygon points="60,260 300,260 60,20" fill="#3a9e6e" fill-opacity="0.28"
+                                 stroke="#2c7a6e" stroke-width="1.5"/>
+                        <line x1="300" y1="260" x2="60" y2="20" stroke="#d4a017" stroke-width="2.5"/>
+                        <text x="180" y="120" font-size="13" font-family="Times New Roman, serif" fill="#a06a00"
+                              transform="rotate(-40 180 120)">x + y = 3</text>
+                        <g stroke="#1e5a4a" stroke-width="1.5">
+                            <line x1="140" y1="256" x2="140" y2="264"/>
+                            <line x1="220" y1="256" x2="220" y2="264"/>
+                            <line x1="300" y1="256" x2="300" y2="264"/>
+                            <line x1="56"  y1="180" x2="64"  y2="180"/>
+                            <line x1="56"  y1="100" x2="64"  y2="100"/>
+                            <line x1="56"  y1="20"  x2="64"  y2="20"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1e5a4a">
+                            <text x="136" y="278">1</text>
+                            <text x="216" y="278">2</text>
+                            <text x="296" y="278">3</text>
+                            <text x="44"  y="184">1</text>
+                            <text x="44"  y="104">2</text>
+                            <text x="44"  y="24">3</text>
+                        </g>
+                        <circle cx="300" cy="260" r="4.5" fill="#c0392b"/>
+                        <circle cx="60"  cy="20"  r="4.5" fill="#c0392b"/>
+                        <circle cx="60"  cy="260" r="4.5" fill="#c0392b"/>
+                        <text x="304" y="278" font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">A(3,0)</text>
+                        <text x="14"  y="24"  font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">B(0,3)</text>
+                        <text x="115" y="235" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">Feasible</text>
+                        <text x="112" y="250" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 34.1 — Feasible region of \(x + y \le 3,\; x, y \ge 0\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ Feasible region = triangle with vertices \((0,0), (3,0), (0,3)\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: B3 min z = 5x-2y -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Find the minimum value of \(z = 5x - 2y\), subject to \(2x + 3y \ge 1,\; x, y \ge 0\), using the graphical method. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Constraint \(2x + 3y \ge 1\) — a \(\ge\)-type, so feasible region is above the line.</span></div>
+                <div class="eq-line"><span>Step 2: Intercepts of \(2x + 3y = 1\): \(x = 1/2\) (when \(y=0\)) → \(A(1/2, 0)\); \(y = 1/3\) (when \(x=0\)) → \(B(0, 1/3)\).</span></div>
+                <div class="eq-line"><span>Step 3: Feasible region is the <strong>unbounded</strong> region above \(AB\) in the first quadrant. Corner points: \(A(1/2, 0)\) and \(B(0, 1/3)\).</span></div>
+                <div class="eq-line"><span>Step 4: Evaluate \(z\) at corners: \(z(A) = 5/2 = 2.5\); \(z(B) = -2/3 \approx -0.667\).</span></div>
+                <div class="eq-line"><span>Step 5: Minimum at \(B\). Along the boundary \(y = (1-2x)/3\): \(z = 5x - 2(1-2x)/3 = (19x-2)/3\), which increases with \(x \ge 0\). So no lower value at infinity.</span></div>
+                <div class="eq-line"><span>Step 6: Conclusion: \(x = 0,\; y = 1/3,\; z_{\min} = -2/3\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Unbounded feasible region for 2x+3y ≥ 1">
+                        <g stroke="#e3efe8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="270"/>
+                            <line x1="60" y1="270" x2="360" y2="270"/>
+                            <line x1="60" y1="40"  x2="360" y2="40"/>
+                            <line x1="360" y1="40" x2="360" y2="270"/>
+                        </g>
+                        <polygon points="110,270 60,236.7 60,40 360,40 360,270"
+                                 fill="#3a9e6e" fill-opacity="0.22" stroke="none"/>
+                        <line x1="60" y1="270" x2="110" y2="270" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="270" x2="60"  y2="236.7" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="110" y1="270" x2="60" y2="236.7" stroke="#d4a017" stroke-width="2.5"/>
+                        <line x1="110" y1="270" x2="135" y2="287" stroke="#d4a017" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <line x1="60" y1="236.7" x2="35" y2="220" stroke="#d4a017" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <line x1="60" y1="270" x2="365" y2="270" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="270" x2="60"  y2="35"  stroke="#1e5a4a" stroke-width="2"/>
+                        <polygon points="365,270 358,267 358,273" fill="#1e5a4a"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1e5a4a"/>
+                        <text x="370" y="274" font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x</text>
+                        <text x="48" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">y</text>
+                        <text x="48" y="286" font-size="12" font-family="Times New Roman, serif" fill="#1e5a4a">O</text>
+                        <polygon points="360,40 352,46 352,34" fill="#2c7a6e"/>
+                        <polygon points="360,270 352,264 352,276" fill="#2c7a6e"/>
+                        <g stroke="#1e5a4a" stroke-width="1.5">
+                            <line x1="110" y1="266" x2="110" y2="274"/>
+                            <line x1="160" y1="266" x2="160" y2="274"/>
+                            <line x1="260" y1="266" x2="260" y2="274"/>
+                            <line x1="56"  y1="236.7" x2="64" y2="236.7"/>
+                            <line x1="56"  y1="170"   x2="64" y2="170"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1e5a4a">
+                            <text x="105" y="288">1/2</text>
+                            <text x="155" y="288">1</text>
+                            <text x="255" y="288">2</text>
+                            <text x="42"  y="240">1/3</text>
+                            <text x="42"  y="174">1</text>
+                        </g>
+                        <circle cx="110" cy="270" r="4.5" fill="#c0392b"/>
+                        <circle cx="60"  cy="236.7" r="4.5" fill="#c0392b"/>
+                        <text x="116" y="288" font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">A(1/2, 0)</text>
+                        <text x="6"  y="234" font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">B(0, 1/3)</text>
+                        <text x="170" y="230" font-size="13" font-family="Times New Roman, serif" fill="#a06a00"
+                              transform="rotate(-31 170 230)">2x + 3y = 1</text>
+                        <text x="230" y="90" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">Unbounded</text>
+                        <text x="230" y="106" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">feasible</text>
+                        <text x="230" y="122" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 34.2 — Unbounded feasible region of \(2x + 3y \ge 1\); minimum of \(z = 5x - 2y\) at \(B(0, \tfrac{1}{3})\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x = 0,\; y = 1/3,\; z_{\min} = -2/3\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: C2 max z=2x1+3x2 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Find the maximum value of \(z = 2x_1 + 3x_2\), subject to \(x_1 + x_2 \le 30,\; x_2 \ge 3,\; x_2 \le 12,\; x_1 - x_2 \ge 0,\; 0 \le x_1 \le 20\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Plot each constraint line in the first quadrant: \(x_1 + x_2 = 30\), \(x_2 = 3\), \(x_2 = 12\), \(x_1 = x_2\), \(x_1 = 20\), and the axes.</span></div>
+                <div class="eq-line"><span>Step 2: The feasible region is a pentagon with five corners:</span></div>
+                <div class="eq-line"><span>\(A(3,3)\) — intersection of \(x_1 = x_2\) with \(x_2 = 3\).</span></div>
+                <div class="eq-line"><span>\(B(12,12)\) — intersection of \(x_1 = x_2\) with \(x_2 = 12\) (and also on \(x_1+x_2=24<30\)).</span></div>
+                <div class="eq-line"><span>\(C(18,12)\) — intersection of \(x_1 + x_2 = 30\) with \(x_2 = 12\).</span></div>
+                <div class="eq-line"><span>\(D(20,10)\) — intersection of \(x_1 + x_2 = 30\) with \(x_1 = 20\).</span></div>
+                <div class="eq-line"><span>\(E(20,3)\) — intersection of \(x_1 = 20\) with \(x_2 = 3\).</span></div>
+                <div class="eq-line"><span>Step 3: Evaluate \(z\) at corners:</span></div>
+                <div class="eq-line"><span>\(z(A) = 2(3) + 3(3) = 15\)</span></div>
+                <div class="eq-line"><span>\(z(B) = 2(12) + 3(12) = 60\)</span></div>
+                <div class="eq-line"><span>\(z(C) = 2(18) + 3(12) = 72\)</span></div>
+                <div class="eq-line"><span>\(z(D) = 2(20) + 3(10) = 70\)</span></div>
+                <div class="eq-line"><span>\(z(E) = 2(20) + 3(3) = 49\)</span></div>
+                <div class="eq-line"><span>Step 4: Maximum is \(z = 72\) at \(C(18, 12)\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Feasible pentagon for the LPP in problem 3">
+                        <!-- Grid & axes -->
+                        <g stroke="#e3efe8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="300"/>
+                            <line x1="60" y1="300" x2="390" y2="300"/>
+                            <line x1="60" y1="40"  x2="390" y2="40"/>
+                            <line x1="390" y1="40" x2="390" y2="300"/>
+                        </g>
+                        <line x1="60" y1="300" x2="395" y2="300" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="300" x2="60" y2="35"  stroke="#1e5a4a" stroke-width="2"/>
+                        <polygon points="395,300 388,297 388,303" fill="#1e5a4a"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1e5a4a"/>
+                        <text x="398" y="304" font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x₁</text>
+                        <text x="44" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x₂</text>
+                        <text x="48" y="316" font-size="12" font-family="Times New Roman, serif" fill="#1e5a4a">O</text>
+
+                        <!-- Scale: 1 unit = 10 px. Origin (60,300). -->
+                        <!-- A(3,3)->(90,270); B(12,12)->(180,180); C(18,12)->(240,180);
+                             D(20,10)->(260,200); E(20,3)->(260,270) -->
+                        <polygon points="90,270 180,180 240,180 260,200 260,270"
+                                 fill="#3a9e6e" fill-opacity="0.30" stroke="#2c7a6e" stroke-width="2"/>
+
+                        <!-- Constraint lines (clipped at view) -->
+                        <!-- x1 + x2 = 30:  from (0,30)->(60,0), i.e. (60,0)->(360,300)? Wait: (0,30)->(60,0) => in px (60,0)->(360,300) -->
+                        <!-- Actually: x1=30->300, y=300; x2=30->y=0, x=60.  So from (60,0)->(360,300) is wrong, we want (0,30)->(60,300) etc. -->
+                        <!-- Correct: x1+x2=30 line passes through (0,30) px(60,0)?? No, x2=30 -> y=0 (top), x1=30 -> x=360 (right). Line from (60,0)-(360,300) would be slope +1, meaning x1+x2=30? Point (0,30) at top-left: x1=0, x2=30. That's pixel (60, 0). Point (30,0) at bottom-right: x1=30, x2=0 -> (360, 300). So line from (60,0) to (360,300). Good. -->
+                        <line x1="60" y1="0" x2="360" y2="300" stroke="#b06a00" stroke-width="1.6" stroke-dasharray="5,3"/>
+                        <!-- x2 = 3 line: horizontal at y = 300-30 = 270, from x=60 to x=390 -->
+                        <line x1="60" y1="270" x2="390" y2="270" stroke="#1a6e4a" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <!-- x2 = 12 line: y = 300-120 = 180 -->
+                        <line x1="60" y1="180" x2="390" y2="180" stroke="#1a6e4a" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <!-- x1 = x2 line: passes through origin and (20,20) px (260,100) -->
+                        <line x1="60" y1="300" x2="360" y2="0" stroke="#8b1a1a" stroke-width="1.4" stroke-dasharray="4,3"/>
+                        <!-- x1 = 20 line: vertical at x=260 -->
+                        <line x1="260" y1="40" x2="260" y2="300" stroke="#4a6eae" stroke-width="1.4" stroke-dasharray="4,3"/>
+
+                        <!-- Tick marks -->
+                        <g stroke="#1e5a4a" stroke-width="1.5">
+                            <line x1="160" y1="296" x2="160" y2="304"/>
+                            <line x1="260" y1="296" x2="260" y2="304"/>
+                            <line x1="360" y1="296" x2="360" y2="304"/>
+                            <line x1="56" y1="270" x2="64" y2="270"/>
+                            <line x1="56" y1="180" x2="64" y2="180"/>
+                            <line x1="56" y1="100" x2="64" y2="100"/>
+                            <line x1="56" y1="40"  x2="64" y2="40"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1e5a4a">
+                            <text x="152" y="316">10</text>
+                            <text x="252" y="316">20</text>
+                            <text x="352" y="316">30</text>
+                            <text x="40" y="274">3</text>
+                            <text x="40" y="184">12</text>
+                            <text x="40" y="104">20</text>
+                            <text x="40" y="44">26</text>
+                        </g>
+
+                        <!-- Corner points -->
+                        <circle cx="90"  cy="270" r="4.5" fill="#c0392b"/>
+                        <circle cx="180" cy="180" r="4.5" fill="#c0392b"/>
+                        <circle cx="240" cy="180" r="4.5" fill="#c0392b"/>
+                        <circle cx="260" cy="200" r="4.5" fill="#c0392b"/>
+                        <circle cx="260" cy="270" r="4.5" fill="#c0392b"/>
+
+                        <text x="70"  y="264" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">A(3,3)</text>
+                        <text x="162" y="172" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">B(12,12)</text>
+                        <text x="234" y="172" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">C(18,12)</text>
+                        <text x="264" y="196" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">D(20,10)</text>
+                        <text x="264" y="284" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">E(20,3)</text>
+
+                        <!-- Labels for lines -->
+                        <text x="230" y="90"  font-size="11" font-family="Times New Roman, serif" fill="#8b1a1a">x₁ = x₂</text>
+                        <text x="300" y="176" font-size="11" font-family="Times New Roman, serif" fill="#1a6e4a">x₂ = 12</text>
+                        <text x="300" y="266" font-size="11" font-family="Times New Roman, serif" fill="#1a6e4a">x₂ = 3</text>
+                        <text x="264" y="60"  font-size="11" font-family="Times New Roman, serif" fill="#4a6eae">x₁ = 20</text>
+                        <text x="270" y="240" font-size="11" font-family="Times New Roman, serif" fill="#b06a00">x₁+x₂ = 30</text>
+
+                        <!-- Feasible label -->
+                        <text x="160" y="240" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a" font-style="italic">Feasible region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 34.3 — Feasible pentagon of Problem 3; optimum at \(C(18,12)\) with \(z = 72\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x_1 = 18,\; x_2 = 12,\; z_{\max} = 72\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: C3 max z = 2x + y -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4.</strong> Using the graphical method, solve: maximise \(z = 2x + y\), subject to \(x + 2y \le 10,\; x + y \le 6,\; x - y \le 2,\; x - 2y \le 1,\; x, y \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Plot four lines: \(x + 2y = 10\) (passes (10,0), (0,5)); \(x + y = 6\) (passes (6,0), (0,6)); \(x - y = 2\) (passes (2,0), (0,-2)); \(x - 2y = 1\) (passes (1,0), (0,-0.5)).</span></div>
+                <div class="eq-line"><span>Step 2: All four constraints are \(\le\)-type. Feasible region is below each of these lines and above both axes.</span></div>
+                <div class="eq-line"><span>Step 3: Corner points of feasible region (marked in figure):</span></div>
+                <div class="eq-line"><span>\(O(0,0)\), \(A(0,5)\) (intersection of \(x=0\) with \(x+2y=10\)), \(B(2,4)\) (intersection of \(x+2y=10\) and \(x+y=6\)), \(C(4,2)\) (intersection of \(x+y=6\) and \(x-y=2\)), \(D(3,1)\) (intersection of \(x-y=2\) and \(x-2y=1\)), \(E(1,0)\).</span></div>
+                <div class="eq-line"><span>Step 4: Evaluate \(z = 2x + y\):</span></div>
+                <div class="eq-line"><span>\(z(O) = 0\), \(z(A) = 5\), \(z(B) = 8\), \(z(C) = 10\), \(z(D) = 7\), \(z(E) = 2\).</span></div>
+                <div class="eq-line"><span>Step 5: Maximum is \(z = 10\) at \(C(4,2)\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Feasible polygon for problem 4">
+                        <g stroke="#e3efe8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="300"/>
+                            <line x1="60" y1="300" x2="390" y2="300"/>
+                            <line x1="60" y1="40"  x2="390" y2="40"/>
+                            <line x1="390" y1="40" x2="390" y2="300"/>
+                        </g>
+                        <line x1="60" y1="300" x2="395" y2="300" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="300" x2="60" y2="35"  stroke="#1e5a4a" stroke-width="2"/>
+                        <polygon points="395,300 388,297 388,303" fill="#1e5a4a"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1e5a4a"/>
+                        <text x="398" y="304" font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x</text>
+                        <text x="44" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">y</text>
+                        <text x="48" y="316" font-size="12" font-family="Times New Roman, serif" fill="#1e5a4a">O</text>
+
+                        <!-- Scale: 1 unit = 40 px. Origin (60,300). -->
+                        <!-- O(0,0)->(60,300); A(0,5)->(60,100); B(2,4)->(140,140);
+                             C(4,2)->(220,220); D(3,1)->(180,260); E(1,0)->(100,300). -->
+                        <polygon points="60,300 60,100 140,140 220,220 180,260 100,300"
+                                 fill="#3a9e6e" fill-opacity="0.30" stroke="#2c7a6e" stroke-width="2"/>
+
+                        <!-- Constraint lines (extended beyond the polygon for visibility) -->
+                        <!-- x + 2y = 10: through (10,0)->(460,300) too far. Use (0,5)->(60,100) to (8,1)->(380,260) -->
+                        <line x1="60" y1="100" x2="380" y2="260" stroke="#b06a00" stroke-width="1.6"/>
+                        <!-- x + y = 6: (0,6)->(60,60) to (6,0)->(300,300) -->
+                        <line x1="60" y1="60" x2="300" y2="300" stroke="#1a6e4a" stroke-width="1.6"/>
+                        <!-- x - y = 2: (2,0)->(140,300) to (7,5)->(340,100) -->
+                        <line x1="140" y1="300" x2="340" y2="100" stroke="#4a6eae" stroke-width="1.6"/>
+                        <!-- x - 2y = 1: (1,0)->(100,300) to (9,4)->(420,140) -->
+                        <line x1="100" y1="300" x2="420" y2="140" stroke="#8b1a1a" stroke-width="1.6"/>
+
+                        <!-- Tick marks -->
+                        <g stroke="#1e5a4a" stroke-width="1.5">
+                            <line x1="100" y1="296" x2="100" y2="304"/>
+                            <line x1="140" y1="296" x2="140" y2="304"/>
+                            <line x1="180" y1="296" x2="180" y2="304"/>
+                            <line x1="220" y1="296" x2="220" y2="304"/>
+                            <line x1="260" y1="296" x2="260" y2="304"/>
+                            <line x1="300" y1="296" x2="300" y2="304"/>
+                            <line x1="56" y1="100" x2="64" y2="100"/>
+                            <line x1="56" y1="140" x2="64" y2="140"/>
+                            <line x1="56" y1="180" x2="64" y2="180"/>
+                            <line x1="56" y1="220" x2="64" y2="220"/>
+                            <line x1="56" y1="260" x2="64" y2="260"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1e5a4a">
+                            <text x="96"  y="316">1</text>
+                            <text x="136" y="316">2</text>
+                            <text x="176" y="316">3</text>
+                            <text x="216" y="316">4</text>
+                            <text x="256" y="316">5</text>
+                            <text x="296" y="316">6</text>
+                            <text x="44" y="104">5</text>
+                            <text x="44" y="144">4</text>
+                            <text x="44" y="184">3</text>
+                            <text x="44" y="224">2</text>
+                            <text x="44" y="264">1</text>
+                        </g>
+
+                        <!-- Corner points -->
+                        <circle cx="60"  cy="300" r="4" fill="#c0392b"/>
+                        <circle cx="60"  cy="100" r="4" fill="#c0392b"/>
+                        <circle cx="140" cy="140" r="4" fill="#c0392b"/>
+                        <circle cx="220" cy="220" r="4" fill="#c0392b"/>
+                        <circle cx="180" cy="260" r="4" fill="#c0392b"/>
+                        <circle cx="100" cy="300" r="4" fill="#c0392b"/>
+                        <text x="40" y="94"  font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">A(0,5)</text>
+                        <text x="144" y="136" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">B(2,4)</text>
+                        <text x="224" y="216" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">C(4,2)</text>
+                        <text x="184" y="276" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">D(3,1)</text>
+                        <text x="88"  y="318" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">E(1,0)</text>
+
+                        <!-- Line labels -->
+                        <text x="290" y="230" font-size="11" font-family="Times New Roman, serif" fill="#b06a00">x+2y = 10</text>
+                        <text x="220" y="70"  font-size="11" font-family="Times New Roman, serif" fill="#1a6e4a">x+y = 6</text>
+                        <text x="290" y="130" font-size="11" font-family="Times New Roman, serif" fill="#4a6eae">x−y = 2</text>
+                        <text x="340" y="160" font-size="11" font-family="Times New Roman, serif" fill="#8b1a1a">x−2y = 1</text>
+
+                        <!-- Feasible label -->
+                        <text x="120" y="200" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a" font-style="italic">Feasible region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 34.4 — Feasible polygon of Problem 4; optimum at \(C(4,2)\) with \(z = 10\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x = 4,\; y = 2,\; z_{\max} = 10\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 5: C4 min with three <= -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 5.</strong> Find the minimum value of \(z\), subject to \(-x_1 + 3x_2 \le 10,\; x_1 + x_2 \le 6,\; x_1 - x_2 \le 2,\; x_1, x_2 \ge 0\), where \(z = -x_1 + 2x_2\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: Plot the three lines: \(-x_1 + 3x_2 = 10\) (passes \((-10,0)\), \((0, 10/3)\)); \(x_1 + x_2 = 6\) (passes \((6,0)\), \((0,6)\)); \(x_1 - x_2 = 2\) (passes \((2,0)\), \((0,-2)\)).</span></div>
+                <div class="eq-line"><span>Step 2: All constraints are \(\le\)-type, so feasible region is towards the origin (below each line) and in the first quadrant.</span></div>
+                <div class="eq-line"><span>Step 3: Corner points:</span></div>
+                <div class="eq-line"><span>\(O(0,0)\), \(A(0, 10/3)\) (intersection of \(x_1=0\) with \(-x_1+3x_2=10\)), \(B(2,4)\) (intersection of \(-x_1+3x_2=10\) and \(x_1+x_2=6\)), \(C(4,2)\) (intersection of \(x_1+x_2=6\) and \(x_1-x_2=2\)), \(D(2,0)\).</span></div>
+                <div class="eq-line"><span>Step 4: Evaluate \(z = -x_1 + 2x_2\):</span></div>
+                <div class="eq-line"><span>\(z(O) = 0\), \(z(A) = 20/3\), \(z(B) = 6\), \(z(C) = 0\), \(z(D) = -2\).</span></div>
+                <div class="eq-line"><span>Step 5: Minimum is \(z = -2\) at \(D(2,0)\).</span></div>
+
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Feasible polygon for problem 5">
+                        <g stroke="#e3efe8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="290"/>
+                            <line x1="60" y1="290" x2="370" y2="290"/>
+                            <line x1="60" y1="40"  x2="370" y2="40"/>
+                            <line x1="370" y1="40" x2="370" y2="290"/>
+                        </g>
+                        <line x1="60" y1="290" x2="375" y2="290" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="290" x2="60" y2="35"  stroke="#1e5a4a" stroke-width="2"/>
+                        <polygon points="375,290 368,287 368,293" fill="#1e5a4a"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1e5a4a"/>
+                        <text x="378" y="294" font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x₁</text>
+                        <text x="44" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x₂</text>
+                        <text x="48" y="306" font-size="12" font-family="Times New Roman, serif" fill="#1e5a4a">O</text>
+
+                        <!-- Scale: 1 unit = 40 px. Origin (60,290).
+                             O(0,0)->(60,290); A(0,10/3)->(60,156.7);
+                             B(2,4)->(140,130); C(4,2)->(220,210); D(2,0)->(140,290). -->
+                        <polygon points="60,290 60,156.7 140,130 220,210 140,290"
+                                 fill="#3a9e6e" fill-opacity="0.30" stroke="#2c7a6e" stroke-width="2"/>
+
+                        <!-- Constraint lines -->
+                        <!-- -x1+3x2 = 10: through (-10,0) ->(-340,290) too far left; and (0,10/3)->(60,156.7). Use (0,10/3)->(5,5)->(260,90)? Slope 1/3. Through (0,10/3) and (5,5) is fine: (60,156.7)->(260,90). -->
+                        <line x1="60" y1="156.7" x2="260" y2="90" stroke="#b06a00" stroke-width="1.6"/>
+                        <!-- x1+x2 = 6: through (0,6)->(60,50) to (6,0)->(300,290). -->
+                        <line x1="60" y1="50" x2="300" y2="290" stroke="#1a6e4a" stroke-width="1.6"/>
+                        <!-- x1-x2 = 2: through (2,0)->(140,290) to (7,5)->(340,90). -->
+                        <line x1="140" y1="290" x2="340" y2="90" stroke="#4a6eae" stroke-width="1.6"/>
+
+                        <!-- Ticks -->
+                        <g stroke="#1e5a4a" stroke-width="1.5">
+                            <line x1="140" y1="286" x2="140" y2="294"/>
+                            <line x1="220" y1="286" x2="220" y2="294"/>
+                            <line x1="300" y1="286" x2="300" y2="294"/>
+                            <line x1="56" y1="210" x2="64" y2="210"/>
+                            <line x1="56" y1="130" x2="64" y2="130"/>
+                            <line x1="56" y1="50"  x2="64" y2="50"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1e5a4a">
+                            <text x="136" y="306">2</text>
+                            <text x="216" y="306">4</text>
+                            <text x="296" y="306">6</text>
+                            <text x="44" y="214">2</text>
+                            <text x="44" y="134">4</text>
+                            <text x="44" y="54">6</text>
+                        </g>
+
+                        <!-- Corner points -->
+                        <circle cx="60"  cy="290" r="4" fill="#c0392b"/>
+                        <circle cx="60"  cy="156.7" r="4" fill="#c0392b"/>
+                        <circle cx="140" cy="130" r="4" fill="#c0392b"/>
+                        <circle cx="220" cy="210" r="4" fill="#c0392b"/>
+                        <circle cx="140" cy="290" r="4" fill="#c0392b"/>
+                        <text x="40"  y="152" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">A(0, 10/3)</text>
+                        <text x="144" y="126" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">B(2,4)</text>
+                        <text x="224" y="206" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">C(4,2)</text>
+                        <text x="144" y="308" font-size="12" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">D(2,0)</text>
+
+                        <!-- Line labels -->
+                        <text x="200" y="80"  font-size="11" font-family="Times New Roman, serif" fill="#b06a00">−x₁+3x₂ = 10</text>
+                        <text x="240" y="60"  font-size="11" font-family="Times New Roman, serif" fill="#1a6e4a">x₁+x₂ = 6</text>
+                        <text x="270" y="140" font-size="11" font-family="Times New Roman, serif" fill="#4a6eae">x₁−x₂ = 2</text>
+
+                        <!-- Feasible label -->
+                        <text x="100" y="230" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a" font-style="italic">Feasible region</text>
+                    </svg>
+                    <div class="figure-caption">Fig. 34.5 — Feasible polygon of Problem 5; minimum at \(D(2,0)\) with \(z = -2\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \(x_1 = 2,\; x_2 = 0,\; z_{\min} = -2\).</p>
+            </div>
+        </div>
+
+        <!-- 5. HOMEWORK -->
+        <div class="section-heading">🏠 5. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Explain the graphical method of solving a 2-variable LPP. What are its limitations? (6 marks)</li>
+                <li>Solve graphically: maximise \(z = 3x_1 + 4x_2\), subject to \(x_1 + x_2 \le 450,\; 2x_1 + x_2 \le 600,\; x_1, x_2 \ge 0\). (6 marks)</li>
+                <li>Solve graphically: minimise \(z = 5x - 2y\), subject to \(2x + 3y \ge 1,\; x, y \ge 0\). (6 marks)</li>
+                <li>Solve graphically: maximise \(z = 2x_1 + 3x_2\), subject to \(x_1 + x_2 \le 30,\; 3 \le x_2 \le 12,\; x_1 - x_2 \ge 0,\; 0 \le x_1 \le 20\). (6 marks)</li>
+                <li>Solve graphically: maximise \(z = 2x + y\), subject to \(x + 2y \le 10,\; x + y \le 6,\; x - y \le 2,\; x - 2y \le 1,\; x, y \ge 0\). (6 marks)</li>
+                <li>Solve graphically: minimise \(z = -x_1 + 2x_2\), subject to \(-x_1 + 3x_2 \le 10,\; x_1 + x_2 \le 6,\; x_1 - x_2 \le 2,\; x_1, x_2 \ge 0\). (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 6. Quick Summary</div>
+        <div class="theorem-box" style="background:#e1edda;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Steps:</strong> plot constraints → identify feasible region → find corners → evaluate objective.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">\(\le\)-constraint:</strong> feasible side is towards the origin. <strong>\(\ge\)-constraint:</strong> away from the origin.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Corner-point enumeration</strong> is exact for a bounded region; for unbounded regions, evaluate at corners + verify no better value at infinity.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Optimum</strong> (if it exists) always occurs at a corner of the feasible region.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.9, pp. 114–134.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture34_GraphicalMethod_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

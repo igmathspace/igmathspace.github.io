@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 30 | Introduction to Linear Programming | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #e6f7f0; color: #1a4a3a; line-height: 1.6;
+        }
+        :root { --sky-teal: #2c7a6e; --green-shade: #3a9e6e; --light-bg: #daf4e8; --card-bg: #ffffff; }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #2c6e5a, #4a9e7a); padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #eefbef; color: #000000; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-bar {
+            background: #1e5a4a; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--sky-teal);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c7a6e, #1e5a4a); color: white; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #3a9e7a, #2a7a5e); transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #3a8e6e, #2a6e52); }
+        .nav-links .btn-secondary:hover { background: linear-gradient(135deg, #4aae7e, #3a7e62); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #2a8a6e, #1e6a52); }
+        .nav-links .btn-pdf:hover { background: #3a9e7a; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: white; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); border-left: 10px solid var(--sky-teal);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--sky-teal); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #3a9e6e; color: white; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 600; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--green-shade); margin-top: 6px;
+            border-bottom: 1px dashed #b8dfcc; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #1a6e4a; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #e0f5ec; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #2c7a5e; font-weight: 500;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #2c6e5a; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: white; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #cce6dc;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--sky-teal);
+            border-left: 5px solid var(--sky-teal); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #eefaf4; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #3a9e6e;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #1a6e4a; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #f5f9fe; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #e3edfb;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+        }
+        .example-box {
+            background: #e6f5ee; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #cce6dc;
+        }
+        .problem-item {
+            background: #fefbf5; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #2c7a6e; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #e6f7f0; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #b8dfcc;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #3a9e6e; color: white; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #2a7e5e; }
+        .co-badge {
+            background: #3a8e6e; color: white; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #e0f5ec;
+            border-radius: 30px; display: inline-block; color: #2c7a5e;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fef7e0; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f4ff; border-left: 6px solid #4a6eae; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        footer {
+            background: #1e5a4a; color: #dfe6cf; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--sky-teal);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #ffbc9a; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #eefbef; color: black !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #f0faf5; border: 1px solid #cce0d4; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 30</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Introduction to Linear Programming – Definition, Characteristics, Assumptions</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | Chapter 2 (Introduction)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Understand the definition of LPP and its assumptions</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Define linear programming and explain the term "linearity"</li>
+            <li>State the historical development and the role of George Dantzig</li>
+            <li>List the essential characteristics of an LPP</li>
+            <li>State and explain the five assumptions underlying LP models</li>
+        </ul>
+
+        <!-- 2. DEFINITION -->
+        <div class="section-heading">📌 2. Definition of Linear Programming</div>
+        <div class="theorem-box">
+            <div class="label">Definition</div>
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <strong>Linear programming</strong> is a mathematical technique for the optimisation
+                (maximisation or minimisation) of a linear function of decision variables, called the
+                <em>objective function</em>, subject to a set of linear equations and/or inequalities,
+                called <em>constraints</em>.
+            </p>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.5rem;">
+                By "linearity" we mean a mathematical expression in which the variables appear only to the first
+                power and are not multiplied together, i.e. an expression of the form
+                \( a_1 x_1 + a_2 x_2 + \cdots + a_n x_n \). Expressions such as \( x_1^3 \), \( x_1 x_2 \),
+                \( a_1 \log x_2 \) do <strong>not</strong> occur.
+            </p>
+        </div>
+
+        <div class="example-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; font-weight: 600;">
+                The variables of an LP model obey two fundamental properties:
+            </p>
+            <ul style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li><strong>Proportionality:</strong> if a product requires 3 hours of machining time,
+                    then 5 units require \(5 \times 3 = 15\) hours.</li>
+                <li><strong>Additivity:</strong> the resource required for several products equals the sum
+                    of the resources required for each product taken individually.</li>
+            </ul>
+        </div>
+
+        <!-- 3. HISTORICAL NOTE -->
+        <div class="section-heading">📜 3. Historical Note</div>
+        <div class="proof-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                In <strong>1947</strong>, <strong>George B. Dantzig</strong> and his associates, while working on
+                a project for the U.S. Air Force, developed a technique for solving military planning problems.
+                The technique consisted of representing the activities of an organisation as a linear
+                programming model and finding an optimal programme by optimising a linear objective function.
+                Dantzig later developed the powerful computational tool known as the <strong>simplex method</strong>
+                for solving LPPs.
+            </p>
+        </div>
+
+        <!-- 4. GENERAL FORM -->
+        <div class="section-heading">📐 4. General Form of an LPP</div>
+        <div class="theorem-box">
+            <div class="label">Standard statement</div>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                Find \(x_1, x_2, \dots, x_n\) which
+            </p>
+            \[
+            \text{maximise (or minimise)} \quad Z = c_1 x_1 + c_2 x_2 + \cdots + c_n x_n
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">subject to</p>
+            \[
+            \begin{aligned}
+            a_{11} x_1 + a_{12} x_2 + \cdots + a_{1n} x_n &\le b_1 \\
+            a_{21} x_1 + a_{22} x_2 + \cdots + a_{2n} x_n &\le b_2 \\
+            &\vdots \\
+            a_{m1} x_1 + a_{m2} x_2 + \cdots + a_{mn} x_n &\le b_m
+            \end{aligned}
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">and</p>
+            \[
+            x_1 \ge 0,\; x_2 \ge 0,\; \dots,\; x_n \ge 0.
+            \]
+        </div>
+
+        <!-- 5. CHARACTERISTICS -->
+        <div class="section-heading">📊 5. Essential Characteristics of an LPP</div>
+        <div class="theorem-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li>A <strong>well-defined objective function</strong> which is to be maximised or minimised
+                    and which can be expressed as a linear function of the decision variables.</li>
+                <li><strong>Constraints</strong> on the extent of attainment of the objective, expressible
+                    as linear equations or inequalities in the variables.</li>
+                <li><strong>Alternative courses of action</strong> among which the best is to be selected.</li>
+                <li>The decision variables are <strong>interrelated and non-negative</strong>.</li>
+                <li>The resources must be in <strong>limited supply</strong> — otherwise no optimisation
+                    problem would arise.</li>
+            </ol>
+        </div>
+
+        <!-- 6. ASSUMPTIONS -->
+        <div class="section-heading">📐 6. Assumptions in Linear Programming Models</div>
+        <div class="theorem-box">
+            <div class="label">Five assumptions</div>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.3rem;">
+                <li><strong>Proportionality:</strong> the contribution of each decision variable to the
+                    objective and its consumption of each resource are proportional to its value.</li>
+                <li><strong>Additivity:</strong> the total contribution (or resource use) is the sum of the
+                    contributions (or uses) of the individual variables.</li>
+                <li><strong>Continuity:</strong> the decision variables may assume any non-negative real value
+                    (fractional values are permitted).</li>
+                <li><strong>Certainty:</strong> the coefficients of the objective and the constraints, and the
+                    right-hand side resource values, are known precisely and do not change with time.</li>
+                <li><strong>Finite choices:</strong> a finite number of alternative solutions are available.</li>
+            </ol>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> The assumptions of proportionality and additivity are the very
+            reasons the model is called <em>linear</em>. Any situation involving quantity discounts,
+            graduated prices, or setup times violates these assumptions and requires a non-linear model.
+        </div>
+
+        <!-- 7. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 7. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution.</p>
+
+        <!-- Problem 1: A1 applications in management -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Write any three applications of LPP in Management. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>1. <strong>Media selection:</strong> choosing the advertising mix across T.V., radio, magazines and newspapers to maximise exposure subject to the advertising budget.</span></div>
+                <div class="eq-line"><span>2. <strong>Portfolio selection:</strong> allocating funds among bonds, savings certificates, equity shares, etc. to maximise expected return or minimise risk.</span></div>
+                <div class="eq-line"><span>3. <strong>Man-power scheduling:</strong> allocating optimum man-power in each shift (in hospitals, restaurants, multi-shift companies) so that overtime cost is minimised.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ These are three commonly cited management applications of LPP.</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: A2 industrial applications -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Write any three industrial applications of LPP. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>1. <strong>Product-mix problem:</strong> deciding how much of each product to manufacture so that total profit is maximised, given the capacities of men, machines and materials.</span></div>
+                <div class="eq-line"><span>2. <strong>Blending problem:</strong> determining the proportions in which raw materials of different compositions and prices should be mixed to produce a product of the required specification at minimum cost (e.g. gasoline, alloys, fertilisers).</span></div>
+                <div class="eq-line"><span>3. <strong>Trim-loss problem:</strong> deciding how standard-size rolls (paper, sheet metal, glass) should be cut into smaller sizes required by customers so that waste is minimised.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ These are three commonly cited industrial applications of LPP.</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: A3 requirements -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Write any three requirements for an LPP model. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>1. There must be a <strong>well-defined objective function</strong> (profit, cost, quantity produced) expressible as a linear function of the decision variables.</span></div>
+                <div class="eq-line"><span>2. There must be <strong>constraints</strong> on the extent of attainment of the objective, expressible as linear equations or inequalities.</span></div>
+                <div class="eq-line"><span>3. The decision variables must be <strong>interrelated and non-negative</strong>, and the available resources must be in <strong>limited supply</strong>.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ These three requirements are necessary for a problem to be modelled as an LPP.</p>
+            </div>
+        </div>
+
+        <!-- 8. HOMEWORK -->
+        <div class="section-heading">🏠 8. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Define linear programming. Explain the meaning of the term "linearity" in this context. (3 marks)</li>
+                <li>State the five essential characteristics of an LPP. (6 marks)</li>
+                <li>State and explain the five assumptions underlying an LP model. (6 marks)</li>
+                <li>Explain the terms <em>objective function</em>, <em>decision variables</em>, and <em>constraints</em> with a simple example. (6 marks)</li>
+                <li>Discuss briefly the historical development of linear programming, mentioning the contribution of George B. Dantzig. (6 marks)</li>
+                <li>Give any three examples each of management and industrial applications of linear programming. (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 9. Quick Summary</div>
+        <div class="theorem-box" style="background:#e1edda;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">LPP:</strong> optimisation of a linear objective subject to linear constraints.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Linearity:</strong> no powers, no products of variables; proportionality + additivity.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Five assumptions:</strong> proportionality, additivity, continuity, certainty, finite choices.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Origin:</strong> George Dantzig, 1947, U.S. Air Force; simplex method developed thereafter.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.1–2.3, pp. 41–43.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture30_IntroductionToLPP_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

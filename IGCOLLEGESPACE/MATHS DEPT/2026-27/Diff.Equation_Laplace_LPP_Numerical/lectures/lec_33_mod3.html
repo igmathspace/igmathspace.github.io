@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 31 | Requirements of LPP | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #e6f7f0; color: #1a4a3a; line-height: 1.6;
+        }
+        :root { --sky-teal: #2c7a6e; --green-shade: #3a9e6e; --light-bg: #daf4e8; --card-bg: #ffffff; }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #2c6e5a, #4a9e7a); padding: 0.5rem 0;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #eefbef; color: #000000; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-bar {
+            background: #1e5a4a; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid var(--sky-teal);
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2c7a6e, #1e5a4a); color: white; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #3a9e7a, #2a7a5e); transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #3a8e6e, #2a6e52); }
+        .nav-links .btn-secondary:hover { background: linear-gradient(135deg, #4aae7e, #3a7e62); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #2a8a6e, #1e6a52); }
+        .nav-links .btn-pdf:hover { background: #3a9e7a; }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: white; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); border-left: 10px solid var(--sky-teal);
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: var(--sky-teal); letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #3a9e6e; color: white; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 600; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: var(--green-shade); margin-top: 6px;
+            border-bottom: 1px dashed #b8dfcc; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #1a6e4a; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #e0f5ec; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #2c7a5e; font-weight: 500;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #2c6e5a; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: white; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08); border: 1px solid #cce6dc;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: var(--sky-teal);
+            border-left: 5px solid var(--sky-teal); padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #eefaf4; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #3a9e6e;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #1a6e4a; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #f5f9fe; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #e3edfb;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+        }
+        .example-box {
+            background: #e6f5ee; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #cce6dc;
+        }
+        .problem-item {
+            background: #fefbf5; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #2c7a6e; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #e6f7f0; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #b8dfcc;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #3a9e6e; color: white; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #2a7e5e; }
+        .co-badge {
+            background: #3a8e6e; color: white; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #e0f5ec;
+            border-radius: 30px; display: inline-block; color: #2c7a5e;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fef7e0; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f4ff; border-left: 6px solid #4a6eae; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .figure-wrap {
+            margin: 1rem 0; padding: 0.8rem; background: #fafcff;
+            border: 1px solid #cce6dc; border-radius: 16px; text-align: center;
+        }
+        .figure-wrap svg { max-width: 100%; height: auto; }
+        .figure-caption {
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem; color: #2c7a5e; margin-top: 0.4rem;
+            font-style: italic;
+        }
+        footer {
+            background: #1e5a4a; color: #dfe6cf; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid var(--sky-teal);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #ffbc9a; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+        }
+        @media print {
+            body { background: white; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #eefbef; color: black !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                box-shadow: none; border: 1px solid #ccc;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #f0faf5; border: 1px solid #cce0d4; }
+            .figure-wrap { break-inside: avoid; page-break-inside: avoid; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 31</span>
+        </div>
+        <div class="module-name">📌 Module III | Linear Programming</div>
+        <div class="lecture-title">📖 Topic: Requirements of LPP – Decision Variables, Objective Function, Constraints, Non-Negativity</div>
+        <div class="textbook-ref">📚 Textbook: Operations Research – Gupta &amp; Hira | §2.2 Requirements</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO3: Understand the structure of an LPP</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <!-- 1. LEARNING OUTCOMES -->
+        <div class="section-heading">🎯 1. Learning Outcomes (CO3)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Identify the <strong>decision variables</strong> of a given situation</li>
+            <li>Write down the <strong>objective function</strong> in linear form</li>
+            <li>Translate <strong>constraints</strong> into linear equations and inequalities</li>
+            <li>State the <strong>non-negativity restriction</strong> and explain its physical meaning</li>
+        </ul>
+
+        <!-- 2. STRUCTURE OF AN LPP -->
+        <div class="section-heading">📐 2. Structure of an LPP</div>
+        <div class="theorem-box">
+            <div class="label">Four components</div>
+            <p style="margin-top: 0.3rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Every linear programming model has four components:
+            </p>
+            <ol style="margin-left: 1.5rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                <li>Decision variables</li>
+                <li>Objective function</li>
+                <li>Constraints</li>
+                <li>Non-negativity restrictions</li>
+            </ol>
+        </div>
+
+        <!-- 3. DECISION VARIABLES -->
+        <div class="section-heading">🔢 3. Decision Variables</div>
+        <div class="theorem-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Decision variables are the quantities whose values are to be determined by solving the LPP.
+                They are denoted by \(x_1, x_2, \dots, x_n\) and represent the actual decisions to be taken —
+                e.g. the number of units of each product to produce, the quantity of each raw material to use,
+                the number of units of each food to buy.
+            </p>
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.5rem;">
+                The variables must be <strong>interrelated</strong> and they must have <strong>limited supply
+                of resources</strong> behind them; otherwise the model becomes degenerate.
+            </p>
+        </div>
+
+        <!-- 4. OBJECTIVE FUNCTION -->
+        <div class="section-heading">🎯 4. Objective Function</div>
+        <div class="theorem-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                The objective function is a linear expression of the decision variables that measures
+                the effectiveness of the decision — typically profit, revenue, cost, loss, production capacity.
+                It is written as
+            </p>
+            \[
+            Z = c_1 x_1 + c_2 x_2 + \cdots + c_n x_n
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                and is to be <strong>maximised</strong> (for profit/revenue) or <strong>minimised</strong>
+                (for cost/loss). The constants \(c_j\) are called the <em>objective function coefficients</em>.
+            </p>
+        </div>
+
+        <!-- 5. CONSTRAINTS -->
+        <div class="section-heading">🔗 5. Constraints</div>
+        <div class="theorem-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                Constraints are linear restrictions on the decision variables, arising either from
+                <strong>limitations on resources</strong> (availability of raw material, machine hours,
+                money) or from <strong>requirements</strong> (minimum production, minimum nutrient intake).
+                They are written as linear equations or inequalities:
+            </p>
+            \[
+            a_{i1} x_1 + a_{i2} x_2 + \cdots + a_{in} x_n \;(\le,\;=,\;\ge)\; b_i,\quad i = 1, 2, \dots, m.
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                The constants \(a_{ij}\) are the <em>input-output coefficients</em> (or activity coefficients),
+                and \(b_i\) is the <em>availability</em> (right-hand side) of the \(i\)-th resource.
+            </p>
+        </div>
+
+        <!-- 6. NON-NEGATIVITY -->
+        <div class="section-heading">🚫 6. Non-Negativity Restriction</div>
+        <div class="theorem-box">
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                The decision variables must satisfy
+            </p>
+            \[
+            x_1 \ge 0,\; x_2 \ge 0,\; \dots,\; x_n \ge 0.
+            \]
+            <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+                This is a physical condition: a negative number of units cannot be produced or a negative
+                amount of food cannot be bought. In the model, the non-negativity conditions are handled
+                separately from the other constraints and are therefore called <em>non-negativity restrictions</em>.
+            </p>
+        </div>
+
+        <div class="caution-box">
+            <strong>⚠️ CAUTION!</strong> Although mathematically the non-negativity conditions do not differ
+            from other constraints, they are treated separately in the simplex method and in the standard form.
+            Never omit them when formulating a model.
+        </div>
+
+        <!-- 7. WORKOUT PROBLEMS -->
+        <div class="section-heading">📚 7. Workout Problems</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to see the step-by-step solution.</p>
+
+        <!-- Problem 1: A4 feasible region WITH GRAPH -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1.</strong> Identify the feasible region \(x + y \le 3,\; x \ge 0,\; y \ge 0\). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step:</strong>
+                <div class="eq-line"><span>Step 1: The constraint \(x + y \le 3\) is the region below the line \(x + y = 3\), which passes through \((3, 0)\) and \((0, 3)\).</span></div>
+                <div class="eq-line"><span>Step 2: The non-negativity \(x \ge 0\), \(y \ge 0\) restricts the region to the first quadrant.</span></div>
+                <div class="eq-line"><span>Step 3: The intersection of these two regions is the triangle with vertices \(O(0,0)\), \(A(3,0)\), \(B(0,3)\).</span></div>
+                <div class="eq-line"><span>Step 4: The feasible region is the closed triangular region bounded by the lines \(x = 0\), \(y = 0\), and \(x + y = 3\) in the first quadrant.</span></div>
+
+                <!-- SVG GRAPHICAL REPRESENTATION (TikZ-style, inline, print-safe) -->
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 380 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Feasible region for x + y ≤ 3, x ≥ 0, y ≥ 0">
+                        <!-- Grid lines (light) -->
+                        <g stroke="#e3efe8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="260"/>
+                            <line x1="60" y1="260" x2="340" y2="260"/>
+                            <line x1="60" y1="40"  x2="340" y2="40"/>
+                            <line x1="340" y1="40" x2="340" y2="260"/>
+                        </g>
+
+                        <!-- Axes -->
+                        <line x1="60" y1="260" x2="345" y2="260" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="260" x2="60" y2="35"  stroke="#1e5a4a" stroke-width="2"/>
+                        <!-- Arrow heads -->
+                        <polygon points="345,260 338,257 338,263" fill="#1e5a4a"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1e5a4a"/>
+
+                        <!-- Axis labels -->
+                        <text x="350" y="264" font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x</text>
+                        <text x="48" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">y</text>
+                        <text x="48" y="276" font-size="12" font-family="Times New Roman, serif" fill="#1e5a4a">O</text>
+
+                        <!-- Shaded feasible triangle OAB -->
+                        <!-- Scale: 1 unit = 80 px.  Origin (60,260).  A(3,0)->(300,260).  B(0,3)->(60,20). -->
+                        <polygon points="60,260 300,260 60,20" fill="#3a9e6e" fill-opacity="0.28"
+                                 stroke="#2c7a6e" stroke-width="1.5"/>
+
+                        <!-- Constraint line x+y=3 (from (3,0) to (0,3)) -->
+                        <line x1="300" y1="260" x2="60" y2="20" stroke="#d4a017" stroke-width="2.5"/>
+
+                        <!-- Constraint line label -->
+                        <text x="180" y="120" font-size="13" font-family="Times New Roman, serif" fill="#a06a00"
+                              transform="rotate(-40 180 120)">x + y = 3</text>
+
+                        <!-- Tick marks on axes -->
+                        <g stroke="#1e5a4a" stroke-width="1.5">
+                            <line x1="140" y1="256" x2="140" y2="264"/>
+                            <line x1="220" y1="256" x2="220" y2="264"/>
+                            <line x1="300" y1="256" x2="300" y2="264"/>
+                            <line x1="56"  y1="180" x2="64"  y2="180"/>
+                            <line x1="56"  y1="100" x2="64"  y2="100"/>
+                            <line x1="56"  y1="20"  x2="64"  y2="20"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1e5a4a">
+                            <text x="136" y="278">1</text>
+                            <text x="216" y="278">2</text>
+                            <text x="296" y="278">3</text>
+                            <text x="44"  y="184">1</text>
+                            <text x="44"  y="104">2</text>
+                            <text x="44"  y="24">3</text>
+                        </g>
+
+                        <!-- Points A(3,0), B(0,3) -->
+                        <circle cx="300" cy="260" r="4.5" fill="#c0392b"/>
+                        <circle cx="60"  cy="20"  r="4.5" fill="#c0392b"/>
+                        <circle cx="60"  cy="260" r="4.5" fill="#c0392b"/>
+
+                        <!-- Point labels -->
+                        <text x="304" y="278" font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">A(3,0)</text>
+                        <text x="14"  y="24"  font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">B(0,3)</text>
+
+                        <!-- Feasible label inside region -->
+                        <text x="115" y="235" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">Feasible</text>
+                        <text x="112" y="250" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">region</text>
+
+                        <!-- x>=0, y>=0 note -->
+                        <text x="200" y="300" font-size="11" font-family="Segoe UI, sans-serif" fill="#2c7a5e">
+                            First quadrant: x ≥ 0, y ≥ 0
+                        </text>
+                    </svg>
+                    <div class="figure-caption">Fig. 31.1 — Feasible region of \(x + y \le 3,\; x \ge 0,\; y \ge 0\)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ Feasible region = triangle with vertices \((0,0), (3,0), (0,3)\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: z = 5x - 2y min — WITH GRAPHICAL REPRESENTATION -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2.</strong> Find the minimum value of \( z = 5x - 2y \), subject to \( 2x + 3y \ge 1,\; x, y \ge 0 \). <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Step-by-step (with graphical method):</strong>
+                <div class="eq-line"><span>Step 1: Decision variables: \( x, y \ge 0 \).</span></div>
+                <div class="eq-line"><span>Step 2: Objective function: minimise \( z = 5x - 2y \).</span></div>
+                <div class="eq-line"><span>Step 3: Constraint: \( 2x + 3y \ge 1 \) — a \(\ge\)-type constraint, so the feasible region lies <em>above</em> the line \( 2x + 3y = 1 \).</span></div>
+                <div class="eq-line"><span>Step 4: Find the intercepts of the boundary line \( 2x + 3y = 1 \): setting \( y = 0 \) gives \( x = 1/2 \), so \( A(1/2, 0) \); setting \( x = 0 \) gives \( y = 1/3 \), so \( B(0, 1/3) \).</span></div>
+                <div class="eq-line"><span>Step 5: The feasible region is the <strong>unbounded</strong> region above the line \( AB \) in the first quadrant (shaded in the figure). The only two corner points are \( A(1/2, 0) \) and \( B(0, 1/3) \).</span></div>
+                <div class="eq-line"><span>Step 6: Evaluate the objective at the corners: \( z(A) = 5(1/2) - 2(0) = 5/2 \); \( z(B) = 5(0) - 2(1/3) = -2/3 \).</span></div>
+                <div class="eq-line"><span>Step 7: The corner \( B \) gives the smaller value. To rule out a lower value "at infinity", observe that as \( x \to \infty \) with \( y \) fixed, \( z \to +\infty \); and along the boundary \( y = (1 - 2x)/3 \), \( z = 5x - 2(1-2x)/3 = (19x - 2)/3 \), which is <em>increasing</em> in \( x \) for \( x \ge 0 \). So the minimum is attained at \( B \).</span></div>
+                <div class="eq-line"><span>Step 8: Conclusion: \( x = 0,\; y = 1/3 \), giving \( z_{\min} = -2/3 \).</span></div>
+
+                <!-- SVG GRAPHICAL REPRESENTATION OF PROBLEM 2 (TikZ-style, inline, print-safe) -->
+                <div class="figure-wrap">
+                    <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Unbounded feasible region for 2x + 3y ≥ 1, x ≥ 0, y ≥ 0">
+                        <!-- Grid (very light) -->
+                        <g stroke="#e3efe8" stroke-width="1">
+                            <line x1="60" y1="40"  x2="60"  y2="270"/>
+                            <line x1="60" y1="270" x2="360" y2="270"/>
+                            <line x1="60" y1="40"  x2="360" y2="40"/>
+                            <line x1="360" y1="40" x2="360" y2="270"/>
+                        </g>
+
+                        <!-- Shaded UNBOUNDED feasible region (polygon extended beyond view box to suggest infinity) -->
+                        <!-- Boundary from A(1/2,0) to B(0,1/3), then up along y-axis, then far right, back down to x-axis far right -->
+                        <!-- Scale: 1 unit = 100 px. Origin (60,270). A(0.5,0)->(110,270). B(0,1/3)->(60,236.7). -->
+                        <polygon points="110,270 60,236.7 60,40 360,40 360,270"
+                                 fill="#3a9e6e" fill-opacity="0.22"
+                                 stroke="none"/>
+                        <!-- Re-stroke the two axes for crisp edges (since polygon covered them) -->
+                        <line x1="60" y1="270" x2="110" y2="270" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="270" x2="60"  y2="236.7" stroke="#1e5a4a" stroke-width="2"/>
+
+                        <!-- Constraint line 2x + 3y = 1 (golden) -->
+                        <line x1="110" y1="270" x2="60" y2="236.7" stroke="#d4a017" stroke-width="2.5"/>
+
+                        <!-- Extend constraint line slightly for context (dashed) -->
+                        <line x1="110" y1="270" x2="135" y2="287" stroke="#d4a017" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <line x1="60" y1="236.7" x2="35" y2="220" stroke="#d4a017" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                        <!-- Axes -->
+                        <line x1="60" y1="270" x2="365" y2="270" stroke="#1e5a4a" stroke-width="2"/>
+                        <line x1="60" y1="270" x2="60"  y2="35"  stroke="#1e5a4a" stroke-width="2"/>
+                        <polygon points="365,270 358,267 358,273" fill="#1e5a4a"/>
+                        <polygon points="60,35 57,42 63,42" fill="#1e5a4a"/>
+                        <text x="370" y="274" font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">x</text>
+                        <text x="48" y="32"  font-size="13" font-family="Times New Roman, serif" fill="#1e5a4a">y</text>
+                        <text x="48" y="286" font-size="12" font-family="Times New Roman, serif" fill="#1e5a4a">O</text>
+
+                        <!-- Direction arrows on the shading edges to indicate UNBOUNDED -->
+                        <polygon points="360,40 352,46 352,34" fill="#2c7a6e"/>
+                        <polygon points="360,270 352,264 352,276" fill="#2c7a6e"/>
+
+                        <!-- Tick marks and numeric labels -->
+                        <g stroke="#1e5a4a" stroke-width="1.5">
+                            <line x1="110" y1="266" x2="110" y2="274"/>
+                            <line x1="160" y1="266" x2="160" y2="274"/>
+                            <line x1="260" y1="266" x2="260" y2="274"/>
+                            <line x1="56"  y1="236.7" x2="64" y2="236.7"/>
+                            <line x1="56"  y1="170"   x2="64" y2="170"/>
+                        </g>
+                        <g font-size="11" font-family="Times New Roman, serif" fill="#1e5a4a">
+                            <text x="105" y="288">1/2</text>
+                            <text x="155" y="288">1</text>
+                            <text x="255" y="288">2</text>
+                            <text x="42"  y="240">1/3</text>
+                            <text x="42"  y="174">1</text>
+                        </g>
+
+                        <!-- Points A and B -->
+                        <circle cx="110" cy="270" r="4.5" fill="#c0392b"/>
+                        <circle cx="60"  cy="236.7" r="4.5" fill="#c0392b"/>
+
+                        <!-- Labels for A and B -->
+                        <text x="116" y="288" font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">A(1/2, 0)</text>
+                        <text x="6"  y="234" font-size="13" font-family="Times New Roman, serif" fill="#c0392b" font-weight="bold">B(0, 1/3)</text>
+
+                        <!-- Constraint label -->
+                        <text x="170" y="230" font-size="13" font-family="Times New Roman, serif" fill="#a06a00"
+                              transform="rotate(-31 170 230)">2x + 3y = 1</text>
+
+                        <!-- "Unbounded" annotation -->
+                        <text x="230" y="90" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">Unbounded</text>
+                        <text x="230" y="106" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">feasible</text>
+                        <text x="230" y="122" font-size="12" font-family="Segoe UI, sans-serif" fill="#1a6e4a"
+                              font-style="italic">region</text>
+
+                        <!-- Caption note -->
+                        <text x="100" y="305" font-size="11" font-family="Segoe UI, sans-serif" fill="#2c7a5e">
+                            First quadrant: x ≥ 0, y ≥ 0
+                        </text>
+                    </svg>
+                    <div class="figure-caption">Fig. 31.2 — Unbounded feasible region of \( 2x + 3y \ge 1,\; x \ge 0,\; y \ge 0 \); minimum of \( z = 5x - 2y \) occurs at \( B(0, \tfrac{1}{3}) \)</div>
+                </div>
+
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.4rem;">✅ \( x = 0,\; y = 1/3,\; z_{\min} = -2/3 \).</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: A3 surplus variable definition -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3.</strong> Define a surplus variable with an example. <span class="co-badge">CO3</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Answer:</strong>
+                <div class="eq-line"><span>A <strong>surplus variable</strong> is a non-negative variable that is subtracted from the left-hand side of a \(\ge\)-type constraint to convert it into an equation. Physically it represents the amount by which the left-hand side exceeds the right-hand side.</span></div>
+                <div class="eq-line"><span>Example: The constraint \(2x_1 + 3x_2 \ge 10\) is converted to</span></div>
+                <div class="eq-line"><span>\(2x_1 + 3x_2 - s = 10, \quad s \ge 0\),</span></div>
+                <div class="eq-line"><span>where \(s\) is the surplus variable, representing the surplus of the left side over 10.</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ A surplus variable is the "negative slack" used in \(\ge\)-type constraints.</p>
+            </div>
+        </div>
+
+        <!-- 8. HOMEWORK -->
+        <div class="section-heading">🏠 8. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Define and give examples of (i) decision variables, (ii) objective function, (iii) constraints, (iv) non-negativity restrictions. (6 marks)</li>
+                <li>Explain why the resources behind the decision variables must be in limited supply for an LPP to be meaningful. (6 marks)</li>
+                <li>Write down the general form of a linear programming problem and identify the objective function coefficients, input-output coefficients, and availability vector. (6 marks)</li>
+                <li>Identify the feasible region \(2x + y \le 4,\; x \ge 0,\; y \ge 0\). Sketch it. (3 marks)</li>
+                <li>Define a slack variable with an example. (3 marks)</li>
+                <li>Construct a simple LPP with two decision variables, one \(\le\)-type constraint and one \(\ge\)-type constraint, and clearly identify the four components. (6 marks)</li>
+            </ol>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-heading">📋 9. Quick Summary</div>
+        <div class="theorem-box" style="background:#e1edda;">
+            <ul style="font-family: 'Latin Modern Math', 'Times New Roman', serif; list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Decision variables:</strong> quantities to be determined; denoted \(x_j\).</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Objective function:</strong> linear expression to be maximised or minimised.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Constraints:</strong> linear restrictions, from resource availability or minimum requirements.</li>
+                <li style="margin-bottom: 0.3rem;"><strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Non-negativity:</strong> \(x_j \ge 0\) — a physical reality, handled separately.</li>
+            </ul>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Gupta, P.K. &amp; Hira, D.S. (2014). <em>Operations Research</em> (7th rev. ed.), §2.2, pp. 41–43.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #6a5a3a; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture31_RequirementsOfLPP_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>
