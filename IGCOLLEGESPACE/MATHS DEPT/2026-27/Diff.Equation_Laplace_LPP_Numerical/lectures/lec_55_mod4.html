@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 55 | Trapezoidal Rule: Derivation, Formula, Geometric Meaning | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #f0f4f8;
+            color: #1e2b3c; 
+            line-height: 1.6;
+        }
+        :root {
+            --blue-bg: #f0f4f8;
+            --blue-panel: #ffffff;
+            --blue-dark: #2a4b6e;
+            --blue-deeper: #1e3550;
+            --yellow-accent: #d4b84c;
+            --yellow-soft: #fdf8e4;
+            --blue-line: #c8d8e8;
+            --text-dark: #1e2b3c;
+            --text-soft: #2a4b6e;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #2a4b6e, #d4b84c); padding: 0.5rem 0;
+            border-bottom: 3px solid #1e3550;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #2a4b6e; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #345b82; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #1e3550;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2a4b6e, #1e3550); color: #fdf8e4; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #c8d8e8; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #d4b84c, #345b82); color: #1e2b3c; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #345b82, #2a4b6e); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #d4b84c, #345b82); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(42, 75, 110, 0.12);
+            border-left: 10px solid #2a4b6e;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #1e3550; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #d4b84c; color: #1e2b3c; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #2a4b6e; margin-top: 6px;
+            border-bottom: 1px dashed #c8d8e8; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #1e3550; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #fdf8e4; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #1e3550; font-weight: 500;
+            border: 1px solid #c8d8e8;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #2a4b6e; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(42, 75, 110, 0.10);
+            border: 1px solid #fdf8e4;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #2a4b6e;
+            border-left: 5px solid #d4b84c; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f0f4f8; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #d4b84c;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #1e3550; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #fdf8e4; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #c8d8e8;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #1e2b3c;
+        }
+        .example-box {
+            background: #f0f4f8; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #fdf8e4;
+        }
+        .problem-item {
+            background: #f0f4f8; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #d4b84c; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #1e2b3c;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #fdf8e4; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #d4b84c;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #d4b84c; color: #1e2b3c; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #b8a03c; }
+        .co-badge {
+            background: #345b82; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #fdf8e4;
+            border-radius: 30px; display: inline-block; color: #1e3550;
+            border: 1px solid #c8d8e8;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f4f8; border-left: 6px solid #345b82; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .data-table {
+            width: 100%; border-collapse: collapse;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem; margin: 1rem 0; text-align: center;
+            background: #ffffff;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #2a4b6e;
+            padding: 6px 8px;
+            vertical-align: middle;
+        }
+        .data-table thead th {
+            background: #fdf8e4;
+            color: #1e2b3c;
+            font-weight: 700;
+            border-bottom: 2px solid #2a4b6e;
+        }
+        .data-table tbody td {
+            background: #fbfdff;
+        }
+        footer {
+            background: #345b82; color: #fdf8e4; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #1e3550;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #fdf8e4; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+            .data-table { font-size: 0.7rem; }
+        }
+        @media print {
+            body { background: white; color: #1e2b3c; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #2a4b6e; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1e2b3c;
+                box-shadow: none; border: 1px solid #c8d8e8;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #1e3550 !important; }
+            .content-card p, .eq-line, .problem-text { color: #1e2b3c !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f0f4f8 !important; color: #1e2b3c !important; border-color: #c8d8e8 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #fdf8e4; color: #1e2b3c; border: 1px solid #c8d8e8; }
+            .data-table th, .data-table td { border-color: #000 !important; }
+            .data-table thead th { background: #fdf8e4 !important; print-color-adjust: exact; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #1e2b3c; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 55</span>
+        </div>
+        <div class="module-name">📌 Module IV | Numerical Methods</div>
+        <div class="lecture-title">📖 Topic: Trapezoidal Rule — Derivation, Formula, Geometric Meaning</div>
+        <div class="textbook-ref">📚 Textbook: Introductory Methods of Numerical Analysis – S.S. Sastry | §6.4.1 (Trapezoidal Rule)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO4: Apply the trapezoidal rule to approximate definite integrals</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <div class="section-heading">🎯 1. Learning Outcomes (CO4)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Derive the trapezoidal rule from first principles</li>
+            <li>Understand the geometric interpretation of the rule</li>
+            <li>Apply the composite trapezoidal rule to tabulated data</li>
+            <li>Solve problems from the question bank</li>
+        </ul>
+
+        <div class="section-heading">📐 2. Derivation of the Trapezoidal Rule</div>
+        <div class="theorem-box">
+            <div class="label">📌 Single Interval Derivation</div>
+            <p>Consider the integral \(\int_{x_0}^{x_1} f(x)\,dx\) over one subinterval of width \(h = x_1 - x_0\).</p>
+            <p>Approximate \(f(x)\) by a straight line (linear interpolation) through the points \((x_0, y_0)\) and \((x_1, y_1)\):</p>
+            <div class="eq-line"><span>\[ f(x) \approx y_0 + \frac{y_1 - y_0}{h}(x - x_0) \]</span></div>
+            <p>Integrating this linear approximation from \(x_0\) to \(x_1\):</p>
+            <div class="eq-line"><span>\[ \int_{x_0}^{x_1} f(x)\,dx \approx \int_{x_0}^{x_1} \left[ y_0 + \frac{y_1 - y_0}{h}(x - x_0) \right] dx \]</span></div>
+            <div class="eq-line"><span>\[ = h y_0 + \frac{y_1 - y_0}{h} \cdot \frac{h^2}{2} = h y_0 + \frac{h}{2}(y_1 - y_0) \]</span></div>
+            <div class="eq-line"><span>\[ = \frac{h}{2}(y_0 + y_1) \]</span></div>
+            <p>This is the <strong>trapezoidal rule for one interval</strong>.</p>
+        </div>
+
+        <div class="theorem-box">
+            <div class="label">📌 Composite Trapezoidal Rule</div>
+            <p>Divide \([a, b]\) into \(n\) equal subintervals of width \(h = (b-a)/n\), with points \(x_0, x_1, \dots, x_n\).</p>
+            <p>Applying the single-interval rule to each subinterval and summing:</p>
+            <div class="eq-line"><span>\[ \int_{x_0}^{x_n} y\,dx \approx \frac{h}{2}\Big[ y_0 + 2(y_1 + y_2 + \dots + y_{n-1}) + y_n \Big] \]</span></div>
+            <p>Equivalently:</p>
+            <div class="eq-line"><span>\[ \boxed{ \int_a^b f(x)\,dx \approx \frac{h}{2}\left( y_0 + 2\sum_{i=1}^{n-1} y_i + y_n \right) } \]</span></div>
+        </div>
+
+        <div class="section-heading">📏 3. Geometric Interpretation</div>
+        <div class="theorem-box">
+            <div class="label">📌 Area of Trapezoids</div>
+            <p>The trapezoidal rule approximates the area under the curve \(y = f(x)\) by the sum of the areas of <strong>trapezoids</strong>.</p>
+            <p>On each subinterval \([x_{i-1}, x_i]\), the region bounded by the curve, the \(x\)-axis, and the vertical lines \(x = x_{i-1}\), \(x = x_i\) is approximated by a trapezoid with parallel sides \(y_{i-1}\) and \(y_i\), and height \(h\).</p>
+            <p>The area of this trapezoid is \(\frac{h}{2}(y_{i-1} + y_i)\). Summing over all subintervals gives the trapezoidal rule.</p>
+        </div>
+
+        <div class="section-heading">📋 4. Error and Accuracy</div>
+        <div class="proof-box">
+            <p>The error in the composite trapezoidal rule is</p>
+            <div class="eq-line"><span>\[ E_T = -\frac{(b-a)}{12}h^2 f''(\xi), \quad a < \xi < b \]</span></div>
+            <p>This shows the rule is exact for linear functions (since \(f'' = 0\)) and has order \(O(h^2)\).</p>
+        </div>
+
+        <div class="section-heading">⚠️ 5. Points to Remember</div>
+        <div class="caution-box" style="background: #fdecea; border-left-color: #d32f2f; color: #5a1010; font-size: 1.05rem; padding: 1.2rem;">
+            <strong>🚨 Important Notes</strong><br>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>The step size \(h\) must be constant.</li>
+                <li>The rule works for any number of subintervals \(n\).</li>
+                <li>The accuracy improves as \(h\) decreases (i.e., as \(n\) increases).</li>
+                <li>The formula uses the two end ordinates once and all interior ordinates twice.</li>
+            </ul>
+        </div>
+
+        <div class="section-heading">📚 6. Workout Problems (from Question Bank – Section 8)</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to reveal the detailed solution.</p>
+
+        <!-- Problem 1: A1 - Write trapezoidal rule -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1 (A1).</strong> Write the trapezoidal rule to find \(\int_{x_0}^{x_n} y\,dx\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>The trapezoidal rule is</span></div>
+                <div class="eq-line"><span>\[ \int_{x_0}^{x_n} y\,dx \approx \frac{h}{2}\Big[ y_0 + 2(y_1 + y_2 + \dots + y_{n-1}) + y_n \Big] \]</span></div>
+                <div class="eq-line"><span>where \(h = (x_n - x_0)/n\) and \(y_i = f(x_i)\).</span></div>
+            </div>
+        </div>
+
+        <!-- Problem 2: A3 - n=1 case -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2 (A3).</strong> Write the trapezoidal rule to find \(\int_{x_0}^{x_n} y\,dx\) for \(n = 1\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>For \(n = 1\), there are only two ordinates \(y_0\) and \(y_1\), and</span></div>
+                <div class="eq-line"><span>\[ \int_{x_0}^{x_1} y\,dx \approx \frac{h}{2}(y_0 + y_1) \]</span></div>
+                <div class="eq-line"><span>where \(h = x_1 - x_0\).</span></div>
+            </div>
+        </div>
+
+        <!-- Problem 3: B6 - Area under curve using Trapezoidal rule -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3 (B6).</strong> State the trapezoidal rule for finding an approximate area under a given curve. A curve is given by the points \((0, 23)\), \((0.5, 19)\), \((1.0, 14)\), \((1.5, 11)\), \((2.0, 12.5)\), \((2.5, 16)\). Estimate the area bounded by the curve, the \(x\)-axis and the extreme ordinates. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>The trapezoidal rule states that</span></div>
+                <div class="eq-line"><span>\[ \int_{x_0}^{x_n} y\,dx \approx \frac{h}{2}\left[ y_0 + 2(y_1 + y_2 + \dots + y_{n-1}) + y_n \right] \]</span></div>
+                <div class="eq-line"><span>Arrange the data in a table:</span></div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>\(x\)</th><th>0</th><th>0.5</th><th>1.0</th><th>1.5</th><th>2.0</th><th>2.5</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(y\)</td><td>23</td><td>19</td><td>14</td><td>11</td><td>12.5</td><td>16</td></tr>
+                    </tbody>
+                </table>
+                <div class="eq-line"><span>The step size is \(h = 0.5\) and \(n = 5\). Apply the trapezoidal rule:</span></div>
+                <div class="eq-line"><span>\[ A \approx \frac{0.5}{2}\Big[ 23 + 2(19 + 14 + 11 + 12.5) + 16 \Big] \]</span></div>
+                <div class="eq-line"><span>\[ = 0.25\Big[ 23 + 2(56.5) + 16 \Big] = 0.25\Big[ 23 + 113 + 16 \Big] = 0.25 \times 152 \]</span></div>
+                <div class="eq-line"><span>\[ A \approx 38 \]</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Area \(\approx 38\) square units.</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: B1 - Area under curve from x = 7.47 to 7.52 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4 (B1).</strong> Find, from the following table, the area bounded by the curve and the \(x\)-axis from \(x = 7.47\) to \(x = 7.52\). <br><em>Table:</em> \(x\): 7.47, 7.48, 7.49, 7.50, 7.51, 7.52; \(f(x)\): 1.93, 1.95, 1.98, 2.01, 2.03, 2.06. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Arrange the data in a table with \(h = 0.01\):</span></div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>\(x\)</th><th>7.47</th><th>7.48</th><th>7.49</th><th>7.50</th><th>7.51</th><th>7.52</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(f(x)\)</td><td>1.93</td><td>1.95</td><td>1.98</td><td>2.01</td><td>2.03</td><td>2.06</td></tr>
+                    </tbody>
+                </table>
+                <div class="eq-line"><span>Apply the trapezoidal rule:</span></div>
+                <div class="eq-line"><span>\[ A \approx \frac{0.01}{2}\Big[ 1.93 + 2(1.95 + 1.98 + 2.01 + 2.03) + 2.06 \Big] \]</span></div>
+                <div class="eq-line"><span>\[ = 0.005\Big[ 1.93 + 2(7.97) + 2.06 \Big] = 0.005\Big[ 1.93 + 15.94 + 2.06 \Big] \]</span></div>
+                <div class="eq-line"><span>\[ = 0.005 \times 19.93 = 0.09965 \]</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Area \(\approx 0.0997\) square units.</p>
+            </div>
+        </div>
+
+        <!-- Problem 5: B4 - Integral of x sin x -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 5 (B4).</strong> Evaluate \(I = \int_0^\pi x \sin x\,dx\) using the trapezoidal rule with five ordinates. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Five ordinates means \(n = 4\) subintervals over \([0, \pi]\), so \(h = \frac{\pi - 0}{4} = \frac{\pi}{4}\).</span></div>
+                <div class="eq-line"><span>The mesh points are \(x_0 = 0,\; x_1 = \pi/4,\; x_2 = \pi/2,\; x_3 = 3\pi/4,\; x_4 = \pi\).</span></div>
+                <div class="eq-line"><span>Compute the ordinates \(y_i = x_i \sin x_i\) (RADIAN mode):</span></div>
+                <div class="eq-line"><span>\(y_0 = 0 \cdot \sin 0 = 0\)</span></div>
+                <div class="eq-line"><span>\(y_1 = \frac{\pi}{4}\sin\frac{\pi}{4} = \frac{\pi}{4} \times \frac{\sqrt{2}}{2} \approx 0.5554\)</span></div>
+                <div class="eq-line"><span>\(y_2 = \frac{\pi}{2}\sin\frac{\pi}{2} = \frac{\pi}{2} \times 1 \approx 1.5708\)</span></div>
+                <div class="eq-line"><span>\(y_3 = \frac{3\pi}{4}\sin\frac{3\pi}{4} = \frac{3\pi}{4} \times \frac{\sqrt{2}}{2} \approx 1.6661\)</span></div>
+                <div class="eq-line"><span>\(y_4 = \pi \sin\pi = 0\)</span></div>
+                <div class="eq-line"><span>Apply the trapezoidal rule:</span></div>
+                <div class="eq-line"><span>\[ I \approx \frac{\pi/4}{2}\Big[ 0 + 2(0.5554 + 1.5708 + 1.6661) + 0 \Big] \]</span></div>
+                <div class="eq-line"><span>\[ = \frac{\pi}{8} \times 2(3.7923) = \frac{\pi}{8} \times 7.5846 \approx 2.9785 \]</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(I \approx 2.9785\).</p>
+            </div>
+        </div>
+
+        <div class="section-heading">🏠 7. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Derive the trapezoidal rule from the linear interpolation of \(f(x)\) on one subinterval.</li>
+                <li>Estimate \(\int_0^1 \frac{1}{1+x}\,dx\) using the trapezoidal rule with \(h = 0.25\) and \(h = 0.125\). Compare the results.</li>
+                <li>Find the area under the curve given by the table below from \(x = 0\) to \(x = 4\) using the trapezoidal rule.<br>
+                \(x\): 0, 1, 2, 3, 4; \(y\): 1, 2, 5, 10, 17.</li>
+            </ol>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Sastry, S.S. (2012). <em>Introductory Methods of Numerical Analysis</em> (5th ed.), §6.4.1, pp. 219–221.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #2a4b6e; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture55_TrapezoidalRule_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

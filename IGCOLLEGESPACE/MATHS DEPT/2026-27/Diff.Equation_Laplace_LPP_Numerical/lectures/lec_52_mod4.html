@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 52 | Newton-Raphson Method: Convergence & Order of Convergence | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #fffdf0; /* Yellowish white background */
+            color: #2b2b2b; 
+            line-height: 1.6;
+        }
+        :root {
+            --yellow-bg: #fffdf0;
+            --yellow-panel: #ffffff;
+            --yellow-dark: #5c4d2e; /* Dark olive brown for headers */
+            --yellow-deeper: #3e331e;
+            --yellow-accent: #c4b18a; /* Muted gold/tan accent */
+            --yellow-soft: #fcf8e3; /* Soft yellow for boxes */
+            --yellow-line: #e8dfc0;
+            --text-dark: #2b2b2b;
+            --text-soft: #5c4d2e;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #5c4d2e, #c4b18a); padding: 0.5rem 0;
+            border-bottom: 3px solid #3e331e;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #c4b18a; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #6d5c3e; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #3e331e;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #5c4d2e, #3e331e); color: #fcf8e3; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #e8dfc0; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #c4b18a, #6d5c3e); color: #ffffff; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #6d5c3e, #5c4d2e); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #c4b18a, #6d5c3e); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(92, 77, 46, 0.12);
+            border-left: 10px solid #5c4d2e;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #3e331e; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #c4b18a; color: #ffffff; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #5c4d2e; margin-top: 6px;
+            border-bottom: 1px dashed #e8dfc0; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #3e331e; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #fcf8e3; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #3e331e; font-weight: 500;
+            border: 1px solid #e8dfc0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #5c4d2e; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(92, 77, 46, 0.10);
+            border: 1px solid #fcf8e3;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #5c4d2e;
+            border-left: 5px solid #c4b18a; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #fffdf0; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #c4b18a;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #3e331e; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #fcf8e3; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #e8dfc0;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #2b2b2b;
+        }
+        .example-box {
+            background: #fffdf0; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #fcf8e3;
+        }
+        .problem-item {
+            background: #fffdf0; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #c4b18a; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #2b2b2b;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #fcf8e3; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #c4b18a;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #c4b18a; color: #ffffff; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #6d5c3e; }
+        .co-badge {
+            background: #6d5c3e; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #fcf8e3;
+            border-radius: 30px; display: inline-block; color: #3e331e;
+            border: 1px solid #e8dfc0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #fffdf0; border-left: 6px solid #6d5c3e; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .nr-table {
+            width: 100%; border-collapse: collapse;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.82rem; margin: 1rem 0; text-align: center;
+            background: #ffffff;
+        }
+        .nr-table th, .nr-table td {
+            border: 1px solid #5c4d2e;
+            padding: 6px 8px;
+            vertical-align: middle;
+        }
+        .nr-table thead th {
+            background: #fcf8e3;
+            color: #2b2b2b;
+            font-weight: 700;
+            border-bottom: 2px solid #5c4d2e;
+        }
+        .nr-table tbody td {
+            background: #fbfdff;
+        }
+        .nr-table .bold { font-weight: 700; color: #c0392b; }
+        footer {
+            background: #6d5c3e; color: #fcf8e3; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #3e331e;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #fcf8e3; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+            .nr-table { font-size: 0.7rem; }
+        }
+        @media print {
+            body { background: white; color: #2b2b2b; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #c4b18a; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #2b2b2b;
+                box-shadow: none; border: 1px solid #e8dfc0;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #3e331e !important; }
+            .content-card p, .eq-line, .problem-text { color: #2b2b2b !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #fffdf0 !important; color: #2b2b2b !important; border-color: #e8dfc0 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #fcf8e3; color: #2b2b2b; border: 1px solid #e8dfc0; }
+            .nr-table th, .nr-table td { border-color: #000 !important; }
+            .nr-table thead th { background: #fcf8e3 !important; print-color-adjust: exact; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #2b2b2b; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 52</span>
+        </div>
+        <div class="module-name">📌 Module IV | Numerical Methods</div>
+        <div class="lecture-title">📖 Topic: Newton-Raphson Method — Convergence &amp; Order of Convergence</div>
+        <div class="textbook-ref">📚 Textbook: Introductory Methods of Numerical Analysis – S.S. Sastry | §2.5 (Convergence)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO4: Analyse convergence conditions and the quadratic order of the Newton-Raphson method</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <div class="section-heading">🎯 1. Learning Outcomes (CO4)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>State the conditions under which the Newton-Raphson method converges</li>
+            <li>Derive the error recurrence relation showing quadratic convergence</li>
+            <li>Define the order of convergence and prove it is second-order for simple roots</li>
+            <li>Apply Newton-Raphson to problems from the question bank</li>
+        </ul>
+
+        <div class="section-heading">📐 2. Convergence of the Newton-Raphson Method</div>
+        <div class="theorem-box">
+            <div class="label">📌 Condition for Convergence</div>
+            <p>Write the iteration in the form \(x_{n+1} = \phi(x_n)\), where</p>
+            <div class="eq-line"><span>\[ \phi(x) = x - \frac{f(x)}{f'(x)} \]</span></div>
+            <p>From the fixed-point theory, the iteration converges if in a neighbourhood of the root \(\xi\):</p>
+            <div class="eq-line"><span>\[ |\phi'(x)| < 1 \]</span></div>
+            <p>Differentiating \(\phi(x)\):</p>
+            <div class="eq-line"><span>\[ \phi'(x) = \frac{f(x)f''(x)}{[f'(x)]^2} \]</span></div>
+            <p>At the root \(\xi\), we have \(f(\xi) = 0\), so \(\phi'(\xi) = 0\). Since \(\phi'\) is continuous and vanishes at the root, we can always find a neighbourhood of \(\xi\) where \(|\phi'(x)| < 1\).</p>
+            <p>Hence the method converges <strong>provided the initial approximation \(x_0\) is chosen sufficiently close to the root \(\xi\)</strong>, and \(f'(x) \neq 0\) in that neighbourhood.</p>
+        </div>
+
+        <div class="section-heading">⚡ 3. Rate (Order) of Convergence</div>
+        <div class="theorem-box">
+            <div class="label">📌 Quadratic Convergence</div>
+            <p>Let \(\xi\) be the exact root and \(x_n\) the \(n\)-th approximation. Define the error \(e_n = x_n - \xi\).</p>
+            <p>Expand \(f(x_n)\) by Taylor's series about \(\xi\), using \(f(\xi) = 0\):</p>
+            <div class="eq-line"><span>\[ f(x_n) = f'(\xi)e_n + \tfrac{1}{2}f''(\xi)e_n^2 + \dots \]</span></div>
+            <p>Also expand \(f'(x_n)\):</p>
+            <div class="eq-line"><span>\[ f'(x_n) = f'(\xi) + f''(\xi)e_n + \dots \]</span></div>
+            <p>The correction term is</p>
+            <div class="eq-line"><span>\[ \frac{f(x_n)}{f'(x_n)} = e_n + \frac{f''(\xi)}{2f'(\xi)}e_n^2 + \dots \]</span></div>
+            <p>Substituting into the iteration \(x_{n+1} = x_n - f(x_n)/f'(x_n)\) and using \(x_{n+1} - \xi = e_{n+1}\):</p>
+            <div class="eq-line"><span>\[ e_{n+1} = \frac{f''(\xi)}{2f'(\xi)} e_n^2 + \dots \]</span></div>
+            <p>Hence, for sufficiently small \(e_n\),</p>
+            <div class="eq-line"><span>\[ e_{n+1} \approx K e_n^2, \qquad K = \frac{f''(\xi)}{2f'(\xi)} \]</span></div>
+            <p>This shows the Newton-Raphson method has <strong>second-order (quadratic) convergence</strong> — the number of correct decimal places roughly doubles each iteration.</p>
+        </div>
+
+        <div class="proof-box">
+            <p><strong>Definition (Order of Convergence).</strong> A sequence \(\{x_n\}\) converges to \(\xi\) with order \(p\) if there exists a constant \(C \neq 0\) such that</p>
+            <div class="eq-line"><span>\[ \lim_{n\to\infty} \frac{|x_{n+1}-\xi|}{|x_n-\xi|^p} = C \]</span></div>
+            <p>Here \(p = 2\) and \(C = |f''(\xi)/2f'(\xi)|\), so Newton-Raphson is of second order.</p>
+        </div>
+
+        <div class="caution-box" style="background: #fdecea; border-left-color: #d32f2f; color: #5a1010; font-size: 1.05rem; padding: 1.2rem;">
+            <strong>🚨 IMPORTANT REMARKS</strong><br>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>If \(f'(x_n)\) becomes zero or very small, the method breaks down or diverges.</li>
+                <li>A poor initial guess may cause divergence even though the method is quadratically convergent locally.</li>
+                <li>For a repeated root, the convergence slows to linear unless a modified formula is used.</li>
+                <li>For trigonometric functions, keep the calculator in <strong>RADIAN mode</strong>.</li>
+            </ul>
+        </div>
+
+        <div class="section-heading">📚 4. Workout Problems (from Question Bank – Section 7)</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to reveal the detailed solution.</p>
+
+        <!-- Problem 1: B5 - x^3 - 2x - 5 = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1 (B5).</strong> Use the Newton-Raphson method to find a root of \(x^3 - 2x - 5 = 0\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Let \(f(x) = x^3 - 2x - 5\), so \(f'(x) = 3x^2 - 2\).</span></div>
+                <div class="eq-line"><span>Since \(f(2) = -1\) and \(f(3) = 16\), choose \(x_0 = 2\).</span></div>
+                <div class="eq-line"><span>Iteration 1: \(f(2) = -1\), \(f'(2) = 10\).</span></div>
+                <div class="eq-line"><span>\[ x_1 = 2 - \frac{-1}{10} = 2.1 \]</span></div>
+                <div class="eq-line"><span>Iteration 2: \(f(2.1) = 0.061\), \(f'(2.1) = 11.23\).</span></div>
+                <div class="eq-line"><span>\[ x_2 = 2.1 - \frac{0.061}{11.23} = 2.094568 \]</span></div>
+                <div class="eq-line"><span>Iteration 3: \(f(2.094568) \approx 0\), so the root is \(x \approx 2.0945\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Root ≈ \(2.0945\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: B6 - x sin x + cos x = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2 (B6).</strong> Find a root of \(x\sin x + \cos x = 0\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <div style="background:#fdecea; border-left:6px solid #d32f2f; padding:10px 15px; border-radius:10px; margin-bottom:1rem; color:#5a1010; font-family:'Segoe UI',sans-serif; font-weight:bold;">
+                    🚨 Use RADIAN mode for all trigonometric evaluations.
+                </div>
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Let \(f(x) = x\sin x + \cos x\); then \(f'(x) = x\cos x\).</span></div>
+                <div class="eq-line"><span>Choose \(x_0 = \pi \approx 3.1416\).</span></div>
+                <div class="eq-line"><span>Iteration 1: \(f(\pi) = -1\), \(f'(\pi) = -\pi\).</span></div>
+                <div class="eq-line"><span>\[ x_1 = \pi - \frac{-1}{-\pi} = \pi - \frac{1}{\pi} \approx 2.8233 \]</span></div>
+                <div class="eq-line"><span>Iteration 2: \(f(2.8233) \approx -0.0662\), \(f'(2.8233) \approx -2.8233\).</span></div>
+                <div class="eq-line"><span>\[ x_2 \approx 2.7986 \]</span></div>
+                <div class="eq-line"><span>Iteration 3: \(f(2.7986) \approx -0.0006\), giving \(x_3 \approx 2.7984\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Root ≈ \(2.7984\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: C4 - x^2 + 4 sin x = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3 (C4).</strong> Find a non-zero root of \(x^2 + 4\sin x = 0\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <div style="background:#fdecea; border-left:6px solid #d32f2f; padding:10px 15px; border-radius:10px; margin-bottom:1rem; color:#5a1010; font-family:'Segoe UI',sans-serif; font-weight:bold;">
+                    🚨 Use RADIAN mode for trigonometric evaluations.
+                </div>
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Let \(f(x) = x^2 + 4\sin x\); then \(f'(x) = 2x + 4\cos x\).</span></div>
+                <div class="eq-line"><span>Choose \(x_0 = -2\).</span></div>
+                <div class="eq-line"><span>Iteration 1: \(f(-2) \approx 0.3628\), \(f'(-2) \approx -5.664\).</span></div>
+                <div class="eq-line"><span>\[ x_1 = -2 - \frac{0.3628}{-5.664} \approx -1.9359 \]</span></div>
+                <div class="eq-line"><span>Iteration 2: \(f(-1.9359) \approx 0.0291\), \(f'(-1.9359) \approx -5.488\).</span></div>
+                <div class="eq-line"><span>\[ x_2 \approx -1.9306 \]</span></div>
+                <div class="eq-line"><span>Iteration 3: \(f(-1.9306) \approx -0.0002\), so the root is \(x \approx -1.9338\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Non-zero root ≈ \(-1.9338\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: C5 - sin x = x/2 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4 (C5).</strong> Find a non-zero root of \(\sin x = \frac{x}{2}\) between \(\frac{\pi}{2}\) and \(\pi\), correct to 3 decimal places. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <div style="background:#fdecea; border-left:6px solid #d32f2f; padding:10px 15px; border-radius:10px; margin-bottom:1rem; color:#5a1010; font-family:'Segoe UI',sans-serif; font-weight:bold;">
+                    🚨 Use RADIAN mode for all trigonometric evaluations.
+                </div>
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Let \(f(x) = \sin x - \frac{x}{2}\); then \(f'(x) = \cos x - \frac{1}{2}\).</span></div>
+                <div class="eq-line"><span>Choose \(x_0 = \frac{\pi}{2} \approx 1.5708\).</span></div>
+                <div class="eq-line"><span>Iteration 1: \(f(\pi/2) = 0.2146\), \(f'(\pi/2) = -0.5\).</span></div>
+                <div class="eq-line"><span>\[ x_1 = 1.5708 + 0.4292 = 2.0000 \]</span></div>
+                <div class="eq-line"><span>Iteration 2: \(f(2.0) \approx -0.0907\), \(f'(2.0) \approx -0.9161\).</span></div>
+                <div class="eq-line"><span>\[ x_2 \approx 1.9010 \]</span></div>
+                <div class="eq-line"><span>Iteration 3: \(f(1.9010) \approx -0.0042\), giving \(x_3 \approx 1.8959\).</span></div>
+                <div class="eq-line"><span>Iteration 4: \(x_4 \approx 1.8955\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Root ≈ \(1.896\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <!-- Problem 5: C6 - 4e^{-x} sin x - 1 = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 5 (C6).</strong> Find the root of \(4e^{-x}\sin x - 1 = 0\) between 0 and 0.5, correct to 3 decimal places. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <div style="background:#fdecea; border-left:6px solid #d32f2f; padding:10px 15px; border-radius:10px; margin-bottom:1rem; color:#5a1010; font-family:'Segoe UI',sans-serif; font-weight:bold;">
+                    🚨 Use RADIAN mode for trigonometric evaluations.
+                </div>
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Let \(f(x) = 4e^{-x}\sin x - 1\); then \(f'(x) = 4e^{-x}(\cos x - \sin x)\).</span></div>
+                <div class="eq-line"><span>Choose \(x_0 = 0.2\).</span></div>
+                <div class="eq-line"><span>Iteration 1: \(f(0.2) \approx -0.3494\), \(f'(0.2) \approx 2.5590\).</span></div>
+                <div class="eq-line"><span>\[ x_1 \approx 0.3365 \]</span></div>
+                <div class="eq-line"><span>Iteration 2: \(f(0.3365) \approx -0.0566\), \(f'(0.3365) \approx 1.7533\).</span></div>
+                <div class="eq-line"><span>\[ x_2 \approx 0.3688 \]</span></div>
+                <div class="eq-line"><span>Iteration 3: \(f(0.3688) \approx -0.0028\), giving \(x_3 \approx 0.3706\).</span></div>
+                <div class="eq-line"><span>Iteration 4: \(f(0.3706) \approx -0.00001\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Root ≈ \(0.370\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <!-- Problem 6: C7 - Double root of x^3 - x^2 - x + 1 = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 6 (C7).</strong> Find a double root of \(x^3 - x^2 - x + 1 = 0\). <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="6">📖 Answer</button>
+            </div>
+            <div id="sol6" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Let \(f(x) = x^3 - x^2 - x + 1\); then \(f'(x) = 3x^2 - 2x - 1\).</span></div>
+                <div class="eq-line"><span>For a double root, use the generalized Newton formula \(x_{n+1} = x_n - 2f(x_n)/f'(x_n)\).</span></div>
+                <div class="eq-line"><span>Choose \(x_0 = 0.8\).</span></div>
+                <div class="eq-line"><span>Iteration 1: \(f(0.8) = 0.072\), \(f'(0.8) = -0.68\).</span></div>
+                <div class="eq-line"><span>\[ x_1 = 0.8 - 2\frac{0.072}{-0.68} \approx 1.0118 \]</span></div>
+                <div class="eq-line"><span>Iteration 2: \(f(1.0118) \approx 0.0002\), \(f'(1.0118) \approx 1.0235\).</span></div>
+                <div class="eq-line"><span>\[ x_2 \approx 1.0000 \]</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Double root \(x = 1\).</p>
+            </div>
+        </div>
+
+        <!-- Problem 7: C8 - x^3 - 2x^2 + 3x - 5 = 0 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 7 (C8).</strong> Find a root of \(x^3 - 2x^2 + 3x - 5 = 0\) between 1 and 2, correct to 3 decimal places. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="7">📖 Answer</button>
+            </div>
+            <div id="sol7" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Let \(f(x) = x^3 - 2x^2 + 3x - 5\); then \(f'(x) = 3x^2 - 4x + 3\).</span></div>
+                <div class="eq-line"><span>Choose \(x_0 = 1.5\).</span></div>
+                <div class="eq-line"><span>Iteration 1: \(f(1.5) = -1.625\), \(f'(1.5) = 3.75\).</span></div>
+                <div class="eq-line"><span>\[ x_1 \approx 1.9333 \]</span></div>
+                <div class="eq-line"><span>Iteration 2: \(f(1.9333) \approx 0.5127\), \(f'(1.9333) \approx 6.4904\).</span></div>
+                <div class="eq-line"><span>\[ x_2 \approx 1.8543 \]</span></div>
+                <div class="eq-line"><span>Iteration 3: \(f(1.8543) \approx 0.0470\), giving \(x_3 \approx 1.8463\).</span></div>
+                <div class="eq-line"><span>Iteration 4: \(x_4 \approx 1.8438\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Root ≈ \(1.844\) (correct to 3 decimal places).</p>
+            </div>
+        </div>
+
+        <div class="section-heading">🏠 5. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Prove that the Newton-Raphson method has quadratic convergence for a simple root.</li>
+                <li>Find the root of \(x e^x = \cos x\) using the Newton-Raphson method correct to 3 decimal places.</li>
+                <li>Apply Newton-Raphson to solve \(x^3 - 5x + 3 = 0\) near \(x = 0.5\).</li>
+            </ol>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Sastry, S.S. (2012). <em>Introductory Methods of Numerical Analysis</em> (5th ed.), §2.5, pp. 37–43.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #5c4d2e; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture52_NewtonRaphson_Convergence_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

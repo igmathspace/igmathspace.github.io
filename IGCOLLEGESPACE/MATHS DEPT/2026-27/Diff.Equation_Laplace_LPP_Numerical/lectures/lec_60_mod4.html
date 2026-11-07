@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 60 | Applications of Numerical Integration & Module IV Review | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #f0f4f8;
+            color: #1e2b3c; 
+            line-height: 1.6;
+        }
+        :root {
+            --blue-bg: #f0f4f8;
+            --blue-panel: #ffffff;
+            --blue-dark: #2a4b6e;
+            --blue-deeper: #1e3550;
+            --yellow-accent: #d4b84c;
+            --yellow-soft: #fdf8e4;
+            --blue-line: #c8d8e8;
+            --text-dark: #1e2b3c;
+            --text-soft: #2a4b6e;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #2a4b6e, #d4b84c); padding: 0.5rem 0;
+            border-bottom: 3px solid #1e3550;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #2a4b6e; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #345b82; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #1e3550;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2a4b6e, #1e3550); color: #fdf8e4; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #c8d8e8; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #d4b84c, #345b82); color: #1e2b3c; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #345b82, #2a4b6e); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #d4b84c, #345b82); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(42, 75, 110, 0.12);
+            border-left: 10px solid #2a4b6e;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #1e3550; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #d4b84c; color: #1e2b3c; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #2a4b6e; margin-top: 6px;
+            border-bottom: 1px dashed #c8d8e8; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #1e3550; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #fdf8e4; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #1e3550; font-weight: 500;
+            border: 1px solid #c8d8e8;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #2a4b6e; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(42, 75, 110, 0.10);
+            border: 1px solid #fdf8e4;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #2a4b6e;
+            border-left: 5px solid #d4b84c; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f0f4f8; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #d4b84c;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #1e3550; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #fdf8e4; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #c8d8e8;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #1e2b3c;
+        }
+        .example-box {
+            background: #f0f4f8; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #fdf8e4;
+        }
+        .problem-item {
+            background: #f0f4f8; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #d4b84c; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #1e2b3c;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #fdf8e4; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #d4b84c;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #d4b84c; color: #1e2b3c; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #b8a03c; }
+        .co-badge {
+            background: #345b82; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #fdf8e4;
+            border-radius: 30px; display: inline-block; color: #1e3550;
+            border: 1px solid #c8d8e8;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f4f8; border-left: 6px solid #345b82; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .data-table {
+            width: 100%; border-collapse: collapse;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem; margin: 1rem 0; text-align: center;
+            background: #ffffff;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #2a4b6e;
+            padding: 6px 8px;
+            vertical-align: middle;
+        }
+        .data-table thead th {
+            background: #fdf8e4;
+            color: #1e2b3c;
+            font-weight: 700;
+            border-bottom: 2px solid #2a4b6e;
+        }
+        .data-table tbody td {
+            background: #fbfdff;
+        }
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 1rem 0;
+        }
+        .review-card {
+            background: #f0f4f8;
+            border-radius: 16px;
+            padding: 1rem 1.2rem;
+            border-left: 5px solid #d4b84c;
+        }
+        .review-card h4 {
+            color: #1e3550;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+        .review-card ul {
+            margin-left: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.9rem;
+        }
+        footer {
+            background: #345b82; color: #fdf8e4; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #1e3550;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #fdf8e4; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+            .data-table { font-size: 0.7rem; }
+        }
+        @media print {
+            body { background: white; color: #1e2b3c; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #2a4b6e; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1e2b3c;
+                box-shadow: none; border: 1px solid #c8d8e8;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #1e3550 !important; }
+            .content-card p, .eq-line, .problem-text { color: #1e2b3c !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box, .review-card {
+                background: #f0f4f8 !important; color: #1e2b3c !important; border-color: #c8d8e8 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #fdf8e4; color: #1e2b3c; border: 1px solid #c8d8e8; }
+            .data-table th, .data-table td { border-color: #000 !important; }
+            .data-table thead th { background: #fdf8e4 !important; print-color-adjust: exact; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #1e2b3c; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 60</span>
+        </div>
+        <div class="module-name">📌 Module IV | Numerical Methods</div>
+        <div class="lecture-title">📖 Topic: Applications of Numerical Integration &amp; Module IV Review</div>
+        <div class="textbook-ref">📚 Textbook: Introductory Methods of Numerical Analysis – S.S. Sastry | Ch. 6 Review</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO4: Apply numerical integration to real-world problems and consolidate Module IV</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <div class="section-heading">🎯 1. Learning Outcomes (CO4)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Apply numerical integration to compute areas, volumes, and other engineering quantities</li>
+            <li>Choose between the trapezoidal rule and Simpson's 1/3 rule based on the problem</li>
+            <li>Consolidate all Module IV topics: root finding and numerical integration</li>
+            <li>Solve comprehensive application problems from the question bank</li>
+        </ul>
+
+        <div class="section-heading">📐 2. Applications of Numerical Integration</div>
+        <div class="theorem-box">
+            <div class="label">📌 Common Engineering Applications</div>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Area under curves:</strong> \(A = \int_a^b y\,dx\) — used in surveying, physics, and economics.</li>
+                <li><strong>Volume of solids of revolution:</strong> \(V = \pi \int_a^b y^2\,dx\) — used in mechanical and civil engineering.</li>
+                <li><strong>Work done by a variable force:</strong> \(W = \int_a^b F(x)\,dx\).</li>
+                <li><strong>Distance travelled from velocity data:</strong> \(s = \int_{t_1}^{t_2} v(t)\,dt\).</li>
+                <li><strong>Centre of gravity, moment of inertia, and other centroid calculations.</strong></li>
+                <li><strong>Total charge/current from varying electrical signals.</strong></li>
+            </ul>
+            <p>When the integrand is known only from tabulated experimental data, these integrals must be evaluated numerically using the trapezoidal or Simpson's rules.</p>
+        </div>
+
+        <div class="section-heading">📏 3. Choosing the Right Rule</div>
+        <div class="proof-box">
+            <p><strong>Use the Trapezoidal Rule when:</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>The number of subintervals \(n\) is any positive integer (odd or even).</li>
+                <li>The data has natural limits and \(n\) cannot easily be made even.</li>
+                <li>A quick, rough estimate is sufficient.</li>
+            </ul>
+            <p><strong>Use Simpson's 1/3 Rule when:</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>The number of subintervals \(n\) is even.</li>
+                <li>Higher accuracy is required (the error is \(O(h^4)\) versus \(O(h^2)\) for the trapezoidal rule).</li>
+                <li>The function is smooth (continuous fourth derivative).</li>
+            </ul>
+        </div>
+
+        <div class="section-heading">📚 4. Comprehensive Workout Problems (from Question Bank – Section 8)</div>
+        <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">Click <strong>Answer</strong> to reveal the detailed solution.</p>
+
+        <!-- Problem 1: B6 - Area under curve using Trapezoidal rule (application) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 1 (B6).</strong> A curve is given by the points \((0, 23)\), \((0.5, 19)\), \((1.0, 14)\), \((1.5, 11)\), \((2.0, 12.5)\), \((2.5, 16)\). Estimate the area bounded by the curve, the \(x\)-axis and the extreme ordinates using the trapezoidal rule. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="1">📖 Answer</button>
+            </div>
+            <div id="sol1" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Arrange the data with \(h = 0.5\):</span></div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>\(x\)</th><th>0</th><th>0.5</th><th>1.0</th><th>1.5</th><th>2.0</th><th>2.5</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(y\)</td><td>23</td><td>19</td><td>14</td><td>11</td><td>12.5</td><td>16</td></tr>
+                    </tbody>
+                </table>
+                <div class="eq-line"><span>Apply the trapezoidal rule:</span></div>
+                <div class="eq-line"><span>\[ A \approx \frac{0.5}{2}\Big[ 23 + 2(19 + 14 + 11 + 12.5) + 16 \Big] = 0.25(152) = 38 \]</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Area \(\approx 38\) square units.</p>
+            </div>
+        </div>
+
+        <!-- Problem 2: B2 - Solid of revolution using Simpson's 1/3 -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 2 (B2).</strong> A solid of revolution is formed by rotating about the \(x\)-axis the area between the \(x\)-axis, the lines \(x = 0\) and \(x = 1\), and a curve through the points \((0, 1)\), \((0.25, 0.9896)\), \((0.5, 0.9589)\), \((0.75, 0.9089)\), \((1, 0.8415)\). Estimate the volume using Simpson's 1/3 rule, giving the answer to three decimal places. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="2">📖 Answer</button>
+            </div>
+            <div id="sol2" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>The volume is \(V = \pi \int_0^1 y^2\,dx\). First tabulate \(y^2\):</span></div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>\(x\)</th><th>0</th><th>0.25</th><th>0.50</th><th>0.75</th><th>1.00</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(y^2\)</td><td>1.0000</td><td>0.9793</td><td>0.9195</td><td>0.8261</td><td>0.7081</td></tr>
+                    </tbody>
+                </table>
+                <div class="eq-line"><span>Here \(n = 4\) (even) and \(h = 0.25\). Apply the composite Simpson's 1/3 rule:</span></div>
+                <div class="eq-line"><span>\[ \int_0^1 y^2\,dx \approx \frac{0.25}{3}\Big[ (1.0000 + 0.7081) + 4(0.9793 + 0.8261) + 2(0.9195) \Big] \]</span></div>
+                <div class="eq-line"><span>\[ = \frac{0.25}{3}\Big[ 1.7081 + 7.2216 + 1.8390 \Big] = \frac{0.25}{3}(10.7687) \approx 0.8974 \]</span></div>
+                <div class="eq-line"><span>Therefore, the volume is \(V = \pi \times 0.8974 \approx 2.8192\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Volume \(\approx 2.819\) cubic units.</p>
+            </div>
+        </div>
+
+        <!-- Problem 3: B1 - Area under curve from a table -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 3 (B1).</strong> Find, from the following table, the area bounded by the curve and the \(x\)-axis from \(x = 7.47\) to \(x = 7.52\). <br><em>Table:</em> \(x\): 7.47, 7.48, 7.49, 7.50, 7.51, 7.52; \(f(x)\): 1.93, 1.95, 1.98, 2.01, 2.03, 2.06. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="3">📖 Answer</button>
+            </div>
+            <div id="sol3" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>The step size is \(h = 0.01\). With \(n = 5\) (odd), Simpson's 1/3 rule cannot be used directly, so we use the trapezoidal rule:</span></div>
+                <div class="eq-line"><span>\[ A \approx \frac{0.01}{2}\Big[ 1.93 + 2(1.95 + 1.98 + 2.01 + 2.03) + 2.06 \Big] \]</span></div>
+                <div class="eq-line"><span>\[ = 0.005\Big[ 1.93 + 15.94 + 2.06 \Big] = 0.005 \times 19.93 = 0.09965 \]</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Area \(\approx 0.0997\) square units.</p>
+            </div>
+        </div>
+
+        <!-- Problem 4: C2 - Integral 1/x with 4 and 8 strips (error comparison) -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 4 (C2).</strong> Estimate \(\int_1^3 \frac{1}{x}\,dx\) by Simpson's rule with 4 strips and 8 strips. Determine the error in each case. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="4">📖 Answer</button>
+            </div>
+            <div id="sol4" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>The exact value is \(\ln 3 \approx 1.0986\).</span></div>
+                <div class="eq-line"><span><strong>With 4 strips (\(h = 0.5\)):</strong> the ordinates are \(1.0000, 0.6667, 0.5000, 0.4000, 0.3333\).</span></div>
+                <div class="eq-line"><span>\[ I \approx \frac{0.5}{3}\Big[ (1.0000 + 0.3333) + 4(0.6667 + 0.4000) + 2(0.5000) \Big] \approx 1.1000 \]</span></div>
+                <div class="eq-line"><span>Error \(\approx 0.0014\).</span></div>
+                <div class="eq-line"><span><strong>With 8 strips (\(h = 0.25\)):</strong> the ordinates are \(1.0000, 0.8000, 0.6667, 0.5714, 0.5000, 0.4444, 0.4000, 0.3636, 0.3333\).</span></div>
+                <div class="eq-line"><span>\[ I \approx \frac{0.25}{3}\Big[ (1.0000 + 0.3333) + 4(2.1794) + 2(1.5667) \Big] \approx 1.0987 \]</span></div>
+                <div class="eq-line"><span>Error \(\approx 0.0001\).</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ Halving \(h\) reduced the error by roughly a factor of 16, confirming the \(O(h^4)\) error behaviour.</p>
+            </div>
+        </div>
+
+        <!-- Problem 5: B5 - Integral x/(5+2x) using trapezoidal with 5 ordinates -->
+        <div class="problem-item">
+            <div class="problem-text">
+                <span><strong>Problem 5 (B5).</strong> Evaluate \(\int_{-2}^{2} \frac{x}{5 + 2x}\,dx\) using the trapezoidal rule with five ordinates. <span class="co-badge">CO4</span></span>
+                <button class="btn-answer" data-pid="5">📖 Answer</button>
+            </div>
+            <div id="sol5" class="solution-area">
+                <strong style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">✅ Solution:</strong>
+                <div class="eq-line"><span>Five ordinates means \(n = 4\) over \([-2, 2]\), so \(h = 1\). The ordinates are:</span></div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>\(x\)</th><th>−2</th><th>−1</th><th>0</th><th>1</th><th>2</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>\(y\)</td><td>−2.0000</td><td>−0.3333</td><td>0</td><td>0.1429</td><td>0.2222</td></tr>
+                    </tbody>
+                </table>
+                <div class="eq-line"><span>Apply the trapezoidal rule:</span></div>
+                <div class="eq-line"><span>\[ I \approx \frac{1}{2}\Big[ -2 + 2(-0.3333 + 0 + 0.1429) + 0.2222 \Big] \]</span></div>
+                <div class="eq-line"><span>\[ = 0.5\Big[ -2 - 0.3808 + 0.2222 \Big] = 0.5 \times (-2.1586) \approx -1.0793 \]</span></div>
+                <p style="font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; margin-top: 0.2rem;">✅ \(I \approx -1.0793\).</p>
+            </div>
+        </div>
+
+        <div class="section-heading">📖 5. Module IV Review — Complete Summary</div>
+        <div class="review-grid">
+            <div class="review-card">
+                <h4>🔢 Root Finding (Bisection)</h4>
+                <ul>
+                    <li>Requires a bracketing interval \([a,b]\) with \(f(a)f(b) < 0\).</li>
+                    <li>Iteration: \(x_{n+1} = (a+b)/2\).</li>
+                    <li>Linear convergence, but always converges.</li>
+                    <li>Number of iterations: \(n \ge \log\big((b-a)/\epsilon\big)/\log 2\).</li>
+                </ul>
+            </div>
+            <div class="review-card">
+                <h4>⚡ Root Finding (Newton–Raphson)</h4>
+                <ul>
+                    <li>Iteration: \(x_{n+1} = x_n - f(x_n)/f'(x_n)\).</li>
+                    <li>Quadratic convergence for simple roots.</li>
+                    <li>Fails if \(f'(x_n) = 0\) or is very small.</li>
+                    <li>For multiple roots, use \(x_{n+1} = x_n - p\,f/f'\).</li>
+                </ul>
+            </div>
+            <div class="review-card">
+                <h4>📏 Numerical Integration (Trapezoidal)</h4>
+                <ul>
+                    <li>\(I \approx \frac{h}{2}\big[y_0 + 2(y_1+\dots+y_{n-1}) + y_n\big]\).</li>
+                    <li>Error \(O(h^2)\), exact for linear functions.</li>
+                    <li>Works for any \(n\).</li>
+                </ul>
+            </div>
+            <div class="review-card">
+                <h4>📐 Numerical Integration (Simpson's 1/3)</h4>
+                <ul>
+                    <li>\(I \approx \frac{h}{3}\big[(y_0+y_n) + 4(\text{odd } y_i) + 2(\text{even } y_i)\big]\).</li>
+                    <li>Error \(O(h^4)\), exact for cubics.</li>
+                    <li>Requires \(n\) even.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-heading">🏠 6. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>A velocity profile is given by the table below. Estimate the total distance travelled from \(t = 0\) to \(t = 2\).<br>
+                \(t\): 0, 0.5, 1.0, 1.5, 2.0; \(v\): 0, 3, 5, 6, 4. Use both the trapezoidal and Simpson's 1/3 rules.</li>
+                <li>Derive the error term for the composite Simpson's 1/3 rule.</li>
+                <li>Find a root of \(x^3 - 4x - 9 = 0\) between 2 and 3 using the bisection and Newton–Raphson methods, and compare the number of iterations required for 3-decimal accuracy.</li>
+                <li>Evaluate \(\int_0^1 e^{-x^2}\,dx\) using the trapezoidal rule (\(h = 0.25\)) and Simpson's 1/3 rule (\(h = 0.25\)). Compare with the exact value \(0.7468\).</li>
+            </ol>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Sastry, S.S. (2012). <em>Introductory Methods of Numerical Analysis</em> (5th ed.), §6.4–6.4.2, pp. 218–222; §2.2, §2.5, pp. 23–43.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #2a4b6e; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture60_Applications_Review_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>

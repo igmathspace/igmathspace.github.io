@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Lecture 54 | Numerical Integration: Introduction | KU3DSCMAT211</title>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', 'XITS Math', serif;
+            background: #f0f4f8;
+            color: #1e2b3c; 
+            line-height: 1.6;
+        }
+        :root {
+            --blue-bg: #f0f4f8;
+            --blue-panel: #ffffff;
+            --blue-dark: #2a4b6e;
+            --blue-deeper: #1e3550;
+            --yellow-accent: #d4b84c;
+            --yellow-soft: #fdf8e4;
+            --blue-line: #c8d8e8;
+            --text-dark: #1e2b3c;
+            --text-soft: #2a4b6e;
+        }
+        .header-image-container {
+            width: 100%; text-align: center;
+            background: linear-gradient(135deg, #2a4b6e, #d4b84c); padding: 0.5rem 0;
+            border-bottom: 3px solid #1e3550;
+        }
+        .header-image {
+            width: 100%; max-width: 1280px; height: auto; display: block; margin: 0 auto;
+            background: #2a4b6e; color: #ffffff; font-size: 1rem; font-weight: bold;
+            text-align: center; padding: 0.8rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; letter-spacing: 0.5px;
+        }
+        .nav-bar {
+            background: #345b82; padding: 0.7rem 0; position: sticky; top: 0; z-index: 100;
+            border-bottom: 2px solid #1e3550;
+        }
+        .nav-links {
+            max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex;
+            flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px;
+        }
+        .nav-links a, .nav-links button {
+            background: linear-gradient(135deg, #2a4b6e, #1e3550); color: #fdf8e4; text-decoration: none;
+            padding: 8px 20px; font-size: 0.9rem; font-weight: 600; border-radius: 40px;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;
+            border: 1px solid #c8d8e8; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .nav-links a:hover, .nav-links button:hover {
+            background: linear-gradient(135deg, #d4b84c, #345b82); color: #1e2b3c; transform: translateY(-2px);
+        }
+        .nav-links .btn-secondary { background: linear-gradient(135deg, #345b82, #2a4b6e); }
+        .nav-links .btn-pdf { background: linear-gradient(135deg, #d4b84c, #345b82); }
+        .main-container { max-width: 1280px; margin: 30px auto; padding: 0 24px; }
+        .lecture-header {
+            background: #ffffff; border-radius: 28px; padding: 1.6rem 2rem; margin-bottom: 32px;
+            box-shadow: 0 8px 20px rgba(42, 75, 110, 0.12);
+            border-left: 10px solid #2a4b6e;
+        }
+        .course-code-badge {
+            font-size: 1.8rem; font-weight: 800; color: #1e3550; letter-spacing: 1px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-number {
+            display: inline-block; background: #d4b84c; color: #1e2b3c; padding: 4px 16px;
+            border-radius: 40px; font-size: 0.9rem; font-weight: 700; margin-left: 16px;
+            vertical-align: middle; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .module-name {
+            font-size: 1.1rem; font-weight: 600; color: #2a4b6e; margin-top: 6px;
+            border-bottom: 1px dashed #c8d8e8; display: inline-block; padding-bottom: 4px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .lecture-title {
+            font-size: 1.8rem; font-weight: 700; color: #1e3550; margin: 12px 0 8px 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .textbook-ref {
+            background: #fdf8e4; padding: 8px 16px; border-radius: 40px; display: inline-block;
+            font-size: 0.85rem; color: #1e3550; font-weight: 500;
+            border: 1px solid #c8d8e8;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .faculty-meta {
+            margin-top: 16px; font-size: 0.9rem; color: #2a4b6e; display: flex; gap: 24px;
+            flex-wrap: wrap; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .content-card {
+            background: #ffffff; border-radius: 28px; padding: 2rem 2rem; margin-bottom: 40px;
+            box-shadow: 0 8px 22px rgba(42, 75, 110, 0.10);
+            border: 1px solid #fdf8e4;
+        }
+        .section-heading {
+            font-size: 1.7rem; font-weight: 700; color: #2a4b6e;
+            border-left: 5px solid #d4b84c; padding-left: 20px; margin: 1.5rem 0 1rem 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .section-heading:first-of-type { margin-top: 0; }
+        .theorem-box {
+            background: #f0f4f8; padding: 1.2rem 1.5rem; border-radius: 24px;
+            margin: 1rem 0; border-left: 6px solid #d4b84c;
+        }
+        .theorem-box .label {
+            font-weight: 700; color: #1e3550; font-size: 1.2rem;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .proof-box {
+            background: #fdf8e4; padding: 1rem 1.5rem; border-radius: 16px;
+            margin: 0.8rem 0; border: 1px solid #c8d8e8;
+        }
+        .eq-line {
+            display: block; margin: 0.15rem 0; padding-left: 1.5rem; text-indent: -1.5rem;
+            font-family: 'Latin Modern Math', 'Times New Roman', 'STIX', serif; font-size: 1.05rem;
+            color: #1e2b3c;
+        }
+        .example-box {
+            background: #f0f4f8; padding: 1rem 1.5rem; border-radius: 20px;
+            margin: 1rem 0; border: 1px solid #fdf8e4;
+        }
+        .problem-item {
+            background: #f0f4f8; padding: 1rem 1.2rem; margin-bottom: 1.2rem;
+            border-radius: 20px; border-left: 5px solid #d4b84c; transition: all 0.2s;
+        }
+        .problem-text {
+            font-weight: 600; display: flex; flex-wrap: wrap; align-items: baseline;
+            justify-content: space-between; gap: 12px; color: #1e2b3c;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .solution-area {
+            margin-top: 12px; background: #fdf8e4; padding: 1rem; border-radius: 16px;
+            display: none; border-top: 2px solid #d4b84c;
+        }
+        .solution-area.show { display: block; }
+        .btn-answer {
+            background: #d4b84c; color: #1e2b3c; border: none; padding: 6px 16px;
+            border-radius: 30px; cursor: pointer; font-weight: 700; transition: 0.2s;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .btn-answer:hover { background: #b8a03c; }
+        .co-badge {
+            background: #345b82; color: #ffffff; font-size: 0.7rem; border-radius: 30px;
+            padding: 2px 10px; display: inline-block; margin-left: 10px;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .ref-box {
+            font-size: 0.85rem; margin-top: 1rem; padding: 8px 14px; background: #fdf8e4;
+            border-radius: 30px; display: inline-block; color: #1e3550;
+            border: 1px solid #c8d8e8;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .caution-box {
+            background: #fdf6d8; border-left: 6px solid #d4a017; padding: 0.8rem 1.5rem;
+            border-radius: 16px; margin: 0.8rem 0; color: #5a4210;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        .hw-box {
+            background: #f0f4f8; border-left: 6px solid #345b82; padding: 1rem 1.5rem;
+            border-radius: 16px; margin: 1rem 0;
+        }
+        .data-table {
+            width: 100%; border-collapse: collapse;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            font-size: 0.85rem; margin: 1rem 0; text-align: center;
+            background: #ffffff;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #2a4b6e;
+            padding: 6px 8px;
+            vertical-align: middle;
+        }
+        .data-table thead th {
+            background: #fdf8e4;
+            color: #1e2b3c;
+            font-weight: 700;
+            border-bottom: 2px solid #2a4b6e;
+        }
+        .data-table tbody td {
+            background: #fbfdff;
+        }
+        footer {
+            background: #345b82; color: #fdf8e4; text-align: center; padding: 24px 20px;
+            margin-top: 40px; border-top: 6px solid #1e3550;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+        footer a { color: #fdf8e4; }
+        @media (max-width: 700px) {
+            .main-container { padding: 0 16px; }
+            .lecture-title { font-size: 1.4rem; }
+            .course-code-badge { font-size: 1.3rem; }
+            .nav-links a, .nav-links button { padding: 6px 12px; font-size: 0.75rem; }
+            .data-table { font-size: 0.7rem; }
+        }
+        @media print {
+            body { background: white; color: #1e2b3c; margin: 0; padding: 0; }
+            .nav-bar, .btn-pdf, .btn-answer { display: none !important; }
+            .header-image-container { background: white; margin: 0; padding: 0; }
+            .header-image { background: #2a4b6e; color: white !important; print-color-adjust: exact; }
+            .main-container { margin: 0; padding: 0.2in; max-width: 100%; }
+            .lecture-header, .content-card {
+                background: white; color: #1e2b3c;
+                box-shadow: none; border: 1px solid #c8d8e8;
+                break-inside: avoid; page-break-inside: avoid;
+            }
+            .content-card h2, .section-heading { color: #1e3550 !important; }
+            .content-card p, .eq-line, .problem-text { color: #1e2b3c !important; }
+            .theorem-box, .proof-box, .example-box, .problem-item, .hw-box, .caution-box, .ref-box {
+                background: #f0f4f8 !important; color: #1e2b3c !important; border-color: #c8d8e8 !important;
+            }
+            .problem-item { break-inside: avoid; page-break-inside: avoid; }
+            .solution-area { display: block !important; background: #fdf8e4; color: #1e2b3c; border: 1px solid #c8d8e8; }
+            .data-table th, .data-table td { border-color: #000 !important; }
+            .data-table thead th { background: #fdf8e4 !important; print-color-adjust: exact; }
+            footer { display: none !important; }
+            @page { size: A4; margin: 0.5in; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            mjx-container { font-size: 0.9rem; }
+        }
+        mjx-container { overflow-x: auto; overflow-y: hidden; margin: 0.8rem 0; color: #1e2b3c; }
+    </style>
+</head>
+<body>
+
+<div class="header-image-container">
+    <div class="header-image">📐 NAM College Kallikkandy | Department of Mathematics | FYUGP 2026 📘</div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-links">
+        <a href="https://igmathspace.github.io" class="btn-secondary">🏠 Home</a>
+        <a href="https://igmathspace.github.io//IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/Teachingplan.html">🏠 Back to Course Home</a>
+        <a href="https://igmathspace.github.io/lessons.html" class="btn-secondary">📘 Classroom Space</a>
+        <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html" class="btn-secondary">📖 Syllabus</a>
+        <button class="btn-pdf" id="savePdfBtn" onclick="saveAsPDF()">📄 Save as PDF (A4)</button>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="lecture-header">
+        <div class="course-code-badge">
+            KU3DSCMAT211
+            <span class="lecture-number">Lecture 54</span>
+        </div>
+        <div class="module-name">📌 Module IV | Numerical Methods</div>
+        <div class="lecture-title">📖 Topic: Numerical Integration — Introduction</div>
+        <div class="textbook-ref">📚 Textbook: Introductory Methods of Numerical Analysis – S.S. Sastry | §6.4 (Intro)</div>
+        <div class="faculty-meta">
+            <span>👨‍🏫 Faculty: Gafoor I</span>
+            <span>🎯 CO4: Understand the concept, history, and need for numerical integration</span>
+            <span>⏱️ Lecture duration: 1 Hour</span>
+        </div>
+    </div>
+
+    <div class="content-card">
+
+        <div class="section-heading">🎯 1. Learning Outcomes (CO4)</div>
+        <ul style="margin-left: 2rem; margin-bottom: 1rem; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            <li>Understand what numerical integration is and why it is needed</li>
+            <li>Appreciate a brief historical context of quadrature methods</li>
+            <li>Learn how an interval is split into subintervals using tabular data</li>
+            <li>Know the names of common numerical integration methods</li>
+        </ul>
+
+        <div class="section-heading">📜 2. A Brief History</div>
+        <div class="theorem-box">
+            <div class="label">📌 From Archimedes to Modern Computers</div>
+            <p>The idea of approximating the area under a curve goes back to <strong>Archimedes</strong> (c. 287–212 BCE), who used the method of exhaustion to compute the area of a circle by inscribing and circumscribing polygons.</p>
+            <p>In the 17th century, <strong>Newton and Leibniz</strong> developed calculus, giving exact integration formulas for many functions. However, for functions that cannot be integrated analytically, and for data obtained from experiments, numerical approximations became necessary.</p>
+            <p>In the 18th century, mathematicians such as <strong>Thomas Simpson</strong> and <strong>Roger Cotes</strong> developed systematic quadrature rules based on interpolating polynomials. The <strong>trapezoidal rule</strong> and <strong>Simpson's rule</strong> are the most well-known of these classical methods.</p>
+            <p>With the advent of electronic computers in the 20th century, numerical integration became a standard computational tool in science and engineering.</p>
+        </div>
+
+        <div class="section-heading">📐 3. What is Numerical Integration?</div>
+        <div class="theorem-box">
+            <div class="label">📌 Definition and Need</div>
+            <p><strong>Numerical integration</strong> (also called <em>quadrature</em>) is the process of computing the approximate value of a definite integral</p>
+            <div class="eq-line"><span>\[ I = \int_a^b f(x)\,dx \]</span></div>
+            <p>using a finite set of numerical values of the integrand.</p>
+            <p>We need numerical integration in the following situations:</p>
+            <ul style="margin-left: 1.5rem;">
+                <li>The antiderivative of \(f(x)\) cannot be expressed in closed form (e.g., \(e^{-x^2}\), \(\sin(x^2)\)).</li>
+                <li>The function is known only through a table of experimental data points.</li>
+                <li>The function is given by a complex algorithm or a computer simulation.</li>
+                <li>An exact analytic integration would be too cumbersome or impossible.</li>
+            </ul>
+        </div>
+
+        <div class="section-heading">📊 4. The Idea of Tabular Data and Splitting into Intervals</div>
+        <div class="theorem-box">
+            <div class="label">📌 Tabulating the Function</div>
+            <p>In many practical problems, the function \(f(x)\) is given as a set of values at certain points, not as an explicit formula. For example:</p>
+            <table class="data-table">
+                <thead>
+                    <tr><th>\(x\)</th><th>\(x_0\)</th><th>\(x_1\)</th><th>\(x_2\)</th><th>\(\dots\)</th><th>\(x_n\)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>\(y = f(x)\)</td><td>\(y_0\)</td><td>\(y_1\)</td><td>\(y_2\)</td><td>\(\dots\)</td><td>\(y_n\)</td></tr>
+                </tbody>
+            </table>
+            <p>To apply numerical integration, we usually need the \(x\)-values to be equally spaced. We therefore <strong>split the interval</strong> \([a, b]\) into \(n\) equal subintervals of width</p>
+            <div class="eq-line"><span>\[ h = \frac{b - a}{n} \]</span></div>
+            <p>The points of division are \(x_0 = a, x_1 = a + h, \dots, x_n = b\).</p>
+            <p>If the given data is not equally spaced, interpolation is first used to obtain values at equal intervals.</p>
+        </div>
+
+        <div class="section-heading">📋 5. Common Numerical Integration Methods</div>
+        <div class="proof-box">
+            <p>The most frequently used methods for numerical integration are:</p>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Trapezoidal Rule</strong> — approximates the area by a series of trapezoids.</li>
+                <li><strong>Simpson's 1/3 Rule</strong> — approximates the integrand by parabolic arcs.</li>
+                <li><strong>Simpson's 3/8 Rule</strong> — uses cubic arcs.</li>
+                <li><strong>Boole's Rule</strong> — uses quartic arcs.</li>
+                <li><strong>Weddle's Rule</strong> — a composite rule based on six subintervals.</li>
+                <li><strong>Gaussian Quadrature</strong> — chooses optimal points and weights (not equally spaced).</li>
+                <li><strong>Romberg Integration</strong> — uses Richardson extrapolation on the trapezoidal rule.</li>
+            </ul>
+            <p>In this course, we will focus on the <strong>Trapezoidal Rule</strong> and <strong>Simpson's 1/3 Rule</strong>, which are the two prescribed in the syllabus.</p>
+        </div>
+
+        <div class="section-heading">⚠️ 6. Points to Remember</div>
+        <div class="caution-box" style="background: #fdecea; border-left-color: #d32f2f; color: #5a1010; font-size: 1.05rem; padding: 1.2rem;">
+            <strong>🚨 Important Notes</strong><br>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>The \(x\)-values must be equally spaced for the standard rules (Trapezoidal, Simpson's).</li>
+                <li>The step size \(h\) must be constant.</li>
+                <li>Simpson's 1/3 rule requires an even number of subintervals.</li>
+                <li>Increasing \(n\) (decreasing \(h\)) generally improves the accuracy.</li>
+            </ul>
+        </div>
+
+        <div class="section-heading">🏠 7. Homework</div>
+        <div class="hw-box">
+            <ol style="margin-left: 1.5rem; font-family: 'Latin Modern Math', 'Times New Roman', serif; font-size: 1.05rem;">
+                <li>Explain in your own words why numerical integration is needed.</li>
+                <li>Given the interval \([0, 2]\) and \(n = 4\), find the step size and list all mesh points.</li>
+                <li>Name any four numerical integration methods. Which two will we study in this course?</li>
+                <li>What is the condition on the number of subintervals for Simpson's 1/3 rule?</li>
+            </ol>
+        </div>
+
+        <div class="ref-box">
+            📖 <strong>Reference:</strong> Sastry, S.S. (2012). <em>Introductory Methods of Numerical Analysis</em> (5th ed.), §6.4 (Introduction), pp. 218–219.
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.8rem; color: #2a4b6e; text-align: right; font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;">
+            🧑‍🏫 Prepared by: Gafoor I | Assistant Professor | Dept. of Mathematics
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 IG Math Space | NAM College Kallikkandy | Dept. of Mathematics</p>
+        <p class="footer-note">@Gafoor I, Department of Mathematics, NAM College Kallikkandy</p>
+        <div style="margin-top: 8px;">
+            <a href="https://igmathspace.github.io">🏠 Home</a> |
+            <a href="https://igmathspace.github.io/lessons.html">📘 Classroom Space</a> |
+            <a href="https://igmathspace.github.io/IGCOLLEGESPACE/MATHS%20DEPT/2026-27/Diff.Equation_Laplace_LPP_Numerical/syllabus.html">📖 Syllabus</a>
+        </div>
+        <p style="margin-top: 12px; font-size: 0.75rem;">KU3DSCMAT211 | Differential Equations, Laplace Transforms, LPP &amp; Numerical Methods | FYUGP 3rd Semester</p>
+    </footer>
+</div>
+
+<script>
+    const btns = document.querySelectorAll('.btn-answer');
+    btns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const pid = this.getAttribute('data-pid');
+            const solDiv = document.getElementById(`sol${pid}`);
+            if (solDiv) {
+                solDiv.classList.toggle('show');
+                this.textContent = solDiv.classList.contains('show') ? '🙈 Hide Answer' : '📖 Answer';
+            }
+        });
+    });
+    function saveAsPDF() {
+        const original = document.title;
+        document.title = "Lecture54_NumericalIntegration_Intro_KU3DSCMAT211.pdf";
+        window.print();
+        setTimeout(() => { document.title = original; }, 1000);
+    }
+    window.saveAsPDF = saveAsPDF;
+    if (window.MathJax) MathJax.typesetPromise();
+</script>
+
+</body>
+</html>
