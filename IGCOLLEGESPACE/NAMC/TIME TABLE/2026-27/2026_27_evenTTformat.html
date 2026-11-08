@@ -265,7 +265,48 @@
             body { background: white; }
             .table-box, .legend-box { box-shadow: none; }
         }
-    </style>
+
+        /* Save as PDF button (screen only) */
+        .nav-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .save-pdf-btn {
+            display: inline-block;
+            background: linear-gradient(180deg, #5c6bc0 0%, #1a237e 100%);
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            padding: 9px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            box-shadow: 0 5px 0 #0d1257, 0 8px 12px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.4);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .save-pdf-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #0d1257, 0 11px 16px rgba(0,0,0,0.4); }
+        .save-pdf-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #0d1257, 0 3px 6px rgba(0,0,0,0.3); }
+
+        /* Print / PDF: page 1 = whole table, page 2 = legends (A4 landscape) */
+        @media print {
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+            @page { size: A4 landscape; margin: 8mm; }
+            html, body { background: #ffffff !important; }
+            .home-nav, .save-pdf-btn { display: none !important; }
+            .header { padding: 8px 10px; }
+            .header h1 { font-size: 20px; }
+            .header p { font-size: 12px; margin-top: 3px; }
+            .wrap { max-width: none; margin: 8px 0 0 0; padding: 0; }
+            .table-box { box-shadow: none; padding: 0; overflow: visible; border-radius: 0; }
+            .legend-box {
+                break-before: page;
+                page-break-before: always;
+                box-shadow: none;
+                margin-top: 0;
+                padding: 16px 10px;
+            }
+            .footer { margin-top: 16px; padding: 10px; }
+        }
+        </style>
 </head>
 <body>
 
@@ -278,7 +319,10 @@
     <!-- Back link -->
     <div class="home-nav">
         <a href="2026_27_Even_Semester.html">← Back to 2026-27 Even Semester</a>
-        <a class="dl-btn" href="https://docs.google.com/document/d/1iUkdiAFHjE9uwrptXI0N_SaUj1OjfMcV/edit?usp=sharing&ouid=117388370835023381934&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download an editable format</a>
+        <div class="nav-actions">
+            <button class="save-pdf-btn" onclick="window.print()">Save as PDF</button>
+            <a class="dl-btn" href="https://docs.google.com/document/d/1iUkdiAFHjE9uwrptXI0N_SaUj1OjfMcV/edit?usp=sharing&ouid=117388370835023381934&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">Download an editable format</a>
+        </div>
     </div>
 
     <div class="wrap">
@@ -532,6 +576,27 @@
 
     buildTable();
     buildLegend();
+
+    /* ===== FIT TABLE TO ONE PAGE FOR PRINT / PDF ===== */
+    function fitTableForPrint() {
+        const wrap   = document.querySelector('.wrap');
+        const box    = document.querySelector('.table-box');
+        const header = document.querySelector('.header');
+        /* A4 landscape printable area: width 281mm, height 194mm (96 px per inch) */
+        const pageW = 281 * 96 / 25.4;
+        const pageH = 194 * 96 / 25.4;
+        wrap.style.width = pageW + 'px';
+        box.style.zoom = '';
+        const spare  = pageH - header.getBoundingClientRect().height - 24;
+        const tableH = box.getBoundingClientRect().height;
+        box.style.zoom = Math.min(1, spare / tableH);
+    }
+    function resetAfterPrint() {
+        document.querySelector('.wrap').style.width = '';
+        document.querySelector('.table-box').style.zoom = '';
+    }
+    window.addEventListener('beforeprint', fitTableForPrint);
+    window.addEventListener('afterprint', resetAfterPrint);
 </script>
 
 </body>
