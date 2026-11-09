@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming in Python · Module I — Introduction to Python</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4fa;
+            padding: 20px 15px;
+            color: #1a2639;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 25px 30px 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(145deg, #0b1a33 0%, #1d3b66 100%);
+            margin: -25px -30px 30px -30px;
+            padding: 28px 30px 22px;
+            border-radius: 24px 24px 0 0;
+            border-bottom: 6px solid #f9b23f;
+            position: relative;
+        }
+        .header::after {
+            content: "🐍";
+            position: absolute;
+            right: 30px;
+            top: 20px;
+            font-size: 3.5rem;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .header .sub {
+            color: #b7d0f0;
+            font-size: 1rem;
+            margin-top: 6px;
+            border-left: 4px solid #f9b23f;
+            padding-left: 16px;
+        }
+        .badge {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Code & Output */
+        pre {
+            background: #0e1c2b;
+            color: #e3eaf5;
+            padding: 14px 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #2a405a;
+        }
+        pre .comment { color: #8aa5c9; }
+        pre .kw { color: #ffb86b; }
+        pre .str { color: #b1d9b1; }
+
+        .output {
+            background: #1a2a3a;
+            color: #cbdae9;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 4px 0 14px 0;
+            border-left: 4px solid #f9b23f;
+            white-space: pre-wrap;
+        }
+
+        code {
+            background: #eef2f7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dce5f0, transparent);
+            margin: 30px 0 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 2px dashed #d6e0ed;
+            color: #435e7a;
+            font-size: 0.9rem;
+        }
+
+        .summary-box {
+            background: #e3edf9;
+            border-radius: 20px;
+            padding: 16px 22px;
+            margin: 20px 0;
+        }
+        .summary-box h3 {
+            font-size: 1.2rem;
+            color: #0b1a33;
+        }
+        .summary-box ul {
+            margin-left: 20px;
+            margin-top: 6px;
+        }
+
+        /* =========================================
+           HIGHLIGHTED QUESTION BOX STYLES
+           ========================================= */
+        .question-box {
+            margin-bottom: 25px;
+            background: #f8faff;
+            border: 1px solid #dce5f0;
+            border-left: 6px solid #1d3b66;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .question-box:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0b1a33;
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .toggle-btn {
+            background: #f9b23f;
+            color: #0b1a33;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 8px;
+            box-shadow: 0 2px 5px rgba(249, 178, 63, 0.3);
+        }
+        
+        .toggle-btn:hover {
+            background: #e09f2e;
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.98);
+        }
+
+        .answer-content {
+            display: none;
+            background: #ffffff;
+            border-left: 4px solid #f9b23f;
+            padding: 18px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 14px; }
+            .header { margin: -14px -14px 20px -14px; padding: 20px 18px; }
+            .header h1 { font-size: 1.7rem; }
+            .header::after { font-size: 2.5rem; right: 15px; top: 15px; }
+            .question-box { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="badge">📘 MODULE I · INTRODUCTION TO PYTHON</div>
+            <h1>KU5DSEMAT303: PROGRAMMING IN PYTHON</h1>
+            <div class="sub">Module I : Introduction to Python - Workout questions and programmes</div>
+        </div>
+
+        <hr>
+
+        <div id="questions-container">
+            
+            <!-- Q1 -->
+            <div class="question-box">
+                <div class="question-text">1. Explain the role of `=` operator in python variable assignment. Consider the code:<br><br>x = 2<br>3 = y<br>print(x = ,x,y = ,y)</div>
+                <button class="toggle-btn" onclick="toggleAnswer(1)">Show Answer</button>
+                <div class="answer-content" id="ans-1">
+                    <p>The `=` operator is used to assign values to a variable (Variable on the left, value on the right). The statement `3 = y` is a SyntaxError because a literal (3) cannot be the target of an assignment.</p>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-box">
+                <div class="question-text">2. What is operator precedence in Python? How can you change the order of evaluation in an expression?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(2)">Show Answer</button>
+                <div class="answer-content" id="ans-2">
+                    <p>Operator precedence determines the order in which operations are performed (e.g., multiplication before addition). You can change this order by using parentheses `()`.</p>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-box">
+                <div class="question-text">3. Give an example for single value assignment to several variables in python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(3)">Show Answer</button>
+                <div class="answer-content" id="ans-3">
+                    <pre>x = y = z = 10</pre>
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-box">
+                <div class="question-text">4. What is the difference between the `=` (assignment) and `==` (equality) operators in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(4)">Show Answer</button>
+                <div class="answer-content" id="ans-4">
+                    <p>`=` assigns a value to a variable. `==` compares two values and returns `True` or `False`.</p>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-box">
+                <div class="question-text">5. What is indentation in Python and why it is important?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(5)">Show Answer</button>
+                <div class="answer-content" id="ans-5">
+                    <p>Indentation is the spaces or tabs at the beginning of a line. It is important because Python uses it to define blocks of code (unlike other languages that use curly braces `{}`).</p>
+                </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-box">
+                <div class="question-text">6. What is the difference between an interpreter and a compiler? Which one does Python use?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(6)">Show Answer</button>
+                <div class="answer-content" id="ans-6">
+                    <p>A compiler translates the whole program into machine code at once. An interpreter translates and executes code line by line. Python uses an interpreter.</p>
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-box">
+                <div class="question-text">7. What you meant by variable. does a variable need a declaration?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(7)">Show Answer</button>
+                <div class="answer-content" id="ans-7">
+                    <p>A variable is a named memory location used to store data. In Python, variables do not need explicit declaration; they are created when you first assign a value to them.</p>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-box">
+                <div class="question-text">8. Explain the logical operators (`and`, `or`, `not`) in Python with examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(8)">Show Answer</button>
+                <div class="answer-content" id="ans-8">
+                    <p><b>and</b>: True if both operands are true.<br><b>or</b>: True if at least one operand is true.<br><b>not</b>: Reverses the boolean value.</p>
+                    <pre>print(True and False) # False
+print(True or False)  # True
+print(not True)       # False</pre>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-box">
+                <div class="question-text">9. (a) Define indentation in Python and explain its significance. Why is consistent indentation mandatory?<br>(b) Give an example code with i. Correct indentation ii. Incorrect indentation.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(9)">Show Answer</button>
+                <div class="answer-content" id="ans-9">
+                    <p><b>(a)</b> Indentation defines code blocks. Consistent indentation is mandatory to avoid syntax errors and logical bugs.</p>
+                    <p><b>(b)</b> Correct:</p>
+                    <pre>if True:
+    print("Hello")</pre>
+                    <p>Incorrect:</p>
+                    <pre>if True:
+print("Hello") # IndentationError</pre>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-box">
+                <div class="question-text">10. Who created Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(10)">Show Answer</button>
+                <div class="answer-content" id="ans-10">
+                    <p>Guido van Rossum.</p>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-box">
+                <div class="question-text">11. Write a short note on Python's standard library and how it is organized.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(11)">Show Answer</button>
+                <div class="answer-content" id="ans-11">
+                    <p>It is a collection of modules built into Python (like `math`, `random`, `os`) that provide ready-to-use functionality. It is organized into packages and modules.</p>
+                </div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="question-box">
+                <div class="question-text">12. Why does the following code generate an error:<br><br>If True: <br>    print("answer") <br>    print("correct") <br>Else: <br>    print("answer") <br>    Print("correct")</div>
+                <button class="toggle-btn" onclick="toggleAnswer(12)">Show Answer</button>
+                <div class="answer-content" id="ans-12">
+                    <p>Python is case-sensitive. The keywords `If`, `Else`, and `Print` must be written in lowercase as `if`, `else`, and `print`.</p>
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question-box">
+                <div class="question-text">13. Explain the `sep` and `end` parameters of the `print()` function with suitable examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(13)">Show Answer</button>
+                <div class="answer-content" id="ans-13">
+                    <p><code>sep</code> defines the separator between multiple arguments (default is a space). <code>end</code> defines what is printed at the end (default is a newline).</p>
+                    <pre>print("A", "B", sep="-") # A-B
+print("Hello", end="!")   # Hello!</pre>
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question-box">
+                <div class="question-text">14. Compare single value simultaneous assignment and multiple object simultaneous assignment in python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(14)">Show Answer</button>
+                <div class="answer-content" id="ans-14">
+                    <p>Single value: `a = b = c = 10` (all variables point to the same object).<br>Multiple object: `a, b, c = 10, 20, 30` (each variable gets a different value).</p>
+                </div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question-box">
+                <div class="question-text">15. What happens if you mix tabs and spaces for indentation in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(15)">Show Answer</button>
+                <div class="answer-content" id="ans-15">
+                    <p>Python 3 raises a `TabError` because mixing tabs and spaces creates ambiguous indentation levels.</p>
+                </div>
+            </div>
+
+            <!-- Q16 -->
+            <div class="question-box">
+                <div class="question-text">16. How do we assign a value to a variable? Explain with an example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(16)">Show Answer</button>
+                <div class="answer-content" id="ans-16">
+                    <p>Using the assignment operator `=`.</p>
+                    <pre>age = 20
+name = "Alice"</pre>
+                </div>
+            </div>
+
+            <!-- Q17 -->
+            <div class="question-box">
+                <div class="question-text">17. What are membership operators? Explain `in` and `not in` with examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(17)">Show Answer</button>
+                <div class="answer-content" id="ans-17">
+                    <p>They check if a value exists in a sequence (like a string or list).</p>
+                    <pre>print(3 in [1, 2, 3])    # True
+print(5 not in [1, 2, 3]) # True</pre>
+                </div>
+            </div>
+
+            <!-- Q18 -->
+            <div class="question-box">
+                <div class="question-text">18. (a) Explain the `print()` function in Python with its syntax and all parameters.<br>(b) Explain the `input()` function with examples to read an integer and decimal number.<br>(c) Explain the `import` function with an example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(18)">Show Answer</button>
+                <div class="answer-content" id="ans-18">
+                    <p><b>(a)</b> `print()` outputs text. Parameters: `value`, `sep`, `end`, `file`, `flush`.</p>
+                    <p><b>(b)</b> `input()` takes user input as a string. To read an integer: `int(input())`. For a decimal: `float(input())`.</p>
+                    <p><b>(c)</b> `import` brings external modules into the script. Example: `import math`.</p>
+                </div>
+            </div>
+
+            <!-- Q19 -->
+            <div class="question-box">
+                <div class="question-text">19. Write any four features of Python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(19)">Show Answer</button>
+                <div class="answer-content" id="ans-19">
+                    <p>1. Easy to learn and read.<br>2. Interpreted language.<br>3. Dynamically typed.<br>4. Extensive standard library and open-source.</p>
+                </div>
+            </div>
+
+            <!-- Q20 -->
+            <div class="question-box">
+                <div class="question-text">20. What is type casting? Write a Python code snippet to convert an integer to a string and a float to an integer.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(20)">Show Answer</button>
+                <div class="answer-content" id="ans-20">
+                    <p>Type casting is converting one data type to another.</p>
+                    <pre>a = str(10)    # int to string
+b = int(3.14)  # float to int</pre>
+                </div>
+            </div>
+
+            <!-- Q21 -->
+            <div class="question-box">
+                <div class="question-text">21. How can you delete a variable in Python? Give an example using the `del` statement.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(21)">Show Answer</button>
+                <div class="answer-content" id="ans-21">
+                    <pre>x = 10
+del x</pre>
+                </div>
+            </div>
+
+            <!-- Q22 -->
+            <div class="question-box">
+                <div class="question-text">22. Give an example to assign multiple values to multiple variables in a single line.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(22)">Show Answer</button>
+                <div class="answer-content" id="ans-22">
+                    <pre>x, y, z = 10, 20, 30</pre>
+                </div>
+            </div>
+
+            <!-- Q23 -->
+            <div class="question-box">
+                <div class="question-text">23. What is the difference between the `/` (division) and `//` (floor division) operators in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(23)">Show Answer</button>
+                <div class="answer-content" id="ans-23">
+                    <p>`/` returns the exact float result. `//` returns the quotient rounded down to the nearest integer.</p>
+                    <pre>print(5 / 2)  # 2.5
+print(5 // 2) # 2</pre>
+                </div>
+            </div>
+
+            <!-- Q24 -->
+            <div class="question-box">
+                <div class="question-text">24. Describe the process of variable assignment in Python. How does python handle different data types without explicit declaration? Explain with example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(24)">Show Answer</button>
+                <div class="answer-content" id="ans-24">
+                    <p>Python is dynamically typed. When you assign a value (e.g., `x = 10`), Python automatically creates the variable and binds it to the data type of the value (integer in this case). No explicit declaration is needed.</p>
+                </div>
+            </div>
+
+            <!-- Q25 -->
+            <div class="question-box">
+                <div class="question-text">25. What are identity operators? Explain `is` and `is not` with examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(25)">Show Answer</button>
+                <div class="answer-content" id="ans-25">
+                    <p>They compare the memory locations of two objects.</p>
+                    <pre>a = [1, 2]
+b = a
+print(a is b) # True</pre>
+                </div>
+            </div>
+
+            <!-- Q26 -->
+            <div class="question-box">
+                <div class="question-text">26. What will be the output of the following code:<br><br>x = 50 <br>y = 60.5 <br>z = "Alice" <br>print(y,x,z)</div>
+                <button class="toggle-btn" onclick="toggleAnswer(26)">Show Answer</button>
+                <div class="answer-content" id="ans-26">
+                    <div class="output">60.5 50 Alice</div>
+                </div>
+            </div>
+
+            <!-- Q27 -->
+            <div class="question-box">
+                <div class="question-text">27. What are the different ways to import a module in Python? Explain with examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(27)">Show Answer</button>
+                <div class="answer-content" id="ans-27">
+                    <p>1. `import math` (access as `math.sqrt`)<br>2. `from math import sqrt` (access as `sqrt`)<br>3. `import math as m` (access as `m.sqrt`)</p>
+                </div>
+            </div>
+
+            <!-- Q28 -->
+            <div class="question-box">
+                <div class="question-text">28. (a) Define variables in Python.<br>(b) With examples, illustrate the two types of simultaneous assignments supported by Python.<br>(c) Write a programme by assigning three numbers to three variables in a single line and calculate its sum and average.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(28)">Show Answer</button>
+                <div class="answer-content" id="ans-28">
+                    <p><b>(a)</b> A variable is a name that refers to a value stored in memory.</p>
+                    <p><b>(b)</b> 1. `a = b = 10` (single value to several variables). 2. `a, b = 10, 20` (multiple values to multiple variables).</p>
+                    <p><b>(c)</b></p>
+                    <pre>x, y, z = 10, 20, 30
+total = x + y + z
+avg = total / 3
+print("x + y + z =", total)
+print("Average =", avg)</pre>
+                </div>
+            </div>
+
+            <!-- Q29 -->
+            <div class="question-box">
+                <div class="question-text">29. Explain dynamic typing in Python with an example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(29)">Show Answer</button>
+                <div class="answer-content" id="ans-29">
+                    <p>Dynamic typing means the data type of a variable is determined at runtime, not in advance.</p>
+                    <pre>x = 10    # x is int
+x = "Hi"  # x becomes str</pre>
+                </div>
+            </div>
+
+            <!-- Q30 -->
+            <div class="question-box">
+                <div class="question-text">30. (a) Explain all arithmetic operators in Python with a complete program.<br>(b) Explain all comparison operators in Python with a complete program.<br>(c) Explain all assignment operators in Python with a complete program.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(30)">Show Answer</button>
+                <div class="answer-content" id="ans-30">
+                    <p><b>(a) Arithmetic:</b> `+`, `-`, `*`, `/`, `//`, `%`, `**`</p>
+                    <p><b>(b) Comparison:</b> `==`, `!=`, `>`, `<`, `>=`, `<=`</p>
+                    <p><b>(c) Assignment:</b> `=`, `+=`, `-=`, `*=`, `/=`</p>
+                    <pre>a = 10; b = 3
+print(a + b)  # 13
+print(a > b)  # True
+a += 5        # a becomes 15</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="summary-box">
+            <h3>📌 Summary of Module I</h3>
+            <ul>
+                <li><strong>Basics</strong> — Variables, Dynamic Typing, Type Casting.</li>
+                <li><strong>Syntax</strong> — Indentation, Keywords, Comments.</li>
+                <li><strong>Input/Output</strong> — print(), input(), sep, end.</li>
+                <li><strong>Operators</strong> — Arithmetic, Comparison, Logical, Assignment, Membership, Identity.</li>
+                <li><strong>Modules</strong> — Importing standard libraries.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            🐍 Module I · Introduction to Python · Complete Workout @ Gafoor I, Department of Mathematics NAMC 
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Toggle Answer -->
+    <script>
+        function toggleAnswer(id) {
+            var answerDiv = document.getElementById('ans-' + id);
+            var btn = event.target;
+            
+            if (answerDiv.style.display === "none" || answerDiv.style.display === "") {
+                answerDiv.style.display = "block";
+                btn.innerText = "Hide Answer";
+            } else {
+                answerDiv.style.display = "none";
+                btn.innerText = "Show Answer";
+            }
+        }
+    </script>
+
+</body>
+</html>
