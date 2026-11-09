@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming in Python · Module III — Flow Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4fa;
+            padding: 20px 15px;
+            color: #1a2639;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 25px 30px 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(145deg, #0b1a33 0%, #1d3b66 100%);
+            margin: -25px -30px 30px -30px;
+            padding: 28px 30px 22px;
+            border-radius: 24px 24px 0 0;
+            border-bottom: 6px solid #f9b23f;
+            position: relative;
+        }
+        .header::after {
+            content: "🔄";
+            position: absolute;
+            right: 30px;
+            top: 20px;
+            font-size: 3.5rem;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .header .sub {
+            color: #b7d0f0;
+            font-size: 1rem;
+            margin-top: 6px;
+            border-left: 4px solid #f9b23f;
+            padding-left: 16px;
+        }
+        .badge {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Code & Output */
+        pre {
+            background: #0e1c2b;
+            color: #e3eaf5;
+            padding: 14px 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #2a405a;
+        }
+        pre .comment { color: #8aa5c9; }
+        pre .kw { color: #ffb86b; }
+        pre .str { color: #b1d9b1; }
+
+        .output {
+            background: #1a2a3a;
+            color: #cbdae9;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 4px 0 14px 0;
+            border-left: 4px solid #f9b23f;
+            white-space: pre-wrap;
+        }
+
+        code {
+            background: #eef2f7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dce5f0, transparent);
+            margin: 30px 0 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 2px dashed #d6e0ed;
+            color: #435e7a;
+            font-size: 0.9rem;
+        }
+
+        .summary-box {
+            background: #e3edf9;
+            border-radius: 20px;
+            padding: 16px 22px;
+            margin: 20px 0;
+        }
+        .summary-box h3 {
+            font-size: 1.2rem;
+            color: #0b1a33;
+        }
+        .summary-box ul {
+            margin-left: 20px;
+            margin-top: 6px;
+        }
+
+        /* =========================================
+           HIGHLIGHTED QUESTION BOX STYLES
+           ========================================= */
+        .question-box {
+            margin-bottom: 25px;
+            background: #f8faff; /* Light blue highlight */
+            border: 1px solid #dce5f0;
+            border-left: 6px solid #1d3b66; /* Dark blue accent */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .question-box:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Lift effect */
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0b1a33;
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .toggle-btn {
+            background: #f9b23f;
+            color: #0b1a33;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 8px;
+            box-shadow: 0 2px 5px rgba(249, 178, 63, 0.3);
+        }
+        
+        .toggle-btn:hover {
+            background: #e09f2e;
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.98);
+        }
+
+        .answer-content {
+            display: none;
+            background: #ffffff; /* White background to contrast with the blue box */
+            border-left: 4px solid #f9b23f; /* Orange accent for answer */
+            padding: 18px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 14px; }
+            .header { margin: -14px -14px 20px -14px; padding: 20px 18px; }
+            .header h1 { font-size: 1.7rem; }
+            .header::after { font-size: 2.5rem; right: 15px; top: 15px; }
+            .question-box { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="badge">📘 MODULE III · FLOW CONTROL</div>
+            <h1>KU5DSEMAT303: PROGRAMMING IN PYTHON</h1>
+            <div class="sub">Module III : Flow Control - Workout questions and programmes</div>
+        </div>
+
+        <hr>
+
+        <div id="questions-container">
+            
+            <!-- Q1 -->
+            <div class="question-box">
+                <div class="question-text">1. Write the syntax for `if` statement?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(1)">Show Answer</button>
+                <div class="answer-content" id="ans-1">
+                    <pre>if condition:
+    # code to execute if condition is true</pre>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-box">
+                <div class="question-text">2. Write the syntax for `if...else` statement?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(2)">Show Answer</button>
+                <div class="answer-content" id="ans-2">
+                    <pre>if condition:
+    # code if condition is true
+else:
+    # code if condition is false</pre>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-box">
+                <div class="question-text">3. Write the syntax for `for` loop?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(3)">Show Answer</button>
+                <div class="answer-content" id="ans-3">
+                    <pre>for item in sequence:
+    # code to repeat</pre>
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-box">
+                <div class="question-text">4. Draw the flow chart of the `if` statement?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(4)">Show Answer</button>
+                <div class="answer-content" id="ans-4">
+                    <p>(Textual Description) Start -> Check Condition (Diamond shape) -> If True, Execute Block -> End. If False, go directly to End.</p>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-box">
+                <div class="question-text">5. Draw the flow chart of the `if...else` statement?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(5)">Show Answer</button>
+                <div class="answer-content" id="ans-5">
+                    <p>(Textual Description) Start -> Check Condition -> If True, Execute IF Block -> End. If False, Execute ELSE Block -> End.</p>
+                </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-box">
+                <div class="question-text">6. Draw the flow chart of the `for` loop?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(6)">Show Answer</button>
+                <div class="answer-content" id="ans-6">
+                    <p>(Textual Description) Start -> Initialize loop -> Check if items remain -> If Yes, execute block -> move to next item -> Check again. If No, End.</p>
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-box">
+                <div class="question-text">7. Draw the flow chart of the `while` loop?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(7)">Show Answer</button>
+                <div class="answer-content" id="ans-7">
+                    <p>(Textual Description) Start -> Check Condition -> If True, execute block -> Loop back to Condition. If False, End.</p>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-box">
+                <div class="question-text">8. Write the output of the following Python program if the input is 0.<br><br>num = int(input("Enter a number: "))<br>if num == 0:<br>    print("Zero")<br>print("This is always printed")</div>
+                <button class="toggle-btn" onclick="toggleAnswer(8)">Show Answer</button>
+                <div class="answer-content" id="ans-8">
+                    <div class="output">Zero
+This is always printed</div>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-box">
+                <div class="question-text">9. What is decision making in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(9)">Show Answer</button>
+                <div class="answer-content" id="ans-9">
+                    <p>Decision making is running specific blocks of code only when certain conditions are met (using if, elif, else).</p>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-box">
+                <div class="question-text">10. Differentiate between `if` and `if...else` statements.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(10)">Show Answer</button>
+                <div class="answer-content" id="ans-10">
+                    <p>`if` runs code only when the condition is True. `if...else` runs one block if True and a different block if False.</p>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-box">
+                <div class="question-text">11. What is the use of the `elif` statement?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(11)">Show Answer</button>
+                <div class="answer-content" id="ans-11">
+                    <p>It allows checking multiple conditions sequentially. If the previous `if` is false, it checks the `elif` condition.</p>
+                </div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="question-box">
+                <div class="question-text">12. What is a nested `if` statement?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(12)">Show Answer</button>
+                <div class="answer-content" id="ans-12">
+                    <p>An `if` statement placed inside another `if` statement.</p>
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question-box">
+                <div class="question-text">13. Define a loop in Python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(13)">Show Answer</button>
+                <div class="answer-content" id="ans-13">
+                    <p>A loop is a programming structure that repeats a block of code multiple times.</p>
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question-box">
+                <div class="question-text">14. What is meant by traversal of a sequence?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(14)">Show Answer</button>
+                <div class="answer-content" id="ans-14">
+                    <p>It means visiting each item in a sequence (like a list or string) one by one, usually using a `for` loop.</p>
+                </div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question-box">
+                <div class="question-text">15. What is the use of the `range()` function? What is the default step size in `range()`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(15)">Show Answer</button>
+                <div class="answer-content" id="ans-15">
+                    <p>`range()` generates a sequence of numbers. The default step size is 1.</p>
+                </div>
+            </div>
+
+            <!-- Q16 -->
+            <div class="question-box">
+                <div class="question-text">16. What is the purpose of the `enumerate()` function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(16)">Show Answer</button>
+                <div class="answer-content" id="ans-16">
+                    <p>It adds a counter to an iterable and returns it as an enumerate object (giving both index and value).</p>
+                </div>
+            </div>
+
+            <!-- Q17 -->
+            <div class="question-box">
+                <div class="question-text">17. When is the `else` part of a `for` loop executed?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(17)">Show Answer</button>
+                <div class="answer-content" id="ans-17">
+                    <p>It is executed after the loop finishes normally (i.e., when the loop is not stopped by a `break` statement).</p>
+                </div>
+            </div>
+
+            <!-- Q18 -->
+            <div class="question-box">
+                <div class="question-text">18. When is a `while` loop preferred over a `for` loop?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(18)">Show Answer</button>
+                <div class="answer-content" id="ans-18">
+                    <p>When the number of iterations is unknown and depends on a condition becoming False.</p>
+                </div>
+            </div>
+
+            <!-- Q19 -->
+            <div class="question-box">
+                <div class="question-text">19. What happens when the condition of a `while` loop becomes False?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(19)">Show Answer</button>
+                <div class="answer-content" id="ans-19">
+                    <p>The loop stops repeating and the program continues to the next line of code after the loop.</p>
+                </div>
+            </div>
+
+            <!-- Q20 -->
+            <div class="question-box">
+                <div class="question-text">20. When is the `else` block of a `while` loop executed?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(20)">Show Answer</button>
+                <div class="answer-content" id="ans-20">
+                    <p>It is executed when the while loop ends normally (when the condition becomes False), not when it is broken by `break`.</p>
+                </div>
+            </div>
+
+            <!-- Q21 -->
+            <div class="question-box">
+                <div class="question-text">21. Write the output of the following Python program.<br><br>numbers = [2,4,6,8,10]<br>sum = 0<br>for item in numbers:<br>    sum = sum + item<br>print(sum)</div>
+                <button class="toggle-btn" onclick="toggleAnswer(21)">Show Answer</button>
+                <div class="answer-content" id="ans-21">
+                    <div class="output">30</div>
+                </div>
+            </div>
+
+            <!-- Q22 -->
+            <div class="question-box">
+                <div class="question-text">22. Describe about `range()` and `len()` functions with example?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(22)">Show Answer</button>
+                <div class="answer-content" id="ans-22">
+                    <p>`range()` generates a sequence of numbers (e.g., `range(5)` gives 0,1,2,3,4).<br>
+                    `len()` gives the number of items in an object (e.g., `len([10,20,30])` gives 3).</p>
+                </div>
+            </div>
+
+            <!-- Q23 -->
+            <div class="question-box">
+                <div class="question-text">23. Compare `for` loop and `while` loop with respect to their syntax, working, and suitable example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(23)">Show Answer</button>
+                <div class="answer-content" id="ans-23">
+                    <p><b>For loop</b>: Used to iterate over a known sequence. Syntax: `for i in range():`<br>
+                    <b>While loop</b>: Runs until a condition is false. Syntax: `while condition:`</p>
+                </div>
+            </div>
+
+            <!-- Q24 -->
+            <div class="question-box">
+                <div class="question-text">24. Explain the working of a `for` loop with its syntax and flow of execution. Give a suitable example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(24)">Show Answer</button>
+                <div class="answer-content" id="ans-24">
+                    <p>It picks the first item from the sequence, assigns it to the loop variable, executes the block, then moves to the next item. This repeats until the sequence is finished.</p>
+                </div>
+            </div>
+
+            <!-- Q25 -->
+            <div class="question-box">
+                <div class="question-text">25. (a) Write the output of the following Python program:<br>for num in range(2, 10, 2):<br>    print("Number =", num)<br><br>(b) Write the output of the following Python program:<br>count = 1<br>while count <= 3:<br>    print("Python Programming")<br>    count = count + 1<br>else:<br>    print("Exit")<br>print("End of Program")</div>
+                <button class="toggle-btn" onclick="toggleAnswer(25)">Show Answer</button>
+                <div class="answer-content" id="ans-25">
+                    <p><b>(a)</b></p>
+                    <div class="output">Number = 2
+Number = 4
+Number = 6
+Number = 8</div>
+                    <p><b>(b)</b></p>
+                    <div class="output">Python Programming
+Python Programming
+Python Programming
+Exit
+End of Program</div>
+                </div>
+            </div>
+
+            <!-- Q26 -->
+            <div class="question-box">
+                <div class="question-text">26. Explain the `if`, `if...else`, and `if...elif...else` statements with its syntax.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(26)">Show Answer</button>
+                <div class="answer-content" id="ans-26">
+                    <pre># if
+if condition:
+    # block
+
+# if...else
+if condition:
+    # block
+else:
+    # block
+
+# if...elif...else
+if condition1:
+    # block
+elif condition2:
+    # block
+else:
+    # block</pre>
+                </div>
+            </div>
+
+            <!-- Q27 -->
+            <div class="question-box">
+                <div class="question-text">27. Explain the `while` loop with syntax and flow of execution. Write a program to find the sum of the first \(N\) natural numbers.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(27)">Show Answer</button>
+                <div class="answer-content" id="ans-27">
+                    <pre>n = int(input("Enter N: "))
+total = 0
+i = 1
+while i <= n:
+    total += i
+    i += 1
+print("Sum is", total)</pre>
+                </div>
+            </div>
+
+            <!-- Q28 -->
+            <div class="question-box">
+                <div class="question-text">28. Write a Python program to find the GCD of two given numbers and display the output for any two input values.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(28)">Show Answer</button>
+                <div class="answer-content" id="ans-28">
+                    <pre>a = 36
+b = 60
+while b:
+    a, b = b, a % b
+print("GCD is", a)</pre>
+                </div>
+            </div>
+
+            <!-- Q29 -->
+            <div class="question-box">
+                <div class="question-text">29. Write a Python program to calculate the factorial of a given number.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(29)">Show Answer</button>
+                <div class="answer-content" id="ans-29">
+                    <pre>n = 5
+fact = 1
+for i in range(1, n + 1):
+    fact *= i
+print("Factorial is", fact)</pre>
+                </div>
+            </div>
+
+            <!-- Q30 -->
+            <div class="question-box">
+                <div class="question-text">30. Write a Python program to generate the Fibonacci series for \(n\) terms and display the output for \(n = 5\).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(30)">Show Answer</button>
+                <div class="answer-content" id="ans-30">
+                    <pre>n = 5
+a, b = 0, 1
+for i in range(n):
+    print(a, end=" ")
+    a, b = b, a + b
+# Output: 0 1 1 2 3</pre>
+                </div>
+            </div>
+
+            <!-- Q31 -->
+            <div class="question-box">
+                <div class="question-text">31. What is the purpose of `break` statement in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(31)">Show Answer</button>
+                <div class="answer-content" id="ans-31">
+                    <p>It immediately stops the loop and exits out of it, skipping any remaining iterations.</p>
+                </div>
+            </div>
+
+            <!-- Q32 -->
+            <div class="question-box">
+                <div class="question-text">32. What is the purpose of `continue` statement in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(32)">Show Answer</button>
+                <div class="answer-content" id="ans-32">
+                    <p>It skips the rest of the code inside the loop for the current iteration and jumps to the next iteration.</p>
+                </div>
+            </div>
+
+            <!-- Q33 -->
+            <div class="question-box">
+                <div class="question-text">33. What is the purpose of `pass` statement in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(33)">Show Answer</button>
+                <div class="answer-content" id="ans-33">
+                    <p>It does nothing. It is used as a placeholder when a statement is syntactically required but no action is needed.</p>
+                </div>
+            </div>
+
+            <!-- Q34 -->
+            <div class="question-box">
+                <div class="question-text">34. Write the syntax for a nested `for` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(34)">Show Answer</button>
+                <div class="answer-content" id="ans-34">
+                    <pre>for i in sequence1:
+    for j in sequence2:
+        # block</pre>
+                </div>
+            </div>
+
+            <!-- Q35 -->
+            <div class="question-box">
+                <div class="question-text">35. Write the syntax for a nested `while` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(35)">Show Answer</button>
+                <div class="answer-content" id="ans-35">
+                    <pre>while condition1:
+    while condition2:
+        # block</pre>
+                </div>
+            </div>
+
+            <!-- Q36 -->
+            <div class="question-box">
+                <div class="question-text">36. Consider the following Python program and determine its output:<br><br>for i in range(2,10,2):<br>    if i == 6:<br>        break<br>    print(i)<br>print("End of Program")</div>
+                <button class="toggle-btn" onclick="toggleAnswer(36)">Show Answer</button>
+                <div class="answer-content" id="ans-36">
+                    <div class="output">2
+4
+End of Program</div>
+                </div>
+            </div>
+
+            <!-- Q37 -->
+            <div class="question-box">
+                <div class="question-text">37. Write the output of following program:<br><br>i = 5<br>while i > 0:<br>    if i == 3:<br>        break<br>    print(i)<br>    i = i - 1<br>print("End of Program")</div>
+                <button class="toggle-btn" onclick="toggleAnswer(37)">Show Answer</button>
+                <div class="answer-content" id="ans-37">
+                    <div class="output">5
+4
+End of Program</div>
+                </div>
+            </div>
+
+            <!-- Q38 -->
+            <div class="question-box">
+                <div class="question-text">38. Differentiate `break` and `continue` statement with example?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(38)">Show Answer</button>
+                <div class="answer-content" id="ans-38">
+                    <p><b>break</b>: Exits the loop completely. <br>
+                    <b>continue</b>: Skips the current iteration and moves to the next.</p>
+                </div>
+            </div>
+
+            <!-- Q39 -->
+            <div class="question-box">
+                <div class="question-text">39. Explain the `break` statement in detail. Your answer should include its purpose, the flow chart representing its execution, and a code example showing it terminating a loop?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(39)">Show Answer</button>
+                <div class="answer-content" id="ans-39">
+                    <p>Flowchart: Condition -> If True, Break -> Exit Loop. If False, Continue.</p>
+                    <pre>for i in range(10):
+    if i == 5:
+        break
+    print(i)</pre>
+                </div>
+            </div>
+
+            <!-- Q40 -->
+            <div class="question-box">
+                <div class="question-text">40. Describe the `continue` statement. Provide its flow chart and illustrate its use with a suitable example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(40)">Show Answer</button>
+                <div class="answer-content" id="ans-40">
+                    <p>Flowchart: Condition -> If True, Jump to next iteration. If False, execute rest of block.</p>
+                    <pre>for i in range(5):
+    if i == 2:
+        continue
+    print(i)</pre>
+                </div>
+            </div>
+
+            <!-- Q41 -->
+            <div class="question-box">
+                <div class="question-text">41. Explain nested `if` statements in Python with a suitable program.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(41)">Show Answer</button>
+                <div class="answer-content" id="ans-41">
+                    <pre>x = 10
+if x > 0:
+    print("Positive")
+    if x % 2 == 0:
+        print("Even")</pre>
+                </div>
+            </div>
+
+            <!-- Q42 -->
+            <div class="question-box">
+                <div class="question-text">42. Explain about `for` loop, `while` loop and nested loop with its syntax and suitable examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(42)">Show Answer</button>
+                <div class="answer-content" id="ans-42">
+                    <p>For loop iterates over a sequence. While loop runs on a condition. Nested loop is a loop inside another loop (e.g., generating a grid).</p>
+                </div>
+            </div>
+
+            <!-- Q43 -->
+            <div class="question-box">
+                <div class="question-text">43. Explain the `if`, `if...else`, and `if...elif...else` statements with syntax, flow charts and suitable examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(43)">Show Answer</button>
+                <div class="answer-content" id="ans-43">
+                    <p>If checks a condition. If...else checks and provides an alternative. If...elif...else checks multiple conditions sequentially.</p>
+                </div>
+            </div>
+
+            <!-- Q44 -->
+            <div class="question-box">
+                <div class="question-text">44. Explain about `for` loop with `else` statement and `while` loop with `else` statement with suitable examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(44)">Show Answer</button>
+                <div class="answer-content" id="ans-44">
+                    <p>The `else` block runs only if the loop completes without hitting a `break` statement. Example:</p>
+                    <pre>for i in range(3):
+    print(i)
+else:
+    print("Done")</pre>
+                </div>
+            </div>
+
+            <!-- Q45 -->
+            <div class="question-box">
+                <div class="question-text">45. (a) Explain `if...elif...else` statement and write a Python program to determine whether an entered number is positive, negative, or zero using `if...elif...else`.<br><br>(b) Write a Python program to find the sum of all numbers stored in a list `[2,4,6,8,10]` using a `for` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(45)">Show Answer</button>
+                <div class="answer-content" id="ans-45">
+                    <p><b>(a)</b></p>
+                    <pre>num = int(input("Enter a number: "))
+if num > 0:
+    print("Positive")
+elif num < 0:
+    print("Negative")
+else:
+    print("Zero")</pre>
+                    <p><b>(b)</b></p>
+                    <pre>numbers = [2,4,6,8,10]
+sum = 0
+for item in numbers:
+    sum += item
+print(sum)</pre>
+                </div>
+            </div>
+
+            <!-- Q46 -->
+            <div class="question-box">
+                <div class="question-text">46. (a) Explain the `if...else` statement. Provide its syntax and a flowchart showing the flow of execution.<br><br>(b) Write a Python program that prints the following pyramid on the screen using nested `for` loop. The number of lines must be obtained from the user input:<br>      1<br>    2 2<br>  3 3 3<br>4 4 4 4<br>5 5 5 5 5</div>
+                <button class="toggle-btn" onclick="toggleAnswer(46)">Show Answer</button>
+                <div class="answer-content" id="ans-46">
+                    <p><b>(a)</b> The if...else statement runs an alternate block when the if condition is false. Flowchart: Condition -> True branch / False branch -> End.</p>
+                    <p><b>(b)</b></p>
+                    <pre>rows = int(input("Enter number of rows: "))
+for i in range(1, rows + 1):
+    for j in range(1, i + 1):
+        print(i, end=" ")
+    print()</pre>
+                </div>
+            </div>
+
+            <!-- Q47 -->
+            <div class="question-box">
+                <div class="question-text">47. (a) Provide the syntax and a flowchart showing the flow of execution of `if..elif...else` statement.<br><br>(b) Write a Python program to print the following pattern, using nested `for` loop:<br>*<br>* *<br>* * *<br>* * * *<br>* * * * *<br>* * * *<br>* * *<br>* *<br>*</div>
+                <button class="toggle-btn" onclick="toggleAnswer(47)">Show Answer</button>
+                <div class="answer-content" id="ans-47">
+                    <p><b>(a)</b> Syntax: `if cond1: ... elif cond2: ... else: ...`. Flowchart: Check Cond1 -> If true execute block1. If false check Cond2 -> If true execute block2. If false execute else block.</p>
+                    <p><b>(b)</b></p>
+                    <pre>rows = 5
+for i in range(1, rows + 1):
+    print("* " * i)
+for i in range(rows - 1, 0, -1):
+    print("* " * i)</pre>
+                </div>
+            </div>
+
+            <!-- Q48 -->
+            <div class="question-box">
+                <div class="question-text">48. Explain the use of the Python control statements `break`, `continue`, and `pass`, with suitable examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(48)">Show Answer</button>
+                <div class="answer-content" id="ans-48">
+                    <p><b>break</b>: exits loop. <b>continue</b>: skips current iteration. <b>pass</b>: does nothing (placeholder).</p>
+                </div>
+            </div>
+
+            <!-- Q49 -->
+            <div class="question-box">
+                <div class="question-text">49. Write a Python program to check if a given number is even or odd using the `if...else` statement.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(49)">Show Answer</button>
+                <div class="answer-content" id="ans-49">
+                    <pre>num = int(input("Enter a number: "))
+if num % 2 == 0:
+    print("Even")
+else:
+    print("Odd")</pre>
+                </div>
+            </div>
+
+            <!-- Q50 -->
+            <div class="question-box">
+                <div class="question-text">50. Write a Python program to find the largest among three numbers using `if...elif...else`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(50)">Show Answer</button>
+                <div class="answer-content" id="ans-50">
+                    <pre>a, b, c = 10, 20, 15
+if a >= b and a >= c:
+    print("a is largest")
+elif b >= a and b >= c:
+    print("b is largest")
+else:
+    print("c is largest")</pre>
+                </div>
+            </div>
+
+            <!-- Q51 -->
+            <div class="question-box">
+                <div class="question-text">51. What is the key difference between using `elif` and using a nested `if` statement?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(51)">Show Answer</button>
+                <div class="answer-content" id="ans-51">
+                    <p>`elif` evaluates conditions sequentially, exiting once one is met. A nested `if` runs inside another `if` block, creating a deeper hierarchy.</p>
+                </div>
+            </div>
+
+            <!-- Q52 -->
+            <div class="question-box">
+                <div class="question-text">52. Write a Python program to check if a given year is a leap year or not using conditional statements.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(52)">Show Answer</button>
+                <div class="answer-content" id="ans-52">
+                    <pre>year = 2024
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+    print("Leap Year")
+else:
+    print("Not a Leap Year")</pre>
+                </div>
+            </div>
+
+            <!-- Q53 -->
+            <div class="question-box">
+                <div class="question-text">53. Write a Python program to create a simple calculator (addition, subtraction, multiplication, division) using `if...elif...else`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(53)">Show Answer</button>
+                <div class="answer-content" id="ans-53">
+                    <pre>op = input("Enter operation (+, -, *, /): ")
+a, b = 10, 5
+if op == '+': print(a + b)
+elif op == '-': print(a - b)
+elif op == '*': print(a * b)
+elif op == '/': print(a / b)
+else: print("Invalid")</pre>
+                </div>
+            </div>
+
+            <!-- Q54 -->
+            <div class="question-box">
+                <div class="question-text">54. Explain the concept of short-circuit evaluation in Python logical operators within an `if` statement.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(54)">Show Answer</button>
+                <div class="answer-content" id="ans-54">
+                    <p>In `A and B`, if A is false, B is not checked. In `A or B`, if A is true, B is not checked. This saves time and prevents errors.</p>
+                </div>
+            </div>
+
+            <!-- Q55 -->
+            <div class="question-box">
+                <div class="question-text">55. Write a Python program to print the multiplication table of a given number using a `for` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(55)">Show Answer</button>
+                <div class="answer-content" id="ans-55">
+                    <pre>num = 5
+for i in range(1, 11):
+    print(num, "x", i, "=", num * i)</pre>
+                </div>
+            </div>
+
+            <!-- Q56 -->
+            <div class="question-box">
+                <div class="question-text">56. Write a Python program to calculate the sum of the digits of a given number using a `while` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(56)">Show Answer</button>
+                <div class="answer-content" id="ans-56">
+                    <pre>num = 1234
+sum_digits = 0
+while num > 0:
+    sum_digits += num % 10
+    num //= 10
+print(sum_digits)</pre>
+                </div>
+            </div>
+
+            <!-- Q57 -->
+            <div class="question-box">
+                <div class="question-text">57. Write a Python program to reverse a given integer number using a `while` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(57)">Show Answer</button>
+                <div class="answer-content" id="ans-57">
+                    <pre>num = 1234
+rev = 0
+while num > 0:
+    rev = rev * 10 + num % 10
+    num //= 10
+print(rev)</pre>
+                </div>
+            </div>
+
+            <!-- Q58 -->
+            <div class="question-box">
+                <div class="question-text">58. Write a Python program to check whether a given number is a prime number or not using a `for` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(58)">Show Answer</button>
+                <div class="answer-content" id="ans-58">
+                    <pre>num = 7
+is_prime = True
+for i in range(2, int(num**0.5) + 1):
+    if num % i == 0:
+        is_prime = False
+        break
+print("Prime" if is_prime else "Not Prime")</pre>
+                </div>
+            </div>
+
+            <!-- Q59 -->
+            <div class="question-box">
+                <div class="question-text">59. What is the difference between the outputs of `range(5)` and `range(1, 5)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(59)">Show Answer</button>
+                <div class="answer-content" id="ans-59">
+                    <p>`range(5)` gives 0, 1, 2, 3, 4. `range(1, 5)` gives 1, 2, 3, 4.</p>
+                </div>
+            </div>
+
+            <!-- Q60 -->
+            <div class="question-box">
+                <div class="question-text">60. Write a Python program to count the total number of vowels in a given string using a `for` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(60)">Show Answer</button>
+                <div class="answer-content" id="ans-60">
+                    <pre>text = "Hello World"
+count = 0
+for char in text.lower():
+    if char in 'aeiou':
+        count += 1
+print(count)</pre>
+                </div>
+            </div>
+
+            <!-- Q61 -->
+            <div class="question-box">
+                <div class="question-text">61. Write a Python program to print all even numbers from 1 to 50 using a `while` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(61)">Show Answer</button>
+                <div class="answer-content" id="ans-61">
+                    <pre>i = 1
+while i <= 50:
+    if i % 2 == 0:
+        print(i, end=" ")
+    i += 1</pre>
+                </div>
+            </div>
+
+            <!-- Q62 -->
+            <div class="question-box">
+                <div class="question-text">62. Write a Python program to find the sum of the squares of the first 10 natural numbers using a loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(62)">Show Answer</button>
+                <div class="answer-content" id="ans-62">
+                    <pre>total = 0
+for i in range(1, 11):
+    total += i**2
+print(total)</pre>
+                </div>
+            </div>
+
+            <!-- Q63 -->
+            <div class="question-box">
+                <div class="question-text">63. Write a Python program to print Floyd's Triangle pattern using nested loops.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(63)">Show Answer</button>
+                <div class="answer-content" id="ans-63">
+                    <pre>rows = 4
+num = 1
+for i in range(1, rows + 1):
+    for j in range(1, i + 1):
+        print(num, end=" ")
+        num += 1
+    print()</pre>
+                </div>
+            </div>
+
+            <!-- Q64 -->
+            <div class="question-box">
+                <div class="question-text">64. Write a Python program to print an inverted right-angled triangle star pattern using nested loops.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(64)">Show Answer</button>
+                <div class="answer-content" id="ans-64">
+                    <pre>rows = 5
+for i in range(rows, 0, -1):
+    for j in range(i):
+        print("*", end=" ")
+    print()</pre>
+                </div>
+            </div>
+
+            <!-- Q65 -->
+            <div class="question-box">
+                <div class="question-text">65. Write a Python program to print the multiplication tables from 1 to 5 using nested `for` loops.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(65)">Show Answer</button>
+                <div class="answer-content" id="ans-65">
+                    <pre>for i in range(1, 6):
+    for j in range(1, 11):
+        print(i, "x", j, "=", i*j)
+    print()</pre>
+                </div>
+            </div>
+
+            <!-- Q66 -->
+            <div class="question-box">
+                <div class="question-text">66. Explain how the inner loop behaves during each iteration of the outer loop in a nested loop structure.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(66)">Show Answer</button>
+                <div class="answer-content" id="ans-66">
+                    <p>For every single iteration of the outer loop, the inner loop executes completely from start to finish.</p>
+                </div>
+            </div>
+
+            <!-- Q67 -->
+            <div class="question-box">
+                <div class="question-text">67. Write a Python program to demonstrate the use of the `pass` statement inside a loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(67)">Show Answer</button>
+                <div class="answer-content" id="ans-67">
+                    <pre>for i in range(5):
+    if i == 2:
+        pass
+    else:
+        print(i)</pre>
+                </div>
+            </div>
+
+            <!-- Q68 -->
+            <div class="question-box">
+                <div class="question-text">68. Write a Python program to print numbers from 1 to 10, skipping multiples of 3 using the `continue` statement.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(68)">Show Answer</button>
+                <div class="answer-content" id="ans-68">
+                    <pre>for i in range(1, 11):
+    if i % 3 == 0:
+        continue
+    print(i)</pre>
+                </div>
+            </div>
+
+            <!-- Q69 -->
+            <div class="question-box">
+                <div class="question-text">69. Write a Python program that uses a `while` loop and a `break` statement to find the first number divisible by 7 within a given range.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(69)">Show Answer</button>
+                <div class="answer-content" id="ans-69">
+                    <pre>i = 10
+while i < 50:
+    if i % 7 == 0:
+        print("First number divisible by 7:", i)
+        break
+    i += 1</pre>
+                </div>
+            </div>
+
+            <!-- Q70 -->
+            <div class="question-box">
+                <div class="question-text">70. Explain the execution flow when a `break` statement is encountered inside a nested loop. Which loop does it terminate?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(70)">Show Answer</button>
+                <div class="answer-content" id="ans-70">
+                    <p>It only terminates the innermost loop where it is placed. The outer loop will continue to its next iteration.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="summary-box">
+            <h3>📌 Summary of Module III</h3>
+            <ul>
+                <li><strong>Decision Making</strong> — if, if...else, if...elif...else, nested if.</li>
+                <li><strong>Loops</strong> — for loop, while loop, range() and len() functions.</li>
+                <li><strong>Nested Loops</strong> — for inside for, while inside while.</li>
+                <li><strong>Control Statements</strong> — break, continue, pass.</li>
+                <li><strong>Loop Else</strong> — else block with for and while loops.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            🐍 Module III · Flow Control · Complete Workout @ Gafoor I, Department of Mathematics NAMC 
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Toggle Answer -->
+    <script>
+        function toggleAnswer(id) {
+            var answerDiv = document.getElementById('ans-' + id);
+            var btn = event.target;
+            
+            if (answerDiv.style.display === "none" || answerDiv.style.display === "") {
+                answerDiv.style.display = "block";
+                btn.innerText = "Hide Answer";
+            } else {
+                answerDiv.style.display = "none";
+                btn.innerText = "Show Answer";
+            }
+        }
+    </script>
+
+</body>
+</html>
