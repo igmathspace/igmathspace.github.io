@@ -7,20 +7,20 @@
 <style>
   /* ── PISTA THEME TOKENS ─────────────────────────── */
   :root{
-    --pista-dark:   #4a6b3a;
-    --pista-mid:    #6b8f4e;
-    --pista-light:  #e8f0e0;
-    --pista-bg:     #f2f7ec;
-    --pista-accent: #8fbc6a;
-    --pista-glow:   #c8e0b0;
-    --pista-cream:  #f9fcf5;
-    --code-bg:      #f4f6f0;
-    --code-bd:      #c0d0b0;
-    --text:         #2d3a28;
-    --muted:        #64705c;
+    --pista-dark:   #1f5f99;
+    --pista-mid:    #4a90c8;
+    --pista-light:  #e3f2fd;
+    --pista-bg:     #eef6fc;
+    --pista-accent: #5dade2;
+    --pista-glow:   #bbdefb;
+    --pista-cream:  #f5fbff;
+    --code-bg:      #f3f8fd;
+    --code-bd:      #b3d4ee;
+    --text:         #1c2e40;
+    --muted:        #5a6f82;
     --white:        #ffffff;
     --radius:       10px;
-    --shadow:       0 4px 24px rgba(74,107,58,.12);
+    --shadow:       0 4px 24px rgba(31,95,153,.12);
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -47,14 +47,14 @@
     background:linear-gradient(135deg,var(--pista-accent),var(--pista-glow));
     display:flex;align-items:center;justify-content:center;
     font-size:26px;font-weight:900;color:var(--pista-dark);
-    box-shadow:0 0 0 3px rgba(200,224,176,.35);
+    box-shadow:0 0 0 3px rgba(187,222,251,.35);
   }
   .brand-text h1{font-size:1.15rem;color:var(--white);font-weight:700;letter-spacing:.5px}
-  .brand-text p{font-size:.92rem;color:#b8d4a8;margin-top:-2px}
+  .brand-text p{font-size:.92rem;color:#cfe6f7;margin-top:-2px}
   nav{display:flex;flex-wrap:wrap;gap:4px;padding:0 24px;margin-top:12px}
   nav a{
     font-size:.88rem;font-weight:600;letter-spacing:.6px;
-    color:#b8d4a8;padding:10px 16px;text-transform:uppercase;
+    color:#cfe6f7;padding:10px 16px;text-transform:uppercase;
     border-bottom:3px solid transparent;transition:all .2s;
   }
   nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--pista-accent);text-decoration:none}
@@ -72,15 +72,15 @@
     letter-spacing:30px;pointer-events:none;text-transform:uppercase;
   }
   .hero-eyebrow{
-    display:inline-block;background:rgba(143,188,106,.18);
-    border:1px solid rgba(143,188,106,.5);color:var(--pista-glow);
+    display:inline-block;background:rgba(93,173,226,.18);
+    border:1px solid rgba(93,173,226,.5);color:var(--pista-glow);
     font-size:.88rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
     padding:6px 18px;border-radius:99px;margin-bottom:18px;
   }
   .hero h2{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.2;margin-bottom:12px}
   .hero h2 span{color:var(--pista-glow)}
-  .hero p{color:#d0e8c0;font-size:1.15rem;max-width:680px;margin:0 auto 28px}
-  .hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;font-size:.95rem;color:#b8d4a8}
+  .hero p{color:#d6ecfa;font-size:1.15rem;max-width:680px;margin:0 auto 28px}
+  .hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;font-size:.95rem;color:#cfe6f7}
   .hero-meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 16px;border-radius:99px}
   .hero-meta span b{color:var(--white)}
 
@@ -112,7 +112,7 @@
   thead tr{background:var(--pista-dark);color:var(--white)}
   thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:1.02rem}
   tbody tr:nth-child(even){background:var(--pista-light)}
-  tbody tr:hover{background:#dcead0;transition:background .15s}
+  tbody tr:hover{background:#dbeefa;transition:background .15s}
   tbody td{padding:11px 16px;border-bottom:1px solid var(--code-bd);vertical-align:top}
   td strong{color:var(--pista-dark)}
 
@@ -120,17 +120,17 @@
     background:var(--code-bg);border:1px solid var(--code-bd);
     border-left:5px solid var(--pista-mid);border-radius:var(--radius);
     padding:16px 20px;font-family:'Cascadia Code','Fira Code',monospace;
-    font-size:1rem;line-height:1.7;overflow-x:auto;margin:12px 0 12px;color:#1a2e1a;
+    font-size:1rem;line-height:1.7;overflow-x:auto;margin:12px 0 12px;color:#0d2b45;
   }
   code{
     background:var(--code-bg);border:1px solid var(--code-bd);
     padding:2px 7px;border-radius:4px;
     font-family:'Cascadia Code','Fira Code',monospace;
-    font-size:.92em;color:#1a2e1a;
+    font-size:.92em;color:#0d2b45;
   }
 
   .output{
-    background:#1a2e1a;color:#e0f0d0;border-radius:var(--radius);
+    background:#0d2b45;color:#dcefff;border-radius:var(--radius);
     padding:14px 20px;font-family:'Cascadia Code','Fira Code',monospace;
     font-size:.98rem;line-height:1.7;margin:0 0 20px 0;
     border-left:5px solid var(--pista-accent);position:relative;
@@ -142,9 +142,9 @@
   }
 
   .note,.tip{border-radius:var(--radius);padding:14px 20px;font-size:1.02rem;margin:14px 0}
-  .note{background:#f5f9f0;border-left:5px solid var(--pista-accent);color:#3a5a2a}
+  .note{background:#f2f8fd;border-left:5px solid var(--pista-accent);color:#1f4e79}
   .note b,.note-icon{color:var(--pista-mid)}
-  .tip{background:#e8f0e0;border-left:5px solid var(--pista-mid);color:#2d4a1e}
+  .tip{background:#e3f2fd;border-left:5px solid var(--pista-mid);color:#2d4a1e}
   .tip b{color:var(--pista-mid)}
 
   .q-list{counter-reset:q}
@@ -161,7 +161,7 @@
   }
 
   .activity{
-    background:linear-gradient(135deg,var(--pista-light),#d8e8c8);
+    background:linear-gradient(135deg,var(--pista-light),#d3e9f8);
     border:1px solid var(--code-bd);border-radius:var(--radius);
     padding:22px 26px;margin:16px 0;
   }
@@ -171,7 +171,7 @@
   .sum-card{
     background:var(--white);border:1px solid var(--code-bd);border-radius:var(--radius);
     padding:20px 22px;border-top:4px solid var(--pista-accent);
-    box-shadow:0 2px 8px rgba(74,107,58,.07);font-size:1rem;
+    box-shadow:0 2px 8px rgba(31,95,153,.07);font-size:1rem;
   }
   .sum-card .icon{font-size:1.7rem;margin-bottom:8px}
   .sum-card strong{display:block;color:var(--pista-dark);margin-bottom:6px;font-size:1.05rem}
@@ -184,7 +184,7 @@
     display:inline-flex;align-items:center;gap:8px;
     background:var(--pista-dark);color:var(--white);
     padding:14px 26px;border-radius:99px;font-size:1rem;font-weight:600;
-    text-decoration:none;transition:all .2s;box-shadow:0 3px 10px rgba(74,107,58,.25);
+    text-decoration:none;transition:all .2s;box-shadow:0 3px 10px rgba(31,95,153,.25);
   }
   .pagenav a:hover{background:var(--pista-mid);text-decoration:none;transform:translateY(-2px)}
   .pagenav a.next{background:var(--pista-accent);color:var(--pista-dark)}
@@ -202,14 +202,14 @@
     font-size:32px;font-weight:900;color:var(--pista-dark);
   }
   .signoff h3{font-size:1.3rem;color:var(--pista-glow);border:none;padding:0;margin:0 0 6px}
-  .signoff p{color:#b8d4a8;font-size:1rem;margin:0}
+  .signoff p{color:#cfe6f7;font-size:1rem;margin:0}
 
   footer{
-    background:var(--pista-dark);color:#8aaa7a;
+    background:var(--pista-dark);color:#7fb3d9;
     text-align:center;font-size:.92rem;padding:20px;
     border-top:2px solid var(--pista-accent);
   }
-  footer span{color:#b8d4a8}
+  footer span{color:#cfe6f7}
 
   .toc{
     background:var(--white);border:1px solid var(--code-bd);
@@ -228,7 +228,7 @@
     border-radius:var(--radius);
     padding:18px;
     margin:14px 0 20px;
-    box-shadow:0 2px 8px rgba(74,107,58,.06);
+    box-shadow:0 2px 8px rgba(31,95,153,.06);
   }
   .graph-card svg{
     display:block;
@@ -236,7 +236,7 @@
     height:auto;
     background:#ffffff;
     border-radius:6px;
-    border:1px solid #d8e0c8;
+    border:1px solid #d3e3f2;
   }
   .graph-caption{
     text-align:center;
@@ -261,6 +261,35 @@
 
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
   .reveal.visible{opacity:1;transform:none}
+
+  /* ── WORKOUT BUTTON (eye) ───────────────────────── */
+  .workout-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(180deg,#ffb300 0%,#ff6f00 100%);
+    color:#ffffff;text-decoration:none;
+    padding:8px 14px;border-radius:10px;
+    box-shadow:0 4px 0 #b34700,0 7px 12px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.5);
+    transition:transform .12s,box-shadow .12s;
+    max-width:230px;text-align:left;
+  }
+  .workout-btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 #b34700,0 16px 26px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);text-decoration:none}
+  .workout-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #b34700,0 4px 8px rgba(0,0,0,.3)}
+  .workout-eye{
+    font-size:18px;line-height:1;flex-shrink:0;
+    background:rgba(255,255,255,.22);border-radius:50%;
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    animation:eyePulse 1.8s ease-in-out infinite;
+  }
+  @keyframes eyePulse{
+    0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,255,255,.55)}
+    50%{transform:scale(1.08);box-shadow:0 0 0 10px rgba(255,255,255,0)}
+  }
+  .workout-text b{display:block;font-size:.9rem;font-weight:800;letter-spacing:.2px;line-height:1.3}
+  .workout-text small{display:block;font-size:.72rem;opacity:.9;margin-top:3px}
+  .workout-wrap{margin-top:18px;display:flex;justify-content:center}
+  @media (min-width:1100px){
+    .workout-wrap{position:absolute;right:48px;top:50%;transform:translateY(-50%);margin-top:0}
+  }
 </style>
 </head>
 <body>
@@ -294,6 +323,15 @@
     <span>🏛️ <b>NAM College Kallikkandy</b></span>
     <span>📐 <b>Department of Mathematics</b></span>
     <span>📘 <b>Python for Education</b></span>
+  </div>
+  <div class="workout-wrap">
+    <a class="workout-btn" href="python_mod4_eg.html">
+      <span class="workout-eye">👁️</span>
+      <span class="workout-text">
+        <b>Workout problems and programmes</b>
+        <small>Practice set for Module IV</small>
+      </span>
+    </a>
   </div>
 </section>
 
@@ -1070,7 +1108,7 @@ show()</pre>
     <div>
       <h3>Gafoor I</h3>
       <p>Assistant Professor &nbsp;|&nbsp; Department of Mathematics &nbsp;|&nbsp; NAM College Kallikkandy</p>
-      <p style="margin-top:4px;font-size:.92rem;color:#8aaa7a;">Teaching Note · Module IV · Data Visualization in Python · Academic Year 2025–26</p>
+      <p style="margin-top:4px;font-size:.92rem;color:#7fb3d9;">Teaching Note · Module IV · Data Visualization in Python · Academic Year 2025–26</p>
     </div>
   </div>
 
