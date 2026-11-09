@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming in Python · Module II — Data Types and Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4fa;
+            padding: 20px 15px;
+            color: #1a2639;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 25px 30px 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(145deg, #0b1a33 0%, #1d3b66 100%);
+            margin: -25px -30px 30px -30px;
+            padding: 28px 30px 22px;
+            border-radius: 24px 24px 0 0;
+            border-bottom: 6px solid #f9b23f;
+            position: relative;
+        }
+        .header::after {
+            content: "📊";
+            position: absolute;
+            right: 30px;
+            top: 20px;
+            font-size: 3.5rem;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .header .sub {
+            color: #b7d0f0;
+            font-size: 1rem;
+            margin-top: 6px;
+            border-left: 4px solid #f9b23f;
+            padding-left: 16px;
+        }
+        .badge {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Code & Output */
+        pre {
+            background: #0e1c2b;
+            color: #e3eaf5;
+            padding: 14px 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #2a405a;
+        }
+        pre .comment { color: #8aa5c9; }
+        pre .kw { color: #ffb86b; }
+        pre .str { color: #b1d9b1; }
+
+        .output {
+            background: #1a2a3a;
+            color: #cbdae9;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 4px 0 14px 0;
+            border-left: 4px solid #f9b23f;
+            white-space: pre-wrap;
+        }
+
+        code {
+            background: #eef2f7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dce5f0, transparent);
+            margin: 30px 0 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 2px dashed #d6e0ed;
+            color: #435e7a;
+            font-size: 0.9rem;
+        }
+
+        .summary-box {
+            background: #e3edf9;
+            border-radius: 20px;
+            padding: 16px 22px;
+            margin: 20px 0;
+        }
+        .summary-box h3 {
+            font-size: 1.2rem;
+            color: #0b1a33;
+        }
+        .summary-box ul {
+            margin-left: 20px;
+            margin-top: 6px;
+        }
+
+        /* =========================================
+           HIGHLIGHTED QUESTION BOX STYLES
+           ========================================= */
+        .question-box {
+            margin-bottom: 25px;
+            background: #f8faff;
+            border: 1px solid #dce5f0;
+            border-left: 6px solid #1d3b66;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .question-box:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0b1a33;
+            margin-bottom: 12px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        .toggle-btn {
+            background: #f9b23f;
+            color: #0b1a33;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 8px;
+            box-shadow: 0 2px 5px rgba(249, 178, 63, 0.3);
+        }
+        
+        .toggle-btn:hover {
+            background: #e09f2e;
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.98);
+        }
+
+        .answer-content {
+            display: none;
+            background: #ffffff;
+            border-left: 4px solid #f9b23f;
+            padding: 18px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 14px; }
+            .header { margin: -14px -14px 20px -14px; padding: 20px 18px; }
+            .header h1 { font-size: 1.7rem; }
+            .header::after { font-size: 2.5rem; right: 15px; top: 15px; }
+            .question-box { padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="badge">📘 MODULE II · DATA TYPES AND OPERATIONS</div>
+            <h1>KU5DSEMAT303: PROGRAMMING IN PYTHON</h1>
+            <div class="sub">Module II : Data types and Operations - Workout questions and programmes</div>
+        </div>
+
+        <hr>
+
+        <div id="questions-container">
+            
+            <!-- Q1 -->
+            <div class="question-box">
+                <div class="question-text">1. What do you mean by a Python dictionary?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(1)">Show Answer</button>
+                <div class="answer-content" id="ans-1">
+                    <p>A dictionary is an unordered collection of key-value pairs. It is mutable and allows fast lookups based on unique keys.</p>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-box">
+                <div class="question-text">2. What is a list comprehension? Write a one-line code to create a list of squares of numbers from 1 to 5.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(2)">Show Answer</button>
+                <div class="answer-content" id="ans-2">
+                    <p>List comprehension is a concise way to create lists.</p>
+                    <pre>squares = [x**2 for x in range(1, 6)]</pre>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-box">
+                <div class="question-text">3. What is the output of `3 in [1,2,3]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(3)">Show Answer</button>
+                <div class="answer-content" id="ans-3">
+                    <div class="output">True</div>
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-box">
+                <div class="question-text">4. Implement a Stack data structure using Python's built-in list methods (append and pop).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(4)">Show Answer</button>
+                <div class="answer-content" id="ans-4">
+                    <pre>stack = []
+stack.append(10)  # Push
+stack.append(20)  # Push
+print(stack.pop()) # Pop (returns 20)</pre>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-box">
+                <div class="question-text">5. What happens if you try to create a set with duplicate elements? Provide an example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(5)">Show Answer</button>
+                <div class="answer-content" id="ans-5">
+                    <p>Duplicate elements are automatically removed because sets only store unique values.</p>
+                    <pre>s = {1, 2, 2, 3}
+print(s) # Output: {1, 2, 3}</pre>
+                </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-box">
+                <div class="question-text">6. How can you pick a random item from a range?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(6)">Show Answer</button>
+                <div class="answer-content" id="ans-6">
+                    <pre>import random
+item = random.choice(range(1, 10))</pre>
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-box">
+                <div class="question-text">7. Create a Python dictionary containing student details. Write a program to display its keys and values and to add and modify dictionary items.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(7)">Show Answer</button>
+                <div class="answer-content" id="ans-7">
+                    <pre>student = {'name': 'Alice', 'age': 20}
+print(student.keys())
+print(student.values())
+student['age'] = 21 # Modify
+student['grade'] = 'A' # Add
+print(student)</pre>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-box">
+                <div class="question-text">8. Compare the built-in function `abs(x)` with the `math.fabs(x)` method.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(8)">Show Answer</button>
+                <div class="answer-content" id="ans-8">
+                    <p>`abs()` returns an integer or float depending on the input. `math.fabs()` always returns a float.</p>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-box">
+                <div class="question-text">9. What is the output of `print([1,2,3] + [4,5,6])`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(9)">Show Answer</button>
+                <div class="answer-content" id="ans-9">
+                    <div class="output">[1, 2, 3, 4, 5, 6]</div>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-box">
+                <div class="question-text">10. Explain how to iterate over a dictionary using a `for` loop to print both keys and values simultaneously.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(10)">Show Answer</button>
+                <div class="answer-content" id="ans-10">
+                    <pre>d = {'a': 1, 'b': 2}
+for key, value in d.items():
+    print(key, value)</pre>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-box">
+                <div class="question-text">11. What is the difference between tuples and lists in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(11)">Show Answer</button>
+                <div class="answer-content" id="ans-11">
+                    <p>Lists are mutable (can be changed), while tuples are immutable (cannot be changed after creation).</p>
+                </div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="question-box">
+                <div class="question-text">12. Explain the difference between integer division (`//`) and float division (`/`) in Python with examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(12)">Show Answer</button>
+                <div class="answer-content" id="ans-12">
+                    <p>`//` returns the quotient rounded down to the nearest integer. `/` returns the exact float result.</p>
+                    <pre>print(5 // 2) # Output: 2
+print(5 / 2)  # Output: 2.5</pre>
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question-box">
+                <div class="question-text">13. How will you get the length of a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(13)">Show Answer</button>
+                <div class="answer-content" id="ans-13">
+                    <pre>len(list_name)</pre>
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question-box">
+                <div class="question-text">14. What is a frozenset? Mention two methods that cannot be applied to a frozenset.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(14)">Show Answer</button>
+                <div class="answer-content" id="ans-14">
+                    <p>A frozenset is an immutable version of a set. Methods like `add()` and `remove()` cannot be applied because they modify the set.</p>
+                </div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question-box">
+                <div class="question-text">15. Write a program using the random module to perform the following without loops: a) Pick a random choice from a sequence. b) Generate a random float between 2 and 3 using `random.uniform()`. c) Generate a random integer from a range using `random.randrange()`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(15)">Show Answer</button>
+                <div class="answer-content" id="ans-15">
+                    <pre>import random
+print(random.choice(['apple', 'banana', 'cherry']))
+print(random.uniform(2, 3))
+print(random.randrange(1, 10))</pre>
+                </div>
+            </div>
+
+            <!-- Q16 -->
+            <div class="question-box">
+                <div class="question-text">16. How can you convert a list into a tuple and vice versa? Give code examples for both.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(16)">Show Answer</button>
+                <div class="answer-content" id="ans-16">
+                    <pre>my_list = [1, 2, 3]
+my_tuple = tuple(my_list) # List to tuple
+my_list2 = list(my_tuple) # Tuple to list</pre>
+                </div>
+            </div>
+
+            <!-- Q17 -->
+            <div class="question-box">
+                <div class="question-text">17. How will you get the index of an object in a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(17)">Show Answer</button>
+                <div class="answer-content" id="ans-17">
+                    <pre>list_name.index(object)</pre>
+                </div>
+            </div>
+
+            <!-- Q18 -->
+            <div class="question-box">
+                <div class="question-text">18. How do you access a value in a dictionary if you are not sure if the key exists, without causing a `KeyError`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(18)">Show Answer</button>
+                <div class="answer-content" id="ans-18">
+                    <p>Use the `get()` method. It returns `None` (or a specified default value) if the key is not found instead of raising an error.</p>
+                    <pre>value = d.get('key', 'default_value')</pre>
+                </div>
+            </div>
+
+            <!-- Q19 -->
+            <div class="question-box">
+                <div class="question-text">19. What are the data types available in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(19)">Show Answer</button>
+                <div class="answer-content" id="ans-19">
+                    <p>Numeric (int, float, complex), String, List, Tuple, Set, Dictionary, Boolean.</p>
+                </div>
+            </div>
+
+            <!-- Q20 -->
+            <div class="question-box">
+                <div class="question-text">20. What is the output of `print(smalltuple * 2)` if `smalltuple = ('Jack', 20)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(20)">Show Answer</button>
+                <div class="answer-content" id="ans-20">
+                    <div class="output">('Jack', 20, 'Jack', 20)</div>
+                </div>
+            </div>
+
+            <!-- Q21 -->
+            <div class="question-box">
+                <div class="question-text">21. Given a list of numbers, develop a Python program to perform the following operations: (a) Insert an element at a specified position. (b) Delete an element from the list. (c) Remove an element from the list. (d) Access an element using its index. (e) Extract a portion of the list using slicing. (f) Find the maximum and minimum values. (g) Reverse the list. (h) Sort the list. (i) Find the length of the list. Give the result of each operation.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(21)">Show Answer</button>
+                <div class="answer-content" id="ans-21">
+                    <pre>L = [10, 20, 30, 40, 50]
+L.insert(2, 25)       # (a) Insert
+del L[0]              # (b) Delete by index
+L.remove(40)          # (c) Remove by value
+print(L[1])           # (d) Access
+print(L[1:4])         # (e) Slicing
+print(max(L), min(L)) # (f) Max/Min
+L.reverse()           # (g) Reverse
+L.sort()              # (h) Sort
+print(len(L))         # (i) Length</pre>
+                </div>
+            </div>
+
+            <!-- Q22 -->
+            <div class="question-box">
+                <div class="question-text">22. Differentiate between `random.choice()` and `random.shuffle()` in terms of arguments and return values.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(22)">Show Answer</button>
+                <div class="answer-content" id="ans-22">
+                    <p>`choice()` takes a sequence and returns a random item. `shuffle()` takes a list, shuffles it in place, and returns `None`.</p>
+                </div>
+            </div>
+
+            <!-- Q23 -->
+            <div class="question-box">
+                <div class="question-text">23. What is the difference between `del` and `remove()` methods of a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(23)">Show Answer</button>
+                <div class="answer-content" id="ans-23">
+                    <p>`del` removes an item by its index (e.g., `del L[0]`). `remove()` removes the first occurrence of a specific value (e.g., `L.remove(20)`).</p>
+                </div>
+            </div>
+
+            <!-- Q24 -->
+            <div class="question-box">
+                <div class="question-text">24. How do you add a single element to a set vs adding multiple elements? Explain with `add()` and `update()`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(24)">Show Answer</button>
+                <div class="answer-content" id="ans-24">
+                    <p>`add()` adds a single element. `update()` adds multiple elements from an iterable (like a list or tuple).</p>
+                </div>
+            </div>
+
+            <!-- Q25 -->
+            <div class="question-box">
+                <div class="question-text">25. Explain about `list.copy()` and `list.clear()` with example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(25)">Show Answer</button>
+                <div class="answer-content" id="ans-25">
+                    <p>`copy()` returns a shallow copy of the list. `clear()` removes all elements from the list.</p>
+                    <pre>L = [1, 2]
+L2 = L.copy()
+L.clear() # L becomes [], L2 remains [1, 2]</pre>
+                </div>
+            </div>
+
+            <!-- Q26 -->
+            <div class="question-box">
+                <div class="question-text">26. Explain the key difference between `set.remove(obj)` and `set.discard(obj)`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(26)">Show Answer</button>
+                <div class="answer-content" id="ans-26">
+                    <p>`remove()` raises a `KeyError` if the element is not found. `discard()` does nothing if the element is not found.</p>
+                </div>
+            </div>
+
+            <!-- Q27 -->
+            <div class="question-box">
+                <div class="question-text">27. What is the output of `print(list[2:])` if `list = ['abcd', 786, 2.23, 'Tom', 70.2]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(27)">Show Answer</button>
+                <div class="answer-content" id="ans-27">
+                    <div class="output">[2.23, 'Tom', 70.2]</div>
+                </div>
+            </div>
+
+            <!-- Q28 -->
+            <div class="question-box">
+                <div class="question-text">28. What is a nested list? Write a code snippet to access the second element of the first sub-list in `L = [[1, 2], [3, 4]]`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(28)">Show Answer</button>
+                <div class="answer-content" id="ans-28">
+                    <p>A nested list is a list inside another list.</p>
+                    <pre>L = [[1, 2], [3, 4]]
+print(L[0][1]) # Output: 2</pre>
+                </div>
+            </div>
+
+            <!-- Q29 -->
+            <div class="question-box">
+                <div class="question-text">29. How can you pick a random item from a list or tuple?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(29)">Show Answer</button>
+                <div class="answer-content" id="ans-29">
+                    <pre>import random
+random.choice(my_list_or_tuple)</pre>
+                </div>
+            </div>
+
+            <!-- Q30 -->
+            <div class="question-box">
+                <div class="question-text">30. List the four standard numeric data types supported in Python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(30)">Show Answer</button>
+                <div class="answer-content" id="ans-30">
+                    <p>int (integer), float (floating point), complex (complex numbers), bool (boolean).</p>
+                </div>
+            </div>
+
+            <!-- Q31 -->
+            <div class="question-box">
+                <div class="question-text">31. How can you create a dictionary using dictionary comprehension? Give an example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(31)">Show Answer</button>
+                <div class="answer-content" id="ans-31">
+                    <pre>d = {x: x**2 for x in range(1, 5)}
+# Output: {1: 1, 2: 4, 3: 9, 4: 16}</pre>
+                </div>
+            </div>
+
+            <!-- Q32 -->
+            <div class="question-box">
+                <div class="question-text">32. What is the output of `print(tuple[0])` if `tuple = ('abcd', 786, 2.23, 'Tom', 70.2)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(32)">Show Answer</button>
+                <div class="answer-content" id="ans-32">
+                    <div class="output">abcd</div>
+                </div>
+            </div>
+
+            <!-- Q33 -->
+            <div class="question-box">
+                <div class="question-text">33. Compare lists and tuples with respect to mutability, indexing, slicing, concatenation and repetition. Write suitable Python programs demonstrating these operations.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(33)">Show Answer</button>
+                <div class="answer-content" id="ans-33">
+                    <p>Lists are mutable; tuples are immutable. Both support indexing, slicing, concatenation (+), and repetition (*).</p>
+                    <pre>L = [1, 2]; T = (1, 2)
+L[0] = 99  # Allowed
+# T[0] = 99 # Error
+print(L[0:1], T[0:1]) # Slicing
+print(L + L, T + T)   # Concat
+print(L * 2, T * 2)   # Repetition</pre>
+                </div>
+            </div>
+
+            <!-- Q34 -->
+            <div class="question-box">
+                <div class="question-text">34. What is the output of `print(smalllist * 2)` if `smalllist = ['Jack', 20]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(34)">Show Answer</button>
+                <div class="answer-content" id="ans-34">
+                    <div class="output">['Jack', 20, 'Jack', 20]</div>
+                </div>
+            </div>
+
+            <!-- Q35 -->
+            <div class="question-box">
+                <div class="question-text">35. Explain how list slicing with a step works (e.g., `L[0:5:2]`).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(35)">Show Answer</button>
+                <div class="answer-content" id="ans-35">
+                    <p>It starts at index 0, goes up to index 4 (excluding 5), and takes every 2nd element.</p>
+                </div>
+            </div>
+
+            <!-- Q36 -->
+            <div class="question-box">
+                <div class="question-text">36. Write a Python program demonstrating the following operations using the random module: (a) Select a random item from a list. (b) Select a random item from a range.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(36)">Show Answer</button>
+                <div class="answer-content" id="ans-36">
+                    <pre>import random
+print(random.choice([1, 2, 3])) # (a)
+print(random.choice(range(10))) # (b)</pre>
+                </div>
+            </div>
+
+            <!-- Q37 -->
+            <div class="question-box">
+                <div class="question-text">37. What is the output of `print(tuple + smalltuple)` if `tuple = ('abcd', 786, 2.23, 'Tom', 70.2)` and `smalltuple = ('Jack', 20)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(37)">Show Answer</button>
+                <div class="answer-content" id="ans-37">
+                    <div class="output">('abcd', 786, 2.23, 'Tom', 70.2, 'Jack', 20)</div>
+                </div>
+            </div>
+
+            <!-- Q38 -->
+            <div class="question-box">
+                <div class="question-text">38. Explain the `pop()` method in sets. How does it behave differently from the `pop()` method in lists?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(38)">Show Answer</button>
+                <div class="answer-content" id="ans-38">
+                    <p>Set `pop()` removes and returns an arbitrary element (since sets are unordered). List `pop()` removes and returns the element at a specific index (or the last element by default).</p>
+                </div>
+            </div>
+
+            <!-- Q39 -->
+            <div class="question-box">
+                <div class="question-text">39. How will you sort a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(39)">Show Answer</button>
+                <div class="answer-content" id="ans-39">
+                    <pre>list_name.sort()</pre>
+                </div>
+            </div>
+
+            <!-- Q40 -->
+            <div class="question-box">
+                <div class="question-text">40. Write a program that performs mathematical set operations: `union()`, `intersection()`, `difference()`, and `symmetric_difference()` on two predefined sets and write its output.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(40)">Show Answer</button>
+                <div class="answer-content" id="ans-40">
+                    <pre>A = {1, 2, 3}
+B = {3, 4, 5}
+print(A.union(B))
+print(A.intersection(B))
+print(A.difference(B))
+print(A.symmetric_difference(B))</pre>
+                </div>
+            </div>
+
+            <!-- Q41 -->
+            <div class="question-box">
+                <div class="question-text">41. How can you get a random number in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(41)">Show Answer</button>
+                <div class="answer-content" id="ans-41">
+                    <pre>import random
+random.random()      # Float between 0 and 1
+random.randint(1, 10) # Integer between 1 and 10</pre>
+                </div>
+            </div>
+
+            <!-- Q42 -->
+            <div class="question-box">
+                <div class="question-text">42. How will you create a dictionary in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(42)">Show Answer</button>
+                <div class="answer-content" id="ans-42">
+                    <pre>d = {'key1': 'value1', 'key2': 'value2'}</pre>
+                </div>
+            </div>
+
+            <!-- Q43 -->
+            <div class="question-box">
+                <div class="question-text">43. Distinguish between `list.remove(obj)` and `list.pop([index])` with example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(43)">Show Answer</button>
+                <div class="answer-content" id="ans-43">
+                    <p>`remove()` removes by value. `pop()` removes by index and returns the removed item.</p>
+                    <pre>L = [1, 2, 3]
+L.remove(2) # L becomes [1, 3]
+item = L.pop(0) # L becomes [3], item = 1</pre>
+                </div>
+            </div>
+
+            <!-- Q44 -->
+            <div class="question-box">
+                <div class="question-text">44. Can a tuple contain a list as an element? If yes, how does it affect the immutability of the tuple?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(44)">Show Answer</button>
+                <div class="answer-content" id="ans-44">
+                    <p>Yes. The tuple itself remains immutable (you can't replace the list), but the list inside the tuple can be mutated (e.g., appending to it).</p>
+                </div>
+            </div>
+
+            <!-- Q45 -->
+            <div class="question-box">
+                <div class="question-text">45. What is the output of `print(['Hi!'] * 4)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(45)">Show Answer</button>
+                <div class="answer-content" id="ans-45">
+                    <div class="output">['Hi!', 'Hi!', 'Hi!', 'Hi!']</div>
+                </div>
+            </div>
+
+            <!-- Q46 -->
+            <div class="question-box">
+                <div class="question-text">46. What is a nested dictionary? Write a code snippet to access a value from a nested dictionary.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(46)">Show Answer</button>
+                <div class="answer-content" id="ans-46">
+                    <p>A dictionary inside another dictionary.</p>
+                    <pre>d = {'student': {'name': 'Alice', 'age': 20}}
+print(d['student']['name'])</pre>
+                </div>
+            </div>
+
+            <!-- Q47 -->
+            <div class="question-box">
+                <div class="question-text">47. Differentiate between `math.ceil(x)` and `math.floor(x)` using positive and negative float inputs.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(47)">Show Answer</button>
+                <div class="answer-content" id="ans-47">
+                    <p>`ceil()` rounds up, `floor()` rounds down.</p>
+                    <pre>math.ceil(2.1)  # 3
+math.floor(2.9) # 2
+math.ceil(-2.1) # -2
+math.floor(-2.9)# -3</pre>
+                </div>
+            </div>
+
+            <!-- Q48 -->
+            <div class="question-box">
+                <div class="question-text">48. Write a Python program to create tuples and demonstrate indexing, slicing, concatenation, and repetition operations and write its output.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(48)">Show Answer</button>
+                <div class="answer-content" id="ans-48">
+                    <pre>T1 = (1, 2, 3)
+T2 = (4, 5)
+print(T1[0])     # Indexing
+print(T1[1:])    # Slicing
+print(T1 + T2)   # Concatenation
+print(T1 * 2)    # Repetition</pre>
+                </div>
+            </div>
+
+            <!-- Q49 -->
+            <div class="question-box">
+                <div class="question-text">49. How will you insert an object at a given index in a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(49)">Show Answer</button>
+                <div class="answer-content" id="ans-49">
+                    <pre>list_name.insert(index, object)</pre>
+                </div>
+            </div>
+
+            <!-- Q50 -->
+            <div class="question-box">
+                <div class="question-text">50. What is the difference between the `del` statement and the `clear()` method when working with a dictionary?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(50)">Show Answer</button>
+                <div class="answer-content" id="ans-50">
+                    <p>`del` removes the entire dictionary object from memory (or a specific key). `clear()` empties all key-value pairs but keeps the empty dictionary object.</p>
+                </div>
+            </div>
+
+            <!-- Q51 -->
+            <div class="question-box">
+                <div class="question-text">51. What is the output of `print(list)` if `list = ['abcd', 786, 2.23, 'Tom', 70.2]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(51)">Show Answer</button>
+                <div class="answer-content" id="ans-51">
+                    <div class="output">['abcd', 786, 2.23, 'Tom', 70.2]</div>
+                </div>
+            </div>
+
+            <!-- Q52 -->
+            <div class="question-box">
+                <div class="question-text">52. Design a Python program using a dictionary to implement a simple student management system. The program should: 1) Create a dictionary containing student details. 2) Add a new student. 3) Modify an existing student's details. 4) Retrieve and display all keys. 5) Retrieve and display all values. 6) Display the complete dictionary. Explain the operations used in the program.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(52)">Show Answer</button>
+                <div class="answer-content" id="ans-52">
+                    <pre>students = {'s1': {'name': 'Alice', 'age': 20}}
+students['s2'] = {'name': 'Bob', 'age': 21} # Add
+students['s1']['age'] = 21 # Modify
+print(students.keys())
+print(students.values())
+print(students)</pre>
+                </div>
+            </div>
+
+            <!-- Q53 -->
+            <div class="question-box">
+                <div class="question-text">53. What is the output of `print(tuple)` if `tuple = ('abcd', 786, 2.23, 'Tom', 70.2)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(53)">Show Answer</button>
+                <div class="answer-content" id="ans-53">
+                    <div class="output">('abcd', 786, 2.23, 'Tom', 70.2)</div>
+                </div>
+            </div>
+
+            <!-- Q54 -->
+            <div class="question-box">
+                <div class="question-text">54. What is the difference between the `list.sort()` method and the built-in `sorted()` function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(54)">Show Answer</button>
+                <div class="answer-content" id="ans-54">
+                    <p>`sort()` modifies the list in place and returns `None`. `sorted()` returns a new sorted list without modifying the original.</p>
+                </div>
+            </div>
+
+            <!-- Q55 -->
+            <div class="question-box">
+                <div class="question-text">55. What is the output of `print(L[1:])` if `L = [1,2,3]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(55)">Show Answer</button>
+                <div class="answer-content" id="ans-55">
+                    <div class="output">[2, 3]</div>
+                </div>
+            </div>
+
+            <!-- Q56 -->
+            <div class="question-box">
+                <div class="question-text">56. Explain the `items()`, `keys()`, and `values()` methods of a dictionary with examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(56)">Show Answer</button>
+                <div class="answer-content" id="ans-56">
+                    <p>`keys()` returns all keys, `values()` returns all values, `items()` returns key-value pairs.</p>
+                    <pre>d = {'a': 1, 'b': 2}
+print(d.keys())   # dict_keys(['a', 'b'])
+print(d.values()) # dict_values([1, 2])
+print(d.items())  # dict_items([('a', 1), ('b', 2)])</pre>
+                </div>
+            </div>
+
+            <!-- Q57 -->
+            <div class="question-box">
+                <div class="question-text">57. Write the example of the `del` statement when removing an element from a List.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(57)">Show Answer</button>
+                <div class="answer-content" id="ans-57">
+                    <pre>L = [1, 2, 3]
+del L[1] # Removes 2. L becomes [1, 3]</pre>
+                </div>
+            </div>
+
+            <!-- Q58 -->
+            <div class="question-box">
+                <div class="question-text">58. How will you get all the keys from a dictionary?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(58)">Show Answer</button>
+                <div class="answer-content" id="ans-58">
+                    <pre>dict_name.keys()</pre>
+                </div>
+            </div>
+
+            <!-- Q59 -->
+            <div class="question-box">
+                <div class="question-text">59. Write a complete Python program to demonstrate all core list methods in action: `append()`, `extend()`, `insert()`, `remove()`, `pop()`, `index()`, `count()`, `sort()` (both ascending and descending), `reverse()`, `copy()`, and `clear()`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(59)">Show Answer</button>
+                <div class="answer-content" id="ans-59">
+                    <pre>L = [3, 1, 2]
+L.append(4); L.extend([5,6]); L.insert(0, 0)
+L.remove(2); L.pop(); idx = L.index(3); c = L.count(1)
+L.sort(); L.sort(reverse=True); L.reverse()
+L2 = L.copy(); L.clear()</pre>
+                </div>
+            </div>
+
+            <!-- Q60 -->
+            <div class="question-box">
+                <div class="question-text">60. What are sets in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(60)">Show Answer</button>
+                <div class="answer-content" id="ans-60">
+                    <p>A set is an unordered collection of unique elements. It is mutable and does not allow duplicates.</p>
+                </div>
+            </div>
+
+            <!-- Q61 -->
+            <div class="question-box">
+                <div class="question-text">61. What is the output of `print(list[0])` if `list = ['abcd', 786, 2.23, 'Tom', 70.2]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(61)">Show Answer</button>
+                <div class="answer-content" id="ans-61">
+                    <div class="output">abcd</div>
+                </div>
+            </div>
+
+            <!-- Q62 -->
+            <div class="question-box">
+                <div class="question-text">62. Explain the `count()` and `index()` methods for tuples with examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(62)">Show Answer</button>
+                <div class="answer-content" id="ans-62">
+                    <p>`count()` returns the number of times a value appears. `index()` returns the first index of a value.</p>
+                    <pre>T = (1, 2, 2, 3)
+print(T.count(2)) # 2
+print(T.index(3)) # 3</pre>
+                </div>
+            </div>
+
+            <!-- Q63 -->
+            <div class="question-box">
+                <div class="question-text">63. Write a Python program to create a list and demonstrate indexing, slicing, concatenation, repetition, insertion, and deletion operations.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(63)">Show Answer</button>
+                <div class="answer-content" id="ans-63">
+                    <pre>L = [1, 2, 3]
+print(L[0])       # Indexing
+print(L[0:2])     # Slicing
+print(L + [4])    # Concatenation
+print(L * 2)      # Repetition
+L.insert(1, 99)   # Insertion
+del L[0]          # Deletion</pre>
+                </div>
+            </div>
+
+            <!-- Q64 -->
+            <div class="question-box">
+                <div class="question-text">64. What is the output of `print(len([1,2,3]))`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(64)">Show Answer</button>
+                <div class="answer-content" id="ans-64">
+                    <div class="output">3</div>
+                </div>
+            </div>
+
+            <!-- Q65 -->
+            <div class="question-box">
+                <div class="question-text">65. What is tuple unpacking? Give an example where tuple unpacking is used in a `for` loop.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(65)">Show Answer</button>
+                <div class="answer-content" id="ans-65">
+                    <p>Assigning elements of a tuple to multiple variables at once.</p>
+                    <pre>for x, y in [(1, 2), (3, 4)]:
+    print(x, y)</pre>
+                </div>
+            </div>
+
+            <!-- Q66 -->
+            <div class="question-box">
+                <div class="question-text">66. What is the output of `print(list * smalllist * 2)` if `list = ['abcd', 786, 2.23, 'Tom', 70.2]` and `smalllist = ['Jack', 20]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(66)">Show Answer</button>
+                <div class="answer-content" id="ans-66">
+                    <p>The lists are concatenated first, then repeated twice. (Note: This is a syntax evaluation based on left-to-right order).</p>
+                </div>
+            </div>
+
+            <!-- Q67 -->
+            <div class="question-box">
+                <div class="question-text">67. What is the purpose of the `dict.fromkeys()` method?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(67)">Show Answer</button>
+                <div class="answer-content" id="ans-67">
+                    <p>It creates a new dictionary with keys from an iterable, all set to the same specified value.</p>
+                </div>
+            </div>
+
+            <!-- Q68 -->
+            <div class="question-box">
+                <div class="question-text">68. How will you get the min-valued item of a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(68)">Show Answer</button>
+                <div class="answer-content" id="ans-68">
+                    <pre>min(list_name)</pre>
+                </div>
+            </div>
+
+            <!-- Q69 -->
+            <div class="question-box">
+                <div class="question-text">69. How will you get all the values from a dictionary?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(69)">Show Answer</button>
+                <div class="answer-content" id="ans-69">
+                    <pre>dict_name.values()</pre>
+                </div>
+            </div>
+
+            <!-- Q70 -->
+            <div class="question-box">
+                <div class="question-text">70. Can a set contain a list as an element? Why or why not?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(70)">Show Answer</button>
+                <div class="answer-content" id="ans-70">
+                    <p>No. Set elements must be hashable (immutable). Lists are mutable, so they cannot be added to a set.</p>
+                </div>
+            </div>
+
+            <!-- Q71 -->
+            <div class="question-box">
+                <div class="question-text">71. What is the output of `print([2])` if `L = [1,2,3]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(71)">Show Answer</button>
+                <div class="answer-content" id="ans-71">
+                    <p>The question asks for `print([2])`, which simply prints the list `[2]`.</p>
+                    <div class="output">[2]</div>
+                </div>
+            </div>
+
+            <!-- Q72 -->
+            <div class="question-box">
+                <div class="question-text">72. What is the function of `math.modf(x)`? Describe its return value structure.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(72)">Show Answer</button>
+                <div class="answer-content" id="ans-72">
+                    <p>It returns the fractional and integer parts of `x` as a tuple. Both parts carry the sign of `x` and are floats.</p>
+                </div>
+            </div>
+
+            <!-- Q73 -->
+            <div class="question-box">
+                <div class="question-text">73. Write a program to merge two dictionaries using the `update()` method and print the final dictionary.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(73)">Show Answer</button>
+                <div class="answer-content" id="ans-73">
+                    <pre>d1 = {'a': 1}
+d2 = {'b': 2}
+d1.update(d2)
+print(d1) # Output: {'a': 1, 'b': 2}</pre>
+                </div>
+            </div>
+
+            <!-- Q74 -->
+            <div class="question-box">
+                <div class="question-text">74. How are complex numbers represented in Python? Provide an example showing how real and imaginary parts are structured.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(74)">Show Answer</button>
+                <div class="answer-content" id="ans-74">
+                    <p>Complex numbers are written with a 'j' suffix for the imaginary part.</p>
+                    <pre>c = 3 + 4j
+print(c.real) # 3.0
+print(c.imag) # 4.0</pre>
+                </div>
+            </div>
+
+            <!-- Q75 -->
+            <div class="question-box">
+                <div class="question-text">75. How will you get the max-valued item of a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(75)">Show Answer</button>
+                <div class="answer-content" id="ans-75">
+                    <pre>max(list_name)</pre>
+                </div>
+            </div>
+
+            <!-- Q76 -->
+            <div class="question-box">
+                <div class="question-text">76. Explain the `zip()` function. Write a program to combine two lists into a list of tuples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(76)">Show Answer</button>
+                <div class="answer-content" id="ans-76">
+                    <p>`zip()` pairs elements from multiple iterables together.</p>
+                    <pre>L1 = [1, 2]
+L2 = ['a', 'b']
+print(list(zip(L1, L2))) # [(1, 'a'), (2, 'b')]</pre>
+                </div>
+            </div>
+
+            <!-- Q77 -->
+            <div class="question-box">
+                <div class="question-text">77. What is the output of `print(list[1:3])` if `list = ['abcd', 786, 2.23, 'Tom', 70.2]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(77)">Show Answer</button>
+                <div class="answer-content" id="ans-77">
+                    <div class="output">[786, 2.23]</div>
+                </div>
+            </div>
+
+            <!-- Q78 -->
+            <div class="question-box">
+                <div class="question-text">78. Demonstrate set logical comparisons with examples using `issubset()`, `issuperset()`, and `isdisjoint()`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(78)">Show Answer</button>
+                <div class="answer-content" id="ans-78">
+                    <pre>A = {1, 2}
+B = {1, 2, 3}
+C = {4, 5}
+print(A.issubset(B))   # True
+print(B.issuperset(A)) # True
+print(A.isdisjoint(C)) # True</pre>
+                </div>
+            </div>
+
+            <!-- Q79 -->
+            <div class="question-box">
+                <div class="question-text">79. What is the output of `print([-2])` if `L = [1,2,3]`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(79)">Show Answer</button>
+                <div class="answer-content" id="ans-79">
+                    <p>The question asks for `print([-2])`, which creates a new list with -2.</p>
+                    <div class="output">[-2]</div>
+                </div>
+            </div>
+
+            <!-- Q80 -->
+            <div class="question-box">
+                <div class="question-text">80. Write a Python program with output to demonstrate the following list operations: (a) `len()` (b) `max()` (c) `index()` (d) `insert()` (e) `remove()` (f) `reverse()`</div>
+                <button class="toggle-btn" onclick="toggleAnswer(80)">Show Answer</button>
+                <div class="answer-content" id="ans-80">
+                    <pre>L = [10, 20, 30]
+print(len(L))       # (a) 3
+print(max(L))       # (b) 30
+print(L.index(20))  # (c) 1
+L.insert(1, 15)     # (d)
+L.remove(30)        # (e)
+L.reverse()         # (f)</pre>
+                </div>
+            </div>
+
+            <!-- Q81 -->
+            <div class="question-box">
+                <div class="question-text">81. How will you remove the last object from a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(81)">Show Answer</button>
+                <div class="answer-content" id="ans-81">
+                    <pre>list_name.pop()</pre>
+                </div>
+            </div>
+
+            <!-- Q82 -->
+            <div class="question-box">
+                <div class="question-text">82. What is the output of `print(tuple[1:3])` if `tuple = ('abcd', 786, 2.23, 'Tom', 70.2)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(82)">Show Answer</button>
+                <div class="answer-content" id="ans-82">
+                    <div class="output">(786, 2.23)</div>
+                </div>
+            </div>
+
+            <!-- Q83 -->
+            <div class="question-box">
+                <div class="question-text">83. How can you convert a string containing a decimal number (e.g., `"3.14"`) into a float and then into an integer?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(83)">Show Answer</button>
+                <div class="answer-content" id="ans-83">
+                    <pre>s = "3.14"
+f = float(s)   # 3.14
+i = int(f)     # 3</pre>
+                </div>
+            </div>
+
+            <!-- Q84 -->
+            <div class="question-box">
+                <div class="question-text">84. What are tuples in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(84)">Show Answer</button>
+                <div class="answer-content" id="ans-84">
+                    <p>Tuples are immutable sequences, typically used to store collections of heterogeneous data. They are defined using parentheses `()`.</p>
+                </div>
+            </div>
+
+            <!-- Q85 -->
+            <div class="question-box">
+                <div class="question-text">85. How will you remove an object from a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(85)">Show Answer</button>
+                <div class="answer-content" id="ans-85">
+                    <pre>list_name.remove(object)</pre>
+                </div>
+            </div>
+
+            <!-- Q86 -->
+            <div class="question-box">
+                <div class="question-text">86. Why are tuples referred to as "read-only lists"? Explain the syntax required to delete an entire tuple.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(86)">Show Answer</button>
+                <div class="answer-content" id="ans-86">
+                    <p>Because they cannot be modified after creation (immutable). To delete an entire tuple, use: `del tuple_name`.</p>
+                </div>
+            </div>
+
+            <!-- Q87 -->
+            <div class="question-box">
+                <div class="question-text">87. Explain list indexing and negative indexing in Python with a brief example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(87)">Show Answer</button>
+                <div class="answer-content" id="ans-87">
+                    <p>Positive indexing starts from 0 (left to right). Negative indexing starts from -1 (right to left).</p>
+                    <pre>L = [10, 20, 30]
+print(L[0])  # 10
+print(L[-1]) # 30</pre>
+                </div>
+            </div>
+
+            <!-- Q88 -->
+            <div class="question-box">
+                <div class="question-text">88. Write a program to calculate the hypotenuse of a right-angled triangle with base `x = 3` and height `y = 4` as inputs and write the output.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(88)">Show Answer</button>
+                <div class="answer-content" id="ans-88">
+                    <pre>import math
+x = 3
+y = 4
+h = math.hypot(x, y)
+print(h) # Output: 5.0</pre>
+                </div>
+            </div>
+
+            <!-- Q89 -->
+            <div class="question-box">
+                <div class="question-text">89. How do you count the occurrence of a specific element in a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(89)">Show Answer</button>
+                <div class="answer-content" id="ans-89">
+                    <pre>list_name.count(element)</pre>
+                </div>
+            </div>
+
+            <!-- Q90 -->
+            <div class="question-box">
+                <div class="question-text">90. What is the output of `print(tuple[2:])` if `tuple = ('abcd', 786, 2.23, 'Tom', 70.2)`?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(90)">Show Answer</button>
+                <div class="answer-content" id="ans-90">
+                    <div class="output">(2.23, 'Tom', 70.2)</div>
+                </div>
+            </div>
+
+            <!-- Q91 -->
+            <div class="question-box">
+                <div class="question-text">91. Explain tuple packing and tuple unpacking with code examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(91)">Show Answer</button>
+                <div class="answer-content" id="ans-91">
+                    <p>Packing: Creating a tuple from values. Unpacking: Assigning tuple elements to variables.</p>
+                    <pre>t = 1, 2, 3      # Packing
+a, b, c = t      # Unpacking</pre>
+                </div>
+            </div>
+
+            <!-- Q92 -->
+            <div class="question-box">
+                <div class="question-text">92. How will you reverse a list?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(92)">Show Answer</button>
+                <div class="answer-content" id="ans-92">
+                    <pre>list_name.reverse()</pre>
+                </div>
+            </div>
+
+            <!-- Q93 -->
+            <div class="question-box">
+                <div class="question-text">93. Write a Python script to calculate the area of a circle given its radius `r = 3.5` using `math.pi`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(93)">Show Answer</button>
+                <div class="answer-content" id="ans-93">
+                    <pre>import math
+r = 3.5
+area = math.pi * r**2
+print(area)</pre>
+                </div>
+            </div>
+
+            <!-- Q94 -->
+            <div class="question-box">
+                <div class="question-text">94. Explain how `del`, `remove()`, and `pop()` differ when deleting items from a list.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(94)">Show Answer</button>
+                <div class="answer-content" id="ans-94">
+                    <p>`del` removes by index/slice. `remove()` removes by value. `pop()` removes by index and returns the removed value.</p>
+                </div>
+            </div>
+
+            <!-- Q95 -->
+            <div class="question-box">
+                <div class="question-text">95. State the two critical rules regarding dictionary keys in Python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(95)">Show Answer</button>
+                <div class="answer-content" id="ans-95">
+                    <p>1. Keys must be unique (no duplicates). 2. Keys must be immutable (e.g., strings, numbers, or tuples).</p>
+                </div>
+            </div>
+
+            <!-- Q96 -->
+            <div class="question-box">
+                <div class="question-text">96. How to create an empty set in python? How to find the sum of all items in the set?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(96)">Show Answer</button>
+                <div class="answer-content" id="ans-96">
+                    <pre>s = set() # Empty set
+sum_of_set = sum(s)</pre>
+                </div>
+            </div>
+
+            <!-- Q97 -->
+            <div class="question-box">
+                <div class="question-text">97. Compare `list.append(obj)` with `list.extend(seq)`.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(97)">Show Answer</button>
+                <div class="answer-content" id="ans-97">
+                    <p>`append()` adds a single object as one element at the end. `extend()` iterates over an argument and adds each element individually to the end.</p>
+                </div>
+            </div>
+
+            <!-- Q98 -->
+            <div class="question-box">
+                <div class="question-text">98. What does the `popitem()` method do in a dictionary?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(98)">Show Answer</button>
+                <div class="answer-content" id="ans-98">
+                    <p>It removes and returns an arbitrary (key, value) pair from the dictionary. (In Python 3.7+, it removes the last inserted item).</p>
+                </div>
+            </div>
+
+            <!-- Q99 -->
+            <div class="question-box">
+                <div class="question-text">99. Provide comparison between Lists, Tuples, Sets, and Dictionaries.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(99)">Show Answer</button>
+                <div class="answer-content" id="ans-99">
+                    <p><b>List</b>: Ordered, mutable, allows duplicates (e.g., `[1, 2]`).<br>
+                    <b>Tuple</b>: Ordered, immutable, allows duplicates (e.g., `(1, 2)`).<br>
+                    <b>Set</b>: Unordered, mutable, no duplicates (e.g., `{1, 2}`).<br>
+                    <b>Dictionary</b>: Unordered (pre-3.7), mutable, key-value pairs, unique keys (e.g., `{'a': 1}`).</p>
+                </div>
+            </div>
+
+            <!-- Q100 -->
+            <div class="question-box">
+                <div class="question-text">100. Explain the set operators `|` (union), `&` (intersection), `-` (difference), and `^` (symmetric difference).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(100)">Show Answer</button>
+                <div class="answer-content" id="ans-100">
+                    <p>`|` combines both sets. `&` gives common elements. `-` gives elements in the first but not the second. `^` gives elements in either but not both.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="summary-box">
+            <h3>📌 Summary of Module II</h3>
+            <ul>
+                <li><strong>Numbers</strong> — int, float, complex, math functions.</li>
+                <li><strong>Lists</strong> — Indexing, slicing, built-in methods, nesting, comprehensions.</li>
+                <li><strong>Tuples</strong> — Immutability, packing/unpacking, built-in methods.</li>
+                <li><strong>Sets</strong> — Uniqueness, set operations, frozensets.</li>
+                <li><strong>Dictionaries</strong> — Key-value pairs, methods, comprehensions.</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            🐍 Module II · Data Types and Operations · Complete Workout @ Gafoor I, Department of Mathematics NAMC 
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Toggle Answer -->
+    <script>
+        function toggleAnswer(id) {
+            var answerDiv = document.getElementById('ans-' + id);
+            var btn = event.target;
+            
+            if (answerDiv.style.display === "none" || answerDiv.style.display === "") {
+                answerDiv.style.display = "block";
+                btn.innerText = "Hide Answer";
+            } else {
+                answerDiv.style.display = "none";
+                btn.innerText = "Show Answer";
+            }
+        }
+    </script>
+
+</body>
+</html>

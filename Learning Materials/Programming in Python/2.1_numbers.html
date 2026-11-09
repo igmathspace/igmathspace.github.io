@@ -1,10 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programming in Python · Section 2.1 — Numbers </title>
-    <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programming in Python · Section 2.1 — Numbers | IG Math Space</title>
+<style>
+  /* ── PISTA THEME TOKENS ─────────────────────────── */
+  :root{
+    --pista-dark:   #1f5f99;
+    --pista-mid:    #4a90c8;
+    --pista-light:  #e3f2fd;
+    --pista-bg:     #eef6fc;
+    --pista-accent: #5dade2;
+    --pista-glow:   #bbdefb;
+    --pista-cream:  #f5fbff;
+    --code-bg:      #f3f8fd;
+    --code-bd:      #b3d4ee;
+    --text:         #1c2e40;
+    --muted:        #5a6f82;
+    --white:        #ffffff;
+    --radius:       10px;
+    --shadow:       0 4px 24px rgba(31,95,153,.12);
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,sans-serif;
+    background:var(--pista-bg);
+    color:var(--text);
+    line-height:1.8;
+    font-size:17pt;
+  }
+  a{color:var(--pista-mid);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ── NAV ─────────────────────────────────────────── */
+  header{
+    background:var(--pista-dark);
+    position:sticky;top:0;z-index:100;
+    box-shadow:0 2px 12px rgba(0,0,0,.25);
+  }
+  .brand{display:flex;align-items:center;gap:14px;padding:16px 32px 0}
+  .brand-icon{
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(135deg,var(--pista-accent),var(--pista-glow));
+    display:flex;align-items:center;justify-content:center;
+    font-size:26px;font-weight:900;color:var(--pista-dark);
+    box-shadow:0 0 0 3px rgba(187,222,251,.35);
+  }
+  .brand-text h1{font-size:1.15rem;color:var(--white);font-weight:700;letter-spacing:.5px}
+  .brand-text p{font-size:.92rem;color:#cfe6f7;margin-top:-2px}
+  nav{display:flex;flex-wrap:wrap;gap:4px;padding:0 24px;margin-top:12px}
+  nav a{
+    font-size:.88rem;font-weight:600;letter-spacing:.6px;
+    color:#cfe6f7;padding:10px 16px;text-transform:uppercase;
+    border-bottom:3px solid transparent;transition:all .2s;
+  }
+  nav a:hover,nav a.active{color:var(--white);border-bottom-color:var(--pista-accent);text-decoration:none}
+
+  /* ── HERO ────────────────────────────────────────── */
+  .hero{
+    background:linear-gradient(135deg,var(--pista-dark) 0%,var(--pista-mid) 100%);
+    padding:64px 32px 56px;text-align:center;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:'plot imshow meshgrid';
+    position:absolute;inset:0;
+    font-size:6rem;font-weight:900;color:rgba(255,255,255,.04);
+    display:flex;align-items:center;justify-content:center;
+    letter-spacing:30px;pointer-events:none;text-transform:uppercase;
+  }
+  .hero-eyebrow{
+    display:inline-block;background:rgba(93,173,226,.18);
+    border:1px solid rgba(93,173,226,.5);color:var(--pista-glow);
+    font-size:.88rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    padding:6px 18px;border-radius:99px;margin-bottom:18px;
+  }
+  .hero h2{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--white);line-height:1.2;margin-bottom:12px}
+  .hero h2 span{color:var(--pista-glow)}
+  .hero p{color:#d6ecfa;font-size:1.15rem;max-width:680px;margin:0 auto 28px}
+  .hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;font-size:.95rem;color:#cfe6f7}
+  .hero-meta span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 16px;border-radius:99px}
+  .hero-meta span b{color:var(--white)}
+
+  .page{max-width:1050px;margin:0 auto;padding:44px 24px 80px}
+
+  .sec-head{
+    background:var(--pista-dark);color:var(--white);
+    padding:14px 24px;border-radius:var(--radius) var(--radius) 0 0;
+    font-size:1.2rem;font-weight:700;letter-spacing:.4px;
+    display:flex;align-items:center;gap:12px;margin-top:40px;
+  }
+  .sec-head .num{background:var(--pista-accent);color:var(--pista-dark);font-size:.92rem;font-weight:800;padding:3px 12px;border-radius:99px}
+  .sec-body{
+    background:var(--white);border:1px solid var(--code-bd);border-top:none;
+    border-radius:0 0 var(--radius) var(--radius);padding:26px 32px;box-shadow:var(--shadow);
+  }
+
+  h3{font-size:1.25rem;font-weight:700;color:var(--pista-dark);margin:24px 0 10px;border-left:4px solid var(--pista-accent);padding-left:12px}
+  h4{font-size:1.1rem;font-weight:600;color:var(--pista-mid);margin:20px 0 8px}
+  p{margin-bottom:12px;font-size:1.05rem}
+  ul.dot{list-style:none;padding-left:0}
+  ul.dot li{padding:6px 0 6px 26px;font-size:1.05rem;position:relative}
+  ul.dot li::before{content:"◆";color:var(--pista-accent);font-size:.7rem;position:absolute;left:4px;top:12px}
+  ol{padding-left:26px;font-size:1.05rem}
+  ol li{padding:4px 0}
+
+  .tbl-wrap{overflow-x:auto;margin:14px 0}
+  table{width:100%;border-collapse:collapse;font-size:1rem}
+  thead tr{background:var(--pista-dark);color:var(--white)}
+  thead th{padding:12px 16px;text-align:left;font-weight:600;font-size:1.02rem}
+  tbody tr:nth-child(even){background:var(--pista-light)}
+  tbody tr:hover{background:#dbeefa;transition:background .15s}
+  tbody td{padding:11px 16px;border-bottom:1px solid var(--code-bd);vertical-align:top}
+  td strong{color:var(--pista-dark)}
+
+  pre{
+    background:var(--code-bg);border:1px solid var(--code-bd);
+    border-left:5px solid var(--pista-mid);border-radius:var(--radius);
+    padding:16px 20px;font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:1rem;line-height:1.7;overflow-x:auto;margin:12px 0 12px;color:#0d2b45;
+  }
+  code{
+    background:var(--code-bg);border:1px solid var(--code-bd);
+    padding:2px 7px;border-radius:4px;
+    font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.92em;color:#0d2b45;
+  }
+
+  .output{
+    background:#0d2b45;color:#dcefff;border-radius:var(--radius);
+    padding:14px 20px;font-family:'Cascadia Code','Fira Code',monospace;
+    font-size:.98rem;line-height:1.7;margin:0 0 20px 0;
+    border-left:5px solid var(--pista-accent);position:relative;
+    white-space:pre-wrap;overflow-x:auto;
+  }
+  .output::before{
+    content:"▶ OUTPUT";display:block;font-family:'Segoe UI',sans-serif;
+    font-size:.8rem;font-weight:800;letter-spacing:1.5px;color:var(--pista-accent);margin-bottom:8px;
+  }
+
+  .note,.tip{border-radius:var(--radius);padding:14px 20px;font-size:1.02rem;margin:14px 0}
+  .note{background:#f2f8fd;border-left:5px solid var(--pista-accent);color:#1f4e79}
+  .note b,.note-icon{color:var(--pista-mid)}
+  .tip{background:#e3f2fd;border-left:5px solid var(--pista-mid);color:#2d4a1e}
+  .tip b{color:var(--pista-mid)}
+
+  .q-list{counter-reset:q}
+  .q-list li{
+    counter-increment:q;list-style:none;padding:14px 16px 14px 58px;position:relative;
+    border-bottom:1px dashed var(--code-bd);font-size:1.03rem;
+  }
+  .q-list li:last-child{border-bottom:none}
+  .q-list li::before{
+    content:counter(q);position:absolute;left:14px;top:13px;
+    background:var(--pista-dark);color:var(--white);
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;
+  }
+
+  .activity{
+    background:linear-gradient(135deg,var(--pista-light),#d3e9f8);
+    border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:22px 26px;margin:16px 0;
+  }
+  .activity h4{margin-top:0;border-left:4px solid var(--pista-mid);padding-left:10px;font-size:1.08rem}
+
+  .summary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:16px}
+  .sum-card{
+    background:var(--white);border:1px solid var(--code-bd);border-radius:var(--radius);
+    padding:20px 22px;border-top:4px solid var(--pista-accent);
+    box-shadow:0 2px 8px rgba(31,95,153,.07);font-size:1rem;
+  }
+  .sum-card .icon{font-size:1.7rem;margin-bottom:8px}
+  .sum-card strong{display:block;color:var(--pista-dark);margin-bottom:6px;font-size:1.05rem}
+
+  .pagenav{
+    display:flex;justify-content:space-between;align-items:center;
+    gap:12px;margin-top:44px;flex-wrap:wrap;
+  }
+  .pagenav a{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--pista-dark);color:var(--white);
+    padding:14px 26px;border-radius:99px;font-size:1rem;font-weight:600;
+    text-decoration:none;transition:all .2s;box-shadow:0 3px 10px rgba(31,95,153,.25);
+  }
+  .pagenav a:hover{background:var(--pista-mid);text-decoration:none;transform:translateY(-2px)}
+  .pagenav a.next{background:var(--pista-accent);color:var(--pista-dark)}
+  .pagenav a.next:hover{background:var(--pista-glow)}
+
+  .signoff{
+    background:var(--pista-dark);color:var(--white);
+    border-radius:var(--radius);padding:28px 36px;
+    margin-top:44px;display:flex;align-items:center;gap:22px;box-shadow:var(--shadow);
+  }
+  .signoff-icon{
+    width:70px;height:70px;border-radius:50%;flex-shrink:0;
+    background:linear-gradient(135deg,var(--pista-accent),var(--pista-glow));
+    display:flex;align-items:center;justify-content:center;
+    font-size:32px;font-weight:900;color:var(--pista-dark);
+  }
+  .signoff h3{font-size:1.3rem;color:var(--pista-glow);border:none;padding:0;margin:0 0 6px}
+  .signoff p{color:#cfe6f7;font-size:1rem;margin:0}
+
+  footer{
+    background:var(--pista-dark);color:#7fb3d9;
+    text-align:center;font-size:.92rem;padding:20px;
+    border-top:2px solid var(--pista-accent);
+  }
+  footer span{color:#cfe6f7}
+
+  .toc{
+    background:var(--white);border:1px solid var(--code-bd);
+    border-radius:var(--radius);padding:24px 28px;box-shadow:var(--shadow);margin-bottom:12px;
+  }
+  .toc h3{margin-top:0;border-left:4px solid var(--pista-accent);padding-left:12px;margin-bottom:14px;font-size:1.2rem}
+  .toc ol{padding-left:24px;font-size:1.03rem}
+  .toc ol li{padding:5px 0}
+  .toc ol li a{color:var(--pista-mid)}
+  .toc ol li a:hover{color:var(--pista-accent)}
+
+  /* ── GRAPH CARD ─────────────────────────────────── */
+  .graph-card{
+    background:var(--pista-cream);
+    border:1px solid var(--code-bd);
+    border-radius:var(--radius);
+    padding:18px;
+    margin:14px 0 20px;
+    box-shadow:0 2px 8px rgba(31,95,153,.06);
+  }
+  .graph-card svg{
+    display:block;
+    width:100%;
+    height:auto;
+    background:#ffffff;
+    border-radius:6px;
+    border:1px solid #d3e3f2;
+  }
+  .graph-caption{
+    text-align:center;
+    font-size:.95rem;
+    color:var(--muted);
+    margin-top:10px;
+    font-style:italic;
+  }
+
+  @media(max-width:700px){
+    body{font-size:15pt}
+    .brand{padding:12px 16px 0}
+    nav{padding:0 12px}
+    nav a{font-size:.78rem;padding:7px 11px}
+    .hero{padding:40px 16px 36px}
+    .page{padding:24px 12px 60px}
+    .sec-body{padding:18px}
+    .signoff{flex-direction:column;text-align:center}
+    pre{font-size:.92rem}
+    .output{font-size:.9rem}
+  }
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .5s,transform .5s}
+  .reveal.visible{opacity:1;transform:none}
+
+  /* ── WORKOUT BUTTON (eye) ───────────────────────── */
+  .workout-btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(180deg,#ffb300 0%,#ff6f00 100%);
+    color:#ffffff;text-decoration:none;
+    padding:8px 14px;border-radius:10px;
+    box-shadow:0 4px 0 #b34700,0 7px 12px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.5);
+    transition:transform .12s,box-shadow .12s;
+    max-width:230px;text-align:left;
+  }
+  .workout-btn:hover{transform:translateY(-3px);box-shadow:0 9px 0 #b34700,0 16px 26px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);text-decoration:none}
+  .workout-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #b34700,0 4px 8px rgba(0,0,0,.3)}
+  .workout-eye{
+    font-size:18px;line-height:1;flex-shrink:0;
+    background:rgba(255,255,255,.22);border-radius:50%;
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    animation:eyePulse 1.8s ease-in-out infinite;
+  }
+  @keyframes eyePulse{
+    0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,255,255,.55)}
+    50%{transform:scale(1.08);box-shadow:0 0 0 10px rgba(255,255,255,0)}
+  }
+  .workout-text b{display:block;font-size:.9rem;font-weight:800;letter-spacing:.2px;line-height:1.3}
+  .workout-text small{display:block;font-size:.72rem;opacity:.9;margin-top:3px}
+  .workout-wrap{margin-top:18px;display:flex;justify-content:center}
+  @media (min-width:1100px){
+    .workout-wrap{position:absolute;right:48px;top:50%;transform:translateY(-50%);margin-top:0}
+  }
+
+  /* ── SECTION 2.1 CONTENT (light-blue theme) ── */
+
         * {
             margin: 0;
             padding: 0;
@@ -12,9 +300,9 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4fa;
-            padding: 20px 15px;
-            color: #1a2639;
+            background: #eef6fc;
+            padding: 0;
+            color: #1c2e40;
             line-height: 1.8;
         }
         .container {
@@ -23,12 +311,12 @@
             background: #ffffff;
             border-radius: 24px;
             padding: 25px 30px 35px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 30px rgba(31, 95, 153, 0.12);
         }
 
         /* Header */
         .header {
-            background: #0b1a33;
+            background: #0d3b66;
             margin: -25px -30px 30px -30px;
             padding: 28px 30px 22px;
             border-radius: 24px 24px 0 0;
@@ -41,7 +329,7 @@
         }
         .header h1 span {
             background: #f9b23f;
-            color: #0b1a33;
+            color: #0d3b66;
             padding: 2px 16px;
             border-radius: 40px;
             font-size: 1.6rem;
@@ -49,7 +337,7 @@
             margin-top: 6px;
         }
         .header .sub {
-            color: #b7d0f0;
+            color: #a9cfee;
             font-size: 1rem;
             margin-top: 6px;
             border-left: 4px solid #f9b23f;
@@ -67,24 +355,24 @@
 
         /* Section titles */
         .section-title {
-            background: #e8eff8;
-            border-left: 7px solid #1d3b66;
+            background: #e0eefa;
+            border-left: 7px solid #1f5f99;
             padding: 10px 20px;
             margin: 30px 0 18px 0;
             border-radius: 0 18px 18px 0;
             font-size: 1.7rem;
             font-weight: 700;
-            color: #0b1a33;
+            color: #0d3b66;
         }
         .sub-title {
-            background: #f2f6fd;
+            background: #f4f9fd;
             border-left: 5px solid #f9b23f;
             padding: 6px 18px;
             margin: 22px 0 12px 0;
             border-radius: 0 14px 14px 0;
             font-size: 1.2rem;
             font-weight: 600;
-            color: #1a2c47;
+            color: #1f4e79;
         }
 
         p {
@@ -93,8 +381,8 @@
 
         /* Code */
         pre {
-            background: #0e1c2b;
-            color: #e3eaf5;
+            background: #0d2b45;
+            color: #d8e9f8;
             padding: 14px 20px;
             border-radius: 18px;
             overflow-x: auto;
@@ -102,10 +390,10 @@
             line-height: 1.7;
             margin: 12px 0;
             font-family: 'Courier New', monospace;
-            border: 1px solid #2a405a;
+            border: 1px solid #33506e;
         }
         pre .comment {
-            color: #8aa5c9;
+            color: #7fb3d9;
         }
         pre .kw {
             color: #ffb86b;
@@ -114,12 +402,12 @@
             color: #b1d9b1;
         }
         pre .num {
-            color: #b8d4ff;
+            color: #9ccdf0;
         }
 
         .output {
-            background: #1a2a3a;
-            color: #cbdae9;
+            background: #1c2e40;
+            color: #c4ddf3;
             padding: 10px 18px;
             border-radius: 14px;
             font-family: 'Courier New', monospace;
@@ -130,7 +418,7 @@
         }
 
         code {
-            background: #eef2f7;
+            background: #e3f0fb;
             padding: 2px 8px;
             border-radius: 6px;
             font-size: 0.9rem;
@@ -141,7 +429,7 @@
             overflow-x: auto;
             margin: 16px 0;
             border-radius: 16px;
-            border: 1px solid #dfe8f2;
+            border: 1px solid #d6e9f8;
         }
         table {
             width: 100%;
@@ -149,7 +437,7 @@
             font-size: 0.92rem;
         }
         th {
-            background: #1d3b66;
+            background: #1f5f99;
             color: #fff;
             font-weight: 600;
             padding: 10px 14px;
@@ -157,7 +445,7 @@
         }
         td {
             padding: 10px 14px;
-            border-bottom: 1px solid #e9eef6;
+            border-bottom: 1px solid #e3f0fb;
         }
         tr:last-child td {
             border-bottom: none;
@@ -182,7 +470,7 @@
         hr {
             border: 0;
             height: 2px;
-            background: #dce5f0;
+            background: #d3e6f7;
             margin: 30px 0 20px;
         }
 
@@ -190,8 +478,8 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 16px;
-            border-top: 2px dashed #d6e0ed;
-            color: #435e7a;
+            border-top: 2px dashed #d0e4f6;
+            color: #3d5a78;
             font-size: 0.9rem;
         }
 
@@ -205,18 +493,57 @@
         .note-box strong {
             color: #b86b1f;
         }
-    </style>
+    
+  .page { max-width: 1050px; margin: 0 auto; padding: 44px 24px 80px; }
+  .container { max-width: none; margin: 0; }
+</style>
 </head>
 <body>
 
-    <div class="container">
+<!-- ═══ HEADER ═══════════════════════════════════════ -->
+<header>
+  <div class="brand">
+    <div class="brand-icon">IG</div>
+    <div class="brand-text">
+      <h1>IG Math Space</h1>
+      <p>Mathematics Teaching and Research</p>
+    </div>
+  </div>
+  <nav>
+    <a href="https://igmathspace.github.io/index.html">🏠 Home Space</a>
+    <a href="https://igmathspace.github.io/lessons.html" class="active">📚 Classroom Space</a>
+    <a href="https://igmathspace.github.io/research.html">🔬 Research &amp; FDP</a>
+    <a href="https://igmathspace.github.io/students.html">🎓 Student Space</a>
+    <a href="https://igmathspace.github.io/IGBOOKSPACE/">📖 Book Space</a>
+    <a href="https://igmathspace.github.io/IGCOLLEGESPACE/">🏛️ Official Space</a>
+  </nav>
+</header>
 
-        <!-- ===== HEADER ===== -->
-        <div class="header">
-            <div class="badge">📘 MODULE II · SECTION 2.1</div>
-            <h1>Section 2.1  <br><span>NUMBERS </span></h1>
-            <div class="sub">Text: Taming Python by Programming - Jeeva Jose</div>
-        </div>
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-eyebrow">📘 Module II · Section 2.1</div>
+  <h2>Section 2.1 <span>Numbers</span></h2>
+  <p>Text: Taming Python by Programming — Jeeva Jose</p>
+  <div class="hero-meta">
+    <span>👨‍🏫 <b>Gafoor I</b></span>
+    <span>🏛️ <b>NAM College Kallikkandy</b></span>
+    <span>📐 <b>Department of Mathematics</b></span>
+    <span>📘 <b>Python for Education</b></span>
+  </div>
+  <div class="workout-wrap">
+    <a class="workout-btn" href="python_mod2_eg.html">
+      <span class="workout-eye">👁️</span>
+      <span class="workout-text">
+        <b>Workout problems and programmes</b>
+        <small>Practice set for Module II</small>
+      </span>
+    </a>
+  </div>
+</section>
+
+<div class="page">
+<div class="container">
+
 
         <!-- ========================================================= -->
         <!--             2.1 NUMBERS — FULL TEXT                        -->
@@ -449,6 +776,7 @@ randrange(2,10,1): 8</div>
         </div>
 
     </div>
+</div>
 
 </body>
 </html>
