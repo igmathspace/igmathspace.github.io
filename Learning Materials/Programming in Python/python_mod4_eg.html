@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming in Python · Module IV — Data Visualization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4fa;
+            padding: 20px 15px;
+            color: #1a2639;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 25px 30px 35px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(145deg, #0b1a33 0%, #1d3b66 100%);
+            margin: -25px -30px 30px -30px;
+            padding: 28px 30px 22px;
+            border-radius: 24px 24px 0 0;
+            border-bottom: 6px solid #f9b23f;
+            position: relative;
+        }
+        .header::after {
+            content: "📊";
+            position: absolute;
+            right: 30px;
+            top: 20px;
+            font-size: 3.5rem;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+        .header h1 {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        .header h1 span {
+            background: #f9b23f;
+            color: #0b1a33;
+            padding: 2px 16px;
+            border-radius: 40px;
+            font-size: 1.6rem;
+            display: inline-block;
+            margin-top: 6px;
+        }
+        .header .sub {
+            color: #b7d0f0;
+            font-size: 1rem;
+            margin-top: 6px;
+            border-left: 4px solid #f9b23f;
+            padding-left: 16px;
+        }
+        .badge {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 10px;
+            backdrop-filter: blur(2px);
+        }
+
+        /* Section titles */
+        .section-title {
+            background: #e8eff8;
+            border-left: 7px solid #1d3b66;
+            padding: 10px 20px;
+            margin: 30px 0 18px 0;
+            border-radius: 0 18px 18px 0;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #0b1a33;
+        }
+        
+        p {
+            margin-bottom: 12px;
+        }
+
+        /* Code */
+        pre {
+            background: #0e1c2b;
+            color: #e3eaf5;
+            padding: 14px 20px;
+            border-radius: 18px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #2a405a;
+        }
+        pre .comment {
+            color: #8aa5c9;
+        }
+        pre .kw {
+            color: #ffb86b;
+        }
+        pre .str {
+            color: #b1d9b1;
+        }
+        pre .num {
+            color: #b8d4ff;
+        }
+        pre .func {
+            color: #8be9fd;
+        }
+
+        .output {
+            background: #1a2a3a;
+            color: #cbdae9;
+            padding: 10px 18px;
+            border-radius: 14px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 4px 0 14px 0;
+            border-left: 4px solid #f9b23f;
+            white-space: pre-wrap;
+        }
+
+        code {
+            background: #eef2f7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 14px;
+            }
+            .header {
+                margin: -14px -14px 20px -14px;
+                padding: 20px 18px;
+            }
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            .header::after {
+                font-size: 2.5rem;
+                right: 15px;
+                top: 15px;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dce5f0, transparent);
+            margin: 30px 0 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 16px;
+            border-top: 2px dashed #d6e0ed;
+            color: #435e7a;
+            font-size: 0.9rem;
+        }
+
+        .note-box {
+            background: #fef6ed;
+            border-left: 5px solid #f9b23f;
+            padding: 12px 20px;
+            border-radius: 14px;
+            margin: 14px 0;
+        }
+        .note-box strong {
+            color: #b86b1f;
+        }
+
+        .summary-box {
+            background: #e3edf9;
+            border-radius: 20px;
+            padding: 16px 22px;
+            margin: 20px 0;
+        }
+        .summary-box h3 {
+            font-size: 1.2rem;
+            color: #0b1a33;
+        }
+        .summary-box ul {
+            margin-left: 20px;
+            margin-top: 6px;
+        }
+
+        /* Custom Question & Toggle Styles */
+        .question-box {
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #dce5f0;
+            padding-bottom: 15px;
+        }
+        .question-text {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #1d3b66;
+            margin-bottom: 8px;
+        }
+        .toggle-btn {
+            background: #f9b23f;
+            color: #0b1a33;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        .toggle-btn:hover {
+            background: #e09f2e;
+        }
+        .answer-content {
+            display: none;
+            background: #f8faff;
+            border-left: 5px solid #1d3b66;
+            padding: 15px 20px;
+            border-radius: 0 14px 14px 0;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <div class="badge">📘 MODULE IV · DATA VISUALIZATION</div>
+            <h1>KU5DSEMAT303: PROGRAMMING IN PYTHON</h1>
+            <div class="sub">Module IV: Data visualization - Workout Questions and Programs</div>
+        </div>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--             100 QUESTIONS WITH TOGGLE                     -->
+        <!-- ========================================================= -->
+
+        <div id="questions-container">
+            
+            <!-- Q1 -->
+            <div class="question-box">
+                <div class="question-text">1. What is the purpose of set_xlabel(), set_ylabel() and set_zlabel() with example?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(1)">Show Answer</button>
+                <div class="answer-content" id="ans-1">
+                    <p>These functions are used in 3D plots to add labels to the X, Y, and Z axes so the viewer knows what each axis represents.</p>
+                    <pre>ax.set_xlabel('X-axis')
+ax.set_ylabel('Y-axis')
+ax.set_zlabel('Z-axis')</pre>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-box">
+                <div class="question-text">2. Explain the concept of meshgrids in detail. Describe the meshgrid() function...</div>
+                <button class="toggle-btn" onclick="toggleAnswer(2)">Show Answer</button>
+                <div class="answer-content" id="ans-2">
+                    <p>A meshgrid is a grid of coordinates. The <code>meshgrid()</code> function takes two 1D arrays and returns two 2D matrices. It is important for plotting 3D surfaces because it allows us to calculate a Z value for every (X, Y) pair on the grid.</p>
+                </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="question-box">
+                <div class="question-text">3. What is a 3D line plot?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(3)">Show Answer</button>
+                <div class="answer-content" id="ans-3">
+                    <p>A 3D line plot visualizes a line that moves through three-dimensional space (X, Y, and Z coordinates) rather than just a flat 2D plane.</p>
+                </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="question-box">
+                <div class="question-text">4. Write a Python program to generate a Julia set fractal and visualize it using the imshow() function.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(4)">Show Answer</button>
+                <div class="answer-content" id="ans-4">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+
+def julia(c, x, y):
+    z = x + 1j*y
+    for i in range(100):
+        if abs(z) > 2:
+            return i
+        z = z**2 + c
+    return 100
+
+c = complex(-0.8, 0.156)
+x = np.linspace(-1.5, 1.5, 200)
+y = np.linspace(-1.5, 1.5, 200)
+X, Y = np.meshgrid(x, y)
+Z = np.zeros_like(X)
+for i in range(X.shape[0]):
+    for j in range(X.shape[1]):
+        Z[i,j] = julia(c, X[i,j], Y[i,j])
+        
+plt.imshow(Z, cmap='hot')
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="question-box">
+                <div class="question-text">5. Write the basic statement used to create an Axes3D object.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(5)">Show Answer</button>
+                <div class="answer-content" id="ans-5">
+                    <pre>from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+# OR
+ax = Axes3D(fig)</pre>
+                </div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="question-box">
+                <div class="question-text">6. Explain how a two-dimensional matrix can be represented graphically using colors.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(6)">Show Answer</button>
+                <div class="answer-content" id="ans-6">
+                    <p>A 2D matrix is represented as a grid of colors using <code>imshow()</code>. Each cell's value is mapped to a specific color (using a colormap like 'hot' or 'viridis'), making patterns visible.</p>
+                </div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="question-box">
+                <div class="question-text">7. What is the purpose of the labels and fracs arguments in the pie() function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(7)">Show Answer</button>
+                <div class="answer-content" id="ans-7">
+                    <p><code>fracs</code> determines the size of each slice (percentage). <code>labels</code> is a list of strings that name each slice, printed outside the pie chart.</p>
+                </div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="question-box">
+                <div class="question-text">8. Write a Python program to plot the Astroid curve using its parametric equations.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(8)">Show Answer</button>
+                <div class="answer-content" id="ans-8">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+
+t = np.linspace(0, 2*np.pi, 100)
+a = 1
+x = a * np.cos(t)**3
+y = a * np.sin(t)**3
+plt.plot(x, y)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="question-box">
+                <div class="question-text">9. Explain even and odd functions. Determine whether sin x and sin^2 x are even or odd.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(9)">Show Answer</button>
+                <div class="answer-content" id="ans-9">
+                    <p>Even: f(x) = f(-x) (symmetric to Y-axis). Odd: f(-x) = -f(x) (symmetric to origin). <br>
+                    sin(x) is odd. <br>
+                    sin^2(x) is even because (-sin(x))^2 = sin^2(x).</p>
+                </div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="question-box">
+                <div class="question-text">10. What is a parametric equation? Write the parametric equations of a circle of radius a.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(10)">Show Answer</button>
+                <div class="answer-content" id="ans-10">
+                    <p>A parametric equation uses a third variable (parameter) to define x and y. For a circle: <br>
+                    x = a cos(t) <br>
+                    y = a sin(t)</p>
+                </div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="question-box">
+                <div class="question-text">11. Explain wire-frame plots and their use in visualizing three-dimensional objects.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(11)">Show Answer</button>
+                <div class="answer-content" id="ans-11">
+                    <p>Wire-frame plots draw only the edges of a 3D surface using lines. They help visualize the shape and structure of objects without hiding parts behind solid surfaces.</p>
+                </div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="question-box">
+                <div class="question-text">12. How does increasing the number of terms in a Fourier series affect the shape of the generated wave?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(12)">Show Answer</button>
+                <div class="answer-content" id="ans-12">
+                    <p>Increasing the terms makes the generated wave closer to the exact shape (e.g., square wave). However, it may introduce ripples near the sharp edges (Gibbs phenomenon).</p>
+                </div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="question-box">
+                <div class="question-text">13. What is the purpose of the plot() function in Matplotlib?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(13)">Show Answer</button>
+                <div class="answer-content" id="ans-13">
+                    <p>It is the core function used to draw 2D line plots by connecting (x, y) data points.</p>
+                </div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="question-box">
+                <div class="question-text">14. Which function is used to plot a line in a 3D coordinate system?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(14)">Show Answer</button>
+                <div class="answer-content" id="ans-14">
+                    <p><code>ax.plot(x, y, z)</code> is used, where ax is an Axes3D object.</p>
+                </div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="question-box">
+                <div class="question-text">15. What is the use of the axis() function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(15)">Show Answer</button>
+                <div class="answer-content" id="ans-15">
+                    <p><code>axis([xmin, xmax, ymin, ymax])</code> sets the visible limits of the X and Y axes on a 2D plot.</p>
+                </div>
+            </div>
+
+            <!-- Q16 -->
+            <div class="question-box">
+                <div class="question-text">16. Write a Python program to plot a 3D line plot representing a circle modulated in the z-plane.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(16)">Show Answer</button>
+                <div class="answer-content" id="ans-16">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+phi = np.linspace(0, 2*np.pi, 100)
+x = np.cos(phi)
+y = np.sin(phi)
+z = np.sin(4*phi)
+ax.plot(x, y, z)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q17 -->
+            <div class="question-box">
+                <div class="question-text">17. Explain the use of arange() and linspace() for generating values required for plotting.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(17)">Show Answer</button>
+                <div class="answer-content" id="ans-17">
+                    <p><code>arange(start, stop, step)</code> generates numbers with a specific step size. <code>linspace(start, stop, num)</code> generates a specific number of evenly spaced points.</p>
+                </div>
+            </div>
+
+            <!-- Q18 -->
+            <div class="question-box">
+                <div class="question-text">18. Explain the different types of 3D plots. Describe any two.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(18)">Show Answer</button>
+                <div class="answer-content" id="ans-18">
+                    <p>Types: Line plots, Surface plots, Wireframe plots, Scatter plots.<br>
+                    1. Surface plot: Shows a solid surface filled with colors based on height.<br>
+                    2. Wireframe plot: Shows only the edges of the surface as lines.</p>
+                </div>
+            </div>
+
+            <!-- Q19 -->
+            <div class="question-box">
+                <div class="question-text">19. What is the purpose of the show() function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(19)">Show Answer</button>
+                <div class="answer-content" id="ans-19">
+                    <p><code>show()</code> displays the created plot in a new window.</p>
+                </div>
+            </div>
+
+            <!-- Q20 -->
+            <div class="question-box">
+                <div class="question-text">20. Write and explain a Python program to plot the surface z = sin(x) + sin(y).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(20)">Show Answer</button>
+                <div class="answer-content" id="ans-20">
+                    <pre>from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+x = np.linspace(-5, 5, 50)
+y = np.linspace(-5, 5, 50)
+X, Y = np.meshgrid(x, y)
+Z = np.sin(X) + np.sin(Y)
+ax.plot_surface(X, Y, Z, cmap='viridis')
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q21 -->
+            <div class="question-box">
+                <div class="question-text">21. Why does plotting y = sqrt(a^2 - x^2) produce only half of a circle?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(21)">Show Answer</button>
+                <div class="answer-content" id="ans-21">
+                    <p>The square root function always returns a positive value. So it only plots the upper half. To get the full circle, you need to plot both +sqrt and -sqrt.</p>
+                </div>
+            </div>
+
+            <!-- Q22 -->
+            <div class="question-box">
+                <div class="question-text">22. Explain the complete procedure for generating and visualizing a three-dimensional sphere using a wire-frame plot.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(22)">Show Answer</button>
+                <div class="answer-content" id="ans-22">
+                    <p>Use spherical coordinates, create a meshgrid for phi and theta, convert to X, Y, Z using trig functions, and plot using <code>plot_wireframe()</code>.</p>
+                </div>
+            </div>
+
+            <!-- Q23 -->
+            <div class="question-box">
+                <div class="question-text">23. What is a meshgrid?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(23)">Show Answer</button>
+                <div class="answer-content" id="ans-23">
+                    <p>A 2D grid of coordinates created from two 1D arrays, used for evaluating functions over a plane.</p>
+                </div>
+            </div>
+
+            <!-- Q24 -->
+            <div class="question-box">
+                <div class="question-text">24. Explain the creation of multiple plots using Matplotlib (subplot).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(24)">Show Answer</button>
+                <div class="answer-content" id="ans-24">
+                    <p>Use <code>subplot(nrows, ncols, index)</code> to divide the figure into a grid and select the current plot area.</p>
+                </div>
+            </div>
+
+            <!-- Q25 -->
+            <div class="question-box">
+                <div class="question-text">25. What is a Polar Rose curve? Explain how the number of petals is determined.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(25)">Show Answer</button>
+                <div class="answer-content" id="ans-25">
+                    <p>It is a curve r = cos(k*theta). If k is even, it has 2k petals. If k is odd, it has k petals.</p>
+                </div>
+            </div>
+
+            <!-- Q26 -->
+            <div class="question-box">
+                <div class="question-text">26. Write a Python program to evaluate and plot the Maclaurin series expansion of the sine function.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(26)">Show Answer</button>
+                <div class="answer-content" id="ans-26">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+import math
+
+x = np.linspace(-np.pi, np.pi, 100)
+y_series = np.zeros_like(x)
+for n in range(5):
+    y_series += ((-1)**n * x**(2*n+1)) / math.factorial(2*n+1)
+
+plt.plot(x, np.sin(x), label='sin(x)')
+plt.plot(x, y_series, label='series')
+plt.legend()
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q27 -->
+            <div class="question-box">
+                <div class="question-text">27. What is the difference between Cartesian and parametric representations when plotting a multi-valued function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(27)">Show Answer</button>
+                <div class="answer-content" id="ans-27">
+                    <p>Cartesian form y=f(x) struggles with multiple y-values for one x (like a full circle). Parametric form uses x=f(t), y=g(t) to easily plot complete curves without splitting into parts.</p>
+                </div>
+            </div>
+
+            <!-- Q28 -->
+            <div class="question-box">
+                <div class="question-text">28. Explain arange() and linspace().</div>
+                <button class="toggle-btn" onclick="toggleAnswer(28)">Show Answer</button>
+                <div class="answer-content" id="ans-28">
+                    <p><b>arange</b> creates an array with a specific step size. <b>linspace</b> creates an array with a specific total number of evenly spaced points.</p>
+                </div>
+            </div>
+
+            <!-- Q29 -->
+            <div class="question-box">
+                <div class="question-text">29. What is the purpose of plotting mathematical functions graphically?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(29)">Show Answer</button>
+                <div class="answer-content" id="ans-29">
+                    <p>To visualize the behavior, roots, symmetry, and properties of a function that might be hard to understand just by looking at the equation.</p>
+                </div>
+            </div>
+
+            <!-- Q30 -->
+            <div class="question-box">
+                <div class="question-text">30. What is a surface plot?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(30)">Show Answer</button>
+                <div class="answer-content" id="ans-30">
+                    <p>A 3D plot that visualizes a 2D function as a continuous, colored surface where height represents the Z value.</p>
+                </div>
+            </div>
+
+            <!-- Q31 -->
+            <div class="question-box">
+                <div class="question-text">31. Which class is used for creating 3D plots using Matplotlib?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(31)">Show Answer</button>
+                <div class="answer-content" id="ans-31">
+                    <p><code>Axes3D</code></p>
+                </div>
+            </div>
+
+            <!-- Q32 -->
+            <div class="question-box">
+                <div class="question-text">32. What is the purpose of the imshow() function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(32)">Show Answer</button>
+                <div class="answer-content" id="ans-32">
+                    <p>It displays a 2D array as an image, mapping numbers to colors.</p>
+                </div>
+            </div>
+
+            <!-- Q33 -->
+            <div class="question-box">
+                <div class="question-text">33. Write a Python program to plot a sine wave using markers +, o and x using three different colors.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(33)">Show Answer</button>
+                <div class="answer-content" id="ans-33">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 20)
+y = np.sin(x)
+
+plt.plot(x, y, 'r+', label='plus')
+plt.plot(x, y+1, 'go', label='circle')
+plt.plot(x, y+2, 'bx', label='cross')
+plt.legend()
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q34 -->
+            <div class="question-box">
+                <div class="question-text">34. What are Lissajous figures? Write a Python program to generate them.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(34)">Show Answer</button>
+                <div class="answer-content" id="ans-34">
+                    <p>Curves formed by combining two perpendicular harmonic motions.</p>
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+
+t = np.linspace(0, 2*np.pi, 100)
+x = np.sin(3*t)
+y = np.sin(2*t)
+plt.plot(x, y)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q35 -->
+            <div class="question-box">
+                <div class="question-text">35. Explain the relationship between meshgrids and 3D surface plots.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(35)">Show Answer</button>
+                <div class="answer-content" id="ans-35">
+                    <p>A meshgrid provides the (X, Y) coordinates for the base grid. The function is evaluated at each point to create the Z height, forming the 3D surface.</p>
+                </div>
+            </div>
+
+            <!-- Q36 -->
+            <div class="question-box">
+                <div class="question-text">36. What is meant by a format string in Matplotlib? What does 'ro' represent?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(36)">Show Answer</button>
+                <div class="answer-content" id="ans-36">
+                    <p>A string that defines color and marker style. 'ro' means red (r) circles (o).</p>
+                </div>
+            </div>
+
+            <!-- Q37 -->
+            <div class="question-box">
+                <div class="question-text">37. Explain the Matplotlib module in detail. Discuss the basic procedure for creating a plot.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(37)">Show Answer</button>
+                <div class="answer-content" id="ans-37">
+                    <p>Matplotlib is a plotting library. Steps: import pyplot, define data, call plot(), add labels/formatting, and call show().</p>
+                </div>
+            </div>
+
+            <!-- Q38 -->
+            <div class="question-box">
+                <div class="question-text">38. Explain the parametric equations of an Ellipse. Write a Python program to plot an ellipse.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(38)">Show Answer</button>
+                <div class="answer-content" id="ans-38">
+                    <p>Equations: x = a*cos(t), y = b*sin(t).</p>
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+t = np.linspace(0, 2*np.pi, 100)
+x = 3*np.cos(t)
+y = 2*np.sin(t)
+plt.plot(x, y)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q39 -->
+            <div class="question-box">
+                <div class="question-text">39. What is the purpose of plot_surface()?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(39)">Show Answer</button>
+                <div class="answer-content" id="ans-39">
+                    <p>It creates a solid 3D surface plot using X, Y, and Z matrices.</p>
+                </div>
+            </div>
+
+            <!-- Q40 -->
+            <div class="question-box">
+                <div class="question-text">40. What is an even function? Give one example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(40)">Show Answer</button>
+                <div class="answer-content" id="ans-40">
+                    <p>A function where f(x) = f(-x). Example: cos(x) or x^2.</p>
+                </div>
+            </div>
+
+            <!-- Q41 -->
+            <div class="question-box">
+                <div class="question-text">41. What is a pie chart? Which function is used to create a pie chart?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(41)">Show Answer</button>
+                <div class="answer-content" id="ans-41">
+                    <p>A circular chart divided into slices to show proportions. Created using <code>plt.pie()</code>.</p>
+                </div>
+            </div>
+
+            <!-- Q42 -->
+            <div class="question-box">
+                <div class="question-text">42. Write a Python program to create a 3D wireframe plot of a sphere.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(42)">Show Answer</button>
+                <div class="answer-content" id="ans-42">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+phi, theta = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+x = np.cos(phi)*np.sin(theta)
+y = np.sin(phi)*np.sin(theta)
+z = np.cos(theta)
+ax.plot_wireframe(x, y, z)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q43 -->
+            <div class="question-box">
+                <div class="question-text">43. Explain the procedure of plotting mathematical functions in Python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(43)">Show Answer</button>
+                <div class="answer-content" id="ans-43">
+                    <p>1. Import libraries. 2. Create X array using linspace/arange. 3. Calculate Y using the function. 4. Call plot(). 5. Show().</p>
+                </div>
+            </div>
+
+            <!-- Q44 -->
+            <div class="question-box">
+                <div class="question-text">44. Write and explain a Python program to plot sin x and sin x^2 over [-π, π].</div>
+                <button class="toggle-btn" onclick="toggleAnswer(44)">Show Answer</button>
+                <div class="answer-content" id="ans-44">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+x = np.linspace(-np.pi, np.pi, 100)
+plt.plot(x, np.sin(x), label='sin x')
+plt.plot(x, np.sin(x**2), label='sin x^2')
+plt.legend()
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q45 -->
+            <div class="question-box">
+                <div class="question-text">45. Explain polar plots in Matplotlib. Write a program to plot a circle using polar coordinates.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(45)">Show Answer</button>
+                <div class="answer-content" id="ans-45">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+theta = np.linspace(0, 2*np.pi, 100)
+r = np.ones(100) * 5
+plt.polar(theta, r)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q46 -->
+            <div class="question-box">
+                <div class="question-text">46. What is a fractal? Explain the concept of self-similarity.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(46)">Show Answer</button>
+                <div class="answer-content" id="ans-46">
+                    <p>A fractal is a complex geometric shape that repeats its pattern at smaller scales. Self-similarity means parts of the shape look like the whole shape.</p>
+                </div>
+            </div>
+
+            <!-- Q47 -->
+            <div class="question-box">
+                <div class="question-text">47. From which module is the Axes3D class imported?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(47)">Show Answer</button>
+                <div class="answer-content" id="ans-47">
+                    <p><code>mpl_toolkits.mplot3d</code></p>
+                </div>
+            </div>
+
+            <!-- Q48 -->
+            <div class="question-box">
+                <div class="question-text">48. Explain the use of from pylab import * in plotting examples.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(48)">Show Answer</button>
+                <div class="answer-content" id="ans-48">
+                    <p>It imports all functions from Numpy and Matplotlib (pyplot) directly into the namespace, so you don't need to type <code>np.</code> or <code>plt.</code>.</p>
+                </div>
+            </div>
+
+            <!-- Q49 -->
+            <div class="question-box">
+                <div class="question-text">49. What are polar coordinates? What do r and theta represent?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(49)">Show Answer</button>
+                <div class="answer-content" id="ans-49">
+                    <p>Coordinates based on distance and angle. 'r' is the radius (distance from origin), 'theta' is the angle from the x-axis.</p>
+                </div>
+            </div>
+
+            <!-- Q50 -->
+            <div class="question-box">
+                <div class="question-text">50. Write the mathematical equations for the Spiral of Archimedes and Fermat's Spiral.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(50)">Show Answer</button>
+                <div class="answer-content" id="ans-50">
+                    <p>Archimedes: r = a*theta. <br>Fermat: r^2 = a^2 * theta.</p>
+                </div>
+            </div>
+
+            <!-- Q51 -->
+            <div class="question-box">
+                <div class="question-text">51. What do the three arguments in subplot(NR, NC, PN) represent?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(51)">Show Answer</button>
+                <div class="answer-content" id="ans-51">
+                    <p>NR = Number of rows, NC = Number of columns, PN = Position index of the current plot (starting from 1).</p>
+                </div>
+            </div>
+
+            <!-- Q52 -->
+            <div class="question-box">
+                <div class="question-text">52. What does linspace(start, stop, n) generate?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(52)">Show Answer</button>
+                <div class="answer-content" id="ans-52">
+                    <p>It generates an array of 'n' evenly spaced values from start to stop (inclusive).</p>
+                </div>
+            </div>
+
+            <!-- Q53 -->
+            <div class="question-box">
+                <div class="question-text">53. Explain the basic procedure for creating a 3D plot using Matplotlib.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(53)">Show Answer</button>
+                <div class="answer-content" id="ans-53">
+                    <p>Import Axes3D, create a figure, add a subplot with projection='3d', create data, and call plot_surface/plot_wireframe/plot.</p>
+                </div>
+            </div>
+
+            <!-- Q54 -->
+            <div class="question-box">
+                <div class="question-text">54. Explain how the two coordinate matrices are generated using meshgrid().</div>
+                <button class="toggle-btn" onclick="toggleAnswer(54)">Show Answer</button>
+                <div class="answer-content" id="ans-54">
+                    <p>If x has n elements and y has m, meshgrid produces an m x n matrix X where every row is x, and an m x n matrix Y where every column is y.</p>
+                </div>
+            </div>
+
+            <!-- Q55 -->
+            <div class="question-box">
+                <div class="question-text">55. What is a subplot? What is the purpose of the subplot() function?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(55)">Show Answer</button>
+                <div class="answer-content" id="ans-55">
+                    <p>A subplot allows multiple plots to be displayed in a single figure window using a grid layout.</p>
+                </div>
+            </div>
+
+            <!-- Q56 -->
+            <div class="question-box">
+                <div class="question-text">56. What is a Maclaurin series? Write the series expansion for sin(x) and cos(x).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(56)">Show Answer</button>
+                <div class="answer-content" id="ans-56">
+                    <p>It is a Taylor series centered at x=0.<br>
+                    sin(x) = x - x^3/3! + x^5/5! - ...<br>
+                    cos(x) = 1 - x^2/2! + x^4/4! - ...</p>
+                </div>
+            </div>
+
+            <!-- Q57 -->
+            <div class="question-box">
+                <div class="question-text">57. Write a Python program using Mayavi to visualize a 3D spherical harmonic surface.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(57)">Show Answer</button>
+                <div class="answer-content" id="ans-57">
+                    <pre>from numpy import *
+from mayavi import mlab
+phi, theta = mgrid[0:pi:20j, 0:2*pi:20j]
+r = 0.25*sqrt(5/pi)*(3*cos(phi)**2 - 1)
+x = r*sin(phi)*cos(theta)
+y = r*sin(phi)*sin(theta)
+z = r*cos(phi)
+mlab.mesh(x, y, z)
+mlab.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q58 -->
+            <div class="question-box">
+                <div class="question-text">58. What is the purpose of the xlabel() and ylabel() functions?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(58)">Show Answer</button>
+                <div class="answer-content" id="ans-58">
+                    <p>They add descriptive text labels to the X and Y axes.</p>
+                </div>
+            </div>
+
+            <!-- Q59 -->
+            <div class="question-box">
+                <div class="question-text">59. Explain how a pie chart is created using Matplotlib. Write a suitable Python program.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(59)">Show Answer</button>
+                <div class="answer-content" id="ans-59">
+                    <pre>import matplotlib.pyplot as plt
+labels = ['A', 'B', 'C']
+sizes = [30, 45, 25]
+plt.pie(sizes, labels=labels)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q60 -->
+            <div class="question-box">
+                <div class="question-text">60. Write the Cartesian equation of a circle of radius a centred at the origin.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(60)">Show Answer</button>
+                <div class="answer-content" id="ans-60">
+                    <p>x^2 + y^2 = a^2</p>
+                </div>
+            </div>
+
+            <!-- Q61 -->
+            <div class="question-box">
+                <div class="question-text">61. Mention two applications of meshgrids in data visualization.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(61)">Show Answer</button>
+                <div class="answer-content" id="ans-61">
+                    <p>1. Creating 3D surface plots.<br>2. Creating contour plots.</p>
+                </div>
+            </div>
+
+            <!-- Q62 -->
+            <div class="question-box">
+                <div class="question-text">62. Which function is used to represent a two-dimensional matrix graphically using colors?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(62)">Show Answer</button>
+                <div class="answer-content" id="ans-62">
+                    <p><code>imshow()</code></p>
+                </div>
+            </div>
+
+            <!-- Q63 -->
+            <div class="question-box">
+                <div class="question-text">63. Which function is used to generate a polar plot in Matplotlib?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(63)">Show Answer</button>
+                <div class="answer-content" id="ans-63">
+                    <p><code>polar()</code></p>
+                </div>
+            </div>
+
+            <!-- Q64 -->
+            <div class="question-box">
+                <div class="question-text">64. What is a 3D plot?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(64)">Show Answer</button>
+                <div class="answer-content" id="ans-64">
+                    <p>A graph that uses three axes (X, Y, Z) to show data points in three-dimensional space.</p>
+                </div>
+            </div>
+
+            <!-- Q65 -->
+            <div class="question-box">
+                <div class="question-text">65. What is the role of meshgrid() in creating a surface plot?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(65)">Show Answer</button>
+                <div class="answer-content" id="ans-65">
+                    <p>It creates the 2D grid of X and Y coordinates needed to evaluate Z at every point on the surface.</p>
+                </div>
+            </div>
+
+            <!-- Q66 -->
+            <div class="question-box">
+                <div class="question-text">66. Explain how the data for a sphere are generated using the outer() function.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(66)">Show Answer</button>
+                <div class="answer-content" id="ans-66">
+                    <p>The <code>outer()</code> function multiplies a column vector by a row vector to create a 2D matrix, which is used to map the spherical coordinates (phi, theta) into X, Y, Z matrices.</p>
+                </div>
+            </div>
+
+            <!-- Q67 -->
+            <div class="question-box">
+                <div class="question-text">67. What is an odd function? Give one example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(67)">Show Answer</button>
+                <div class="answer-content" id="ans-67">
+                    <p>A function where f(-x) = -f(x). Example: sin(x) or x^3.</p>
+                </div>
+            </div>
+
+            <!-- Q68 -->
+            <div class="question-box">
+                <div class="question-text">68. State whether sin x and sin x^2 are even or odd functions.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(68)">Show Answer</button>
+                <div class="answer-content" id="ans-68">
+                    <p>sin(x) is odd. sin(x^2) is even.</p>
+                </div>
+            </div>
+
+            <!-- Q69 -->
+            <div class="question-box">
+                <div class="question-text">69. Explain the concept of a meshgrid. Describe the working of the meshgrid() function.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(69)">Show Answer</button>
+                <div class="answer-content" id="ans-69">
+                    <p>Meshgrid takes 1D arrays and returns 2D coordinate matrices. It is used to vectorize operations over a grid, saving the need for nested loops.</p>
+                </div>
+            </div>
+
+            <!-- Q70 -->
+            <div class="question-box">
+                <div class="question-text">70. Explain surface plots in detail. Using z = sin(x) + sin(y), describe the formation.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(70)">Show Answer</button>
+                <div class="answer-content" id="ans-70">
+                    <p>Create x and y arrays, make a meshgrid X,Y, compute Z = sin(X)+sin(Y), and use <code>ax.plot_surface(X, Y, Z)</code>. This creates a wavy 3D surface.</p>
+                </div>
+            </div>
+
+            <!-- Q71 -->
+            <div class="question-box">
+                <div class="question-text">71. Write the parametric equations of a circle of radius a. What range of theta is required?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(71)">Show Answer</button>
+                <div class="answer-content" id="ans-71">
+                    <p>x = a*cos(t), y = a*sin(t). The range for t is 0 to 2π.</p>
+                </div>
+            </div>
+
+            <!-- Q72 -->
+            <div class="question-box">
+                <div class="question-text">72. What is a Fourier series? Explain its importance.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(72)">Show Answer</button>
+                <div class="answer-content" id="ans-72">
+                    <p>A way to represent periodic functions as a sum of sine and cosine waves. It is important in signal processing and physics.</p>
+                </div>
+            </div>
+
+            <!-- Q73 -->
+            <div class="question-box">
+                <div class="question-text">73. What is Matplotlib? Mention any two types of plots.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(73)">Show Answer</button>
+                <div class="answer-content" id="ans-73">
+                    <p>A Python plotting library. Examples: Line plots, scatter plots, bar charts, pie charts.</p>
+                </div>
+            </div>
+
+            <!-- Q74 -->
+            <div class="question-box">
+                <div class="question-text">74. How can you customize the labels of the X, Y, and Z axes in a 3D plot?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(74)">Show Answer</button>
+                <div class="answer-content" id="ans-74">
+                    <p>Using <code>ax.set_xlabel()</code>, <code>ax.set_ylabel()</code>, and <code>ax.set_zlabel()</code>.</p>
+                </div>
+            </div>
+
+            <!-- Q75 -->
+            <div class="question-box">
+                <div class="question-text">75. Describe the Matplotlib module. Describe the use of plot(), show(), xlabel(), ylabel(), axis().</div>
+                <button class="toggle-btn" onclick="toggleAnswer(75)">Show Answer</button>
+                <div class="answer-content" id="ans-75">
+                    <p>Matplotlib is for plotting. <code>plot()</code> draws lines, <code>show()</code> displays the plot, <code>xlabel/ylabel</code> label axes, and <code>axis()</code> sets limits.</p>
+                </div>
+            </div>
+
+            <!-- Q76 -->
+            <div class="question-box">
+                <div class="question-text">76. Write a Python program to generate a square wave using the Fourier series.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(76)">Show Answer</button>
+                <div class="answer-content" id="ans-76">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+
+t = np.linspace(0, 2*np.pi, 100)
+y = np.zeros_like(t)
+for n in range(1, 10, 2):
+    y += (4/np.pi) * (1/n) * np.sin(n*t)
+plt.plot(t, y)
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q77 -->
+            <div class="question-box">
+                <div class="question-text">77. Explain even and odd functions in detail. Plot them over [-π, π].</div>
+                <button class="toggle-btn" onclick="toggleAnswer(77)">Show Answer</button>
+                <div class="answer-content" id="ans-77">
+                    <p>Even: f(-x) = f(x) (symmetric across Y-axis). Odd: f(-x) = -f(x) (symmetric across origin). sin(x) is odd, sin(x^2) is even. Plotting them shows this symmetry.</p>
+                </div>
+            </div>
+
+            <!-- Q78 -->
+            <div class="question-box">
+                <div class="question-text">78. Explain the use of arange() and linspace() for generating values.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(78)">Show Answer</button>
+                <div class="answer-content" id="ans-78">
+                    <p><b>arange(start, stop, step)</b> uses a specific step size. <b>linspace(start, stop, n)</b> returns exactly n points.</p>
+                </div>
+            </div>
+
+            <!-- Q79 -->
+            <div class="question-box">
+                <div class="question-text">79. Write a Python program to create a list and demonstrate operations.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(79)">Show Answer</button>
+                <div class="answer-content" id="ans-79">
+                    <pre>l = [1, 2, 3]
+l.append(4)       # insert
+l.remove(2)       # delete
+print(l[0:2])     # slice
+print(l + [5])    # concat
+print(l * 2)      # repeat</pre>
+                </div>
+            </div>
+
+            <!-- Q80 -->
+            <div class="question-box">
+                <div class="question-text">80. What is a parametric equation? Write the parametric equations of a circle with radius a.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(80)">Show Answer</button>
+                <div class="answer-content" id="ans-80">
+                    <p>Equations that define x and y using a third variable t. Circle: x = a*cos(t), y = a*sin(t).</p>
+                </div>
+            </div>
+
+            <!-- Q81 -->
+            <div class="question-box">
+                <div class="question-text">81. Explain surface plots in Matplotlib. Describe the use of meshgrid() and plot_surface().</div>
+                <button class="toggle-btn" onclick="toggleAnswer(81)">Show Answer</button>
+                <div class="answer-content" id="ans-81">
+                    <p><code>meshgrid()</code> creates the X and Y coordinate grid. <code>plot_surface()</code> takes X, Y, and Z to draw a solid 3D surface.</p>
+                </div>
+            </div>
+
+            <!-- Q82 -->
+            <div class="question-box">
+                <div class="question-text">82. What is Mayavi? How does it differ from Matplotlib for 3D visualization?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(82)">Show Answer</button>
+                <div class="answer-content" id="ans-82">
+                    <p>Mayavi is a specialized 3D scientific visualization library. It provides interactive, high-quality 3D rendering that is often better than Matplotlib's basic 3D capabilities.</p>
+                </div>
+            </div>
+
+            <!-- Q83 -->
+            <div class="question-box">
+                <div class="question-text">83. How is a meshgrid used to evaluate a function of two variables?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(83)">Show Answer</button>
+                <div class="answer-content" id="ans-83">
+                    <p>Create X, Y grids, then compute Z = f(X, Y). Because X and Y are matrices, the function is evaluated at every point simultaneously.</p>
+                </div>
+            </div>
+
+            <!-- Q84 -->
+            <div class="question-box">
+                <div class="question-text">84. Explain how multiple plots can be created in the same window using subplot().</div>
+                <button class="toggle-btn" onclick="toggleAnswer(84)">Show Answer</button>
+                <div class="answer-content" id="ans-84">
+                    <p>Use <code>subplot(NR, NC, PN)</code>. For example, <code>subplot(2, 1, 1)</code> means 2 rows, 1 column, first position.</p>
+                </div>
+            </div>
+
+            <!-- Q85 -->
+            <div class="question-box">
+                <div class="question-text">85. Write a Python program to plot the surface z = sin(x) + sin(y).</div>
+                <button class="toggle-btn" onclick="toggleAnswer(85)">Show Answer</button>
+                <div class="answer-content" id="ans-85">
+                    <pre>import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+X, Y = np.meshgrid(np.linspace(-5,5,50), np.linspace(-5,5,50))
+Z = np.sin(X) + np.sin(Y)
+ax.plot_surface(X, Y, Z, cmap='viridis')
+plt.show()</pre>
+                </div>
+            </div>
+
+            <!-- Q86 -->
+            <div class="question-box">
+                <div class="question-text">86. Explain 3D visualization using Matplotlib. Discuss the role of the Axes3D class.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(86)">Show Answer</button>
+                <div class="answer-content" id="ans-86">
+                    <p>The <code>Axes3D</code> class provides the 3D coordinate system. It is added to a figure using <code>projection='3d'</code> and provides methods like <code>plot_surface</code>.</p>
+                </div>
+            </div>
+
+            <!-- Q87 -->
+            <div class="question-box">
+                <div class="question-text">87. What difficulty arises when a multi-valued function is plotted using Cartesian coordinates?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(87)">Show Answer</button>
+                <div class="answer-content" id="ans-87">
+                    <p>For one x value, there may be multiple y values (like a circle). Standard Cartesian plotting only shows one y for each x, making it hard to draw the full shape.</p>
+                </div>
+            </div>
+
+            <!-- Q88 -->
+            <div class="question-box">
+                <div class="question-text">88. Explain 3D line plots with an example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(88)">Show Answer</button>
+                <div class="answer-content" id="ans-88">
+                    <p>Uses <code>ax.plot(x, y, z)</code> to draw a line through 3D space.</p>
+                    <pre>x = np.cos(t); y = np.sin(t); z = t
+ax.plot(x, y, z)</pre>
+                </div>
+            </div>
+
+            <!-- Q89 -->
+            <div class="question-box">
+                <div class="question-text">89. Which function is used to create a surface plot in Matplotlib?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(89)">Show Answer</button>
+                <div class="answer-content" id="ans-89">
+                    <p><code>plot_surface()</code></p>
+                </div>
+            </div>
+
+            <!-- Q90 -->
+            <div class="question-box">
+                <div class="question-text">90. Why is a meshgrid useful in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(90)">Show Answer</button>
+                <div class="answer-content" id="ans-90">
+                    <p>It allows vectorized evaluation of functions over a 2D grid, avoiding slow Python loops and enabling fast 3D plotting.</p>
+                </div>
+            </div>
+
+            <!-- Q91 -->
+            <div class="question-box">
+                <div class="question-text">91. Explain the mathematical equation f(z) -> z^2 + c used to generate the Mandelbrot and Julia sets.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(91)">Show Answer</button>
+                <div class="answer-content" id="ans-91">
+                    <p>It is an iterative equation on complex numbers. If the value remains bounded after many iterations, the point is in the set. 'c' is a constant. For Julia, c is fixed; for Mandelbrot, c is the point itself.</p>
+                </div>
+            </div>
+
+            <!-- Q92 -->
+            <div class="question-box">
+                <div class="question-text">92. Explain the role of the Axes3D class in creating 3D plots.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(92)">Show Answer</button>
+                <div class="answer-content" id="ans-92">
+                    <p>It provides the 3D viewing environment. You must create an instance of it before calling any 3D plotting functions.</p>
+                </div>
+            </div>
+
+            <!-- Q93 -->
+            <div class="question-box">
+                <div class="question-text">93. Which function is used to create a wire-frame plot?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(93)">Show Answer</button>
+                <div class="answer-content" id="ans-93">
+                    <p><code>plot_wireframe()</code></p>
+                </div>
+            </div>
+
+            <!-- Q94 -->
+            <div class="question-box">
+                <div class="question-text">94. Explain step by step how mathematical functions can be plotted using Python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(94)">Show Answer</button>
+                <div class="answer-content" id="ans-94">
+                    <p>1. Import numpy and matplotlib.<br>2. Generate x values using linspace.<br>3. Compute y = f(x).<br>4. Plot using plot(x, y).<br>5. Show using show().</p>
+                </div>
+            </div>
+
+            <!-- Q95 -->
+            <div class="question-box">
+                <div class="question-text">95. Explain how a complete circle can be plotted using both Cartesian and parametric representations.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(95)">Show Answer</button>
+                <div class="answer-content" id="ans-95">
+                    <p>Cartesian requires plotting upper and lower halves separately (y = ±sqrt). Parametric uses x = cos(t), y = sin(t) for t in [0, 2π] to draw it in one smooth line.</p>
+                </div>
+            </div>
+
+            <!-- Q96 -->
+            <div class="question-box">
+                <div class="question-text">96. Which function is used to create a meshgrid in Python?</div>
+                <button class="toggle-btn" onclick="toggleAnswer(96)">Show Answer</button>
+                <div class="answer-content" id="ans-96">
+                    <p><code>numpy.meshgrid()</code></p>
+                </div>
+            </div>
+
+            <!-- Q97 -->
+            <div class="question-box">
+                <div class="question-text">97. What is an Astroid curve? Write its Cartesian and parametric equations.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(97)">Show Answer</button>
+                <div class="answer-content" id="ans-97">
+                    <p>It is a star-shaped curve.<br>
+                    Cartesian: x^(2/3) + y^(2/3) = a^(2/3)<br>
+                    Parametric: x = a*cos^3(t), y = a*sin^3(t)</p>
+                </div>
+            </div>
+
+            <!-- Q98 -->
+            <div class="question-box">
+                <div class="question-text">98. Explain the procedure for plotting mathematical functions using Python.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(98)">Show Answer</button>
+                <div class="answer-content" id="ans-98">
+                    <p>Generate X data using linspace/arange, calculate Y data, pass to plot(), and format with labels and title.</p>
+                </div>
+            </div>
+
+            <!-- Q99 -->
+            <div class="question-box">
+                <div class="question-text">99. Explain wire-frame plots in detail with a suitable example.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(99)">Show Answer</button>
+                <div class="answer-content" id="ans-99">
+                    <p>Draws lines for grid edges of a 3D surface. Example: a sphere can be drawn with latitude and longitude lines using <code>ax.plot_wireframe(X, Y, Z)</code>.</p>
+                </div>
+            </div>
+
+            <!-- Q100 -->
+            <div class="question-box">
+                <div class="question-text">100. Explain the basic structure of a Python program for creating 3D plots using Matplotlib.</div>
+                <button class="toggle-btn" onclick="toggleAnswer(100)">Show Answer</button>
+                <div class="answer-content" id="ans-100">
+                    <pre>from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+# create data
+ax.plot(x, y, z)
+plt.show()</pre>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- ========================================================= -->
+        <!--                     SUMMARY                                -->
+        <!-- ========================================================= -->
+
+        <div class="summary-box">
+            <h3>📌 Summary of Module IV</h3>
+            <ul>
+                <li><strong>Matplotlib Basics</strong> — plot(), show(), labels, axis limits, format strings.</li>
+                <li><strong>Mathematical Plotting</strong> — arange(), linspace(), even/odd functions, Maclaurin series, Fourier series.</li>
+                <li><strong>Parametric & Famous Curves</strong> — Circle, Astroid, Ellipse, Lissajous, Spirals, Polar Rose.</li>
+                <li><strong>Meshgrids & 2D Colors</strong> — meshgrid(), imshow(), 2D matrix representation.</li>
+                <li><strong>3D Plots</strong> — Axes3D, Line plots, Surface plots (plot_surface), Wireframe plots (plot_wireframe).</li>
+                <li><strong>Fractals & Advanced</strong> — Julia sets, Mayavi 3D visualization.</li>
+            </ul>
+        </div>
+
+        
+        <div class="footer">
+            🐍 Module IV · Data Visualization · Complete Workout @ Gafoor I, Department of Mathematics NAMC 
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Toggle Answer -->
+    <script>
+        function toggleAnswer(id) {
+            var answerDiv = document.getElementById('ans-' + id);
+            var btn = event.target;
+            
+            if (answerDiv.style.display === "none" || answerDiv.style.display === "") {
+                answerDiv.style.display = "block";
+                btn.innerText = "Hide Answer";
+            } else {
+                answerDiv.style.display = "none";
+                btn.innerText = "Show Answer";
+            }
+        }
+    </script>
+
+</body>
+</html>
