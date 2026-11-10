@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Wise Student Data · III Semester FYUGP · Minor 6 · NAM College</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, sans-serif; background: #f5f6fa; color: #222; font-size: 14px; }
+  .page-top { background: #1a237e; color: #fff; text-align: center; padding: 22px 16px; }
+  .page-top h1 { margin: 0; font-size: 26px; letter-spacing: 1px; }
+  .page-top p { margin: 6px 0 0; color: #ffd54f; font-weight: bold; font-size: 15px; }
+  .wrap { max-width: 1200px; margin: 24px auto; padding: 0 14px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tab-btn { background: #e8eaf6; color: #1a237e; border: none; border-radius: 9px 9px 0 0;
+             padding: 9px 12px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; max-width: 240px; }
+  .tab-btn small { display: block; font-weight: 400; color: #5c6bc0; font-size: 10.5px; margin-top: 2px; }
+  .tab-btn:hover { background: #c5cae9; }
+  .tab-btn.active { background: #1a237e; color: #fff; }
+  .tab-btn.active small { color: #ffd54f; }
+  .panel { display: none; background: #fff; border-top: 4px solid #ff6f00; border-radius: 0 10px 10px 10px;
+           box-shadow: 0 3px 12px rgba(0,0,0,.08); padding: 20px; }
+  .panel.active { display: block; }
+  .doc-head { text-align: center; margin-bottom: 14px; }
+  .d-college { font-size: 18px; font-weight: bold; color: #1a237e; }
+  .d-title { font-size: 15px; font-weight: bold; margin-top: 2px; }
+  .d-sem { font-size: 13px; font-weight: bold; margin-top: 2px; }
+  .d-course { font-size: 13px; margin-top: 2px; }
+  .d-prog { font-size: 12px; color: #555; margin-top: 6px; }
+  .action-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .search { flex: 1; min-width: 200px; padding: 8px 10px; border: 1px solid #c5cae9; border-radius: 6px; font-size: 13px; }
+  .print-btn { background: #ff6f00; color: #fff; border: none; border-radius: 20px; padding: 8px 16px;
+               font-size: 13px; font-weight: 600; cursor: pointer; }
+  .print-btn:hover { background: #e65100; }
+  .prog-block { margin-bottom: 18px; }
+  .prog-label { background: #e8eaf6; color: #1a237e; font-weight: bold; font-size: 13px; padding: 7px 10px;
+                border-left: 4px solid #ff6f00; margin-bottom: 6px; }
+  .table-scroll { overflow-x: auto; }
+  table.data { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 13px; }
+  table.data th, table.data td { border: 1px solid #888; padding: 6px 8px; vertical-align: middle; }
+  table.data th { background: #1a237e; color: #fff; text-align: center; font-size: 13px; }
+  table.data td { color: #111; background: #fff; }
+  table.data tbody tr:nth-child(even) td { background: #f7f8fc; }
+  table.data tbody tr:hover td { background: #fff3e0; }
+  .c-sl { width: 9%; text-align: center; }
+  .c-roll { width: 17%; text-align: center; font-family: 'Courier New', monospace; }
+  .c-reg { width: 22%; text-align: center; font-family: 'Courier New', monospace; }
+  .c-name { width: 36%; font-weight: 600; }
+  .c-rem { width: 16%; }
+  .doc-foot { text-align: center; margin-top: 16px; font-size: 13px; font-weight: bold; }
+  .footer { background: #1a237e; color: #9fa8da; text-align: center; padding: 16px; font-size: 13px; margin-top: 30px; }
+  .footer strong { color: #ffd54f; }
+  #print-area { display: none; }
+  @media print {
+    @page { size: A4 portrait; margin: 1in; }
+    body > *:not(#print-area) { display: none !important; }
+    #print-area { display: block !important; color: #000; background: #fff; font-family: Arial, sans-serif; }
+    #print-area .doc-head { margin-bottom: 8px; }
+    #print-area .d-college { font-size: 14px; color: #000; }
+    #print-area .d-title, #print-area .d-sem { font-size: 12px; }
+    #print-area .d-course { font-size: 11px; }
+    #print-area .d-prog { font-size: 10px; color: #000; }
+    #print-area .prog-block { margin-bottom: 10px; }
+    #print-area .prog-label { background: #fff; color: #000; border: 1px solid #000; border-left: 4px solid #000;
+                              font-size: 10.5px; padding: 3px 6px; margin-bottom: 4px; page-break-after: avoid; }
+    #print-area table { width: 100%; border-collapse: collapse; table-layout: auto; font-size: 11px; }
+    #print-area th, #print-area td { border: 1px solid #000; padding: 4px 6px; color: #000; background: #fff; }
+    #print-area th { font-weight: bold; }
+    #print-area thead { display: table-header-group; }
+    #print-area tr { page-break-inside: avoid; }
+    #print-area .c-sl, #print-area .c-roll, #print-area .c-reg { width: 1%; white-space: nowrap; }
+    #print-area .c-name { width: auto; }
+    #print-area .c-rem { width: 18%; }
+    #print-area .doc-foot { margin-top: 10px; font-size: 10px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page-top">
+  <h1>NAM COLLEGE KALLIKKANDY</h1>
+  <p>Course Wise Student Data · III SEMESTER FYUGP (2025 Admission)</p>
+</div>
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab(0)">Statistical Inference<small>KU3DSCSTA222 (42)</small></button><button class="tab-btn" onclick="showTab(1)">Fundamentals of stock trading<small>KU3DSCBBA204 (61)</small></button><button class="tab-btn" onclick="showTab(2)">Financial Management<small>KU3DSCCOM205 (6)</small></button><button class="tab-btn" onclick="showTab(3)">Basics of object oriented Programming using C++<small>KU3DSCCSC204 (30)</small></button><button class="tab-btn" onclick="showTab(4)">Economics of Care and Ageing<small>KU3DSCECO205 (36)</small></button><button class="tab-btn" onclick="showTab(5)">Documentary Film Production<small>KU3DSCJMC203 (20)</small></button><button class="tab-btn" onclick="showTab(6)">Oscillations and Waves<small>KU3DSCPHY214 (28)</small></button><button class="tab-btn" onclick="showTab(7)">Introduction to Kerala Social Realities<small>KU3DSCSOC203 (35)</small></button>
+  </div>
+  
+<div class="panel active" id="panel-0">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Statistical Inference &nbsp;|&nbsp; KU3DSCSTA222 &nbsp;|&nbsp; Total students: 42</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(0, this.value)">
+    <button class="print-btn" onclick="printTab(0)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Sc Computer Science Honours &nbsp;|&nbsp; Students: 42</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">CU2501</td>
+  <td class="c-reg">NM25CSCR001</td>
+  <td class="c-name">A.B.SAMAHA MARIYAM</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">CU2502</td>
+  <td class="c-reg">NM25CSCR002</td>
+  <td class="c-name">AYISHA SANHA P T K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">CU2503</td>
+  <td class="c-reg">NM25CSCR003</td>
+  <td class="c-name">FATHIMA ASNA K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">CU2504</td>
+  <td class="c-reg">NM25CSCR004</td>
+  <td class="c-name">FATHIMA B</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">CU2505</td>
+  <td class="c-reg">NM25CSCR005</td>
+  <td class="c-name">FATHIMA HAJARA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">CU2506</td>
+  <td class="c-reg">NM25CSCR006</td>
+  <td class="c-name">FATHIMA SAFA SABIR</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">CU2507</td>
+  <td class="c-reg">NM25CSCR007</td>
+  <td class="c-name">FATHIMATHU RIFA K P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">CU2508</td>
+  <td class="c-reg">NM25CSCR008</td>
+  <td class="c-name">M P AQEELA LAMHA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">CU2509</td>
+  <td class="c-reg">NM25CSCR009</td>
+  <td class="c-name">MEHJA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">10</td>
+  <td class="c-roll">CU2510</td>
+  <td class="c-reg">NM25CSCR010</td>
+  <td class="c-name">NADIYA K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">11</td>
+  <td class="c-roll">CU2512</td>
+  <td class="c-reg">NM25CSCR011</td>
+  <td class="c-name">RANA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">12</td>
+  <td class="c-roll">CU2513</td>
+  <td class="c-reg">NM25CSCR012</td>
+  <td class="c-name">REEMA SAMEER. P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">13</td>
+  <td class="c-roll">CU2514</td>
+  <td class="c-reg">NM25CSCR013</td>
+  <td class="c-name">SAJA SHERIN N K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">14</td>
+  <td class="c-roll">CU2515</td>
+  <td class="c-reg">NM25CSCR014</td>
+  <td class="c-name">SANA THESNI</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">15</td>
+  <td class="c-roll">CU2516</td>
+  <td class="c-reg">NM25CSCR015</td>
+  <td class="c-name">SHAZA FATHIMA A B</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">16</td>
+  <td class="c-roll">CU2517</td>
+  <td class="c-reg">NM25CSCR016</td>
+  <td class="c-name">SHEHANA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">17</td>
+  <td class="c-roll">CU2518</td>
+  <td class="c-reg">NM25CSCR017</td>
+  <td class="c-name">THANHA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">18</td>
+  <td class="c-roll">CU2519</td>
+  <td class="c-reg">NM25CSCR018</td>
+  <td class="c-name">WAFA FAHAD</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">19</td>
+  <td class="c-roll">CU2520</td>
+  <td class="c-reg">NM25CSCR019</td>
+  <td class="c-name">MUHAMMED AFNAS C H</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">20</td>
+  <td class="c-roll">CU2521</td>
+  <td class="c-reg">NM25CSCR020</td>
+  <td class="c-name">MUHAMMED NAFI K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">21</td>
+  <td class="c-roll">CU2522</td>
+  <td class="c-reg">NM25CSCR021</td>
+  <td class="c-name">MUHAMMED P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">22</td>
+  <td class="c-roll">CU2524</td>
+  <td class="c-reg">NM25CSCR023</td>
+  <td class="c-name">DEVIKA VINOD</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">23</td>
+  <td class="c-roll">CU2525</td>
+  <td class="c-reg">NM25CSCR024</td>
+  <td class="c-name">K P TEENA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">24</td>
+  <td class="c-roll">CU2526</td>
+  <td class="c-reg">NM25CSCR025</td>
+  <td class="c-name">LAYANA S SASI</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">25</td>
+  <td class="c-roll">CU2527</td>
+  <td class="c-reg">NM25CSCR026</td>
+  <td class="c-name">NAVYA E K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">26</td>
+  <td class="c-roll">CU2528</td>
+  <td class="c-reg">NM25CSCR027</td>
+  <td class="c-name">RANA RAFEEQUE MM</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">27</td>
+  <td class="c-roll">CU2529</td>
+  <td class="c-reg">NM25CSCR028</td>
+  <td class="c-name">RIDHA PARVEEN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">28</td>
+  <td class="c-roll">CU2530</td>
+  <td class="c-reg">NM25CSCR029</td>
+  <td class="c-name">RITHIK PRAMOD</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">29</td>
+  <td class="c-roll">CU2531</td>
+  <td class="c-reg">NM25CSCR030</td>
+  <td class="c-name">SHAMIL MOHAMMED T K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">30</td>
+  <td class="c-roll">CU2534</td>
+  <td class="c-reg">NM25CSCR033</td>
+  <td class="c-name">AJASOORYA C M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">31</td>
+  <td class="c-roll">CU2536</td>
+  <td class="c-reg">NM25CSCR034</td>
+  <td class="c-name">FATHIMA NASRIN P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">32</td>
+  <td class="c-roll">CU2537</td>
+  <td class="c-reg">NM25CSCR035</td>
+  <td class="c-name">MARIYAM SAFWA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">33</td>
+  <td class="c-roll">CU2538</td>
+  <td class="c-reg">NM25CSCR036</td>
+  <td class="c-name">RANIYA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">34</td>
+  <td class="c-roll">CU2539</td>
+  <td class="c-reg">NM25CSCR037</td>
+  <td class="c-name">SAJA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">35</td>
+  <td class="c-roll">CU2540</td>
+  <td class="c-reg">NM25CSCR038</td>
+  <td class="c-name">MOHAMMED NABHAN A K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">36</td>
+  <td class="c-roll">CU2541</td>
+  <td class="c-reg">NM25CSCR039</td>
+  <td class="c-name">MUHAMMED NIHAL C K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">37</td>
+  <td class="c-roll">CU2542</td>
+  <td class="c-reg">NM25MATR010</td>
+  <td class="c-name">AMEERUL MUHMENEEN K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">38</td>
+  <td class="c-roll">CU2543</td>
+  <td class="c-reg">NM25MATR013</td>
+  <td class="c-name">MUHAMMAD NIMSHAD</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">39</td>
+  <td class="c-roll">CU2544</td>
+  <td class="c-reg">NM25MATR012</td>
+  <td class="c-name">MUHAMMAD</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">40</td>
+  <td class="c-roll">CU2545</td>
+  <td class="c-reg">NM25MATR028</td>
+  <td class="c-name">FATHIMA THANEEM</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">41</td>
+  <td class="c-roll">CU2546</td>
+  <td class="c-reg">NM25MATR008</td>
+  <td class="c-name">SHABNAM</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">42</td>
+  <td class="c-roll">CU2547</td>
+  <td class="c-reg">NM25MATR015</td>
+  <td class="c-name">MUHAMMED AMEEN N</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+<div class="panel" id="panel-1">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Fundamentals of stock trading &nbsp;|&nbsp; KU3DSCBBA204 &nbsp;|&nbsp; Total students: 61</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(1, this.value)">
+    <button class="print-btn" onclick="printTab(1)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Com &nbsp;|&nbsp; Students: 61</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">BU2502</td>
+  <td class="c-reg">NM25CCOR002</td>
+  <td class="c-name">ASNA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">BU2503</td>
+  <td class="c-reg">NM25CCOR003</td>
+  <td class="c-name">AYISHA M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">BU2504</td>
+  <td class="c-reg">NM25CCOR004</td>
+  <td class="c-name">FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">BU2505</td>
+  <td class="c-reg">NM25CCOR005</td>
+  <td class="c-name">FATHIMA MUBASHIRA K M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">BU2506</td>
+  <td class="c-reg">NM25CCOR006</td>
+  <td class="c-name">FATHIMA P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">BU2507</td>
+  <td class="c-reg">NM25CCOR007</td>
+  <td class="c-name">FATHIMA P T</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">BU2508</td>
+  <td class="c-reg">NM25CCOR008</td>
+  <td class="c-name">FATHIMATH RANA RIYAS V K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">BU2509</td>
+  <td class="c-reg">NM25CCOR009</td>
+  <td class="c-name">FATHIMATHUL NAMIYA NOUFAL</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">BU2510</td>
+  <td class="c-reg">NM25CCOR010</td>
+  <td class="c-name">FATHIMATHUL NASLA K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">10</td>
+  <td class="c-roll">BU2511</td>
+  <td class="c-reg">NM25CCOR011</td>
+  <td class="c-name">HAFNA FATHIMA P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">11</td>
+  <td class="c-roll">BU2512</td>
+  <td class="c-reg">NM25CCOR012</td>
+  <td class="c-name">HAJARA SHABEER</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">12</td>
+  <td class="c-roll">BU2513</td>
+  <td class="c-reg">NM25CCOR013</td>
+  <td class="c-name">HUSNA.A</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">13</td>
+  <td class="c-roll">BU2514</td>
+  <td class="c-reg">NM25CCOR014</td>
+  <td class="c-name">KHANSA NAVAS</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">14</td>
+  <td class="c-roll">BU2515</td>
+  <td class="c-reg">NM25CCOR015</td>
+  <td class="c-name">MINHA FATHIMA O T K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">15</td>
+  <td class="c-roll">BU2516</td>
+  <td class="c-reg">NM25CCOR016</td>
+  <td class="c-name">MINHA MARIYAM M A P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">16</td>
+  <td class="c-roll">BU2517</td>
+  <td class="c-reg">NM25CCOR017</td>
+  <td class="c-name">NAFIYA P K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">17</td>
+  <td class="c-roll">BU2518</td>
+  <td class="c-reg">NM25CCOR018</td>
+  <td class="c-name">RANIYA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">18</td>
+  <td class="c-roll">BU2519</td>
+  <td class="c-reg">NM25CCOR019</td>
+  <td class="c-name">RAYA MINHA AP</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">19</td>
+  <td class="c-roll">BU2520</td>
+  <td class="c-reg">NM25CCOR020</td>
+  <td class="c-name">REEHA GAFOOR</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">20</td>
+  <td class="c-roll">BU2521</td>
+  <td class="c-reg">NM25CCOR021</td>
+  <td class="c-name">RIFA ABOOBACKER E</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">21</td>
+  <td class="c-roll">BU2522</td>
+  <td class="c-reg">NM25CCOR022</td>
+  <td class="c-name">RIFA FATHIMA .M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">22</td>
+  <td class="c-roll">BU2523</td>
+  <td class="c-reg">NM25CCOR023</td>
+  <td class="c-name">RIFA RAHIM T</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">23</td>
+  <td class="c-roll">BU2524</td>
+  <td class="c-reg">NM25CCOR024</td>
+  <td class="c-name">RINSHA SHERIN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">24</td>
+  <td class="c-roll">BU2525</td>
+  <td class="c-reg">NM25CCOR025</td>
+  <td class="c-name">RISHA NOURIN N</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">25</td>
+  <td class="c-roll">BU2526</td>
+  <td class="c-reg">NM25CCOR026</td>
+  <td class="c-name">SAFA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">26</td>
+  <td class="c-roll">BU2527</td>
+  <td class="c-reg">NM25CCOR027</td>
+  <td class="c-name">SHIFA MINHA V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">27</td>
+  <td class="c-roll">BU2528</td>
+  <td class="c-reg">NM25CCOR028</td>
+  <td class="c-name">SIYANA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">28</td>
+  <td class="c-roll">BU2529</td>
+  <td class="c-reg">NM25CCOR029</td>
+  <td class="c-name">UMAIYYAH RAHEES</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">29</td>
+  <td class="c-roll">BU2530</td>
+  <td class="c-reg">NM25CCOR030</td>
+  <td class="c-name">ZENHA FATHIMA C H</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">30</td>
+  <td class="c-roll">BU2531</td>
+  <td class="c-reg">NM25CCOR031</td>
+  <td class="c-name">MUHAMMAD SINAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">31</td>
+  <td class="c-roll">BU2532</td>
+  <td class="c-reg">NM25CCOR032</td>
+  <td class="c-name">MUHAMMED AZHAD M P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">32</td>
+  <td class="c-roll">BU2533</td>
+  <td class="c-reg">NM25CCOR033</td>
+  <td class="c-name">MUHAMMED RAZIN K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">33</td>
+  <td class="c-roll">BU2534</td>
+  <td class="c-reg">NM25CCOR034</td>
+  <td class="c-name">MUHAMMED RINSHAL K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">34</td>
+  <td class="c-roll">BU2535</td>
+  <td class="c-reg">NM25CCOR035</td>
+  <td class="c-name">MUHAMMED SINAN A</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">35</td>
+  <td class="c-roll">BU2536</td>
+  <td class="c-reg">NM25CCOR036</td>
+  <td class="c-name">MUHAMMED SINAN P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">36</td>
+  <td class="c-roll">BU2537</td>
+  <td class="c-reg">NM25CCOR037</td>
+  <td class="c-name">MUHAMMED YASEEN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">37</td>
+  <td class="c-roll">BU2538</td>
+  <td class="c-reg">NM25CCOR038</td>
+  <td class="c-name">RAZEEN BASHEER</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">38</td>
+  <td class="c-roll">BU2539</td>
+  <td class="c-reg">NM25CCOR039</td>
+  <td class="c-name">SHAFIN AK</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">39</td>
+  <td class="c-roll">BU2540</td>
+  <td class="c-reg">NM25CCOR040</td>
+  <td class="c-name">AMRITHA C K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">40</td>
+  <td class="c-roll">BU2541</td>
+  <td class="c-reg">NM25CCOR041</td>
+  <td class="c-name">FATHIMA NOOHA P P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">41</td>
+  <td class="c-roll">BU2542</td>
+  <td class="c-reg">NM25CCOR042</td>
+  <td class="c-name">MUHAMMED ZAYYAN ABDUL MAJEED A</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">42</td>
+  <td class="c-roll">BU2543</td>
+  <td class="c-reg">NM25CCOR043</td>
+  <td class="c-name">FATHIMA HANNATH A V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">43</td>
+  <td class="c-roll">BU2544</td>
+  <td class="c-reg">NM25CCOR044</td>
+  <td class="c-name">FATHIMA MILAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">44</td>
+  <td class="c-roll">BU2545</td>
+  <td class="c-reg">NM25CCOR045</td>
+  <td class="c-name">FATHIMATH SHAHSIYA A</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">45</td>
+  <td class="c-roll">BU2546</td>
+  <td class="c-reg">NM25CCOR046</td>
+  <td class="c-name">FATHIMATHUL MISRIYA C</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">46</td>
+  <td class="c-roll">BU2547</td>
+  <td class="c-reg">NM25CCOR047</td>
+  <td class="c-name">FATHIMATHUL NAJA M T K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">47</td>
+  <td class="c-roll">BU2548</td>
+  <td class="c-reg">NM25CCOR048</td>
+  <td class="c-name">FIDA SHARIN R T K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">48</td>
+  <td class="c-roll">BU2549</td>
+  <td class="c-reg">NM25CCOR049</td>
+  <td class="c-name">FIDHA NASRIN C</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">49</td>
+  <td class="c-roll">BU2550</td>
+  <td class="c-reg">NM25CCOR050</td>
+  <td class="c-name">HASNATH P P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">50</td>
+  <td class="c-roll">BU2551</td>
+  <td class="c-reg">NM25CCOR051</td>
+  <td class="c-name">M. SREYA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">51</td>
+  <td class="c-roll">BU2552</td>
+  <td class="c-reg">NM25CCOR052</td>
+  <td class="c-name">NASWIFA NASREEN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">52</td>
+  <td class="c-roll">BU2553</td>
+  <td class="c-reg">NM25CCOR053</td>
+  <td class="c-name">RAFIYA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">53</td>
+  <td class="c-roll">BU2554</td>
+  <td class="c-reg">NM25CCOR054</td>
+  <td class="c-name">RASHA FATHIMA.M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">54</td>
+  <td class="c-roll">BU2555</td>
+  <td class="c-reg">NM25CCOR055</td>
+  <td class="c-name">RIFA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">55</td>
+  <td class="c-roll">BU2556</td>
+  <td class="c-reg">NM25CCOR056</td>
+  <td class="c-name">ZENHA MEHRIN K P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">56</td>
+  <td class="c-roll">BU2557</td>
+  <td class="c-reg">NM25CCOR057</td>
+  <td class="c-name">ANURANJ .E.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">57</td>
+  <td class="c-roll">BU2558</td>
+  <td class="c-reg">NM25CCOR058</td>
+  <td class="c-name">NAJA FARVEEN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">58</td>
+  <td class="c-roll">BU2559</td>
+  <td class="c-reg">NM25CCOR059</td>
+  <td class="c-name">NIDHA FATHIMA.A.V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">59</td>
+  <td class="c-roll">BU2560</td>
+  <td class="c-reg">NM25CCOR060</td>
+  <td class="c-name">NIYA FATHIMA A P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">60</td>
+  <td class="c-roll">BU2561</td>
+  <td class="c-reg">NM25CCOR061</td>
+  <td class="c-name">RAWAN BINTH MUNIVAR</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">61</td>
+  <td class="c-roll">BU2563</td>
+  <td class="c-reg">NM25CCOR063</td>
+  <td class="c-name">MUHAMMED ZAIN NISSAM</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+<div class="panel" id="panel-2">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Financial Management &nbsp;|&nbsp; KU3DSCCOM205 &nbsp;|&nbsp; Total students: 6</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(2, this.value)">
+    <button class="print-btn" onclick="printTab(2)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Sc Computer Science Honours &nbsp;|&nbsp; Students: 2</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">CU2523</td>
+  <td class="c-reg">NM25CSCR022</td>
+  <td class="c-name">NUMAN ZAWAHIR</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">CU2532</td>
+  <td class="c-reg">NM25CSCR031</td>
+  <td class="c-name">YATHEENDRA S</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Sc Mathematics Honours &nbsp;|&nbsp; Students: 1</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">MU2525</td>
+  <td class="c-reg">NM25MATR019</td>
+  <td class="c-name">MUHAMMED YASEEN N K</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA History Honours &nbsp;|&nbsp; Students: 1</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">HU2503</td>
+  <td class="c-reg">NM25HIRS003</td>
+  <td class="c-name">FATHIMATHU NAJA</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA English Honours &nbsp;|&nbsp; Students: 2</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">EU2522</td>
+  <td class="c-reg">NM25ENGR022</td>
+  <td class="c-name">MUHAMMED RASHID P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">EU2523</td>
+  <td class="c-reg">NM25ENGR023</td>
+  <td class="c-name">AKEELA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+<div class="panel" id="panel-3">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Basics of object oriented Programming using C++ &nbsp;|&nbsp; KU3DSCCSC204 &nbsp;|&nbsp; Total students: 30</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(3, this.value)">
+    <button class="print-btn" onclick="printTab(3)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Sc Mathematics Honours &nbsp;|&nbsp; Students: 22</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">MU2501</td>
+  <td class="c-reg">NM25MATR01</td>
+  <td class="c-name">AMINA NOOHA M M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">MU2503</td>
+  <td class="c-reg">NM25MATR02</td>
+  <td class="c-name">FATHIMATHUL MISBA MAJEED P K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">MU2504</td>
+  <td class="c-reg">NM25MATR03</td>
+  <td class="c-name">FATHIMATHUL SHAHADIYA.P.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">MU2505</td>
+  <td class="c-reg">NM25MATR05</td>
+  <td class="c-name">MUHAMMED RISHAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">MU2506</td>
+  <td class="c-reg">NM25MATR06</td>
+  <td class="c-name">NASIHA NASREEN P K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">MU2507</td>
+  <td class="c-reg">NM25MATR07</td>
+  <td class="c-name">NIBA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">MU2508</td>
+  <td class="c-reg">NM25MATR08</td>
+  <td class="c-name">NIBA FATHIMA V P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">MU2509</td>
+  <td class="c-reg">NM25MATR09</td>
+  <td class="c-name">NUBLA A</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">MU2511</td>
+  <td class="c-reg">NM25MATR010</td>
+  <td class="c-name">SHIFANA M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">10</td>
+  <td class="c-roll">MU2513</td>
+  <td class="c-reg">NM25MATR011</td>
+  <td class="c-name">ASHIR CK</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">11</td>
+  <td class="c-roll">MU2516</td>
+  <td class="c-reg">NM25MATR012</td>
+  <td class="c-name">MUHAMMED ABDULLA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">12</td>
+  <td class="c-roll">MU2518</td>
+  <td class="c-reg">NM25MATR013</td>
+  <td class="c-name">MUHAMMED RIHAN FAHEZ</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">13</td>
+  <td class="c-roll">MU2519</td>
+  <td class="c-reg">NM25MATR014</td>
+  <td class="c-name">MUHAMMED SALIH ASHRAF</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">14</td>
+  <td class="c-roll">MU2521</td>
+  <td class="c-reg">NM25MATR015</td>
+  <td class="c-name">MUHAMMED THAMEEM C P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">15</td>
+  <td class="c-roll">MU2522</td>
+  <td class="c-reg">NM25MATR016</td>
+  <td class="c-name">FATHIMATHU NAFIYA.T.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">16</td>
+  <td class="c-roll">MU2523</td>
+  <td class="c-reg">NM25MATR017</td>
+  <td class="c-name">NIHA FATHIMA A</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">17</td>
+  <td class="c-roll">MU2527</td>
+  <td class="c-reg">NM25MATR020</td>
+  <td class="c-name">CHANDHANA CHANDRAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">18</td>
+  <td class="c-roll">MU2528</td>
+  <td class="c-reg">NM25MATR021</td>
+  <td class="c-name">DHWANI.K.P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">19</td>
+  <td class="c-roll">MU2531</td>
+  <td class="c-reg">NM25MATR022</td>
+  <td class="c-name">SHAHADIYA T</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">20</td>
+  <td class="c-roll">MU2532</td>
+  <td class="c-reg">NM25MATR023</td>
+  <td class="c-name">ABHIRAM.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">21</td>
+  <td class="c-roll">MU2533</td>
+  <td class="c-reg">NM25MATR024</td>
+  <td class="c-name">ASLAHA T</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">22</td>
+  <td class="c-roll">MU2536</td>
+  <td class="c-reg">NM25MATR025</td>
+  <td class="c-name">MUHAMMED SHAMMAS</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA English Honours &nbsp;|&nbsp; Students: 8</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">EU2507</td>
+  <td class="c-reg">NM25ENGR07</td>
+  <td class="c-name">FATHIMA ASHMILA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">EU2509</td>
+  <td class="c-reg">NM25ENGR008</td>
+  <td class="c-name">FATHIMATH NASLA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">EU2510</td>
+  <td class="c-reg">NM25ENGR009</td>
+  <td class="c-name">FATHIMATHU SAFA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">EU2511</td>
+  <td class="c-reg">NM25ENGR010</td>
+  <td class="c-name">FATHIMATHUL RIFANA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">EU2513</td>
+  <td class="c-reg">NM25ENGR012</td>
+  <td class="c-name">HANA FATHIMA P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">EU2517</td>
+  <td class="c-reg">NM25ENGR016</td>
+  <td class="c-name">NAJA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">EU2539</td>
+  <td class="c-reg">NM25ENGR038</td>
+  <td class="c-name">FATEMA FAHEEMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">EU2542</td>
+  <td class="c-reg">NM25ENGR041</td>
+  <td class="c-name">SHAMNA MOHAMMED</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+<div class="panel" id="panel-4">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Economics of Care and Ageing &nbsp;|&nbsp; KU3DSCECO205 &nbsp;|&nbsp; Total students: 36</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(4, this.value)">
+    <button class="print-btn" onclick="printTab(4)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA History Honours &nbsp;|&nbsp; Students: 27</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">HU2501</td>
+  <td class="c-reg">NM25HIRS001</td>
+  <td class="c-name">FATHIMA FARHANA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">HU2504</td>
+  <td class="c-reg">NM25HIRS004</td>
+  <td class="c-name">FATHIMATHU SALIHA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">HU2508</td>
+  <td class="c-reg">NM25HIRS009</td>
+  <td class="c-name">NADIYA SHERIN K P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">HU2510</td>
+  <td class="c-reg">NM25HIRS011</td>
+  <td class="c-name">RIFA FATHIMA C</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">HU2511</td>
+  <td class="c-reg">NM25HIRS012</td>
+  <td class="c-name">RIHANATH</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">HU2512</td>
+  <td class="c-reg">NM25HIRS013</td>
+  <td class="c-name">SAHWA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">HU2516</td>
+  <td class="c-reg">NM25HIR015</td>
+  <td class="c-name">MUHAMMED SANEEM.E.V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">HU2519</td>
+  <td class="c-reg">NM25HISR017</td>
+  <td class="c-name">FATHIMA. V. V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">HU2522</td>
+  <td class="c-reg">NM25HISR020</td>
+  <td class="c-name">AVANYA HARINDRAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">10</td>
+  <td class="c-roll">HU2523</td>
+  <td class="c-reg">NM25HISR021</td>
+  <td class="c-name">FATHIMATH FOUMINA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">11</td>
+  <td class="c-roll">HU2524</td>
+  <td class="c-reg">NM25HISR022</td>
+  <td class="c-name">HEZZA FATHIMA P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">12</td>
+  <td class="c-roll">HU2525</td>
+  <td class="c-reg">NM25HISR023</td>
+  <td class="c-name">NISNA FATHIMA PT</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">13</td>
+  <td class="c-roll">HU2528</td>
+  <td class="c-reg">NM25HISR026</td>
+  <td class="c-name">RAJA FATHIMA. P.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">14</td>
+  <td class="c-roll">HU2533</td>
+  <td class="c-reg">NM25HISR031</td>
+  <td class="c-name">VISNIYA.N</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">15</td>
+  <td class="c-roll">HU2538</td>
+  <td class="c-reg">NM25HISR035</td>
+  <td class="c-name">ASMA SUNEERA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">16</td>
+  <td class="c-roll">HU2541</td>
+  <td class="c-reg">NM25HISR038</td>
+  <td class="c-name">FATHIMA RISHANA K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">17</td>
+  <td class="c-roll">HU2542</td>
+  <td class="c-reg">NM25HISR039</td>
+  <td class="c-name">FATHIMA T</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">18</td>
+  <td class="c-roll">HU2543</td>
+  <td class="c-reg">NM25HISR040</td>
+  <td class="c-name">FATHIMA T K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">19</td>
+  <td class="c-roll">HU2544</td>
+  <td class="c-reg">NM25HISR041</td>
+  <td class="c-name">FATHIMATHU NASLA.P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">20</td>
+  <td class="c-roll">HU2546</td>
+  <td class="c-reg">NM25HISR043</td>
+  <td class="c-name">FIDHA FATHIMA K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">21</td>
+  <td class="c-roll">HU2547</td>
+  <td class="c-reg">NM25HISR044</td>
+  <td class="c-name">MARIYAM KASIM P K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">22</td>
+  <td class="c-roll">HU2550</td>
+  <td class="c-reg">NM25HISR046</td>
+  <td class="c-name">NUSAIBA K ALI</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">23</td>
+  <td class="c-roll">HU2551</td>
+  <td class="c-reg">NM25HISR047</td>
+  <td class="c-name">RANA FATHIMA T P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">24</td>
+  <td class="c-roll">HU2553</td>
+  <td class="c-reg">NM25HISR049</td>
+  <td class="c-name">SAFA P P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">25</td>
+  <td class="c-roll">HU2554</td>
+  <td class="c-reg">NM25HISR050</td>
+  <td class="c-name">SANA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">26</td>
+  <td class="c-roll">HU2555</td>
+  <td class="c-reg">NM25HISR051</td>
+  <td class="c-name">SANA FATHIMA E K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">27</td>
+  <td class="c-roll">HU2556</td>
+  <td class="c-reg">NM25HISR052</td>
+  <td class="c-name">SHANA SHERIN M P</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA English Honours &nbsp;|&nbsp; Students: 9</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">EU2502</td>
+  <td class="c-reg">NM25ENGR02</td>
+  <td class="c-name">AFRA AYISHA C K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">EU2503</td>
+  <td class="c-reg">NM25ENGR03</td>
+  <td class="c-name">AMNA HANEEF T K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">EU2504</td>
+  <td class="c-reg">NM25ENGR04</td>
+  <td class="c-name">AYSHA NAZER</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">EU2512</td>
+  <td class="c-reg">NM25ENGR011</td>
+  <td class="c-name">HAMNA HAKKEEM K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">EU2515</td>
+  <td class="c-reg">NM25ENGR014</td>
+  <td class="c-name">LUBNA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">EU2520</td>
+  <td class="c-reg">NM25ENGR019</td>
+  <td class="c-name">THANHA SHERIN N K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">EU2529</td>
+  <td class="c-reg">NM25ENGR029</td>
+  <td class="c-name">IKRA JAMAL</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">EU2540</td>
+  <td class="c-reg">NM25ENGR039</td>
+  <td class="c-name">FATHIMA C K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">EU2541</td>
+  <td class="c-reg">NM25ENGR040</td>
+  <td class="c-name">FATHIMA MUSTHAFA</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+<div class="panel" id="panel-5">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Documentary Film Production &nbsp;|&nbsp; KU3DSCJMC203 &nbsp;|&nbsp; Total students: 20</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(5, this.value)">
+    <button class="print-btn" onclick="printTab(5)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA History Honours &nbsp;|&nbsp; Students: 6</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">HU2509</td>
+  <td class="c-reg">NM25HIRS010</td>
+  <td class="c-name">RIFA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">HU2517</td>
+  <td class="c-reg">NM25HISR062</td>
+  <td class="c-name">MUHAMMED V K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">HU2526</td>
+  <td class="c-reg">NM25HISR024</td>
+  <td class="c-name">NOORA FATHIMA K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">HU2530</td>
+  <td class="c-reg">NM25HISR028</td>
+  <td class="c-name">SEBA MANSOOR F M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">HU2539</td>
+  <td class="c-reg">NM25HISR036</td>
+  <td class="c-name">AYSHA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">HU2548</td>
+  <td class="c-reg">NM25HISR007</td>
+  <td class="c-name">MARVIYA IBRAHIM K P</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA English Honours &nbsp;|&nbsp; Students: 14</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">EU2501</td>
+  <td class="c-reg">NM25ENGR01</td>
+  <td class="c-name">AFNAN KALEELU RAHAMAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">EU2505</td>
+  <td class="c-reg">NM25ENGR05</td>
+  <td class="c-name">AYSHA SHAIKHA FIROS K P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">EU2506</td>
+  <td class="c-reg">NM25ENGR06</td>
+  <td class="c-name">FATHIMA A.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">EU2508</td>
+  <td class="c-reg">NM25ENGR021</td>
+  <td class="c-name">FATHIMA M T</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">EU2516</td>
+  <td class="c-reg">NM25ENGR015</td>
+  <td class="c-name">MINHA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">EU2521</td>
+  <td class="c-reg">NM25ENGR020</td>
+  <td class="c-name">YESNA YOUSUF.U</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">EU2524</td>
+  <td class="c-reg">NM25ENGR024</td>
+  <td class="c-name">JANNATH</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">EU2525</td>
+  <td class="c-reg">NM25ENGR025</td>
+  <td class="c-name">JAZA FATHIMA V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">EU2526</td>
+  <td class="c-reg">NM25ENGR026</td>
+  <td class="c-name">THANHA FATHIMA.P.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">10</td>
+  <td class="c-roll">EU2527</td>
+  <td class="c-reg">NM25ENGR027</td>
+  <td class="c-name">THEJASWI THILAK</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">11</td>
+  <td class="c-roll">EU2528</td>
+  <td class="c-reg">NM25ENGR028</td>
+  <td class="c-name">DEVANJANA.V.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">12</td>
+  <td class="c-roll">EU2532</td>
+  <td class="c-reg">NM25ENGR032</td>
+  <td class="c-name">SAFEELA NASRIN K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">13</td>
+  <td class="c-roll">EU2533</td>
+  <td class="c-reg">NM25ENGR033</td>
+  <td class="c-name">SHADHA NEHRIN P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">14</td>
+  <td class="c-roll">EU2534</td>
+  <td class="c-reg">NM25ENGR034</td>
+  <td class="c-name">MUHAMMED HASIF T K</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+<div class="panel" id="panel-6">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Oscillations and Waves &nbsp;|&nbsp; KU3DSCPHY214 &nbsp;|&nbsp; Total students: 28</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(6, this.value)">
+    <button class="print-btn" onclick="printTab(6)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Sc Polymer Chemistry Honours &nbsp;|&nbsp; Students: 27</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">PU2501</td>
+  <td class="c-reg">NM25PCHR001</td>
+  <td class="c-name">DIYA NASHVA C H</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">PU2502</td>
+  <td class="c-reg">NM25PCHR002</td>
+  <td class="c-name">FATHIMA FIDHA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">PU2503</td>
+  <td class="c-reg">NM25PCHR003</td>
+  <td class="c-name">FATHIMA SAHLA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">PU2504</td>
+  <td class="c-reg">NM25PCHR004</td>
+  <td class="c-name">FATHIMA.V.P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">PU2505</td>
+  <td class="c-reg">NM25PCHR005</td>
+  <td class="c-name">HAMNA HANAN P.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">PU2506</td>
+  <td class="c-reg">NM25PCHR006</td>
+  <td class="c-name">HASHIFA T P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">PU2507</td>
+  <td class="c-reg">NM25PCHR007</td>
+  <td class="c-name">JUMANA ASIN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">PU2508</td>
+  <td class="c-reg">NM25PCHR008</td>
+  <td class="c-name">JUMANA FATHIMA EK</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">PU2509</td>
+  <td class="c-reg">NM25PCHR015</td>
+  <td class="c-name">MUHAMMED FARDAN.A</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">10</td>
+  <td class="c-roll">PU2510</td>
+  <td class="c-reg">NM25PCHR017</td>
+  <td class="c-name">MUHAMMED ZAIN SAMAD</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">11</td>
+  <td class="c-roll">PU2511</td>
+  <td class="c-reg">NM25PCHR009</td>
+  <td class="c-name">NAHDA FATHIMA.MK</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">12</td>
+  <td class="c-roll">PU2512</td>
+  <td class="c-reg">NM25PCHR010</td>
+  <td class="c-name">NIDHA MOHAMMED P V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">13</td>
+  <td class="c-roll">PU2513</td>
+  <td class="c-reg">NM25PCHR011</td>
+  <td class="c-name">RANA FATHIMA K P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">14</td>
+  <td class="c-roll">PU2514</td>
+  <td class="c-reg">NM25PCHR012</td>
+  <td class="c-name">RIYA FATHIMA.M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">15</td>
+  <td class="c-roll">PU2515</td>
+  <td class="c-reg">NM25PCHR013</td>
+  <td class="c-name">MUHAMMAD LABEEB</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">16</td>
+  <td class="c-roll">PU2516</td>
+  <td class="c-reg">NM25PCHR014</td>
+  <td class="c-name">MUHAMMED FAHAD</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">17</td>
+  <td class="c-roll">PU2517</td>
+  <td class="c-reg">NM25PCHR016</td>
+  <td class="c-name">MUHAMMED NIYAS K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">18</td>
+  <td class="c-roll">PU2518</td>
+  <td class="c-reg">NM25PCHR018</td>
+  <td class="c-name">RIZIN YOUSUF</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">19</td>
+  <td class="c-roll">PU2519</td>
+  <td class="c-reg">NM25PCHR019</td>
+  <td class="c-name">FATHIMATH SAHADIYA V V</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">20</td>
+  <td class="c-roll">PU2520</td>
+  <td class="c-reg">NM25PCHR020</td>
+  <td class="c-name">FATHIMATHU SHAHMA K P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">21</td>
+  <td class="c-roll">PU2521</td>
+  <td class="c-reg">NM25PCHR021</td>
+  <td class="c-name">HAIFA MEHARIN K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">22</td>
+  <td class="c-roll">PU2522</td>
+  <td class="c-reg">NM25PCHR022</td>
+  <td class="c-name">JANNATH FEBINA K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">23</td>
+  <td class="c-roll">PU2523</td>
+  <td class="c-reg">NM25PCHR023</td>
+  <td class="c-name">JOUHARA AYISHA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">24</td>
+  <td class="c-roll">PU2524</td>
+  <td class="c-reg">NM25PCHR024</td>
+  <td class="c-name">NAIZA AZEEZ.K.P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">25</td>
+  <td class="c-roll">PU2525</td>
+  <td class="c-reg">NM25PCHR025</td>
+  <td class="c-name">RIYA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">26</td>
+  <td class="c-roll">PU2526</td>
+  <td class="c-reg">NM25PCHR026</td>
+  <td class="c-name">MUHAMMAD NASEEM</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">27</td>
+  <td class="c-roll">PU2529</td>
+  <td class="c-reg">NM25PCHR029</td>
+  <td class="c-name">NAVAL ABDUL MAJEED</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Sc Mathematics Honours &nbsp;|&nbsp; Students: 1</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">MU2537</td>
+  <td class="c-reg">NM25MATR04</td>
+  <td class="c-name">HANIYA NASRIN</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+<div class="panel" id="panel-7">
+  <div class="doc-head">
+    <div class="d-college">NAM COLLEGE KALLIKKANDY</div>
+    <div class="d-title">Course Wise Student Data</div>
+    <div class="d-sem">III SEMESTER FYUGP (2025 Admission)</div>
+    <div class="d-course">Course : Minor Courses ( Minor 6 )</div>
+    <div class="d-prog">Introduction to Kerala Social Realities &nbsp;|&nbsp; KU3DSCSOC203 &nbsp;|&nbsp; Total students: 35</div>
+  </div>
+  <div class="action-bar">
+    <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(7, this.value)">
+    <button class="print-btn" onclick="printTab(7)">Print as Pdf</button>
+  </div>
+
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Com &nbsp;|&nbsp; Students: 1</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">BU2501</td>
+  <td class="c-reg">NM25CCOR001</td>
+  <td class="c-name">AMEENA PARIYAT</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : B.Sc Mathematics Honours &nbsp;|&nbsp; Students: 1</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">MU2524</td>
+  <td class="c-reg">NM25MATR018</td>
+  <td class="c-name">AKSHAY P K</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA History Honours &nbsp;|&nbsp; Students: 26</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">HU2505</td>
+  <td class="c-reg">NM25HIRS005</td>
+  <td class="c-name">FATHIMATHUL FIDA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">HU2506</td>
+  <td class="c-reg">NM25HIRS006</td>
+  <td class="c-name">FATHIMATHUL RENA CH</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">HU2507</td>
+  <td class="c-reg">NM25HIRS008</td>
+  <td class="c-name">MINHA G H</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">HU2513</td>
+  <td class="c-reg">NM25HIRS014</td>
+  <td class="c-name">MUHAMMAD SINAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">HU2514</td>
+  <td class="c-reg">NM25HIRS057</td>
+  <td class="c-name">MUHAMMED ADHINAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">HU2518</td>
+  <td class="c-reg">NM25HISR016</td>
+  <td class="c-name">SHAZIN K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">HU2520</td>
+  <td class="c-reg">NM25HISR018</td>
+  <td class="c-name">AMINATHUL MISRIYA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">8</td>
+  <td class="c-roll">HU2521</td>
+  <td class="c-reg">NM25HISR019</td>
+  <td class="c-name">ANUNANDA.M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">9</td>
+  <td class="c-roll">HU2527</td>
+  <td class="c-reg">NM25HISR025</td>
+  <td class="c-name">PRASHIPTHA.K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">10</td>
+  <td class="c-roll">HU2529</td>
+  <td class="c-reg">NM25HISR027</td>
+  <td class="c-name">SANMAYA K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">11</td>
+  <td class="c-roll">HU2531</td>
+  <td class="c-reg">NM25HISR029</td>
+  <td class="c-name">SREENANDHA. M</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">12</td>
+  <td class="c-roll">HU2532</td>
+  <td class="c-reg">NM25HISR030</td>
+  <td class="c-name">THANHA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">13</td>
+  <td class="c-roll">HU2534</td>
+  <td class="c-reg">NM25HISR032</td>
+  <td class="c-name">ABHINAV KRISHNA O</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">14</td>
+  <td class="c-roll">HU2535</td>
+  <td class="c-reg">NM25HISR033</td>
+  <td class="c-name">ADWAITH V K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">15</td>
+  <td class="c-roll">HU2537</td>
+  <td class="c-reg">NM25HISR034</td>
+  <td class="c-name">AIFHA K K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">16</td>
+  <td class="c-roll">HU2540</td>
+  <td class="c-reg">NM25HISR037</td>
+  <td class="c-name">AYSHATHU RINSA.C.H</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">17</td>
+  <td class="c-roll">HU2545</td>
+  <td class="c-reg">NM25HISR042</td>
+  <td class="c-name">FIDA FATHIMA A K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">18</td>
+  <td class="c-roll">HU2549</td>
+  <td class="c-reg">NM25HISR045</td>
+  <td class="c-name">NIDHA FATHIMA N</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">19</td>
+  <td class="c-roll">HU2552</td>
+  <td class="c-reg">NM25HISR048</td>
+  <td class="c-name">RIYA FATHIMA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">20</td>
+  <td class="c-roll">HU2557</td>
+  <td class="c-reg">NM25HISR053</td>
+  <td class="c-name">LUCKMANUL HAKEEM P P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">21</td>
+  <td class="c-roll">HU2558</td>
+  <td class="c-reg">NM25HISR054</td>
+  <td class="c-name">MOHAMMED SABAH</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">22</td>
+  <td class="c-roll">HU2559</td>
+  <td class="c-reg">NM25HISR056</td>
+  <td class="c-name">MUHAMMED</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">23</td>
+  <td class="c-roll">HU2560</td>
+  <td class="c-reg">NM25HISR059</td>
+  <td class="c-name">MUHAMMED RISHAN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">24</td>
+  <td class="c-roll">HU2561</td>
+  <td class="c-reg">NM25HISR060</td>
+  <td class="c-name">MUHAMMED SAHAL P P</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">25</td>
+  <td class="c-roll">HU2562</td>
+  <td class="c-reg">NM25HISR061</td>
+  <td class="c-name">MUHAMMED SHANIL</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">26</td>
+  <td class="c-roll">HU2563</td>
+  <td class="c-reg">NM25HISR055</td>
+  <td class="c-name">MUHAMMED SHEHIN K</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prog-block">
+    <div class="prog-label">Programme : BA English Honours &nbsp;|&nbsp; Students: 7</div>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr>
+            <th class="c-sl">SL NO.</th>
+            <th class="c-roll">Roll No.</th>
+            <th class="c-reg">Register No.</th>
+            <th class="c-name">Name</th>
+            <th class="c-rem">Remark</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr>
+  <td class="c-sl">1</td>
+  <td class="c-roll">EU2514</td>
+  <td class="c-reg">NM25ENGR013</td>
+  <td class="c-name">LAYYINA</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">2</td>
+  <td class="c-roll">EU2518</td>
+  <td class="c-reg">NM25ENGR017</td>
+  <td class="c-name">RANIYA.C K</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">3</td>
+  <td class="c-roll">EU2530</td>
+  <td class="c-reg">NM25ENGR030</td>
+  <td class="c-name">LINCIYA NOURIN</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">4</td>
+  <td class="c-roll">EU2535</td>
+  <td class="c-reg">NM25ENGR035</td>
+  <td class="c-name">NISCHAL V C</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">5</td>
+  <td class="c-roll">EU2536</td>
+  <td class="c-reg">NM25ENGR036</td>
+  <td class="c-name">ROHITH RAJESH</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">6</td>
+  <td class="c-roll">EU2537</td>
+  <td class="c-reg">NM25ENGR037</td>
+  <td class="c-name">YADHAV SAJ. P.S</td>
+  <td class="c-rem"></td>
+</tr>
+<tr>
+  <td class="c-sl">7</td>
+  <td class="c-roll">EU2543</td>
+  <td class="c-reg">NM25ENGR042</td>
+  <td class="c-name">MUHAMMED MUHSIN</td>
+  <td class="c-rem"></td>
+</tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="doc-foot">Prepared by Gafoor I , FYUGP Coordinator NAMC</div>
+</div>
+</div>
+<div class="footer">
+  <strong>Prepared by Gafoor I , FYUGP Coordinator NAMC</strong><br>
+  NAM College Kallikkandy · igmathspace.github.io
+</div>
+<div id="print-area"></div>
+<script>
+  function showTab(idx) {
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+    document.querySelectorAll('.panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+  }
+  function filterTable(idx, q) {
+    q = q.trim().toLowerCase();
+    document.querySelectorAll('#panel-' + idx + ' table.data tbody tr').forEach(row => {
+      row.style.display = (q === '' || row.textContent.toLowerCase().includes(q)) ? '' : 'none';
+    });
+  }
+  function printTab(idx) {
+    const panel = document.getElementById('panel-' + idx);
+    const area = document.getElementById('print-area');
+    area.innerHTML = '';
+    area.appendChild(panel.querySelector('.doc-head').cloneNode(true));
+    panel.querySelectorAll('.prog-block').forEach(block => {
+      const copy = block.cloneNode(true);
+      Array.from(copy.querySelectorAll('tbody tr')).forEach(r => { if (r.style.display === 'none') r.remove(); });
+      area.appendChild(copy);
+    });
+    area.appendChild(panel.querySelector('.doc-foot').cloneNode(true));
+    const originalTitle = document.title;
+    const courseName = panel.querySelector('.d-prog').textContent.split('|')[0].trim();
+    document.title = courseName.replace(/[\\/:*?"<>|]/g, '').trim();
+    window.onafterprint = () => {
+      area.innerHTML = '';
+      document.title = originalTitle;
+      window.onafterprint = null;
+    };
+    window.print();
+  }
+</script>
+</body>
+</html>
