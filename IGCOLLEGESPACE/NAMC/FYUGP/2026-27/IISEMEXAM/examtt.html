@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>III Sem FYUGP Exam Nov 2026 — Projected Dates &amp; Student Count | NAM College</title>
+<style>
+  :root{
+    --navy:#0f2a4a;
+    --navy-deep:#0a1d33;
+    --gold:#c99a3b;
+    --paper:#f7f5ef;
+    --ink:#1c2733;
+    --muted:#5b6a7a;
+    --card:#ffffff;
+    --line:#e3ddcc;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Cambria',serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  /* ---------- HEADER (same as fyugp.html) ---------- */
+  header.site-header{
+    background:linear-gradient(135deg,var(--navy-deep),var(--navy));
+    color:#fff;
+    padding:0;
+    box-shadow:0 2px 10px rgba(10,29,51,0.25);
+  }
+  .brand-strip{
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px 24px 10px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .brand-strip .mark{
+    font-size:28px;
+    background:rgba(201,154,59,0.15);
+    border:1px solid rgba(201,154,59,0.5);
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:10px;
+  }
+  .brand-strip .titles h1{
+    margin:0;
+    font-size:19px;
+    letter-spacing:0.5px;
+    font-weight:700;
+  }
+  .brand-strip .titles p{
+    margin:2px 0 0;
+    font-size:12.5px;
+    color:#c9d3de;
+    font-family:'Trebuchet MS',sans-serif;
+  }
+  nav.site-nav{
+    border-top:1px solid rgba(255,255,255,0.12);
+    background:rgba(0,0,0,0.15);
+  }
+  nav.site-nav ul{
+    max-width:1100px;
+    margin:0 auto;
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:2px;
+    padding:0 12px;
+  }
+  nav.site-nav a{
+    display:inline-block;
+    padding:12px 16px;
+    color:#e8ecf1;
+    text-decoration:none;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    letter-spacing:0.3px;
+    border-bottom:3px solid transparent;
+    transition:background 0.2s, border-color 0.2s;
+  }
+  nav.site-nav a:hover{
+    background:rgba(255,255,255,0.06);
+    border-bottom-color:var(--gold);
+  }
+  nav.site-nav a.current{
+    border-bottom-color:var(--gold);
+    color:#fff;
+    background:rgba(255,255,255,0.06);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:42px 24px 30px;
+  }
+  .hero .eyebrow{
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .hero h2{
+    margin:0 0 10px;
+    font-size:32px;
+    line-height:1.2;
+    color:var(--navy-deep);
+  }
+  .hero p.lead{
+    margin:0;
+    max-width:720px;
+    font-family:'Trebuchet MS',sans-serif;
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  /* ---------- WARNING FLASH CARD ---------- */
+  .warning-card{
+    max-width:1360px;
+    margin:0 auto 28px;
+    padding:0 24px;
+  }
+  .warning-inner{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    background:linear-gradient(135deg,#fff8e1,#ffe9c4);
+    border:2px solid #d4a017;
+    border-left:10px solid #c62828;
+    border-radius:10px;
+    padding:18px 24px;
+    box-shadow:0 6px 20px rgba(198,40,40,0.25);
+    animation:warnPulse 2.2s ease-in-out infinite;
+  }
+  .warning-inner .warn-icon{
+    font-size:38px;
+    line-height:1;
+    animation:warnShake 3s ease-in-out infinite;
+  }
+  .warning-inner .warn-body{
+    font-family:'Trebuchet MS',sans-serif;
+    color:#5c1a1a;
+    font-size:15px;
+    line-height:1.5;
+  }
+  .warning-inner .warn-body strong{
+    display:block;
+    font-size:17px;
+    letter-spacing:1.5px;
+    color:#b71c1c;
+    text-transform:uppercase;
+    margin-bottom:3px;
+  }
+  .warning-inner .warn-body u{
+    text-decoration-color:#b71c1c;
+    text-decoration-thickness:2px;
+  }
+  @keyframes warnPulse{
+    0%,100%{ box-shadow:0 6px 20px rgba(198,40,40,0.25); }
+    50%    { box-shadow:0 6px 32px rgba(198,40,40,0.55); }
+  }
+  @keyframes warnShake{
+    0%,90%,100%{ transform:rotate(0); }
+    93%        { transform:rotate(-12deg); }
+    96%        { transform:rotate(12deg); }
+  }
+
+  /* ---------- TABLE ---------- */
+  .table-wrap{
+    max-width:1360px;
+    margin:0 auto;
+    padding:0 24px 70px;
+    overflow-x:auto;
+  }
+  table.exam{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+    background:var(--card);
+    border:1px solid var(--line);
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13px;
+    box-shadow:0 2px 8px rgba(15,42,74,0.08);
+  }
+  table.exam thead th{
+    background:var(--navy-deep);
+    color:#fff;
+    padding:10px 6px;
+    font-size:12px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    border:1px solid #2a3e58;
+  }
+  table.exam thead th.left{ text-align:left; padding-left:10px; }
+  table.exam thead th.center{ text-align:center; }
+  table.exam td{
+    border:1px solid var(--line);
+    padding:8px;
+    vertical-align:top;
+    color:var(--ink);
+  }
+  table.exam tbody:not(:first-of-type) tr:first-child td{
+    border-top:3px solid var(--navy);
+  }
+
+  td.date-cell{
+    background:linear-gradient(180deg,#eaf1f9,#d8e3f0) !important;
+    border-left:5px solid var(--navy) !important;
+    text-align:center;
+    vertical-align:middle !important;
+  }
+  td.date-cell .d-date{
+    font-size:16px;
+    font-weight:700;
+    color:var(--navy-deep);
+    letter-spacing:0.5px;
+  }
+  td.date-cell .d-day{
+    font-size:11.5px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    margin-top:2px;
+  }
+  td.date-cell .print-date-btn{
+    display:inline-block;
+    margin-top:12px;
+    background:var(--gold);
+    color:var(--navy-deep);
+    border:none;
+    border-radius:4px;
+    padding:6px 12px;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+    font-family:'Trebuchet MS',sans-serif;
+    letter-spacing:0.3px;
+    transition:background 0.15s, color 0.15s;
+    white-space:nowrap;
+  }
+  td.date-cell .print-date-btn:hover{
+    background:var(--navy);
+    color:#fff;
+  }
+
+  td.num{
+    text-align:center;
+    font-family:'Courier New',monospace;
+    font-weight:600;
+    font-size:13.5px;
+  }
+  td.num.dash{
+    color:#c0c0c0;
+    font-weight:400;
+  }
+  td.total-col{
+    text-align:center;
+    font-weight:700;
+    background:#fdf6e3 !important;
+    font-family:'Courier New',monospace;
+    color:var(--navy-deep);
+  }
+
+  .course-name{
+    font-weight:600;
+    line-height:1.35;
+    color:var(--navy-deep);
+  }
+  .course-code{
+    color:var(--muted);
+    font-weight:400;
+    font-size:12px;
+  }
+  .course-type{
+    display:inline-block;
+    background:#f3e6c4;
+    color:#8a6d1e;
+    font-size:10.5px;
+    font-weight:700;
+    padding:1px 7px;
+    border-radius:10px;
+    margin-left:4px;
+    letter-spacing:0.5px;
+    vertical-align:middle;
+  }
+  .course-note{
+    display:block;
+    font-size:10.5px;
+    color:#b00;
+    font-style:italic;
+    margin-top:4px;
+    line-height:1.35;
+  }
+
+  td.time-cell{
+    font-size:12px;
+    color:var(--muted);
+    text-align:left;
+    vertical-align:middle !important;
+    background:#fbfaf5 !important;
+    line-height:1.5;
+  }
+
+  .footnotes{
+    max-width:1360px;
+    margin:0 auto;
+    padding:0 24px 40px;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .footnotes h3{
+    font-size:13px;
+    color:var(--navy-deep);
+    margin:0 0 8px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+  .footnotes ul{ margin:0; padding-left:20px; line-height:1.7; }
+
+  /* ---------- FOOTER (page) ---------- */
+  footer{
+    background:var(--navy-deep);
+    color:#c9d3de;
+    text-align:center;
+    padding:24px 20px;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12.5px;
+  }
+  footer strong{color:#fff;}
+
+  /* ---------- PRINT AREA ---------- */
+  #print-area{ display:none; }
+
+  @media print{
+    /* A4 PORTRAIT · 1 INCH MARGINS ON ALL SIDES */
+    @page{ size: A4 portrait; margin: 1in; }
+
+    body{ background:#fff !important; }
+    body > *:not(#print-area){ display:none !important; }
+    #print-area{
+      display:block !important;
+      color:#000;
+      font-family: Arial, 'Nimbus Sans', sans-serif;
+      font-size:8.5pt;
+      line-height:1.25;
+    }
+
+    /* Header block on print sheet */
+    #print-area .print-head{
+      text-align:center;
+      border-bottom:1.5px solid #000;
+      padding-bottom:4px;
+      margin-bottom:6px;
+    }
+    #print-area .p-college{ font-size:12pt; font-weight:bold; letter-spacing:1px; }
+    #print-area .p-title  { font-size:9.5pt; font-weight:bold; margin-top:2px; }
+    #print-area .p-sub    { font-size:8pt; margin-top:3px; }
+    #print-area .p-warn   { font-size:7.5pt; color:#b00; font-weight:bold; margin-top:3px; }
+
+    /* Table */
+    #print-area table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+      font-size:8pt;
+    }
+    #print-area th,
+    #print-area td{
+      border:1px solid #000;
+      padding:2px 3px;
+      vertical-align:top;
+      word-wrap:break-word;
+      overflow-wrap:break-word;
+      hyphens:auto;
+    }
+    #print-area thead th{
+      background:#e6e6e6 !important;
+      color:#000 !important;
+      font-size:7.5pt;
+      text-align:center;
+      padding:3px 2px;
+    }
+    #print-area thead th.left{ text-align:left; }
+    #print-area thead{ display:table-header-group; }
+    #print-area tr{ page-break-inside:avoid; }
+
+    /* Date cell */
+    #print-area td.date-cell{
+      background:#f0f0f0 !important;
+      border-left:1.5px solid #000 !important;
+      text-align:center;
+      vertical-align:middle !important;
+      font-size:8pt;
+      padding:2px 1px;
+    }
+    #print-area td.date-cell .d-date{ font-size:9pt; font-weight:bold; line-height:1.15; }
+    #print-area td.date-cell .d-day { font-size:7pt; color:#333; margin-top:1px; line-height:1.15; }
+
+    /* Numbers */
+    #print-area td.num{ text-align:center; font-size:8pt; padding:2px 1px; }
+    #print-area td.num.dash{ color:#888; }
+    #print-area td.total-col{
+      text-align:center;
+      font-weight:bold;
+      background:#f2f2f2 !important;
+      font-size:8.5pt;
+      padding:2px 1px;
+    }
+
+    /* Course column - wrap long names */
+    #print-area .course-name{
+      font-weight:bold;
+      font-size:8pt;
+      line-height:1.2;
+      white-space:normal;
+      word-wrap:break-word;
+      overflow-wrap:break-word;
+    }
+    #print-area .course-code{
+      font-size:7pt;
+      color:#333;
+      white-space:normal;
+      word-wrap:break-word;
+    }
+    #print-area .course-type{
+      display:inline;
+      font-size:6.5pt;
+      padding:0 3px;
+      background:transparent !important;
+      color:#000;
+      font-weight:bold;
+      margin-left:2px;
+    }
+    #print-area .course-note{
+      font-size:6.5pt;
+      color:#b00;
+      font-style:italic;
+      margin-top:1px;
+      line-height:1.15;
+      white-space:normal;
+    }
+
+    /* Time column */
+    #print-area td.time-cell{
+      font-size:7pt;
+      text-align:left;
+      vertical-align:middle !important;
+      padding:2px 2px;
+      white-space:normal;
+      word-wrap:break-word;
+      line-height:1.2;
+    }
+
+    /* Print footer (once, at end) */
+    #print-area .print-footer{
+      margin-top:14px;
+      padding-top:6px;
+      border-top:1px solid #000;
+      text-align:center;
+      font-size:9pt;
+      font-weight:bold;
+      letter-spacing:0.3px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER (same as fyugp.html) ================= -->
+<header class="site-header">
+  <div class="brand-strip">
+    <div class="mark">🏛️</div>
+    <div class="titles">
+      <h1>IG MATH SPACE</h1>
+      <p>Department of Mathematics · NAM College Kallikkandy</p>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <li><a href="https://igmathspace.github.io/index.html">HOME</a></li>
+      <li><a href="https://igmathspace.github.io/lessons.html">CLASSROOM</a></li>
+      <li><a href="https://igmathspace.github.io/research.html">RESEARCH</a></li>
+      <li><a href="https://igmathspace.github.io/students.html">STUDENT</a></li>
+      <li><a href="https://igmathspace.github.io/IGBOOKSPACE/">📚 BOOK</a></li>
+      <li><a href="https://igmathspace.github.io/IGCOLLEGESPACE/" class="current">🏛️ OFFICIAL</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="eyebrow">Official Space · Department Space · Exam Schedule</div>
+  <h2>III SEMESTER FYUGP EXAM NOVEMBER 2026</h2>
+  <p class="lead">Projected date and course-wise student count.</p>
+</section>
+
+<!-- ================= FLASH WARNING CARD ================= -->
+<div class="warning-card">
+  <div class="warning-inner">
+    <div class="warn-icon">⚠️</div>
+    <div class="warn-body">
+      <strong>Beware !!!</strong>
+      This data is <u>not confirmed</u>. Please verify every entry with the <b>hall tickets</b> and the
+      <b>official timetable</b> before relying on it.
+    </div>
+  </div>
+</div>
+
+<!-- ================= MAIN TABLE ================= -->
+<div class="table-wrap">
+  <table class="exam" id="exam-table">
+    <colgroup>
+      <col style="width:9%;">
+      <col style="width:36%;">
+      <col style="width:5%;">
+      <col style="width:5%;">
+      <col style="width:5%;">
+      <col style="width:5%;">
+      <col style="width:5%;">
+      <col style="width:5%;">
+      <col style="width:6%;">
+      <col style="width:19%;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th class="left">Date &amp; Day</th>
+        <th class="left">Course (Code) – Type</th>
+        <th class="center">ENG</th>
+        <th class="center">HIST</th>
+        <th class="center">CS</th>
+        <th class="center">MAT</th>
+        <th class="center">PC</th>
+        <th class="center">BCOM</th>
+        <th class="center">Total</th>
+        <th class="left">Time of Exam</th>
+      </tr>
+    </thead>
+
+    <!-- ============ 13.11.2026 — MDC 3 (5) ============ -->
+    <tbody id="tbody-13-11">
+      <tr>
+        <td rowspan="5" class="date-cell">
+          <div class="d-date">13.11.2026</div>
+          <div class="d-day">Friday</div>
+          <button class="print-date-btn" onclick="printDate('13-11')">🖨 Print PDF</button>
+        </td>
+        <td>
+          <span class="course-name">Kerala Culture in Arabic Literature</span>
+          <span class="course-code">(KU3MDCARB203)</span>
+          <span class="course-type">MDC 3</span>
+        </td>
+        <td class="num">7</td><td class="num">11</td><td class="num">20</td>
+        <td class="num">10</td><td class="num">9</td><td class="num">34</td>
+        <td class="total-col">91</td>
+        <td rowspan="5" class="time-cell">2.00 pm to 3.30 pm /<br>2.00 pm to 4.00 pm</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Kerala Knowledge Systems</span>
+          <span class="course-code">(KU3MDCENG201)</span>
+          <span class="course-type">MDC 3</span>
+        </td>
+        <td class="num">13</td><td class="num">5</td><td class="num">7</td>
+        <td class="num">2</td><td class="num">4</td><td class="num">14</td>
+        <td class="total-col">45</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Keral ki Lok Kalayen</span>
+          <span class="course-code">(KU3MDCHIN103)</span>
+          <span class="course-type">MDC 3</span>
+        </td>
+        <td class="num">3</td><td class="num">1</td><td class="num">5</td>
+        <td class="num">3</td><td class="num dash">–</td><td class="num">2</td>
+        <td class="total-col">14</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">കേരളീയാധുനികത</span>
+          <span class="course-code">(KU3MDCMAL103)</span>
+          <span class="course-type">MDC 3</span>
+        </td>
+        <td class="num">4</td><td class="num">18</td><td class="num">3</td>
+        <td class="num">4</td><td class="num dash">–</td><td class="num">8</td>
+        <td class="total-col">37</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Kerala Ka Muthala</span>
+          <span class="course-code">(KU3MDCURD203)</span>
+          <span class="course-type">MDC 3</span>
+          <span class="course-note">* Timetable lists KU3MDCURD204 — date projected.</span>
+        </td>
+        <td class="num">13</td><td class="num">25</td><td class="num">9</td>
+        <td class="num">6</td><td class="num">14</td><td class="num">4</td>
+        <td class="total-col">71</td>
+      </tr>
+    </tbody>
+
+    <!-- ============ 16.11.2026 — VAC 1 (12) ============ -->
+    <tbody id="tbody-16-11">
+      <tr>
+        <td rowspan="12" class="date-cell">
+          <div class="d-date">16.11.2026</div>
+          <div class="d-day">Monday</div>
+          <button class="print-date-btn" onclick="printDate('16-11')">🖨 Print PDF</button>
+        </td>
+        <td>
+          <span class="course-name">Arabic Literature for Humanity</span>
+          <span class="course-code">(KU3VACARB201)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">2</td>
+        <td class="total-col">2</td>
+        <td rowspan="12" class="time-cell">1.30 pm to 3.00 pm /<br>1.30 pm to 3.30 pm</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Professional Ethics in Business &amp; Corporate Responsibility</span>
+          <span class="course-code">(KU3VACCOM200)</span>
+          <span class="course-type">VAC 1</span>
+          <span class="course-note">** Timetable lists KU3VACCOM100 — date projected.</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num">7</td><td class="num dash">–</td><td class="num">20</td>
+        <td class="total-col">27</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Data Analytics Using R</span>
+          <span class="course-code">(KU3VACCSC103)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num">9</td><td class="num dash">–</td><td class="num">39</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">3</td>
+        <td class="total-col">51</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Recovering Nature</span>
+          <span class="course-code">(KU3VACENG201)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num">18</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num">1</td><td class="num dash">–</td><td class="num">21</td>
+        <td class="total-col">40</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Reconstructing Gender</span>
+          <span class="course-code">(KU3VACENG202)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num">8</td><td class="num dash">–</td><td class="num">3</td>
+        <td class="num">5</td><td class="num dash">–</td><td class="num">3</td>
+        <td class="total-col">19</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Hindi Sahithya Evam Manavadhikar</span>
+          <span class="course-code">(KU3VACHIN102)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num">2</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">2</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Human Right Movements in Modern India</span>
+          <span class="course-code">(KU3VACHIS201)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num dash">–</td><td class="num">46</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">46</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Ethics in Media</span>
+          <span class="course-code">(KU3VACJMC209)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num">1</td><td class="num">2</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">13</td>
+        <td class="total-col">16</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">മലബാർ – സമൂഹവും നവോത്ഥാനവും</span>
+          <span class="course-code">(KU3VACMAL101)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num dash">–</td><td class="num">1</td><td class="num">1</td>
+        <td class="num">2</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">4</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Mathematical Logic</span>
+          <span class="course-code">(KU3VACMAT202)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">1</td>
+        <td class="num">10</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">11</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Polymers and Polymer Composites</span>
+          <span class="course-code">(KU3VACPCH102)</span>
+          <span class="course-type">VAC 1</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num">27</td><td class="num dash">–</td>
+        <td class="total-col">27</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Thahzeeb Aur Saqafath</span>
+          <span class="course-code">(KU3VACURD202)</span>
+          <span class="course-type">VAC 1</span>
+          <span class="course-note">*** Not listed explicitly — placed on general VAC date.</span>
+        </td>
+        <td class="num">2</td><td class="num">11</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">13</td>
+      </tr>
+    </tbody>
+
+    <!-- ============ 18.11.2026 — MAJOR (12) ============ -->
+    <tbody id="tbody-18-11">
+      <tr>
+        <td rowspan="12" class="date-cell">
+          <div class="d-date">18.11.2026</div>
+          <div class="d-day">Wednesday</div>
+          <button class="print-date-btn" onclick="printDate('18-11')">🖨 Print PDF</button>
+        </td>
+        <td>
+          <span class="course-name">Inorganic Chemistry I</span>
+          <span class="course-code">(KU3DSCCHE201)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num">27</td><td class="num dash">–</td>
+        <td class="total-col">27</td>
+        <td rowspan="12" class="time-cell">1.30 pm to 3.00 pm /<br>1.30 pm to 3.30 pm</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Organic Chemistry I</span>
+          <span class="course-code">(KU3DSCCHE202)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num">27</td><td class="num dash">–</td>
+        <td class="total-col">27</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Corporate Accounting</span>
+          <span class="course-code">(KU3DSCCOM200)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">62</td>
+        <td class="total-col">62</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Company Law and Administration</span>
+          <span class="course-code">(KU3DSCCOM201)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2) and 27.11.2026.</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">62</td>
+        <td class="total-col">62</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Object Oriented Programming using Java</span>
+          <span class="course-code">(KU3DSCCSC201)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">44</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">44</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Digital Systems</span>
+          <span class="course-code">(KU3DSCCSC202)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">44</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">44</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Chaucer to Contemporary Poets</span>
+          <span class="course-code">(KU3DSCENG201)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num">40</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">40</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Literature in Context – Old English to Medieval English</span>
+          <span class="course-code">(KU3DSCENG203)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num">40</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">40</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">World from Iron Age to Medieval Times</span>
+          <span class="course-code">(KU3DSCHIS201)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num">60</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">60</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Social Formations in Early India (Earliest Times to Maurya)</span>
+          <span class="course-code">(KU3DSCHIS202)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num">60</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">60</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Algebra</span>
+          <span class="course-code">(KU3DSCMAT201)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num">25</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">25</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Coordinate Systems and Multiple Integrals</span>
+          <span class="course-code">(KU3DSCMAT202)</span>
+          <span class="course-type">Major</span>
+          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num">25</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">25</td>
+      </tr>
+    </tbody>
+
+    <!-- ============ 20.11.2026 — MINOR 5 + MINOR 6 (16) ============ -->
+    <tbody id="tbody-20-11">
+      <tr>
+        <td rowspan="16" class="date-cell">
+          <div class="d-date">20.11.2026</div>
+          <div class="d-day">Friday</div>
+          <button class="print-date-btn" onclick="printDate('20-11')">🖨 Print PDF</button>
+        </td>
+        <td>
+          <span class="course-name">Event Management</span>
+          <span class="course-code">(KU3DSCCOM204)</span>
+          <span class="course-type">Minor 5</span>
+          <span class="course-note">Possibility of exam on 27.11.2026 (additional listing).</span>
+        </td>
+        <td class="num">21</td><td class="num dash">–</td><td class="num">9</td>
+        <td class="num">2</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">32</td>
+        <td rowspan="16" class="time-cell">2.00 pm to 3.30 pm /<br>2.00 pm to 4.00 pm</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Python for Data Analytics</span>
+          <span class="course-code">(KU3DSCCSC203)</span>
+          <span class="course-type">Minor 5</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num">10</td><td class="num">55</td>
+        <td class="total-col">65</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Economics of Banking and Finance</span>
+          <span class="course-code">(KU3DSCECO203)</span>
+          <span class="course-type">Minor 5</span>
+        </td>
+        <td class="num dash">–</td><td class="num">25</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num">2</td><td class="num dash">–</td>
+        <td class="total-col">27</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Narratives of Love and Friendship</span>
+          <span class="course-code">(KU3DSCFNG203)</span>
+          <span class="course-type">Minor 5</span>
+        </td>
+        <td class="num dash">–</td><td class="num">14</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num">2</td><td class="num">1</td>
+        <td class="total-col">17</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">History of Indian National Movement</span>
+          <span class="course-code">(KU3DSCHIS205)</span>
+          <span class="course-type">Minor 5</span>
+        </td>
+        <td class="num">5</td><td class="num">1</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">5</td>
+        <td class="total-col">11</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Differential Equations, Laplace Transforms, LP &amp; Numerical Methods</span>
+          <span class="course-code">(KU3DSCMAT211)</span>
+          <span class="course-type">Minor 5</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">35</td>
+        <td class="num dash">–</td><td class="num">13</td><td class="num dash">–</td>
+        <td class="total-col">48</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Media and Society</span>
+          <span class="course-code">(KU3DSCSOC202)</span>
+          <span class="course-type">Minor 5</span>
+        </td>
+        <td class="num">14</td><td class="num">20</td><td class="num dash">–</td>
+        <td class="num">1</td><td class="num dash">–</td><td class="num">1</td>
+        <td class="total-col">36</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Probability Distributions</span>
+          <span class="course-code">(KU3DSCSTA221)</span>
+          <span class="course-type">Minor 5</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num">22</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">22</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Statistical Inference</span>
+          <span class="course-code">(KU3DSCSTA222)</span>
+          <span class="course-type">Minor 6</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">42</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">42</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Fundamentals of Stock Trading</span>
+          <span class="course-code">(KU3DSCBBA204)</span>
+          <span class="course-type">Minor 6</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num">61</td>
+        <td class="total-col">61</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Financial Management</span>
+          <span class="course-code">(KU3DSCCOM205)</span>
+          <span class="course-type">Minor 6</span>
+          <span class="course-note">Possibility of exam on 27.11.2026 (additional listing).</span>
+        </td>
+        <td class="num">2</td><td class="num">1</td><td class="num">2</td>
+        <td class="num">1</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">6</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Basics of Object Oriented Programming using C++</span>
+          <span class="course-code">(KU3DSCCSC204)</span>
+          <span class="course-type">Minor 6</span>
+        </td>
+        <td class="num">8</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num">22</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">30</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Economics of Care and Ageing</span>
+          <span class="course-code">(KU3DSCECO205)</span>
+          <span class="course-type">Minor 6</span>
+        </td>
+        <td class="num">9</td><td class="num">27</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">36</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Documentary Film Production</span>
+          <span class="course-code">(KU3DSCJMC203)</span>
+          <span class="course-type">Minor 6</span>
+        </td>
+        <td class="num">14</td><td class="num">6</td><td class="num dash">–</td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="total-col">20</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Oscillations and Waves</span>
+          <span class="course-code">(KU3DSCPHY214)</span>
+          <span class="course-type">Minor 6</span>
+        </td>
+        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
+        <td class="num">1</td><td class="num">27</td><td class="num dash">–</td>
+        <td class="total-col">28</td>
+      </tr>
+      <tr>
+        <td>
+          <span class="course-name">Introduction to Kerala Social Realities</span>
+          <span class="course-code">(KU3DSCSOC203)</span>
+          <span class="course-type">Minor 6</span>
+        </td>
+        <td class="num">7</td><td class="num">26</td><td class="num dash">–</td>
+        <td class="num">1</td><td class="num dash">–</td><td class="num">1</td>
+        <td class="total-col">35</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ================= FOOTNOTES ================= -->
+<div class="footnotes">
+  <h3>Notes</h3>
+  <ul>
+    <li><b>* KU3MDCURD203</b> — timetable shows <i>KU3MDCURD204 (Kerala ka Muthala)</i> on 13.11.2026; date is projected from that entry.</li>
+    <li><b>** KU3VACCOM200</b> — timetable shows <i>KU3VACCOM100 (Professional Ethics and Corporate Governance)</i> on 16.11.2026; date is projected from that entry.</li>
+    <li><b>*** KU3VACURD202</b> — not listed explicitly; placed on the general VAC date 16.11.2026.</li>
+    <li><b>All Major courses</b> — also appear in the DSC-2 listing on 20.11.2026.</li>
+    <li><b>COM201, COM204, COM205</b> — also appear on 27.11.2026 in a Commerce / additional list.</li>
+    <li><b>Programme counts</b> — EU→ENG, HU→HIST, CU→CS, MU→MAT, PU→PC, BU→BCOM. Dash (&ndash;) means zero.</li>
+    <li><b>Time of exam</b> — Mon–Thu: 1.30 pm–3.00/3.30 pm · Fri: 2.00 pm–3.30/4.00 pm.</li>
+  </ul>
+</div>
+
+<!-- ================= FOOTER (page) ================= -->
+<footer>
+  © <strong>Gafoor I</strong>, Assistant Professor, Department of Mathematics, NAM College Kallikkandy
+</footer>
+
+<!-- ================= PRINT AREA ================= -->
+<div id="print-area"></div>
+
+<script>
+  const DATE_INFO = {
+    '13-11': { date: '13.11.2026', day: 'Friday',    time: '2.00 pm to 3.30 pm / 2.00 pm to 4.00 pm', total: 258 },
+    '16-11': { date: '16.11.2026', day: 'Monday',    time: '1.30 pm to 3.00 pm / 1.30 pm to 3.30 pm', total: 258 },
+    '18-11': { date: '18.11.2026', day: 'Wednesday', time: '1.30 pm to 3.00 pm / 1.30 pm to 3.30 pm', total: 516 },
+    '20-11': { date: '20.11.2026', day: 'Friday',    time: '2.00 pm to 3.30 pm / 2.00 pm to 4.00 pm', total: 516 }
+  };
+
+  /* Column widths tuned for A4 PORTRAIT at 1in margins (~6.27in content) */
+  const PRINT_COLS = [11, 35, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 6, 15];
+
+  function printDate(key) {
+    const info = DATE_INFO[key];
+    if (!info) return;
+    const srcBody = document.getElementById('tbody-' + key);
+    if (!srcBody) return;
+
+    /* Clone the row group and strip the on-screen print buttons */
+    const cloneBody = srcBody.cloneNode(true);
+    cloneBody.querySelectorAll('button').forEach(b => b.remove());
+
+    /* Build a print-optimised colgroup */
+    const colgroup = document.createElement('colgroup');
+    PRINT_COLS.forEach(w => {
+      const c = document.createElement('col');
+      c.style.width = w + '%';
+      colgroup.appendChild(c);
+    });
+
+    /* Clone the header row (keeps the same header labels) */
+    const thead = document.querySelector('#exam-table thead').cloneNode(true);
+
+    const area = document.getElementById('print-area');
+    area.innerHTML = '';
+
+    /* ---- Sheet header ---- */
+    const head = document.createElement('div');
+    head.className = 'print-head';
+    head.innerHTML =
+      '<div class="p-college">NAM COLLEGE KALLIKKANDY</div>' +
+      '<div class="p-title">III SEMESTER FYUGP EXAM — NOVEMBER 2026</div>' +
+      '<div class="p-sub">Projected Date &amp; Course-wise Student Count · ' +
+        info.date + ' (' + info.day + ') · Total registrations: ' + info.total +
+        ' · Time: ' + info.time + '</div>' +
+      '<div class="p-warn">⚠ Unconfirmed data — please verify with hall tickets and the official timetable.</div>';
+
+    /* ---- Table ---- */
+    const table = document.createElement('table');
+    table.className = 'print-table';
+    table.appendChild(colgroup);
+    table.appendChild(thead);
+    table.appendChild(cloneBody);
+
+    /* ---- Sheet footer ---- */
+    const foot = document.createElement('div');
+    foot.className = 'print-footer';
+    foot.textContent = 'Prepared by Gafoor I, Department of Mathematics';
+
+    area.appendChild(head);
+    area.appendChild(table);
+    area.appendChild(foot);
+
+    window.onafterprint = function () {
+      area.innerHTML = '';
+      window.onafterprint = null;
+    };
+
+    window.print();
+  }
+</script>
+
+</body>
+</html>

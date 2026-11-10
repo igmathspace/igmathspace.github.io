@@ -138,6 +138,67 @@
     padding:0 24px 60px;
   }
 
+  /* ---------- Exam Time Table bar ---------- */
+  .tt-divider{
+    border:0;
+    border-top:2px solid var(--line);
+    margin:0 0 20px;
+  }
+  .tt-bar{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    background:linear-gradient(135deg,#fdf6e3,#f3e6c4);
+    border:1px solid var(--gold);
+    border-left:6px solid var(--navy);
+    border-radius:8px;
+    padding:16px 22px;
+    margin-bottom:28px;
+    box-shadow:0 2px 8px rgba(15,42,74,0.08);
+  }
+  .tt-bar .tt-text{
+    font-family:'Trebuchet MS',sans-serif;
+    color:var(--navy-deep);
+  }
+  .tt-bar .tt-text strong{
+    display:block;
+    font-size:15px;
+    letter-spacing:0.5px;
+    margin-bottom:2px;
+  }
+  .tt-bar .tt-text span{
+    font-size:12.5px;
+    color:var(--muted);
+  }
+  .tt-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--navy);
+    color:#fff;
+    text-decoration:none;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13.5px;
+    font-weight:700;
+    letter-spacing:0.3px;
+    padding:12px 22px;
+    border-radius:6px;
+    white-space:nowrap;
+    transition:background 0.18s ease, color 0.18s ease, transform 0.15s ease;
+    box-shadow:0 2px 6px rgba(15,42,74,0.2);
+  }
+  .tt-btn:hover{
+    background:var(--gold);
+    color:var(--navy-deep);
+    transform:translateY(-1px);
+  }
+  @media (max-width:600px){
+    .tt-bar{flex-direction:column; align-items:flex-start;}
+    .tt-btn{width:100%; justify-content:center;}
+  }
+
   .card-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -272,6 +333,18 @@
 </section>
 
 <main>
+
+  <!-- ===== Horizontal line + Exam Time Table button ===== -->
+  <hr class="tt-divider">
+  <div class="tt-bar">
+    <div class="tt-text">
+      <strong>📅 Exam Time Table — III Semester FYUGP, November 2026</strong>
+      <span>Projected date, course, and programme-wise student count.</span>
+    </div>
+    <a class="tt-btn" href="examtt.html" target="_blank" rel="noopener">📅 Exam Time table data</a>
+  </div>
+
+  <!-- ===== Course-wise student cards ===== -->
   <div class="card-grid">
 
     <!-- Card 1: Major Courses -->
@@ -316,7 +389,7 @@
 
   </div>
 
-  <p class="note">📌 Note: The links above point to pages stored in the same folder (IISEMEXAM). Keep <strong>IIIMAJOR.html</strong>, <strong>IIIMINOR5.html</strong>, <strong>IIIMINOR6.html</strong>, <strong>IIIMDC3.html</strong> and <strong>IIIVAC1.html</strong> in this folder for the links to work both locally and on GitHub Pages.</p>
+  <p class="note">📌 Note: The links above point to pages stored in the same folder (IISEMEXAM). Keep <strong>IIIMAJOR.html</strong>, <strong>IIIMINOR5.html</strong>, <strong>IIIMINOR6.html</strong>, <strong>IIIMDC3.html</strong>, <strong>IIIVAC1.html</strong> and <strong>examtt.html</strong> in this folder for the links to work both locally and on GitHub Pages.</p>
 </main>
 
 <footer>
