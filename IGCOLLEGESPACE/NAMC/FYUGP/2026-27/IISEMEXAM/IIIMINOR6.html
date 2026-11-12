@@ -32,6 +32,9 @@
   .print-btn { background: #ff6f00; color: #fff; border: none; border-radius: 20px; padding: 8px 16px;
                font-size: 13px; font-weight: 600; cursor: pointer; }
   .print-btn:hover { background: #e65100; }
+  .excel-btn { background: #2e7d32; color: #fff; border: none; border-radius: 20px; padding: 8px 16px;
+               font-size: 13px; font-weight: 600; cursor: pointer; }
+  .excel-btn:hover { background: #1b5e20; }
   .prog-block { margin-bottom: 18px; }
   .prog-label { background: #e8eaf6; color: #1a237e; font-weight: bold; font-size: 13px; padding: 7px 10px;
                 border-left: 4px solid #ff6f00; margin-bottom: 6px; }
@@ -96,6 +99,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(0, this.value)">
     <button class="print-btn" onclick="printTab(0)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(0)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -367,42 +371,42 @@
 <tr>
   <td class="c-sl">37</td>
   <td class="c-roll">CU2542</td>
-  <td class="c-reg">NM25MATR010</td>
+  <td class="c-reg">NM25CSCR040</td>
   <td class="c-name">AMEERUL MUHMENEEN K</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">38</td>
   <td class="c-roll">CU2543</td>
-  <td class="c-reg">NM25MATR013</td>
+  <td class="c-reg">NM25CSCR044</td>
   <td class="c-name">MUHAMMAD NIMSHAD</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">39</td>
   <td class="c-roll">CU2544</td>
-  <td class="c-reg">NM25MATR012</td>
+  <td class="c-reg">NM25CSCR043</td>
   <td class="c-name">MUHAMMAD</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">40</td>
   <td class="c-roll">CU2545</td>
-  <td class="c-reg">NM25MATR028</td>
+  <td class="c-reg">NM25CSCR041</td>
   <td class="c-name">FATHIMA THANEEM</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">41</td>
   <td class="c-roll">CU2546</td>
-  <td class="c-reg">NM25MATR008</td>
+  <td class="c-reg">NM25CSCR042</td>
   <td class="c-name">SHABNAM</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">42</td>
   <td class="c-roll">CU2547</td>
-  <td class="c-reg">NM25MATR015</td>
+  <td class="c-reg">NM25CSCR045</td>
   <td class="c-name">MUHAMMED AMEEN N</td>
   <td class="c-rem"></td>
 </tr>
@@ -423,6 +427,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(1, this.value)">
     <button class="print-btn" onclick="printTab(1)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(1)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -883,6 +888,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(2, this.value)">
     <button class="print-btn" onclick="printTab(2)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(2)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -934,7 +940,7 @@
 <tr>
   <td class="c-sl">1</td>
   <td class="c-roll">MU2525</td>
-  <td class="c-reg">NM25MATR019</td>
+  <td class="c-reg">NM25MATR024</td>
   <td class="c-name">MUHAMMED YASEEN N K</td>
   <td class="c-rem"></td>
 </tr>
@@ -1012,6 +1018,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(3, this.value)">
     <button class="print-btn" onclick="printTab(3)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(3)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -1031,63 +1038,63 @@
 <tr>
   <td class="c-sl">1</td>
   <td class="c-roll">MU2501</td>
-  <td class="c-reg">NM25MATR01</td>
+  <td class="c-reg">NM25MATR001</td>
   <td class="c-name">AMINA NOOHA M M</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">2</td>
   <td class="c-roll">MU2503</td>
-  <td class="c-reg">NM25MATR02</td>
+  <td class="c-reg">NM25MATR002</td>
   <td class="c-name">FATHIMATHUL MISBA MAJEED P K</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">3</td>
   <td class="c-roll">MU2504</td>
-  <td class="c-reg">NM25MATR03</td>
+  <td class="c-reg">NM25MATR003</td>
   <td class="c-name">FATHIMATHUL SHAHADIYA.P.K</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">4</td>
   <td class="c-roll">MU2505</td>
-  <td class="c-reg">NM25MATR05</td>
+  <td class="c-reg">NM25MATR017</td>
   <td class="c-name">MUHAMMED RISHAN</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">5</td>
   <td class="c-roll">MU2506</td>
-  <td class="c-reg">NM25MATR06</td>
+  <td class="c-reg">NM25MATR004</td>
   <td class="c-name">NASIHA NASREEN P K</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">6</td>
   <td class="c-roll">MU2507</td>
-  <td class="c-reg">NM25MATR07</td>
+  <td class="c-reg">NM25MATR005</td>
   <td class="c-name">NIBA FATHIMA</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">7</td>
   <td class="c-roll">MU2508</td>
-  <td class="c-reg">NM25MATR08</td>
+  <td class="c-reg">NM25MATR006</td>
   <td class="c-name">NIBA FATHIMA V P</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">8</td>
   <td class="c-roll">MU2509</td>
-  <td class="c-reg">NM25MATR09</td>
+  <td class="c-reg">NM25MATR007</td>
   <td class="c-name">NUBLA A</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">9</td>
   <td class="c-roll">MU2511</td>
-  <td class="c-reg">NM25MATR010</td>
+  <td class="c-reg">NM25MATR009</td>
   <td class="c-name">SHIFANA M</td>
   <td class="c-rem"></td>
 </tr>
@@ -1101,84 +1108,84 @@
 <tr>
   <td class="c-sl">11</td>
   <td class="c-roll">MU2516</td>
-  <td class="c-reg">NM25MATR012</td>
+  <td class="c-reg">NM25MATR014</td>
   <td class="c-name">MUHAMMED ABDULLA</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">12</td>
   <td class="c-roll">MU2518</td>
-  <td class="c-reg">NM25MATR013</td>
+  <td class="c-reg">NM25MATR016</td>
   <td class="c-name">MUHAMMED RIHAN FAHEZ</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">13</td>
   <td class="c-roll">MU2519</td>
-  <td class="c-reg">NM25MATR014</td>
+  <td class="c-reg">NM25MATR018</td>
   <td class="c-name">MUHAMMED SALIH ASHRAF</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">14</td>
   <td class="c-roll">MU2521</td>
-  <td class="c-reg">NM25MATR015</td>
+  <td class="c-reg">NM25MATR020</td>
   <td class="c-name">MUHAMMED THAMEEM C P</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">15</td>
   <td class="c-roll">MU2522</td>
-  <td class="c-reg">NM25MATR016</td>
+  <td class="c-reg">NM25MATR021</td>
   <td class="c-name">FATHIMATHU NAFIYA.T.K</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">16</td>
   <td class="c-roll">MU2523</td>
-  <td class="c-reg">NM25MATR017</td>
+  <td class="c-reg">NM25MATR022</td>
   <td class="c-name">NIHA FATHIMA A</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">17</td>
   <td class="c-roll">MU2527</td>
-  <td class="c-reg">NM25MATR020</td>
+  <td class="c-reg">NM25MATR026</td>
   <td class="c-name">CHANDHANA CHANDRAN</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">18</td>
   <td class="c-roll">MU2528</td>
-  <td class="c-reg">NM25MATR021</td>
+  <td class="c-reg">NM25MATR027</td>
   <td class="c-name">DHWANI.K.P</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">19</td>
   <td class="c-roll">MU2531</td>
-  <td class="c-reg">NM25MATR022</td>
+  <td class="c-reg">NM25MATR029</td>
   <td class="c-name">SHAHADIYA T</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">20</td>
   <td class="c-roll">MU2532</td>
-  <td class="c-reg">NM25MATR023</td>
+  <td class="c-reg">NM25MATR030</td>
   <td class="c-name">ABHIRAM.K</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">21</td>
   <td class="c-roll">MU2533</td>
-  <td class="c-reg">NM25MATR024</td>
+  <td class="c-reg">NM25MATR031</td>
   <td class="c-name">ASLAHA T</td>
   <td class="c-rem"></td>
 </tr>
 <tr>
   <td class="c-sl">22</td>
   <td class="c-roll">MU2536</td>
-  <td class="c-reg">NM25MATR025</td>
+  <td class="c-reg">NM25MATR034</td>
   <td class="c-name">MUHAMMED SHAMMAS</td>
   <td class="c-rem"></td>
 </tr>
@@ -1273,6 +1280,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(4, this.value)">
     <button class="print-btn" onclick="printTab(4)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(4)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -1576,6 +1584,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(5, this.value)">
     <button class="print-btn" onclick="printTab(5)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(5)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -1767,6 +1776,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(6, this.value)">
     <button class="print-btn" onclick="printTab(6)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(6)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -1993,7 +2003,7 @@
 <tr>
   <td class="c-sl">1</td>
   <td class="c-roll">MU2537</td>
-  <td class="c-reg">NM25MATR04</td>
+  <td class="c-reg">NM25MATR035</td>
   <td class="c-name">HANIYA NASRIN</td>
   <td class="c-rem"></td>
 </tr>
@@ -2014,6 +2024,7 @@
   <div class="action-bar">
     <input type="text" class="search" placeholder="Search by name or roll number…" oninput="filterTable(7, this.value)">
     <button class="print-btn" onclick="printTab(7)">Print as Pdf</button>
+    <button class="excel-btn" onclick="exportExcel(7)">Convert to Excel</button>
   </div>
 
   <div class="prog-block">
@@ -2058,7 +2069,7 @@
 <tr>
   <td class="c-sl">1</td>
   <td class="c-roll">MU2524</td>
-  <td class="c-reg">NM25MATR018</td>
+  <td class="c-reg">NM25MATR023</td>
   <td class="c-name">AKSHAY P K</td>
   <td class="c-rem"></td>
 </tr>
@@ -2341,6 +2352,7 @@
   NAM College Kallikkandy · igmathspace.github.io
 </div>
 <div id="print-area"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 <script>
   function showTab(idx) {
     document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
@@ -2350,6 +2362,113 @@
     q = q.trim().toLowerCase();
     document.querySelectorAll('#panel-' + idx + ' table.data tbody tr').forEach(row => {
       row.style.display = (q === '' || row.textContent.toLowerCase().includes(q)) ? '' : 'none';
+    });
+  }
+  function exportExcel(idx) {
+    if (typeof ExcelJS === 'undefined') {
+      alert('The Excel library could not be loaded. Please check your internet connection and try again.');
+      return;
+    }
+    const clean = s => (s || '').replace(/\u00a0/g, ' ').replace(/\s+/g, ' ').trim();
+    const panel = document.getElementById('panel-' + idx);
+    const head = Array.from(panel.querySelectorAll('.doc-head > div')).map(d => clean(d.textContent));
+    const foot = clean(panel.querySelector('.doc-foot').textContent);
+    const courseName = clean(panel.querySelector('.d-prog').textContent.split('|')[0]);
+    const COLS = 5;
+    const NAVY = 'FF1A237E', ORANGE = 'FFFF6F00', LIGHT = 'FFE8EAF6', ZEBRA = 'FFF7F8FC';
+    const thin = { style: 'thin', color: { argb: 'FF555555' } };
+    const box = { top: thin, left: thin, bottom: thin, right: thin };
+    const solid = argb => ({ type: 'pattern', pattern: 'solid', fgColor: { argb: argb } });
+
+    const wb = new ExcelJS.Workbook();
+    const sheetName = courseName.replace(/[\\\/\?\*\[\]:]/g, '').substring(0, 31) || 'Students';
+    const ws = wb.addWorksheet(sheetName, {
+      pageSetup: {
+        paperSize: 9, orientation: 'portrait', fitToPage: true, fitToWidth: 1, fitToHeight: 0,
+        horizontalCentered: true,
+        margins: { left: 0.5, right: 0.5, top: 0.6, bottom: 0.7, header: 0.3, footer: 0.3 }
+      },
+      headerFooter: { oddFooter: '&CPage &P of &N' }
+    });
+    ws.columns = [{ width: 9 }, { width: 14 }, { width: 19 }, { width: 40 }, { width: 24 }];
+
+    /* one merged, full-width row (used for heading, programme labels and footer) */
+    const mergedRow = (text, font, fill, height, align) => {
+      const row = ws.addRow([text]);
+      ws.mergeCells(row.number, 1, row.number, COLS);
+      const cell = row.getCell(1);
+      cell.font = font;
+      cell.alignment = { horizontal: align || 'center', vertical: 'middle', wrapText: true, indent: align === 'left' ? 1 : 0 };
+      for (let c = 1; c <= COLS; c++) { if (fill) row.getCell(c).fill = solid(fill); }
+      row.height = height;
+      return row;
+    };
+
+    /* heading : college, title, semester, course, course line */
+    const headStyle = [
+      { size: 16, color: 'FFFFFFFF', fill: NAVY, h: 30 },
+      { size: 13, color: NAVY, fill: LIGHT, h: 22 },
+      { size: 12, color: NAVY, fill: LIGHT, h: 21 },
+      { size: 11, color: 'FF222222', fill: LIGHT, h: 20 },
+      { size: 11, color: 'FF222222', fill: LIGHT, h: 22 }
+    ];
+    head.forEach((text, i) => {
+      const st = headStyle[Math.min(i, headStyle.length - 1)];
+      const row = mergedRow(text, { name: 'Calibri', size: st.size, bold: i !== 3, color: { argb: st.color } }, st.fill, st.h);
+      if (i === head.length - 1) {
+        for (let c = 1; c <= COLS; c++) row.getCell(c).border = { bottom: { style: 'medium', color: { argb: ORANGE } } };
+      }
+    });
+    ws.addRow([]).height = 8;
+
+    /* programme blocks (or the single table) */
+    panel.querySelectorAll('table.data').forEach(table => {
+      const block = table.closest('.prog-block');
+      if (block && block.querySelector('.prog-label')) {
+        const lab = mergedRow(clean(block.querySelector('.prog-label').textContent),
+          { name: 'Calibri', size: 11, bold: true, color: { argb: NAVY } }, LIGHT, 21, 'left');
+        lab.getCell(1).border = { left: { style: 'thick', color: { argb: ORANGE } } };
+      }
+      const hdr = ws.addRow(Array.from(table.querySelectorAll('thead th')).map(th => clean(th.textContent)));
+      hdr.height = 22;
+      hdr.eachCell(c => {
+        c.font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FFFFFFFF' } };
+        c.fill = solid(NAVY);
+        c.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
+        c.border = box;
+      });
+      const rows = Array.from(table.tBodies[0].rows).filter(r => r.style.display !== 'none');
+      rows.forEach((tr, n) => {
+        const vals = Array.from(tr.cells).map(td => clean(td.textContent));
+        if (/^\d+$/.test(vals[0])) vals[0] = Number(vals[0]);
+        const row = ws.addRow(vals);
+        row.height = 19;
+        row.eachCell({ includeEmpty: true }, (c, col) => {
+          if (col > COLS) return;
+          c.font = { name: col === 2 || col === 3 ? 'Consolas' : 'Calibri', size: 11, bold: col === 4 };
+          c.alignment = {
+            horizontal: col <= 3 ? 'center' : 'left', vertical: 'middle', wrapText: true,
+            indent: col >= 4 ? 1 : 0
+          };
+          c.border = box;
+          if (n % 2 === 1) c.fill = solid(ZEBRA);
+        });
+      });
+      ws.addRow([]).height = 10;
+    });
+
+    /* footer */
+    const fr = mergedRow(foot, { name: 'Calibri', size: 11, bold: true, color: { argb: NAVY } }, LIGHT, 24);
+    for (let c = 1; c <= COLS; c++) fr.getCell(c).border = { top: { style: 'medium', color: { argb: NAVY } } };
+
+    const fileName = (courseName.replace(/[\\\/:*?"<>|]/g, '').trim() || 'Student Data') + '.xlsx';
+    wb.xlsx.writeBuffer().then(buf => {
+      const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = fileName;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
     });
   }
   function printTab(idx) {
