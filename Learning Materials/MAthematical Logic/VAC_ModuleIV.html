@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KU3VACMAT202 · Logic &amp; Propositional Calculus III</title>
+
+  <script>window.MathJax = { svg: { fontCache: 'none' } };</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+      background: #dceefb;
+      padding: 2rem 1rem;
+      color: #0a2a4a;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 80, 150, 0.25);
+      padding: 2rem 2rem 1.5rem;
+    }
+
+    .header {
+      border-bottom: 3px solid #5a9bd5;
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .header h1 { font-size: 2rem; font-weight: 700; color: #0a2a4a; }
+    .header h2 {
+      font-size: 1.3rem; font-weight: 500; color: #1e4a6e;
+      margin-top: 0.25rem; border-left: 5px solid #5a9bd5; padding-left: 0.9rem;
+    }
+
+    .tabs {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+      border-bottom: 2px solid #b8d9f0; padding-bottom: 0.25rem;
+    }
+    .tab-btn {
+      background: transparent; border: none; padding: 0.75rem 1.5rem;
+      font-size: 1rem; font-weight: 600; color: #1e4a6e;
+      border-radius: 2rem 2rem 0 0; cursor: pointer;
+      font-family: inherit; border-bottom: 3px solid transparent;
+      margin-bottom: -0.25rem; transition: 0.2s;
+    }
+    .tab-btn:hover { background: #e4f1fd; color: #0a2a4a; }
+    .tab-btn.active { background: #d4e8fa; color: #0a2a4a; border-bottom-color: #5a9bd5; }
+
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    h3 {
+      font-size: 1.5rem; font-weight: 700; color: #1e4a6e;
+      margin: 1.8rem 0 0.8rem; border-bottom: 2px solid #c5ddf2; padding-bottom: 0.3rem;
+    }
+    h4 { font-size: 1.2rem; font-weight: 600; color: #3a7bb5; margin: 1.4rem 0 0.6rem; }
+    p, li { margin-bottom: 0.75rem; }
+
+    .theorem, .example, .definition, .remark, .explanation {
+      padding: 1rem 1.4rem; border-radius: 1rem; margin: 1.2rem 0;
+      background: #f2f9ff; border-left: 6px solid #5a9bd5;
+      box-shadow: 0 2px 8px rgba(90, 155, 213, 0.08);
+    }
+    .theorem { border-left-color: #2a6b9e; background: #e6f0fa; }
+    .example { border-left-color: #2e7d32; background: #f3faf3; }
+    .remark { border-left-color: #b28704; background: #fffbf0; }
+    .definition { border-left-color: #8e44ad; background: #f8f0fc; }
+    .explanation { border-left-color: #0a6e6e; background: #e6f7f7; }
+
+    .theorem strong, .example strong, .remark strong,
+    .definition strong, .explanation strong {
+      font-weight: 700; color: #0a2a4a; display: inline-block; margin-right: 0.5rem;
+    }
+
+    /* Centered tables */
+    table {
+      border-collapse: collapse;
+      margin: 1.2rem auto;
+      font-size: 1rem;
+      background: white;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(90, 155, 213, 0.12);
+      min-width: 260px;
+      display: block;
+      width: fit-content;
+    }
+    th {
+      background: #5a9bd5; color: white; font-weight: 600;
+      padding: 0.6rem 1.2rem; text-align: center; border: 1px solid #4a8bc5;
+    }
+    td {
+      padding: 0.5rem 1.2rem; text-align: center;
+      border: 1px solid #d6e6f5; font-family: 'Courier New', monospace; font-weight: 500;
+    }
+    tr:nth-child(even) td { background: #f5faff; }
+    .table-caption {
+      font-weight: 600; color: #1e4a6e;
+      margin-top: -0.5rem; margin-bottom: 1rem;
+      font-style: italic; text-align: center;
+    }
+
+    .list-condensed { list-style: none; padding-left: 0; }
+    .list-condensed li { margin-bottom: 0.5rem; }
+
+    .footnote {
+      margin-top: 2.5rem; padding-top: 1.25rem; border-top: 2px dashed #9cc3e6;
+      font-size: 0.95rem; color: #1e4a6e; text-align: right;
+    }
+    .footnote p { margin-bottom: 0.2rem; }
+    .footnote strong { color: #0a2a4a; }
+
+    .save-pdf-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #5a9bd5; color: white; border: none;
+      padding: 0.65rem 1.5rem; border-radius: 2rem;
+      font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; margin-bottom: 1.5rem;
+      box-shadow: 0 4px 10px rgba(90, 155, 213, 0.3);
+      transition: background 0.2s;
+    }
+    .save-pdf-btn:hover { background: #3a7bb5; }
+    .save-pdf-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+    /* Offscreen staging container */
+    #pdf-staging {
+      position: fixed; top: 0; left: 0;
+      width: 794px; opacity: 0; pointer-events: none;
+      z-index: -1; background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>KU3VACMAT202: MATHEMATICAL LOGIC</h1>
+    <h2>MODULE IV : Logic and Propositional Calculus III</h2>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="tab1">10.10 Logical implication</button>
+    <button class="tab-btn" data-tab="tab2">10.11 Propositional functions, Quantifiers</button>
+    <button class="tab-btn" data-tab="tab3">10.12 Negation of Quantified statements</button>
+  </div>
+
+  <!-- ================= TAB 1 ================= -->
+  <div id="tab1" class="tab-pane active">
+    <button class="save-pdf-btn" data-pdf-tab="tab1">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Save as PDF
+    </button>
+
+    <div class="pdf-content" id="pdf-content-tab1">
+      <h3>10.10 Logical Implication</h3>
+
+      <div class="explanation">
+        <strong>What does “logical implication” really mean?</strong>
+        In everyday language, when we say “if it rains, the ground gets wet”, we mean the second fact
+        follows from the first. In logic, we make this precise: \( P \) logically implies \( Q \) when
+        there is no possible situation (no row of the truth table) in which \( P \) is true and \( Q \)
+        is false. Logical implication is about the <em>form</em> of the statements, not their subject matter.
+      </div>
+
+      <p>A proposition \( P(p, q, \dots) \) is said to <strong>logically imply</strong> a proposition
+      \( Q(p, q, \dots) \), written
+      \[
+        P(p, q, \dots) \Rightarrow Q(p, q, \dots)
+      \]
+      if \( Q(p, q, \dots) \) is true whenever \( P(p, q, \dots) \) is true.</p>
+
+      <div class="example">
+        <strong>Example 10.8.</strong> We claim that \( p \) logically implies \( p \lor q \).
+        For consider the truth table in Fig. 10-11. Observe that \( p \) is true in Cases (rows)
+        1 and 2, and in these cases \( p \lor q \) is also true. Thus \( p \Rightarrow p \lor q \).
+      </div>
+
+      <table>
+        <tr><th>\(p\)</th><th>\(q\)</th><th>\(p \lor q\)</th></tr>
+        <tr><td>T</td><td>T</td><td>T</td></tr>
+        <tr><td>T</td><td>F</td><td>T</td></tr>
+        <tr><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td></tr>
+      </table>
+      <div class="table-caption">Fig. 10-11</div>
+
+      <div class="explanation">
+        <strong>Real-life illustration.</strong> Let \( p \) be “It is raining” and \( q \) be
+        “It is cloudy”. Then \( p \lor q \) is “It is raining or it is cloudy”. If it is indeed raining,
+        then “It is raining or it is cloudy” is automatically true — it does not matter whether it is
+        cloudy. So “It is raining” logically implies “It is raining or it is cloudy”. This is the
+        pattern behind the logical rule called <em>addition</em> (or <em>or-introduction</em>):
+        from any statement \( P \), infer \( P \lor Q \).
+      </div>
+
+      <p>Now if \( Q(p, q, \dots) \) is true whenever \( P(p, q, \dots) \) is true, then the argument
+      \[
+        P(p, q, \dots) \vdash Q(p, q, \dots)
+      \]
+      is valid; and conversely. Furthermore, the argument \( P \vdash Q \) is valid if and only if
+      the conditional statement \( P \rightarrow Q \) is always true, i.e., a tautology. We state this
+      result formally.</p>
+
+      <div class="theorem">
+        <strong>Theorem 10.4.</strong> For any propositions \( P(p, q, \dots) \) and
+        \( Q(p, q, \dots) \) the following three statements are equivalent:
+        <ul class="list-condensed" style="margin-top:0.5rem;">
+          <li>(i) \( P(p, q, \dots) \) logically implies \( Q(p, q, \dots) \).</li>
+          <li>(ii) The argument \( P(p, q, \dots) \vdash Q(p, q, \dots) \) is valid.</li>
+          <li>(iii) The proposition \( P(p, q, \dots) \rightarrow Q(p, q, \dots) \) is a tautology.</li>
+        </ul>
+      </div>
+
+      <div class="explanation">
+        <strong>Why the theorem matters.</strong> The theorem gives three equivalent ways to check
+        the same thing — semantic (truth tables), syntactic (valid arguments), and truth-table
+        (tautology). For instance, to check whether “If a number is divisible by 4, then it is even”
+        is a valid implication, we can reason directly, test the argument form, or build a truth table.
+        All three routes lead to the same verdict.
+      </div>
+
+      <p>We note that some logicians and many texts use the word “implies” in the same sense as we
+      use “logically implies”, and so they distinguish between “implies” and “if . . . then”.
+      These two distinct concepts are, of course, intimately related as seen in the above theorem.</p>
+    </div>
+  </div>
+
+  <!-- ================= TAB 2 ================= -->
+  <div id="tab2" class="tab-pane">
+    <button class="save-pdf-btn" data-pdf-tab="tab2">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Save as PDF
+    </button>
+
+    <div class="pdf-content" id="pdf-content-tab2">
+      <h3>10.11 Propositional Functions, Quantifiers</h3>
+
+      <div class="explanation">
+        <strong>From sentences to conditions.</strong> A proposition is a sentence that is either true
+        or false, like “7 is prime” or “Paris is in France”. But many sentences contain a variable:
+        “\( x \) is prime”, “\( x + 2 > 7 \)”. These are <em>propositional functions</em> — they become
+        propositions only after a value is substituted for \( x \). The <em>truth set</em> collects
+        all values from the domain that make the condition true.
+      </div>
+
+      <p>Let \( A \) be a given set. A <strong>propositional function</strong> (or an open sentence or
+      condition) defined on \( A \) is an expression
+      \[
+        p(x)
+      \]
+      which has the property that \( p(a) \) is true or false for each \( a \in A \). The set \( A \)
+      is called the <strong>domain</strong> of \( p(x) \), and the set \( T_p \) of all elements of
+      \( A \) for which \( p(a) \) is true is called the <strong>truth set</strong> of \( p(x) \).
+      In other words,
+      \[
+        T_p = \{\, x : x \in A,\ p(x) \text{ is true} \,\} \quad \text{or} \quad
+        T_p = \{\, x : p(x) \,\}
+      \]
+      </p>
+
+      <div class="example">
+        <strong>Example 10.9.</strong> Find the truth set \( T_p \) of each propositional function
+        \( p(x) \) defined on \( P = \{1, 2, 3, \dots\} \).
+        <ul style="margin-top:0.6rem; list-style: none; padding-left:0.5rem;">
+          <li><strong>(a)</strong> \( p(x) \): “\( x + 2 > 7 \)”.
+            \[ T_p = \{6, 7, 8, \dots\} \]</li>
+          <li><strong>(b)</strong> \( p(x) \): “\( x + 5 < 3 \)”.
+            \[ T_p = \emptyset \]</li>
+          <li><strong>(c)</strong> \( p(x) \): “\( x + 5 > 1 \)”.
+            \[ T_p = P \]</li>
+        </ul>
+      </div>
+
+      <div class="explanation">
+        <strong>Real-life examples of propositional functions.</strong>
+        <ul style="margin-top:0.4rem; margin-left:1rem;">
+          <li>On all people, “\( x \) has a birthday in July” — truth set = people born in July.</li>
+          <li>On reals, “\( x^2 = 4 \)” — truth set = \( \{-2, 2\} \).</li>
+          <li>On positive integers, “\( x \) is even and \( x < 10 \)” — truth set = \( \{2, 4, 6, 8\} \).</li>
+        </ul>
+      </div>
+
+      <div class="remark">
+        <strong>Remark.</strong> \( p(x) \) could be true for all \( x \in A \), for some \( x \in A \),
+        or for no \( x \in A \).
+      </div>
+
+      <h4>Universal Quantifier</h4>
+      <p>Let \( p(x) \) be a propositional function defined on \( A \). The expression
+      \[
+        (\forall x \in A)\,p(x) \quad \text{or} \quad \forall x\, p(x) \qquad (10.1)
+      \]
+      reads “For every \( x \) in \( A \), \( p(x) \) is a true statement”. The symbol \( \forall \) is
+      called the <strong>universal quantifier</strong>. Statement (10.1) is equivalent to
+      \[
+        T_p = \{\, x : x \in A,\ p(x) \,\} = A \qquad (10.2)
+      \]
+      that is, the truth set of \( p(x) \) is the entire set \( A \).</p>
+
+      <div class="explanation">
+        <strong>Real statement with a universal quantifier.</strong> “Every human being has a heart.”
+        With \( H \) the set of humans and \( h(x) \): “\( x \) has a heart”, this is
+        \( \forall x \in H,\, h(x) \). It is true iff no human lacks a heart — i.e., iff the truth
+        set of \( h(x) \) is all of \( H \).
+      </div>
+
+      <p style="margin-left:1.5rem; font-style:italic;">
+        \( Q_1 \): If \( \{x : x \in A, p(x)\} = A \) then \( \forall x\, p(x) \) is true;
+        otherwise, \( \forall x\, p(x) \) is false.
+      </p>
+
+      <div class="example">
+        <strong>Example 10.10.</strong>
+        <ul style="margin-top:0.5rem; list-style: none; padding-left:0.5rem;">
+          <li><strong>(a)</strong> \( (\forall n \in P)\,(n + 4 > 3) \) is true since
+            \( \{\, n : n + 4 > 3 \,\} = P \).</li>
+          <li><strong>(b)</strong> \( (\forall n \in P)\,(n + 2 > 8) \) is false since
+            \( \{\, n : n + 2 > 8 \,\} = \{7, 8, \dots\} \neq P \).</li>
+          <li><strong>(c)</strong> \( \bigcap (A_i : i \in I) = \{\, x : \forall i \in I,\ x \in A_i \,\} \).</li>
+        </ul>
+      </div>
+
+      <h4>Existential Quantifier</h4>
+      <p>The expression
+      \[
+        (\exists x \in A)\,p(x) \quad \text{or} \quad \exists x\, p(x) \qquad (10.3)
+      \]
+      reads “There exists an \( x \) in \( A \) such that \( p(x) \) is true”. The symbol \( \exists \)
+      is called the <strong>existential quantifier</strong>. Statement (10.3) is equivalent to
+      \[
+        T_p = \{\, x : x \in A,\ p(x) \,\} \neq \emptyset \qquad (10.4)
+      \]
+      i.e., the truth set of \( p(x) \) is not empty.</p>
+
+      <div class="explanation">
+        <strong>Real statement with an existential quantifier.</strong> “Some students in this class
+        speak French.” With \( C \) the set of students and \( F(x) \): “\( x \) speaks French”, this
+        is \( \exists x \in C,\, F(x) \). It is true iff at least one student speaks French. Another
+        example: “There is a prime number greater than 100” — true (e.g., 101). A false one:
+        “There is a real number whose square is negative.”
+      </div>
+
+      <p style="margin-left:1.5rem; font-style:italic;">
+        \( Q_2 \): If \( \{x : p(x)\} \neq \emptyset \) then \( \exists x\, p(x) \) is true;
+        otherwise, \( \exists x\, p(x) \) is false.
+      </p>
+
+      <div class="example">
+        <strong>Example 10.11.</strong>
+        <ul style="margin-top:0.5rem; list-style: none; padding-left:0.5rem;">
+          <li><strong>(a)</strong> \( (\exists n \in P)\,(n + 4 < 7) \) is true since
+            \( \{\, n : n + 4 < 7 \,\} = \{1, 2\} \neq \emptyset \).</li>
+          <li><strong>(b)</strong> \( (\exists n \in P)\,(n + 6 < 4) \) is false since
+            \( \{\, n : n + 6 < 4 \,\} = \emptyset \).</li>
+          <li><strong>(c)</strong> \( \bigcup (A_i : i \in I) = \{\, x : \exists i \in I,\ x \in A_i \,\} \).</li>
+        </ul>
+      </div>
+
+      <h4>Notation</h4>
+      <p>Let \( A = \{2, 3, 5\} \) and \( p(x) \): “\( x \) is prime”. Then</p>
+      <p style="text-align:center;">\( p(2) \land p(3) \land p(5) \equiv \forall a \in A,\, p(a) \)</p>
+      <p style="text-align:center;">\( p(2) \lor p(3) \lor p(5) \equiv \exists a \in A,\, p(a) \)</p>
+      <p style="margin-top:1.2rem; font-size:0.95rem; color:#1e4a6e;">
+        <strong>Remark:</strong> If \( A \) is infinite, the conjunction form cannot be written out,
+        but the quantified form always can.
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= TAB 3 ================= -->
+  <div id="tab3" class="tab-pane">
+    <button class="save-pdf-btn" data-pdf-tab="tab3">
+      <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      Save as PDF
+    </button>
+
+    <div class="pdf-content" id="pdf-content-tab3">
+      <h3>10.12 Negation of Quantified Statements</h3>
+
+      <div class="explanation">
+        <strong>Negating a quantified statement is not always intuitive.</strong> The negation of
+        “All students are hardworking” is <em>not</em> “No student is hardworking”. It is
+        “Some student is not hardworking”. The quantifier flips and the inner condition is negated.
+        This is the content of DeMorgan's laws for quantifiers.
+      </div>
+
+      <p>Consider the statement: “All math majors are male”. Its negation is either of the following
+      equivalent statements:</p>
+      <ul style="margin-left:1.5rem; margin-bottom:1rem;">
+        <li>“It is not the case that all math majors are male”</li>
+        <li>“There exists at least one math major who is a female (not male)”</li>
+      </ul>
+      <p>Symbolically, using \( M \) for the set of math majors and \( p(x) \): “\( x \) is male”,
+      \[
+        \neg (\forall x \in M)\, p(x) \equiv (\exists x \in M)\, \neg p(x)
+      \]
+      </p>
+
+      <div class="theorem">
+        <strong>Theorem 10.5 (DeMorgan).</strong>
+        \( \neg (\forall x \in A)\, p(x) \equiv (\exists x \in A)\, \neg p(x) \).
+      </div>
+
+      <p>In other words, the following two statements are equivalent:</p>
+      <ol style="margin-left:1.5rem; margin-bottom:1rem;">
+        <li>It is not true that, for all \( a \in A \), \( p(a) \) is true.</li>
+        <li>There exists an \( a \in A \) such that \( p(a) \) is false.</li>
+      </ol>
+
+      <div class="theorem">
+        <strong>Theorem 10.6 (DeMorgan).</strong>
+        \( \neg (\exists x \in A)\, p(x) \equiv (\forall x \in A)\, \neg p(x) \).
+      </div>
+
+      <p>That is, the following two statements are equivalent:</p>
+      <ol style="margin-left:1.5rem; margin-bottom:1rem;">
+        <li>It is not true that for some \( a \in A \), \( p(a) \) is true.</li>
+        <li>For all \( a \in A \), \( p(a) \) is false.</li>
+      </ol>
+
+      <div class="explanation">
+        <strong>Real statements and their negations.</strong>
+        <ul style="margin-top:0.4rem; margin-left:1rem;">
+          <li>“All birds can fly.” Negation: “Some bird cannot fly.” (Ostriches, penguins.)</li>
+          <li>“Some prime numbers are even.” Negation: “No prime number is even.”</li>
+          <li>“Every student in the class passed.” Negation: “At least one student did not pass.”</li>
+          <li>“There exists a real \( x \) with \( x^2 = -1 \).” Negation: “For every real \( x \), \( x^2 \neq -1 \).”</li>
+        </ul>
+      </div>
+
+      <div class="example">
+        <strong>Example 10.12.</strong>
+        <ul style="margin-top:0.5rem; list-style: none; padding-left:0.5rem;">
+          <li><strong>(a)</strong> “For all positive integers \( n \), \( n + 2 > 8 \)” vs.
+            “There exists a positive integer \( n \) with \( n + 2 \neq 8 \)”.</li>
+          <li><strong>(b)</strong> “There exists a college student who is 60” vs.
+            “Every college student is not 60”.</li>
+        </ul>
+      </div>
+
+      <div class="remark">
+        <strong>Remark.</strong> In terms of truth sets:
+        \( \neg p(x) \) is the complement of \( p(x) \);
+        \( p(x) \land q(x) \) is the intersection;
+        \( p(x) \lor q(x) \) is the union. DeMorgan's laws hold:
+        \[
+          \neg (p(x) \land q(x)) \equiv \neg p(x) \lor \neg q(x)
+        \]
+        \[
+          \neg (p(x) \lor q(x)) \equiv \neg p(x) \land \neg q(x)
+        \]
+      </div>
+
+      <h4>Counterexample</h4>
+      <p>To show \( \forall x,\, p(x) \) is false, it suffices to produce one \( x_0 \) with
+      \( p(x_0) \) false. Such an \( x_0 \) is a <strong>counterexample</strong>.</p>
+
+      <div class="explanation">
+        <strong>Counterexamples in action.</strong> To disprove “All prime numbers are odd”, produce 2.
+        To disprove “Every student scored above 50”, find one student who scored 50 or below. A single
+        counterexample destroys a universal statement.
+      </div>
+
+      <div class="example">
+        <strong>Example 10.13.</strong>
+        <ul style="margin-top:0.5rem; list-style: none; padding-left:0.5rem;">
+          <li><strong>(a)</strong> \( \forall x \in \mathbb{R},\, |x| \neq 0 \) is false; 0 is a counterexample.</li>
+          <li><strong>(b)</strong> \( \forall x \in \mathbb{R},\, x^2 \geq x \) is false; \( 1/2 \) is a counterexample.</li>
+          <li><strong>(c)</strong> \( \forall x \in \mathbb{P},\, x^2 \geq x \) is true (no counterexample).</li>
+        </ul>
+      </div>
+
+      <h4>Propositional Functions with More than One Variable</h4>
+      <p>A propositional function \( p(x_1, \dots, x_n) \) on \( A_1 \times \cdots \times A_n \) becomes
+      a statement when quantified for each variable. For example,
+      \[
+        x + 2y + 3z < 18
+      \]
+      is a propositional function on \( \mathbb{P}^3 \).</p>
+
+      <div class="example">
+        <strong>Example 10.14.</strong> Let \( B = \{1, \dots, 9\} \) and \( p(x,y) \): “\( x + y = 10 \)”.
+        <ul style="margin-top:0.5rem; list-style: none; padding-left:0.5rem;">
+          <li><strong>(a)</strong> \( \forall x \exists y,\, p(x,y) \) — true (choose \( y = 10 - x \)).</li>
+          <li><strong>(b)</strong> \( \exists y \forall x,\, p(x,y) \) — false (no single \( y \) works for all \( x \)).</li>
+        </ul>
+        <p style="margin-top:0.8rem;"><strong>Warning!</strong> Order of quantifiers matters.</p>
+      </div>
+
+      <div class="explanation">
+        <strong>Order of quantifiers — real-life comparison.</strong>
+        <ul style="margin-top:0.4rem; margin-left:1rem;">
+          <li>“Everyone has a mother” — \( \forall x \exists y \). True.</li>
+          <li>“There is a mother of everyone” — \( \exists y \forall x \). False.</li>
+        </ul>
+      </div>
+
+      <h4>Negating Multi-Variable Statements</h4>
+      <p>Apply DeMorgan successively, flipping each quantifier:
+      \[
+        \neg[\forall x \exists y \exists z,\, p(x,y,z)] \equiv \exists x \forall y \forall z,\, \neg p(x,y,z)
+      \]
+      </p>
+
+      <div class="example">
+        <strong>Example 10.15.</strong>
+        <ul style="margin-top:0.5rem; list-style: none; padding-left:0.5rem;">
+          <li><strong>(a)</strong> “Every student has at least one course where the lecturer is a TA”
+            → negation: “There is a student such that in every course the lecturer is not a TA”.</li>
+          <li><strong>(b)</strong> \( L \) is the limit of \( (a_n) \) iff
+            \[
+              \forall \varepsilon > 0,\ \exists n_0,\ \forall n > n_0,\ |a_n - L| < \varepsilon
+            \]
+            Negation:
+            \[
+              \exists \varepsilon > 0,\ \forall n_0,\ \exists n > n_0,\ |a_n - L| \ge \varepsilon
+            \]
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <p><strong>Gafoor I</strong> — Assistant Professor</p>
+    <p>Department of Mathematics</p>
+  </div>
+</div>
+
+<div id="pdf-staging"></div>
+
+<script>
+  /* ---------- TABS ---------- */
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabButtons.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  /* ---------- PDF STYLES (used for each per-page canvas) ---------- */
+  const PDF_STYLES = `
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: 'Latin Modern Roman', 'Times New Roman', 'Computer Modern', serif;
+      color: #0a2a4a; line-height: 1.65; font-size: 12pt; background: white;
+    }
+    .pdf-header {
+      border-bottom: 2px solid #5a9bd5; padding-bottom: 12px; margin-bottom: 22px;
+    }
+    .pdf-header h1 { font-size: 20pt; font-weight: 700; color: #0a2a4a; margin: 0 0 4px; }
+    .pdf-header h2 {
+      font-size: 13pt; font-weight: 500; color: #1e4a6e; margin: 0;
+      border-left: 4px solid #5a9bd5; padding-left: 10px;
+    }
+    .pdf-header h3 {
+      font-size: 16pt; font-weight: 700; color: #1e4a6e;
+      margin: 18px 0 10px; border-bottom: 2px solid #c5ddf2; padding-bottom: 4px;
+    }
+    h4 { font-size: 13pt; font-weight: 600; color: #3a7bb5; margin: 18px 0 8px; }
+    p, li { margin-bottom: 8px; text-align: justify; font-size: 11.5pt; }
+    .theorem, .example, .definition, .remark, .explanation {
+      padding: 10px 16px; border-radius: 8px; margin: 14px 0;
+      background: #f2f9ff; border-left: 5px solid #5a9bd5;
+    }
+    .theorem { border-left-color: #2a6b9e; background: #e6f0fa; }
+    .example { border-left-color: #2e7d32; background: #f3faf3; }
+    .remark { border-left-color: #b28704; background: #fffbf0; }
+    .definition { border-left-color: #8e44ad; background: #f8f0fc; }
+    .explanation { border-left-color: #0a6e6e; background: #e6f7f7; }
+    .theorem strong, .example strong, .remark strong,
+    .definition strong, .explanation strong {
+      font-weight: 700; color: #0a2a4a; display: inline-block; margin-right: 6px;
+    }
+    table {
+      border-collapse: collapse; margin: 14px auto;
+      font-size: 10.5pt; background: white; border-radius: 6px;
+      overflow: hidden; box-shadow: 0 2px 8px rgba(90, 155, 213, 0.12);
+      display: table;
+    }
+    th {
+      background: #5a9bd5; color: white; font-weight: 600;
+      padding: 6px 14px; text-align: center; border: 1px solid #4a8bc5;
+    }
+    td {
+      padding: 5px 14px; text-align: center;
+      border: 1px solid #d6e6f5; font-family: 'Courier New', monospace; font-weight: 500;
+    }
+    tr:nth-child(even) td { background: #f5faff; }
+    .table-caption {
+      font-weight: 600; color: #1e4a6e; margin-top: -6px; margin-bottom: 10px;
+      font-style: italic; font-size: 10.5pt; text-align: center;
+    }
+    .list-condensed { list-style: none; padding-left: 0; }
+    .list-condensed li { margin-bottom: 4px; }
+    .footnote {
+      margin-top: 28px; padding-top: 14px; border-top: 2px dashed #9cc3e6;
+      font-size: 10pt; color: #1e4a6e; text-align: right;
+    }
+    .footnote p { margin-bottom: 2px; }
+    .footnote strong { color: #0a2a4a; }
+  `;
+
+  /* ---------- A4 constants (in inches) ---------- */
+  const A4_W_IN = 8.27;
+  const A4_H_IN = 11.69;
+  const MARGIN_IN = 1.0;
+  const CONTENT_W_IN = A4_W_IN - 2 * MARGIN_IN; // 6.27
+  const CONTENT_H_IN = A4_H_IN - 2 * MARGIN_IN; // 9.69
+
+  /* CSS pixels per inch at 96 dpi */
+  const PX_PER_IN = 96;
+  const CONTENT_W_PX = Math.round(CONTENT_W_IN * PX_PER_IN);   // ~602
+  const CONTENT_H_PX = Math.round(CONTENT_H_IN * PX_PER_IN);   // ~930
+  const MARGIN_PX = Math.round(MARGIN_IN * PX_PER_IN);         // 96
+  const PAGE_W_PX = Math.round(A4_W_IN * PX_PER_IN);           // ~794
+  const PAGE_H_PX = Math.round(A4_H_IN * PX_PER_IN);           // ~1123
+
+  /* ---------- Build header & footer HTML ---------- */
+  function headerHtml(tabTitle) {
+    return `
+      <div class="pdf-header">
+        <h1>KU3VACMAT202: MATHEMATICAL LOGIC</h1>
+        <h2>MODULE IV : Logic and Propositional Calculus III</h2>
+        <h3>${tabTitle}</h3>
+      </div>
+    `;
+  }
+  function footerHtml() {
+    return `
+      <div class="footnote">
+        <p><strong>Gafoor I</strong> — Assistant Professor</p>
+        <p>Department of Mathematics</p>
+      </div>
+    `;
+  }
+
+  /* ---------- Wrapper that keeps a block's margins inside its own box ---------- */
+  function wrapBlock(el) {
+    const w = document.createElement('div');
+    w.style.display = 'flow-root';
+    w.appendChild(el);
+    return w;
+  }
+
+  /* ---------- Paginate blocks into pages ---------- */
+  async function paginate(tabTitle, contentEl) {
+    const staging = document.getElementById('pdf-staging');
+    staging.innerHTML = `<style>${PDF_STYLES}</style>
+      <div id="measure-root" style="width:${CONTENT_W_PX}px;"></div>`;
+    const root = document.getElementById('measure-root');
+
+    // 1) Inject header (only first page) and content
+    const headerDiv = document.createElement('div');
+    headerDiv.innerHTML = headerHtml(tabTitle);
+    const headerEl = wrapBlock(headerDiv.firstElementChild);
+    root.appendChild(headerEl);
+
+    // 2) Inject content block by block
+    const blocks = [];
+    for (const child of contentEl.children) {
+      if (child.tagName === 'H3') continue; // title already shown in the PDF header
+      // flow-root wrapper => the block's margins are included in its measured height
+      const clone = wrapBlock(child.cloneNode(true));
+      root.appendChild(clone);
+      blocks.push(clone);
+    }
+
+    // 3) Inject footer (we will reposition it to the last page manually)
+    const footerDiv = document.createElement('div');
+    footerDiv.innerHTML = footerHtml();
+    const footerEl = wrapBlock(footerDiv.firstElementChild);
+    root.appendChild(footerEl);
+
+    // Clones are already typeset by MathJax (done in saveTabAsPdf); re-typesetting them doubles the equations
+    await new Promise(r => setTimeout(r, 250));
+
+    // 4) Measure each block's height
+    const blocksWithHeights = blocks.map(el => {
+      const inner = el.firstElementChild;
+      const tag = inner.tagName;
+      return {
+        el,
+        h: Math.ceil(el.getBoundingClientRect().height),
+        // headings stay with the block that follows them
+        keepWithNext: /^H[1-6]$/.test(tag),
+        // a table caption stays with the table above it
+        isCaption: inner.classList.contains('table-caption')
+      };
+    });
+
+    const headerH = headerEl ? Math.ceil(headerEl.getBoundingClientRect().height) : 0;
+    const footerH = Math.ceil(footerEl.getBoundingClientRect().height);
+
+    // 5) Pack blocks into pages
+    const SAFETY_PX = 6; // small buffer against sub-pixel rounding
+    const pageCapacityFirst = CONTENT_H_PX - headerH - SAFETY_PX;
+    const pageCapacityOther = CONTENT_H_PX - SAFETY_PX;
+
+    // group blocks that must stay together (heading+next, table+caption)
+    const units = [];
+    for (let i = 0; i < blocksWithHeights.length; i++) {
+      const b = blocksWithHeights[i];
+      if (b.isCaption && units.length) {
+        const u = units[units.length - 1];
+        u.items.push(b); u.h += b.h;
+        continue;
+      }
+      const unit = { items: [b], h: b.h };
+      let cur = b;
+      while (cur.keepWithNext && i + 1 < blocksWithHeights.length) {
+        cur = blocksWithHeights[++i];
+        unit.items.push(cur); unit.h += cur.h;
+        if (!cur.keepWithNext) break;
+      }
+      units.push(unit);
+    }
+
+    const pages = [];
+    let currentPage = { items: [], usedH: 0, isFirst: true };
+    for (const u of units) {
+      const cap = currentPage.isFirst ? pageCapacityFirst : pageCapacityOther;
+      if (currentPage.usedH + u.h > cap && currentPage.items.length > 0) {
+        pages.push(currentPage);
+        currentPage = { items: [], usedH: 0, isFirst: false };
+      }
+      currentPage.items.push(...u.items);
+      currentPage.usedH += u.h;
+    }
+    if (currentPage.items.length > 0) pages.push(currentPage);
+
+    // footer sits on the last page; if it doesn't fit there, give it its own page
+    const lastPage = pages[pages.length - 1];
+    const lastCap = lastPage.isFirst ? pageCapacityFirst : pageCapacityOther;
+    if (lastPage.usedH + footerH > lastCap) {
+      pages.push({ items: [], usedH: 0, isFirst: false });
+    }
+
+    // 6) Detach blocks from root so we can rebuild per page
+    blocks.forEach(b => b.remove());
+    headerEl && headerEl.remove();
+    footerEl.remove();
+    staging.innerHTML = '';
+
+    return { pages, headerHtml: headerHtml(tabTitle), footerHtml: footerHtml() };
+  }
+
+  /* ---------- Render one page to canvas ---------- */
+  async function renderPageToCanvas(pageObj, headerHtmlStr, footerHtmlStr, isFirst, isLast) {
+    const wrapper = document.createElement('div');
+    wrapper.id = 'pdf-page-wrapper';
+    wrapper.style.cssText = `
+      position: fixed; top: 0; left: 0;
+      width: ${PAGE_W_PX}px;
+      height: ${PAGE_H_PX}px;
+      background: #ffffff;
+      box-sizing: border-box;
+      padding: ${MARGIN_PX}px ${MARGIN_PX}px ${MARGIN_PX}px ${MARGIN_PX}px;
+      z-index: -1; opacity: 0; pointer-events: none;
+      font-family: 'Latin Modern Roman','Times New Roman',serif;
+    `;
+
+    const contentArea = document.createElement('div');
+    contentArea.style.cssText = `width: 100%; height: 100%; overflow: hidden; position: relative;`;
+
+    // Header
+    if (isFirst) {
+      const h = document.createElement('div');
+      h.innerHTML = headerHtmlStr;
+      contentArea.appendChild(wrapBlock(h.firstElementChild));
+    }
+
+    // Blocks
+    for (const item of pageObj.items) {
+      contentArea.appendChild(item.el);
+    }
+
+    // Footer (only on last page)
+    if (isLast) {
+      const f = document.createElement('div');
+      f.innerHTML = footerHtmlStr;
+      const footerEl = wrapBlock(f.firstElementChild);
+      // pin to the bottom margin, unless the footer is alone on its page (then keep it at the top)
+      if (pageObj.items.length > 0) {
+        footerEl.style.position = 'absolute';
+        footerEl.style.bottom = '0';
+        footerEl.style.left = '0';
+        footerEl.style.right = '0';
+      }
+      contentArea.appendChild(footerEl);
+    }
+
+    wrapper.appendChild(contentArea);
+
+    // Apply PDF styles inside wrapper
+    const styleTag = document.createElement('style');
+    styleTag.textContent = PDF_STYLES;
+    wrapper.appendChild(styleTag);
+
+    document.body.appendChild(wrapper);
+
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await new Promise(r => setTimeout(r, 120));
+
+    const canvas = await html2canvas(wrapper, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      width: PAGE_W_PX,
+      height: PAGE_H_PX,
+      windowWidth: PAGE_W_PX,
+      windowHeight: PAGE_H_PX,
+      scrollX: 0,
+      scrollY: 0,
+      // wrapper is invisible on screen (opacity 0) but must be fully opaque in the capture
+      onclone: (doc) => {
+        const w = doc.getElementById('pdf-page-wrapper');
+        if (w) { w.style.opacity = '1'; w.style.zIndex = '0'; }
+        // MathJax adds a hidden screen-reader copy (MathML) of every equation. html2canvas renames
+        // MathJax's custom tags in its clone, so remove that copy via its <math> element or it gets
+        // drawn on top of the real equation.
+        doc.querySelectorAll('#pdf-page-wrapper math').forEach(m => {
+          const holder = m.parentElement;
+          if (holder && holder.tagName !== 'BODY' && holder.children.length === 1) holder.remove();
+          else m.remove();
+        });
+      }
+    });
+
+    document.body.removeChild(wrapper);
+    return canvas;
+  }
+
+  /* ---------- Main PDF export ---------- */
+  async function saveTabAsPdf(tabId, tabTitle) {
+    const contentEl = document.getElementById('pdf-content-' + tabId);
+    if (!contentEl) { alert('Content not found'); return; }
+
+    if (window.MathJax && MathJax.typesetPromise) {
+      try { await MathJax.typesetPromise([contentEl]); } catch (e) {}
+    }
+    if (document.fonts && document.fonts.ready) {
+      try { await document.fonts.ready; } catch (e) {}
+    }
+
+    // 1) Paginate
+    const { pages, headerHtml: hh, footerHtml: fh } = await paginate(tabTitle, contentEl);
+    if (pages.length === 0) { alert('Nothing to export'); return; }
+
+    // 2) Render each page and add to PDF
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ unit: 'in', format: 'a4', orientation: 'portrait' });
+
+    for (let i = 0; i < pages.length; i++) {
+      const isFirst = i === 0;
+      const isLast = i === pages.length - 1;
+
+      const canvas = await renderPageToCanvas(pages[i], hh, fh, isFirst, isLast);
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+      if (i > 0) pdf.addPage();
+
+      // Page canvas already includes 1-inch margins on all sides
+      // → place it exactly filling the A4 page
+      pdf.addImage(imgData, 'JPEG', 0, 0, A4_W_IN, A4_H_IN, undefined, 'FAST');
+    }
+
+    pdf.save(`${tabTitle.replace(/[^a-z0-9]/gi, '_')}.pdf`);
+  }
+
+  document.querySelectorAll('.save-pdf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.dataset.pdfTab;
+      const titleMap = {
+        tab1: '10.10 Logical Implication',
+        tab2: '10.11 Propositional Functions, Quantifiers',
+        tab3: '10.12 Negation of Quantified Statements'
+      };
+      saveTabAsPdf(tabId, titleMap[tabId]);
+    });
+  });
+</script>
+
+</body>
+</html>
