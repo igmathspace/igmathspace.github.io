@@ -2,1152 +2,410 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>III Sem FYUGP Exam Nov 2026 — Projected Dates &amp; Student Count | NAM College</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exam Schedule - NAM College Kallikkandy</title>
 <style>
-  :root{
-    --navy:#0f2a4a;
-    --navy-deep:#0a1d33;
-    --gold:#c99a3b;
-    --paper:#f7f5ef;
-    --ink:#1c2733;
-    --muted:#5b6a7a;
-    --card:#ffffff;
-    --line:#e3ddcc;
+  :root {
+    --blue: #6BA3D4;
+    --blue-dark: #3F7FB0;
+    --blue-soft: #DCEBF7;
+    --teal: #5AACA8;
+    --red: #C41E3A;
+    --ivory: #FFFDF5;
+    --ink: #000000;
   }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--teal);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.45;
+  }
+  header.site-head {
+    background: var(--blue);
+    padding: 12px 12px 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  }
+  .banner {
+    display: block;
+    width: 24cm;
+    max-width: 100%;
+    aspect-ratio: 6 / 1;
+    object-fit: fill;
+    margin: 0 auto;
+  }
+  .site-head .back {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .site-head .back:hover { text-decoration: underline; }
 
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    font-family:'Georgia','Cambria',serif;
-    background:var(--paper);
-    color:var(--ink);
+  main { max-width: 1000px; margin: 22px auto 30px; padding: 0 12px; }
+  .card {
+    background: var(--ivory);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
   }
+  .table-wrap { overflow-x: auto; }
+  table.exam {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 560px;
+  }
+  table.exam th, table.exam td {
+    border: 1.5px solid #4a4a4a;
+    padding: 10px 12px;
+    vertical-align: middle;
+  }
+  table.exam td.title-cell {
+    text-align: center;
+    background: var(--ivory);
+    color: var(--red);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  td.t1 { font-size: 1.45rem; padding-top: 14px; }
+  td.t2 { font-size: 1.15rem; }
+  td.t3 { font-size: 1.1rem; padding-bottom: 14px; }
+  table.exam thead th.colhead {
+    background: var(--blue-dark);
+    color: #fff;
+    font-size: 1.05rem;
+    letter-spacing: 0.4px;
+  }
+  td.date-cell {
+    background: var(--blue-soft);
+    width: 160px;
+    text-align: center;
+    font-weight: bold;
+  }
+  td.date-cell small { display: block; font-weight: normal; color: #333; margin-top: 2px; }
+  td.paper-cell { background: #fff; font-size: 1rem; }
+  td.paper-cell .code { color: #444; white-space: nowrap; }
+  td.btn-cell { background: #fff; width: 150px; text-align: center; }
+  tbody tr.day-start td { border-top: 3px solid var(--blue-dark); }
+  tbody tr:hover td.paper-cell, tbody tr:hover td.btn-cell { background: #F2F8FD; }
 
-  /* ---------- HEADER (same as fyugp.html) ---------- */
-  header.site-header{
-    background:linear-gradient(135deg,var(--navy-deep),var(--navy));
-    color:#fff;
-    padding:0;
-    box-shadow:0 2px 10px rgba(10,29,51,0.25);
+  button.list-btn {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(#8EC2EC, #4F8FBF);
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #36688F, 0 6px 10px rgba(0,0,0,0.3);
+    transition: transform 0.08s, box-shadow 0.08s;
+    white-space: nowrap;
   }
-  .brand-strip{
-    max-width:1100px;
-    margin:0 auto;
-    padding:18px 24px 10px;
-    display:flex;
-    align-items:center;
-    gap:14px;
+  button.list-btn:hover { background: linear-gradient(#9DCBF2, #5A9BCB); }
+  button.list-btn:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 #36688F, 0 2px 4px rgba(0,0,0,0.3);
   }
-  .brand-strip .mark{
-    font-size:28px;
-    background:rgba(201,154,59,0.15);
-    border:1px solid rgba(201,154,59,0.5);
-    width:44px;height:44px;
-    display:flex;align-items:center;justify-content:center;
-    border-radius:10px;
-  }
-  .brand-strip .titles h1{
-    margin:0;
-    font-size:19px;
-    letter-spacing:0.5px;
-    font-weight:700;
-  }
-  .brand-strip .titles p{
-    margin:2px 0 0;
-    font-size:12.5px;
-    color:#c9d3de;
-    font-family:'Trebuchet MS',sans-serif;
-  }
-  nav.site-nav{
-    border-top:1px solid rgba(255,255,255,0.12);
-    background:rgba(0,0,0,0.15);
-  }
-  nav.site-nav ul{
-    max-width:1100px;
-    margin:0 auto;
-    list-style:none;
-    display:flex;
-    flex-wrap:wrap;
-    gap:2px;
-    padding:0 12px;
-  }
-  nav.site-nav a{
-    display:inline-block;
-    padding:12px 16px;
-    color:#e8ecf1;
-    text-decoration:none;
-    font-family:'Trebuchet MS',sans-serif;
-    font-size:13.5px;
-    font-weight:600;
-    letter-spacing:0.3px;
-    border-bottom:3px solid transparent;
-    transition:background 0.2s, border-color 0.2s;
-  }
-  nav.site-nav a:hover{
-    background:rgba(255,255,255,0.06);
-    border-bottom-color:var(--gold);
-  }
-  nav.site-nav a.current{
-    border-bottom-color:var(--gold);
-    color:#fff;
-    background:rgba(255,255,255,0.06);
-  }
+  button.list-btn[disabled] { opacity: 0.6; cursor: wait; }
 
-  /* ---------- HERO ---------- */
-  .hero{
-    max-width:1100px;
-    margin:0 auto;
-    padding:42px 24px 30px;
-  }
-  .hero .eyebrow{
-    font-family:'Trebuchet MS',sans-serif;
-    font-size:12px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    color:var(--gold);
-    font-weight:700;
-    margin-bottom:10px;
-  }
-  .hero h2{
-    margin:0 0 10px;
-    font-size:32px;
-    line-height:1.2;
-    color:var(--navy-deep);
-  }
-  .hero p.lead{
-    margin:0;
-    max-width:720px;
-    font-family:'Trebuchet MS',sans-serif;
-    color:var(--muted);
-    font-size:15px;
-    line-height:1.6;
-  }
+  .note { text-align: center; font-size: 0.85rem; color: #333; margin: 10px 0 0; font-style: italic; }
 
-  /* ---------- WARNING FLASH CARD ---------- */
-  .warning-card{
-    max-width:1360px;
-    margin:0 auto 28px;
-    padding:0 24px;
+  footer.site-foot {
+    background: var(--blue);
+    text-align: center;
+    padding: 14px 10px;
+    font-weight: bold;
+    box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
   }
-  .warning-inner{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    background:linear-gradient(135deg,#fff8e1,#ffe9c4);
-    border:2px solid #d4a017;
-    border-left:10px solid #c62828;
-    border-radius:10px;
-    padding:18px 24px;
-    box-shadow:0 6px 20px rgba(198,40,40,0.25);
-    animation:warnPulse 2.2s ease-in-out infinite;
-  }
-  .warning-inner .warn-icon{
-    font-size:38px;
-    line-height:1;
-    animation:warnShake 3s ease-in-out infinite;
-  }
-  .warning-inner .warn-body{
-    font-family:'Trebuchet MS',sans-serif;
-    color:#5c1a1a;
-    font-size:15px;
-    line-height:1.5;
-  }
-  .warning-inner .warn-body strong{
-    display:block;
-    font-size:17px;
-    letter-spacing:1.5px;
-    color:#b71c1c;
-    text-transform:uppercase;
-    margin-bottom:3px;
-  }
-  .warning-inner .warn-body u{
-    text-decoration-color:#b71c1c;
-    text-decoration-thickness:2px;
-  }
-  @keyframes warnPulse{
-    0%,100%{ box-shadow:0 6px 20px rgba(198,40,40,0.25); }
-    50%    { box-shadow:0 6px 32px rgba(198,40,40,0.55); }
-  }
-  @keyframes warnShake{
-    0%,90%,100%{ transform:rotate(0); }
-    93%        { transform:rotate(-12deg); }
-    96%        { transform:rotate(12deg); }
-  }
+  footer.site-foot small { display: block; font-weight: normal; margin-top: 2px; }
 
-  /* ---------- TABLE ---------- */
-  .table-wrap{
-    max-width:1360px;
-    margin:0 auto;
-    padding:0 24px 70px;
-    overflow-x:auto;
-  }
-  table.exam{
-    width:100%;
-    border-collapse:collapse;
-    table-layout:fixed;
-    background:var(--card);
-    border:1px solid var(--line);
-    font-family:'Trebuchet MS',sans-serif;
-    font-size:13px;
-    box-shadow:0 2px 8px rgba(15,42,74,0.08);
-  }
-  table.exam thead th{
-    background:var(--navy-deep);
-    color:#fff;
-    padding:10px 6px;
-    font-size:12px;
-    letter-spacing:0.5px;
-    text-transform:uppercase;
-    border:1px solid #2a3e58;
-  }
-  table.exam thead th.left{ text-align:left; padding-left:10px; }
-  table.exam thead th.center{ text-align:center; }
-  table.exam td{
-    border:1px solid var(--line);
-    padding:8px;
-    vertical-align:top;
-    color:var(--ink);
-  }
-  table.exam tbody:not(:first-of-type) tr:first-child td{
-    border-top:3px solid var(--navy);
-  }
-
-  td.date-cell{
-    background:linear-gradient(180deg,#eaf1f9,#d8e3f0) !important;
-    border-left:5px solid var(--navy) !important;
-    text-align:center;
-    vertical-align:middle !important;
-  }
-  td.date-cell .d-date{
-    font-size:16px;
-    font-weight:700;
-    color:var(--navy-deep);
-    letter-spacing:0.5px;
-  }
-  td.date-cell .d-day{
-    font-size:11.5px;
-    color:var(--muted);
-    text-transform:uppercase;
-    letter-spacing:1.2px;
-    margin-top:2px;
-  }
-  td.date-cell .print-date-btn{
-    display:inline-block;
-    margin-top:12px;
-    background:var(--gold);
-    color:var(--navy-deep);
-    border:none;
-    border-radius:4px;
-    padding:6px 12px;
-    font-size:11px;
-    font-weight:700;
-    cursor:pointer;
-    font-family:'Trebuchet MS',sans-serif;
-    letter-spacing:0.3px;
-    transition:background 0.15s, color 0.15s;
-    white-space:nowrap;
-  }
-  td.date-cell .print-date-btn:hover{
-    background:var(--navy);
-    color:#fff;
-  }
-
-  td.num{
-    text-align:center;
-    font-family:'Courier New',monospace;
-    font-weight:600;
-    font-size:13.5px;
-  }
-  td.num.dash{
-    color:#c0c0c0;
-    font-weight:400;
-  }
-  td.total-col{
-    text-align:center;
-    font-weight:700;
-    background:#fdf6e3 !important;
-    font-family:'Courier New',monospace;
-    color:var(--navy-deep);
-  }
-
-  .course-name{
-    font-weight:600;
-    line-height:1.35;
-    color:var(--navy-deep);
-  }
-  .course-code{
-    color:var(--muted);
-    font-weight:400;
-    font-size:12px;
-  }
-  .course-type{
-    display:inline-block;
-    background:#f3e6c4;
-    color:#8a6d1e;
-    font-size:10.5px;
-    font-weight:700;
-    padding:1px 7px;
-    border-radius:10px;
-    margin-left:4px;
-    letter-spacing:0.5px;
-    vertical-align:middle;
-  }
-  .course-note{
-    display:block;
-    font-size:10.5px;
-    color:#b00;
-    font-style:italic;
-    margin-top:4px;
-    line-height:1.35;
-  }
-
-  td.time-cell{
-    font-size:12px;
-    color:var(--muted);
-    text-align:left;
-    vertical-align:middle !important;
-    background:#fbfaf5 !important;
-    line-height:1.5;
-  }
-
-  .footnotes{
-    max-width:1360px;
-    margin:0 auto;
-    padding:0 24px 40px;
-    font-family:'Trebuchet MS',sans-serif;
-    font-size:12px;
-    color:var(--muted);
-  }
-  .footnotes h3{
-    font-size:13px;
-    color:var(--navy-deep);
-    margin:0 0 8px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-  }
-  .footnotes ul{ margin:0; padding-left:20px; line-height:1.7; }
-
-  /* ---------- FOOTER (page) ---------- */
-  footer{
-    background:var(--navy-deep);
-    color:#c9d3de;
-    text-align:center;
-    padding:24px 20px;
-    font-family:'Trebuchet MS',sans-serif;
-    font-size:12.5px;
-  }
-  footer strong{color:#fff;}
-
-  /* ---------- PRINT AREA ---------- */
-  #print-area{ display:none; }
-
-  @media print{
-    /* A4 PORTRAIT · 1 INCH MARGINS ON ALL SIDES */
-    @page{ size: A4 portrait; margin: 1in; }
-
-    body{ background:#fff !important; }
-    body > *:not(#print-area){ display:none !important; }
-    #print-area{
-      display:block !important;
-      color:#000;
-      font-family: Arial, 'Nimbus Sans', sans-serif;
-      font-size:8.5pt;
-      line-height:1.25;
-    }
-
-    /* Header block on print sheet */
-    #print-area .print-head{
-      text-align:center;
-      border-bottom:1.5px solid #000;
-      padding-bottom:4px;
-      margin-bottom:6px;
-    }
-    #print-area .p-college{ font-size:12pt; font-weight:bold; letter-spacing:1px; }
-    #print-area .p-title  { font-size:9.5pt; font-weight:bold; margin-top:2px; }
-    #print-area .p-sub    { font-size:8pt; margin-top:3px; }
-    #print-area .p-warn   { font-size:7.5pt; color:#b00; font-weight:bold; margin-top:3px; }
-
-    /* Table */
-    #print-area table{
-      width:100%;
-      border-collapse:collapse;
-      table-layout:fixed;
-      font-size:8pt;
-    }
-    #print-area th,
-    #print-area td{
-      border:1px solid #000;
-      padding:2px 3px;
-      vertical-align:top;
-      word-wrap:break-word;
-      overflow-wrap:break-word;
-      hyphens:auto;
-    }
-    #print-area thead th{
-      background:#e6e6e6 !important;
-      color:#000 !important;
-      font-size:7.5pt;
-      text-align:center;
-      padding:3px 2px;
-    }
-    #print-area thead th.left{ text-align:left; }
-    #print-area thead{ display:table-header-group; }
-    #print-area tr{ page-break-inside:avoid; }
-
-    /* Date cell */
-    #print-area td.date-cell{
-      background:#f0f0f0 !important;
-      border-left:1.5px solid #000 !important;
-      text-align:center;
-      vertical-align:middle !important;
-      font-size:8pt;
-      padding:2px 1px;
-    }
-    #print-area td.date-cell .d-date{ font-size:9pt; font-weight:bold; line-height:1.15; }
-    #print-area td.date-cell .d-day { font-size:7pt; color:#333; margin-top:1px; line-height:1.15; }
-
-    /* Numbers */
-    #print-area td.num{ text-align:center; font-size:8pt; padding:2px 1px; }
-    #print-area td.num.dash{ color:#888; }
-    #print-area td.total-col{
-      text-align:center;
-      font-weight:bold;
-      background:#f2f2f2 !important;
-      font-size:8.5pt;
-      padding:2px 1px;
-    }
-
-    /* Course column - wrap long names */
-    #print-area .course-name{
-      font-weight:bold;
-      font-size:8pt;
-      line-height:1.2;
-      white-space:normal;
-      word-wrap:break-word;
-      overflow-wrap:break-word;
-    }
-    #print-area .course-code{
-      font-size:7pt;
-      color:#333;
-      white-space:normal;
-      word-wrap:break-word;
-    }
-    #print-area .course-type{
-      display:inline;
-      font-size:6.5pt;
-      padding:0 3px;
-      background:transparent !important;
-      color:#000;
-      font-weight:bold;
-      margin-left:2px;
-    }
-    #print-area .course-note{
-      font-size:6.5pt;
-      color:#b00;
-      font-style:italic;
-      margin-top:1px;
-      line-height:1.15;
-      white-space:normal;
-    }
-
-    /* Time column */
-    #print-area td.time-cell{
-      font-size:7pt;
-      text-align:left;
-      vertical-align:middle !important;
-      padding:2px 2px;
-      white-space:normal;
-      word-wrap:break-word;
-      line-height:1.2;
-    }
-
-    /* Print footer (once, at end) */
-    #print-area .print-footer{
-      margin-top:14px;
-      padding-top:6px;
-      border-top:1px solid #000;
-      text-align:center;
-      font-size:9pt;
-      font-weight:bold;
-      letter-spacing:0.3px;
-    }
+  @media (max-width: 640px) {
+    td.t1 { font-size: 1.15rem; }
+    td.t2, td.t3 { font-size: 1rem; }
+    table.exam th, table.exam td { padding: 8px; }
+    td.date-cell { width: 110px; }
+    td.btn-cell { width: 120px; }
+    button.list-btn { padding: 7px 12px; font-size: 0.85rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- ================= HEADER (same as fyugp.html) ================= -->
-<header class="site-header">
-  <div class="brand-strip">
-    <div class="mark">🏛️</div>
-    <div class="titles">
-      <h1>IG MATH SPACE</h1>
-      <p>Department of Mathematics · NAM College Kallikkandy</p>
-    </div>
-  </div>
-  <nav class="site-nav">
-    <ul>
-      <li><a href="https://igmathspace.github.io/index.html">HOME</a></li>
-      <li><a href="https://igmathspace.github.io/lessons.html">CLASSROOM</a></li>
-      <li><a href="https://igmathspace.github.io/research.html">RESEARCH</a></li>
-      <li><a href="https://igmathspace.github.io/students.html">STUDENT</a></li>
-      <li><a href="https://igmathspace.github.io/IGBOOKSPACE/">📚 BOOK</a></li>
-      <li><a href="https://igmathspace.github.io/IGCOLLEGESPACE/" class="current">🏛️ OFFICIAL</a></li>
-    </ul>
-  </nav>
+<header class="site-head">
+  <img class="banner" src="image1.png" alt="NAM College Kallikkandy" onerror="this.style.display='none'">
+  <a class="back" href="index.html">&larr; OFFICIAL SPACE</a>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <div class="eyebrow">Official Space · Department Space · Exam Schedule</div>
-  <h2>III SEMESTER FYUGP EXAM NOVEMBER 2026</h2>
-  <p class="lead">Projected date and course-wise student count.</p>
-</section>
-
-<!-- ================= FLASH WARNING CARD ================= -->
-<div class="warning-card">
-  <div class="warning-inner">
-    <div class="warn-icon">⚠️</div>
-    <div class="warn-body">
-      <strong>Beware !!!</strong>
-      This data is <u>not confirmed</u>. Please verify every entry with the <b>hall tickets</b> and the
-      <b>official timetable</b> before relying on it.
+<main>
+  <div class="card">
+    <div class="table-wrap">
+      <table class="exam" id="examTable">
+        <thead>
+          <tr><td class="title-cell t1" colspan="3">NAM COLLEGE KALLIKKANDY</td></tr>
+          <tr><td class="title-cell t2" colspan="3">III SEMESTER FYUGP (2025)</td></tr>
+          <tr><td class="title-cell t3" colspan="3">EXAMINATION NOVEMBER 2026</td></tr>
+          <tr>
+            <th class="colhead">Date</th>
+            <th class="colhead" colspan="2">Exam Paper</th>
+          </tr>
+        </thead>
+        <tbody id="examBody"></tbody>
+      </table>
     </div>
+    <p class="note">Click &ldquo;Student list&rdquo; to download the A4 PDF for that paper.</p>
   </div>
-</div>
+</main>
 
-<!-- ================= MAIN TABLE ================= -->
-<div class="table-wrap">
-  <table class="exam" id="exam-table">
-    <colgroup>
-      <col style="width:9%;">
-      <col style="width:36%;">
-      <col style="width:5%;">
-      <col style="width:5%;">
-      <col style="width:5%;">
-      <col style="width:5%;">
-      <col style="width:5%;">
-      <col style="width:5%;">
-      <col style="width:6%;">
-      <col style="width:19%;">
-    </colgroup>
-    <thead>
-      <tr>
-        <th class="left">Date &amp; Day</th>
-        <th class="left">Course (Code) – Type</th>
-        <th class="center">ENG</th>
-        <th class="center">HIST</th>
-        <th class="center">CS</th>
-        <th class="center">MAT</th>
-        <th class="center">PC</th>
-        <th class="center">BCOM</th>
-        <th class="center">Total</th>
-        <th class="left">Time of Exam</th>
-      </tr>
-    </thead>
-
-    <!-- ============ 13.11.2026 — MDC 3 (5) ============ -->
-    <tbody id="tbody-13-11">
-      <tr>
-        <td rowspan="5" class="date-cell">
-          <div class="d-date">13.11.2026</div>
-          <div class="d-day">Friday</div>
-          <button class="print-date-btn" onclick="printDate('13-11')">🖨 Print PDF</button>
-        </td>
-        <td>
-          <span class="course-name">Kerala Culture in Arabic Literature</span>
-          <span class="course-code">(KU3MDCARB203)</span>
-          <span class="course-type">MDC 3</span>
-        </td>
-        <td class="num">7</td><td class="num">11</td><td class="num">20</td>
-        <td class="num">10</td><td class="num">9</td><td class="num">34</td>
-        <td class="total-col">91</td>
-        <td rowspan="5" class="time-cell">2.00 pm to 3.30 pm /<br>2.00 pm to 4.00 pm</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Kerala Knowledge Systems</span>
-          <span class="course-code">(KU3MDCENG201)</span>
-          <span class="course-type">MDC 3</span>
-        </td>
-        <td class="num">13</td><td class="num">5</td><td class="num">7</td>
-        <td class="num">2</td><td class="num">4</td><td class="num">14</td>
-        <td class="total-col">45</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Keral ki Lok Kalayen</span>
-          <span class="course-code">(KU3MDCHIN103)</span>
-          <span class="course-type">MDC 3</span>
-        </td>
-        <td class="num">3</td><td class="num">1</td><td class="num">5</td>
-        <td class="num">3</td><td class="num dash">–</td><td class="num">2</td>
-        <td class="total-col">14</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">കേരളീയാധുനികത</span>
-          <span class="course-code">(KU3MDCMAL103)</span>
-          <span class="course-type">MDC 3</span>
-        </td>
-        <td class="num">4</td><td class="num">18</td><td class="num">3</td>
-        <td class="num">4</td><td class="num dash">–</td><td class="num">8</td>
-        <td class="total-col">37</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Kerala Ka Muthala</span>
-          <span class="course-code">(KU3MDCURD203)</span>
-          <span class="course-type">MDC 3</span>
-          <span class="course-note">* Timetable lists KU3MDCURD204 — date projected.</span>
-        </td>
-        <td class="num">13</td><td class="num">25</td><td class="num">9</td>
-        <td class="num">6</td><td class="num">14</td><td class="num">4</td>
-        <td class="total-col">71</td>
-      </tr>
-    </tbody>
-
-    <!-- ============ 16.11.2026 — VAC 1 (12) ============ -->
-    <tbody id="tbody-16-11">
-      <tr>
-        <td rowspan="12" class="date-cell">
-          <div class="d-date">16.11.2026</div>
-          <div class="d-day">Monday</div>
-          <button class="print-date-btn" onclick="printDate('16-11')">🖨 Print PDF</button>
-        </td>
-        <td>
-          <span class="course-name">Arabic Literature for Humanity</span>
-          <span class="course-code">(KU3VACARB201)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">2</td>
-        <td class="total-col">2</td>
-        <td rowspan="12" class="time-cell">1.30 pm to 3.00 pm /<br>1.30 pm to 3.30 pm</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Professional Ethics in Business &amp; Corporate Responsibility</span>
-          <span class="course-code">(KU3VACCOM200)</span>
-          <span class="course-type">VAC 1</span>
-          <span class="course-note">** Timetable lists KU3VACCOM100 — date projected.</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num">7</td><td class="num dash">–</td><td class="num">20</td>
-        <td class="total-col">27</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Data Analytics Using R</span>
-          <span class="course-code">(KU3VACCSC103)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num">9</td><td class="num dash">–</td><td class="num">39</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">3</td>
-        <td class="total-col">51</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Recovering Nature</span>
-          <span class="course-code">(KU3VACENG201)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num">18</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num">1</td><td class="num dash">–</td><td class="num">21</td>
-        <td class="total-col">40</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Reconstructing Gender</span>
-          <span class="course-code">(KU3VACENG202)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num">8</td><td class="num dash">–</td><td class="num">3</td>
-        <td class="num">5</td><td class="num dash">–</td><td class="num">3</td>
-        <td class="total-col">19</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Hindi Sahithya Evam Manavadhikar</span>
-          <span class="course-code">(KU3VACHIN102)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num">2</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">2</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Human Right Movements in Modern India</span>
-          <span class="course-code">(KU3VACHIS201)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num dash">–</td><td class="num">46</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">46</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Ethics in Media</span>
-          <span class="course-code">(KU3VACJMC209)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num">1</td><td class="num">2</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">13</td>
-        <td class="total-col">16</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">മലബാർ – സമൂഹവും നവോത്ഥാനവും</span>
-          <span class="course-code">(KU3VACMAL101)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num dash">–</td><td class="num">1</td><td class="num">1</td>
-        <td class="num">2</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">4</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Mathematical Logic</span>
-          <span class="course-code">(KU3VACMAT202)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">1</td>
-        <td class="num">10</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">11</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Polymers and Polymer Composites</span>
-          <span class="course-code">(KU3VACPCH102)</span>
-          <span class="course-type">VAC 1</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num">27</td><td class="num dash">–</td>
-        <td class="total-col">27</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Thahzeeb Aur Saqafath</span>
-          <span class="course-code">(KU3VACURD202)</span>
-          <span class="course-type">VAC 1</span>
-          <span class="course-note">*** Not listed explicitly — placed on general VAC date.</span>
-        </td>
-        <td class="num">2</td><td class="num">11</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">13</td>
-      </tr>
-    </tbody>
-
-    <!-- ============ 18.11.2026 — MAJOR (12) ============ -->
-    <tbody id="tbody-18-11">
-      <tr>
-        <td rowspan="12" class="date-cell">
-          <div class="d-date">18.11.2026</div>
-          <div class="d-day">Wednesday</div>
-          <button class="print-date-btn" onclick="printDate('18-11')">🖨 Print PDF</button>
-        </td>
-        <td>
-          <span class="course-name">Inorganic Chemistry I</span>
-          <span class="course-code">(KU3DSCCHE201)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num">27</td><td class="num dash">–</td>
-        <td class="total-col">27</td>
-        <td rowspan="12" class="time-cell">1.30 pm to 3.00 pm /<br>1.30 pm to 3.30 pm</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Organic Chemistry I</span>
-          <span class="course-code">(KU3DSCCHE202)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num">27</td><td class="num dash">–</td>
-        <td class="total-col">27</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Corporate Accounting</span>
-          <span class="course-code">(KU3DSCCOM200)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">62</td>
-        <td class="total-col">62</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Company Law and Administration</span>
-          <span class="course-code">(KU3DSCCOM201)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2) and 27.11.2026.</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">62</td>
-        <td class="total-col">62</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Object Oriented Programming using Java</span>
-          <span class="course-code">(KU3DSCCSC201)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">44</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">44</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Digital Systems</span>
-          <span class="course-code">(KU3DSCCSC202)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">44</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">44</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Chaucer to Contemporary Poets</span>
-          <span class="course-code">(KU3DSCENG201)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num">40</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">40</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Literature in Context – Old English to Medieval English</span>
-          <span class="course-code">(KU3DSCENG203)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num">40</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">40</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">World from Iron Age to Medieval Times</span>
-          <span class="course-code">(KU3DSCHIS201)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num">60</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">60</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Social Formations in Early India (Earliest Times to Maurya)</span>
-          <span class="course-code">(KU3DSCHIS202)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num">60</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">60</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Algebra</span>
-          <span class="course-code">(KU3DSCMAT201)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num">25</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">25</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Coordinate Systems and Multiple Integrals</span>
-          <span class="course-code">(KU3DSCMAT202)</span>
-          <span class="course-type">Major</span>
-          <span class="course-note">Possibility of exam on 20.11.2026 (DSC-2 listing).</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num">25</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">25</td>
-      </tr>
-    </tbody>
-
-    <!-- ============ 20.11.2026 — MINOR 5 + MINOR 6 (16) ============ -->
-    <tbody id="tbody-20-11">
-      <tr>
-        <td rowspan="16" class="date-cell">
-          <div class="d-date">20.11.2026</div>
-          <div class="d-day">Friday</div>
-          <button class="print-date-btn" onclick="printDate('20-11')">🖨 Print PDF</button>
-        </td>
-        <td>
-          <span class="course-name">Event Management</span>
-          <span class="course-code">(KU3DSCCOM204)</span>
-          <span class="course-type">Minor 5</span>
-          <span class="course-note">Possibility of exam on 27.11.2026 (additional listing).</span>
-        </td>
-        <td class="num">21</td><td class="num dash">–</td><td class="num">9</td>
-        <td class="num">2</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">32</td>
-        <td rowspan="16" class="time-cell">2.00 pm to 3.30 pm /<br>2.00 pm to 4.00 pm</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Python for Data Analytics</span>
-          <span class="course-code">(KU3DSCCSC203)</span>
-          <span class="course-type">Minor 5</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num">10</td><td class="num">55</td>
-        <td class="total-col">65</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Economics of Banking and Finance</span>
-          <span class="course-code">(KU3DSCECO203)</span>
-          <span class="course-type">Minor 5</span>
-        </td>
-        <td class="num dash">–</td><td class="num">25</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num">2</td><td class="num dash">–</td>
-        <td class="total-col">27</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Narratives of Love and Friendship</span>
-          <span class="course-code">(KU3DSCFNG203)</span>
-          <span class="course-type">Minor 5</span>
-        </td>
-        <td class="num dash">–</td><td class="num">14</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num">2</td><td class="num">1</td>
-        <td class="total-col">17</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">History of Indian National Movement</span>
-          <span class="course-code">(KU3DSCHIS205)</span>
-          <span class="course-type">Minor 5</span>
-        </td>
-        <td class="num">5</td><td class="num">1</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">5</td>
-        <td class="total-col">11</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Differential Equations, Laplace Transforms, LP &amp; Numerical Methods</span>
-          <span class="course-code">(KU3DSCMAT211)</span>
-          <span class="course-type">Minor 5</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">35</td>
-        <td class="num dash">–</td><td class="num">13</td><td class="num dash">–</td>
-        <td class="total-col">48</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Media and Society</span>
-          <span class="course-code">(KU3DSCSOC202)</span>
-          <span class="course-type">Minor 5</span>
-        </td>
-        <td class="num">14</td><td class="num">20</td><td class="num dash">–</td>
-        <td class="num">1</td><td class="num dash">–</td><td class="num">1</td>
-        <td class="total-col">36</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Probability Distributions</span>
-          <span class="course-code">(KU3DSCSTA221)</span>
-          <span class="course-type">Minor 5</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num">22</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">22</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Statistical Inference</span>
-          <span class="course-code">(KU3DSCSTA222)</span>
-          <span class="course-type">Minor 6</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">42</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">42</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Fundamentals of Stock Trading</span>
-          <span class="course-code">(KU3DSCBBA204)</span>
-          <span class="course-type">Minor 6</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num">61</td>
-        <td class="total-col">61</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Financial Management</span>
-          <span class="course-code">(KU3DSCCOM205)</span>
-          <span class="course-type">Minor 6</span>
-          <span class="course-note">Possibility of exam on 27.11.2026 (additional listing).</span>
-        </td>
-        <td class="num">2</td><td class="num">1</td><td class="num">2</td>
-        <td class="num">1</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">6</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Basics of Object Oriented Programming using C++</span>
-          <span class="course-code">(KU3DSCCSC204)</span>
-          <span class="course-type">Minor 6</span>
-        </td>
-        <td class="num">8</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num">22</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">30</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Economics of Care and Ageing</span>
-          <span class="course-code">(KU3DSCECO205)</span>
-          <span class="course-type">Minor 6</span>
-        </td>
-        <td class="num">9</td><td class="num">27</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">36</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Documentary Film Production</span>
-          <span class="course-code">(KU3DSCJMC203)</span>
-          <span class="course-type">Minor 6</span>
-        </td>
-        <td class="num">14</td><td class="num">6</td><td class="num dash">–</td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="total-col">20</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Oscillations and Waves</span>
-          <span class="course-code">(KU3DSCPHY214)</span>
-          <span class="course-type">Minor 6</span>
-        </td>
-        <td class="num dash">–</td><td class="num dash">–</td><td class="num dash">–</td>
-        <td class="num">1</td><td class="num">27</td><td class="num dash">–</td>
-        <td class="total-col">28</td>
-      </tr>
-      <tr>
-        <td>
-          <span class="course-name">Introduction to Kerala Social Realities</span>
-          <span class="course-code">(KU3DSCSOC203)</span>
-          <span class="course-type">Minor 6</span>
-        </td>
-        <td class="num">7</td><td class="num">26</td><td class="num dash">–</td>
-        <td class="num">1</td><td class="num dash">–</td><td class="num">1</td>
-        <td class="total-col">35</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- ================= FOOTNOTES ================= -->
-<div class="footnotes">
-  <h3>Notes</h3>
-  <ul>
-    <li><b>* KU3MDCURD203</b> — timetable shows <i>KU3MDCURD204 (Kerala ka Muthala)</i> on 13.11.2026; date is projected from that entry.</li>
-    <li><b>** KU3VACCOM200</b> — timetable shows <i>KU3VACCOM100 (Professional Ethics and Corporate Governance)</i> on 16.11.2026; date is projected from that entry.</li>
-    <li><b>*** KU3VACURD202</b> — not listed explicitly; placed on the general VAC date 16.11.2026.</li>
-    <li><b>All Major courses</b> — also appear in the DSC-2 listing on 20.11.2026.</li>
-    <li><b>COM201, COM204, COM205</b> — also appear on 27.11.2026 in a Commerce / additional list.</li>
-    <li><b>Programme counts</b> — EU→ENG, HU→HIST, CU→CS, MU→MAT, PU→PC, BU→BCOM. Dash (&ndash;) means zero.</li>
-    <li><b>Time of exam</b> — Mon–Thu: 1.30 pm–3.00/3.30 pm · Fri: 2.00 pm–3.30/4.00 pm.</li>
-  </ul>
-</div>
-
-<!-- ================= FOOTER (page) ================= -->
-<footer>
-  © <strong>Gafoor I</strong>, Assistant Professor, Department of Mathematics, NAM College Kallikkandy
+<footer class="site-foot">
+  Gafoor I , FYUGP Coordinator
+  <small>NAM College Kallikkandy</small>
 </footer>
 
-<!-- ================= PRINT AREA ================= -->
-<div id="print-area"></div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
-  const DATE_INFO = {
-    '13-11': { date: '13.11.2026', day: 'Friday',    time: '2.00 pm to 3.30 pm / 2.00 pm to 4.00 pm', total: 258 },
-    '16-11': { date: '16.11.2026', day: 'Monday',    time: '1.30 pm to 3.00 pm / 1.30 pm to 3.30 pm', total: 258 },
-    '18-11': { date: '18.11.2026', day: 'Wednesday', time: '1.30 pm to 3.00 pm / 1.30 pm to 3.30 pm', total: 516 },
-    '20-11': { date: '20.11.2026', day: 'Friday',    time: '2.00 pm to 3.30 pm / 2.00 pm to 4.00 pm', total: 516 }
-  };
+/* ---------- DATA ----------
+   progs    : programme names, in the column order of the Student Count table
+   students : [register number, name, programme index]
+   exams    : one entry per paper (date, session time, course code, course name, student indexes)  */
+const DATA = {"progs":["B.A English","B.A History","B.Sc Computer Science","B.Sc Mathematics","B.Sc Polymer Chemistry","B.Com Co-operation","BBA"],"students":[["NM25ENGR001","AFNAN KALEELU RAHAMAN",0],["NM25ENGR002","AFRA AYISHA C K",0],["NM25ENGR003","AMNA HANEEF T K",0],["NM25ENGR004","AYSHA NAZER",0],["NM25ENGR005","AYSHA SHAIKHA FIROS K P",0],["NM25ENGR006","FATHIMA A.K",0],["NM25ENGR007","FATHIMA ASHMILA A",0],["NM25ENGR008","FATHIMATH NASLA",0],["NM25ENGR009","FATHIMATHU SAFA",0],["NM25ENGR010","FATHIMATHUL RIFANA",0],["NM25ENGR011","HAMNA HAKKEEM K K",0],["NM25ENGR012","HANA FATHIMA P",0],["NM25ENGR013","LAYYINA",0],["NM25ENGR014","LUBNA FATHIMA",0],["NM25ENGR015","MINHA FATHIMA",0],["NM25ENGR016","NAJA FATHIMA",0],["NM25ENGR017","RANIYA CK",0],["NM25ENGR019","THANHA SHERIN N K",0],["NM25ENGR020","YESNA YOUSUF.U",0],["NM25ENGR021","FATHIMA M T",0],["NM25ENGR023","AKEELA FATHIMA",0],["NM25ENGR024","JANNATH",0],["NM25ENGR025","JAZA FATHIMA V",0],["NM25ENGR026","THANHA FATHIMA. P.K",0],["NM25ENGR027","THEJASWI THILAK",0],["NM25ENGR028","DEVANJANA.V.K",0],["NM25ENGR029","IKRA JAMAL",0],["NM25ENGR030","LINCIYA NOURIN",0],["NM25ENGR032","SAFEELA NASRIN KK",0],["NM25ENGR033","SHADHA NEHRIN P",0],["NM25ENGR034","MUHAMMED HASIF T K",0],["NM25ENGR035","NISCHAL V C",0],["NM25ENGR036","ROHITH RAJESH",0],["NM25ENGR037","YADHAV SAJ P S",0],["NM25ENGR038","FATEMA FAHEEMA",0],["NM25ENGR039","FATHIMA C K",0],["NM25ENGR040","FATHIMA MUSTHAFA",0],["NM25ENGR041","SHAMNA MOHAMMED",0],["NM25ENGR042","MUHAMMED MUHSIN",0],["NM25HISR001","FATHIMA FARHANA",1],["NM25HISR003","FATHIMATHU NAJA",1],["NM25HISR004","FATHIMATHU SALIHA",1],["NM25HISR005","FATHIMATHUL FIDA",1],["NM25HISR006","FATHIMATHUL RENA C H",1],["NM25HISR007","MARVIYA IBRAHIM K P",1],["NM25HISR008","MINHA G H",1],["NM25HISR009","NADIYA SHERIN K P",1],["NM25HISR010","RIFA FATHIMA",1],["NM25HISR011","RIFA FATHIMA C",1],["NM25HISR012","RIHANATH",1],["NM25HISR013","SAHWA FATHIMA",1],["NM25HISR014","MUHAMMAD SINAN",1],["NM25HISR015","MUHAMMED SANEEM.E.V",1],["NM25HISR016","SHAZIN K K",1],["NM25HISR017","FATHIMA V V",1],["NM25HISR018","AMINATHUL MISRIYA",1],["NM25HISR019","ANUNANDA.M",1],["NM25HISR020","AVANYA HARINDRAN",1],["NM25HISR021","FATHIMATH FOUMINA",1],["NM25HISR022","HEZZA FATHIMA P",1],["NM25HISR023","NISNA FATHIMA PT",1],["NM25HISR024","NOORA FATHIMA K",1],["NM25HISR025","PRASHIPTHA.K",1],["NM25HISR026","RAJA FATHIMA P K",1],["NM25HISR027","SANMAYA K K",1],["NM25HISR028","SEBA MANSOOR F M",1],["NM25HISR029","SREENANDHA M",1],["NM25HISR030","THANHA FATHIMA",1],["NM25HISR031","VISNIYA N",1],["NM25HISR032","ABHINAV KRISHNA O",1],["NM25HISR033","ADWAITH V K",1],["NM25HISR034","AIFHA K K",1],["NM25HISR035","ASMA SUNEERA",1],["NM25HISR036","AYSHA",1],["NM25HISR037","AYSHATHU RINSA.C.H",1],["NM25HISR038","FATHIMA RISHANA K K",1],["NM25HISR039","FATHIMA T",1],["NM25HISR040","FATHIMA T K",1],["NM25HISR041","FATHIMATHU NASLA.P",1],["NM25HISR042","FIDA FATHIMA A K",1],["NM25HISR043","FIDHA FATHIMA K",1],["NM25HISR044","MARIYAM KASIM P K",1],["NM25HISR045","NIDHA FATHIMA N",1],["NM25HISR046","NUSAIBA K ALI",1],["NM25HISR047","RANA FATHIMA T P",1],["NM25HISR048","RIYA FATHIMA",1],["NM25HISR049","SAFA P P",1],["NM25HISR050","SANA FATHIMA",1],["NM25HISR051","SANA FATHIMA E K",1],["NM25HISR052","SHANA SHERIN M P",1],["NM25HISR053","LUCKMANUL HAKEEM P P",1],["NM25HISR054","MOHAMMED SABAH",1],["NM25HISR055","MUHAMMAD SHEHIN K",1],["NM25HISR056","MUHAMMED",1],["NM25HISR057","MUHAMMED ADHINAN",1],["NM25HISR059","MUHAMMED RISHAN",1],["NM25HISR060","MUHAMMED SAHAL P P",1],["NM25HISR061","MUHAMMED SHANIL",1],["NM25HISR062","MUHAMMED V K",1],["NM25CSCR001","A.B.SAMAHA MARIYAM",2],["NM25CSCR002","AYISHA SANHA P T K",2],["NM25CSCR003","FATHIMA ASNA K",2],["NM25CSCR004","FATHIMA B",2],["NM25CSCR005","FATHIMA HAJARA",2],["NM25CSCR006","FATHIMA SAFA SABIR",2],["NM25CSCR007","FATHIMATHU RIFA K P",2],["NM25CSCR008","M P AQEELA LAMHA",2],["NM25CSCR009","MEHJA FATHIMA",2],["NM25CSCR010","NADIYA K",2],["NM25CSCR011","RANA FATHIMA",2],["NM25CSCR012","REEMA SAMEER. P",2],["NM25CSCR013","SAJA SHERIN N K",2],["NM25CSCR014","SANA THESNI",2],["NM25CSCR015","SHAZA FATHIMA AB",2],["NM25CSCR016","SHEHANA FATHIMA",2],["NM25CSCR017","THANHA FATHIMA",2],["NM25CSCR018","WAFA FAHAD",2],["NM25CSCR019","MUHAMMED AFNAS C H",2],["NM25CSCR020","MUHAMMED NAFI K",2],["NM25CSCR021","MUHAMMED P",2],["NM25CSCR022","NUMAN ZAWAHIR",2],["NM25CSCR023","DEVIKA VINOD",2],["NM25CSCR024","K P TEENA",2],["NM25CSCR025","LAYANA S SASI",2],["NM25CSCR026","NAVYA E K",2],["NM25CSCR027","RANA RAFEEQUE MM",2],["NM25CSCR028","RIDHA PARVEEN",2],["NM25CSCR029","RITHIK PRAMOD",2],["NM25CSCR030","SHAMIL MOHAMMED T K",2],["NM25CSCR031","YATHEENDRA S",2],["NM25CSCR033","AJASOORYA C M",2],["NM25CSCR034","FATHIMA NASRIN P",2],["NM25CSCR035","MARIYAM SAFWA",2],["NM25CSCR036","RANIYA FATHIMA",2],["NM25CSCR037","SAJA FATHIMA",2],["NM25CSCR038","MOHAMMED NABHAN A K",2],["NM25CSCR039","MUHAMMED NIHAL C K",2],["NM25CSCR040","AMEERUL MUHMENEEN K",2],["NM25CSCR041","FATHIMA THANEEM",2],["NM25CSCR042","SHABNAM",2],["NM25CSCR043","MUHAMMAD",2],["NM25CSCR044","MUHAMMAD NIMSHAD",2],["NM25CSCR045","MUHAMMED AMEEN N",2],["NM25MATR001","AMINA NOOHA M M",3],["NM25MATR002","FATHIMATHUL MISBA MAJEED P K",3],["NM25MATR003","FATHIMATHUL SHAHADIYA P K",3],["NM25MATR004","NASIHA NASREEN P K",3],["NM25MATR005","NIBA FATHIMA",3],["NM25MATR006","NIBA FATHIMA V P",3],["NM25MATR007","NUBLA A",3],["NM25MATR009","SHIFANA M",3],["NM25MATR011","ASHIR C K",3],["NM25MATR014","MUHAMMED ABDULLA",3],["NM25MATR016","MUHAMMED RIHAN FAHEZ",3],["NM25MATR017","MUHAMMED RISHAN",3],["NM25MATR018","MUHAMMED SALIH ASHRAF",3],["NM25MATR020","MUHAMMED THAMEEM C P",3],["NM25MATR021","FATHIMATHU NAFIYA. T. K",3],["NM25MATR022","NIHA FATHIMA A",3],["NM25MATR023","AKSHAY P K",3],["NM25MATR024","MUHAMMED YASEEN N K",3],["NM25MATR026","CHANDHANA CHANDRAN",3],["NM25MATR027","DHWANI K P",3],["NM25MATR029","SHAHADIYA T",3],["NM25MATR030","ABHIRAM K",3],["NM25MATR031","ASLAHA T",3],["NM25MATR034","MUHAMMED SHAMMAS",3],["NM25MATR035","HANIYA NASRIN",3],["NM25PCHR001","DIYA NASHVA C H",4],["NM25PCHR002","FATHIMA FIDHA",4],["NM25PCHR003","FATHIMA SAHLA",4],["NM25PCHR004","FATHIMA.V.P",4],["NM25PCHR005","HAMNA HANAN P K",4],["NM25PCHR006","HASHIFA T P",4],["NM25PCHR007","JUMANA ASIN",4],["NM25PCHR008","JUMANA FATHIMA EK",4],["NM25PCHR009","NAHDA FATHIMA.MK",4],["NM25PCHR010","NIDHA MOHAMMED P V",4],["NM25PCHR011","RANA FATHIMA K P",4],["NM25PCHR012","RIYA FATHIMA.M",4],["NM25PCHR013","MUHAMMAD LABEEB",4],["NM25PCHR014","MUHAMMED FAHAD",4],["NM25PCHR015","MUHAMMED FARDAN.A",4],["NM25PCHR016","MUHAMMED NIYAS K K",4],["NM25PCHR017","MUHAMMED ZAIN SAMAD C",4],["NM25PCHR018","RIZIN YOUSUF",4],["NM25PCHR019","FATHIMATH SAHADIYA V V",4],["NM25PCHR020","FATHIMATHU SHAHMA K P",4],["NM25PCHR021","HAIFA MEHARIN K K",4],["NM25PCHR022","JANNATH FEBINA K",4],["NM25PCHR023","JOUHARA AYISHA",4],["NM25PCHR024","NAIZA AZEEZ K P",4],["NM25PCHR025","RIYA FATHIMA",4],["NM25PCHR026","MUHAMMAD NASEEM",4],["NM25PCHR029","NAVAL ABDUL MAJEED",4],["NM25CCOR001","AMEENA PARIYAT",5],["NM25CCOR002","ASNA",5],["NM25CCOR003","AYISHA M",5],["NM25CCOR004","FATHIMA",5],["NM25CCOR005","FATHIMA MUBASHIRA K M",5],["NM25CCOR006","FATHIMA P",5],["NM25CCOR007","FATHIMA P T",5],["NM25CCOR008","FATHIMATH RANA RIYAS V K",5],["NM25CCOR009","FATHIMATHUL NAMIYA NOUFAL",5],["NM25CCOR010","FATHIMATHUL NASLA K K",5],["NM25CCOR011","HAFNA FATHIMA P",5],["NM25CCOR012","HAJARA SHABEER",5],["NM25CCOR013","HUSNA.A",5],["NM25CCOR014","KHANSA NAVAZ",5],["NM25CCOR015","MINHA FATHIMA O T K",5],["NM25CCOR016","MINHA MARIYAM M A P",5],["NM25CCOR017","NAFIYA P K",5],["NM25CCOR018","RANIYA FATHIMA",5],["NM25CCOR019","RAYA MINHA A P",5],["NM25CCOR020","REEHA GAFOOR",5],["NM25CCOR021","RIFA ABOOBACKER E",5],["NM25CCOR022","RIFA FATHIMA .M",5],["NM25CCOR023","RIFA RAHIM T",5],["NM25CCOR024","RINSHA SHERIN",5],["NM25CCOR025","RISHA NOURIN N",5],["NM25CCOR026","SAFA FATHIMA",5],["NM25CCOR027","SHIFA MINHA V",5],["NM25CCOR028","SIYANA FATHIMA",5],["NM25CCOR029","UMAIYYAH RAHEES",5],["NM25CCOR030","ZENHA FATHIMA C H",5],["NM25CCOR031","MUHAMMAD SINAN",5],["NM25CCOR032","MUHAMMED AZHAD M P",5],["NM25CCOR033","MUHAMMED RAZIN K",5],["NM25CCOR034","MUHAMMED RINSHAL K",5],["NM25CCOR035","MUHAMMED SINAN A",5],["NM25CCOR036","MUHAMMED SINAN P",5],["NM25CCOR037","MUHAMMED YASEEN",5],["NM25CCOR038","RAZEEN BASHEER",5],["NM25CCOR039","SHAFIN AK",5],["NM25CCOR040","AMRITHA C K",5],["NM25CCOR041","FATHIMA NOOHA P P",5],["NM25CCOR042","MUHAMMED ZAYYAN ABDUL MAJEED A",5],["NM25CCOR043","FATHIMA HANNATH A V",5],["NM25CCOR044","FATHIMA MILAN",5],["NM25CCOR045","FATHIMATH SHAHSIYA A",5],["NM25CCOR046","FATHIMATHUL MISRIYA C",5],["NM25CCOR047","FATHIMATHUL NAJA M T K",5],["NM25CCOR048","FIDA SHARIN R T K",5],["NM25CCOR049","FIDHA NASRIN C",5],["NM25CCOR050","HASNATH P P",5],["NM25CCOR051","M.SREYA",5],["NM25CCOR052","NASWIFA NASREEN",5],["NM25CCOR053","RAFIYA FATHIMA",5],["NM25CCOR054","RASHA FATHIMA M",5],["NM25CCOR055","RIFA FATHIMA",5],["NM25CCOR056","ZENHA MEHRIN K P",5],["NM25CCOR057","ANURANJ .E.K",5],["NM25CCOR058","NAJA FARVEEN",5],["NM25CCOR059","NIDHA FATHIMA.A.V",5],["NM25CCOR060","NIYA FATHIMA A P",5],["NM25CCOR061","RAWAN BINTH MUNIVAR",5],["NM25CCOR063","MUHAMMED ZAIN NISSAM",5],["NM25BBAR001","FATHIMA SAHALA K",6],["NM25BBAR002","FATHIMATHU THASLEEM",6],["NM25BBAR003","FATHIMATHUL RIZA M K",6],["NM25BBAR004","FINHA FOUZ",6],["NM25BBAR005","HANIYAH RASHEED",6],["NM25BBAR006","NADA FATHIMA C V",6],["NM25BBAR007","P P FATHIMA FARAH",6],["NM25BBAR008","RIYA FATHIMA P P",6],["NM25BBAR009","SAFA FATHIMA A K P",6],["NM25BBAR010","SAFNA SHERIN P",6],["NM25BBAR011","SANA MAHARIN K",6],["NM25BBAR012","SANIKTHA M",6],["NM25BBAR013","SHAHANA SHERIN TK",6],["NM25BBAR014","FASAL A M",6],["NM25BBAR015","ASMIRA.T.P",6],["NM25BBAR016","FATHIMATH SAFNA .C.H",6],["NM25BBAR017","FIDA NASRIN",6],["NM25BBAR018","HANA FATHIMA O",6],["NM25BBAR019","HANNA SHERIN P",6],["NM25BBAR020","LUBNA FATHIMA NK",6],["NM25BBAR021","MUFEEDA MAHAMOOD KALLUMPURATH",6],["NM25BBAR022","NAJA FATHIMA P",6],["NM25BBAR023","REEM TAJ",6],["NM25BBAR024","RIFA FATHIMA C",6],["NM25BBAR025","RIMSHA FATHIMA P K",6],["NM25BBAR026","SAFNA FATHIMA .T . V",6],["NM25BBAR027","SAFWA",6],["NM25BBAR028","SHAFANA SALEEM P",6],["NM25BBAR029","SHIFA FATHIMA K V",6],["NM25BBAR030","ABDUL BAASITH M K",6],["NM25BBAR031","ABDUL BASITH",6],["NM25BBAR032","AMAR MUHAMMED P",6],["NM25BBAR033","AMEEN ANZAR",6],["NM25BBAR034","AYAAN ZIYALI THANVEER",6],["NM25BBAR035","HUMAID AK",6],["NM25BBAR036","MOHAMMED SHAMNAS C P",6],["NM25BBAR038","MUHAMMED ADEEB V P",6],["NM25BBAR039","MUHAMMED IHSAN. V.K",6],["NM25BBAR040","MUHAMMED NAZIL",6],["NM25BBAR041","MUHAMMED NIFAL",6],["NM25BBAR042","MUHAMMED SAVAD E K",6],["NM25BBAR043","MUHAMMED SHAHABAS K",6],["NM25BBAR044","MUHAMMED SHAHZIN A M",6],["NM25BBAR045","MUHAMMED SHEZIN.M",6],["NM25BBAR046","MUHAMMED USMAN N",6],["NM25BBAR047","RASIN MAHAMOOD.P",6],["NM25BBAR048","RISHAN ABOOBACKER",6],["NM25BBAR049","THARIQ BIN NOUFAL KUTTIYIL",6],["NM25BBAR050","ZAMEEL HARIS",6],["NM25BBAR051","ZAYID BIN MUHAMMED",6]],"exams":[{"date":"2026-11-13","time":"02:00 PM","code":"KU3MDCARB203","name":"Kerala Culture in Arabic Literature","s":[0,6,7,9,10,15,30,40,41,43,45,46,47,48,49,52,53,78,99,100,102,103,104,105,110,112,115,116,117,118,119,120,128,131,137,140,141,142,143,145,146,149,151,153,154,155,156,163,168,172,173,175,179,182,183,184,185,195,196,197,199,200,201,202,203,205,206,207,208,209,210,211,212,214,216,217,218,219,220,221,223,224,225,226,227,228,229,230,231,232,233]},{"date":"2026-11-13","time":"02:00 PM","code":"KU3MDCENG201","name":"Kerala Knowledge Systems","s":[4,5,8,12,14,18,21,28,29,31,32,33,38,92,93,94,95,96,106,109,111,113,114,121,122,152,159,160,180,181,193,194,198,204,213,215,222,238,239,243,245,246,247,248,249,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306]},{"date":"2026-11-13","time":"02:00 PM","code":"KU3MDCHIN103","name":"Keral ki Lok Kalayen","s":[22,23,24,123,124,125,126,129,157,166,167,235,236]},{"date":"2026-11-13","time":"02:00 PM","code":"KU3MDCMAL103","name":"Keraleeyadhunikatha","s":[16,19,25,27,42,50,54,55,56,57,59,60,61,62,64,66,67,68,69,70,86,87,97,127,130,138,161,162,164,234,237,240,241,242,244,250,251]},{"date":"2026-11-13","time":"02:00 PM","code":"KU3MDCURD204","name":"Kerala ka Muthala","s":[1,2,3,11,13,17,20,26,34,35,36,37,39,44,51,58,63,65,71,72,73,74,75,76,77,79,80,81,82,83,84,85,88,89,90,91,98,101,107,108,132,133,134,135,136,139,144,147,148,150,158,165,169,170,171,174,176,177,178,186,187,188,189,190,191,192,252,253,254,255]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACARB201","name":"Arabic Literature for Humanity","s":[202,209]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACBBA200","name":"Environmental Science And Sustainability","s":[257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACCOM100","name":"Professional Ethics and Corporate Governance","s":[145,150,151,152,156,157,160,195,200,211,218,220,221,224,225,226,227,229,230,232,234,235,236,244,245,251,254]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACCSC103","name":"Data analytics using R","s":[1,6,7,9,10,13,15,35,37,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,198,205,246]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACENG201","name":"Recovering Nature","s":[0,2,3,5,14,17,18,20,21,23,25,26,29,31,32,33,34,36,196,199,203,206,208,210,212,214,216,217,222,223,228,231,238,243,248,249,252,255,256]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACENG202","name":"Reconstructing Gender","s":[4,8,11,12,16,19,27,28,140,141,142,153,154,155,159,164,166,237,239,247]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACHIN102","name":"Hindi Sahitya evam Manavadhikar","s":[22,24]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACHIS201","name":"History of Human Rights Movements in Modern India","s":[39,41,42,43,44,45,46,47,48,49,50,51,52,54,55,56,57,58,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,87,88,89]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACJMC209","name":"Ethics in Media","s":[30,40,98,197,201,204,207,213,215,219,233,240,241,242,250,253]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACMAL101","name":"Malabar-Samoohavum Navodhanavum","s":[138,161,162]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACMAT202","name":"Mathematical Logic","s":[139,143,144,146,147,148,149,158,163,165,167]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACPCH102","name":"Polymers and Polymer Composites","s":[168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194]},{"date":"2026-11-16","time":"01:30 PM","code":"KU3VACURD201","name":"Thahzeeb aur Saqafath","s":[38,53,59,86,90,91,92,93,94,95,96,97]},{"date":"2026-11-18","time":"01:30 PM","code":"KU3DSCBBA200","name":"Marketing Management","s":[257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306]},{"date":"2026-11-18","time":"01:30 PM","code":"KU3DSCCHE201","name":"Inorganic Chemistry-I","s":[168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194]},{"date":"2026-11-18","time":"01:30 PM","code":"KU3DSCCOM200","name":"Corporate Accounting","s":[195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256]},{"date":"2026-11-18","time":"01:30 PM","code":"KU3DSCCSC201","name":"Object Oriented Programming using Java","s":[99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142]},{"date":"2026-11-18","time":"01:30 PM","code":"KU3DSCENG201","name":"Chaucer to Contemporary Poets","s":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]},{"date":"2026-11-18","time":"01:30 PM","code":"KU3DSCHIS201","name":"World from Iron Age to Medieval Times","s":[39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98]},{"date":"2026-11-18","time":"01:30 PM","code":"KU3DSCMAT201","name":"Algebra","s":[143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167]},{"date":"2026-11-20","time":"02:00 PM","code":"KU3DSCBBA201","name":"Human Resource Management","s":[257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306]},{"date":"2026-11-20","time":"02:00 PM","code":"KU3DSCCHE202","name":"Organic Chemistry-I","s":[168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194]},{"date":"2026-11-20","time":"02:00 PM","code":"KU3DSCCOM201","name":"Company Law and Administration","s":[195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256]},{"date":"2026-11-20","time":"02:00 PM","code":"KU3DSCCSC202","name":"Digital Systems","s":[99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142]},{"date":"2026-11-20","time":"02:00 PM","code":"KU3DSCENG203","name":"Literature in Context: Old English to Medieval English","s":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38]},{"date":"2026-11-20","time":"02:00 PM","code":"KU3DSCHIS202","name":"Social Formations in Early India (Earliest times to Mauryan)","s":[39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98]},{"date":"2026-11-20","time":"02:00 PM","code":"KU3DSCMAT202","name":"Coordinate Systems and Multiple Integrals","s":[143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCCOM203","name":"Financial Markets and Services","s":[257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCCOM204","name":"Event Management","s":[1,2,3,4,6,7,9,10,11,12,15,16,17,20,26,27,31,34,35,36,37,117,118,120,127,129,130,135,136,137,159,160,166]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCCSC203","name":"Python for Data Analytics","s":[168,169,171,173,174,177,186,187,189,190,195,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,217,218,219,220,221,222,223,224,225,226,227,228,229,230,232,233,235,236,237,239,240,241,242,243,244,245,246,247,248,249,250,252,253,254,255]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCECO203","name":"Economics of Banking and Finance","s":[39,41,46,48,49,51,57,59,60,64,68,71,72,75,76,77,78,79,80,83,84,86,88,89,96,193,194]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCFNG203","name":"Narratives of Love and Friendship","s":[40,43,45,47,53,65,74,82,91,92,93,94,95,98,188,191,231]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCHIS205","name":"History of Indian National Movement","s":[13,19,32,38,196,216,238,251,256]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCMAT211","name":"Differential Equations, Laplace Transforms, Linear Programming and Numerical Methods","s":[99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,119,121,122,123,124,125,126,128,131,132,133,134,138,139,140,141,142,170,172,175,176,178,179,180,181,182,183,184,185,192]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCSOC202","name":"Media and Society","s":[0,5,8,14,18,21,22,23,24,25,28,29,30,33,42,44,50,52,54,55,56,58,61,62,63,66,67,69,70,73,81,85,87,90,97,234]},{"date":"2026-11-23","time":"01:30 PM","code":"KU3DSCSTA221","name":"Probability Distributions","s":[143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,161,162,163,164,165,167]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCBBA204","name":"Fundamentals Of Stock Trading","s":[196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCCOM204","name":"Event Management","s":[257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,281,282,283,284,285,286,287,288,289,290,291,292,293,294,295,296,297,298,299,300,301,302,303,304,305,306]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCCOM205","name":"Financial Management (For students of all specialisations except FINANCE)","s":[20,40,120,129,159,160]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCCSC204","name":"Basics of object Oriented Programmig using C++","s":[6,7,8,9,11,15,34,37,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,161,162,163,164,165,166]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCECO205","name":"Economics of Care and Ageing","s":[1,2,3,10,13,17,26,35,36,39,41,46,48,49,50,52,54,57,58,59,60,63,68,72,75,76,77,78,80,81,83,84,86,87,88,89]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCJMC203","name":"Documentary Film Production","s":[0,4,5,14,18,19,21,22,23,24,25,28,29,30,44,47,61,65,73,98]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCPHY214","name":"Oscillations and Waves","s":[167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCSOC203","name":"Introduction to Kerala Society","s":[12,16,27,31,32,33,38,42,43,45,51,53,55,56,62,64,66,67,69,70,71,74,79,82,85,90,91,92,93,94,95,96,97,195]},{"date":"2026-11-25","time":"01:30 PM","code":"KU3DSCSTA222","name":"Statistical Inference","s":[99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,121,122,123,124,125,126,127,128,130,131,132,133,134,135,136,137,138,139,140,141,142]}]};
 
-  /* Column widths tuned for A4 PORTRAIT at 1in margins (~6.27in content) */
-  const PRINT_COLS = [11, 35, 5.5, 5.5, 5.5, 5.5, 5.5, 5.5, 6, 15];
+const COUNT_HEADS = ['English', 'History', 'CS', 'MATHS', 'PC', 'Commerce', 'BBA'];
+const FOOTER_TEXT = 'Gafoor I , FYUGP Coordinator';
 
-  function printDate(key) {
-    const info = DATE_INFO[key];
-    if (!info) return;
-    const srcBody = document.getElementById('tbody-' + key);
-    if (!srcBody) return;
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-    /* Clone the row group and strip the on-screen print buttons */
-    const cloneBody = srcBody.cloneNode(true);
-    cloneBody.querySelectorAll('button').forEach(b => b.remove());
+function parseDate(iso) {
+  const p = iso.split('-').map(Number);
+  return new Date(p[0], p[1] - 1, p[2]);
+}
+function fmtDate(iso) {
+  const d = parseDate(iso);
+  return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+function weekday(iso) { return DAYS[parseDate(iso).getDay()]; }
+function sessionTime(t) { return t.replace(/^0/, '').replace(/^(\d+):(\d+) (AM|PM)$/, '$1:$2 $3'); }
+function paperTitle(e) { return e.name + ' (' + e.code + ')'; }
 
-    /* Build a print-optimised colgroup */
-    const colgroup = document.createElement('colgroup');
-    PRINT_COLS.forEach(w => {
-      const c = document.createElement('col');
-      c.style.width = w + '%';
-      colgroup.appendChild(c);
+/* ---------- Page table ---------- */
+function buildPage() {
+  const body = document.getElementById('examBody');
+  const byDate = new Map();
+  DATA.exams.forEach((e, i) => {
+    if (!byDate.has(e.date)) byDate.set(e.date, []);
+    byDate.get(e.date).push(i);
+  });
+  byDate.forEach((list, date) => {
+    list.forEach((examIndex, k) => {
+      const e = DATA.exams[examIndex];
+      const tr = document.createElement('tr');
+      if (k === 0) tr.className = 'day-start';
+
+      if (k === 0) {
+        const td = document.createElement('td');
+        td.className = 'date-cell';
+        td.rowSpan = list.length;
+        td.textContent = fmtDate(date);
+        const small = document.createElement('small');
+        small.textContent = weekday(date) + ' | ' + sessionTime(e.time);
+        td.appendChild(small);
+        tr.appendChild(td);
+      }
+
+      const paper = document.createElement('td');
+      paper.className = 'paper-cell';
+      paper.appendChild(document.createTextNode(e.name + ' '));
+      const code = document.createElement('span');
+      code.className = 'code';
+      code.textContent = '(' + e.code + ')';
+      paper.appendChild(code);
+      tr.appendChild(paper);
+
+      const btnCell = document.createElement('td');
+      btnCell.className = 'btn-cell';
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'list-btn';
+      btn.textContent = 'Student list';
+      btn.title = e.s.length + ' students';
+      btn.addEventListener('click', () => printList(examIndex, btn));
+      btnCell.appendChild(btn);
+      tr.appendChild(btnCell);
+
+      body.appendChild(tr);
     });
+  });
+}
 
-    /* Clone the header row (keeps the same header labels) */
-    const thead = document.querySelector('#exam-table thead').cloneNode(true);
+/* ---------- PDF (A4) ---------- */
+function buildPdf(examIndex) {
+  const e = DATA.exams[examIndex];
+  const jsPDF = window.jspdf.jsPDF;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+  const PW = 210, PH = 297, M = 12, FOOT = 16;
+  const BLUE = [107, 163, 212], BLUE_D = [47, 102, 144], SOFT = [238, 245, 251], RED = [196, 30, 58], LINE = [183, 204, 224];
 
-    const area = document.getElementById('print-area');
-    area.innerHTML = '';
+  /* heading band */
+  doc.setFillColor(BLUE[0], BLUE[1], BLUE[2]);
+  doc.rect(0, 0, PW, 31, 'F');
+  doc.setFillColor(RED[0], RED[1], RED[2]);
+  doc.rect(0, 31, PW, 1.3, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(18);
+  doc.text('NAM COLLEGE KALLIKKANDY', PW / 2, 12.5, { align: 'center' });
+  doc.setFontSize(11);
+  doc.text('III SEMESTER FYUGP (2025)', PW / 2, 19.5, { align: 'center' });
+  doc.text('EXAMINATION NOVEMBER 2026', PW / 2, 25.5, { align: 'center' });
 
-    /* ---- Sheet header ---- */
-    const head = document.createElement('div');
-    head.className = 'print-head';
-    head.innerHTML =
-      '<div class="p-college">NAM COLLEGE KALLIKKANDY</div>' +
-      '<div class="p-title">III SEMESTER FYUGP EXAM — NOVEMBER 2026</div>' +
-      '<div class="p-sub">Projected Date &amp; Course-wise Student Count · ' +
-        info.date + ' (' + info.day + ') · Total registrations: ' + info.total +
-        ' · Time: ' + info.time + '</div>' +
-      '<div class="p-warn">⚠ Unconfirmed data — please verify with hall tickets and the official timetable.</div>';
+  /* title */
+  doc.setTextColor(RED[0], RED[1], RED[2]);
+  doc.setFontSize(14);
+  doc.text('STUDENT LIST', PW / 2, 42, { align: 'center' });
 
-    /* ---- Table ---- */
-    const table = document.createElement('table');
-    table.className = 'print-table';
-    table.appendChild(colgroup);
-    table.appendChild(thead);
-    table.appendChild(cloneBody);
+  /* paper information box */
+  const leftW = 118;
+  doc.setFontSize(10.5);
+  doc.setFont('helvetica', 'bold');
+  const paperLines = doc.splitTextToSize(paperTitle(e), leftW - 6);
+  const boxH = Math.max(25, 9 + paperLines.length * 5 + 3);
+  const boxY = 47;
+  doc.setDrawColor(LINE[0], LINE[1], LINE[2]);
+  doc.setFillColor(243, 248, 252);
+  doc.roundedRect(M, boxY, PW - 2 * M, boxH, 2, 2, 'FD');
+  doc.setDrawColor(BLUE[0], BLUE[1], BLUE[2]);
+  doc.line(M + leftW, boxY + 3, M + leftW, boxY + boxH - 3);
 
-    /* ---- Sheet footer ---- */
-    const foot = document.createElement('div');
-    foot.className = 'print-footer';
-    foot.textContent = 'Prepared by Gafoor I, Department of Mathematics';
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(90, 90, 90);
+  doc.text('EXAM PAPER', M + 3, boxY + 5.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10.5);
+  doc.setTextColor(0, 0, 0);
+  doc.text(paperLines, M + 3, boxY + 11);
 
-    area.appendChild(head);
-    area.appendChild(table);
-    area.appendChild(foot);
+  const rx = M + leftW + 5;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.setTextColor(90, 90, 90);
+  doc.text('DATE & SESSION', rx, boxY + 5.5);
+  doc.text('STUDENTS', rx, boxY + 14.5);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.setTextColor(0, 0, 0);
+  doc.text(fmtDate(e.date) + ' (' + weekday(e.date) + '), ' + sessionTime(e.time), rx, boxY + 10.5);
+  doc.text(String(e.s.length), rx, boxY + 19.5);
 
-    window.onafterprint = function () {
-      area.innerHTML = '';
-      window.onafterprint = null;
-    };
+  /* student list table */
+  const rows = e.s.map(i => DATA.students[i])
+    .sort((a, b) => (a[2] - b[2]) || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
+    .map((s, n) => [n + 1, s[0], s[1], DATA.progs[s[2]]]);
 
-    window.print();
+  const title = paperTitle(e);
+  doc.autoTable({
+    startY: boxY + boxH + 6,
+    head: [['Sl No', 'Register Number', 'Name', 'Department (Programme of Study)']],
+    body: rows,
+    theme: 'grid',
+    margin: { top: 16, left: M, right: M, bottom: FOOT + 2 },
+    styles: { font: 'helvetica', fontSize: 9.5, cellPadding: { top: 1.9, bottom: 1.9, left: 2.5, right: 2.5 },
+              lineColor: LINE, lineWidth: 0.25, textColor: [0, 0, 0], valign: 'middle' },
+    headStyles: { fillColor: BLUE_D, textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center', fontSize: 9.5 },
+    alternateRowStyles: { fillColor: SOFT },
+    columnStyles: {
+      0: { cellWidth: 14, halign: 'center' },
+      1: { cellWidth: 38, halign: 'center', fontStyle: 'bold' },
+      2: { cellWidth: 70, halign: 'left' },
+      3: { cellWidth: 64, halign: 'left' }
+    },
+    didDrawPage: function (d) {
+      if (d.pageNumber > 1) {
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(90, 90, 90);
+        const t = doc.splitTextToSize('NAM College Kallikkandy | III Sem FYUGP | Exam Nov 2026 | ' + title, PW - 2 * M)[0];
+        doc.text(t, M, 9);
+        doc.setDrawColor(BLUE[0], BLUE[1], BLUE[2]);
+        doc.setLineWidth(0.4);
+        doc.line(M, 11, PW - M, 11);
+      }
+    }
+  });
+
+  /* student count table */
+  let y = doc.lastAutoTable.finalY + 10;
+  if (y + 46 > PH - FOOT) { doc.addPage(); y = 20; }
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.setTextColor(RED[0], RED[1], RED[2]);
+  doc.text('Student Count', M, y);
+  doc.setDrawColor(RED[0], RED[1], RED[2]);
+  doc.setLineWidth(0.5);
+  doc.line(M, y + 1.6, M + 34, y + 1.6);
+
+  const counts = DATA.progs.map(() => 0);
+  e.s.forEach(i => counts[DATA.students[i][2]]++);
+  const total = counts.reduce((a, b) => a + b, 0);
+  const cwidths = [15, 15, 11, 15, 11, 19, 12];   /* English, History, CS, MATHS, PC, Commerce, BBA */
+  const cstyles = { 0: { cellWidth: 13, halign: 'center' }, 1: { cellWidth: 57, halign: 'left' } };
+  for (let c = 0; c < 7; c++) cstyles[2 + c] = { cellWidth: cwidths[c], halign: 'center' };
+  cstyles[9] = { cellWidth: 18, halign: 'center', fontStyle: 'bold', fillColor: [220, 235, 247] };
+  doc.autoTable({
+    startY: y + 5,
+    head: [['Sl No', 'Course with code'].concat(COUNT_HEADS, ['Total'])],
+    body: [[1, title].concat(counts, [total])],
+    theme: 'grid',
+    margin: { top: 16, left: M, right: M, bottom: FOOT + 2 },
+    styles: { font: 'helvetica', fontSize: 9, cellPadding: { top: 2.4, bottom: 2.4, left: 1.5, right: 1.5 }, lineColor: LINE, lineWidth: 0.25,
+              textColor: [0, 0, 0], valign: 'middle' },
+    headStyles: { fillColor: BLUE_D, textColor: [255, 255, 255], fontStyle: 'bold', halign: 'center', fontSize: 8 },
+    columnStyles: cstyles,
+    rowPageBreak: 'avoid'
+  });
+
+  /* footer on every page */
+  const pages = doc.getNumberOfPages();
+  for (let p = 1; p <= pages; p++) {
+    doc.setPage(p);
+    doc.setDrawColor(BLUE[0], BLUE[1], BLUE[2]);
+    doc.setLineWidth(0.6);
+    doc.line(M, PH - 13, PW - M, PH - 13);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(90, 90, 90);
+    doc.text('Page ' + p + ' of ' + pages, M, PH - 8);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(0, 0, 0);
+    doc.text(FOOTER_TEXT, PW - M, PH - 8, { align: 'right' });
   }
-</script>
+  return doc;
+}
 
+function printList(examIndex, btn) {
+  if (!(window.jspdf && window.jspdf.jsPDF) || typeof (new window.jspdf.jsPDF()).autoTable !== 'function') {
+    alert('The PDF library could not be loaded. Please check your internet connection and try again.');
+    return;
+  }
+  if (btn) btn.disabled = true;
+  try {
+    const e = DATA.exams[examIndex];
+    const doc = buildPdf(examIndex);
+    doc.save('Student_List_' + e.code + '_' + e.date + '.pdf');
+  } finally {
+    if (btn) btn.disabled = false;
+  }
+}
+
+buildPage();
+</script>
 </body>
 </html>
