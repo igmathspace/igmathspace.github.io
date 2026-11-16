@@ -627,10 +627,9 @@
                     <a href="2026-27/ttmaths_ODD_2026_27.html" class="modal-btn modal-btn-primary">
                         📖 Time Table for ODD Semesters → 
                     </a>
-                    <button class="modal-btn modal-btn-secondary" id="evenSemesterBtn">
-                        <a href="2026-27/ttmaths_EVEN_2026_27.html" class="modal-btn modal-btn-primary"></a>
+                    <a href="2026-27/ttmaths_EVEN_2026_27.html" class="modal-btn modal-btn-secondary" id="evenSemesterBtn">
                         📅 Time Table for EVEN Semesters → 
-                    </button>
+                    </a>
                 </div>
                 <button class="close-btn" onclick="closeTimeTableModal()">Close</button>
             </div>
@@ -707,13 +706,6 @@
         // Even Semester Modal
         var evenSemesterModal = document.getElementById("evenSemesterModal");
         var evenSemesterBtn = document.getElementById("evenSemesterBtn");
-        
-        if (evenSemesterBtn) {
-            evenSemesterBtn.onclick = function() {
-                timeTableModal.style.display = "none";
-                evenSemesterModal.style.display = "block";
-            }
-        }
         
         function closeEvenSemesterModal() {
             evenSemesterModal.style.display = "none";
