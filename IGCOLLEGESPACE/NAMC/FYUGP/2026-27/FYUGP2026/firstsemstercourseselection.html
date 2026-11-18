@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>First Semester Course Selection Details (2026-2) | NAM College Kallikkandy</title>
+<style>
+  :root{
+    /* ---------- Greenish-Blue theme ---------- */
+    --navy:#0c5f6b;            /* deep teal-blue */
+    --navy-deep:#04363d;       /* darkest teal */
+    --teal:#0d9488;            /* teal-600 */
+    --teal-accent:#14b8a6;     /* teal-500 */
+    --teal-light:#ccfbf1;      /* teal-100 */
+    --teal-soft:#e6faf7;
+    --gold:#c99a3b;            /* warm accent */
+    --gold-light:#fdf6e3;
+    --paper:#f3faf8;
+    --ink:#0f2a2a;
+    --muted:#5b6a7a;
+    --card:#ffffff;
+    --line:#c3e0d9;
+    --shadow:0 2px 10px rgba(4,54,61,0.10);
+    --shadow-lg:0 12px 28px rgba(4,54,61,0.16);
+    --radius:8px;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Cambria',serif;
+    background:var(--paper);
+    color:var(--ink);
+  }
+
+  /* ============================================================
+     HEADER (locked — from main.html)
+     ============================================================ */
+  header.site-header{
+    background:linear-gradient(135deg,var(--navy-deep),var(--navy));
+    color:#fff;
+    padding:0;
+    box-shadow:0 2px 10px rgba(4,54,61,0.25);
+  }
+  .brand-strip{
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px 24px 10px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .brand-strip .mark{
+    font-size:28px;
+    background:rgba(20,184,166,0.15);
+    border:1px solid rgba(20,184,166,0.55);
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:10px;
+  }
+  .brand-strip .titles h1{
+    margin:0;
+    font-size:19px;
+    letter-spacing:0.5px;
+    font-weight:700;
+  }
+  .brand-strip .titles p{
+    margin:2px 0 0;
+    font-size:12.5px;
+    color:#c9d3de;
+    font-family:'Trebuchet MS',sans-serif;
+  }
+  nav.site-nav{
+    border-top:1px solid rgba(255,255,255,0.12);
+    background:rgba(0,0,0,0.15);
+  }
+  nav.site-nav ul{
+    max-width:1100px;
+    margin:0 auto;
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:2px;
+    padding:0 12px;
+  }
+  nav.site-nav a{
+    display:inline-block;
+    padding:12px 16px;
+    color:#e8ecf1;
+    text-decoration:none;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    letter-spacing:0.3px;
+    border-bottom:3px solid transparent;
+    transition:background 0.2s, border-color 0.2s;
+  }
+  nav.site-nav a:hover{
+    background:rgba(255,255,255,0.06);
+    border-bottom-color:var(--teal-accent);
+  }
+  nav.site-nav a.current{
+    border-bottom-color:var(--teal-accent);
+    color:#fff;
+    background:rgba(255,255,255,0.06);
+  }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero{
+    max-width:1100px;
+    margin:0 auto;
+    padding:46px 24px 32px;
+  }
+  .hero .eyebrow{
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--teal);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .hero h2{
+    margin:0 0 10px;
+    font-size:34px;
+    line-height:1.2;
+    color:var(--navy-deep);
+  }
+  .hero p.sub{
+    margin:0 0 6px;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    letter-spacing:1px;
+    color:var(--navy);
+    text-transform:uppercase;
+  }
+  .hero p.lead{
+    margin:12px 0 0;
+    max-width:680px;
+    font-family:'Trebuchet MS',sans-serif;
+    color:var(--muted);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+
+  /* ============================================================
+     MAIN
+     ============================================================ */
+  main{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+
+  /* ---------- Programme tabs ---------- */
+  .tabs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    border-bottom:2px solid var(--line);
+    margin-bottom:24px;
+    padding-bottom:0;
+  }
+  .tab{
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13.5px;
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:var(--navy);
+    background:transparent;
+    border:1px solid transparent;
+    border-bottom:none;
+    padding:11px 18px;
+    border-radius:8px 8px 0 0;
+    cursor:pointer;
+    transition:background 0.18s, color 0.18s, border-color 0.18s;
+    position:relative;
+    top:1px;
+  }
+  .tab:hover{
+    background:var(--teal-soft);
+  }
+  .tab.active{
+    background:var(--card);
+    color:var(--teal);
+    border-color:var(--line);
+    border-bottom:2px solid var(--card);
+    box-shadow:0 -2px 6px rgba(4,54,61,0.05);
+  }
+
+  /* ---------- Panel ---------- */
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    animation:fadeIn 0.25s ease both;
+  }
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(6px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .panel-head{
+    padding:20px 26px 16px;
+    border-bottom:1px solid var(--line);
+    background:linear-gradient(135deg,var(--teal-soft),#f8fefc);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .panel-head h3{
+    margin:0;
+    font-size:21px;
+    color:var(--navy-deep);
+  }
+  .panel-head .meta{
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .panel-head .meta strong{
+    color:var(--teal);
+    font-size:15px;
+  }
+
+  /* ---------- Table ---------- */
+  .table-wrap{
+    overflow-x:auto;
+    padding:0 4px;
+  }
+  table.course-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+  }
+  table.course-table thead th{
+    text-align:left;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    background:var(--navy-deep);
+    color:var(--teal-light);
+    padding:12px 16px;
+    font-weight:700;
+  }
+  table.course-table thead th.num,
+  table.course-table td.num{
+    text-align:right;
+  }
+  table.course-table tbody td{
+    padding:10px 16px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  table.course-table tbody tr:last-child td{
+    border-bottom:none;
+  }
+  table.course-table tbody tr:nth-child(even){
+    background:#f8fdfb;
+  }
+  table.course-table tbody tr:hover{
+    background:var(--teal-soft);
+  }
+  table.course-table tr.group-head td{
+    background:var(--teal-light);
+    color:var(--navy-deep);
+    font-family:'Trebuchet MS',sans-serif;
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:10px 16px;
+    border-top:2px solid var(--teal);
+    border-bottom:1px solid var(--line);
+  }
+  table.course-table tr.group-total td{
+    background:var(--teal-soft);
+    font-family:'Trebuchet MS',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    color:var(--navy-deep);
+    border-bottom:2px solid var(--teal);
+  }
+  table.course-table td.code{
+    font-family:'Consolas','Menlo',monospace;
+    font-size:12.5px;
+    color:var(--navy);
+    white-space:nowrap;
+  }
+  table.course-table td.count{
+    font-family:'Trebuchet MS',sans-serif;
+    font-weight:700;
+    text-align:right;
+    color:var(--teal);
+    white-space:nowrap;
+  }
+
+  /* ---------- Print button ---------- */
+  .action-row{
+    padding:18px 24px;
+    border-top:1px solid var(--line);
+    background:#fbfefd;
+    display:flex;
+    justify-content:flex-end;
+  }
+  .print-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:13.5px;
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:#fff;
+    background:linear-gradient(135deg,var(--teal),var(--navy));
+    border:none;
+    padding:12px 24px;
+    border-radius:6px;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(4,54,61,0.2);
+    transition:transform 0.15s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+  .print-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 16px rgba(4,54,61,0.25);
+    background:linear-gradient(135deg,var(--teal-accent),var(--teal));
+  }
+  .print-btn:active{
+    transform:translateY(0);
+  }
+
+  /* ============================================================
+     FOOTER (locked — modified per request)
+     ============================================================ */
+  footer{
+    background:var(--navy-deep);
+    color:#c9d3de;
+    text-align:center;
+    padding:24px 20px;
+    font-family:'Trebuchet MS',sans-serif;
+    font-size:12.5px;
+    margin-top:40px;
+  }
+  footer strong{color:#fff;}
+
+  /* ============================================================
+     PRINT DOCUMENT (hidden until window.print())
+     ============================================================ */
+  #print-doc{ display:none; }
+
+  @media print{
+    body{
+      background:#fff;
+      font-family:'Times New Roman', Georgia, serif;
+      color:#000;
+    }
+    .site-header,
+    .hero,
+    main,
+    footer{
+      display:none !important;
+    }
+    #print-doc{
+      display:block !important;
+      padding:0;
+      margin:0;
+    }
+    #print-doc .print-page{
+      width:100%;
+      padding:14mm 16mm;
+    }
+    #print-doc .print-heading{
+      text-align:center;
+      margin:0 0 14px;
+    }
+    #print-doc .print-heading h1{
+      margin:0 0 4px;
+      font-size:18pt;
+      letter-spacing:1px;
+      color:#000;
+      font-weight:700;
+    }
+    #print-doc .print-heading h2{
+      margin:0;
+      font-size:12.5pt;
+      font-weight:700;
+      letter-spacing:0.6px;
+      color:#000;
+    }
+    #print-doc .print-heading h3{
+      margin:2px 0 0;
+      font-size:11.5pt;
+      font-weight:600;
+      letter-spacing:0.4px;
+      color:#000;
+    }
+    #print-doc .print-dept{
+      margin:14px 0 8px;
+      font-size:12pt;
+      font-weight:700;
+      color:#000;
+    }
+    #print-doc .print-dept span{
+      font-weight:600;
+    }
+    #print-doc .print-sub{
+      margin:0 0 12px;
+      font-size:10.5pt;
+      color:#333;
+    }
+    #print-doc table.print-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:10.5pt;
+    }
+    #print-doc table.print-table th,
+    #print-doc table.print-table td{
+      border:1px solid #222;
+      padding:5px 8px;
+      text-align:left;
+      vertical-align:top;
+    }
+    #print-doc table.print-table thead th{
+      background:#e8f4f2;
+      font-weight:700;
+      font-size:10pt;
+      text-transform:uppercase;
+      letter-spacing:0.4px;
+    }
+    #print-doc table.print-table tr.cat-row td{
+      background:#f1f8f6;
+      font-weight:700;
+      font-size:10.5pt;
+      letter-spacing:0.4px;
+    }
+    #print-doc table.print-table td.num,
+    #print-doc table.print-table th.num{
+      text-align:center;
+      width:60px;
+    }
+    #print-doc table.print-table td.enr{
+      text-align:center;
+      width:70px;
+      font-weight:700;
+    }
+    #print-doc table.print-table td.code{
+      font-family:'Courier New', monospace;
+      font-size:10pt;
+      white-space:nowrap;
+      width:150px;
+    }
+    #print-doc .print-footer{
+      margin-top:18px;
+      font-size:9.5pt;
+      text-align:right;
+      color:#222;
+    }
+    @page{
+      size:A4;
+      margin:14mm 12mm;
+    }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:720px){
+    .hero h2{font-size:26px;}
+    .tab{font-size:12.5px; padding:10px 12px;}
+    .panel-head{flex-direction:column; align-items:flex-start;}
+    table.course-table{font-size:13px;}
+    table.course-table thead th,
+    table.course-table tbody td{padding:9px 12px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER (locked — from main.html)
+     ============================================================ -->
+<header class="site-header">
+  <div class="brand-strip">
+    <div class="mark">🏛️</div>
+    <div class="titles">
+      <h1>IG MATH SPACE</h1>
+      <p>Department of Mathematics · NAM College Kallikkandy</p>
+    </div>
+  </div>
+  <nav class="site-nav">
+    <ul>
+      <li><a href="https://igmathspace.github.io/index.html">HOME</a></li>
+      <li><a href="https://igmathspace.github.io/lessons.html">CLASSROOM</a></li>
+      <li><a href="https://igmathspace.github.io/research.html">RESEARCH</a></li>
+      <li><a href="https://igmathspace.github.io/students.html">STUDENT</a></li>
+      <li><a href="https://igmathspace.github.io/IGBOOKSPACE/">📚 BOOK</a></li>
+      <li><a href="https://igmathspace.github.io/IGCOLLEGESPACE/" class="current">🏛️ OFFICIAL</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="eyebrow">Official Space · First Semester · FYUGP</div>
+  <h2>NAM COLLEGE KALLIKKANDY</h2>
+  <p class="sub">First Semester Course Selection Details (2026-2)</p>
+  <p class="sub">FYUGP 2026 Admission</p>
+  <p class="lead">Programme-wise registration counts across Major, Minor 1, Minor 2, MDC 1, AEC 1 and AEC 2. Use the tabs to switch programme and the print button to export the official Excel-format PDF.</p>
+</section>
+
+<!-- ============================================================
+     MAIN — Tabs + Content
+     ============================================================ -->
+<main>
+  <div class="tabs" id="tabs"></div>
+  <div id="tab-content"></div>
+</main>
+
+<!-- ============================================================
+     PRINT DOCUMENT (hidden on screen, shown only on print)
+     ============================================================ -->
+<div id="print-doc"></div>
+
+<!-- ============================================================
+     FOOTER (locked — modified per request)
+     ============================================================ -->
+<footer>
+  Prepared by <strong>Gafoor I</strong>, Department of Mathematics &amp; FYUGP Coordinator, NAMC
+</footer>
+
+<script>
+/* ================================================================
+   DATA — parsed from AEC-1, AEC-2, Major, MDC-1, Minor-1, Minor-2 PDFs
+   Each course row: [courseCode, courseName, enrolledCount]
+   ================================================================ */
+const PROGRAMMES = [
+  {
+    id: "commerce",
+    tabName: "B.Com",
+    fullName: "B.Com (Commerce)",
+    dept: "Commerce",
+    students: 64,
+    major: [
+      ["KU1DSCCOM100", "Management Theory and Practice", 64]
+    ],
+    minor1: [
+      ["KU1DSCCSC101", "Fundamentals of Computers and Programming", 37],
+      ["KU1DSCECO102", "Economics for Beginners", 27]
+    ],
+    minor2: [
+      ["KU1DSCCSC107", "Essentials of Information Technology", 21],
+      ["KU1DSCECO103", "Economics of Tourism and Development", 35],
+      ["KU1DSCFNG101", "English for Daily Use", 2],
+      ["KU1DSCPSY101", "Social Behaviour", 6]
+    ],
+    mdc1: [
+      ["KU1MDCCSC101", "Essentials of Computing", 16],
+      ["KU1MDCENG103", "English and Artificial Intelligence", 27],
+      ["KU1MDCLIB101", "Information Resources and Learning Platforms", 6],
+      ["KU1MDCPED101", "Sports and Society", 10],
+      ["KU1MDCPSY100", "Stress Management", 5]
+    ],
+    aec1: [
+      ["KU1AECENG102", "Enriching English", 64]
+    ],
+    aec2: [
+      ["KU1AECARB103", "Communicative Arabic", 23],
+      ["KU1AECHIN102", "Sahityik Hindi", 11],
+      ["KU1AECMAL103", "Sahithyavum Rachanayum", 15],
+      ["KU1AECURD103", "Communicative Urdu", 15]
+    ]
+  },
+  {
+    id: "csc",
+    tabName: "B.Sc Computer Science",
+    fullName: "B.Sc Computer Science",
+    dept: "Computer Science",
+    students: 45,
+    major: [
+      ["KU1DSCCSC101", "Fundamentals of Programming with C", 45]
+    ],
+    minor1: [
+      ["KU1DSCCOM101", "Accounting for Beginners", 5],
+      ["KU1DSCMAT113", "Functions, Calculus and Matrices", 40]
+    ],
+    minor2: [
+      ["KU1DSCCOM103", "Business Statistics", 5],
+      ["KU1DSCSTA122", "Statistical Methods", 40]
+    ],
+    mdc1: [
+      ["KU1MDCCOM100", "Personal Finance Planning", 35],
+      ["KU1MDCENG103", "English and Artificial Intelligence", 5],
+      ["KU1MDCPED101", "Sports and Society", 2],
+      ["KU1MDCPSY100", "Stress Management", 3]
+    ],
+    aec1: [
+      ["1KU1AEENG101", "ENHANCING ENGLISH", 45]
+    ],
+    aec2: [
+      ["KU1AECARAB102", "Arabic for Interaction", 26],
+      ["KU1AECHIN101", "KAHANI AUR RACHANA", 7],
+      ["KU1AECMAL101", "RACHANAYUM SAHITYA PADANAVUM", 8],
+      ["KU1AECURD102", "NASARI MUTHALA", 4]
+    ]
+  },
+  {
+    id: "english",
+    tabName: "B.A English",
+    fullName: "B.A English",
+    dept: "English",
+    students: 42,
+    major: [
+      ["KU1DSCENG101", "Poetry in English", 42]
+    ],
+    minor1: [
+      ["KU1DSCCOM101", "Accounting for Beginners", 22],
+      ["KU1DSCCSC101", "Fundamentals of Computers and Programming", 3],
+      ["KU1DSCECO102", "Economics for Beginners", 2],
+      ["KU1DSCHIS105", "History of Tourism – Concepts and Practices", 1],
+      ["KU1DSCCHE113", "General Chemistry 1", 1],
+      ["KU1DSCPSY100-1", "Foundations of Psychology", 10],
+      ["KU1DSCSOC101", "Basics of Sociology", 1]
+    ],
+    minor2: [
+      ["KU1DSCCOM103", "Business Statistics", 6],
+      ["KU1DSCCSC107", "Essentials of Information Technology", 5],
+      ["KU1DSCECO103", "Economics of Tourism and Development", 22],
+      ["KU1DSCJMC106", "Reels Communication and Popular Culture", 3],
+      ["KU1DSCPSY101", "Social Behaviour", 4]
+    ],
+    mdc1: [
+      ["KU1MDCCOM100", "Personal Finance Planning", 14],
+      ["KU1MDCCSC101", "Essentials of Computing", 3],
+      ["KU1MDCJMC107", "Professional Journalism", 6],
+      ["KU1MDCLIB101", "Information Resources and Learning Platforms", 5],
+      ["KU1MDCPED101", "Sports and Society", 6],
+      ["KU1MDCPSY100", "Stress Management", 6]
+    ],
+    aec1: [
+      ["KU1AECENG103", "Engaging English", 42]
+    ],
+    aec2: [
+      ["KU1AECARB101", "Arabic for Daily Life", 10],
+      ["KU1AECHIN103", "Saral Hindi", 4],
+      ["KU1AECMAL102", "Bhasha Sahithya Parichayam", 8],
+      ["KU1AECURD101", "Nasari Shanakhat", 18]
+    ]
+  },
+  {
+    id: "history",
+    tabName: "B.A History",
+    fullName: "B.A History",
+    dept: "History",
+    students: 56,
+    major: [
+      ["KU1DSCHIS101", "Understanding History", 56]
+    ],
+    minor1: [
+      ["KU1DSCCOM101", "Accounting for Beginners", 4],
+      ["KU1DSCCSC101", "Fundamentals of Computers and Programming", 2],
+      ["KU1DSCECO102", "Economics for Beginners", 6],
+      ["KU1DSCPSY100-1", "Foundations of Psychology", 7],
+      ["KU1DSCSOC101", "Basics of Sociology", 36]
+    ],
+    minor2: [
+      ["KU1DSCECO103", "Economics of Tourism and Development", 11],
+      ["KU1DSCFNG101", "English for Daily Use", 4],
+      ["KU1DSCJMC106", "Reels Communication and Popular Culture", 2],
+      ["KU1DSCPSY101", "Social Behaviour", 5],
+      ["KU1DSCSOC102", "Environment and Society", 33]
+    ],
+    mdc1: [
+      ["KU1MDCENG103", "English and Artificial Intelligence", 3],
+      ["KU1MDCJMC107", "Professional Journalism", 24],
+      ["KU1MDCLIB101", "Information Resources and Learning Platforms", 11],
+      ["KU1MDCPED101", "Sports and Society", 8],
+      ["KU1MDCPSY100", "Stress Management", 9]
+    ],
+    aec1: [
+      ["KU1AECENG103", "Engaging English", 56]
+    ],
+    aec2: [
+      ["KU1AECARB101", "Arabic for Daily Life", 14],
+      ["KU1AECHIN103", "Saral Hindi", 3],
+      ["KU1AECMAL102", "Bhasha Sahithya Parichayam", 21],
+      ["KU1AECURD101", "Nasari Shanakhat", 17]
+    ]
+  },
+  {
+    id: "mathematics",
+    tabName: "B.Sc Mathematics",
+    fullName: "B.Sc Mathematics",
+    dept: "Mathematics",
+    students: 30,
+    major: [
+      ["KU1DSCMAT101", "Calculus 1", 30]
+    ],
+    minor1: [
+      ["KU1DSCSTA121", "Introductory Statistics", 30]
+    ],
+    minor2: [
+      ["KU1DSCCSC107", "Essentials of Information Technology", 27],
+      ["KU1DSCFNG101", "English for Daily Use", 2],
+      ["KU1DSCPHY111", "Properties of Matter", 1]
+    ],
+    mdc1: [
+      ["KU1MDCCOM100", "Personal Finance Planning", 8],
+      ["KU1MDCCSC101", "Essentials of Computing", 12],
+      ["KU1MDCENG103", "English and Artificial Intelligence", 7],
+      ["KU1MDCPED101", "Sports and Society", 1],
+      ["KU1MDCPSY100", "Stress Management", 2]
+    ],
+    aec1: [
+      ["1KU1AEENG101", "ENHANCING ENGLISH", 30]
+    ],
+    aec2: [
+      ["KU1AECARAB102", "Arabic for Interaction", 14],
+      ["KU1AECHIN101", "KAHANI AUR RACHANA", 5],
+      ["KU1AECMAL101", "RACHANAYUM SAHITYA PADANAVUM", 7],
+      ["KU1AECURD102", "NASARI MUTHALA", 4]
+    ]
+  },
+  {
+    id: "polymer",
+    tabName: "B.Sc Polymer Chemistry",
+    fullName: "B.Sc Polymer Chemistry",
+    dept: "Polymer Chemistry",
+    students: 27,
+    major: [
+      ["KU1DSCCHE101", "Fundamentals of Chemistry 1", 27]
+    ],
+    minor1: [
+      ["KU1DSCCSC101", "Fundamentals of Computers and Programming", 13],
+      ["KU1DSCMAT113", "Functions, Calculus and Matrices", 14]
+    ],
+    minor2: [
+      ["KU1DSCCSC107", "Essentials of Information Technology", 3],
+      ["KU1DSCPHY111", "Properties of Matter", 24]
+    ],
+    mdc1: [
+      ["KU1MDCCOM100", "Personal Finance Planning", 3],
+      ["KU1MDCCSC101", "Essentials of Computing", 10],
+      ["KU1MDCENG103", "English and Artificial Intelligence", 1],
+      ["KU1MDCPSY100", "Stress Management", 13]
+    ],
+    aec1: [
+      ["1KU1AEENG101", "ENHANCING ENGLISH", 27]
+    ],
+    aec2: [
+      ["KU1AECARAB102", "Arabic for Interaction", 22],
+      ["KU1AECHIN101", "KAHANI AUR RACHANA", 4],
+      ["KU1AECURD102", "NASARI MUTHALA", 1]
+    ]
+  },
+  {
+    id: "psychology",
+    tabName: "B.Sc Psychology",
+    fullName: "B.Sc Psychology",
+    dept: "Psychology",
+    students: 24,
+    major: [
+      ["KU1DSCPSY100", "Foundations of Psychology", 24]
+    ],
+    minor1: [
+      ["KU1DSCCOM101", "Accounting for Beginners", 12],
+      ["KU1DSCCHE113", "General Chemistry 1", 1],
+      ["KU1DSCSOC101", "Basics of Sociology", 9]
+    ],
+    minor2: [
+      ["KU1DSCCOM103", "Business Statistics", 11],
+      ["KU1DSCCSC107", "Essentials of Information Technology", 1],
+      ["KU1DSCFNG101", "English for Daily Use", 3],
+      ["KU1DSCSTA122", "Statistical Methods", 9]
+    ],
+    mdc1: [
+      ["KU1MDCCOM100", "Personal Finance Planning", 1],
+      ["KU1MDCCSC101", "Essentials of Computing", 2],
+      ["KU1MDCENG103", "English and Artificial Intelligence", 6],
+      ["KU1MDCJMC107", "Professional Journalism", 8],
+      ["KU1MDCLIB101", "Information Resources and Learning Platforms", 3],
+      ["KU1MDCPED101", "Sports and Society", 3],
+      ["KU1MDCCHE101", "Environmental Studies", 1]
+    ],
+    aec1: [
+      ["1KU1AEENG101", "ENHANCING ENGLISH", 24]
+    ],
+    aec2: [
+      ["KU1AECARAB102", "Arabic for Interaction", 8],
+      ["KU1AECMAL101", "RACHANAYUM SAHITYA PADANAVUM", 5],
+      ["KU1AECURD102", "NASARI MUTHALA", 11]
+    ]
+  }
+];
+
+/* Category metadata */
+const CATEGORIES = [
+  { key: "major",  label: "Major",   shortLabel: "Major"    },
+  { key: "minor1", label: "Minor 1", shortLabel: "Minor -1" },
+  { key: "minor2", label: "Minor 2", shortLabel: "Minor _2" },
+  { key: "mdc1",   label: "MDC 1",   shortLabel: "MDC _1"   },
+  { key: "aec1",   label: "AEC 1",   shortLabel: "AEC-1"    },
+  { key: "aec2",   label: "AEC 2",   shortLabel: "AEC 2"    }
+];
+
+let activeProgId = PROGRAMMES[0].id;
+
+/* ================================================================
+   TAB RENDERING
+   ================================================================ */
+function renderTabs(){
+  const tabsEl = document.getElementById("tabs");
+  tabsEl.innerHTML = PROGRAMMES.map(p =>
+    `<button class="tab${p.id === activeProgId ? ' active' : ''}" data-prog="${p.id}">${p.tabName}</button>`
+  ).join("");
+  tabsEl.querySelectorAll(".tab").forEach(btn => {
+    btn.addEventListener("click", () => switchTab(btn.dataset.prog));
+  });
+}
+
+function switchTab(progId){
+  activeProgId = progId;
+  document.querySelectorAll(".tab").forEach(t => {
+    t.classList.toggle("active", t.dataset.prog === progId);
+  });
+  renderPanel(progId);
+}
+
+/* ================================================================
+   PANEL / TABLE RENDERING
+   ================================================================ */
+function renderPanel(progId){
+  const prog = PROGRAMMES.find(p => p.id === progId);
+  const content = document.getElementById("tab-content");
+
+  let rowsHtml = "";
+  let grandTotal = 0;
+
+  CATEGORIES.forEach(cat => {
+    const courses = prog[cat.key] || [];
+    if(courses.length === 0) return;
+    const catTotal = courses.reduce((s, c) => s + (c[2] || 0), 0);
+    grandTotal += catTotal;
+
+    rowsHtml += `<tr class="group-head"><td colspan="4">${cat.label}</td></tr>`;
+    courses.forEach((c, idx) => {
+      rowsHtml += `<tr>
+        <td>${idx + 1}</td>
+        <td class="code">${c[0]}</td>
+        <td>${c[1]}</td>
+        <td class="count">${c[2]}</td>
+      </tr>`;
+    });
+    rowsHtml += `<tr class="group-total">
+      <td colspan="3">${cat.label} Total</td>
+      <td class="count">${catTotal}</td>
+    </tr>`;
+  });
+
+  content.innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h3>${prog.fullName}</h3>
+        <div class="meta">Total Students Enrolled: <strong>${prog.students}</strong> &nbsp;·&nbsp; Grand Registrations: <strong>${grandTotal}</strong></div>
+      </div>
+      <div class="table-wrap">
+        <table class="course-table">
+          <thead>
+            <tr>
+              <th style="width:70px;">Sl No</th>
+              <th style="width:170px;">Course Code</th>
+              <th>Course Name</th>
+              <th class="num" style="width:100px;">Enrolled</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </div>
+      <div class="action-row">
+        <button class="print-btn" data-prog="${prog.id}">🖨️ Print as PDF</button>
+      </div>
+    </div>
+  `;
+
+  content.querySelector(".print-btn").addEventListener("click", () => printProgramme(progId));
+}
+
+/* ================================================================
+   PRINT DOCUMENT BUILDER
+   ================================================================ */
+function buildPrintDoc(prog){
+  let tableRows = "";
+
+  CATEGORIES.forEach((cat, ci) => {
+    const courses = prog[cat.key] || [];
+    if(courses.length === 0) return;
+
+    // Category header row
+    tableRows += `<tr class="cat-row">
+      <td colspan="4">${cat.shortLabel}</td>
+    </tr>`;
+
+    // Course rows
+    courses.forEach((c, i) => {
+      tableRows += `<tr>
+        <td class="num">${i + 1}</td>
+        <td class="code">${c[0]}</td>
+        <td>${c[1]}</td>
+        <td class="enr">${c[2]}</td>
+      </tr>`;
+    });
+  });
+
+  // Master header row (repeated at top of table)
+  const headRow = `<thead>
+    <tr>
+      <th class="num">Sl No</th>
+      <th>Course Code</th>
+      <th>Course Name</th>
+      <th class="num">No of Student Enrolled</th>
+    </tr>
+  </thead>`;
+
+  return `
+    <div class="print-page">
+      <div class="print-heading">
+        <h1>NAM COLLEGE KALLIKKANDY</h1>
+        <h2>FIRST SEMESTER COURSE SELECTION DETAILS (2026-2)</h2>
+        <h3>FYUGP 2026 ADMISIION</h3>
+      </div>
+      <div class="print-dept">Department Name: <span>${prog.dept}</span></div>
+      <div class="print-sub">Total Students: ${prog.students}</div>
+      <table class="print-table">
+        ${headRow}
+        <tbody>${tableRows}</tbody>
+      </table>
+      <div class="print-footer">Prepared by Gafoor I, Department of Mathematics &amp; FYUGP Coordinator, NAMC</div>
+    </div>
+  `;
+}
+
+function printProgramme(progId){
+  const prog = PROGRAMMES.find(p => p.id === progId);
+  document.getElementById("print-doc").innerHTML = buildPrintDoc(prog);
+  // Small delay to let layout settle before opening print dialog
+  setTimeout(() => window.print(), 60);
+}
+
+/* ================================================================
+   INIT
+   ================================================================ */
+renderTabs();
+renderPanel(activeProgId);
+</script>
+</body>
+</html>
