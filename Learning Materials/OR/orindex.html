@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KU6DSEMAT302: Operations Research - IG Math Space</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+            color: #333;
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            background-color: #1a237e;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar .sitename {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .navbar .tagline {
+            color: #9fa8da;
+            font-size: 13px;
+        }
+        .navbar .navlinks a {
+            color: #9fa8da;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+        .navbar .navlinks a:hover {
+            color: white;
+        }
+
+        /* HEADER */
+        .page-header {
+            background-color: #283593;
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+        }
+        .page-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 28px;
+        }
+        .page-header p {
+            margin: 0;
+            color: #c5cae9;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* CARD GRID */
+        .or-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 22px;
+        }
+        .or-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: white;
+            border-radius: 12px;
+            border-top: 5px solid #ff6f00;
+            padding: 24px 22px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .or-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .or-tag {
+            align-self: flex-start;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: #e8eaf6;
+            color: #1a237e;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .or-card h3 {
+            margin: 0;
+            color: #1a237e;
+            font-size: 18px;
+        }
+        .or-card p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+            flex: 1;
+        }
+        .or-open {
+            color: #ff6f00;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background-color: #1a237e;
+            color: #9fa8da;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .navbar { flex-direction: column; gap: 10px; }
+            .page-header p { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <div class="navbar">
+        <div>
+            <div class="sitename">IG Math Space</div>
+            <div class="tagline">Mathematics Teaching and Research</div>
+        </div>
+        <div class="navlinks">
+            <a href="index.html">Home</a>
+            <a href="lessons.html">Lessons</a>
+            <a href="research.html">Research</a>
+            <a href="students.html">Students</a>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h1>KU6DSEMAT302: OPERATIONS RESEARCH</h1>
+        <p>HOME PAGE</p>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="container">
+        <div class="or-grid">
+            <!-- Syllabus -->
+            <a class="or-card" href="Learning%20Materials/OR/orsyllabus.html">
+                <span class="or-tag">Syllabus</span>
+                <h3>Syllabus</h3>
+                <p>Course syllabus for KU6DSEMAT302 Operations Research.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- MODULE I -->
+            <a class="or-card" href="Learning%20Materials/OR/ormodule_1.html">
+                <span class="or-tag">Module I</span>
+                <h3>MODULE I</h3>
+                <p>Module I notes and materials.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- MODULE II -->
+            <a class="or-card" href="Learning%20Materials/OR/ormodule_2.html">
+                <span class="or-tag">Module II</span>
+                <h3>MODULE II</h3>
+                <p>Module II notes and materials.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- MODULE III -->
+            <a class="or-card" href="Learning%20Materials/OR/ormodule_3.html">
+                <span class="or-tag">Module III</span>
+                <h3>MODULE III</h3>
+                <p>Module III notes and materials.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- MODULE IV -->
+            <a class="or-card" href="Learning%20Materials/OR/ormodule_4.html">
+                <span class="or-tag">Module IV</span>
+                <h3>MODULE IV</h3>
+                <p>Module IV notes and materials.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- MODULE V (TEACHER SPECIFIC) -->
+            <a class="or-card" href="Learning%20Materials/OR/ormodule_5_teacher_specific.html">
+                <span class="or-tag">Module V</span>
+                <h3>MODULE V (TEACHER SPECIFIC)</h3>
+                <p>Teacher specific module materials.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- Assignment -->
+            <a class="or-card" href="Learning%20Materials/OR/orassignment.html">
+                <span class="or-tag">Assignment</span>
+                <h3>Assignment</h3>
+                <p>Assignments for the course.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- ONLINE TEST -->
+            <a class="or-card" href="Learning%20Materials/OR/oronline_test.html">
+                <span class="or-tag">Online Test</span>
+                <h3>ONLINE TEST</h3>
+                <p>Online test for the course.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+            <!-- Additional Material -->
+            <a class="or-card" href="Learning%20Materials/OR/oradditional_material.html">
+                <span class="or-tag">Additional</span>
+                <h3>Additional Material</h3>
+                <p>Additional reading and resource material.</p>
+                <span class="or-open">Open &rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>IG Math Space — Mathematics Teaching Website</p>
+        <p>igmathspace.github.io</p>
+    </div>
+
+</body>
+</html>
