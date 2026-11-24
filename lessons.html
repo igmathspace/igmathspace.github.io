@@ -205,7 +205,29 @@
         .toggle-icon.open {
             transform: rotate(90deg);
         }
-    </style>
+            /* OR COURSE BUTTON */
+        .or-course-wrap {
+            text-align: center;
+            margin: 0 0 20px 0;
+        }
+        .or-course-btn {
+            display: inline-block;
+            background: #ff6f00;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 12px 26px;
+            border-radius: 30px;
+            box-shadow: 0 4px 0 #b34700, 0 8px 14px rgba(0,0,0,0.2);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .or-course-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #b34700, 0 10px 18px rgba(0,0,0,0.25);
+            text-decoration: none;
+        }
+</style>
 </head>
 <body>
 
@@ -231,6 +253,11 @@
 
     <!-- CONTENT -->
     <div class="container">
+
+        <!-- OR COURSE BUTTON -->
+        <div class="or-course-wrap">
+            <a class="or-course-btn" href="Learning%20Materials/OR/orindex.html">KU6DSEMAT302: OPERATIONS RESEARCH</a>
+        </div>
 
         <div class="info-box">
             💡 Click on folders to expand and view contents. Click any card to open the file.
